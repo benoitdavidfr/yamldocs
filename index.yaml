@@ -1,8 +1,8 @@
-title: page par défaut de l'espace public de YamlDoc
+title: Accueil de l'espace public de YamlDoc
 yamlClass: YamlCatalog
 contents:
   yamldoc:
-    title: doc d'introduction à YamlDoc
+    title: Présentation de YamlDoc
   eurovoc:
     title: thésaurus EuroVoc
   topovoc:
