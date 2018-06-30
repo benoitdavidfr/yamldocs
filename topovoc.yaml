@@ -1,0 +1,1185 @@
+title: Lexique topographique de l'Association Française de Topographie (partiel)
+yamlClass: YamlSkos
+date:
+  - 2000
+  - 2018-06-28
+language: fr
+source: https://www.aftopo.org/FR/lexique-7.html
+description: |
+  Restructuration en YamlSkos d'une partie du lexique topographique de l'Association Française de Topographie (AFT).  
+  Le lexique de l'AFT date de 2000. La restructuration a été effectuée en juin 2018.
+  Les modifications sémantiques suivantes ont été apportées:
+    
+    - les synonymes sont indiqués comme altLabel et n'apparaissent pas dans le lexique,
+      par exemple "CADASTRE NAPOLÉONIEN (l.m.)"  est indiqué comme altLabel de "ANCIEN CADASTRE (l.m.)"
+    - divers termes sont définis comme narrower d'autres termes,
+    - le lexique indiquant que "document d'arpentage" est remplacé par "document modificatif du parcellaire cadastral",
+      le prefLabel est donc le nouveau terme et l'ancien terme est un altLabel,
+    - le terme "îlot de propriété" est utilisé dans 2 sens distincts, au sens cadastral et au sens foncier.
+      J'utilise comme termes "parcelle cadastrale" et "parcelle foncière" avec en altLabel "îlot de propriété",
+    - les termes "SERVITUDES ADMINISTRATIVES" et "SERVITUDES LÉGALES D'UTILITÉ PUBLIQUE" sont définis au singulier.
+      
+  Le champ hasTopConcept des schemes est déduit du champ topConceptOf des concepts.  
+  Le champ narrower des concepts est déduit du champ broader des concepts.  
+
+domainScheme:
+  prefLabel: Sommaire du lexique
+  hasTopConcept:
+    - lexiqueCadastreTopoFoncier
+domains:
+  lexiqueCadastreTopoFoncier:
+    prefLabel: Cadastre et travaux fonciers
+schemes:
+  lexiquecadastre:
+    prefLabel: Cadastre
+    domain: [ lexiqueCadastreTopoFoncier ]
+    scopeNote:
+      Voir différents articles sur le "Cadastre et plan topo-foncier" dans les Revues XYZ  
+      Nos 34 et 35 de Février et Avril 1988.
+  
+  lexiquetravauxfonciers:
+    prefLabel: Travaux fonciers 
+    domain: [ lexiqueCadastreTopoFoncier ]
+    scopeNote:
+      Voir différents articles sur la " Délimitation du domaine public " dans les Revues XYZ 
+      Nos 12 et 13 de Septembre 1982 et Janvier 1983.
+  
+concepts:
+  ancien_cadastre:
+    prefLabel: ANCIEN CADASTRE (l.m.)
+    altLabel:
+      - CADASTRE NAPOLÉONIEN
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Premier cadastre général de la France, établi entre 1808 et 1850, en application de  la loi du 15 Septembre 1807.
+      Il a été en usage jusqu'à la RÉNOVATION DU CADASTRE. 
+  ancien_plan:
+    prefLabel: ANCIEN PLAN (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: PLAN CADASTRAL établi à l'occasion de la confection de l'ANCIEN CADASTRE.
+  assemblage_cadastral_particulier:
+    prefLabel: ASSEMBLAGE CADASTRAL PARTICULIER (l.m )
+    altLabel:
+      - A.C.P.
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Production cartographique du 1/500 au 1/5000 (autre que le PLAN CADASTRAL NORMALISÉ) obtenue par assemblage de réductions, reproductions a l'échelle ou agrandissements des PLANS MINUTES DE CONSERVATION du Cadastre. 
+    scopeNote: Les A.C.P sont établis par le service du CADASTRE selon les spécification des demandeurs.
+  cadastre:
+    prefLabel: CADASTRE (n.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Inventaire, exhaustif et permanent, descriptif et évaluatif, de la propriété foncière, qu’il s’agisse des 
+      parcelles de terrain ou des immeubles bâtis.  
+      Sa constitution exige le recensement de toutes les propriétés, la recherche de leurs propriétaires,
+      la reconnaissance et la définition de leurs limites, leur description physique sur un plan et,
+      lorsque le cadastre sert de base à l’assiette des impôts fonciers (cas de la France, notamment),
+      la constatation de leur mise en valeur (terre, vigne, bois, étang, bâtiment, ...) et leur évaluation "fiscale".  
+      En quelque sorte, le cadastre peut être regardé comme un véritable état civil de la propriété foncière.
+  commission_de_delimitation:
+    prefLabel: COMMISSION DE DÉLIMITATION (l.f.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Commission instituée dans chaque commune dès l’ouverture des travaux de RÉFECTION DU CADASTRE,
+      elle a pour mission :
+        
+        * de fournir au géomètre chargé des opérations, tous renseignements de nature à faciliter la recherche et la reconnaissance des propriétaires et des limites de propriété ; 
+        * de constater, s’il y a lieu, l’accord des intéressés sur les limites de leurs immeubles et, en cas de désaccord, de les concilier si faire se peut ; 
+        * de statuer, à titre provisoire, sur les contestations n’ayant pu être réglées à l’amiable.
+        
+      La commission est composée de commissaires désignés par le Maire.
+  communication_aux_proprietaires:
+    prefLabel: COMMUNICATION AUX PROPRIÉTAIRES (l.f )
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Opération ayant pour objectif, à l'issue des travaux cadastraux (RÉNOVATION, 
+      REMANIEMENT), de faire connaître à chaque propriétaire, par la voie d'un état 
+      descriptif, l'énumération de toutes les parcelles mises à son nom, et de leurs 
+      caractéristiques (superficie, nature de culture). A cette occasion, le PLAN MINUTE 
+      et les documents annexes sont déposés à la mairie - pendant un mois au moins, en 
+      RÉFECTION, ou 15 jours au moins en RÉVISION - où les intéressés sont admis à en 
+      prendre connaissance et peuvent faire valoir leurs réclamations éventuelles auprès 
+      du géomètre ayant effectué les travaux, lequel procède aux rectifications reconnues 
+      fondées.
+  conservation_cadastrale:
+    prefLabel: CONSERVATION CADASTRALE (l.f.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Opération générale ayant pour objet de tenir la documentation à jour de toutes les modifications constatées dans
+      la situation des biens et des propriétaires. Ces modifications proviennent :
+        
+        * soit de causes juridiques (ventes, donations, partages, ...) ; 
+        * soit de changement n’affectant pas la situation juridique des immeubles (constructions nouvelles ...). 
+        
+      Exécutée aux frais de l’État, la conservation cadastrale comprend deux séries 
+      d’opérations : la constatation des changements et l’application de ces changements 
+      dans la documentation cadastrale.  
+      Son exécution obéit à des sujétions particulières qui tiennent à l’existence du 
+      FICHIER IMMOBILIER -6,2- des Conservations des hypothèques, dont le 
+      fonctionnement implique d’étroits rapports avec l’organisation cadastrale, et à la 
+      nécessité d’asseoir, au 1er Janvier de chaque année, les bases de la fiscalité 
+      directe locale.
+  croquis_de_conservation:
+    prefLabel: CROQUIS DE CONSERVATION (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Document servant à assurer la mise à jour du PLAN CADASTRAL pour tous les 
+      changements qui se situent à l’intérieur des PARCELLES et n'affectent donc pas 
+      leurs limites : modifications des SUBDIVISIONS FISCALES, constructions 
+      nouvelles, additions de constructions, ...  
+      Rédigés sur une reproduction du PLAN CADASTRAL et établis selon les mêmes 
+      techniques que les DOCUMENTS D'ARPENTAGE, les croquis de conservation sont 
+      dressés exclusivement par les géomètres du Cadastre à l'occasion de leurs 
+      tournées annuelles en commune. 
+  croquis_de_delimitation:
+    prefLabel: CROQUIS DE DÉLIMITATION (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Document de terrain utilisé par le géomètre chargé des travaux de RÉFECTION et 
+      sur lequel sont portés, essentiellement, les noms des propriétaires et toutes les 
+      indications quant à la position et à la nature matérielle des limites.
+  croquis_de_lever:
+    prefLabel: CROQUIS DE LEVER (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Document de terrain utilisé par le géomètre chargé des travaux de RÉFECTION, 
+      représentant tous les détails du territoire à lever et sur lequel sont portés les 
+      renseignements et les mesures permettant la rédaction ultérieure du PLAN MINUTE. 
+  delimitation:
+    prefLabel: DÉLIMITATION (n.f.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Définition, sur le terrain, des limites séparant des biens-fonds contigus. Au 
+      Cadastre, la délimitation est effectuée uniquement en matière de RÉFECTION qui 
+      est le mode normal d'exécution des opérations de REMANIEMENT DU CADASTRE. 
+      Dans le processus de délimitation, il y a lieu de faire une distinction entre la 
+      DÉLIMITATION INTERCOMMUNALE, la DÉLIMITATION DES PROPRIÉTÉS 
+      PUBLIQUES et la DÉLIMITATION DES PROPRIÉTÉS PRIVÉES. 
+  delimitation_des_proprietes_privees:
+    prefLabel: DÉLIMITATION DES PROPRIÉTÉS PRIVÉES (l.f.) 
+    inScheme: [ lexiquecadastre ]
+    broader: [ delimitation ]
+    definition: |
+      En ce qui concerne les propriétés privées, le rôle du géomètre consiste à constater 
+      l'accord exprès des propriétaires sur la position des limites séparatives de leurs 
+      fonds. Il est assisté dans cette tâche par la COMMISSION DE DÉLIMITATION. 
+  delimitation_des_proprietes_publiques:
+    prefLabel: DÉLIMITATION DES PROPRIÉTÉS PUBLIQUES (l.f.)
+    inScheme: [ lexiquecadastre ]
+    broader: [ delimitation ]
+    definition: |
+      En application de l'article 11 du décret du 30 Avril 1955 régissant les travaux de 
+      RÉNOVATION et de CONSERVATION du cadastre, l'État, les départements, les 
+      communes, les établissements publics et les entreprises publiques sont tenus de 
+      délimiter les propriétés de toute nature qui leur appartiennent. 
+      La délimitation des propriétés publiques doit en conséquence être effectuée avec le 
+      concours de délégués qualifiés des services et collectivités auxquels elles sont 
+      affectées. 
+  delimitation_intercommunale:
+    prefLabel: DÉLIMITATION INTERCOMMUNALE (l.f.)
+    inScheme: [ lexiquecadastre ]
+    broader: [ delimitation ]
+    definition: |
+      En application de l'article 11 du décret du 
+      30 Avril 1955 régissant les travaux de RÉNOVATION et de CONSERVATION du 
+      CADASTRE, il est fait obligation aux communes de délimiter le périmètre de leurs 
+      territoires respectifs. Cette délimitation est faite par les maires des communes 
+      intéressées (ou leurs représentants) en présence du géomètre chargé des travaux, 
+      agissant en tant que conseiller technique. Elle donne lieu à la rédaction de procès-
+      verbaux transmis au Commissaire de la République pour approbation 
+  document_modificatif_du_parcellaire_cadastral:
+    prefLabel: DOCUMENT MODIFICATIF DU PARCELLAIRE CADASTRAL (l.m.)
+    altLabel:
+      - DOCUMENT D'ARPENTAGE (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Document servant à assurer, d'une part, 
+      l'identification des nouvelles parcelles issues d'une division (voir RÉFÉRENCES 
+      CADASTRALES), d'autre part, la mise à jour du PLAN CADASTRAL. 
+      Le document d'arpentage est une reproduction, pour la zone intéressée, du plan 
+      cadastral. Y sont notamment représentées : la situation parcellaire ancienne, les 
+      limites nouvelles après modification du parcellaire (telles qu'elles résultent de 
+      l'accord intervenu entre les parties) et les côtes de mesurage nécessaires à la mise 
+      en place de ces limites par rapport aux éléments voisins inchangés. L'établissement 
+      des documents d'arpentage est à la charge financière des parties concernées et 
+      confie systématiquement à des géomètres agréés par l'administration.
+    historyNote: |
+      Selon la nouvelle terminologie adoptée par le Cadastre en 1985, la locution "document modificatif du parcellaire
+      cadastral" se substitue à l'expression "document d'arpentage". 
+  documentation_litterale_du_cadastre:
+    prefLabel: DOCUMENTATION LITTÉRALE DU CADASTRE (l.f.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Ensemble des documents à caractère non topographique, détenus par les bureaux du Cadastre
+      (Ex. MATRICE CADASTRALE, ÉTATS DE SECTION, FICHIER RIVOLI, ...).
+      La documentation littérale est produite, quasi généralement, à partir des FICHIERS MAGNÉTIQUES FONCIERS.
+      Les informations contenues dans cette documentation sont appelées INFORMATIONS LITTÉRALES par opposition aux 
+      informations de nature topographiques fournies par le PLAN CADASTRAL. 
+  echelle_du_plan_cadastral:
+    prefLabel: ÉCHELLE DU PLAN CADASTRAL (l.f.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      L’échelle adoptée pour la rédaction du PLAN CADASTRAL est fonction de la 
+      densité des éléments à représenter. En RÉFECTION, cette échelle est, 
+      généralement, de 1/500 pour les zones urbaines denses, de 1/1000 pour les zones 
+      périurbaines à caractère pavillonnaire, de 1/2000 pour les zones rurales. 
+      Pour les plans rénovés par voie de MISE A JOUR, les échelles initiales de l’ANCIEN 
+      PLAN ont été conservées, à savoir 1/1250 pour les villages, 1/2500 pour les parties 
+      rurales, 1/5000 pour les zones comprenant des parcelles de très grandes étendues 
+      (zones de montagne, de marais, ...).  
+      Une disparité des échelles des plans cadastraux se rencontre généralement au sein 
+      d’une même commune, en fonction du morcellement des diverses parties composant son territoire.
+  etats_de_section:
+    prefLabel: ÉTATS DE SECTION (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Les états de section constituent la "légende" du plan. Ils fournissent, pour chaque parcelle : 
+        
+        * ses RÉFÉRENCES CADASTRALES (identifiant) ; 
+        * son adresse (nom de la voie ou du LIEU-DIT et, s'il existes numéro de voirie) ; 
+        * sa contenance cadastrale ; 
+        * le numéro communal de son propriétaire ; 
+        * des indications sur les mutations ou changements éventuellement survenus (année 
+          de publication au FICHIER IMMOBILIER -6,2- , numéros des propriétaires 
+          successifs, année de la création ou de la suppression de la parcelle...). 
+
+      Les états de section existent en deux exemplaires de présentations différentes :
+        
+        * sous forme de "liste parcellaire", pour l’exemplaire du bureau de Cadastre (état de section "minute"); 
+        * sous forme de "registre" pour le second exemplaire, déposé en mairie, lorsque la 
+          municipalité n’a pas opté pour une documentation cadastrale sur microfiches.
+  extrait_cadastral:
+    prefLabel: EXTRAIT CADASTRAL (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Document à produire sous peine de refus du dépôt, à l'appui de tout acte déposé à 
+      la Conservation des Hypothèques en vue de sa publication au FICHIER 
+      IMMOBILIER -6,2-.  
+      Délivré à partir de la MATRICE CADASTRALE, il comporte la désignation du 
+      propriétaire, les RÉFÉRENCES CADASTRALES des PARCELLES concernées par 
+      la mutation et les contenances parcellaires.  
+      L'extrait cadastral est, par ailleurs, spécialement aménagé pour être annoté, par le 
+      rédacteur de l'acte sous forme analytique, des informations essentielles contenues 
+      dans l'acte lui-même. Ainsi complété, il prend le nom "d'extrait d'acte".
+  feuille_parcellaire:
+    prefLabel: FEUILLE PARCELLAIRE (l.f.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Sous-ensemble de la SECTION, hérité de ANCIEN CADASTRE, représente sur une feuille de format Grand Aigle
+      (75 cm X 105 cm).  
+      Au sein d'une même SECTION, les feuilles parcellaires sont identifiées par un numéro sériel qui suit
+      la lettre identifiant la section (EX: A1, A2, A3, pour une section A subdivisée en trois feuilles parcellaires).  
+      La notion de feuille parcellaire ne se rencontre, quasi généralement, que pour les plans révisés
+      par voie de MISE À JOUR.
+  fichiers_magnetiques_fonciers:
+    prefLabel: FICHIERS MAGNÉTIQUES FONCIERS (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Fichiers informatisés à partir desquels est éditée la DOCUMENTATION LITTÉRALE 
+      DU CADASTRE utilisée par les bureaux du Cadastre et déposée en mairie.  
+      Ces fichiers magnétiques sont au nombre de quatre:
+        
+        - Propriétaires d'immeubles ; 
+        - RÉPERTOIRE INFORMATIQUE DES VOIES ET LIEUX-DITS (ou FICHIER RIVOLI) ; 
+        - Propriétés bâties (ou fichier des locaux) ; 
+        - Propriétés non bâties (ou fichier parcellaire).
+  informations_litterales:
+    prefLabel: INFORMATIONS LITTÉRALES (l.f.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Informations contenues dans la DOCUMENTATION LITTÉRALE DU CADASTRE (Ex. 
+      Nom des propriétaires, contenance des PARCELLES, nature de culture. REVENU 
+      CADASTRAL, nature des locaux, etc.).
+  lieu-dit:
+    prefLabel: LIEU-DIT (n.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Le lieu-dit correspond à un groupement de parcelles du territoire communal auquel 
+      les habitants ont coutume d'appliquer une certaine appellation (Ex. Le Vallon).
+      Un lieu-dit est toujours compris en entier dans une même SECTION ou dans une même FEUILLE PARCELLAIRE.
+  local:
+    prefLabel: LOCAL (n.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Unité élémentaire d'imposition à la taxe foncière sur les propriétés. Sont ainsi 
+      distingués, dans la documentation cadastrale :
+        
+        * les locaux affectés à l’habitation ou à un usage professionnel ; 
+        * les locaux commerciaux ; 
+        * les établissements industriels.
+  majic:
+    prefLabel: MAJIC (Sigle)
+    altLabel:
+      - Mise A Jour des Informations Cadastrales
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Abréviation pour " Mise A Jour des Informations Cadastrales ", 
+      désignant le système informatique de traitement et d’édition automatique des 
+      INFORMATIONS LITTÉRALES contenues dans les FICHIERS MAGNÉTIQUES FONCIERS.  
+      Aux traitements de masse centralisés effectués jusqu’alors par cinq centres 
+      régionaux d’informatique (système MAJIC 1), s’est substituée progressivement, 
+      depuis 1985, une gestion décentralisée au niveau local des informations cadastrales (système MAJIC 2).  
+      A cet effet, les 306 bureaux du Cadastre sont dotés depuis 1990, de 2.500 
+      terminaux à écrans, sur lesquels les agents effectuent en mode conversationnel - 
+      donc en temps réel - toutes les opérations de saisie des données, de consultation 
+      et de mise à jour des fichiers magnétiques, ainsi que la délivrance aux usagers des 
+      EXTRAITS CADASTRAUX dont ils ont besoin.
+  matrice_cadastrale:
+    prefLabel: MATRICE CADASTRALE (l.f.)
+    altLabel:
+      - RELEVÉ DE PROPRIÉTÉ (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Document récapitulant, pour chaque propriétaire (ou chaque débiteur de l’impôt), 
+      l’ensemble des biens bâtis et non bâtis qu’il possède dans la commune avec, pour 
+      chaque bien, l’indication de ses caractéristiques essentielles : RÉFÉRENCES 
+      CADASTRALES, LIEU-DIT ou adresse postale, contenance parcellaire, nature de 
+      culture ou de propriété, revenu cadastrale servant de calcul de la base d’imposition 
+      des taxes foncières.  
+      La matrice cadastrale permet notamment, à tout contribuable de contrôler la nature 
+      de ses biens fonciers ainsi que les bases de l’impôt qui lui est réclamé au moyen 
+      d’un avis d’imposition.  
+      La matrice cadastrale existe en deux exemplaires déposés l’un au bureau du 
+      Cadastre, l’autre en mairie. Celle du bureau se présente systématiquement sous la 
+      forme d’une série de microfiches dites " RP " (RELEVÉ DE PROPRIÉTÉ). Celle de 
+      la mairie est , selon l’option choisie par la municipalité, soit également sous la 
+      forme de microfiche, soit sous forme de feuillets enliassés dans une reliure. 
+      Dans les deux cas, la matrice cadastrale est éditée à partir des FICHIERS 
+      MAGNÉTIQUES FONCIERS. Seuls sont réédités chaque année les microfiches ou 
+      les feuilles modifiés.
+  mise_a_jour_de_lancien_plan:
+    prefLabel: MISE À JOUR (DE L'ANCIEN PLAN) (l.f.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Mode de RÉNOVATION DU CADASTRE consistant en une actualisation du PLAN 
+      NAPOLÉONIEN à l'aide d'opérations topographiques simples s'appuyant sur les 
+      éléments parcellaires anciens inchangés. La mise en œuvre de cette méthode 
+      postule que la valeur métrique de L'ANCIEN PLAN ainsi que la densité des limites 
+      anciennes conservées soient suffisantes.
+  mise_au_point_fiscale:
+    prefLabel: MISE AU POINT FISCALE (l.f.) 
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Opération ayant pour objet d'apporter à certains documents non exclusivement 
+      cadastraux (PLAN DE REMEMBREMENT -6,2- , DOCUMENT D'ARPENTAGE), les 
+      compléments d'informations nécessaires à l'accomplissement de la mission fiscale 
+      du Cadastre (Ex. représentation des limites de nature de culture à l'intérieur des 
+      PARCELLES issues d'un REMEMBREMENT RURAL -6,2-, mise en place des 
+      bâtiments,...).
+  numero_parcellaire:
+    prefLabel: NUMÉRO PARCELLAIRE (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Numéro attribué à une PARCELLE au sein d'une SECTION et qui, associé à la 
+      désignation de cette section, constitue les RÉFÉRENCES CADASTRALES de ladite parcelle.  
+      Hormis quelques cas très particuliers, toute modification de l'emprise d'une 
+      PARCELLE entraîne automatiquement la suppression de son numéro parcellaire et 
+      la création corrélative de nouveaux numéros pour identifier les nouvelles parcelles 
+      issues de cette modification. Ces numéros sont pris à la suite du dernier numéro 
+      déjà attribue dans la SECTION.
+  parcelle_cadastrale:
+    prefLabel: parcelle cadastrale
+    altLabel:
+      - ÎLOT DE PROPRIÉTÉ (l.m.)
+      - parcelle
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Au sens cadastral, l'îlot de propriété, - également PARCELLE depuis 1980 - 
+      s'entend de l'ensemble des terrains contigus situés dans une même SECTION et 
+      dans un même LIEU-DIT, appartenant à un même propriétaire (ou à une même 
+      indivision) et formant un tout dont l'indépendance est évidente en raison de 
+      l'agencement de la propriété.  
+      L'îlot de propriété est éventuellement fractionné en SUBDIVISIONS FISCALES 
+      caractérisées, chacune, par l'unicité de nature de culture.
+    related:
+      - parcelle_fonciere
+    editorNote: |
+      Dans le lexique de l'AFT, le terme "îlot de propriété" est utilisé dans 2 sens distincts,
+      au sens cadastral et au sens foncier.
+      Dans cette version du lexique, j'utilise respectivement comme prefLabel les termes "parcelle cadastrale"
+      et "parcelle foncière" avec en altLabel "îlot de propriété".
+  plan_cadastral:
+    prefLabel: PLAN CADASTRAL (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Plan donnant la représentation graphique à grande échelle de l’ensemble du 
+      territoire communal, dans tout les détails de son morcellement en propriétés. Ce 
+      plan fournit également, pour une même propriété, sa subdivision éventuelle en 
+      zones de natures de cultures différentes (voir SUBDIVISION FISCALE) ainsi que la 
+      représentation de l’emprise au sol des bâtiments qui y sont édifiés. Il comporte en 
+      outre, la délimitation et le nom des LIEU-DITS, les voies de communication avec 
+      leur désignation, l’hydrographie et, dans certains cas (RÉFECTION, 
+      RENOUVELLEMENT), les signes conventionnels définissant la nature et la 
+      mitoyenneté des limites parcellaires (haies, murs, clôtures, ...).  
+      Pour une même commune, le plan cadastrale est divisé en SECTIONS. Suivant le 
+      cas, la section peut elle-même, être subdivisée en plusieurs FEUILLES 
+      PARCELLAIRES.  
+      La représentation des sections ou des feuilles parcellaires est effectuée sur un 
+      support de format 75 cm * 105 cm (dit format " grand aigle ").
+  plan_cadastral_normalise:
+    prefLabel: PLAN CADASTRAL NORMALISÉ (l.m.)
+    altLabel: P.C.N.
+    inScheme: [ lexiquecadastre ]
+    broader: [ plan_cadastral ]
+    definition: |
+      Version particulière du PLAN CADASTRAL traditionnel qui, sans modifier le contenu 
+      de ce dernier, en facilite l’exploitation par sa présentation en coupure pleines 
+      normalisées de format utile normalisé 70 x 50 cm, orientées plein nord, à l’échelle 
+      uniforme 1/2000 et selon le découpage légale. 
+    scopeNote:
+      Arrêté du Ministère de l’Équipement et du Ministère de l’Économie et des Finances du 12 Juillet 1976,
+      JO du 21 Août 1976.
+  plan_croquis_de_conservation:
+    prefLabel: PLAN CROQUIS DE CONSERVATION (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Document destiné au géomètre du Cadastre pour faciliter les travaux de CONSERVATION CADASTRALE.
+      En particulier, à l’occasion des ses tournées annuelles dans les communes relevant de son secteur d’activité,
+      cet agent reporte à main levée, sur le plan croquis, les changements qu’il doit constater (modification 
+      des limites de nature de culture, emprise des bâtiments nouveaux ou modifiés).
+  plan_de_la_mairie:
+    prefLabel: PLAN DE LA MAIRIE (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Exemplaire, sur support opaque, du PLAN CADASTRAL, déposé en mairie et destiné à la consultation.
+      Le plan de la mairie est mis à jour annuellement, par les agents du Cadastre, des changements appliqués
+      sur le PLAN MINUTE DE CONSERVATION.
+  plan_minute:
+    prefLabel: PLAN MINUTE (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Plan établi par le géomètre chargé des opérations de RÉNOVATION ou de REMANIEMENT du cadastre. 
+  plan_minute_de_conservation:
+    prefLabel: PLAN MINUTE DE CONSERVATION (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Plan cadastral mis en service à l'issue de la RÉNOVATION (ou du REMANIEMENT) 
+      DU CADASTRE, et tenu à jour en permanence, de toutes les modifications 
+      apportées aux RÉFÉRENCES CADASTRALES, aux limites parcellaires ou de nature 
+      de culture, à l'emprise des bâtiments,...  
+      Détenus par les bureaux du Cadastre et repartis selon les secteurs géographiques 
+      d'activité de ces derniers, les plans minutes de conservation, édités avant 198O sur 
+      support opaque, sont depuis 1990, entièrement transférés sur support transparent 
+      (680.000 feuilles pour l'ensemble de la France), autorisant ainsi la délivrance 
+      immédiate, au plan local, de reproductions à jour du document aux usagers du 
+      Cadastre. Ils sont également utilisés pour obtenir les fonds de plans nécessaires à 
+      l'établissement des DOCUMENTS D'ARPENTAGE et des CROQUIS DE CONSERVATION.
+  refection_du_cadastre:
+    prefLabel: RÉFECTION DU CADASTRE (l.f.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Mode de RÉNOVATION DU CADASTRE introduit en 1955 par le décret du 30 Avril 
+      1955, donnant lieu à un lever parcellaire entièrement nouveau, et qui s'accompagne, 
+      en outre, d'une DÉLIMITATION obligatoire des propriétés publiques et privées sous 
+      l'égide d'une COMMISSION DE DÉLIMITATION.  
+      La réfection est le seul mode retenu pour les travaux de REMANIEMENT DU CADASTRE.
+  references_cadastrales:
+    prefLabel: RÉFÉRENCES CADASTRALES (l.f.)
+    altLabel:
+      - IDENTIFIANT PARCELLAIRE (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Matricule attribué à chaque parcelle du territoire communal, permettant de l'identifier 
+      sans ambiguïté, comme cela se pratique pour les personnes (numéro dit "de 
+      Sécurité Sociale") ou pour les véhicules (numéro minéralogique).  
+      Pour une commune donnée, les références cadastrales d'une parcelle sont 
+      constituées par la (ou les) lettre(s) désignant la SECTION dans laquelle est située la 
+      parcelle, suivie(s) d'un NUMÉRO PARCELLAIRE (Ex. A 212, AB 32, ...).  
+      Cette identification unique et générale des parcelles est fondamentale : la législation 
+      en vigueur exige en effet de faire figurer dans tous les actes portant modification 
+      ou transfert de la propriété (vente, partage, donation, succession,...) les références 
+      cadastrales des biens concernés.
+  remaniement_du_cadastre:
+    prefLabel: REMANIEMENT DU CADASTRE (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Entreprise autorisée par l’article 6 de la loi du 18 Juillet 1974 et qui recouvre toutes 
+      les opérations ayant pour objet d’assurer une nouvelle RÉNOVATION DU 
+      CADASTRE, en vue d’améliorer la qualité du PLAN CADASTRAL, lorsque celle-ci 
+      est devenue insuffisante pour permettre l’identification et la détermination physique 
+      correcte des immeubles.  
+      Le remaniement du cadastre est opéré selon le seul mode opératoire de la RÉFECTION DU CADASTRE.
+    depiction:
+      - topovoc/image01.gif
+  renovation_du_cadastre:
+    prefLabel: RÉNOVATION DU CADASTRE (l.f.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Opération générale, entreprise en application de la loi du 16 Avril 1930, ayant pour 
+      objet de substituer au CADASTRE NAPOLÉONIEN une nouvelle documentation 
+      cadastrale (plans, matrices, ...) actualisée appelée à être tenue à jour en 
+      permanence (voir CONSERVATION CADASTRALE).  
+      Les opérations de rénovation du cadastre ont été effectuées selon deux modes : 
+      soit par RÉVISION, soit par RÉFECTION.  
+      Au 1er Janvier 1990, ces opérations étaient achevées sur l'ensemble du territoire, 
+      sauf pour une trentaine de communes situées dans les départements du Bas-Rhin, 
+      du Haut-Rhin et de la Moselle où les travaux, tributaires d'un régime spécial instauré 
+      par la loi locale allemande du 3l Mars l884, sont sensiblement plus lourds que dans 
+      les autres départements. 
+  rivoli:
+    prefLabel: RÉPERTOIRE INFORMATIQUE DES VOIES ET LIEUX-DITS
+    altLabel:
+      - FICHIER RIVOLI (l.m.)
+      - RIVOLI (sigle)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Répertoire national informatisé codifiant, par commune, les voies, 
+      les LIEUX-DITS et les ensembles immobiliers, qui se compose :
+        
+        * de fiches comportant le numéro de code et la désignation de la voie, du lieu-dit 
+          ou de l'ensemble immobilier ; 
+        * d'une liste établie dans l'ordre croissant des codes-voies.  
+
+      Le RIVOLI fait l'objet d'une mise à jour permanente. L'édition automatique des 
+      fiches Créées ou modifiées n'intervient toutefois que mensuellement.
+      
+  revenu_cadastral:
+    prefLabel: REVENU CADASTRAL (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Revenu assigné à chaque PARCELLE, SUBDIVISION FISCALE ou LOCAL, servant 
+      de base au calcul des impôts relevant de la fiscalité directe locale (taxes foncières 
+      sur les propriétés non bâties et sur les propriétés bâties et, partiellement, taxe 
+      d’habitation et taxe professionnelle).
+  revision_du_cadastre:
+    prefLabel: RÉVISION DU CADASTRE (l.m.)
+    altLabel:
+      - RENOUVELLEMENT (n.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Mode de RÉNOVATION DU CADASTRE. Pour ce qui concerne le PLAN CADASTRAL, les opérations de révision ont été
+      conduites, jusqu’en 1955, selon deux procédés techniques, souvent d’ailleurs mis en œuvre concurremment dans 
+      une même commune, selon la qualité de l’ANCIEN PLAN :
+        
+        * soit, la MISE À JOUR, consistant en une simple actualisation du PLAN 
+          NAPOLÉONIEN à l'aide de mesurages s'appuyant sur les éléments parcellaires 
+          anciens inchangés ; cette méthode n'était appliquée que lorsque la valeur métrique 
+          de l’ancien plan, ainsi que la densité des limites anciennes conservées, étaient suffisantes ; 
+        * soit, le RENOUVELLEMENT consistant en un lever parcellaire entièrement nouveau , appuyé sur
+          une TRIANGULATION CADASTRALE, lorsque les conditions ci-dessus n'étaient pas satisfaites.  
+
+      Le décret du 30 Avril 1955, régissant les travaux de RÉNOVATION et de CONSERVATION du cadastre, a supprimé
+      ce second procédé. La révision du cadastre a consisté, depuis lors, en une MISE À JOUR de l'ANCIEN PLAN. 
+  section:
+    prefLabel: SECTION (n.f.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Portion du territoire communal, comprenant un nombre entier de LIEUX-DITS, dont 
+      le périmètre est constitué, dans toute la mesure du possible, par des limites 
+      naturelles (voies de communication, cours d'eau) ou présentant un caractère 
+      suffisant de fixité. Lorsqu'elle n'est pas divisée en FEUILLES PARCELLAIRES, la 
+      section doit pouvoir être représentée, compte tenu de l'ÉCHELLE retenue pour la 
+      rédaction du PLAN CADASTRAL, dans un cadre de format utile 65 cm X 95 cm. 
+      Pour une même commune, chaque section est identifiée :
+        
+        * soit par une seule lettre (A,B,C, ...) ; 
+        * soit par un couple de deux lettres (AB, AC,... AZ, BA, ...).  
+   
+      Le premier type d'identification, hérité de l'ANCIEN CADASTRE, se rencontre quasi 
+      généralement pour les plans révisés par voie de MISE À JOUR. 
+   
+      Le second type correspond aux plans cadastraux ayant donné lieu à un lever neuf 
+      (RENOUVELLEMENT RÉFECTION). A noter que, dans cette catégorie, les plans 
+      cadastraux issus d'un REMEMBREMENT RURAL -6,2- sont distingués en 
+      commençant l'immatriculation par la fin de l'alphabet (ZA, ZB, ...). 
+   
+      Au sein même section, toutes les PARCELLES reçoivent des numéros distincts 
+      (voir RÉFÉRENCES CADASTRALES).
+    related:
+      - references_cadastrales
+  subdivision_fiscale:
+    prefLabel: SUBDIVISION FISCALE (l.f.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Partie d’une PARCELLE caractérisée par l'unicité de nature de culture. Sur le PLAN 
+      CADASTRAL, les subdivisions fiscales sont désignées, au sein d’une même 
+      parcelle, par des lettres minuscules distinctes (a, b, c, ...), et délimitées par des tirets.
+  tableau_dassemblage:
+    prefLabel: TABLEAU D'ASSEMBLAGE (l.m.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      Plan schématique du territoire communal établi généralement à l'échelle de 1:10.000 
+      ou de 1:20.000, sur lequel sont représentées les différentes FEUILLES 
+      PARCELLAIRES ainsi que les principaux détails topographiques (voie, groupe de 
+      constructions, .... ). Le tableau d’assemblage permet aux usagers d’identifier les 
+      feuilles parcellaires où sont situés les biens fonciers qui les intéressent.
+  triangulation_cadastrale:
+    prefLabel: TRIANGULATION CADASTRALE (l.f.)
+    inScheme: [ lexiquecadastre ]
+    topConceptOf: [ lexiquecadastre ]
+    definition: |
+      CANEVAS D’ENSEMBLE -5,1- constitué préalablement aux travaux de 
+      RENOUVELLEMENT ou de RÉFECTION, appuyé sur le RÉSEAU GÉODÉSIQUE -
+      5,1- et ayant pour objet de porter la densité globale des points de CANEVAS -1,1- à 
+      1 point pour 100 hectares.  
+      Les fiches signalétiques de ces points peuvent être obtenues auprès des bureaux du Cadastre.  
+      Toutefois, la conservation des BORNES REPÈRES -1,1- de la triangulation cadastrale n’est pas assurée.
+  abornement_general:
+    prefLabel: ABORNEMENT GÉNÉRAL (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      BORNAGE de plusieurs parcelles, appartenant à des propriétaires différents, non 
+      définies à l'origine mais contenues dans un périmètre d'ensemble défini et reconnu, 
+      par exemple délimité par un bornage existant, une voie publique, un cours d'eau...
+  alignement_de_voirie:
+    prefLabel: ALIGNEMENT DE VOIRIE (l.m.)
+    altLabel:
+      - ARRÊTÉ D'ALIGNEMENT (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Limite entre un FONDS privé et une voie publique reconnue et classée. Elle est déterminée unilatéralement
+      par l'Autorité Administrative qui fixe la limite du Domaine Public routier au droit des propriétés riveraines.
+      Voir PLAN D'ALIGNEMENT. 
+    scopeNote: |
+      Source de la définition: Code de la Voirie Routière
+    related:
+      - plan_dalignement
+  bornage:
+    prefLabel: BORNAGE (n.m.)
+    altLabel:
+      - ACTION EN BORNAGE (l.f.)  
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Action qui consiste à matérialiser les limites entre deux propriétés privée contiguës. 
+      Plus précisément : Opération par laquelle est recherchée, déterminée, définie et 
+      matérialisée par des marques extérieures et apparentes, notamment BORNES -1,1-, 
+      murs, etc., la DÉLIMITATION FONCIÈRE entre des FONDS contigus non déjà 
+      bornés, faisant chacun l'objet d'un droit réel susceptible d'hypothèque : propriété 
+      privée, usufruit, emphytéose.  
+      Tout titulaire d'un tel droit réel tient, de l'article 646 du Code Civil, la faculté 
+      "d'obliger son voisin au bornage de leurs propriétés contiguës". Cette "action en 
+      bornage" est imprescriptible.  
+      Le BORNAGE AMIABLE constitue le processus normal, mais en cas de refus ou de 
+      désaccord de l'une des parties, l'autre peut avoir recours au BORNAGE 
+      JUDICIAIRE. Entre une propriété privée et le domaine public, la limite n'est pas 
+      fixée par une opération de bornage, mais par une délimitation administrative dite 
+      ALIGNEMENT DE VOIRIE.
+  bornage_amiable:
+    prefLabel: BORNAGE AMIABLE (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    broader: [ bornage ]
+    definition: |
+      BORNAGE effectué sur l’initiative de l’une ou l’autre, ou de plusieurs des parties 
+      intéressées qui font appel à la compétence d’un ou plusieurs Géomètres-Experts, et 
+      qui s’achève sur un accord amiable.  
+      Le ou les Géomètres-Experts recueillent, analysent et ordonnent contradictoirement 
+      les éléments de preuve ou, à défaut, de présomption, susceptibles de concourir à 
+      la DÉLIMITATION FONCIÈRE.  
+      Une fois définie, cette délimitation est proposée aux parties. Un CROQUIS DE 
+      BORNAGE, ou un PLAN DE BORNAGE est établi et un accord amiable 
+      contradictoire doit être obligatoirement recueilli. Les BORNES -1,1- sont alors 
+      posées par le Géomètre-Expert, en présence des propriétaires concernés ou leurs 
+      mandataires.  
+      Le bornage amiable donne lieu obligatoirement à l’établissement d’un PROCÈS-
+      VERBAL DE BORNAGE.
+  bornage_judiciaire:
+    prefLabel: BORNAGE JUDICIAIRE (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    broader: [ bornage ]
+    definition: |
+      BORNAGE obtenu par une procédure judiciaire, employée dans la cas d’échec d’un 
+      BORNAGE AMIABLE, à la demande de l’une des parties. 
+      Cette action est introduite devant le tribunal d’Instance de la compétence duquel 
+      dépendent les lieux.  
+      Le juge désigne un Expert agréé, souvent Géomètre-Expert, qui a pour mission de 
+      réunir, dans un rapport d’expertise, tout les éléments utiles pour proposer la 
+      DÉLIMITATION FONCIÈRE.  
+      Une copie de ce rapport est transmise à chacune des parties.  
+      Le Magistrat, en audience publique, peut soit homologuer partiellement ou 
+      totalement les conclusions de l'Expert, soit demander un complément d'information 
+      avant de statuer et d'ordonner la pose des BORNES -1,1-. Ses décisions sont 
+      susceptibles d'appel.  
+      Le jugement peut faire l'objet d'une publication au FICHIER IMMOBILIER.
+  certificat_dalignement:
+    prefLabel: CERTIFICAT D'ALIGNEMENT (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Attestation de l'autorité administrative compétente se rapportant aux limites du 
+      domaine public, par exemple le Maire pour la voirie communale, le Conseil Général 
+      pour la voirie départementale, etc..
+  certificat_durbanisme:
+    prefLabel: CERTIFICAT D'URBANISME (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Attestation du Maire ou de l'Autorité de tutelle donnant toutes informations 
+      d'urbanisme et définissant les règles et SERVITUDES de construction se rapportant 
+      à un immeuble ou partie d'immeuble (appartement) ou a un ÎLOT DE PROPRIÉTÉ.
+    related:
+      - parcelle_fonciere
+  coefficient_doccupation_des_sols:
+    prefLabel: COEFFICIENT D'OCCUPATION DES SOLS (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Rapport entre la superficie de plancher pouvant être édifiée sur une parcelle et la 
+      superficie de cette parcelle. Ce rapport est défini au PLAN D'OCCUPATION DES SOLS. 
+  copropriete:
+    prefLabel: COPROPRIÉTÉ (n.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Bien immobilier divisé en plusieurs lots appartenant à plusieurs personnes (copropriétaires).  
+      Chaque lot comprend indivisément une partie privative et une quote-part des parties communes, notamment du Sol.
+  cour_commune:
+    prefLabel: COUR COMMUNE (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Espace appartenant en indivision à plusieurs copropriétaires. Un règlement défini 
+      les droits et obligations d’usage pour chacun (passage, stationnement, etc.).  
+      Voir SERVITUDE "DE COURS COMMUNES".
+    related:
+      - servitude_de_cours_communes
+  croquis_de_bornage:
+    prefLabel: CROQUIS DE BORNAGE (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Représentation graphique des limites d'un BORNAGE, cotée en plan, sans respect d’échelle.  
+      Le croquis de bornage indique les signes qui matérialisent les limites sur le terrain : 
+      BORNES -1,1-, angle de mur, ... et les distances indiquées doivent permettre le 
+      rétablissement d’unde ces signes par rapport à tout autre repère fixe existant. 
+      A l’issue d’un BORNAGE AMIABLE, le croquis de bornage, ou le PLAN DE 
+      BORNAGE, doit être approuvé par les parties et inclus dans le PROCÈS-VERBAL DE BORNAGE.
+    depiction:
+      - topovoc/image02.gif
+  delimitation_fonciere:
+    prefLabel: DÉLIMITATION FONCIÈRE (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Reconnaissance et définition des limites de propriété d'un bien immobilier se concrétisant éventuellement 
+      par un BORNAGE.  
+      A défaut de bornage préexistant, la délimitation foncière est recherchée, aussi bien par le Géomètre-Expert
+      chargé d'un BORNAGE AMIABLE, que par l'Expert nommé par le juge dans le cadre d'un BORNAGE JUDICIAIRE,
+      à l'aide de preuves, ou à défaut, de présomptions de preuves, qui peuvent être nombreuses
+      mais de valeurs inégales :
+        
+        * Les titres de propriétés notariés : actes authentifiant la réalité juridique de la 
+          possession d’un bien foncier, publié au FICHIER IMMOBILIER du bureau de la 
+          Conservation des Hypothèques concerné. Ces actes sont établis à l’occasion de 
+          transfert de propriété (vente, succession, legs, etc.). 
+        * Les descriptifs : les actes notariés comportent parfois de précieuses indications 
+          notamment sur les mitoyennetés. Mais ils sont, par contre, souvent assorties d’une 
+          clause, aujourd’hui abusive, de non garantie de la superficie. 
+        * Les marques préexistantes : il existe souvent sur le terrain : 
+          - des murs, clôtures, haies dont il y a lieu de reconnaître la propriété ou la 
+            mitoyenneté, 
+          - des limites naturelles : talus, chemins, fossés qui ne peuvent être reconnus 
+            comme preuves irréfutables qu’au terme d’une période continue et incontestée fixée 
+            par la loi généralement à 30 ans. 
+        * Les documents établis par le Service du CADASTRE -6,1- dans un but purement 
+          fiscal, sauf dans les 3 départements de la Moselle, du Bas-Rhin et du Haut-Rhin 
+          doté d’un LIVRE FONCIER. 
+      Ailleurs, ces documents, établis unilatéralement par le CADASTRE, n’ont pas de 
+      valeur juridique, ni par le tracé graphique des limites sur la PLAN CADASTRAL -6,1-, 
+      ni par la contenance indiquée sur la MATRICE CADASTRALE -6,1-, ni même pour 
+      l’identification complète des personnes ayant des droits réels sur les biens. Ils ne 
+      peuvent être considérés que comme présomptions de preuve qu’il convient 
+      d’apprécier parmi d’autres.
+  designation_fonciere:
+    prefLabel: DÉSIGNATION FONCIÈRE (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Définition d'un bien immobilier indiquant ses RÉFÉRENCES CADASTRALES -6,1- : 
+      commune, SECTION, LIEUX-DITS et NUMÉROS PARCELLAIRES -6,1-.
+      Peuvent également être indiqués les tenants et aboutissants. 
+  division_fonciere:
+    prefLabel: DIVISION FONCIÈRE (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Action de morceler un bien immobilier.
+  estimation_fonciere:
+    prefLabel: ESTIMATION FONCIÈRE (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Valeur d'un bien foncier s'exprimant par différentes estimations : valeur vénale, 
+      valeur locative, valeur fiscale ou d'apport en société, valeur de la construction pour 
+      un immeuble bâti, valeur de productivité pour un bien rurale etc.. 
+  etat_parcellaire:
+    prefLabel: ÉTAT PARCELLAIRE (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Liste comprenant la DÉSIGNATION FONCIÈRE et les noms des propriétaires 
+      concernant un ensemble de parcelles. Elle est établie à l’occasion de tout projet 
+      nécessitant une Déclaration d’Utilité Publique (acquisition, PLAN D’ALIGNEMENT, etc.).
+  expertise_fonciere:
+    prefLabel: EXPERTISE FONCIÈRE (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Mesure d'instruction par laquelle le Géomètre-Expert, à la demande d’une des 
+      parties ou d’un Tribunal, est chargé de procéder à un examen technique 
+      s’appliquant à des immeubles bâtis ou non bâtis, et d’en exposer le résultat dans 
+      un rapport. Ces expertises peuvent concerner les estimations, les états des lieux, le 
+      partage des biens, les EXPROPRIATIONS.
+  expropriation:
+    prefLabel: EXPROPRIATION (n.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Procédure par laquelle une Collectivité publique impose à un particulier la cession 
+      de tout ou partie d’un bien immobilier lorsque l’utilité publique l’exige, et moyennant 
+      une contrepartie financière.
+  fichier_immobilier:
+    prefLabel: FICHIER IMMOBILIER (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Documentation générale, instituée par le décret du 4 janvier 1955, sur laquelle sont inscrites, sous forme
+      d’extraits analytiques, toutes les formalités soumises à PUBLICITÉ FONCIÈRE, à savoir :
+        
+        * les publications d'actes, ou de décisions judiciaires, relatifs à des droits sur les immeubles ;  
+        * les inscriptions des privilèges et hypothèques ;  
+        * les mentions, catégories accessoires, qui consistent à compléter ou à modifier une saisie ou une
+          inscription.  
+   
+      Rédigé sur trois types de fiches (fiches d'immeubles, fiches personnelles, fiches parcellaires), le fichier
+      immobilier est détenu et mis à jour en permanence par les Conservations des Hypothèques.
+  foncier:
+    prefLabel: FONCIER (adj.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Qualifie ce qui concerne un bien immobilier.
+  fonds:
+    prefLabel: FONDS (n.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Le sol d’un terrain. Le terrain sur lequel est édifiée une construction.
+  fonds_dominant:
+    prefLabel: FONDS DOMINANT (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    broader: [ fonds ]
+    definition: |
+      FONDS bénéficiant d’une SERVITUDE.
+  fonds_servant:
+    prefLabel: FONDS SERVANT (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    broader: [ fonds ]
+    definition: |
+      Fonds supportant une SERVITUDE.
+  heberge:
+    prefLabel: HÉBERGE (n.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Entre deux bâtiment contigus de hauteurs différentes, s’appuyant sur un mur 
+      mitoyen, trace de la construction la moins élevée sur l'autre bâtiment.  
+      Cette trace inclut un solin de 16,5 Centimètres et un pied d'aile de 33 centimètres. 
+      Sauf convention contraire, le mur commun n'est mitoyen que jusqu'à l'héberge. Le 
+      propriétaire du bâtiment le moins élevé ne contribue alors à l’entretien du mur que 
+      jusqu’à son héberge ; mais s’il veut surélever ou agrandir son bâtiment en 
+      s’appuyant sur le mur commun, il devra acquérir la mitoyenneté au-delà de l’héberge 
+      initiale et jusqu’à la nouvelle héberge, même si, comme il est de règle en ville, le 
+      mur est construit à cheval sur la limite entre les deux propriétés.  
+      Le relevé en élévation, généralement à l’échelle de 1/100, de la "figure de mur" 
+      permet de représenter les héberges, ainsi que les parties en sous-sol de part et 
+      d’autre, les niveaux respectifs des rez-de-chaussée, la nature des matériaux 
+      apparents, les conduits de fumée et jours de souffrance éventuels et d’indiquer 
+      l’épaisseur des murs.
+  livre_foncier:
+    prefLabel: LIVRE FONCIER (l.m.)  
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Ensemble des documents écrits et graphiques donnant une définition précise et 
+      entière des biens immobiliers et droits réels y étant attachés.
+  lotissement:
+    prefLabel: LOTISSEMENT (n.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Division d'une propriété foncière en vue de l'implantation de bâtiments, qui a pour 
+      objet de porter à plus de deux (plus de quatre en cas de partage successoral) le 
+      nombre de lots issus de ladite propriété.
+  parcelle_fonciere:
+    prefLabel: PARCELLE FONCIÈRE (l.f.)
+    altLabel:
+      - Îlot de propriété (au sens foncier et urbanistique)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Terrain d'un seul tenant appartenant à un même propriétaire et limité :
+        
+        - soit par des limites géographiques telles que voies de communication, voies 
+          d'eau, rivages de la mer, frontières, 
+        - soit par les limites avec les parcelles appartenant aux propriétaires riverains,  
+        - soit par les deux catégories citées. 
+        
+      On dit aussi Îlot de propriété au sens foncier et urbanistique.  
+      Les limites administratives des départements, communes, ainsi que les limites 
+      cadastrales des SECTIONS et LIEUX-DITS -6,1- , n'interrompent pas la continuité 
+      de "l'îlot de propriété".  
+      A différencier de ÎLOT DE PROPRIÉTÉ (au sens cadastral).
+    related:
+      - parcelle_cadatrale
+    editorNote:
+      editorNote: |
+        Dans le lexique de l'AFT, le terme "îlot de propriété" est utilisé dans 2 sens distincts,
+        au sens cadastral et au sens foncier.
+        Dans cette version du lexique, j'utilise respectivement comme prefLabel les termes "parcelle cadastrale"
+        et "parcelle foncière" avec en altLabel "îlot de propriété".
+  plan_dalignement:
+    prefLabel: PLAN D'ALIGNEMENT (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Plan qui détermine, après enquête publique, la limite entre la voie publique et les 
+      propriétés riveraines. Le plan d'alignement a des effets différents selon que la 
+      propriété riveraine est ou non bâtie.Voir également -1,1-. 
+  plan_de_bornage:
+    prefLabel: PLAN DE BORNAGE (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Plan dressé par un Géomètre-Expert lors d'un BORNAGE AMIABLE. Ce plan est le 
+      résultat d'un LEVER RÉGULIER -1,1-, et les distances utiles sont mesurées, 
+      reportées et cotées sur le plan avec les précisions définies par l'arrêté 
+      interministériel du 21 janvier 1980 : RÉGLEMENTATION CONCERNANT LES TOLÉRANCES -1,5-. 
+      Le plan de bornage offre par ailleurs les mêmes caractéristiques qu'un CROQUIS DE BORNAGE.
+  plan_de_division:
+    prefLabel: PLAN DE DIVISION (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Plan qui définit le morcellement d'un bien immobilier ( FONDS ) établi préalablement à une mutation.
+  plan_de_masse:
+    prefLabel: PLAN DE MASSE (l.m )
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Document graphique d'un terrain bâti ou à bâtir, établi à une échelle comprise entre 
+      1/100 et 1/1000 faisant figurer les cotations périmétriques, la ou les voies de 
+      desserte, ainsi qu'éventuellement l'emplacement des bâtiments existants. En 
+      général, les renseignements concernant le nivellement et les réseaux divers figurent 
+      également sur ce document.
+  plan_de_partage:
+    prefLabel: PLAN DE PARTAGE (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Plan à l'échelle, qui permet de définir les lots attribués à chacun des propriétaires 
+      indivis d'un même bien immobilier lors d'une succession, d'une donation ou d'un 
+      acte assimilé. Le partage peut être amiable ou judiciaire.
+  plan_de_remembrement_(l.m.)_voir:
+    prefLabel: PLAN DE REMEMBREMENT (l.m.) Voir -1,1-. 
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Plan reflétant la nouvelle situation parcellaire à l'issue des opérations de REMEMBREMENT RURAL.
+      Il comporte notamment :
+        
+        * les limites et les numéros des lots (nouvelles PARCELLES FONCIÈRES) ; 
+        * les bornes d'implantation des nouveaux lots ; 
+        * d’une façon générale, toutes les côtes entre BORNES -1,1- et notamment, le long 
+          des façades des lots mesurés sur le terrain. 
+   
+      A l’issue des opérations, le PLAN DE REMEMBREMENT devient PLAN CADASTRAL -6,1-
+      après MISE AU POINT FISCALE -6,1-.
+  plan_doccupation_des_sols:
+    prefLabel: PLAN D'OCCUPATION DES SOLS (l.m.)
+    altLabel:
+      - POS
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Documents qui précisent les orientations définies par les schémas directeurs ou qui 
+      sont établis en respect du règlement national d’urbanisme. Ils ont un caractère 
+      réglementaire et définissent les règles et SERVITUDES qui régissent l’occupation 
+      du sol et notamment la construction sur le territoire d’une ou plusieurs communes. 
+  plan_foncier_parcellaire_(l.m)_(cctg_50):
+    prefLabel: PLAN FONCIER PARCELLAIRE (l.m) (CCTG 50)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Représentation du parcellaire prenant en compte les limites des propriétés, les 
+      droits et les SERVITUDES qui y sont attachés, après enquête et délimitation 
+      contradictoire sur le terrain.
+  plan_thematique_(l.m):
+    prefLabel: PLAN THÉMATIQUE (l.m)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Plan sur lequel apparaît par surcharge, ou tout autre moyen, le dessin des détails à 
+      mettre en évidence, tels que : parcelles appartenant à un même propriétaire, voie de 
+      communication, réseau hydraulique, etc..
+  plan_topo_parcellaire_(l.m.)_(c:
+    prefLabel: PLAN TOPO PARCELLAIRE (l.m.) (CCTG 50)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Représentation, à partir des données cadastrales, des limites des PARCELLES -
+      6,1-, généralement destinées à compléter un PLAN TOPOGRAPHIQUE -1,1-.
+  proces-verbal_de_bornage:
+    prefLabel: PROCÈS-VERBAL DE BORNAGE (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Document obligatoire, établi par un Géomètre-Expert lors d'un BORNAGE AMIABLE, constatant l'accord des parties. 
+      Le procès-verbal est essentiel pour la conservation du bornage. Il doit résumer le déroulement des opérations,
+      et préciser :
+        
+        1. l’identité des propriétaires et les références de leurs titres de propriété, 
+        2. la destination des FONDS, 
+        3. les circonstances qui ont motivé le choix des parties sur la limite approuvée, 
+        4. la définition de la limite, avec un CROQUIS ou PLAN DE BORNAGE. 
+   
+      Il doit être daté et signé par le Géomètre-Expert et constate l’accord formel des parties par leur signature.  
+      Un exemplaire est obligatoirement conservé par le Géomètre-Expert et un exemplaire est remis à chacune
+      des parties.  
+      Il peut être déposé au rang des minutes d’un notaire en vue de sa publication au FICHIER IMMOBILIER
+      de la conservation du Bureau des Hypothèques, ce qui authentifie les signatures, donne une date certaine
+      au document et le rend opposable aux tiers.  
+      Si la pose d’aucune borne ne s’est avérée nécessaire, le procès-verbale est dit de "délimitation".
+  publicite_fonciere:
+    prefLabel: PUBLICITÉ FONCIÈRE (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Ensemble des règles, des techniques et des modalités de leur mise en œuvre qui 
+      concourent, en vue généralement de la production d’effets de droit, à assurer la 
+      collecte, la conservation et la délivrance d’information juridiques sur les immeubles 
+      (droit réels, principaux ou accessoires, et certains droits personnels représentant 
+      des charges importantes).  
+      Cette publicité foncière a pour objet de déterminer avec précision et, dans une large 
+      mesure, de consolider la situation juridique des immeubles et le patrimoine 
+      immobilier des personnes. Elle est strictement nécessaire à la sécurité tant des 
+      transactions concernant ces biens, que du crédit garanti par les mêmes biens. 
+      En vue de la Publicité Foncière, les actes authentiques concernant la vente, le 
+      partage ou la mutation de biens immobiliers, doivent obligatoirement indiquer les 
+      RÉFÉRENCES CADASTRALES -6,1- de ces biens.
+  remembrement_rural:
+    prefLabel: REMEMBREMENT RURAL (l.m.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Opération d’aménagement des exploitations agricoles tendant à les rendre aptes 
+      aux méthodes de culture modernes. Le remembrement est fait sous l’égide de la 
+      Direction Départementale de l’Agriculture.  
+      A l’issue des travaux de remembrement, un Procès-Verbal de Remembrement est 
+      établi. Il a dorénavant seul valeur juridique et il est publié au Bureau des 
+      Hypothèques. Il constitue le nouveau titre de propriété pour les propriétaire. 
+      Les résultats de l’opération sont incorporés dans la documentation cadastrale. En 
+      particulier, le PLAN DE REMEMBREMENT représentant le nouveau découpage 
+      parcellaire est substitué, pour la zone concernée, au PLAN CADASTRAL -6,1- , 
+      après lui avoir apporté certains compléments de nature topographique et fiscale 
+      (voir MISE AU POINT FISCALE -6,1-).
+    related:
+      - mise_au_point_fiscale
+  servitude:
+    prefLabel: SERVITUDE (n.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Charge imposée sur un FONDS, pour l’usage ou l’utilité d’un autre FONDS 
+      appartenant à un autre propriétaire. (Art. 637 du Code Civil).
+  servitude_conventionnelle:
+    prefLabel: SERVITUDE CONVENTIONNELLE (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    broader: [ servitude ]
+    definition: |
+      SERVITUDE établie par la volonté des parties au terme d’un acte authentique.
+  servitude_de_cours_communes:
+    prefLabel: SERVITUDE DE "COURS COMMUNES" (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    broader: [ servitude ]
+    definition: |
+      SERVITUDE instituée, au besoin par la voie judiciaire, afin d’assurer le respect des 
+      règles de prospect sur des fonds contigus ou voisins appartenant à des 
+      propriétaires différents. (Art. L 451-1 du Code de l’urbanisme).
+    related:
+      - cour_commune
+  servitude_legale_dutilite_publique:
+    prefLabel: SERVITUDE LÉGALE D'UTILITÉ PUBLIQUE (l.f.)
+    altLabel:
+      - SERVITUDE ADMINISTRATIVE (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      SERVITUDE établie dans l'intérêt général sans tenir compte de l’intérêt des 
+      particuliers propriétaires des fonds grevés. On l'appelle aussi Servitude administrative.  
+      Elle trouve leur source dans les textes légaux et réglementaires édictés par les différentes administrations.
+    example: interdiction de construire sur certains terrains.
+  servitude_legale_pour_lutilite_des_particuliers:
+    prefLabel: SERVITUDE LÉGALE POUR L'UTILITÉ DES PARTICULIERS (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    broader: [ servitude ]
+    definition: |
+      SERVITUDE prévue par la loi, créée sur un FONDS, le FONDS SERVANT, pour l'usage et l'utilité 
+      d'un autre FONDS, le FONDS DOMINANT. 
+    example: la mitoyenneté, les vues , le droit de passage en cas d'enclave, etc..
+  superficie_apparente:
+    prefLabel: SUPERFICIE APPARENTE (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Étendue d'un terrain, obtenue soit par mesurage sur les lieux, soit par mesurage sur 
+      un plan, mais sans garantie des limites.
+  superficie_graphique:
+    prefLabel: SUPERFICIE GRAPHIQUE (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Étendue d'un terrain, calculée graphiquement d'après les mesures effectuées à 
+      l’échelle sur le plan, les limites étant parfaitement matérialisées et garanties.
+  superficie_reelle:
+    prefLabel: SUPERFICIE RÉELLE (l.f.)
+    inScheme: [ lexiquetravauxfonciers ]
+    topConceptOf: [ lexiquetravauxfonciers ]
+    definition: |
+      Étendue d'un terrain, Calculée numériquement à l'aide des mesures effectuées sur 
+      place, entre limites parfaitement matérialisées et garanties. Voir: SUPERFICIE 
+      TOPOGRAPHIQUE ANALYTIQUE -10,8-.
