@@ -1,0 +1,107 @@
+title: historique des collectivités d'outre-mer françaises
+creator: https://github.com/benoitdavidfr
+description: |
+  Jeu de données de l'historique des collectivités d'outre-mer françaises dérivé de geohisto d'Etalab et organisé en YamlData.
+  L'historique démarre au 28/3/2003.
+  Le jeu est publié sous la licence ouverte Etalab 2.0.
+publisher: https://github.com/benoitdavidfr
+contributor: [ https://www.etalab.gouv.fr/ ]
+date: 2018-06-04
+type: http://purl.org/dc/dcmitype/Dataset
+format: application/x-yaml
+identifier: http://yamldoc.georef.eu/collectivites
+source:
+  - import le 28/5/2018 de https://github.com/etalab/geohisto/blob/master/exports/collectivites/collectivites.csv
+  - structuration en YamlData avec définition de la clé en 2 parties (code insee, date de début)
+  - ajout de métadonnées DublinCore
+language: fra
+relation:
+  - https://github.com/etalab/geohisto/tree/master/exports/collectivites
+  - https://github.com/benoitdavidfr/yamldoc
+coverage:
+  spatial: iso:code:3166:FR
+  temporal: { start: 2003-03-28, end: 2017-01-01 }
+rights: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+yamlClass: YamlData
+yamlSchema:
+  KEYS:
+    ROOT:
+      data:
+        - insee_code // la première partie de la clé dans data est le code INSEE
+        - start_date // la seconde partie de la clé dans data est la date de début
+  ROOT:
+    data:
+      KEY: # utilisation comme clé du code INSEE et de la date de début
+        id!: STRING // identifiant complet
+        insee_code: INTEGER // code INSEE de la collectivité d'outre-mer
+        start_datetime: DATETIME // date de début de l'enregistrement
+        end_datetime: DATETIME // date de fin de l'enregistrement
+        name: STRING // nom officiel
+        successors?:
+          - STRING // ID des objets remplacant la collectivité
+        ancestors?:
+          - STRING // ID des objets précédant la collectivité
+        chef_lieu?:
+          - STRING // ID de la commune chef-lieu
+        parents?:
+          - STRING // ID des régions contenant le département
+        iso2: STRING // <a href='https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2'>code ISO 3166-1 alpha-2</a>
+data:
+  '975':
+    '2003-03-28':
+      id: fr:collectivite-outre-mer:975@2003-03-28
+      insee_code: '975'
+      start_datetime: 2003-03-28 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Saint-Pierre-et-Miquelon
+      ancestors:
+        - fr:departement:975@1976-07-19
+      iso2: PM
+  '977':
+    '2007-02-21':
+      id: fr:collectivite-outre-mer:977@2007-02-21
+      insee_code: '977'
+      start_datetime: 2007-02-21 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Saint-Barthélemy
+      iso2: BL
+  '978':
+    '2007-02-21':
+      id: fr:collectivite-outre-mer:978@2007-02-21
+      insee_code: '978'
+      start_datetime: 2007-02-21 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Saint-Martin
+      iso2: MF
+  '986':
+    '2003-03-28':
+      id: fr:collectivite-outre-mer:986@2003-03-28
+      insee_code: '986'
+      start_datetime: 2003-03-28 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Wallis-et-Futuna
+      iso2: WF
+  '987':
+    '2004-02-27':
+      id: fr:collectivite-outre-mer:987@2004-02-27
+      insee_code: '987'
+      start_datetime: 2004-02-27 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Polynésie française
+      iso2: PF
+  '988':
+    '1999-03-19':
+      id: fr:collectivite-outre-mer:988@1999-03-19
+      insee_code: '988'
+      start_datetime: 1999-03-19 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Nouvelle-Calédonie
+      iso2: NC
+  '984':
+    '2007-02-21':
+      id: fr:collectivite-outre-mer:984@2007-02-21
+      insee_code: '984'
+      start_datetime: 2007-02-21 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Terres australes et antarctiques françaises
+      iso2: TF

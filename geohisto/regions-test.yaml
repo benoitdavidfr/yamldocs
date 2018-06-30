@@ -1,0 +1,557 @@
+title: historique des régions françaises - doc de test
+doc: |
+  tester ypath=/data/name,(json-ld/sameAs),wikipedia
+yamlClass: YamlData
+yamlSchema:
+  KEYS:
+    ROOT:
+      data:
+        - insee_code // la première partie de la clé dans data est le code INSEE
+        - start_date // la seconde partie de la clé dans data est la date de début
+  ROOT:
+    data:
+      KEY: # utilisation comme clé du code INSEE et de la date de début
+        id!: STRING // identifiant complet (GeoID, voir https://github.com/etalab/geoids)
+        insee_code: INTEGER // code INSEE de la région
+        start_datetime: DATETIME // date de début de l'enregistrement
+        end_datetime: DATETIME // date de fin de l'enregistrement
+        name: STRING // nom officiel
+        successors?:
+          - STRING // ID des communes remplacant la commune
+        ancestors?:
+          - STRING // ID des communes précédant la commune
+        population?: INTEGER // population en 2013
+        surface?: INTEGER // surface en km2
+        chef_lieu?:
+          - STRING // ID de la commune chef-lieu
+        nuts_code: STRING // code NUTS d'EuroStat
+        wikipedia: STRING // URI Wikipedia
+data:
+  '01':
+    '1970-01-09':
+      id: fr:region:01@1970-01-09
+      insee_code: '01'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Guadeloupe
+      population: 402119
+      surface: 1628
+      nuts_code: FRA1
+      chef_lieu:
+        - fr:commune:97105@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Guadeloupe
+  '02':
+    '1970-01-09':
+      id: fr:region:02@1970-01-09
+      insee_code: '02'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Martinique
+      population: 385551
+      surface: 1128
+      nuts_code: FRA2
+      chef_lieu:
+        - fr:commune:97209@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Martinique
+  '03':
+    '1970-01-09':
+      id: fr:region:03@1970-01-09
+      insee_code: '03'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Guyane
+      population: 244118
+      surface: 83846
+      nuts_code: FRA3
+      chef_lieu:
+        - fr:commune:97302@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Guyane
+  '04':
+    '1970-01-09':
+      id: fr:region:04@1970-01-09
+      insee_code: '04'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: La Réunion
+      population: 833944
+      surface: 2512
+      nuts_code: FRA4
+      chef_lieu:
+        - fr:commune:97411@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/La_R%C3%A9union
+  '06':
+    '1970-01-09':
+      id: fr:region:06@1970-01-09
+      insee_code: '06'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Mayotte
+      population: 226915
+      surface: 376
+      nuts_code: FRA5
+      chef_lieu:
+        - fr:commune:97611@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Mayotte
+  '11':
+    '1970-01-09':
+      id: fr:region:11@1970-01-09
+      insee_code: '11'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Île-de-France
+      population: 11959807
+      surface: 12011
+      nuts_code: FR10
+      chef_lieu:
+        - fr:commune:75056@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/%C3%8Ele-de-France
+  '24':
+    '1970-01-09':
+      id: fr:region:24@1970-01-09
+      insee_code: '24'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-01-16 23:59:59
+      name: Centre
+      successors:
+        - fr:region:24@2015-01-17
+      population: 2570546
+      surface: 39151
+      nuts_code: FR24
+      chef_lieu:
+        - fr:commune:45234@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Centre_(r%C3%A9gion_fran%C3%A7aise)
+    '2015-01-17':
+      id: fr:region:24@2015-01-17
+      insee_code: '24'
+      start_datetime: 2015-01-17 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Centre-Val de Loire
+      ancestors:
+        - fr:region:24@1970-01-09
+      population: 2570546
+      surface: 39151
+      nuts_code: FR24
+      chef_lieu:
+        - fr:commune:45234@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Centre-Val_de_Loire
+  '27':
+    '2016-01-01':
+      id: fr:region:27@2016-01-01
+      insee_code: '27'
+      start_datetime: 2016-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Bourgogne-Franche-Comté
+      ancestors:
+        - fr:region:26@1970-01-09
+        - fr:region:43@1970-01-09
+      population: 2816814
+      surface: 47784
+      nuts_code: FR26
+      chef_lieu:
+        - fr:commune:21231@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Bourgogne-Franche-Comt%C3%A9
+  '26':
+    '1970-01-09':
+      id: fr:region:26@1970-01-09
+      insee_code: '26'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Bourgogne
+      successors:
+        - fr:region:27@2016-01-01
+      population: 1641130
+      surface: 31582
+      nuts_code: FR26
+      chef_lieu:
+        - fr:commune:21231@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Bourgogne
+  '43':
+    '1970-01-09':
+      id: fr:region:43@1970-01-09
+      insee_code: '43'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Franche-Comté
+      successors:
+        - fr:region:27@2016-01-01
+      population: 1177906
+      surface: 16202
+      nuts_code: FR43
+      chef_lieu:
+        - fr:commune:25056@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Franche-Comt%C3%A9
+  '28':
+    '2016-01-01':
+      id: fr:region:28@2016-01-01
+      insee_code: '28'
+      start_datetime: 2016-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Normandie
+      ancestors:
+        - fr:region:23@1970-01-09
+        - fr:region:25@1970-01-09
+      population: 3328364
+      surface: 29906
+      nuts_code: FR25
+      chef_lieu:
+        - fr:commune:76540@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Normandie_(r%C3%A9gion_administrative)
+  '23':
+    '1970-01-09':
+      id: fr:region:23@1970-01-09
+      insee_code: '23'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Haute-Normandie
+      successors:
+        - fr:region:28@2016-01-01
+      population: 1845547
+      surface: 12317
+      nuts_code: FR23
+      chef_lieu:
+        - fr:commune:76540@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Haute-Normandie
+  '25':
+    '1970-01-09':
+      id: fr:region:25@1970-01-09
+      insee_code: '25'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Basse-Normandie
+      successors:
+        - fr:region:28@2016-01-01
+      population: 1478712
+      surface: 17589
+      nuts_code: FR25
+      chef_lieu:
+        - fr:commune:14118@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Basse-Normandie
+  '32':
+    '2016-01-01':
+      id: fr:region:32@2016-01-01
+      insee_code: '32'
+      start_datetime: 2016-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Hauts-de-France
+      ancestors:
+        - fr:region:22@1970-01-09
+        - fr:region:31@1970-01-09
+      population: 5987883
+      surface: 31813
+      nuts_code: FR22
+      chef_lieu:
+        - fr:commune:59350@1942-01-01
+      json-ld:
+        '@type': State
+        '@id': http://admin.georef.eu/regionmetro/32
+        name: Région Hauts-de-France
+        containedInPlace: http://admin.georef.eu/pays/FX
+        sameAs:
+          - https://fr.wikipedia.org/wiki/Hauts-de-France
+          - http://id.insee.fr/geo/region/32
+        geo:
+          '@type': GeoShape
+          box: 48.83,1.37 51.09,4.26
+      wikipedia: https://fr.wikipedia.org/wiki/Hauts-de-France
+  '22':
+    '1970-01-09':
+      id: fr:region:22@1970-01-09
+      insee_code: '22'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Picardie
+      successors:
+        - fr:region:32@2016-01-01
+      population: 1922342
+      surface: 19399
+      nuts_code: FR22
+      chef_lieu:
+        - fr:commune:80021@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Picardie
+  '31':
+    '1970-01-09':
+      id: fr:region:31@1970-01-09
+      insee_code: '31'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Nord-Pas-de-Calais
+      successors:
+        - fr:region:32@2016-01-01
+      population: 4050756
+      surface: 12414
+      nuts_code: FR30
+      chef_lieu:
+        - fr:commune:59350@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Nord-Pas-de-Calais
+  '44':
+    '2016-01-01':
+      id: fr:region:44@2016-01-01
+      insee_code: '44'
+      start_datetime: 2016-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Grand-Est
+      ancestors:
+        - fr:region:21@1970-01-09
+        - fr:region:41@1970-01-09
+        - fr:region:42@1970-01-09
+      population: 5552388
+      surface: 57433
+      nuts_code: FR21
+      chef_lieu:
+        - fr:commune:67482@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Grand-Est
+  '21':
+    '1970-01-09':
+      id: fr:region:21@1970-01-09
+      insee_code: '21'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Champagne-Ardenne
+      successors:
+        - fr:region:44@2016-01-01
+      population: 1339270
+      surface: 25606
+      nuts_code: FR21
+      chef_lieu:
+        - fr:commune:51108@1942-01-01
+        - fr:commune:51108@1995-11-17
+        - fr:commune:51108@1997-05-01
+        - fr:commune:51108@1998-01-04
+      wikipedia: https://fr.wikipedia.org/wiki/Champagne-Ardenne
+  '41':
+    '1970-01-09':
+      id: fr:region:41@1970-01-09
+      insee_code: '41'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Lorraine
+      successors:
+        - fr:region:44@2016-01-01
+      population: 2346292
+      surface: 23547
+      nuts_code: FR41
+      chef_lieu:
+        - fr:commune:57463@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Lorraine
+  '42':
+    '1970-01-09':
+      id: fr:region:42@1970-01-09
+      insee_code: '42'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Alsace
+      successors:
+        - fr:region:44@2016-01-01
+      population: 2003217
+      surface: 8889
+      nuts_code: FR42
+      chef_lieu:
+        - fr:commune:67482@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Alsace
+  '52':
+    '1970-01-09':
+      id: fr:region:52@1970-01-09
+      insee_code: '52'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Pays de la Loire
+      population: 3660852
+      surface: 32082
+      nuts_code: FR51
+      chef_lieu:
+        - fr:commune:44109@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Pays_de_la_Loire
+  '53':
+    '1970-01-09':
+      id: fr:region:53@1970-01-09
+      insee_code: '53'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Bretagne
+      population: 4475295
+      surface: 34023
+      nuts_code: FR52
+      chef_lieu:
+        - fr:commune:35238@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Bretagne
+  '75':
+    '2016-01-01':
+      id: fr:region:75@2016-01-01
+      insee_code: '75'
+      start_datetime: 2016-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Nouvelle-Aquitaine
+      ancestors:
+        - fr:region:54@1970-01-09
+        - fr:region:72@1970-01-09
+        - fr:region:74@1970-01-09
+      population: 5844177
+      surface: 84061
+      nuts_code: FR61
+      chef_lieu:
+        - fr:commune:33063@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Nouvelle-Aquitaine
+  '54':
+    '1970-01-09':
+      id: fr:region:54@1970-01-09
+      insee_code: '54'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Poitou-Charentes
+      successors:
+        - fr:region:75@2016-01-01
+      population: 1783991
+      surface: 25809
+      nuts_code: FR53
+      chef_lieu:
+        - fr:commune:86194@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Poitou-Charentes
+  '72':
+    '1970-01-09':
+      id: fr:region:72@1970-01-09
+      insee_code: '72'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Aquitaine
+      successors:
+        - fr:region:75@2016-01-01
+      population: 3316889
+      surface: 41308
+      nuts_code: FR61
+      chef_lieu:
+        - fr:commune:33063@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Aquitaine
+  '74':
+    '1970-01-09':
+      id: fr:region:74@1970-01-09
+      insee_code: '74'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Limousin
+      successors:
+        - fr:region:75@2016-01-01
+      population: 738633
+      surface: 16942
+      nuts_code: FR63
+      chef_lieu:
+        - fr:commune:87085@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Limousin
+  '76':
+    '2016-01-01':
+      id: fr:region:76@2016-01-01
+      insee_code: '76'
+      start_datetime: 2016-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Occitanie
+      ancestors:
+        - fr:region:73@1970-01-09
+        - fr:region:91@1970-01-09
+      population: 5683878
+      surface: 72724
+      nuts_code: FR62
+      chef_lieu:
+        - fr:commune:31555@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/R%C3%A9gion_Occitanie
+  '73':
+    '1970-01-09':
+      id: fr:region:73@1970-01-09
+      insee_code: '73'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Midi-Pyrénées
+      successors:
+        - fr:region:76@2016-01-01
+      population: 2926592
+      surface: 45348
+      nuts_code: FR62
+      chef_lieu:
+        - fr:commune:31555@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Midi-Pyr%C3%A9n%C3%A9es
+  '91':
+    '1970-01-09':
+      id: fr:region:91@1970-01-09
+      insee_code: '91'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Languedoc-Roussillon
+      successors:
+        - fr:region:76@2016-01-01
+      population: 2700266
+      surface: 27376
+      nuts_code: FR81
+      chef_lieu:
+        - fr:commune:34172@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Languedoc-Roussillon
+  '84':
+    '2016-01-01':
+      id: fr:region:84@2016-01-01
+      insee_code: '84'
+      start_datetime: 2016-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Auvergne-Rhône-Alpes
+      ancestors:
+        - fr:region:82@1970-01-09
+        - fr:region:83@1970-01-09
+      population: 7757595
+      surface: 69711
+      nuts_code: FR71
+      chef_lieu:
+        - fr:commune:69123@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Auvergne-Rh%C3%B4ne-Alpes
+  '82':
+    '1970-01-09':
+      id: fr:region:82@1970-01-09
+      insee_code: '82'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Rhône-Alpes
+      successors:
+        - fr:region:84@2016-01-01
+      population: 6449000
+      surface: 43698
+      nuts_code: FR71
+      chef_lieu:
+        - fr:commune:69123@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Rh%C3%B4ne-Alpes
+  '83':
+    '1970-01-09':
+      id: fr:region:83@1970-01-09
+      insee_code: '83'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 2015-12-31 23:59:59
+      name: Auvergne
+      successors:
+        - fr:region:84@2016-01-01
+      population: 834283
+      surface: 15582
+      nuts_code: FR72
+      chef_lieu:
+        - fr:commune:63113@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Auvergne
+  '93':
+    '1970-01-09':
+      id: fr:region:93@1970-01-09
+      insee_code: '93'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Provence-Alpes-Côte d'Azur
+      population: 4935576
+      surface: 31400
+      nuts_code: FR82
+      chef_lieu:
+        - fr:commune:13055@1942-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Provence-Alpes-C%C3%B4te_d%27Azur
+  '94':
+    '1970-01-09':
+      id: fr:region:94@1970-01-09
+      insee_code: '94'
+      start_datetime: 1970-01-09 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Corse
+      population: 320208
+      surface: 8680
+      nuts_code: FR83
+      chef_lieu:
+        - fr:commune:20004@1942-01-01
+        - fr:commune:2A004@1976-01-01
+      wikipedia: https://fr.wikipedia.org/wiki/Collectivit%C3%A9_territoriale_de_Corse

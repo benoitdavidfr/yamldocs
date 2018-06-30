@@ -1,0 +1,43 @@
+title: geohisto
+yamlClass: YamlCatalog
+authorizedWriters:
+    - benoit
+url: https://github.com/etalab/geohisto
+doc:
+  - geohisto n'est actualisé qu'au 1/1/2017
+  - seules les communes de métropole et des DOM sont traitées, ce qui n'est pas explicite
+  - dans les communes on trouve aussi les arrondissements municipaux de Paris, Lyon et Marseille
+  - les descriptions ne sont pas alignées sur http://schema.org/AdministrativeArea
+bugs:
+  - St Martin et Saint Barth faisaient partie de la Guadeloupe avant le 15/7/2007
+  - fr:departement:975@1976-07-19 devrait avoir comme successeur fr:collectivite-outre-mer:975@2003-03-28
+  - fr:commune:75057@1942-01-01 ne devrait pas avoir pour parent fr:departement:75@1968-01-01
+réflexions:
+  '2018-06-13':
+    identifiants: |
+      - la structuration en YamlData conduit à gérer 3 identifiants:
+        - les 2 clés par ex '02' et '1860-07-01'
+        - l'id fr:departement:02@1860-07-01
+        - la chaine 02@1860-07-01
+      - quel identfiant utiliser comme référence au sein de yamldoc ou depuis l'extérieur ?
+      - faut-il conserver le GeoId ?
+      - le GeoId permet de distinguer les régions des départements
+      - cependant ce n'est pas générique, il vaudrait mieux utiliser les URI INSEE
+      - solution:
+        - gérer une [YamlClass YamlHistoData qui gère l'historisation des données](?doc=yamlhistodata)
+    dates: |
+      - il est inutile et lourd de gérer des heures avec les dates de création/suppression
+      - la date de suppression devrait être remplacée par la date du lendemain de la suppression
+contents:
+    regions:
+        title: 'historique des régions'
+    departements:
+        title: 'historique des départements de métropole et des DOM'
+    collectivites:
+        title: 'historique des collectivités d''outre-mer'
+    communes:
+        title: 'historique des communes de métropole et des DOM'
+    communes-evols:
+        title: 'évolutions des communes de métropole et des DOM'
+    regions-test:
+        title: 'historique des régions pour tester le code'

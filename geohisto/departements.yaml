@@ -1,0 +1,1419 @@
+title: historique des départements français
+creator: https://github.com/benoitdavidfr
+description: |
+  Jeu de données de l'historique des départements français (métropole + DOM) dérivé de geohisto d'Etalab et organisé en YamlData.
+  L'historique démarre au 1/7/1860, le jeu est à jour de l'intégration de Mayotte comme DOM en 2011.
+  Le jeu est publié sous la licence ouverte Etalab 2.0.
+publisher: https://github.com/benoitdavidfr
+contributor: [ https://www.etalab.gouv.fr/ ]
+date: 2018-06-03
+type: http://purl.org/dc/dcmitype/Dataset
+format: application/x-yaml
+identifier: http://yamldoc.georef.eu/departements
+source:
+  - import le 28/5/2018 de departements.csv depuis geohisto (https://github.com/etalab/geohisto/tree/master/exports/departements)
+  - structuration en YamlData avec définition de la clé en 2 parties (code insee, date de début)
+  - ajout de métadonnées DublinCore
+language: fra
+relation:
+  - https://github.com/etalab/geohisto/tree/master/exports/departements
+  - https://github.com/benoitdavidfr/yamldoc
+coverage:
+  spatial: iso:code:3166:FR (métropole + DOM)
+  temporal: { start: 1860-07-01, end: 2017-01-01 }
+rights: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+yamlClass: YamlData
+yamlSchema:
+  KEYS:
+    ROOT:
+      data:
+        - insee_code // la première partie de la clé dans data est le code INSEE
+        - start_date // la seconde partie de la clé dans data est la date de début
+  ROOT:
+    data:
+      KEY: # utilisation comme clé du code INSEE et de la date de début
+        id!: STRING // identifiant complet
+        insee_code: INTEGER // code INSEE de la région
+        start_datetime: DATETIME // date de début de l'enregistrement
+        end_datetime: DATETIME // date de fin de l'enregistrement
+        name: STRING // nom officiel
+        ancestors?:
+          - STRING // ID des départements précédant le département
+        successors?:
+          - STRING // ID des départements remplacant le département
+        parents?:
+          - STRING // ID des régions contenant le département
+        chef_lieu:
+          - STRING // ID de la commune chef-lieu
+data:
+  '01':
+    '1860-07-01':
+      id: fr:departement:01@1860-07-01
+      insee_code: '01'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Ain
+      chef_lieu:
+        - fr:commune:01053@1942-01-01
+        - fr:commune:01053@1955-03-31
+      parents:
+        - fr:region:82@1970-01-09
+        - fr:region:84@2016-01-01
+  '02':
+    '1860-07-01':
+      id: fr:departement:02@1860-07-01
+      insee_code: '02'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Aisne
+      chef_lieu:
+        - fr:commune:02408@1942-01-01
+      parents:
+        - fr:region:22@1970-01-09
+        - fr:region:32@2016-01-01
+  '03':
+    '1860-07-01':
+      id: fr:departement:03@1860-07-01
+      insee_code: '03'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Allier
+      chef_lieu:
+        - fr:commune:03190@1942-01-01
+      parents:
+        - fr:region:83@1970-01-09
+        - fr:region:84@2016-01-01
+  '04':
+    '1860-07-01':
+      id: fr:departement:04@1860-07-01
+      insee_code: '04'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 1970-04-12 23:59:59
+      name: Basses-Alpes
+      successors:
+        - fr:departement:04@1970-04-13
+      chef_lieu:
+        - fr:commune:04070@1942-01-01
+        - fr:commune:04070@1988-06-25
+      parents:
+        - fr:region:93@1970-01-09
+    '1970-04-13':
+      id: fr:departement:04@1970-04-13
+      insee_code: '04'
+      start_datetime: 1970-04-13 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Alpes-de-Haute-Provence
+      ancestors:
+        - fr:departement:04@1860-07-01
+      chef_lieu:
+        - fr:commune:04070@1942-01-01
+        - fr:commune:04070@1988-06-25
+      parents:
+        - fr:region:93@1970-01-09
+  '05':
+    '1860-07-01':
+      id: fr:departement:05@1860-07-01
+      insee_code: '05'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Hautes-Alpes
+      chef_lieu:
+        - fr:commune:05061@1942-01-01
+      parents:
+        - fr:region:93@1970-01-09
+  '06':
+    '1860-07-01':
+      id: fr:departement:06@1860-07-01
+      insee_code: '06'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Alpes-Maritimes
+      chef_lieu:
+        - fr:commune:06088@1942-01-01
+      parents:
+        - fr:region:93@1970-01-09
+  '07':
+    '1860-07-01':
+      id: fr:departement:07@1860-07-01
+      insee_code: '07'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Ardèche
+      chef_lieu:
+        - fr:commune:07186@1942-01-01
+      parents:
+        - fr:region:82@1970-01-09
+        - fr:region:84@2016-01-01
+  '08':
+    '1860-07-01':
+      id: fr:departement:08@1860-07-01
+      insee_code: '08'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Ardennes
+      chef_lieu:
+        - fr:commune:08290@1942-01-01
+        - fr:commune:08105@1966-10-01
+      parents:
+        - fr:region:21@1970-01-09
+        - fr:region:44@2016-01-01
+  '09':
+    '1860-07-01':
+      id: fr:departement:09@1860-07-01
+      insee_code: '09'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Ariège
+      chef_lieu:
+        - fr:commune:09122@1942-01-01
+      parents:
+        - fr:region:73@1970-01-09
+        - fr:region:76@2016-01-01
+  '10':
+    '1860-07-01':
+      id: fr:departement:10@1860-07-01
+      insee_code: '10'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Aube
+      chef_lieu:
+        - fr:commune:10387@1942-01-01
+      parents:
+        - fr:region:21@1970-01-09
+        - fr:region:44@2016-01-01
+  '11':
+    '1860-07-01':
+      id: fr:departement:11@1860-07-01
+      insee_code: '11'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Aude
+      chef_lieu:
+        - fr:commune:11069@1942-01-01
+      parents:
+        - fr:region:91@1970-01-09
+        - fr:region:76@2016-01-01
+  '12':
+    '1860-07-01':
+      id: fr:departement:12@1860-07-01
+      insee_code: '12'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Aveyron
+      chef_lieu:
+        - fr:commune:12202@1942-01-01
+      parents:
+        - fr:region:73@1970-01-09
+        - fr:region:76@2016-01-01
+  '13':
+    '1860-07-01':
+      id: fr:departement:13@1860-07-01
+      insee_code: '13'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Bouches-du-Rhône
+      chef_lieu:
+        - fr:commune:13055@1942-01-01
+      parents:
+        - fr:region:93@1970-01-09
+  '14':
+    '1860-07-01':
+      id: fr:departement:14@1860-07-01
+      insee_code: '14'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Calvados
+      chef_lieu:
+        - fr:commune:14118@1942-01-01
+      parents:
+        - fr:region:25@1970-01-09
+        - fr:region:28@2016-01-01
+  '15':
+    '1860-07-01':
+      id: fr:departement:15@1860-07-01
+      insee_code: '15'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Cantal
+      chef_lieu:
+        - fr:commune:15014@1942-01-01
+      parents:
+        - fr:region:83@1970-01-09
+        - fr:region:84@2016-01-01
+  '16':
+    '1860-07-01':
+      id: fr:departement:16@1860-07-01
+      insee_code: '16'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Charente
+      chef_lieu:
+        - fr:commune:16015@1942-01-01
+      parents:
+        - fr:region:54@1970-01-09
+        - fr:region:75@2016-01-01
+  '17':
+    '1860-07-01':
+      id: fr:departement:17@1860-07-01
+      insee_code: '17'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 1941-09-03 23:59:59
+      name: Charente-Inférieure
+      successors:
+        - fr:departement:17@1941-09-04
+      chef_lieu:
+        - fr:commune:17300@1942-01-01
+    '1941-09-04':
+      id: fr:departement:17@1941-09-04
+      insee_code: '17'
+      start_datetime: 1941-09-04 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Charente-Maritime
+      ancestors:
+        - fr:departement:17@1860-07-01
+      chef_lieu:
+        - fr:commune:17300@1942-01-01
+      parents:
+        - fr:region:54@1970-01-09
+        - fr:region:75@2016-01-01
+  '18':
+    '1860-07-01':
+      id: fr:departement:18@1860-07-01
+      insee_code: '18'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Cher
+      chef_lieu:
+        - fr:commune:18033@1942-01-01
+      parents:
+        - fr:region:24@1970-01-09
+  '19':
+    '1860-07-01':
+      id: fr:departement:19@1860-07-01
+      insee_code: '19'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Corrèze
+      chef_lieu:
+        - fr:commune:19272@1942-01-01
+      parents:
+        - fr:region:74@1970-01-09
+        - fr:region:75@2016-01-01
+  '20':
+    '1860-07-01':
+      id: fr:departement:20@1860-07-01
+      insee_code: '20'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 1975-12-31 23:59:59
+      name: Corse
+      successors:
+        - fr:departement:2A@1976-01-01
+        - fr:departement:2B@1976-01-01
+      chef_lieu:
+        - fr:commune:20004@1942-01-01
+        - fr:commune:2A004@1976-01-01
+      parents:
+        - fr:region:94@1970-01-09
+  '2A':
+    '1976-01-01':
+      id: fr:departement:2A@1976-01-01
+      insee_code: '2A'
+      start_datetime: 1976-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Corse-du-Sud
+      ancestors:
+        - fr:departement:20@1860-07-01
+      chef_lieu:
+        - fr:commune:20004@1942-01-01
+        - fr:commune:2A004@1976-01-01
+      parents:
+        - fr:region:94@1970-01-09
+  '2B':
+    '1976-01-01':
+      id: fr:departement:2B@1976-01-01
+      insee_code: '2B'
+      start_datetime: 1976-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Haute-Corse
+      ancestors:
+        - fr:departement:20@1860-07-01
+      chef_lieu:
+        - fr:commune:20033@1942-01-01
+        - fr:commune:2B033@1976-01-01
+      parents:
+        - fr:region:94@1970-01-09
+  '21':
+    '1860-07-01':
+      id: fr:departement:21@1860-07-01
+      insee_code: '21'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Côte-d'Or
+      chef_lieu:
+        - fr:commune:21231@1942-01-01
+      parents:
+        - fr:region:26@1970-01-09
+        - fr:region:27@2016-01-01
+  '22':
+    '1860-07-01':
+      id: fr:departement:22@1860-07-01
+      insee_code: '22'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 1990-02-26 23:59:59
+      name: Côtes-du-Nord
+      successors:
+        - fr:departement:22@1990-02-27
+      chef_lieu:
+        - fr:commune:22278@1942-01-01
+      parents:
+        - fr:region:53@1970-01-09
+    '1990-02-27':
+      id: fr:departement:22@1990-02-27
+      insee_code: '22'
+      start_datetime: 1990-02-27 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Côtes-d'Armor
+      ancestors:
+        - fr:departement:22@1860-07-01
+      chef_lieu:
+        - fr:commune:22278@1942-01-01
+      parents:
+        - fr:region:53@1970-01-09
+  '23':
+    '1860-07-01':
+      id: fr:departement:23@1860-07-01
+      insee_code: '23'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Creuse
+      chef_lieu:
+        - fr:commune:23096@1942-01-01
+      parents:
+        - fr:region:74@1970-01-09
+        - fr:region:75@2016-01-01
+  '24':
+    '1860-07-01':
+      id: fr:departement:24@1860-07-01
+      insee_code: '24'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Dordogne
+      chef_lieu:
+        - fr:commune:24322@1942-01-01
+      parents:
+        - fr:region:72@1970-01-09
+        - fr:region:75@2016-01-01
+  '25':
+    '1860-07-01':
+      id: fr:departement:25@1860-07-01
+      insee_code: '25'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Doubs
+      chef_lieu:
+        - fr:commune:25056@1942-01-01
+      parents:
+        - fr:region:43@1970-01-09
+        - fr:region:27@2016-01-01
+  '26':
+    '1860-07-01':
+      id: fr:departement:26@1860-07-01
+      insee_code: '26'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Drôme
+      chef_lieu:
+        - fr:commune:26362@1942-01-01
+      parents:
+        - fr:region:82@1970-01-09
+        - fr:region:84@2016-01-01
+  '27':
+    '1860-07-01':
+      id: fr:departement:27@1860-07-01
+      insee_code: '27'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Eure
+      chef_lieu:
+        - fr:commune:27229@1942-01-01
+      parents:
+        - fr:region:23@1970-01-09
+        - fr:region:28@2016-01-01
+  '28':
+    '1860-07-01':
+      id: fr:departement:28@1860-07-01
+      insee_code: '28'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Eure-et-Loir
+      chef_lieu:
+        - fr:commune:28085@1942-01-01
+      parents:
+        - fr:region:24@1970-01-09
+  '29':
+    '1860-07-01':
+      id: fr:departement:29@1860-07-01
+      insee_code: '29'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Finistère
+      chef_lieu:
+        - fr:commune:29232@1942-01-01
+      parents:
+        - fr:region:53@1970-01-09
+  '30':
+    '1860-07-01':
+      id: fr:departement:30@1860-07-01
+      insee_code: '30'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Gard
+      chef_lieu:
+        - fr:commune:30189@1942-01-01
+      parents:
+        - fr:region:91@1970-01-09
+        - fr:region:76@2016-01-01
+  '31':
+    '1860-07-01':
+      id: fr:departement:31@1860-07-01
+      insee_code: '31'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Haute-Garonne
+      chef_lieu:
+        - fr:commune:31555@1942-01-01
+      parents:
+        - fr:region:73@1970-01-09
+        - fr:region:76@2016-01-01
+  '32':
+    '1860-07-01':
+      id: fr:departement:32@1860-07-01
+      insee_code: '32'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Gers
+      chef_lieu:
+        - fr:commune:32013@1942-01-01
+      parents:
+        - fr:region:73@1970-01-09
+        - fr:region:76@2016-01-01
+  '33':
+    '1860-07-01':
+      id: fr:departement:33@1860-07-01
+      insee_code: '33'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Gironde
+      chef_lieu:
+        - fr:commune:33063@1942-01-01
+      parents:
+        - fr:region:72@1970-01-09
+        - fr:region:75@2016-01-01
+  '34':
+    '1860-07-01':
+      id: fr:departement:34@1860-07-01
+      insee_code: '34'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Hérault
+      chef_lieu:
+        - fr:commune:34172@1942-01-01
+      parents:
+        - fr:region:91@1970-01-09
+        - fr:region:76@2016-01-01
+  '35':
+    '1860-07-01':
+      id: fr:departement:35@1860-07-01
+      insee_code: '35'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Ille-et-Vilaine
+      chef_lieu:
+        - fr:commune:35238@1942-01-01
+      parents:
+        - fr:region:53@1970-01-09
+  '36':
+    '1860-07-01':
+      id: fr:departement:36@1860-07-01
+      insee_code: '36'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Indre
+      chef_lieu:
+        - fr:commune:36044@1942-01-01
+      parents:
+        - fr:region:24@1970-01-09
+  '37':
+    '1860-07-01':
+      id: fr:departement:37@1860-07-01
+      insee_code: '37'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Indre-et-Loire
+      chef_lieu:
+        - fr:commune:37261@1942-01-01
+      parents:
+        - fr:region:24@1970-01-09
+  '38':
+    '1860-07-01':
+      id: fr:departement:38@1860-07-01
+      insee_code: '38'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Isère
+      chef_lieu:
+        - fr:commune:38185@1942-01-01
+      parents:
+        - fr:region:82@1970-01-09
+        - fr:region:84@2016-01-01
+  '39':
+    '1860-07-01':
+      id: fr:departement:39@1860-07-01
+      insee_code: '39'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Jura
+      chef_lieu:
+        - fr:commune:39300@1942-01-01
+      parents:
+        - fr:region:43@1970-01-09
+        - fr:region:27@2016-01-01
+  '40':
+    '1860-07-01':
+      id: fr:departement:40@1860-07-01
+      insee_code: '40'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Landes
+      chef_lieu:
+        - fr:commune:40192@1942-01-01
+      parents:
+        - fr:region:72@1970-01-09
+        - fr:region:75@2016-01-01
+  '41':
+    '1860-07-01':
+      id: fr:departement:41@1860-07-01
+      insee_code: '41'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Loir-et-Cher
+      chef_lieu:
+        - fr:commune:41018@1942-01-01
+      parents:
+        - fr:region:24@1970-01-09
+  '42':
+    '1860-07-01':
+      id: fr:departement:42@1860-07-01
+      insee_code: '42'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Loire
+      chef_lieu:
+        - fr:commune:42218@1942-01-01
+        - fr:commune:42218@1969-10-18
+        - fr:commune:42218@1970-01-01
+      parents:
+        - fr:region:82@1970-01-09
+        - fr:region:84@2016-01-01
+  '43':
+    '1860-07-01':
+      id: fr:departement:43@1860-07-01
+      insee_code: '43'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Haute-Loire
+      chef_lieu:
+        - fr:commune:43157@1942-01-01
+        - fr:commune:43157@1988-03-18
+      parents:
+        - fr:region:83@1970-01-09
+        - fr:region:84@2016-01-01
+  '44':
+    '1860-07-01':
+      id: fr:departement:44@1860-07-01
+      insee_code: '44'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 1957-03-08 23:59:59
+      name: Loire-Inférieure
+      successors:
+        - fr:departement:44@1957-03-09
+      chef_lieu:
+        - fr:commune:44109@1942-01-01
+    '1957-03-09':
+      id: fr:departement:44@1957-03-09
+      insee_code: '44'
+      start_datetime: 1957-03-09 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Loire-Atlantique
+      ancestors:
+        - fr:departement:44@1860-07-01
+      chef_lieu:
+        - fr:commune:44109@1942-01-01
+      parents:
+        - fr:region:52@1970-01-09
+  '45':
+    '1860-07-01':
+      id: fr:departement:45@1860-07-01
+      insee_code: '45'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Loiret
+      chef_lieu:
+        - fr:commune:45234@1942-01-01
+      parents:
+        - fr:region:24@1970-01-09
+  '46':
+    '1860-07-01':
+      id: fr:departement:46@1860-07-01
+      insee_code: '46'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Lot
+      chef_lieu:
+        - fr:commune:46042@1942-01-01
+      parents:
+        - fr:region:91@1970-01-09
+        - fr:region:76@2016-01-01
+  '47':
+    '1860-07-01':
+      id: fr:departement:47@1860-07-01
+      insee_code: '47'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Lot-et-Garonne
+      chef_lieu:
+        - fr:commune:47001@1942-01-01
+      parents:
+        - fr:region:72@1970-01-09
+        - fr:region:75@2016-01-01
+  '48':
+    '1860-07-01':
+      id: fr:departement:48@1860-07-01
+      insee_code: '48'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Lozère
+      chef_lieu:
+        - fr:commune:48095@1942-01-01
+      parents:
+        - fr:region:91@1970-01-09
+        - fr:region:76@2016-01-01
+  '49':
+    '1860-07-01':
+      id: fr:departement:49@1860-07-01
+      insee_code: '49'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Maine-et-Loire
+      chef_lieu:
+        - fr:commune:49007@1942-01-01
+      parents:
+        - fr:region:52@1970-01-09
+  '50':
+    '1860-07-01':
+      id: fr:departement:50@1860-07-01
+      insee_code: '50'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Manche
+      chef_lieu:
+        - fr:commune:50502@1942-01-01
+      parents:
+        - fr:region:23@1970-01-09
+        - fr:region:28@2016-01-01
+  '51':
+    '1860-07-01':
+      id: fr:departement:51@1860-07-01
+      insee_code: '51'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Marne
+      chef_lieu:
+        - fr:commune:51108@1942-01-01
+        - fr:commune:51108@1995-11-17
+        - fr:commune:51108@1997-05-01
+        - fr:commune:51108@1998-01-04
+      parents:
+        - fr:region:21@1970-01-09
+        - fr:region:44@2016-01-01
+  '52':
+    '1860-07-01':
+      id: fr:departement:52@1860-07-01
+      insee_code: '52'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Haute-Marne
+      chef_lieu:
+        - fr:commune:18060@1942-01-01
+      parents:
+        - fr:region:21@1970-01-09
+        - fr:region:44@2016-01-01
+  '53':
+    '1860-07-01':
+      id: fr:departement:53@1860-07-01
+      insee_code: '53'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Mayenne
+      chef_lieu:
+        - fr:commune:38206@1942-01-01
+      parents:
+        - fr:region:52@1970-01-09
+  '54':
+    '1871-09-07':
+      id: fr:departement:54@1871-09-07
+      insee_code: '54'
+      start_datetime: 1871-09-07 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Meurthe-et-Moselle
+      chef_lieu:
+        - fr:commune:54395@1942-01-01
+      parents:
+        - fr:region:21@1970-01-09
+        - fr:region:44@2016-01-01
+  '55':
+    '1860-07-01':
+      id: fr:departement:55@1860-07-01
+      insee_code: '55'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Meuse
+      chef_lieu:
+        - fr:commune:55029@1942-01-01
+      parents:
+        - fr:region:21@1970-01-09
+        - fr:region:44@2016-01-01
+  '56':
+    '1860-07-01':
+      id: fr:departement:56@1860-07-01
+      insee_code: '56'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Morbihan
+      chef_lieu:
+        - fr:commune:56260@1942-01-01
+      parents:
+        - fr:region:53@1970-01-09
+  '57':
+    '1860-07-01':
+      id: fr:departement:57@1860-07-01
+      insee_code: '57'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 1871-05-09 23:59:59
+      name: Moselle
+      successors:
+        - fr:departement:57@1920-01-10
+      chef_lieu:
+        - fr:commune:57463@1942-01-01
+    '1920-01-10':
+      id: fr:departement:57@1920-01-10
+      insee_code: '57'
+      start_datetime: 1920-01-10 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Moselle
+      ancestors:
+        - fr:departement:57@1860-07-01
+      chef_lieu:
+        - fr:commune:57463@1942-01-01
+      parents:
+        - fr:region:21@1970-01-09
+        - fr:region:44@2016-01-01
+  '58':
+    '1860-07-01':
+      id: fr:departement:58@1860-07-01
+      insee_code: '58'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Nièvre
+      chef_lieu:
+        - fr:commune:58194@1942-01-01
+      parents:
+        - fr:region:43@1970-01-09
+        - fr:region:27@2016-01-01
+  '59':
+    '1860-07-01':
+      id: fr:departement:59@1860-07-01
+      insee_code: '59'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Nord
+      chef_lieu:
+        - fr:commune:59350@1942-01-01
+      parents:
+        - fr:region:22@1970-01-09
+        - fr:region:32@2016-01-01
+  '60':
+    '1860-07-01':
+      id: fr:departement:60@1860-07-01
+      insee_code: '60'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Oise
+      chef_lieu:
+        - fr:commune:60057@1942-01-01
+      parents:
+        - fr:region:22@1970-01-09
+        - fr:region:32@2016-01-01
+  '61':
+    '1860-07-01':
+      id: fr:departement:61@1860-07-01
+      insee_code: '61'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Orne
+      chef_lieu:
+        - fr:commune:61001@1942-01-01
+      parents:
+        - fr:region:23@1970-01-09
+        - fr:region:28@2016-01-01
+  '62':
+    '1860-07-01':
+      id: fr:departement:62@1860-07-01
+      insee_code: '62'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Pas-de-Calais
+      chef_lieu:
+        - fr:commune:62041@1942-01-01
+      parents:
+        - fr:region:22@1970-01-09
+        - fr:region:32@2016-01-01
+  '63':
+    '1860-07-01':
+      id: fr:departement:63@1860-07-01
+      insee_code: '63'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Puy-de-Dôme
+      chef_lieu:
+        - fr:commune:63113@1942-01-01
+      parents:
+        - fr:region:82@1970-01-09
+        - fr:region:84@2016-01-01
+  '64':
+    '1860-07-01':
+      id: fr:departement:64@1860-07-01
+      insee_code: '64'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 1969-10-09 23:59:59
+      name: Basses-Pyrénées
+      successors:
+        - fr:departement:64@1969-10-10
+      chef_lieu:
+        - fr:commune:64445@1942-01-01
+    '1969-10-10':
+      id: fr:departement:64@1969-10-10
+      insee_code: '64'
+      start_datetime: 1969-10-10 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Pyrénées-Atlantiques
+      ancestors:
+        - fr:departement:64@1860-07-01
+      chef_lieu:
+        - fr:commune:64445@1942-01-01
+      parents:
+        - fr:region:72@1970-01-09
+        - fr:region:75@2016-01-01
+  '65':
+    '1860-07-01':
+      id: fr:departement:65@1860-07-01
+      insee_code: '65'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Hautes-Pyrénées
+      chef_lieu:
+        - fr:commune:65440@1942-01-01
+      parents:
+        - fr:region:91@1970-01-09
+        - fr:region:76@2016-01-01
+  '66':
+    '1860-07-01':
+      id: fr:departement:66@1860-07-01
+      insee_code: '66'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Pyrénées-Orientales
+      chef_lieu:
+        - fr:commune:66136@1942-01-01
+      parents:
+        - fr:region:91@1970-01-09
+        - fr:region:76@2016-01-01
+  '67':
+    '1860-07-01':
+      id: fr:departement:67@1860-07-01
+      insee_code: '67'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 1871-05-09 23:59:59
+      name: Bas-Rhin
+      successors:
+        - fr:departement:67@1920-01-10
+      chef_lieu:
+        - fr:commune:67482@1942-01-01
+    '1920-01-10':
+      id: fr:departement:67@1920-01-10
+      insee_code: '67'
+      start_datetime: 1920-01-10 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Bas-Rhin
+      ancestors:
+        - fr:departement:67@1860-07-01
+      chef_lieu:
+        - fr:commune:67482@1942-01-01
+      parents:
+        - fr:region:21@1970-01-09
+        - fr:region:44@2016-01-01
+  '68':
+    '1860-07-01':
+      id: fr:departement:68@1860-07-01
+      insee_code: '68'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 1871-05-09 23:59:59
+      name: Haut-Rhin
+      successors:
+        - fr:departement:68@1920-01-10
+      chef_lieu:
+        - fr:commune:68066@1942-01-01
+    '1920-01-10':
+      id: fr:departement:68@1920-01-10
+      insee_code: '68'
+      start_datetime: 1920-01-10 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Haut-Rhin
+      ancestors:
+        - fr:departement:68@1860-07-01
+      chef_lieu:
+        - fr:commune:68066@1942-01-01
+      parents:
+        - fr:region:21@1970-01-09
+        - fr:region:44@2016-01-01
+  '69':
+    '1860-07-01':
+      id: fr:departement:69@1860-07-01
+      insee_code: '69'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Rhône
+      chef_lieu:
+        - fr:commune:69123@1942-01-01
+      parents:
+        - fr:region:82@1970-01-09
+        - fr:region:84@2016-01-01
+  '70':
+    '1860-07-01':
+      id: fr:departement:70@1860-07-01
+      insee_code: '70'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Haute-Saône
+      chef_lieu:
+        - fr:commune:70550@1942-01-01
+      parents:
+        - fr:region:43@1970-01-09
+        - fr:region:27@2016-01-01
+  '71':
+    '1860-07-01':
+      id: fr:departement:71@1860-07-01
+      insee_code: '71'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Saône-et-Loire
+      chef_lieu:
+        - fr:commune:71270@1942-01-01
+      parents:
+        - fr:region:43@1970-01-09
+        - fr:region:27@2016-01-01
+  '72':
+    '1860-07-01':
+      id: fr:departement:72@1860-07-01
+      insee_code: '72'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Sarthe
+      chef_lieu:
+        - fr:commune:72181@1942-01-01
+      parents:
+        - fr:region:52@1970-01-09
+  '73':
+    '1860-07-01':
+      id: fr:departement:73@1860-07-01
+      insee_code: '73'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Savoie
+      chef_lieu:
+        - fr:commune:73065@1942-01-01
+      parents:
+        - fr:region:82@1970-01-09
+        - fr:region:84@2016-01-01
+  '74':
+    '1860-07-01':
+      id: fr:departement:74@1860-07-01
+      insee_code: '74'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Haute-Savoie
+      chef_lieu:
+        - fr:commune:74010@1942-01-01
+      parents:
+        - fr:region:82@1970-01-09
+        - fr:region:84@2016-01-01
+  '75':
+    '1860-07-01':
+      id: fr:departement:75@1860-07-01
+      insee_code: '75'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 1967-12-31 23:59:59
+      name: Seine
+      successors:
+        - fr:departement:75@1968-01-01
+        - fr:departement:92@1968-01-01
+        - fr:departement:93@1968-01-01
+        - fr:departement:94@1968-01-01
+      chef_lieu:
+        - fr:commune:75056@1942-01-01
+      parents:
+        - fr:region:11@1970-01-09
+    '1968-01-01':
+      id: fr:departement:75@1968-01-01
+      insee_code: '75'
+      start_datetime: 1968-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Paris
+      ancestors:
+        - fr:departement:75@1860-07-01
+      chef_lieu:
+        - fr:commune:75056@1942-01-01
+      parents:
+        - fr:region:11@1970-01-09
+  '76':
+    '1860-07-01':
+      id: fr:departement:76@1860-07-01
+      insee_code: '76'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 1955-01-17 23:59:59
+      name: Seine-Inférieure
+      successors:
+        - fr:departement:76@1955-01-18
+      chef_lieu:
+        - fr:commune:76540@1942-01-01
+    '1955-01-18':
+      id: fr:departement:76@1955-01-18
+      insee_code: '76'
+      start_datetime: 1955-01-18 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Seine-Maritime
+      ancestors:
+        - fr:departement:76@1860-07-01
+      chef_lieu:
+        - fr:commune:76540@1942-01-01
+      parents:
+        - fr:region:23@1970-01-09
+        - fr:region:28@2016-01-01
+  '77':
+    '1860-07-01':
+      id: fr:departement:77@1860-07-01
+      insee_code: '77'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Seine-et-Marne
+      chef_lieu:
+        - fr:commune:77288@1942-01-01
+      parents:
+        - fr:region:11@1970-01-09
+  '78':
+    '1860-07-01':
+      id: fr:departement:78@1860-07-01
+      insee_code: '78'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 1967-12-31 23:59:59
+      name: Seine-et-Oise
+      successors:
+        - fr:departement:78@1968-01-01
+        - fr:departement:91@1968-01-01
+        - fr:departement:92@1968-01-01
+        - fr:departement:95@1968-01-01
+      chef_lieu:
+        - fr:commune:78646@1942-01-01
+      parents:
+        - fr:region:11@1970-01-09
+    '1968-01-01':
+      id: fr:departement:78@1968-01-01
+      insee_code: '78'
+      start_datetime: 1968-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Yvelines
+      ancestors:
+        - fr:departement:78@1860-07-01
+      chef_lieu:
+        - fr:commune:78646@1942-01-01
+      parents:
+        - fr:region:11@1970-01-09
+  '79':
+    '1860-07-01':
+      id: fr:departement:79@1860-07-01
+      insee_code: '79'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Deux-Sèvres
+      chef_lieu:
+        - fr:commune:79191@1942-01-01
+      parents:
+        - fr:region:72@1970-01-09
+        - fr:region:75@2016-01-01
+  '80':
+    '1860-07-01':
+      id: fr:departement:80@1860-07-01
+      insee_code: '80'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Somme
+      chef_lieu:
+        - fr:commune:80021@1942-01-01
+      parents:
+        - fr:region:22@1970-01-09
+        - fr:region:32@2016-01-01
+  '81':
+    '1860-07-01':
+      id: fr:departement:81@1860-07-01
+      insee_code: '81'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Tarn
+      chef_lieu:
+        - fr:commune:81004@1942-01-01
+      parents:
+        - fr:region:91@1970-01-09
+        - fr:region:76@2016-01-01
+  '82':
+    '1860-07-01':
+      id: fr:departement:82@1860-07-01
+      insee_code: '82'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Tarn-et-Garonne
+      chef_lieu:
+        - fr:commune:82121@1942-01-01
+      parents:
+        - fr:region:91@1970-01-09
+        - fr:region:76@2016-01-01
+  '83':
+    '1860-07-01':
+      id: fr:departement:83@1860-07-01
+      insee_code: '83'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Var
+      chef_lieu:
+        - fr:commune:83137@1942-01-01
+      parents:
+        - fr:region:93@1970-01-09
+  '84':
+    '1860-07-01':
+      id: fr:departement:84@1860-07-01
+      insee_code: '84'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Vaucluse
+      chef_lieu:
+        - fr:commune:84007@1942-01-01
+      parents:
+        - fr:region:93@1970-01-09
+  '85':
+    '1860-07-01':
+      id: fr:departement:85@1860-07-01
+      insee_code: '85'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Vendée
+      chef_lieu:
+        - fr:commune:85191@1942-01-01
+      parents:
+        - fr:region:52@1970-01-09
+  '86':
+    '1860-07-01':
+      id: fr:departement:86@1860-07-01
+      insee_code: '86'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Vienne
+      chef_lieu:
+        - fr:commune:86194@1942-01-01
+      parents:
+        - fr:region:72@1970-01-09
+        - fr:region:75@2016-01-01
+  '87':
+    '1860-07-01':
+      id: fr:departement:87@1860-07-01
+      insee_code: '87'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Haute-Vienne
+      chef_lieu:
+        - fr:commune:87085@1942-01-01
+      parents:
+        - fr:region:72@1970-01-09
+        - fr:region:75@2016-01-01
+  '88':
+    '1860-07-01':
+      id: fr:departement:88@1860-07-01
+      insee_code: '88'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Vosges
+      chef_lieu:
+        - fr:commune:88160@1942-01-01
+      parents:
+        - fr:region:21@1970-01-09
+        - fr:region:44@2016-01-01
+  '89':
+    '1860-07-01':
+      id: fr:departement:89@1860-07-01
+      insee_code: '89'
+      start_datetime: 1860-07-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Yonne
+      chef_lieu:
+        - fr:commune:89024@1942-01-01
+      parents:
+        - fr:region:43@1970-01-09
+        - fr:region:27@2016-01-01
+  '90':
+    '1922-03-11':
+      id: fr:departement:90@1922-03-11
+      insee_code: '90'
+      start_datetime: 1922-03-11 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Territoire de Belfort
+      chef_lieu:
+        - fr:commune:90010@1942-01-01
+      parents:
+        - fr:region:43@1970-01-09
+        - fr:region:27@2016-01-01
+  '91':
+    '1968-01-01':
+      id: fr:departement:91@1968-01-01
+      insee_code: '91'
+      start_datetime: 1968-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Essonne
+      ancestors:
+        - fr:departement:78@1860-07-01
+      chef_lieu:
+        - fr:commune:91228@1968-01-01
+      parents:
+        - fr:region:11@1970-01-09
+  '92':
+    '1968-01-01':
+      id: fr:departement:92@1968-01-01
+      insee_code: '92'
+      start_datetime: 1968-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Hauts-de-Seine
+      ancestors:
+        - fr:departement:75@1860-07-01
+        - fr:departement:78@1860-07-01
+      chef_lieu:
+        - fr:commune:92050@1968-01-01
+      parents:
+        - fr:region:11@1970-01-09
+  '93':
+    '1968-01-01':
+      id: fr:departement:93@1968-01-01
+      insee_code: '93'
+      start_datetime: 1968-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Seine-Saint-Denis
+      ancestors:
+        - fr:departement:75@1860-07-01
+      chef_lieu:
+        - fr:commune:93008@1968-01-01
+      parents:
+        - fr:region:11@1970-01-09
+  '94':
+    '1968-01-01':
+      id: fr:departement:94@1968-01-01
+      insee_code: '94'
+      start_datetime: 1968-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Val-de-Marne
+      ancestors:
+        - fr:departement:75@1860-07-01
+      chef_lieu:
+        - fr:commune:94028@1968-01-01
+      parents:
+        - fr:region:11@1970-01-09
+  '95':
+    '1968-01-01':
+      id: fr:departement:95@1968-01-01
+      insee_code: '95'
+      start_datetime: 1968-01-01 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Val-d'Oise
+      ancestors:
+        - fr:departement:78@1860-07-01
+      chef_lieu:
+        - fr:commune:95500@1968-01-01
+      parents:
+        - fr:region:11@1970-01-09
+  '971':
+    '1946-03-19':
+      id: fr:departement:971@1946-03-19
+      insee_code: '971'
+      start_datetime: 1946-03-19 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Guadeloupe
+      chef_lieu:
+        - fr:commune:97105@1942-01-01
+      parents:
+        - fr:region:01@1970-01-09
+  '972':
+    '1946-03-19':
+      id: fr:departement:972@1946-03-19
+      insee_code: '972'
+      start_datetime: 1946-03-19 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Martinique
+      chef_lieu:
+        - fr:commune:97209@1942-01-01
+      parents:
+        - fr:region:02@1970-01-09
+  '973':
+    '1946-03-19':
+      id: fr:departement:973@1946-03-19
+      insee_code: '973'
+      start_datetime: 1946-03-19 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Guyane
+      chef_lieu:
+        - fr:commune:97302@1942-01-01
+      parents:
+        - fr:region:03@1970-01-09
+  '974':
+    '1946-03-19':
+      id: fr:departement:974@1946-03-19
+      insee_code: '974'
+      start_datetime: 1946-03-19 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: La Réunion
+      chef_lieu:
+        - fr:commune:97411@1942-01-01
+      parents:
+        - fr:region:04@1970-01-09
+  '975':
+    '1976-07-19':
+      id: fr:departement:975@1976-07-19
+      insee_code: '975'
+      start_datetime: 1976-07-19 00:00:00
+      end_datetime: 1985-06-10 23:59:59
+      name: Saint-Pierre-et-Miquelon
+  '976':
+    '2011-03-31':
+      id: fr:departement:976@2011-03-31
+      insee_code: '976'
+      start_datetime: 2011-03-31 00:00:00
+      end_datetime: 9999-12-31 23:59:59
+      name: Mayotte
+      chef_lieu:
+        - fr:commune:97611@1942-01-01
+      parents:
+        - fr:region:06@1970-01-09
