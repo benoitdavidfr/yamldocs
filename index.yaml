@@ -1,0 +1,11 @@
+title: page par défaut de l'espace public de YamlDoc
+yamlClass: YamlCatalog
+contents:
+  yamldoc:
+    title: doc d'introduction à YamlDoc
+  eurovoc:
+    title: thésaurus EuroVoc
+  topovoc:
+    title: lexique topographique (extrait)
+  geohisto:
+    title: référentiel géographique administratif historisé
