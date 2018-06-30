@@ -1,0 +1,13 @@
+title: Présentation de YamlDoc
+intro: |
+  YamlDoc
+  -------
+  YamDoc est un système de gestion documentaire fondé sur :
+    
+    - la définition de documents correspondants à des fichiers texte structurés au **format Yaml**,
+    - l'utilisation, si possible, pour les champs d'une **sémantique bien connue** (DublinCore, Skos, Schema.org, ...),
+    - le formattage de textes en **Markdown** à l'intérieur du fichier Yaml,
+    - l'organisation d'espaces documentaires partagés sous la forme d'archive Git,
+    - l'utilisation d'un visualisateur de document extensible,
+    - la possibilité de définir des requêtes sur les documents en Php.
+    
