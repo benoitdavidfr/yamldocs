@@ -11,7 +11,7 @@ $result = [
   'title'=> "sélection dans geohisto/regions des régions courantes",
   'data'=> [],
 ];
-if (!($regions = new_yamlDoc('geohisto/regions')))
+if (!($regions = new_yamlDoc($_SESSION['store'], 'geohisto/regions')))
   die("Erreur d'ouverture de regions");
 foreach ($regions->extract('/data') as $region) {
   //echo "<pre>region="; print_r($region); echo "</pre>\n";

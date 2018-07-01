@@ -63,8 +63,8 @@ doc:
     une partie d'un document ou d'une base de données.
     Les exemples ci-dessous illustrent son utilisation:
       
-      - dans le présent document, la sélection du champ *yaml* s'effectue en entrant dans la barre en dessous
-        du menu la chaine `/doc/yaml`,
+      - dans le présent document, la sélection du champ *yaml* s'effectue en entrant dans le champ de saisie
+        en dessous du menu la chaine `/doc/yaml`,
       - il est aussi possible d'afficher ce même champ en suivant
         [l'url `?doc=yamldoc&ypath=/doc/yaml`](?doc=yamldoc&ypath=/doc/yaml),
       - dans un thésaurus comme le [lexique topographique](?doc=topovoc),
@@ -82,7 +82,31 @@ doc:
 
   search: |
     ### Recherche plein texte
-    en cours
+    Des recherches plein texte sont possibles en tapant un mot ou plusieurs dans le champ de saisie.
+    Si la chaine ne commence pas par un '/' la chaine est interprétée comme une liste de mots.  
+    Par exemple, en tapant le mot `bourgogne` on trouve les fragments d'EuroVoc et de geohisto qui
+    contiennent ce mot.  
+    On notera que l'indexation est effectuée par fragment, c'est à dire chaine ou texte à l'intérieur du document,
+    et non document par document.
+    C'est un point important par exemple pour indexer des bases de données.  
+    Ainsi, par exemple, lors de la recherche du mot `bourgogne`, un des résultats est le fragment d'Eurovoc
+    correspondant au ypath `/concepts/5032/historyNote/fr/0` ; il s'agit donc de la première note historique
+    en français associée au concept 5032. Il est simple de remonter ici au concept en modifiant le ypath.
+    
+    Différentes possibilités de recherche sont proposées :
+      
+      - en indiquant plusieurs mots on cherche les fragments contenant au moins un des mots,
+        par exemple la chaine `Franche Comté` permet de trouver les fragments contenant soit Franche soit Comté,
+      - en faisant précéder les mots par un + on cherche les fragments contenant tous les mots,
+        par exemple la chaine `+Franche +Comté` permet de trouver les fragments contenant à la fois Franche et Comté,
+      - en faisant précéder un mot par un - on exclue les fragments contenant ce mot,
+        par exemple la chaine `+Franche -Comté` permet de trouver les fragments contenant Franche mais pas Comté,
+      - en faisant suivre un mot par * on cherche les mots commencant par le mot,
+        par exemple la chaine `geograph*` permet de trouver géographie et geography.
+      
+    Il est aussi possible de restreindre la recherche à un document, voire à certains fragments,
+    pr exemple on peut rechercher le mot géographie uniquement dans les concepts d'Eurovoc
+    on indiquant dans le champ key `eurovoc/concepts`.
     
   git: |
     ### Organisation d'espaces documentaires partagés sous la forme d'archive Git
