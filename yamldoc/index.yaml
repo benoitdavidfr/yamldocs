@@ -1,4 +1,4 @@
-title: Présentation de YamlDoc
+title: Présentation résumée de YamlDoc
 doc:
   intro: |
     YamlDoc
@@ -56,6 +56,7 @@ doc:
     d'un thésaurus, et l'extension YamlData permet de visualiser le contenu d'une base de données.  
     Le visualisateur de l'espace public est accessible sous
     [http://georef.eu/yamldoc/?doc=index](http://georef.eu/yamldoc/?doc=index).  
+    Le code source est disponible sur: [Github](https://github.com/benoitdavidfr/yamldoc).
     
   ypath: |
     ### Ypath

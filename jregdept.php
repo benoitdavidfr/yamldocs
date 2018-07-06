@@ -12,9 +12,9 @@ require_once __DIR__.'/../yd.inc.php';
 $result = [];
 
 // ouverture des 2 documents regions et departements
-if (!($regions = new_yamlDoc($_SESSION['store'], 'geohisto/regions')))
+if (!($regions = new_yamlDoc($store, 'geohisto/regions')))
   die("Erreur d'ouverture de regions");
-if (!($depts = new_yamlDoc($_SESSION['store'], 'geohisto/departements')))
+if (!($depts = new_yamlDoc($store, 'geohisto/departements')))
   die("Erreur d'ouverture de departements");
 
 // itération sur les régions
