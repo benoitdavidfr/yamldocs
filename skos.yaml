@@ -1,0 +1,61 @@
+title: Vocabulaire SKOS de base (fr)
+description: |
+  Principaux éléments SKOS avec étiquette et définition en français.
+source: https://www.w3.org/TR/swbp-skos-core-spec/fr
+yamlClass: YamlData
+language: [fr]
+data:
+  Concept:
+    label: Concept
+    definition: Une idée ou notion abstraite.
+  ConceptScheme:
+    label: Schéma de concepts
+    definition: Un ensemble de concepts, incluant éventuellement la déclaration de relations sémantiques entre ces concepts.
+  inScheme:
+    label: élément du schéma
+    definition: Un schéma de concepts auquel le concept courant appartient.
+    comment: Un concept peut appartenir à plus d'un schéma de concepts.
+  hasTopConcept:
+    label: concept de niveau 1
+    definition: Indique un concept de niveau 1 dans un schéma de concepts.
+  prefLabel:
+    label: forme lexicale préférentielle
+    definition: La forme lexicale préférentielle utilisée pour désigner un concept dans une langue donnée.
+    comment: >
+      Le terme préférentiel identifie le concept de façon unique dans le cadre d'un schéma. Dans un même schéma de concepts, deux concepts distincts doivent avoir des valeurs distinctes de skos:prefLabel.
+  altLabel:
+    label: forme lexicale alternative
+    definition: Une forme lexicale alternative pour désigner un concept.
+  hiddenLabel:
+    label: forme cachée
+    definition: Une forme lexicale pour un concept, qui devrait être cachée dans une interface de visualisation, mais demeurer disponible pour les recherches plein texte.
+  definition:
+    label: définition
+    definition: Explication formelle de la signification d'un concept.
+  note:
+    label: note
+    definition: Une note générale, d'utilisation quelconque
+  scopeNote:
+    label: note d'application
+    definition: Une note destinée à clarifier l'utilisation d'un concept.
+  editorialNote:
+    label: note éditoriale
+    definition: Une note destinée aux éditeurs, traducteurs et autres gestionnaires du vocabulaire.
+  changeNote:
+    label: note de modification
+    definition: Une note concernant une modification du concept.
+  historyNote:
+    label: note historique
+    definition: Une note concernant une signification ou utilisation passée du concept.
+  example:
+    label: exemple
+    definition: Un exemple.
+  broader:
+    label: concept générique
+    definition: Un concept de signification plus générique.
+  narrower:
+    label: concept spécifique
+    definition: Un concept de signification plus spécifique.
+  related:
+    label: concept associé
+    definition: Un concept avec lequel existe une relation d'association sémantique.

@@ -13,17 +13,20 @@ doc:
       - l'utilisation d'un visualisateur de document extensible,
       - un mécanisme de requête simple (ypath) dans les documents,
       - la possibilité d'effectuer des recherches plein texte sur les documents,
-      - l'organisation d'espaces documentaires partagés sous la forme d'archive Git,
+      - l'organisation d'espaces documentaires partagés chacun sous la forme d'une archive Git,
       - la possibilité de définir des requêtes sur les documents en Php.
     
   yaml: |
     ### Format Yaml
     Le format [Yaml](https://fr.wikipedia.org/wiki/YAML) permet de structurer des documents ou des données
     par combinaison de listes, tableaux associatifs et données scalaires.
-    Il a l'avantage d'être très **lisible** pour nous les humains tout en étant facile à comprendre pour les machines.  
+    Similaire au format JSON, il a l'avantage d'être très **lisible** pour nous les humains
+    tout en étant facile à comprendre pour les machines.  
     Il permet de structurer aussi bien des documents composés principalement de textes comme le présent document,
-    que des bases de données comme par exemple la [base historique des communes](?doc=geohisto/communes)
-    ou des structures de graphe comme le [thésaurus EuroVoc](?doc=eurovoc).  
+    que des bases de données comme par exemple la [base historique des communes](?doc=geohisto/communes),
+    des structures de graphe comme le [thésaurus EuroVoc](?doc=eurovoc)
+    ou des documents strcturés complexes comme le
+    [modèle de données Inspire](?doc=isnpire-datamodel) déduit du règlement interopérabilité.  
     Enfin, l'édition de documents Yaml est fournie par divers éditeurs de texte comme
     [Notepad++ sous Windows](https://notepad-plus-plus.org/fr/) ou [TextMate sur Mac](https://macromates.com/).
     
@@ -33,10 +36,12 @@ doc:
       
       - le [standard Dublin Core](https://fr.wikipedia.org/wiki/Dublin_Core) est utilisé pour décrire les métadonnées
         d'un document ; ainsi il est recommandé d'utiliser des champs Dublin Core (comme title, subject, description,
-        date, ...) pour définir les métadonnées de chaque document ;
-      - le [standard SKOS](https://fr.wikipedia.org/wiki/Simple_Knowledge_Organization_System) encodé en Yaml
+        date, ...) pour définir les métadonnées de chaque document
+        ([synthèse des principaux champs ici](?doc=dublincore)) ;
+      - le [standard SKOS](https://fr.wikipedia.org/wiki/Simple_Knowledge_Organization_System) ([résumé ici](?doc=skos))
+        encodé en Yaml
         est utilisé pour représenter des thésaurus comme le [thésaurus EuroVoc](?doc=eurovoc)
-        ou le [lexique topographique](?doc=topovoc) ;
+        ou le [lexique topographique](?doc=topovoc) de l'AFT ;
       - enfin le [standard Schema.org](https://fr.wikipedia.org/wiki/Schema.org) est utilisé pour structurer
         des bases de données, telles que par exemple des listes d'organismes en utilisant le
         [type Organization](https://schema.org/Organization).
@@ -44,42 +49,47 @@ doc:
   markdown: |
     ### Markdown
     Le [langage Markdown](https://fr.wikipedia.org/wiki/Markdown) est utilisé pour formatter des textes (titres, gras,
-    italique, liste de puces, liens URL, ...).
-    A titre d'exemple, chaque partie du présent document est formattée en Markdown.
+    italique, liste de puces, liens URL, ...) ;
+    son utilisation est [illustrée ici](?doc=markdown).
+    Les différentes parties du présent document constituent un autre exemple d'utilisation du Markdown.
     
   visualisateur: |
     ### Visualisateur
     Un visualisateur des documents en mode web permet de visualiser les documents et de naviguer entre eux.
     Il offre aussi une fonctionnalité limitée de modification des documents.  
     Un mode de visualisation par défaut est défini mais le visualisateur peut être étendu pour s'adapter aux
-    différentes structures de document. Par exemples, l'extension YamlSkos permet de naviguer facilemnt au sein
-    d'un thésaurus, et l'extension YamlData permet de visualiser le contenu d'une base de données.  
+    différentes structures de document. Par exemples:
+      
+      - l'extension YamlData permet de visualiser le contenu d'une base de données,
+      - l'extension YamlSkos permet de naviguer facilement au sein d'un thésaurus Skos,
+      - l'extension DataModel permet de naviguer facilement au sein d'un modèle de données.
+      
     Le visualisateur de l'espace public est accessible sous
     [http://georef.eu/yamldoc/?doc=index](http://georef.eu/yamldoc/?doc=index).  
-    Le code source est disponible sur: [Github](https://github.com/benoitdavidfr/yamldoc).
+    Son code source est disponible sur: [Github](https://github.com/benoitdavidfr/yamldoc).
     
   ypath: |
     ### Ypath
-    La fourniture d'une chaine de caractères particulière (appelé Ypath), permet de sélectionner
+    La fourniture d'une chaine de caractères particulière (appelée Ypath), permet de sélectionner
     une partie d'un document ou d'une base de données.
     Les exemples ci-dessous illustrent son utilisation:
       
-      - dans le présent document, la sélection du champ *yaml* s'effectue en entrant dans le champ de saisie
-        en dessous du menu la chaine `/doc/yaml`,
+      - dans le présent document, la sélection de la partie *yaml* du document s'effectue en entrant
+        dans le champ de saisie en dessous du menu la chaine `/doc/yaml`,
       - il est aussi possible d'afficher ce même champ en suivant
-        [l'url `?doc=yamldoc&ypath=/doc/yaml`](?doc=yamldoc&ypath=/doc/yaml),
+        l'url [`?doc=yamldoc&ypath=/doc/yaml`](?doc=yamldoc&ypath=/doc/yaml),
       - dans un thésaurus comme le [lexique topographique](?doc=topovoc),
         on peut référencer le micro-thésaurus `lexiquecadastre`
-        par [la chaine `/schemes/lexiquecadastre`](?doc=topovoc&ypath=/schemes/lexiquecadastre)
+        par la chaine [`/schemes/lexiquecadastre`](?doc=topovoc&ypath=/schemes/lexiquecadastre)
         ou le terme `matrice_cadastrale`
-        par [la chaine `/concepts/matrice_cadastrale`](?doc=topovoc&ypath=/concepts/matrice_cadastrale),
+        par la chaine [`/concepts/matrice_cadastrale`](?doc=topovoc&ypath=/concepts/matrice_cadastrale),
       - dans la table des départements :
         - la sélection de l'enregistrement ayant pour *name* `Guadeloupe` s'effectue
-          par la [chaine `/data/name=Guadeloupe`](?doc=geohisto/departements&ypath=/data/name=Guadeloupe)
+          par la chaine [`/data/name=Guadeloupe`](?doc=geohisto/departements&ypath=/data/name=Guadeloupe)
         - la sélection des enregistrements ayant pour *insee_code* `04` s'effectue
-          par la [chaine `/data/insee_code=04`](?doc=geohisto/departements&ypath=/data/insee_code=04)
+          par la chaine [`/data/insee_code=04`](?doc=geohisto/departements&ypath=/data/insee_code=04)
         - la projection sur les champs *insee_code*, *name* et *successors* s'effectue par la 
-          [chaine `/data/insee_code=04`](?doc=geohisto/departements&ypath=/data/insee_code,name,successors)
+          chaine [`/data/insee_code,name,successors`](?doc=geohisto/departements&ypath=/data/insee_code,name,successors)
 
   search: |
     ### Recherche plein texte
@@ -110,16 +120,18 @@ doc:
     on indiquant dans le champ key `eurovoc/concepts`.
     
   git: |
-    ### Organisation d'espaces documentaires partagés sous la forme d'archive Git
-    Les documents sont partitionnés en différents espaces documentaires.
-    Sur chacun certains utilisateurs ont accès en lecture et/ou en écrture.  
-    
-    Les documents peuvent être gérés simultanément sur un poste local au moyen d'un éditeur de texte et en mode web.
-    Le [logiciel Git](https://fr.wikipedia.org/wiki/Git) est utilisé pour assurer la synchronisation entre les
-    différentes copies.
+    ### Organisation d'espaces documentaires partagés chacun sous la forme d'une archive Git
+    Les documents sont partitionnés en différents espaces documentaires
+    avec pour chacun des accès en lecture et/ou en écriture pour certains utilisateurs.  
+    Chaque espace documentaire correspond à une [archive Git](https://fr.wikipedia.org/wiki/Git)
+    qui peut ainsi être partagée.
+    Outre l'utilisation en mode web,
+    les différents utilisateurs d'un espace peuvent ainsi modifier les documents sur leur poste local
+    au moyen d'un éditeur de texte.
+    Le logiciel Git est utilisé pour assurer la synchronisation entre les différentes copies. 
     
     Dans un premier temps, seuls 2 espaces sont définis: un espace public et un espace privé.  
-    L'archive Git de l'espace public est accessible à l'URL':
+    L'archive Git de l'espace public est accessible à l'URL:
     [https://github.com/benoitdavidfr/yamldocs.git](https://github.com/benoitdavidfr/yamldocs).  
     Le visualisateur de cet espace est accessible sous
     [http://georef.eu/yamldoc/?doc=index](http://georef.eu/yamldoc/?doc=index).  

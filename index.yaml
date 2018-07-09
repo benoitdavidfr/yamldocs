@@ -3,9 +3,19 @@ yamlClass: YamlCatalog
 contents:
   yamldoc:
     title: Présentation de YamlDoc
+  dublincore:
+    title: Eléments de MD du Dublin Core 
+  skos:
+    title: Vocabulaire SKOS de base en français
   eurovoc:
-    title: thésaurus EuroVoc
+    title: Thésaurus EuroVoc
   topovoc:
-    title: lexique topographique (extrait)
+    title: Lexique topographique (extrait)
   geohisto:
     title: référentiel géographique administratif historisé
+  inspire-metadata:
+    title: éléments de métadonnées Inspire, ISO et Dublin Core
+  inspire-mdcvoc:
+    title: Thèmes Inspire et vocabulaires contrôlés utilisés pour les métadonnées
+  inspire-datamodel:
+    title: Modèle de données Inspire déduit du règlement interopérabilité

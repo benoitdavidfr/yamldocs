@@ -1,0 +1,1583 @@
+title: Thèmes Inspire et vocabulaires contrôlés utilisés pour les métadonnées
+description: |
+  Liste des thèmes des annexes de la [directive Inspire](http://data.europa.eu/eli/dir/2007/2/oj)
+  listés dans l'ordre de la directive.  
+  Les noms courts sont ceux utilisés dans le [registre Inspire](http://inspire.ec.europa.eu/theme).
+  Le thème ac-mf fusionne les 2 thèmes officiels ac et mf.  
+  Les définitions sont issues de la directive. Les notes d'application (scopeNote) n'ont pas de valeur officielle.
+  
+  Ce document reprend aussi différents vocabulaires contrôlés définis dans le
+  [réglement Métadonnées](https://data.europa.eu/eli/reg/2008/1205/oj) :
+    
+    - les types de ressource,
+    - les catégories thématiques conformément à la norme EN ISO 19115 ainsi que la correspondance avec les thèmes,
+    - les codes définissant le niveau de conformité d'une ressource à une spécification,
+    - les types de service de données géographiques,
+    - la taxonomie des services géographiques de la norme EN ISO 19119,
+    - les différents rôles des parties par rapport aux ressources.
+    
+yamlClass: YamlSkos
+source:
+  - http://data.europa.eu/eli/dir/2007/2/oj
+  - https://data.europa.eu/eli/reg/2008/1205/oj
+  - http://inspire.ec.europa.eu/theme
+  - http://inspire.ec.europa.eu/metadata-codelist/ResourceType
+  - http://inspire.ec.europa.eu/metadata-codelist/TopicCategory
+  - http://inspire.ec.europa.eu/metadata-codelist/DegreeOfConformity
+  - http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType
+  - http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceCategory
+  - http://inspire.ec.europa.eu/metadata-codelist/ResponsiblePartyRole
+language: [fr, en]
+date: 20180703
+domainScheme:
+  prefLabel:
+    fr: Sommaire du vocabulaire
+  hasTopConcept:
+    - themes
+    - metadata-codelist
+domains:
+  themes:
+    prefLabel:
+      fr: Thèmes Inspire
+      en: Inspire Themes
+  metadata-codelist:
+    prefLabel:
+      fr: Vocabulaires contrôlés utilisés pour les métadonnées
+      en: Controlled vocabularies used for metadata
+schemes:
+  inspireThemesAnnexI:
+    prefLabel:
+      fr: Thèmes Inspire de l'annexe I
+      en: Inspire Themes of Annex I
+    domain: [ themes ]
+    sameAsPrefix: http://inspire.ec.europa.eu/theme/
+    options:
+      - nosort
+  inspireThemesAnnexII:
+    prefLabel:
+      fr: Thèmes Inspire de l'annexe II
+      en: Inspire Themes of Annex II
+    domain: [ themes ]
+    sameAsPrefix: http://inspire.ec.europa.eu/theme/
+    options:
+      - nosort
+  inspireThemesAnnexIII:
+    prefLabel:
+      fr: Thèmes Inspire de l'annexe III
+      en: Inspire Themes of Annex III
+    domain: [ themes ]
+    sameAsPrefix: http://inspire.ec.europa.eu/theme/
+    options:
+      - nosort
+  resourceTypes:
+    prefLabel:
+      fr: Types de ressource
+      en: Resource type
+    domain: [ metadata-codelist ]
+    sameAsPrefix: http://inspire.ec.europa.eu/metadata-codelist/ResourceType/
+    options:
+      - nosort
+  topicCategories:
+    prefLabel:
+      fr: Catégories thématiques conformément à la norme EN ISO 19115
+      en: Topic categories in accordance with EN ISO 19115
+    domain: [ metadata-codelist ]
+    sameAsPrefix: http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/
+    options:
+      - nosort
+  degreeOfConformity:
+    prefLabel:
+      fr: Niveau de conformité
+      en: Degree of conformity
+    domain: [ metadata-codelist ]
+    sameAsPrefix: http://inspire.ec.europa.eu/metadata-codelist/DegreeOfConformity/
+    options:
+      - nosort
+  sdsTypes:
+    prefLabel:
+      fr: Types de service de données géographiques
+      en: Spatial Data Service Type
+    domain: [ metadata-codelist ]
+    sameAsPrefix: http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/
+    options:
+      - nosort
+  sdsCategories:
+    prefLabel:
+      fr: Taxonomie des services géographiques de la norme EN ISO 19119
+      en: Geographic services taxonomy of EN ISO 19119
+    domain: [ metadata-codelist ]
+    sameAsPrefix: http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceCategory/
+    options:
+      - nosort
+  responsiblePartyRole:
+    prefLabel:
+      fr: Rôle de la partie responsable
+      en: Responsible party role
+    domain: [ metadata-codelist ]
+    sameAsPrefix: http://inspire.ec.europa.eu/metadata-codelist/ResponsiblePartyRole/
+    options:
+      - nosort
+concepts:
+  rs:
+    prefLabel:
+      fr: Référentiels de coordonnées
+      en: Coordinate reference systems
+    inScheme: [ inspireThemesAnnexI ]
+    topConceptOf: [ inspireThemesAnnexI ]
+    definition:
+      fr: Systèmes de référencement unique des informations géographiques dans l'espace sous forme d'une série de coordonnées (x, y, z) et/ou la latitude et la longitude et l'altitude, en se fondant sur un point géodésique horizontal et vertical.
+    scopeNote:
+      en: |
+        The theme establishes a structure for spatial referencing of features by coordinates. This topic shall link to appropriate standards for information technology and data where possible, and provide a framework for the development of sector-specific applications using geographic data.  
+        ISO 19111 describes the conceptual schema and defines the description for a minimum data to two cases for which 1-, 2- and 3- dimensional coordinates reference system information shall be given. The first case is given by a coordinate reference system to which a set of coordinates is related. The second case consists of a coordinate operation (coordinate transformation, coordinate conversion, concatenated coordinate operation) to change coordinate values from one coordinate reference system to another.  
+        There are no explicit accuracy numbers given in ISO 19111. We must consider that it has been developed for geographic information in general, but not for precise positioning. Spatial information may be referenced to the earth surface with an improving accuracy on the global scale for the future. Such high accuracy level may be required for some themes of the Directive, e.g., the trans-European railway transport network. Spatial referencing could no longer be considered as constant in time, if we reach the sub-centimetre level. We need additional parameters compared to ISO 19111 in that case, because that document considers changes in time of the coordinate reference only system through the date of realisation. This model is not suitable to describe continuous movements of the spatial reference. Kinematic models or so-called loading models are examples to incorporate such dynamics. A re-iteration of accuracy aspects may be needed, if specifications for Annex I and II are ready.  
+        The spatial referencing is usually referred to selected points of the earth surface. Such point are, e.g., given by geodetic markers, stations performing permanent satellite observations, levelling benchmarks, or tide gauges. As soon as the marker coordinates are given, they provide a direct access to the realisation of the coordinate reference system.
+  gg:
+    prefLabel:
+      fr: Systèmes de maillage géographique
+      en: Geographical grid systems
+    inScheme: [ inspireThemesAnnexI ]
+    topConceptOf: [ inspireThemesAnnexI ]
+    definition:
+      fr: Grille multi-résolution harmonisée avec un point d'origine commun et une localisation ainsi qu'une taille des cellules harmonisées.
+    scopeNote:
+      en: |
+        Geographical grids are an agreed, defined and harmonised grid net for Pan-Europe with standardised location and size of grid cells. Examples of cell sizes could be 10x10 m, 100x100 m, 1x1 km, 16x16 km. A good candidate for the INSPIRE-focused Pan-European grid has been proposed as a result of the Workshop on European Reference Grids.  
+        The grid - proposed as Pan_European standard - is based on the ETRS89 Lambert Azimuthal Equal Area coordinate reference system with the centre of the projection at the point N 52o, E 10o. The grid is defined as hierarchical one in metric coordinates in power of 10.  
+        The detail description of the proposed grid is available at the Proceedings of the Workshop on the European Reference Grids, EUR Report 21494 EN, 2005. The Proposal for a European Grid System is presented from page 39 to 46 of that document.  
+        Other grids could be also used, however they need a lot of harmonisation work, as well as a number of conversion tools. Some international organisations, like WMO, perform their operations, using their own and purpose-oriented grid construction.
+  gn:
+    prefLabel:
+      fr: Dénominations géographiques
+      en: Geographical names
+    inScheme: [ inspireThemesAnnexI ]
+    topConceptOf: [ inspireThemesAnnexI ]
+    definition:
+      fr:
+        - Noms de zones, de régions, de localités, de grandes villes, de banlieues, de villes moyennes ou d'implantations, ou tout autre élément géographique ou topographique d'intérêt public ou historique.
+    broader: [location]
+    scopeNote:
+      en:
+        - |
+          A geographical name is a proper noun applied to a natural, man-made or cultural feature on Earth.  
+          A feature can have different names in one or several languages and the names may be provided, together with appropriate information on the feature, in different products like maps and gazetteers as well as respective services.  
+          An endonym is a name for a geographical feature in an official or well-established language occurring in that area where the feature is situated. An exonym is a name used in a specific language for a geographical feature situated outside the area where that language is widely spoken, and differing in form from the respective endonym(s) in the area where the geographical feature is situated. (UNGEGN, 2007).  
+          In some cases names can be applied as attributes of appropriately modeled spatial objects. However, often the definition, classification, geometry and other attributes of these objects do not correspond with the respective named features. Besides, commonly named features such as elevations, islands, natural shoreline features and stretches of water bodies are seldom modeled as objects in spatial data sets.  
+          A geographical name serves as a means to identify a location. Gazetteers and gazetteer services associate the names with corresponding features – or locations – by means of co-ordinates, feature types and/or other necessary information. A multi-lingual gazetteer (service) shall most probably be established as a part of INSPIRE.
+  au:
+    prefLabel:
+      fr: Unités administratives
+      en: Administrative units
+    inScheme: [ inspireThemesAnnexI ]
+    topConceptOf: [ inspireThemesAnnexI ]
+    definition:
+      fr: Unités d'administration séparées par des limites administratives et délimitant les zones dans lesquelles les États membres détiennent et/ou exercent leurs compétences, aux fins de l'administration locale, régionale et nationale.
+    broader: [boundaries]
+    scopeNote:
+      en: |
+        Each national territory is divided into administrative units. The administrative units are separated by administrative boundaries. Administrative units and administrative boundaries form a partition of space. According to user requirements it will be distinguished between land and (coastal) water parts of administrative units. The INSPIRE theme 'Administrative units' refers to the division of areas where Member States have and/or exercise jurisdictional rights, for local, regional and national governance, i.e. units at the cadastral parcel level are excluded as well as territorial waters, which are in fact assigned to the INSPIRE themes 'Cadastral parcels', 'Hydrography' (Annex I) and/or 'Sea regions' (Annex III). It does not include related systems such as census districts, post office regions and other sector-specific regions, but it will contain a reference to national statistical units at local level (LAU) and to the Nomenclature of Territorial Units for Statistics (NUTS) established by Eurostat.
+  ad:
+    prefLabel:
+      fr: Adresses
+      en: Addresses
+    inScheme: [ inspireThemesAnnexI ]
+    topConceptOf: [ inspireThemesAnnexI ]
+    definition:
+      fr: Localisation des propriétés fondée sur les identifiants des adresses, habituellement le nom de la rue, le numéro de la maison et le code postal.
+    broader: [location]
+    scopeNote:
+      en: |
+        An address is an identification of the fixed location of a property. The full address is a hierarchy consisting of components such as geographic names, with an increasing level of detail, e.g.: town, then street name, then house number or name. It may also include a post code or other postal descriptors. The address may include a path of access but this depends on the function of the address.  
+        Addresses serve several purposes, these include the four uses described in the Dutch Address Registration catalogue:
+          
+          - (i) location (e.g. for visits or the delivery of mail),
+          - (ii) identification (e.g. in context of a building registration),
+          - (iii) jurisdiction (e.g. authority responsible for the property identified by the address),
+          - (iv) sorting and ordering (VROM 2006). There may be other uses identified in the INSPIRE user requirements survey, for example, to aid emergency response.
+          
+        A number of different object types can be related to property. The most commonly recognised types that have addresses are land parcels and buildings (including flats or apartments). However, other object types, such as water pumping stations, and agricultural buildings, are also types of property. Although they do not receive post they may need to have an address for other functions. This is true in both rural and urban areas. Some other property types that might have addresses include a sports ground, a foothold or a mooring place. Collectively, objects which can have addresses are referred to as addressable objects.  
+        The location of an address is most often defined so that it characterises the location of the related addressable object.  
+        Although all national or local address systems share similar concepts and general properties, differences exist in formal and informal standards, rules, schemas and data models within Europe. Differences also exist in the extent of the address system, for example, it may be simplified in rural areas. (From revised D2.3)
+  cp:
+    prefLabel:
+      fr: Parcelles cadastrales
+      en: Cadastral parcels
+    inScheme: [ inspireThemesAnnexI ]
+    topConceptOf: [ inspireThemesAnnexI ]
+    definition:
+      fr: Zones définies par les registres cadastraux ou équivalents.
+    broader: [planningCadastre]
+    scopeNote:
+      en: |
+        The INSPIRE Directive focuses on the geographical part of cadastral data. In the INSPIRE context, cadastral parcels will be mainly used as locators for geo-information in general, including environmental data.  
+        As much as possible, in the INSPIRE context, cadastral parcels should be forming a partition of national territory. Cadastral parcel should be considered as a single area of Earth surface, under homogeneous real property rights and unique ownership (adapted from UN ECE 2004 and WG-CPI, 2006).  Remark: By unique ownership is meant that the ownership is held by one or several owners for the whole parcel. By homogeneous property rights is meant that rights of ownership, leases and mortgages affect the whole parcel. This does not apply to specific rights as servitudes which may only affect part of the parcel.
+        
+        In the definition given by the INSPIRE directive, or equivalent refers to all public agencies and institutions other than the main traditional/nominal cadastre or land registry, that register parts of the Earth's surface such as special domains, urban cadastres, public lands, which spatially complement the registrations by the main cadastre or land registry.  
+        Cadastral parcels are considered in the INSPIRE scope if they are available as vector data.  
+        Rights and owners are out of the INSPIRE scope.  
+        Buildings, land use, addresses are considered in other INSPIRE themes.
+  tn:
+    prefLabel:
+      fr: Réseaux de transport
+      en: Transport networks
+    inScheme: [ inspireThemesAnnexI ]
+    topConceptOf: [ inspireThemesAnnexI ]
+    definition:
+      fr: Réseaux routier, ferroviaire, aérien et navigable ainsi que les infrastructures associées. Sont également incluses les correspondances entre les différents réseaux, ainsi que le réseau transeuropéen de transport tel que défini dans la décision no 1692/96/CE du Parlement européen et du Conseil du 23 juillet 1996 sur les orientations communautaires pour le développement du réseau transeuropéen de transport [1] et les révisions futures de cette décision.
+    broader: [transportation]
+    scopeNote:
+      en: |
+        The transport component should comprise an integrated transport network, and related features, that are seamless within each national border. In accordance with article 10.2 of the Directive, national transport networks may also be seamless at European level, i.e. connected at national borders. Transportation data includes topographic features related to transport by road, rail, water, and air. It is important that the features form networks where appropriate, and that links between different networks are established, i.e multi-modal nodes, especially at the local level, in order to satisfy the requirements for intelligent transport systems such as location based services (LBS) and telematics. The transport network should also support the referencing of transport flow to enable our navigation services.
+  hy:
+    prefLabel:
+      fr: Hydrographie
+      en: Hydrography
+    inScheme: [ inspireThemesAnnexI ]
+    topConceptOf: [ inspireThemesAnnexI ]
+    definition:
+      fr: Éléments hydrographiques, y compris les zones maritimes ainsi que toutes les autres masses d'eau et les éléments qui y sont liés, y compris les bassins et sous-bassins hydrographiques. Conformes, le cas échéant, aux définitions établies par la directive 2000/60/CE du Parlement européen et du Conseil du 23 octobre 2000 établissant un cadre pour une politique communautaire dans le domaine de l'eau [2] et sous forme de réseaux.
+    broader: [inlandWaters]
+    scopeNote:
+      en: |
+        The theme Hydrography is a basic reference component and, therefore, of interest for many users and uses.
+        
+        For mapping purposes (to provide a map background for orientation and to understand place relationships), it includes the representation of all main hydrographic elements – both natural and artificial. To fulfill reporting requirements of EC water-related directives it includes the river and channel network; surface water bodies within river basin districts are categorised as rivers, lakes, transitional waters or coastal waters, or as artificial surface water bodies or heavily modified surface water bodies. Furthermore, a topologically-sound river network is necessary for GIS-based spatial analysis and modeling.
+        
+        Geographically, the theme Hydrography covers all inland water and marine areas covered by river basin districts as defined by WFD.
+  ps:
+    prefLabel:
+      fr: Sites protégés
+      en: Protected sites
+    inScheme: [ inspireThemesAnnexI ]
+    topConceptOf: [ inspireThemesAnnexI ]
+    definition:
+      fr: Zone désignée ou gérée dans un cadre législatif international, communautaire ou national en vue d'atteindre des objectifs spécifiques de conservation.
+    broader: [environment]
+    scopeNote:
+      en: |
+        Area designated or managed within a framework of international, Community and Member States' legislation to achieve specific conservation objectives.  
+        According to IUCN and adopted for the INSPIRE context a protected site is: An area of land and/or sea especially dedicated to the protection and maintenance of biological diversity, and of natural and associated cultural resources, and managed through legal or other effective means.  
+        Protected sites may be located in terrestrial, aquatic and/or marine environments, and may be under either public or private ownership. They may include localities with protection targets defined by different sectors and based on different objectives, especially dedicated to the conservation of nature, the protection and maintenance of biological diversity and of natural and where appropriate associated cultural resources. The sites may receive protection due to more than one type of objectives, and may have a double or multifarious designation status. Protected sites differ from environmentally founded classifications of natural or cultural objects and also from area covering designations as included in CDDA, as localisation, boundary and area of protected sites are based on formal, legal or administrative agreements or decisions.  
+        Although all protected sites meet the general purposes contained in this definition, in practise the precise purposes for which protected sites are managed differ greatly. The main purposes of designation are specified in categories of CDDA (4.5.2 National designation type category) and according to the typology developed in the Standard Data Form for Natura2000 under the Habitat Directive, furthermore, categories of IUCN for Protected Sites and other international designation types have to be applied.
+        
+        A new classification system of protected sites with an overall set of categories under the INSPIRE directive, therefore, has to include Sites of Community Importance (SCI) under the Habitat directive and Special Protection Areas (SPA) under the Birds directive, as well as further designation types on a global level. This definition of protected sites does not exclude man-made objects or other kinds of cultural heritage sites – protected sites may therefore include where formal protection is given to buildings, archaeological sites of all pre-historic and historic times, including medieval sites/constructions or other cultural objects. This may also be applied to protected sites comprising specific geological, hydrogeological or geomorphological values.
+        
+        Protected sites in many cases have a formal delineation documentation in cadastral databases. However, delineation injunctions for protected sites are manifold and may just as often not follow cadastral boundaries (e.g. for reasons of generalisation in small scale maps for Natura2000). Being spatial objects under the INSPIRE directive, however, protected sites need to have distinct boundaries of their own, rather than being a mere specific category of some other spatial object type.
+        
+        Examples of legislation and policies regulating protected sites are Habitat directive (1992) (Directive 92/43/EEC), Birds directive (Directive 79/409/EEC), World Heritage, Ramsar Convention, Barcelona Convention, Helsinki Convention, OSPAR Convention, national law and other international sector policies.
+
+  el:
+    prefLabel:
+      fr: Altitude
+      en: Elevation
+    inScheme: [ inspireThemesAnnexII ]
+    topConceptOf: [ inspireThemesAnnexII ]
+    definition:
+      fr: Modèles numériques pour l'altitude des surfaces terrestres, glaciaires et océaniques. Comprend l'altitude terrestre, la bathymétrie et la ligne de rivage.
+    broader: [elevation]
+    scopeNote:
+      en: |
+        The Elevation of a terrain surface, whether land based or bathymetric in nature described the Earth's morphology. The Elevation data theme includes digital elevation models for land, ice and ocean surfaces both for terrestrial elevation and bathymetry, as well as shorelines.  
+        The main purpose of a Digital Elevation Model is to provide an elevation property with reference to a specified origin (vertical reference or datum). This property may be height (when the value is measured opposite to the gravity field of the Earth) or depth (when the value is measured in the direction of the gravity field). In line with existing technologies three spatial representation methods have been provided: grid, vector and triangulated irregular network (TIN). Regarding provision of data, the grid spatial representation type is mandatory for the description of land elevation, whereas the other ones are optional. Finally, either the grid or the vector spatial representation type is mandatory for the provision of data describing the bathymetry, whereas the other ones are optional.
+  lc:
+    prefLabel:
+      fr: Occupation des terres
+      en: Land cover
+    inScheme: [ inspireThemesAnnexII ]
+    topConceptOf: [ inspireThemesAnnexII ]
+    definition:
+      fr: Couverture physique et biologique de la surface terrestre, y compris les surfaces artificielles, les zones agricoles, les forêts, les zones (semi-)naturelles, les zones humides et les masses d'eau.
+    broader: [imageryBaseMapsEarthCover]
+    scopeNote:
+      en: |
+        Land cover data is a physical or biological description of the earth surface. In this way it is different from the land use data (Annex III, theme number 4), dedicated to the description of the use of the Earth surface.  
+        Land cover information has to be homogenous and comparable between different locations in Europe, based on the infrastructures for Land Cover information created by the Member States (if existing), and made available and maintained at the most appropriate level.  
+        A land cover data set consists of a collection of land cover units. These units may be points, polygons or raster cells (resulting in two core models, one for vector data and one for raster data). The land cover data set is also linked to a code list (e.g. the CORINE Land Cover code list). CORINE Land Cover as well as most regional and national land cover data sets, can be represented using one of the core models.  
+        Land cover information used in monitoring linked to EU agricultural policy (IACS), in carbon monitoring (LULUCF) and used in land and ecosystem accounting based on CORINE Land Cover (LEAC).
+  oi:
+    prefLabel:
+      fr: Ortho-imagerie
+      en: Orthoimagery
+    inScheme: [ inspireThemesAnnexII ]
+    topConceptOf: [ inspireThemesAnnexII ]
+    definition:
+      fr: Images géoréférencées de la surface terrestre, provenant de satellites ou de capteurs aéroportés.
+    broader: [imageryBaseMapsEarthCover]
+    scopeNote:
+      en: |
+        The Orthoimagery data theme includes orthorectified image data of the earth's surface, from either satellite or airborne sensors. An orthoimage is a raster image that has been geometrically corrected (orthorectified) to remove distortion caused by differences in elevation, sensor tilt and, optionally, by sensor optics. Data is orthorectified to achieve an accuracy commensurate with a given topographic map equivalent. The data theme includes orthorectified imagery from the radio, through the visible, to the ultraviolet region of the electromagnetic spectrum.
+  ge:
+    prefLabel:
+      fr: Géologie
+      en: Geology
+    inScheme: [ inspireThemesAnnexII ]
+    topConceptOf: [ inspireThemesAnnexII ]
+    definition:
+      fr: Géologie caractérisée en fonction de la composition et de la structure. Englobe le substratum rocheux, les aquifères et la géomorphologie.
+    broader: [geoscientificInformation]
+    scopeNote:
+      en: |
+        In the INSPIRE context the Geology data theme can be seen as a "reference data theme” as it provides information for several other INSPIRE data themes e.g. Mineral resources; Area Management, Restriction and Regulation Zones; Natural Risk Zones; Soil; Energy resources. In Geology there is a specific relationship with one of the most important natural resources, water, through groundwater bodies contained in aquifers. The theme also covers geomorphology that describes the Earth’s present-day surface, and the location of the geophysical campaigns and measurements that provide valuable information on the physical properties of rocks (like density, porosity, magnetic susceptibility, etc.) regardless of their organization as geologic units.  
+        The INSPIRE Geology Theme is split into the following sub-themes:
+          
+          - *Geology*: provides basic knowledge about the physical properties and composition of geologic materials (rocks and sediments), their structure and their age as depicted in geological maps, as well as landforms (geomorphological features). The model also covers boreholes - another important source of information for interpreting the subsurface geology.
+          - *Hydrogeology*: describes the flow, occurrence, and behaviour of water in the subsurface environment. The two basic elements are the rock system (including aquifers) and the groundwater system (including groundwater bodies). Man-made or natural hydrogeological objects/features (such as groundwater wells and natural springs) are also included.
+          - *Geophysics*: focuses on the availability and location of key geophysical features. It includes metadata on high rank gravity, magnetic and seismological stations that are part of international and national observation networks as well as metadata on 2D and 3D seismic measurements that are most often requested by third party users. It also provides collective metadata on gravity, magnetic  and airborne geophysical campaigns that cover large areas and provide basic geological information for scientific research and more detailed applied studies e.g. exploring earth resources (hydrocarbons, mineral deposits, ground water, geothermal energy...).
+  
+  su:
+    prefLabel:
+      fr: Unités statistiques
+      en: Statistical units
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Unités de diffusion ou d'utilisation d'autres informations statistiques.
+    broader: [boundaries]
+    scopeNote:
+      en: |
+        Statistical unit informs on the location of statistical data and information. The principle of this theme is to provide stable and identified representations of the statistical units – and statistical data refers to these objects through their identifier. Recommendations are provided on how to give stable identifiers to statistical unit and use these identifiers to attach statistical information on them. This is particularly important if the responsibility for geometry and statistical data are shared between different institutions e.g. mapping agency and statistical offices. Other INSPIRE data specifications such as Population Distribution use this referencing mechanism.
+  bu:
+    prefLabel:
+      fr: Bâtiments
+      en: Buildings
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Situation géographique des bâtiments.
+    broader: [structure]
+    scopeNote:
+      en: |
+        A building is a covered facility, usable for the protection of humans, animals, things or the production of economic goods. A building refers to any structure permanently constructed or erected on its site. Information on location of buildings may be supplied as points or with the actual basic form of the building. Usually buildings are part of cadastre. On the local level buildings are available within the large scale cadastral maps or cadastral data sets and are geometrically represented as surfaces.  
+        Most buildings can be identified (geocoded) by address (separate theme in INSPIRE).
+  so:
+    prefLabel:
+      fr: Sols
+      en: Soil
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Sols et sous-sol caractérisés selon leur profondeur, texture, structure et teneur en particules et en matières organiques, pierrosité, érosion, le cas échéant pente moyenne et capacité anticipée de stockage de l'eau.
+    broader: [geoscientificInformation]
+    scopeNote:
+      en: |
+        Soil represents the upper part of the earth’s crust, formed by mineral particles, organic matter, water, air and living organisms. It is the interface between rock, air and water which hosts most of the biosphere.   
+        INSPIRE Soil data theme comprises information on:
+          
+          - Soil inventories that provide one-off assessments of soil conditions and/or soil properties at certain locations and at a specific point in time, and allow soil monitoring, providing a series of assessments showing how soil conditions and/or properties change over time.
+          - Soil mapping that provides a spatial representation of the properties linked to the soils, including soil types; typically, soil maps are derived with the help of data available in soil inventories. Also other soil related information derived from soil properties, possibly in combination with non-soil data are within the scope.
+  lu:
+    prefLabel:
+      fr: Usage des sols
+      en: Land use
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Territoire caractérisé selon sa dimension fonctionnelle prévue ou son objet socioéconomique actuel et futur (par exemple, résidentiel, industriel, commercial, agricole, forestier, récréatif).
+    broader: [planningCadastre]
+    scopeNote:
+      en: |
+        Land Use theme is defined as the use and functions of a territory and it is description of land in terms of its socio-economic and ecological purpose. Land use theme is itself split in two different types:
+          
+          - The Existing Land Use which objectively depicts the use and functions of a territory as it has been and effectively still is in real life
+          - The Planned Land Use which corresponds to spatial plans, defined by spatial planning authorities, depicting the possible utilization of the land in the future.
+          
+        Two types of classification systems are supported by Land Use theme, the (obligatory) Hierarchical INSPIRE Land Use Classification System which is a multi-level, classification system that will apply to the existing and planned land use; the (optional) specific classification system in use in a member state.
+  hh:
+    prefLabel:
+      fr: Santé et sécurité des personnes
+      en: Human health and safety
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Répartition géographique des pathologies dominantes (allergies, cancers, maladies respiratoires, etc.) liées directement (pollution de l'air, produits chimiques, appauvrissement de la couche d'ozone, bruit, etc.) ou indirectement (alimentation, organismes génétiquement modifiés, etc.) à la qualité de l'environnement, et ensemble des informations relatif à l'effet de celle-ci sur la santé des hommes (marqueurs biologiques, déclin de la fertilité, épidémies) ou leur bien-être (fatigue, stress, etc.).
+    broader: [health]
+    scopeNote:
+      en: |
+        The INSPIRE Human Health and Safety (HH) theme describes the geographical distribution of dominance of pathologies, the effect on health or well-being of humans linked to the quality of the environment.  
+        Thematic components are human health data, biomarkers, health care/health services data, health determinant measurement data and events related to safety.  
+        Direct or indirect links between pathologies and the quality of the environment, the HH data model is able to accommodate all health data, while linkage of specific health issues and the environment is a matter of a user decision.
+  us:
+    prefLabel:
+      fr: Services d'utilité publique et services publics
+      en: Utility and governmental services
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Comprend les installations d'utilité publique, tels que les égouts ou les réseaux et installations liés à la gestion des déchets, à l'approvisionnement énergétique, à l'approvisionnement en eau, ainsi que les services administratifs et sociaux publics, tels que les administrations publiques, les sites de la protection civile, les écoles et les hôpitaux.
+    broader: [utilitiesCommunication]
+    scopeNote:
+      en: |
+        The theme Utility and Government Services provides basic information (e.g. the location, basic technical characteristics or involved parties) on a wide range of administrative and social services of public interest.  
+        The theme is split in the following subthemes:
+          
+          - *Utility Networks*: Node-link-node structured networks for collection, transmission and distribution, including electricity, oil/gas and chemicals, sewer,  thermal, water or (not mandatory) telecommunications networks;
+          - *Administrative and social governmental service*s: Local and governmental services and social infrastructures, selected with respect to the INSPIRE scope (focused on public & environmental aspects), represented as points of interest”;
+          - *Environmental management facilities*: Generic facility descriptions for waste management sites, water treatment plants and regulated or illegal areas for dumping.
+  ef:
+    prefLabel:
+      fr: Installations de suivi environnemental
+      en: Environmental monitoring facilities
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: La situation et le fonctionnement des installations de suivi environnemental comprennent l'observation et la mesure des émissions, de l'état du milieu environnemental et d'autres paramètres de l'écosystème (biodiversité, conditions écologiques de la végétation, etc.) par les autorités publiques ou pour leur compte.
+    broader: [structure]
+    scopeNote:
+      en: |
+        The theme scope includes two main aspects; the first is the environmental monitoring facility as a spatial object, the second is the data obtained through observations and measurements taken at this facility, encoded using the ISO 19156 standard. This information is complemented by further administrative information pertaining to the facility and activities undertaken there such as networks the facility is part of or programmes the facility provides data to. The Environmental Monitoring Facilities theme is cross-cutting to environmental domains; thus, the generic model allows the necessary freedom to bring in thematic specific needs while keeping a shared data structure.
+  pf:
+    prefLabel:
+      fr: Lieux de production et sites industriels
+      en: Production and industrial facilities
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Sites de production industrielle, y compris les installations couvertes par la directive 96/61/CE du Conseil du 24 septembre 1996 relative à la prévention et à la réduction intégrées de la pollution [1] et les installations de captage d'eau, d'extraction minière et de stockage.
+    broader: [structure]
+    scopeNote:
+      en: |
+        The theme Production and Industrial Facilities comprises information about industrial facilities and activities of production (focusing on extraction, transformation or storage of resources, including energy production) and the main related environmental issues.  
+        The description of production and industrial facilities, e.g. types or activities, in INSPIRE is based on the Integrated pollution prevention and control Directive (2008/1/EC), as recently amended by Industrial Emissions Directive (2010/75/EU), the European pollution and transfer register regulation (166/2006/EC), the SEVESO Directive, its amendments (96/82/EC-A), the NACE regulation (1893/2006/EC) and other relevant legislation and industrial standards.
+  af:
+    prefLabel:
+      fr: Installations agricoles et aquacoles
+      en: Agricultural and aquaculture facilities
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Équipement et installations de production agricoles (y compris les systèmes d'irrigation, les serres et les étables).
+    broader: [farming]
+    scopeNote:
+      en: |
+        The theme Agricultural and Aquaculture Facilities concerns the description of all the physical instruments and constructions with permanent or semi-permanent emplacement (inland or outland) that are related to agricultural and aquaculture activities.  
+        Agriculture refers to the set of process and activities consisting in cultivating soils, producing crops and rearing animals; it includes harvesting, milking, breeding animals, keeping animals for farming purposes, and, according to Council Regulation 73/2009, maintaining the land in good agricultural and environmental condition. Agricultural facilities include facilities ranging from entire holdings to installations such as irrigation systems, drainage systems,  greenhouses, stables, barns, silos and tanks.  
+        Aquaculture covers activities and techniques related to the production, breeding and treatment of fish, molluscs, seaweed and other kinds of aquatic resources (vegetables or animal). Aquaculture facilities only include permanent or semi-permanent systems  or constructions  for breeding, treatment and raising of organisms. Aquaculture facilities may exist both in marine waters, inland water environments and as terrestrial production systems.  
+        Catching, hunting or collection of natural resources (vegetables or animal) on their natural environment is not considered as an agricultural activity, unless it is supported by relevant physical instruments and constructions. Similarly, forestry is not considered as an agricultural activity, with the exception of tree nurseries.
+  pd:
+    prefLabel:
+      fr: Répartition de la population — démographie
+      en: Population distribution - demography
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Répartition géographique des personnes, avec les caractéristiques de population et les niveaux d'activité, regroupées par grille, région, unité administrative ou autre unité analytique.
+    broader: [society]
+    scopeNote:
+      en: |
+        Population Distribution deals with datasets of statistical information describing how some phenomenon regarding human population is spread within some part of the 2D space. The theme has no direct spatial features, only contains attributes allowing to describe population phenomenon related to statistical units. Population data is linked to spatial object (statistical units) through their common identifier, e.g. NUTS codes.
+  am:
+    prefLabel:
+      fr: Zones de gestion, de restriction ou de réglementation et unités de déclaration
+      en: Area management/restriction/regulation zones and reporting units
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Zones gérées, réglementées ou utilisées pour les rapports aux niveaux international, européen, national, régional et local. Sont inclus les décharges, les zones restreintes aux alentours des sources d'eau potable, les zones vulnérables aux nitrates, les chenaux réglementés en mer ou les eaux intérieures importantes, les zones destinées à la décharge de déchets, les zones soumises à limitation du bruit, les zones faisant l'objet de permis d'exploration et d'extraction minière, les districts hydrographiques, les unités correspondantes utilisées pour les rapports et les zones de gestion du littoral.
+    broader: [planningCadastre]
+    scopeNote:
+      en: |
+        The theme "Area management/restriction/regulation zones and reporting units” is thematically broad and encompasses any zones that are established in accordance with a legislative requirement related to an environmental policy or a policy or activity that may have an impact on the environment at any level of administration (international, European, national and sub-national).  
+        The zones are typically established to deliver specific objectives related to any environmental media, for example, air, water, soil and biota (plants and animals). This includes, but is not limited to, objectives established to protect and improve environmental quality (includes reducing pollution levels), protect and conserve environmental and natural resources, protect and control risk from natural and man-made hazards, protect plant, animal and human health or control development.  
+        The theme also addresses reporting units, which are defined as "spatial objects that provide the spatial reference for any non-spatial data exchanged under environmental reporting obligations.” The reported non-spatial data must include a property that contains a reference to the spatial object. This is typically an identifier, code or name and is a join key between the spatial and non-spatial objects enabling the data to be combined. This allows the non-spatial data to be visualised as a map or enable spatial analysis.  
+        Different INSPIRE spatial object types can perform the role of "Reporting Unit”. For example, surface waters (rivers, lakes and canals from the Annex I theme Hydrography) are "Reporting Units” for indicators of chemical and ecological status. Thus, Reporting units cannot be modelled as a distinct spatial object type and no specific reporting units data model is defined. Instead, the theme defines obligations on how to make reporting units spatial data available under INSPIRE.
+  nz:
+    prefLabel:
+      fr: Zones à risque naturel
+      en: Natural risk zones
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Zones sensibles caractérisées en fonction des risques naturels (tous les phénomènes atmosphériques, hydrologiques, sismiques, volcaniques, ainsi que les feux de friche qui peuvent, en raison de leur situation, de leur gravité et de leur fréquence, nuire gravement à la société), tels qu'inondations, glissements et affaissements de terrain, avalanches, incendies de forêts, tremblements de terre et éruptions volcaniques.
+    broader: [geoscientificInformation]
+    scopeNote:
+      en: |
+        Natural risk zones are zones where natural hazards areas intersect with highly populated areas and/or areas of particular environmental/ cultural/ economic value.  
+        To define or pre-estimate a Risk following parameter are necessary: potential hazard, probability of its occurrence and vulnerability of the exposed populations and of the environmental, cultural and economic assets in a specific zone.  
+        Natural hazards can be classified by origin namely: geological, hydro-meteorological or biological. Hazardous events can vary in magnitude or intensity, frequency, duration, area of extent, speed of onset, spatial dispersion and temporal spacing. Specific examples for different types of hazard were identified: Floods (calculation of flood impact, reporting and flood hazard/risk mapping), Risk Management Scenario (an example from a national perspective), Landslides (hazard mapping, vulnerability assessment and risk assessment), Forest fires (danger, vulnerability and risk mapping) and Earthquake insurance.  
+        Following four key spatial object types that are modelled, Hazard area, Observed event, Risk zone and Exposed element.
+  ac-mf:
+    prefLabel:
+      fr: Conditions atmosphériques et caractéristiques géographiques météorologiques
+      en: Atmospheric Conditions and meteorological geographical features
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      en:
+        - Physical conditions in the atmosphere. Includes spatial data based on measurements, on models or on a combination thereof and includes measurement locations. Weather conditions and their measurements; precipitation, temperature, evapotranspiration, wind speed and direction.
+    broader: [climatologyMeteorologyAtmosphere]
+  ac:
+    prefLabel:
+      fr: Conditions atmosphériques
+      en: Atmospheric conditions
+    inScheme: [ inspireThemesAnnexIII ]
+    broader: [ ac-mf ]
+    definition:
+      fr: Conditions physiques dans l'atmosphère. Comprend les données géographiques fondées sur des mesures, sur des modèles ou sur une combinaison des deux, ainsi que les lieux de mesure.
+    scopeNote:
+      en: |
+        The INSPIRE themes "Atmospheric Conditions” and "Meteorological Features” are covered together in one Data specification. These themes provide basic concepts and data models for environmental protection related activities requiring information on atmospheric conditions like weather, climate and air quality.
+  mf:
+    prefLabel:
+      fr: Caractéristiques géographiques météorologiques
+      en: Meteorological geographical features
+    inScheme: [ inspireThemesAnnexIII ]
+    broader: [ ac-mf ]
+    definition:
+      fr: "Conditions météorologiques et leur mesure: précipitations, température, évapotranspiration, vitesse et direction du vent."
+    scopeNote:
+      en: |
+        Historical versions of the theme definition are found in the INSPIRE IMS and Scoping papers:
+          
+          - Weather conditions and their measurements; precipitation, temperature, evapotranspiration, wind. (INSPIRE IMS, 2003)
+          - Weather conditions and their measurements; precipitation, temperature, evapotranspiration, wind speed and direction (INSPIRE Scoping, 2004) In order to place into context the range of spatial data types relevant to this theme, we consider the typical 'forecast cycle' of a national meteorological service (NMS).  
+          
+        This will:
+          
+          - (a) collect meteorological observations over (say) a six-hour interval,
+          - (b) 'assimilate' these into a numerical model to produce an estimate of the current atmospheric state,
+          - (c) use this analysis as the initial condition for a model forecast run forward in time (typically out to several days).
+          
+        Four broad types of data are involved at different phases of the cycle:
+            
+          1. Observations: around 11000 surface stations globally make up the Global Observing System, reporting such atmospheric parameters as weather, cloud, temperature, humidity, wind, visibility, pressure. A subset of these stations make 'climate observations' which include daily temperature minimum and maximum, sunshine hours, rainfall amount etc. In addition, around 1000 'upper-air' stations make radiosonde (free-rising balloon) observations of pressure, wind, temperature and humidity. Voluntary observing ship and drifting buoys make marine observations including sea surface temperature, and wave height and period. Several hundred thousand reports per day of pressure, winds and temperature are made from aircraft observations.
+          2. Synoptic analysis: Gridded wind, temperature, humidity, geopotential height, precipitation, etc. Also, 'sensible weather' elements (fronts, cloud, thunderstorm activity etc) will be analysed.
+          3. Forecasts: Numerous forecast products are produced operationally. A conventional weather forecast contains similar elements to the synoptic analysis.
+          4. Climatological data: Long-term time-series' of data (either observations or analyses) may be analysed statistically to create climatologies (e.g. 20th century decadal averages, seasonal/monthly minimum or maximum, etc.). There is considerable overlap and ambiguity between the themes 'Atmospheric conditions' and 'Meteorological geographical features' – e.g. weather conditions ('Meteorological geographical features') including precipitation, temperature, wind etc. are precisely components of the atmospheric state ('Atmospheric conditions').
+            
+        Numerous suggestions have been made by stakeholders to resolve this ambiguity. They include:
+            
+          - merging the themes (it is impossible to amend the Directive, but it would be sensible to consider the themes jointly during data specification development)
+          - distinguishing 'field-based data' (Atmospheric conditions) from 'point-based data' (Meteorological geographical features)
+          - distinguishing 'time-series & near-real-time data' (Atmospheric conditions) from 'gridded climate data' (Meteorological geographical features)
+          - distinguishing 'climate data' (Atmospheric conditions) from 'observations and forecasts' (Meteorological geographical features).
+            
+        To resolve the ambiguity between themes, we consider the multi-level approach to data needs assessment applied in the INSPIRE 'Environmental Thematic User Needs Position Paper' (2002). Data at local or regional level are often needed for management and policy implementation, while lower resolution ('smaller scale') data are often required for reporting and policy development/evaluation. The latter includes summaries and integrated data products.  
+        The scope of 'Meteorological geographical features' thematic data should be limited to local-level high-resolution (weather-related) data, typically observations.
+          
+        This includes synoptic observations from stations making up the WMO RA VI (European) Regional Basic Synoptic Network. The WMO operates a dedicated network (the Global Telecommunications System) to distribute observations and data products. Data exchange is governed by WMO Resolution 40, which provides for free and unrestricted exchange of observational data 'essential' for forecast activities. 'Additional' nominated data and products may be provided with charge, while all data must be supplied free of charge (excluding costs of reproduction and delivery) for research and education. The ECOMET Catalogue (http://www.meteo.oma.be/ECOMET/Categories of data and products.htm) provides a 'one-stop shop' index of both 'essential' and chargeable data and product offerings from European NMSs. A similar catalogue is available for the European Centre for Medium-range Weather Forecasting (ECMWF) (http://www.ecmwf.int/products/catalogue/).
+  of:
+    prefLabel:
+      fr: Caractéristiques géographiques océanographiques
+      en: Oceanographic geographical features
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Conditions physiques des océans (courants, salinité, hauteur des vagues, etc.).
+    broader: [oceans]
+    scopeNote:
+      en: |
+        An Ocean Geographical Feature (OF) represents the (physical or chemical) properties of a Sea Region. This type of information is essentially a coverage describing the ocean and could be presented as a set of point data, gridded data, but also as vertical profiles through ocean depths and trajectories along the ocean surface. The Ocean Geographical Features theme employs the ISO 19156 Observations and Measurements standard for consistent encoding of measured, modelled or simulated data.
+  sr:
+    prefLabel:
+      fr: Régions maritimes
+      en: Sea regions
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Conditions physiques des mers et des masses d'eau salée divisées en régions et en sous-régions à caractéristiques communes.
+    broader: [oceans]
+    scopeNote:
+      en: |
+        A Sea Region (SR) is a 2D geometry of an area or line with common (physical or chemical) characteristics that is covered by an ocean, sea or similar salt water body. The model allows the concept of named seas, as well subdivisions and aggregation of seas according to physical or chemical properties. The Sea Regions theme provides mechanisms to describe both the sea bed and sea surface as well as inter-tidal areas and the shoreline.
+  br:
+    prefLabel:
+      fr: Régions biogéographiques
+      en: Bio-geographical regions
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Zones présentant des conditions écologiques relativement homogènes avec des caractéristiques communes.
+    broader: [biota]
+    scopeNote:
+      en: |
+        Bio-geographical Regions describe areas of relatively homogeneous ecological conditions with common characteristics. The INSPIRE theme Bio-geographical Regions has a strong linkage to other "biodiversity themes”.  
+        The Habitats Directive (EEC/92/43) is the most important guiding document regarding to Bio-geographical Regions, which contains a list of 'bio-geographical regions’ (Article 1.iii). These bio-geographical regions are the basis of a series of seminars evaluating the Natura 2000 network and for reporting on the conservation status of the habitats and species protected by the Directive.  
+        However, the theme was specified in a more generic way to allow for other concepts of BR (e.g. European map of natural vegetation, environmental stratification) to be shared via INSPIRE.
+  hb:
+    prefLabel:
+      fr: Habitats et biotopes
+      en: Habitats and biotopes
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Zones géographiques ayant des caractéristiques écologiques particulières — conditions, processus, structures et fonctions (de maintien de la vie) — favorables aux organismes qui y vivent. Sont incluses les zones terrestres et aquatiques qui se distinguent par leurs caractéristiques géographiques, abiotiques ou biotiques, qu'elles soient naturelles ou semi-naturelles.
+    broader: [biota]
+    scopeNote:
+      en: |
+        Habitats and Biotopes is a biodiversity theme that deals with habitats and biotopes as areas and their distinct boundaries.  Spatial data model provides characterisation of geographical areas being functional for living organisms: biotopes being the spatial environment of a biotic community; habitats being the spatial environment of specific species. To achieve harmonization on local, national and international level, habitat types should refer to the the European Nature Information System habitat classification in the first place, but could also use Habitats Directive 92/43/EEC and Marine Strategy Framework Directive 2008/56/EC as a reference.
+  sd:
+    prefLabel:
+      fr: Répartition des espèces
+      en: Species distribution
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Répartition géographique de l'occurrence des espèces animales et végétales regroupées par grille, région, unité administrative ou autre unité analytique.
+    broader: [biota]
+    scopeNote:
+      en: |
+        Species Distribution is a biodiversity theme focused on geographical distribution of occurrence of biological organisms aggregated by grid, region, or any administrative or analytical unit.  Distributions may be represented in a wide range of formats, such as points, grid cells at different scales or polygons of specifically defined areas. To achieve harmonization EU-Nomen is the preferred reference list for species (taxon) names to be used, the second choice is European Nature Information System and finally Natura2000.
+  er:
+    prefLabel:
+      fr: Sources d'énergie
+      en: Energy resources
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Sources d'énergie comprenant les hydrocarbures, l'énergie hydraulique, la bioénergie, l'énergie solaire, l'énergie éolienne, etc., le cas échéant accompagnées d'informations relatives à la profondeur/la hauteur de la source.
+    broader: [economy]
+    scopeNote:
+      en: |
+        Energy Resources in INSPRE covers historic, current and future energy resources and the entire lifecycle of energy resources, irrespective of its viability in terms of economic, social and technological aspects. It takes into account resources that are depleted due to exploitation in the past and resources currently not viable but may become so in the future.  Information about location and the potential of energy resources have a significant impact on the environment. This impact can have both positive and negative implications, therefore appropriate knowledge about the extent, distribution and volumes of the resources is of great value.  
+        There is a main distinction between fossil fuels and renewable energy resources. The concept of energy resources provides focus to the resource aspect and the extent/distribution of the resources. Energy use, e.g. petrol consumption, is not covered by this theme.  Fossil fuel resources include oil accumulation, natural gas accumulations, coal, lignite or peat deposits and Uranium ore deposits.  
+        Renewable energy resources include Hydropower in which water resources mapped according to energy potential.   
+        Bio-energy resources contains forest resources, cereals or agricultural residues which can be used for energy purposes, Wind energy - estimated by wind measurement together with topographical information. Geothermal energy the natural heat flow is of high interest as a renewable and clean energy source.
+  mr:
+    prefLabel:
+      fr: Ressources minérales
+      en: Mineral resources
+    inScheme: [ inspireThemesAnnexIII ]
+    topConceptOf: [ inspireThemesAnnexIII ]
+    definition:
+      fr: Ressources minérales comprenant les minerais métalliques, les minéraux industriels, etc., le cas échéant accompagnées d'informations relatives à la profondeur/la hauteur de la ressource.
+    broader: [economy]
+    scopeNote:
+      en: |
+        The Mineral resources data theme refers to the description of natural concentrations of very diverse mineral resources of potential or proven economic interest. The important attributes such as the nature, genesis, location, extent, mining and distribution of resources reflect the two main identified categories of potential use. These are:
+          
+          - Management of resources and their exploitation and exploration activities: provision of information on inventoried mineral resources as well as on the quantitative assessment of undiscovered mineral resources and the modelling of mineral deposits.
+          - Environmental impact assessments: mapping and measuring environmental geological parameters for assessing geological material to be used for construction and rehabilitation at the mine site.
+          
+        The Mineral resources data model is organised around two major categories of information: description and location of mines and mining activities; the description and location of "earth resources” including their classification, estimates of amount, as well as a description of the main market commodities. The energy resources such as coal, oil and gas are excluded in this theme, as they are found in theme energy resources.
+
+# resourceTypes
+  series:
+    prefLabel:
+      fr: Ensemble de séries de données géographiques
+      en: Spatial data set series
+    inScheme: [ resourceTypes ]
+    topConceptOf: [ resourceTypes ]
+  dataset:
+    prefLabel:
+      fr: Série de données géographiques
+      en: Spatial data set
+    inScheme: [ resourceTypes ]
+    topConceptOf: [ resourceTypes ]
+  services:
+    prefLabel:
+      fr: Service de données géographiques
+      en: Spatial data services
+    inScheme: [ resourceTypes ]
+    topConceptOf: [ resourceTypes ]
+
+# topicCategories
+  farming:
+    prefLabel:
+      fr: Agriculture
+      en: Farming
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+    definition:
+      fr: Élevage et/ou culture de plantes.
+  biota:
+    prefLabel:
+      fr: Biote
+      en: Biota
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  boundaries:
+    prefLabel:
+      fr: Limites
+      en: Boundaries
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  climatologyMeteorologyAtmosphere:
+    prefLabel:
+      fr: Climatologie / Météorologie / Atmosphère
+      en: Climatology / Meteorology / Atmosphere
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  economy:
+    prefLabel:
+      fr: Economie
+      en: Economy
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  elevation:
+    prefLabel:
+      fr: Altitude
+      en: Elevation
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  environment:
+    prefLabel:
+      fr: Environnement
+      en: Environment
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  geoscientificInformation:
+    prefLabel:
+      fr: Informations géoscientifiques
+      en: Geoscientific Information
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  health:
+    prefLabel:
+      fr: Santé
+      en: Health
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  imageryBaseMapsEarthCover:
+    prefLabel:
+      fr: Imagerie/Cartes de base/Occupation des terres
+      en: Imagery / Base Maps / Earth Cover
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  intelligenceMilitary:
+    prefLabel:
+      fr: Renseignement/Secteur militaire
+      en: Intelligence / Military
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  inlandWaters:
+    prefLabel:
+      fr: Eaux intérieures
+      en: Inland Waters
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  location:
+    prefLabel:
+      fr: Localisation
+      en: Location
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  oceans:
+    prefLabel:
+      fr: Océans
+      en: Oceans
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  planningCadastre:
+    prefLabel:
+      fr: Planification/Cadastre
+      en: Planning / Cadastre
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  society:
+    prefLabel:
+      fr: Société
+      en: Society
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  structure:
+    prefLabel:
+      fr: Structure
+      en: Structure
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  transportation:
+    prefLabel:
+      fr: Transport
+      en: Transportation
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+  utilitiesCommunication:
+    prefLabel:
+      fr: Services d'utilité publique/Communication
+      en: Utilities / Communication
+    inScheme: [ topicCategories ]
+    topConceptOf: [ topicCategories ]
+
+# degreeOfConformity
+  conformant:
+    prefLabel:
+      fr: Conforme
+      en: Conformant
+    inScheme: [ degreeOfConformity ]
+    topConceptOf: [ degreeOfConformity ]
+    definition:
+      fr: La ressource est totalement conforme à la spécification indiquée.
+      en: The resource is fully conformant with the cited specification.
+  notConformant:
+    prefLabel:
+      fr: Non conforme
+      en: Not Conformant
+    inScheme: [ degreeOfConformity ]
+    topConceptOf: [ degreeOfConformity ]
+    definition:
+      fr: La ressource n’est pas conforme à la spécification indiquée.
+      en: The resource does not conform to the cited specification.
+  notEvaluated:
+    prefLabel:
+      fr: Non évaluée
+      en: Not evaluated
+    inScheme: [ degreeOfConformity ]
+    topConceptOf: [ degreeOfConformity ]
+    definition:
+      fr: La conformité de la ressource n’a pas été évaluée.
+      en: Conformance has not been evaluated.
+
+# sdsTypes
+  discovery:
+    prefLabel:
+      fr: Service de recherche
+      en: Discovery Service
+    inScheme: [ sdsTypes ]
+    topConceptOf: [ sdsTypes ]
+    definition:
+      fr: Services permettant de rechercher des séries et services de données géographiques sur la base du contenu des métadonnées correspondantes et d’afficher le contenu des métadonnées.
+      en: Services making it possible to search for spatial data sets and services on the basis of the content of the corresponding metadata and to display the content of the metadata.
+  view:
+    prefLabel:
+      fr: Service de consultation
+      en: View Service
+    inScheme: [ sdsTypes ]
+    topConceptOf: [ sdsTypes ]
+    definition:
+      fr: Service permettant au moins de visualiser, de naviguer, de zoomer en avant et en arrière, de déplacer à l’écran, ou de superposer des séries de données géographiques qui peuvent être consultées et d’afficher les légendes ainsi que tout contenu pertinent de métadonnées.
+      en: Service that makes it possible, as a minimum, to display, navigate, zoom in and out, pan or overlay viewable spatial data sets and to display legend information and any relevant content of metadata.
+  download:
+    prefLabel:
+      fr: Service de téléchargement
+      en: Download Service
+    inScheme: [ sdsTypes ]
+    topConceptOf: [ sdsTypes ]
+    definition:
+      fr: Service permettant de télécharger des copies de séries de données géographiques, ou de parties de ces séries, et lorsque cela est réalisable, d’y avoir accès directement.
+      en: Service that enables copies of spatial data sets, or parts of such sets, to be downloaded and, where practicable, accessed directly.
+  transformation:
+    prefLabel:
+      fr: Service de transformation
+      en: Transformation Service
+    inScheme: [ sdsTypes ]
+    topConceptOf: [ sdsTypes ]
+    definition:
+      fr: Service permettant de transformer des séries de données géographiques en vue d’assurer l’interopérabilité.
+      en: Service that enables spatial data sets to be transformed with a view to achieving interoperability.
+  invoke:
+    prefLabel:
+      fr: Service d’appel de services de données géographiques
+      en: Invoke Spatial Data Service
+    inScheme: [ sdsTypes ]
+    topConceptOf: [ sdsTypes ]
+    definition:
+      fr: Service permettant de définir à la fois les données d’entrée et de sortie demandées par le service de données géographiques et un processus ou une chaîne de services combinant plusieurs services. Il permet aussi de définir une interface externe du service internet pour le processus ou la chaîne de services.
+      en: Service that allows defining both the data inputs and data outputs expected by the spatial service and a workflow or service chain combining multiple services. It also allows defining the external web service interface of the workflow or service chain.
+  other:
+    prefLabel:
+      fr: Autre service
+      en: Other Service
+    inScheme: [ sdsTypes ]
+    topConceptOf: [ sdsTypes ]
+      
+# sdsCategories
+  humanInteractionService:
+    prefLabel:
+      fr: Services géographiques avec interaction humaine
+      en: Geographic human interaction services
+    inScheme: [ sdsCategories ]
+    topConceptOf: [ sdsCategories ]
+  humanCatalogueViewer:
+    prefLabel:
+      fr: Visualiseur de catalogue
+      en: Catalogue viewer
+    inScheme: [ sdsCategories ]
+    broader: [ humanInteractionService ]
+    definition:
+      fr: Service client permettant l’interaction de l’utilisateur avec un catalogue afin de localiser, parcourir et gérer des métadonnées concernant des données ou des services géographiques.
+  humanGeographicViewer:
+    prefLabel:
+      fr: Service de visualisation géographique
+      en: Geographic viewer
+    inScheme: [ sdsCategories ]
+    broader: [ humanInteractionService ]
+    definition:
+      fr: Service client permettant à l’utilisateur de visualiser une ou plusieurs compilations d’éléments ou couvertures.
+  humanGeographicSpreadsheetViewer:
+    prefLabel:
+      fr: Service de visualisation de feuilles de calcul géographiques
+      en: Geographic spreadsheet viewer
+    inScheme: [ sdsCategories ]
+    broader: [ humanInteractionService ]
+    definition:
+      fr: Service client permettant l’interaction de l’utilisateur avec plusieurs objets de données; l’utilisateur peut également demander des calculs analogues à ceux d’une feuille de calcul arithmétique, mais étendus à des données géographiques.
+  humanServiceEditor:
+    prefLabel:
+      fr: Éditeur de services
+      en: Service editor
+    inScheme: [ sdsCategories ]
+    broader: [ humanInteractionService ]
+    definition:
+      fr: Service client permettant à l’utilisateur de contrôler les services de traitement géographique.
+  humanChainDefinitionEditor:
+    prefLabel:
+      fr: Éditeur pour la définition de chaînes
+      en: Chain definition editor
+    inScheme: [ sdsCategories ]
+    broader: [ humanInteractionService ]
+    definition:
+      fr: Service permettant l’interaction de l’utilisateur avec un service de définition de chaînes.
+  humanWorkflowEnactmentManager:
+    prefLabel:
+      fr: Gestionnaire de contrôle de processus
+      en: Workflow enactment manager
+    inScheme: [ sdsCategories ]
+    broader: [ humanInteractionService ]
+    definition:
+      fr: Service permettant l’interaction de l’utilisateur avec un service de contrôle de processus.
+  humanGeographicFeatureEditor:
+    prefLabel:
+      fr: Éditeur d'éléments géographiques
+      en: Geographic feature editor
+    inScheme: [ sdsCategories ]
+    broader: [ humanInteractionService ]
+    definition:
+      fr: Visualiseur géographique permettant l’interaction de l’utilisateur avec les données relatives aux éléments géographiques.
+  humanGeographicSymbolEditor:
+    prefLabel:
+      fr: Éditeur de symboles géographiques
+      en: Geographic symbol editor
+    inScheme: [ sdsCategories ]
+    broader: [ humanInteractionService ]
+    definition:
+      fr: Service client permettant à un utilisateur humain de sélectionner et de gérer des bibliothèques de symboles.
+  humanFeatureGeneralizationEditor:
+    prefLabel:
+      fr: Éditeur de généralisation d’éléments
+      en: Feature generalisation editor
+    inScheme: [ sdsCategories ]
+    broader: [ humanInteractionService ]
+    definition:
+      fr: Service client permettant à l’utilisateur de modifier les caractéristiques cartographiques d’un élément ou d’une compilation d’éléments en simplifiant leur visualisation, tout en conservant les éléments essentiels, ce qui correspond à l’équivalent spatial de la simplification.
+  humanGeographicDataStructureViewer:
+    prefLabel:
+      fr: Visualiseur de la structure des données géographiques
+      en: Geographic data-structure viewer
+    inScheme: [ sdsCategories ]
+    broader: [ humanInteractionService ]
+    definition:
+      fr: Service client permettant à l’utilisateur d’accéder à une partie de série de données pour en voir la structure interne.
+  infoManagementService:
+    prefLabel:
+      fr: Services de gestion des modèles/informations géographiques
+      en: Geographic model/information management service
+    inScheme: [ sdsCategories ]
+    topConceptOf: [ sdsCategories ]
+  infoFeatureAccessService:
+    prefLabel:
+      fr: Service d'accès aux éléments
+      en: Feature access service
+    inScheme: [ sdsCategories ]
+    broader: [ infoManagementService ]
+    definition:
+      fr: Service permettant au client d’accéder à un magasin d’éléments et de le gérer.
+  infoMapAccessService:
+    prefLabel:
+      fr: Service d'accès aux cartes
+      en: Map access service
+    inScheme: [ sdsCategories ]
+    broader: [ infoManagementService ]
+    definition:
+      fr: Service permettant au client d’accéder à des graphiques géographiques, c’est-à-dire à des représentations de données géographiques.
+  infoCoverageAccessService:
+    prefLabel:
+      fr: Service d’accès aux couvertures
+      en: Coverage access service
+    inScheme: [ sdsCategories ]
+    broader: [ infoManagementService ]
+    definition:
+      fr: Service permettant au client d’accéder à un magasin de couvertures et de le gérer.
+  infoSensorDescriptionService:
+    prefLabel:
+      fr: Service de description des capteurs
+      en: Sensor description service 
+    inScheme: [ sdsCategories ]
+    broader: [ infoManagementService ]
+    definition:
+      fr: Service fournissant la description des capteurs de couvertures à des fins de géotraitement. La description comprend notamment la position et l’orientation des capteurs ainsi que leurs caractéristiques géométriques, dynamiques et radiométriques.
+  infoProductAccessService:
+    prefLabel:
+      fr: Service d'accès aux produits
+      en: Product access service
+    inScheme: [ sdsCategories ]
+    broader: [ infoManagementService ]
+    definition:
+      fr: Service permettant d’accéder à un magasin de produits géographiques et de le gérer.
+  infoFeatureTypeService:
+    prefLabel:
+      fr: Service de types d'éléments
+      en: Feature type service
+    inScheme: [ sdsCategories ]
+    broader: [ infoManagementService ]
+    definition:
+      fr: Service permettant au client d’accéder à un magasin de définitions de types d’éléments et de le gérer.
+  infoCatalogueService:
+    prefLabel:
+      fr: Service de catalogue
+      en: Catalogue service
+    inScheme: [ sdsCategories ]
+    broader: [ infoManagementService ]
+    definition:
+      fr: Service permettant de rechercher des métadonnées dans un magasin de métadonnées sur les ressources d’information, et de le gérer.
+  infoRegistryService:
+    prefLabel:
+      fr: Service de registre
+      en: Registry Service
+    inScheme: [ sdsCategories ]
+    broader: [ infoManagementService ]
+    definition:
+      fr: Service permettant d’accéder à un magasin de métadonnées sur les catégories de ressources d’information.
+  infoGazetteerService:
+    prefLabel:
+      fr: Service toponymique
+      en: Gazetteer service
+    inScheme: [ sdsCategories ]
+    broader: [ infoManagementService ]
+    definition:
+      fr: Service permettant d’accéder à un répertoire d’occurrences d’une ou plusieurs catégories de phénomènes du monde réel contenant des informations ayant trait à la position.
+  infoOrderHandlingService:
+    prefLabel:
+      fr: Service de gestion des commandes
+      en: Order handling service
+    inScheme: [ sdsCategories ]
+    broader: [ infoManagementService ]
+    definition:
+      fr: Service permettant aux clients de commander des produits auprès d’un fournisseur.
+  infoStandingOrderService:
+    prefLabel:
+      fr: Service de commande en attente 
+      en: Standing order service
+    inScheme: [ sdsCategories ]
+    broader: [ infoManagementService ]
+    definition:
+      fr: Service de gestion des commandes permettant à l’utilisateur de demander qu’un produit couvrant une zone géographique déterminée soit diffusé lorsqu’il devient disponible.
+  taskManagementService:
+    prefLabel:
+      fr: Services de gestion du processus/des tâches géographiques
+      en: Geographic workflow/task management services
+    inScheme: [ sdsCategories ]
+    topConceptOf: [ sdsCategories ]
+  chainDefinitionService:
+    prefLabel:
+      fr: Service de définition de chaîne
+      en: Chain definition service
+    inScheme: [ sdsCategories ]
+    broader: [ taskManagementService ]
+    definition:
+      fr: Service permettant de définir une chaîne et de la faire exécuter par le service de contrôle de processus.
+  workflowEnactmentService:
+    prefLabel:
+      fr: Service de contrôle de processus
+      en: Workflow enactment service
+    inScheme: [ sdsCategories ]
+    broader: [ taskManagementService ]
+    definition:
+      fr: Le service de contrôle de processus interprète une chaîne et contrôle l’exécution des services et le séquençage des activités.
+  subscriptionService:
+    prefLabel:
+      fr: Service d’abonnement
+      en: Subscription service
+    inScheme: [ sdsCategories ]
+    broader: [ taskManagementService ]
+    definition:
+      fr: Service permettant aux clients de s’abonner afin d’être informés des événements.
+  spatialProcessingService:
+    prefLabel:
+      fr: Services de traitement géographique — aspects spatiaux
+      en: Geographic processing services – spatial
+    inScheme: [ sdsCategories ]
+    topConceptOf: [ sdsCategories ]
+  spatialCoordinateConversionService:
+    prefLabel:
+      fr: Service de conversion des coordonnées
+      en: Coordinate conversion service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service permettant de modifier les coordonnées d’un système de coordonnées en coordonnées d’un autre système fondé sur le même datum géodésique.
+  spatialCoordinateTransformationService:
+    prefLabel:
+      fr: Service de transformation des coordonnées
+      en: Coordinate transformation service 
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service permettant de modifier les coordonnées d’un système de référence fondé sur un datum géodésique en coordonnées d’un système de référence fondé sur un autre datum.
+  spatialCoverageVectorConversionService:
+    prefLabel:
+      fr: Service de conversion couverture/vecteur
+      en: Coverage/vector conversion service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service permettant de modifier la représentation spatiale pour passer d’un schéma de couverture à un schéma vectoriel, ou vice versa.
+  spatialImageCoordinateConversionService:
+    prefLabel:
+      fr: Service de conversion des coordonnées des images
+      en: Image coordinate conversion service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service de transformation ou de conversion des coordonnées permettant de modifier le système de référence des coordonnées pour une image.
+  spatialRectificationService:
+    prefLabel:
+      fr: Service de rectification
+      en: Rectification service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service permettant de transformer une image en une projection parallèle perpendiculaire, et donc à une échelle constante.
+  spatialOrthorectificationService:
+    prefLabel:
+      fr: Service d’orthorectification
+      en: Orthorectification service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service de rectification qui élimine l’inclinaison et le décalage de l’image dû au relief du terrain.
+  spatialSensorGeometryModelAdjustmentService:
+    prefLabel:
+      fr: Service d’ajustement des modèles géométriques des capteurs
+      en: Sensor geometry model adjustment service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service permettant d’ajuster les modèles géométriques des capteurs pour améliorer la concordance de l’image avec d’autres images et/ou positions au sol connues.
+  spatialImageGeometryModelConversionService:
+    prefLabel:
+      fr: Service de conversion des modèles géométriques des images 
+      en: Image geometry model conversion service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service permettant de convertir les modèles géométriques des capteurs en un modèle géométrique différent, mais équivalent.
+  spatialSubsettingService:
+    prefLabel:
+      fr: Service de définition de sous-ensembles
+      en: Subsetting service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service permettant d’extraire des données d’un ensemble spatial continu, sur la base soit de la position géographique, soit des coordonnées de la grille.
+  spatialSamplingService:
+    prefLabel:
+      fr: Service d’échantillonnage
+      en: Sampling service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service permettant d’extraire des données au moyen d’un système d’échantillonnage cohérent, sur la base soit de la position géographique, soit des coordonnées de la grille.
+  spatialTilingChangeService:
+    prefLabel:
+      fr: Service de modification du dallage
+      en: Tiling change service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service permettant de modifier le dallage des données géographiques.
+  spatialDimensionMeasurementService:
+    prefLabel:
+      fr: Service de mesure des dimensions
+      en: Dimension measurement service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service qui calcule les dimensions des objets visibles sur une image ou sur d’autres données géographiques.
+  spatialFeatureManipulationService:
+    prefLabel:
+      fr: Services de manipulation des éléments géographiques 
+      en: Feature manipulation service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Ces services permettent de caler un élément sur un autre, sur une image, ou sur une autre série de données ou de coordonnées, de corriger les décalages relatifs, les différences de rotation, les différences d’échelle et les différences de perspective, de vérifier que tous les éléments figurant dans la compilation d’éléments sont topologiquement cohérents au regard des règles de topologie de la compilation d’éléments, et de recenser et/ou corriger les éventuelles incohérences décelées.
+  spatialFeatureMatchingService:
+    prefLabel:
+      fr: Service d’appariement d’éléments
+      en: Feature matching service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service qui détermine quels éléments et parties d’éléments provenant de diverses sources de données représentent la même entité du monde réel, par exemple, appariement des contours et conflation limitée.
+  spatialFeatureGeneralizationService:
+    prefLabel:
+      fr: Service de généralisation d’éléments
+      en: Feature generalisation service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service qui réduit la variation spatiale dans une compilation d’éléments afin de renforcer l’efficacité de la communication en remédiant aux effets indésirables de la réduction de données.
+  spatialRouteDeterminationService:
+    prefLabel:
+      fr: Service de détermination d’itinéraire
+      en: Route determination service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service qui, sur la base des paramètres d’entrée et des propriétés contenus dans la compilation d’éléments, détermine le trajet optimal entre deux points donnés.
+  spatialPositioningService:
+    prefLabel:
+      fr: Service de positionnement
+      en: Positioning service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Service fourni par un appareil de géopositionnement, permettant d’utiliser, d’obtenir et d’interpréter sans équivoque les informations concernant la position, ainsi que de déterminer si les résultats répondent aux exigences de l’utilisation.
+  spatialProximityAnalysisService:
+    prefLabel:
+      fr: Service d’analyse de proximité
+      en: Proximity analysis service
+    inScheme: [ sdsCategories ]
+    broader: [ spatialProcessingService ]
+    definition:
+      fr: Ce service trouve, pour une position ou un élément géographique donné, tous les éléments ayant une série d’attributs spécifique qui sont situés à une distance définie par l’utilisateur par rapport à la position ou à l’élément.
+  thematicProcessingService:
+    prefLabel:
+      fr: Services de traitement géographique — aspects thématiques
+      en: Geographic processing services – thematic
+    inScheme: [ sdsCategories ]
+    topConceptOf: [ sdsCategories ]
+  thematicGoparameterCalculationService:
+    prefLabel:
+      fr: Service de calcul des géoparamètres
+      en: Geoparameter calculation service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Service qui dérive des résultats quantitatifs, axés sur les applications, qui ne peuvent pas être obtenus à partir des seules données brutes.
+  thematicClassificationService:
+    prefLabel:
+      fr: Service de classification thématique
+      en: Thematic classification service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Service qui classe des zones de données géographiques sur la base des attributs thématiques.
+  thematicFeatureGeneralizationService:
+    prefLabel:
+      fr: Service de généralisation d’éléments
+      en: Feature generalisation service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Service qui généralise les types d’éléments contenus dans une compilation d’éléments afin de renforcer l’efficacité de la communication en remédiant aux effets indésirables de la réduction de données.
+  thematicSubsettingService:
+    prefLabel:
+      fr: Service de définition de sous-ensembles
+      en: Subsetting service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Service permettant d’extraire des données sur la base des paramètres d’entrée.
+  thematicSpatialCountingService:
+    prefLabel:
+      fr: Service de comptage géographique
+      en: Spatial counting service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Service permettant de compter les éléments géographiques.
+  thematicChangeDetectionService:
+    prefLabel:
+      fr: Service de détection des changements
+      en: Change detection service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Service permettant de déceler les différences entre deux séries de données qui représentent la même zone géographique à des moments différents.
+  thematicGeographicInformationExtractionService:
+    prefLabel:
+      fr: Services d’extraction d’informations géographiques
+      en: Geographic information extraction service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Services permettant l’extraction d’informations sur les éléments et le terrain à partir d’images de télédétection et d’images scannées.
+  thematicImageProcessingService:
+    prefLabel:
+      fr: Service de traitement d’images
+      en: Image processing service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Service permettant de modifier les valeurs des attributs thématiques d’une image au moyen d’une fonction mathématique.
+  thematicReducedResolutionGenerationService:
+    prefLabel:
+      fr: Service de réduction de la résolution
+      en: Reduced resolution generation service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Service permettant de réduire la résolution d’une image.
+  thematicImageManipulationService:
+    prefLabel:
+      fr: Services de manipulation d’images
+      en: Image Manipulation Service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: "Services permettant de manipuler les valeurs des données dans les images: modification des valeurs de couleur et de contraste, application de différents filtres, manipulation de la résolution de l’image, réduction du bruit, réduction des stries, corrections radiométriques, atténuation atmosphérique, changement d’illumination de la scène, etc."
+  thematicImageUnderstandingService:
+    prefLabel:
+      fr: Service de compréhension d’images
+      en: Image understanding service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: zzServices permettant la détection automatisée des changements d’images, la différenciation des images rectifiées, l’analyse et l’affichage de l’importance des différences, et la différenciation par zone et par modèle.z
+  thematicImageSynthesisService:
+    prefLabel:
+      fr: Service de synthèse d’images
+      en: Image synthesis service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Service permettant de créer ou de transformer des images au moyen de modèles spatiaux informatisés, de transformations de perspective, et de manipulations de caractéristiques de l’image en vue d’améliorer la visibilité et la résolution et/ou de réduire les effets de la couverture nuageuse ou de la brume.
+  thematicMultibandImageManipulationService:
+    prefLabel:
+      fr: Manipulation d’images multibandes
+      en: Multiband image manipulation
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Services permettant de modifier une image en utilisant les différentes bandes spectrales de l’image.
+  thematicObjectDetectionService:
+    prefLabel:
+      fr: Service de détection d’objets
+      en: Object detection service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Service permettant de détecter les objets du monde réel dans une image.
+  thematicGeoparsingService:
+    prefLabel:
+      fr: Service d’analyse géosémantique
+      en: Geoparsing service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Service permettant de rechercher dans les documents textuels les références à des lieux, comme les toponymes, les adresses, les codes postaux, etc., dans la perspective d’un service de géocodage.
+  thematicGeocodingService:
+    prefLabel:
+      fr: Service de géocodage
+      en: Geocoding service
+    inScheme: [ sdsCategories ]
+    broader: [ thematicProcessingService ]
+    definition:
+      fr: Service permettant, dans les textes, de compléter les références à des lieux en indiquant les coordonnées géographiques (ou une autre référence spatiale).
+  temporelProcessingService:
+    prefLabel:
+      fr: Services de traitement géographique — aspects temporels
+      en: Geographic processing services – temporal
+    inScheme: [ sdsCategories ]
+    topConceptOf: [ sdsCategories ]
+  temporalReferenceSystemTransformationService:
+    prefLabel:
+      fr: Service de transformation du système de référence temporel
+      en: Temporal reference system transformation service
+    inScheme: [ sdsCategories ]
+    broader: [ temporelProcessingService ]
+    definition:
+      fr: Service permettant de modifier les valeurs des occurrences temporelles d’un système de référence temporelle à un autre système de référence temporelle.
+  temporalSubsettingService:
+    prefLabel:
+      fr: Service de définition de sous-ensembles
+      en: Subsetting service
+    inScheme: [ sdsCategories ]
+    broader: [ temporelProcessingService ]
+    definition:
+      fr: Service permettant d’extraire des données dans un intervalle continu sur la base de valeurs de position temporelle.
+  temporalSamplingService:
+    prefLabel:
+      fr: Service d’échantillonnage
+      en: Sampling service
+    inScheme: [ sdsCategories ]
+    broader: [ temporelProcessingService ]
+    definition:
+      fr: Service permettant d’extraire des données au moyen d’un système d’échantillonnage cohérent sur la base des valeurs de position temporelle.
+  temporalProximityAnalysisService:
+    prefLabel:
+      fr: Service d’analyse de proximité
+      en: Temporal proximity analysis service
+    inScheme: [ sdsCategories ]
+    broader: [ temporelProcessingService ]
+    definition:
+      fr: Ce service trouve, pour un intervalle temporel ou un événement donné, tous les objets ayant une série d’attributs spécifique qui sont situés dans un intervalle défini par l’utilisateur par rapport à l’intervalle ou à l’élément.
+  metadataProcessingService:
+    prefLabel:
+      fr: Services de traitement géographique — métadonnées
+      en: Geographic processing services – metadata
+    inScheme: [ sdsCategories ]
+    topConceptOf: [ sdsCategories ]
+  metadataStatisticalCalculationService:
+    prefLabel:
+      fr: Service de calcul statistique
+      en: Statistical calculation service
+    inScheme: [ sdsCategories ]
+    broader: [ metadataProcessingService ]
+    definition:
+      fr: Service permettant de calculer les statistiques d’un ensemble de données.
+  metadataGeographicAnnotationService:
+    prefLabel:
+      fr: Service d’annotation géographique
+      en: Geographic annotation service
+    inScheme: [ sdsCategories ]
+    broader: [ metadataProcessingService ]
+    definition:
+      fr: Service permettant d’ajouter des informations complémentaires à une image ou un élément dans une compilation d’éléments.
+  comService:
+    prefLabel:
+      fr: Services de communication géographique
+      en: Geographic communication services
+    inScheme: [ sdsCategories ]
+    topConceptOf: [ sdsCategories ]
+  comEncodingService:
+    prefLabel:
+      fr: Service d’encodage
+      en: Encoding service
+    inScheme: [ sdsCategories ]
+    broader: [ comService ]
+    definition:
+      fr: Service permettant la mise en œuvre d’une règle d’encodage et servant d’interface pour la fonctionnalité d’encodage et de décodage.
+  comTransferService:
+    prefLabel:
+      fr: Service de transfert
+      en: Transfer service
+    inScheme: [ sdsCategories ]
+    broader: [ comService ]
+    definition:
+      fr: Service permettant la mise en œuvre d’un ou plusieurs protocoles de transfert, ce qui permet le transfert de données entre des systèmes d’information distribués via des moyens de communication hors ligne ou en ligne.
+  comGeographicCompressionService:
+    prefLabel:
+      fr: Service de compression géographique
+      en: Geographic compression service
+    inScheme: [ sdsCategories ]
+    broader: [ comService ]
+    definition:
+      fr: Service permettant de convertir les parties spatiales d’une compilation d’éléments pour les faire passer de la forme non compressée à la forme compressée, et vice versa.
+  comGeographicFormatConversionService:
+    prefLabel:
+      fr: Service de conversion de format géographique
+      en: Geographic format conversion service
+    inScheme: [ sdsCategories ]
+    broader: [ comService ]
+    definition:
+      fr: Service permettant de passer d’un format de données géographiques à un autre.
+  comMessagingService:
+    prefLabel:
+      fr: Service de messagerie
+      en: Messaging service
+    inScheme: [ sdsCategories ]
+    broader: [ comService ]
+    definition:
+      fr: Service permettant simultanément à plusieurs utilisateurs de visualiser et de commenter des compilations d’éléments et d’en demander des révisions.
+  comRemoteFileAndExecutableManagement:
+    prefLabel:
+      fr: Gestion des fichiers éloignés et des fichiers exécutables
+      en: Remote file and executable management
+    inScheme: [ sdsCategories ]
+    broader: [ comService ]
+    definition:
+      fr: Service permettant d’accéder à un stockage distant des éléments géographiques comme s’il s’agissait de ressources locales.
+
+# responsiblePartyRole
+  resourceProvider:
+    prefLabel:
+      fr: Fournisseur de la ressource
+      en: Resource Provider
+    inScheme: [ responsiblePartyRole ]
+    topConceptOf: [ responsiblePartyRole ]
+    definition:
+      fr: Partie qui fournit la ressource.
+      en: Party that supplies the resource.
+  custodian:
+    prefLabel:
+      fr: Gestionnaire
+      en: Custodian
+    inScheme: [ responsiblePartyRole ]
+    topConceptOf: [ responsiblePartyRole ]
+    definition:
+      fr: Partie qui accepte d’assumer la responsabilité des données et d’assurer une maintenance appropriée de la ressource.
+      en: Party that accepts accountability and responsibility for the data and ensures appropriate care and maintenance of the resource.
+  owner:
+    prefLabel:
+      fr: Propriétaire
+      en: Owner
+    inScheme: [ responsiblePartyRole ]
+    topConceptOf: [ responsiblePartyRole ]
+    definition:
+      fr: Partie à laquelle appartient la ressource.
+      en: Party that owns the resource.
+  user:
+    prefLabel:
+      fr: Utilisateur
+      en: User
+    inScheme: [ responsiblePartyRole ]
+    topConceptOf: [ responsiblePartyRole ]
+    definition:
+      fr: Partie qui utilise la ressource.
+      en: Party who uses the resource.
+  distributor:
+    prefLabel:
+      fr: Distributeur
+      en: Distributor
+    inScheme: [ responsiblePartyRole ]
+    topConceptOf: [ responsiblePartyRole ]
+    definition:
+      fr: Partie qui distribue la ressource.
+      en: Party who distributes the resource.
+  originator:
+    prefLabel:
+      fr: Commanditaire
+      en: Originator
+    inScheme: [ responsiblePartyRole ]
+    topConceptOf: [ responsiblePartyRole ]
+    definition:
+      fr: Partie qui a créé la ressource.
+      en: Party who created the resource.
+  pointOfContact:
+    prefLabel:
+      fr: Point de contact
+      en: Point of Contact
+    inScheme: [ responsiblePartyRole ]
+    topConceptOf: [ responsiblePartyRole ]
+    definition:
+      fr: Partie qu’il est possible de contacter pour s’informer sur la ressource ou en faire l’acquisition.
+      en: Party who can be contacted for acquiring knowledge about or acquisition of the resource.
+  principalInvestigator:
+    prefLabel:
+      fr: Maître d’œuvre
+      en: Principal Investigator
+    inScheme: [ responsiblePartyRole ]
+    topConceptOf: [ responsiblePartyRole ]
+    definition:
+      fr: Principale partie chargée de recueillir des informations et de mener les recherches.
+      en: Key party responsible for gathering information and conducting research.
+  processor:
+    prefLabel:
+      fr: Intégrateur
+      en: Processor
+    inScheme: [ responsiblePartyRole ]
+    topConceptOf: [ responsiblePartyRole ]
+    definition:
+      fr: Partie qui a traité les données de manière telle que la ressource a été modifiée.
+      en: Party who has processed the data in a manner such that the resource has been modified.
+  publisher:
+    prefLabel:
+      fr: Éditeur
+      en: Publisher
+    inScheme: [ responsiblePartyRole ]
+    topConceptOf: [ responsiblePartyRole ]
+    definition:
+      fr: Partie qui a publié la ressource.
+      en: Party who published the resource.
+  author:
+    prefLabel:
+      fr: Auteur
+      en: Author
+    inScheme: [ responsiblePartyRole ]
+    topConceptOf: [ responsiblePartyRole ]
+    definition:
+      fr: Partie qui est l’auteur de la ressource.
+      en: Party who authored the resource.
+xx:

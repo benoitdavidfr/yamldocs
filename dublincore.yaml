@@ -1,0 +1,579 @@
+title: éléments de MD du Dublin Core
+yamlClass: YamlData
+description: |
+  La table dcmes liste les 15 éléments de métadonnées d'origine, appelé "Dublin Core Metadata Element Set (DCMES)" ;
+  des raffinements intéressants y sont listés.  
+  La table extension liste des éléments supplémentaires mentionnés par la BNF.  
+  La table vocabularyEncodingSchemes liste des vocabulaires définis par DublinCore.  
+  La table syntaxEncodingSchemes liste des syntaxes de codage définis par DublinCore.  
+publisher: https://github.com/benoitdavidfr
+created: 2018-06-05
+modified: 2018-06-17
+source:
+  - https://fr.wikipedia.org/wiki/Dublin_Core
+  - http://www.dublincore.org/documents/dces/
+  - http://dublincore.org/documents/2000/07/11/dcmes-qualifiers/
+  - http://www.dublincore.org/documents/usageguide/elements/
+  - http://www.bnf.fr/fr/professionnels/formats_catalogage/a.f_dublin_core.html
+  - http://www.yoyodesign.org/doc/dcmi/dcmi-terms/index.html
+language: [fra, eng]
+relation:
+rights: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+tables:
+  dcmes:
+    title: liste des 15 éléments de métadonnées d'origine, appelé "Dublin Core Metadata Element Set (DCMES)" + raffinements de ces éléments
+    elementURI:
+      - chaque élément d'origine est identifié par un URI de la forme http://purl.org/dc/elements/1.1/{name}
+      - chaque raffinement est identifié par un URI de la forme http://purl.org/dc/terms/{name}
+    yamlSchema:
+      KEYS:
+        ROOT:
+          data:
+            - name // identifiant de l'élément
+          data/label:
+            - language // langue de l'étiquette
+          data/definition:
+            - language // langue de la définition
+          data/comment:
+            - language // langue du commentaire
+          data/refinements:
+            - name // identifiant de l'élément de raffinement
+          data/refinements/label:
+            - language // langue de l'étiquette de l'élément de raffinement
+          data/refinements/definition:
+            - language // langue de la définition de l'élément de raffinement
+      ROOT:
+        data:
+          KEY: # identifiant de l'élément
+            label:
+              KEY: STRING // étiquette dans la langue définie par la clé
+            definition?:
+              KEY: STRING // définition dans la langue définie par la clé
+            comment?:
+              KEY: STRING // commentaire dans la langue définie par la clé
+            refinements?: # raffinements
+              KEY: # identifiant de l'élément
+                label:
+                  KEY: STRING // étiquette du raffinement dans la langue définie par la clé
+                definition?:
+                  KEY: STRING // définition dans la langue définie par la clé
+    data:
+      title:
+        label:
+          fr: Titre
+          en: Title
+        definition:
+          fr: Titre principal du document
+        refinements:
+          alternative:
+            label:
+              fr: Titre alternatif
+              en: Alternative
+      creator:
+        label:
+          fr: Créateur
+          en: Creator
+        definition:
+          fr: Nom de la personne, de l'organisation ou du service à l'origine de la rédaction du document
+      subject:
+        label:
+          fr: Sujet
+          en: Subject
+        comment:
+          fr: Le sujet sera typiquement représenté à l'aide de mots-clés, de phrases-clés ou de codes de classification. La pratique exemplaire recommandée est d'employer un vocabulaire contrôlé. Pour décrire la nature spatiale ou temporelle de la ressource, utilisez l'élément coverage.
+      description:
+        label:
+          fr: Description
+          en: Description
+        definition:
+          fr: Une explication de la ressource.
+        comment:
+          fr: Résumé, table des matières, ou texte libre.
+        refinements:
+          tableOfContents:
+            label:
+              fr: Table des matières
+              en: Table Of Contents
+            definition:
+              fr: Une liste de sous-unités de la ressource.
+          abstract:
+            label:
+              fr: Résumé
+              en: Abstract
+      publisher:
+        label:
+          fr: Éditeur
+          en: Publisher
+        definition:
+          fr: Une entité responsable de la mise à disposition de la ressource.
+      contributor:
+        label:
+          fr: Collaborateur
+          en: Contributor
+        definition:
+          fr: |
+            Nom d'une personne, d'une organisation ou d'un service qui contribue ou a contribué à l'élaboration du document.  
+            Chaque contributeur fait l'objet d'un élément Contributor séparé
+      date:
+        label:
+          fr: Date
+          en: Date
+        definition:
+          fr: Date d'un événement dans le cycle de vie du document
+        refinements:
+          created:
+            label:
+              fr: Date de création
+              en: Created
+          valid:
+            label:
+              fr: Date de validité
+              en: Valid
+            definition:
+              fr: La date (souvent un intervalle) de validité d'une ressource.
+          available:
+            label:
+              fr: Date de disponibilité
+              en: Available
+            definition:
+              fr: La date (souvent une période) à laquelle la ressource a été disponible ou le deviendra.
+          issued:
+            label:
+              fr: Date de parution
+              en: Issued
+            definition:
+              fr: La date de parution formelle (par exemple, la publication) de la ressource.
+          modified:
+            label:
+              fr: Date de modification
+              en: Modified
+      type:
+        label:
+          fr: Type de ressource
+          en: Type
+        comment:
+          fr: |
+            La pratique exemplaire recommandée est d'employer un vocabulaire contrôlé tel que le vocabulaire de types DCMI [DCMITYPE]. Pour décrire le format de fichier, le support physique ou la dimension de la ressource, utilisez l'élément format.
+          en: |
+            Recommended best practice is to use a controlled vocabulary such as the DCMI Type Vocabulary [DCMITYPE].  
+            To describe the file format, physical medium, or dimensions of the resource, use the Format element.
+      format:
+        label:
+          fr: Format
+          en: Format
+        definition:
+          fr: Le format de fichier, le support physique ou les dimensions de la ressource.
+        comment:
+          fr: Comme exemples de dimensions, la taille et la durée. La pratique exemplaire recommandée est d'employer un vocabulaire contrôlé tel que la liste des types de média Internet [MIME].
+        refinements:
+          extent:
+            label:
+              fr: Étendue
+              en: Extent
+            definition:
+              fr: La taille ou la durée de la ressource.
+              en: The size or duration of the resource.
+          medium:
+            label:
+              fr: Support
+              en: Medium
+            definition:
+              fr: La matière ou le support physique de la ressource.
+      identifier:
+        label:
+          fr: Identifiant de la ressource
+          en: Identifier
+        definition:
+          fr: Une référence univoque vers la ressource dans un contexte donné.
+        comment:
+          fr: >
+            Identificateur non ambigu ; il est recommandé d'utiliser un système de référencement précis,
+            afin que l'identifiant soit unique au sein du site, par exemple les URI ou les numéros ISBN.
+        refinements:
+          isAvailableAt:
+            label:
+              en: Is Available At
+      source:
+        label:
+          fr: Source
+          en: Source
+        definition:
+          fr: Une ressource liée de laquelle dérive la ressource décrite.
+        comment:
+          fr: >
+            La ressource décrite peut dériver de la ressource liée entièrement ou en partie. La pratique exemplaire recommandée est d'identifier la ressource liée au moyen d'une chaîne conforme à un système d'identification formel.
+      language:
+        label:
+          fr: Langue
+          en: Language
+        comment:
+          en: Recommended best practice is to use a controlled vocabulary such as RFC 4646 [RFC4646].
+      relation:
+        label:
+          fr: Relation
+          en: Relation
+        definition:
+          fr: Lien avec d'autres ressources.
+        comment:
+          fr: De nombreux raffinements permettent d'établir des liens précis, par exemple de version, de chapitres, de standard, etc.
+        refinements:
+          isVersionOf:
+            label:
+              fr: Est une version de
+            definition:
+              fr: Une ressource liée dont la ressource décrite est une version, une édition ou une adaptation.
+              en: A related resource of which the described resource is a version, edition, or adaptation.
+          hasVersion:
+            label:
+              fr: A pour version
+            definition:
+              fr: Une ressource liée qui est une version, une édition ou une adaptation de la ressource décrite.
+              en: A related resource that is a version, edition, or adaptation of the described resource.
+          isReplacedBy:
+            label:
+              fr: Est remplacé par
+            definition:
+              fr: Une ressource liée qui supplante, déplace ou remplace la ressource décrite.
+              en: A related resource that supplants, displaces, or supersedes the described resource.
+          replaces:
+            label:
+              fr: Remplace
+            definition:
+              fr: Une ressource liée qui est supplantée, déplacée ou remplacée par la ressource décrite.
+              en: A related resource that is supplanted, displaced, or superseded by the described resource.
+          isRequiredBy:
+            label:
+              fr: Est exigé par
+            definiton:
+              fr: Une ressource liée qui exige de la ressource décrite qu'elle soutienne sa fonction, sa distribution ou sa cohérence.
+              en: A related resource that requires the described resource to support its function, delivery, or coherence.
+          requires:
+            label:
+              fr: Nécessite
+            definition:
+              fr: Une ressource liée qui est exigée par la ressource décrite pour soutenir sa fonction, sa distribution ou sa cohérence.
+              en: A related resource that is required by the described resource to support its function, delivery, or coherence.
+          isPartOf:
+            label:
+              fr: Est une partie de
+            definition:
+              fr: Une ressource liée dans laquelle la ressource décrite est physiquement ou logiquement incluse.
+              en: A related resource in which the described resource is physically or logically included.
+          hasPart:
+            label:
+              fr: A pour partie
+            definition:
+              fr: Une ressource liée qui est incluse physiquement ou logiquement dans la ressource décrite.
+              en: A related resource that is included either physically or logically in the described resource.
+          isReferencedBy:
+            label:
+              fr: Est référencé par
+            definition:
+              fr: Une ressource liée qui référence, cite ou encore pointe vers la ressource décrite.
+              en: A related resource that references, cites, or otherwise points to the described resource.
+          references:
+            label:
+              fr: Référence
+            definition:
+              fr: Une ressource liée qui est référencée, citée ou encore vers laquelle pointe la ressource décrite.
+              en: A related resource that is referenced, cited, or otherwise pointed to by the described resource.
+          isFormatOf:
+            label:
+              fr: Est un format de
+            definition:
+              fr: Une ressource liée qui est en substance la même que la ressource décrite mais dans un autre format.
+              en: A related resource that is substantially the same as the described resource, but in another format.
+          hasFormat:
+            label:
+              fr: A pour format
+            definition:
+              en: A related resource that is substantially the same as the pre-existing described resource, but in another format.
+              fr: Une ressource liée qui est en substance la même que la ressource décrite préexistente mais dans un autre format.
+          conformsTo:
+            label:
+              fr: Conforme à
+            definition:
+              en: An established standard to which the described resource conforms.
+              fr: Un standard établi auquel la ressource décrite est conforme.
+      coverage:
+        label:
+          fr: Couverture
+          en: Coverage
+        definition:
+          fr: Couverture spatiale (point géographique, pays, régions, noms de lieux) ou temporelle
+        refinements:
+          spatial:
+            label:
+              fr: Couverture spatiale
+              en: Spatial Coverage
+          temporal:
+            label:
+              fr: Couverture temporelle
+              en: Temporal Coverage
+      rights:
+        label:
+          fr: Droits
+          en: Rights
+        definition:
+          fr: Une information à propos des droits détenus dans et sur la ressource.
+        comment:
+          fr: Les droits comprennent typiquement une déclaration à propos des divers droits de propriété associés à la ressource, y compris les droits de propriété intellectuelle.
+        refinements:
+          accessRights:
+            label:
+              fr: Droits d'accès
+            definition:
+              fr: Une information à propos de qui peut accéder à la ressource ou une indication de son état de protection.
+          licence:
+            label:
+              fr: Licence
+            definition:
+              fr: Un document légal donnant permission officielle de faire quelque chose avec la ressource.
+
+  extension:
+    title: éléments supplémentaires mentionnés par la BNF
+    elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{name}
+    yamlSchema:
+      KEYS:
+        ROOT:
+          data:
+            - name // identifiant de l'élément
+          data/label:
+            - language // langue de l'étiquette
+          data/definition:
+            - language // langue de la définition
+          data/guidelinesForContentCreation:
+            - language // langue des directives
+          data/examples:
+            - language // langue des exemples
+      ROOT:
+        data:
+          KEY: # identifiant de l'élément
+            label:
+              KEY: STRING // étiquette dans la langue définie par la clé
+            definition?:
+              KEY: STRING // définition dans la langue définie par la clé
+            guidelinesForContentCreation?:
+              KEY: STRING // directives pour la création de contenu dans la langue définie par la clé
+            examples:
+              KEY:
+                - STRING // exemples dans la langue définie par la clé
+    data:
+      audience:
+        label:
+          en: Audience
+        definition:
+          fr: Une classe d'entité pour laquelle la ressource est prévue ou utile.
+          en: A class of entity for whom the resource is intended or useful. A class of entity may be determined by the creator or the publisher or by a third party.
+        guidelinesForContentCreation:
+          en: >
+            Audience terms are best utilized in the context of formal or informal controlled vocabularies. None are presently recommended or registered by DCMI, but several communities of interest are engaged in setting up audience vocabularies. In the absence of recommended controlled vocabularies, implementors are encouraged to develop local lists of values, and to use them consistently.
+        examples:
+          en:
+            - elementary school students
+            - ESL teachers
+            - deaf adults
+      provenance:
+        label:
+          fr: Provenance
+          en: Provenance
+        definition:
+          fr: Une déclaration de tous les changements d'appartenance et de garde de la ressource depuis sa création qui sont importants pour son authenticité, son intégrité et son interprétation.
+          en: >
+            A statement of any changes in ownership and custody of the resource since its creation that are significant for its authenticity, integrity and interpretation. The statement may include a description of any changes successive custodians made to the resource.
+        examples:
+          en:
+            - This copy once owned by Benjamin Spock.
+            - Estate of Hunter Thompson.
+            - Stolen in 1999; recovered by the Museum in 2003.
+      rightsHolder:
+        label:
+          fr: Détenteur des droits
+          en: Rights Holder
+        definition:
+          fr: Une personne ou une organisation possédant ou exploitant les droits sur la ressources.
+          en: A person or organization owning or managing rights over the resource.
+
+  vocabularyEncodingSchemes:
+    title:
+      fr: Schémas de codage de vocabulaire
+      en: Vocabulary Encoding Schemes
+    elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{name}
+    yamlSchema:
+      KEYS:
+        ROOT:
+          data:
+            - name // identifiant de l'élément
+          data/label:
+            - language // langue de l'étiquette de l'élément
+          data/definition:
+            - language // langue de la définition de l'élément
+      ROOT:
+        data:
+          KEY:
+            label:
+              KEY: STRING // étiquette dans la langue définie par la clé
+            definition:
+              KEY: STRING // définition dans la langue définie par la clé
+            see: STRING // référence vers plus d'informations
+    data:
+      DCMIType:
+        label:
+          fr: Vocabulaire de types DCMI
+          en: DCMI Type Vocabulary
+        definition:
+          fr: L'ensemble des classes spécifiées par le vocabulaire de types DCMI, qui sert à catégoriser la nature ou le type de la ressource.
+        see: http://dublincore.org/documents/dcmi-type-vocabulary/
+      DDC:
+        label:
+          fr: DDC
+        definition:
+          fr: L'ensemble des ressources conceptuelles spécifiées par la classification décimale de Dewey (Dewey Decimal Classification).
+        see: http://www.oclc.org/dewey/
+      IMT:
+        label:
+          fr: IMT
+        definition:
+          fr: L'ensemble des types de média spécifiés par l'IANA (Internet Assigned Numbers Authority).
+        see: http://www.iana.org/assignments/media-types/
+      LCC:
+        label:
+          fr: LCC
+        definition:
+          fr: L'ensemble des ressources conceptuelles spécifiées par la classification de la Bibliothèque du Congrès (Library of Congress Classification).
+        see: http://lcweb.loc.gov/catdir/cpso/lcco/lcco.html
+      LCSH:
+        label:
+          fr: LCSH
+        definition:
+          fr: L'ensemble des concepts étiquetés spécifiés par les rubriques LCSH (Library of Congress Subject Headings).
+      MESH:
+        label:
+          fr: MeSH
+        definition:
+          fr: L'ensemble des concepts étiquetés spécifiés par les rubriques MeSH (Medical Subject Headings).
+        see: http://www.nlm.nih.gov/mesh/meshhome.html
+      NLM:
+        label:
+          fr: NLM
+        definition:
+          fr: L'ensemble des ressources conceptuelles spécifiées par la classification de la Bibliothèque nationale de médecine (National Library of Medicine).
+        see: http://wwwcf.nlm.nih.gov/class/
+      TGN:
+        label:
+          fr: TGN
+        definition:
+          fr: L'ensemble des lieux spécifiés par le thésaurus Getty des noms géographiques (Getty Thesaurus of Geographic Names).
+        see: http://www.getty.edu/research/tools/vocabulary/tgn/index.html
+      UDC:
+        label:
+          fr: UDC
+        definition:
+          fr: L'ensemble des ressources conceptuelles spécifiées par la classification décimale universelle (Universal Decimal Classification).
+          
+  syntaxEncodingSchemes:
+    title:
+      fr: Schémas de codage de syntaxe
+      en: Syntax Encoding Schemes
+    elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{name}
+    yamlSchema:
+      KEYS:
+        ROOT:
+          data:
+            - name // identifiant de l'élément
+          data/definition:
+            - language // langue de la définition de l'élément
+      ROOT:
+        data:
+          KEY:
+            label: STRING // étiquette
+            definition:
+              KEY: STRING // définition dans la langue définie par la clé
+            see?: STRING // référence vers plus d'informations
+            comment?:
+              KEY: STRING // commentaire dans la langue définie par la clé
+    data:
+      Box:
+        label: DCMI Box
+        definition:
+          fr: L'ensemble des régions dans l'espace définies par leurs coordonnées géographiques conformément au schéma de codage DCMI Box.
+          en: The set of regions in space defined by their geographic coordinates according to the DCMI Box Encoding Scheme.
+        see: http://dublincore.org/documents/dcmi-box/
+      ISO3166:
+        label: ISO 3166
+        definition:
+          fr: L'ensemble des codes listés dans la norme ISO 3166-1 pour la représentation des noms de pays.
+          en: The set of codes listed in ISO 3166-1 for the representation of names of countries.
+        see: http://www.iso.org/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html
+      ISO639-2:
+        label: ISO 639-2
+        definition:
+          fr: Les codes alphabétiques de trois lettres listés dans la norme ISO 639-2 pour la représentation des noms des langues.
+          en: The three-letter alphabetic codes listed in ISO639-2 for the representation of names of languages.
+        see: http://lcweb.loc.gov/standards/iso639-2/langhome.html
+      ISO639-3:
+        label: ISO 639-3
+        definition:
+          fr: L'ensemble des codes de trois lettres listés dans la norme ISO 639-3 pour la représentation des noms des langues.
+          en: The three-letter alphabetic codes listed in ISO639-3 for the representation of names of languages.
+        see: http://www.sil.org/iso639-3/
+      Period:
+        label: DCMI Period
+        definition:
+          fr: L'ensemble des intervalles de temps définis par leurs limites conformément au schéma de codage DCMI Period.
+          en: The set of time intervals defined by their limits according to the DCMI Period Encoding Scheme.
+        see: http://dublincore.org/documents/dcmi-period/
+      Point:
+        label: DCMI Point
+        definition:
+          fr: L'ensemble des points dans l'espace définis par leurs coordonnées géographiques conformément au schéma de codage DCMI Point.
+          en: The set of points in space defined by their geographic coordinates according to the DCMI Point Encoding Scheme.
+        see: http://dublincore.org/documents/dcmi-point/
+      RFC1766:
+        label: RFC 1766
+        definition:
+          fr: L'ensemble des étiquettes construites conformément au document RFC 1766 pour l'identification des langues.
+          en: The set of tags, constructed according to RFC 1766, for the identification of languages.
+        see: http://www.ietf.org/rfc/rfc1766.txt
+      RFC3066:
+        label: RFC 3066
+        definition:
+          fr: L'ensemble des étiquettes construites conformément au document RFC 3066 pour l'identification des langues.
+          en: The set of tags constructed according to RFC 3066 for the identification of languages.
+        comment:
+          en: RFC 3066 has been obsoleted by RFC 4646.
+        see: http://www.ietf.org/rfc/rfc3066.txt
+      RFC4646:
+        label: RFC 4646
+        definition:
+          fr: L'ensemble des étiquettes construites conformément au document RFC 4646 pour l'identification des langues.
+          en: The set of tags constructed according to RFC 4646 for the identification of languages.
+        comment:
+          en: RFC 4646 obsoletes RFC 3066.
+        see: http://www.ietf.org/rfc/rfc4646.txt
+      RFC5646:
+        label: RFC 5646
+        definition:
+          en: The set of tags constructed according to RFC 5646 for the identification of languages.
+        comment:
+          en: RFC 5646 obsoletes RFC 4646.
+        see: http://www.ietf.org/rfc/rfc5646.txt
+      URI:
+        label: URI
+        definition:
+          fr: L'ensemble des identificateurs construits conformément à la syntaxe générique des identificateurs de ressource uniformes (Uniform Resource Identifiers), comme spécifié par l'IETF (Internet Engineering Task Force).
+          en: The set of identifiers constructed according to the generic syntax for Uniform Resource Identifiers as specified by the Internet Engineering Task Force.
+        see: http://www.ietf.org/rfc/rfc3986.txt
+      W3CDTF:
+        label: W3C-DTF
+        definition:
+          fr: L'ensemble des dates et heures construites conformément à la spécification des formats de dates et d'heures du W3C (W3C Date and Time Formats).
+          en: The set of dates and times constructed according to the W3C Date and Time Formats Specification.
+        see: http://www.w3.org/TR/NOTE-datetime
+
+
+references:
+  DCMITYPE: http://dublincore.org/documents/dcmi-type-vocabulary/
+  MIME: http://www.iana.org/assignments/media-types/
+  RFC4646: http://www.ietf.org/rfc/rfc4646.txt
+
