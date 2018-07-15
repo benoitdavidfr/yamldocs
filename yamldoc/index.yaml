@@ -1,153 +1,156 @@
 title: Présentation résumée de YamlDoc
-doc:
-  intro: |
-    YamlDoc
-    -------
-    YamDoc est un système de gestion documentaire fondé sur :
+description: |
+  YamlDoc
+  -------
+  YamDoc est un système de gestion documentaire fondé sur :
+  
+    - l'organisation de documents correspondants à des fichiers texte structurés au
+      **[format Yaml](?ypath=/yaml)**,
+    - l'utilisation, quand cela est adapté, pour les champs d'une **[sémantique bien connue](?ypath=/semantic)**
+      (DublinCore, Skos, Schema.org, ...), conformément aux principes
+      du [Web des données](https://fr.wikipedia.org/wiki/Web_des_donn%C3%A9es),
+    - le formattage de textes à l'intérieur du fichier Yaml utilisant le **[langage Markdown](?ypath=/markdown)**,
+    - l'utilisation d'un [visualisateur](?ypath=/visu) de document extensible,
+    - un mécanisme de [requête simple (ypath)](?ypath=/ypath) dans les documents,
+    - la possibilité d'effectuer des [recherches plein texte](?ypath=/search) sur les documents,
+    - l'[organisation d'espaces documentaires partagés chacun sous la forme d'une archive Git](?ypath=/git),
+    - la possibilité de définir des [requêtes sur les documents en Php](?ypath=/query).
     
-      - l'organisation de documents correspondants à des fichiers texte structurés au **format Yaml**,
-      - l'utilisation, quand cela est adapté, pour les champs d'une **sémantique bien connue**
-        (DublinCore, Skos, Schema.org, ...), conformément aux principes
-        du [Web des données](https://fr.wikipedia.org/wiki/Web_des_donn%C3%A9es),
-      - le formattage de textes à l'intérieur du fichier Yaml utilisant le langage **Markdown**,
-      - l'utilisation d'un visualisateur de document extensible,
-      - un mécanisme de requête simple (ypath) dans les documents,
-      - la possibilité d'effectuer des recherches plein texte sur les documents,
-      - l'organisation d'espaces documentaires partagés chacun sous la forme d'une archive Git,
-      - la possibilité de définir des requêtes sur les documents en Php.
+yaml: |
+  ### Fondé sur le format Yaml
+  Le format [Yaml](https://fr.wikipedia.org/wiki/YAML) permet de structurer des documents ou des données
+  par combinaison de listes, tableaux associatifs et données scalaires.
+  Similaire au format JSON, il a l'avantage d'être très **lisible** pour nous les humains
+  tout en étant facile à comprendre pour les machines.  
+  Il permet de structurer aussi bien des documents composés principalement de textes comme le présent document,
+  que des bases de données comme par exemple la [base historique des communes](?doc=geohisto/communes),
+  des structures de graphe comme le [thésaurus EuroVoc](?doc=eurovoc)
+  ou des documents strcturés complexes comme le
+  [modèle de données Inspire](?doc=isnpire-datamodel) déduit du règlement interopérabilité.  
+  Enfin, l'édition de documents Yaml est fournie par divers éditeurs de texte comme
+  [Notepad++ sous Windows](https://notepad-plus-plus.org/fr/) ou [TextMate sur Mac](https://macromates.com/).
+  
+semantic: |
+  ### Sémantique bien connue
+  Lorsque cela est adapté, la sémantique des champs des tableaux associatifs Yaml respecte les standards suivants:
     
-  yaml: |
-    ### Format Yaml
-    Le format [Yaml](https://fr.wikipedia.org/wiki/YAML) permet de structurer des documents ou des données
-    par combinaison de listes, tableaux associatifs et données scalaires.
-    Similaire au format JSON, il a l'avantage d'être très **lisible** pour nous les humains
-    tout en étant facile à comprendre pour les machines.  
-    Il permet de structurer aussi bien des documents composés principalement de textes comme le présent document,
-    que des bases de données comme par exemple la [base historique des communes](?doc=geohisto/communes),
-    des structures de graphe comme le [thésaurus EuroVoc](?doc=eurovoc)
-    ou des documents strcturés complexes comme le
-    [modèle de données Inspire](?doc=isnpire-datamodel) déduit du règlement interopérabilité.  
-    Enfin, l'édition de documents Yaml est fournie par divers éditeurs de texte comme
-    [Notepad++ sous Windows](https://notepad-plus-plus.org/fr/) ou [TextMate sur Mac](https://macromates.com/).
-    
-  semantic: |
-    ### Sémantique bien connue
-    Lorsque cela est adapté, la sémantique des champs des tableaux associatifs Yaml respecte les standards suivants:
+    - le [standard Dublin Core](https://fr.wikipedia.org/wiki/Dublin_Core) est utilisé pour décrire les métadonnées
+      d'un document ; ainsi il est recommandé d'utiliser des champs Dublin Core (comme title, subject, description,
+      date, ...) pour définir les métadonnées de chaque document
+      ([synthèse des principaux champs ici](?doc=dublincore)) ;
+    - le [standard SKOS](https://fr.wikipedia.org/wiki/Simple_Knowledge_Organization_System) ([résumé ici](?doc=skos))
+      encodé en Yaml
+      est utilisé pour représenter des thésaurus comme le [thésaurus EuroVoc](?doc=eurovoc)
+      ou le [lexique topographique](?doc=topovoc) de l'AFT ;
+    - enfin le [standard Schema.org](https://fr.wikipedia.org/wiki/Schema.org) est utilisé pour structurer
+      des bases de données, telles que par exemple des listes d'organismes en utilisant le
+      [type Organization](https://schema.org/Organization).
       
-      - le [standard Dublin Core](https://fr.wikipedia.org/wiki/Dublin_Core) est utilisé pour décrire les métadonnées
-        d'un document ; ainsi il est recommandé d'utiliser des champs Dublin Core (comme title, subject, description,
-        date, ...) pour définir les métadonnées de chaque document
-        ([synthèse des principaux champs ici](?doc=dublincore)) ;
-      - le [standard SKOS](https://fr.wikipedia.org/wiki/Simple_Knowledge_Organization_System) ([résumé ici](?doc=skos))
-        encodé en Yaml
-        est utilisé pour représenter des thésaurus comme le [thésaurus EuroVoc](?doc=eurovoc)
-        ou le [lexique topographique](?doc=topovoc) de l'AFT ;
-      - enfin le [standard Schema.org](https://fr.wikipedia.org/wiki/Schema.org) est utilisé pour structurer
-        des bases de données, telles que par exemple des listes d'organismes en utilisant le
-        [type Organization](https://schema.org/Organization).
-        
-  markdown: |
-    ### Markdown
-    Le [langage Markdown](https://fr.wikipedia.org/wiki/Markdown) est utilisé pour formatter des textes (titres, gras,
-    italique, liste de puces, liens URL, ...) ;
-    son utilisation est [illustrée ici](?doc=markdown).
-    Les différentes parties du présent document constituent un autre exemple d'utilisation du Markdown.
+markdown: |
+  ### Markdown
+  Le [langage Markdown](https://fr.wikipedia.org/wiki/Markdown) est utilisé pour formatter des textes (titres, gras,
+  italique, liste de puces, liens URL, ...) ;
+  son utilisation est [illustrée ici](?doc=markdown).
+  Les différentes parties du présent document constituent un autre exemple d'utilisation du Markdown.
+  
+visu: |
+  ### Visualisateur
+  Un visualisateur des documents en mode web permet de visualiser les documents et de naviguer entre eux.
+  Il offre aussi une fonctionnalité limitée de modification des documents.  
+  Un mode de visualisation par défaut est défini mais le visualisateur peut être étendu pour s'adapter aux
+  différentes structures de document. Par exemples:
     
-  visualisateur: |
-    ### Visualisateur
-    Un visualisateur des documents en mode web permet de visualiser les documents et de naviguer entre eux.
-    Il offre aussi une fonctionnalité limitée de modification des documents.  
-    Un mode de visualisation par défaut est défini mais le visualisateur peut être étendu pour s'adapter aux
-    différentes structures de document. Par exemples:
-      
-      - l'extension YamlData permet de visualiser le contenu d'une base de données,
-      - l'extension YamlSkos permet de naviguer facilement au sein d'un thésaurus Skos,
-      - l'extension DataModel permet de naviguer facilement au sein d'un modèle de données.
-      
-    Le visualisateur de l'espace public est accessible sous
-    [http://georef.eu/yamldoc/?doc=index](http://georef.eu/yamldoc/?doc=index).  
-    Son code source est disponible sur: [Github](https://github.com/benoitdavidfr/yamldoc).
+    - l'extension YamlData permet de visualiser le contenu d'une base de données,
+    - l'extension YamlSkos permet de naviguer facilement au sein d'un thésaurus Skos,
+    - l'extension DataModel permet de naviguer facilement au sein d'un modèle de données.
     
-  ypath: |
-    ### Ypath
-    La fourniture d'une chaine de caractères particulière (appelée Ypath), permet de sélectionner
-    une partie d'un document ou d'une base de données.
-    Les exemples ci-dessous illustrent son utilisation:
-      
-      - dans le présent document, la sélection de la partie *yaml* du document s'effectue en entrant
-        dans le champ de saisie en dessous du menu la chaine `/doc/yaml`,
-      - il est aussi possible d'afficher ce même champ en suivant
-        l'url [`?doc=yamldoc&ypath=/doc/yaml`](?doc=yamldoc&ypath=/doc/yaml),
-      - dans un thésaurus comme le [lexique topographique](?doc=topovoc),
-        on peut référencer le micro-thésaurus `lexiquecadastre`
-        par la chaine [`/schemes/lexiquecadastre`](?doc=topovoc&ypath=/schemes/lexiquecadastre)
-        ou le terme `matrice_cadastrale`
-        par la chaine [`/concepts/matrice_cadastrale`](?doc=topovoc&ypath=/concepts/matrice_cadastrale),
-      - dans la table des départements :
-        - la sélection de l'enregistrement ayant pour *name* `Guadeloupe` s'effectue
-          par la chaine [`/data/name=Guadeloupe`](?doc=geohisto/departements&ypath=/data/name=Guadeloupe)
-        - la sélection des enregistrements ayant pour *insee_code* `04` s'effectue
-          par la chaine [`/data/insee_code=04`](?doc=geohisto/departements&ypath=/data/insee_code=04)
-        - la projection sur les champs *insee_code*, *name* et *successors* s'effectue par la 
-          chaine [`/data/insee_code,name,successors`](?doc=geohisto/departements&ypath=/data/insee_code,name,successors)
+  Le visualisateur de l'espace public est accessible sous
+  [http://georef.eu/yamldoc/?doc=index](http://georef.eu/yamldoc/?doc=index).  
+  Son code source est disponible sur: [Github](https://github.com/benoitdavidfr/yamldoc).
+  
+ypath: |
+  ### Ypath: mécanisme de requêtes simples
+  La fourniture d'une chaine de caractères particulière (appelée Ypath), permet de sélectionner
+  une partie d'un document ou d'une base de données.
+  Les exemples ci-dessous illustrent son utilisation:
+    
+    - dans le présent document, la sélection de la partie *yaml* du document s'effectue en entrant
+      dans le champ de saisie en dessous du menu la chaine `/yaml`,
+    - il est aussi possible d'afficher ce même champ en suivant
+      l'url [`?doc=yamldoc&ypath=/yaml`](?doc=yamldoc&ypath=/yaml),
+    - dans un thésaurus comme le [lexique topographique](?doc=topovoc),
+      on peut référencer le micro-thésaurus `lexiquecadastre`
+      par la chaine [`/schemes/lexiquecadastre`](?doc=topovoc&ypath=/schemes/lexiquecadastre)
+      ou le terme `matrice_cadastrale`
+      par la chaine [`/concepts/matrice_cadastrale`](?doc=topovoc&ypath=/concepts/matrice_cadastrale),
+    - dans la table des départements :
+      - la sélection de l'enregistrement ayant pour *name* `Guadeloupe` s'effectue
+        par la chaine [`/data/name=Guadeloupe`](?doc=geohisto/departements&ypath=/data/name=Guadeloupe)
+      - la sélection des enregistrements ayant pour *insee_code* `04` s'effectue
+        par la chaine [`/data/insee_code=04`](?doc=geohisto/departements&ypath=/data/insee_code=04)
+      - la projection sur les champs *insee_code*, *name* et *successors* s'effectue par la 
+        chaine [`/data/insee_code,name,successors`](?doc=geohisto/departements&ypath=/data/insee_code,name,successors)
 
-  search: |
-    ### Recherche plein texte
-    Des recherches plein texte sont possibles en tapant un mot ou plusieurs dans le champ de saisie.
-    Si la chaine ne commence pas par un '/' la chaine est interprétée comme une liste de mots.  
-    Par exemple, en tapant le mot `bourgogne` on trouve les fragments d'EuroVoc et de geohisto qui
-    contiennent ce mot.  
-    On notera que l'indexation est effectuée par fragment, c'est à dire chaine ou texte à l'intérieur du document,
-    et non document par document.
-    C'est un point important par exemple pour indexer des bases de données.  
-    Ainsi, par exemple, lors de la recherche du mot `bourgogne`, un des résultats est le fragment d'Eurovoc
-    correspondant au ypath `/concepts/5032/historyNote/fr/0` ; il s'agit donc de la première note historique
-    en français associée au concept 5032. Il est simple de remonter ici au concept en modifiant le ypath.
+search: |
+  ### Recherche plein texte
+  Des recherches plein texte sont possibles en tapant un mot ou plusieurs dans le champ de saisie.
+  Si la chaine ne commence pas par un '/' la chaine est interprétée comme une liste de mots.  
+  Par exemple, en tapant le mot `bourgogne` on trouve les fragments d'EuroVoc et de geohisto qui
+  contiennent ce mot.  
+  On notera que l'indexation est effectuée par fragment, c'est à dire chaine ou texte à l'intérieur du document,
+  et non document par document.
+  C'est un point important par exemple pour indexer des bases de données.  
+  Ainsi, par exemple, lors de la recherche du mot `bourgogne`, un des résultats est le fragment d'Eurovoc
+  correspondant au ypath `/concepts/5032/historyNote/fr/0` ; il s'agit donc de la première note historique
+  en français associée au concept 5032. Il est simple de remonter ici au concept en modifiant le ypath.
+  
+  Différentes possibilités de recherche sont proposées :
     
-    Différentes possibilités de recherche sont proposées :
-      
-      - en indiquant plusieurs mots on cherche les fragments contenant au moins un des mots,
-        par exemple la chaine `Franche Comté` permet de trouver les fragments contenant soit Franche soit Comté,
-      - en faisant précéder les mots par un + on cherche les fragments contenant tous les mots,
-        par exemple la chaine `+Franche +Comté` permet de trouver les fragments contenant à la fois Franche et Comté,
-      - en faisant précéder un mot par un - on exclue les fragments contenant ce mot,
-        par exemple la chaine `+Franche -Comté` permet de trouver les fragments contenant Franche mais pas Comté,
-      - en faisant suivre un mot par * on cherche les mots commencant par le mot,
-        par exemple la chaine `geograph*` permet de trouver géographie et geography.
-      
-    Il est aussi possible de restreindre la recherche à un document, voire à certains fragments,
-    pr exemple on peut rechercher le mot géographie uniquement dans les concepts d'Eurovoc
-    on indiquant dans le champ key `eurovoc/concepts`.
+    - en indiquant plusieurs mots on cherche les fragments contenant au moins un des mots,
+      par exemple la chaine `Franche Comté` permet de trouver les fragments contenant soit Franche soit Comté,
+    - en faisant précéder les mots par un + on cherche les fragments contenant tous les mots,
+      par exemple la chaine `+Franche +Comté` permet de trouver les fragments contenant à la fois Franche et Comté,
+    - en faisant précéder un mot par un - on exclue les fragments contenant ce mot,
+      par exemple la chaine `+Franche -Comté` permet de trouver les fragments contenant Franche mais pas Comté,
+    - en faisant suivre un mot par * on cherche les mots commencant par le mot,
+      par exemple la chaine `geograph*` permet de trouver géographie et geography.
     
-  git: |
-    ### Organisation d'espaces documentaires partagés chacun sous la forme d'une archive Git
-    Les documents sont partitionnés en différents espaces documentaires
-    avec pour chacun des accès en lecture et/ou en écriture pour certains utilisateurs.  
-    Chaque espace documentaire correspond à une [archive Git](https://fr.wikipedia.org/wiki/Git)
-    qui peut ainsi être partagée.
-    Outre l'utilisation en mode web,
-    les différents utilisateurs d'un espace peuvent ainsi modifier les documents sur leur poste local
-    au moyen d'un éditeur de texte.
-    Le logiciel Git est utilisé pour assurer la synchronisation entre les différentes copies. 
-    
-    Dans un premier temps, seuls 2 espaces sont définis: un espace public et un espace privé.  
-    L'archive Git de l'espace public est accessible à l'URL:
-    [https://github.com/benoitdavidfr/yamldocs.git](https://github.com/benoitdavidfr/yamldocs).  
-    Le visualisateur de cet espace est accessible sous
-    [http://georef.eu/yamldoc/?doc=index](http://georef.eu/yamldoc/?doc=index).  
+  Il est aussi possible de restreindre la recherche à un document, voire à certains fragments,
+  pr exemple on peut rechercher le mot géographie uniquement dans les concepts d'Eurovoc
+  on indiquant dans le champ key `eurovoc/concepts`.
+  
+git: |
+  ### Organisation d'espaces documentaires partagés chacun sous la forme d'une archive Git
+  Les documents sont partitionnés en différents espaces documentaires
+  avec pour chacun des accès en lecture et/ou en écriture pour certains utilisateurs.  
+  Chaque espace documentaire correspond à une [archive Git](https://fr.wikipedia.org/wiki/Git)
+  qui peut ainsi être partagée.
+  Outre l'utilisation en mode web,
+  les différents utilisateurs d'un espace peuvent ainsi modifier les documents sur leur poste local
+  au moyen d'un éditeur de texte.
+  Le logiciel Git est utilisé pour assurer la synchronisation entre les différentes copies. 
+  
+  Dans un premier temps, seuls 2 espaces sont définis: un espace public et un espace privé.  
+  L'archive Git de l'espace public est accessible à l'URL:
+  [https://github.com/benoitdavidfr/yamldocs.git](https://github.com/benoitdavidfr/yamldocs).  
+  Le visualisateur de cet espace est accessible sous
+  [http://georef.eu/yamldoc/?doc=index](http://georef.eu/yamldoc/?doc=index).  
+  
+  L'utilisation du mécanisme des branches de git permet d'isoler les modifications de différents utilisateurs.
+  Cette fonctionnalité potentielle est en cours d'investigation.
 
-  query: |
-    ### Requêtes en Php
-    Les documents correspondant à des bases de données peuvent facilement être exploités par des scripts Php
-    qui effectuent des requêtes dans les données.
-    Ces requêtes sont appelées comme des documents.  
-    Par exemples:
-      
-      - le document [jregdept](?doc=jregdept) réalise une jointure entre les régions actuelles et les départements
-        actuels et renvoie la liste des régions actuelles avec pour chacune la liste de ses départements
-        ([consulter le code source Php de la requête](?action=showPhpSrc&amp;doc=jregdept)),
-      - il est possible de sélectionner une partie du document jregdept en indiquant un ypath,
-        ainsi [ypath=`/data/insee_code=32/depts`](?doc=jregdept&ypath=/data/insee_code=32/depts)
-        sélectionne la liste des départements de la région ayant 32 comme insee_code.
-      - autre exemple, le document [cregions](?doc=cregions) sélectionne les régions actuelles
-        ([consulter le code source Php de la requête](?action=showPhpSrc&amp;doc=cregions)).
+query: |
+  ### Requêtes en Php
+  Les documents correspondant à des bases de données peuvent facilement être exploités par des scripts Php
+  qui effectuent des requêtes dans les données.
+  Ces requêtes sont appelées comme des documents.  
+  Par exemples:
+    
+    - le document [jregdept](?doc=jregdept) réalise une jointure entre les régions actuelles et les départements
+      actuels et renvoie la liste des régions actuelles avec pour chacune la liste de ses départements
+      ([consulter le code source Php de la requête](?action=showPhpSrc&amp;doc=jregdept)),
+    - il est possible de sélectionner une partie du document jregdept en indiquant un ypath,
+      ainsi [ypath=`/data/insee_code=32/depts`](?doc=jregdept&ypath=/data/insee_code=32/depts)
+      sélectionne la liste des départements de la région ayant 32 comme insee_code.
+    - autre exemple, le document [cregions](?doc=cregions) sélectionne les régions actuelles
+      ([consulter le code source Php de la requête](?action=showPhpSrc&amp;doc=cregions)).

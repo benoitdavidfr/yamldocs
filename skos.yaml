@@ -2,8 +2,9 @@ title: Vocabulaire SKOS de base (fr)
 description: |
   Principaux éléments SKOS avec étiquette et définition en français.
 source: https://www.w3.org/TR/swbp-skos-core-spec/fr
-yamlClass: YamlData
 language: [fr]
+yamlClass: YamlData
+elementPrefix: http://www.w3.org/2004/02/skos/core#
 data:
   Concept:
     label: Concept

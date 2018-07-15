@@ -1,0 +1,133 @@
+title: espaces de noms
+abstract: |
+  Les champs utilisés dans YamlDoc réutilisent des étiquettes sans expliciter leur espace.
+  Ce document a pour objectif de les recenser.  
+  La table namespace liste les espaces de noms avec leur identifiant bien connu et leur prefix.  
+  La table elements liste les champs les plus couramment utilisés de ces espaces.  
+yamlClass: YamlData
+tables:
+  namespace:
+    title: espaces de noms
+    abstact: |
+      La clé est un identifiant couramment utilisé comme prefix de l'espace,
+      prefix fournit le prefix de l'URI des éléments,
+      title fournit un titre de l'espace.
+    data:
+      rdf:
+        prefix: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+        title: The RDF Concepts Vocabulary (RDF)
+      rdfs:
+        prefix: http://www.w3.org/2000/01/rdf-schema#
+        title: The RDF Schema vocabulary (RDFS)
+      owl:
+        prefix: http://www.w3.org/2002/07/owl#
+        title: The OWL 2 Schema vocabulary (OWL 2)
+      dc:
+        prefix: http://purl.org/dc/elements/1.1/
+        title: Dublin Core Metadata Element Set, Version 1.1
+      dcam:
+        prefix: http://purl.org/dc/dcam/
+        title: Metadata terms related to the DCMI Abstract Model
+      dcterms:
+        prefix: http://purl.org/dc/terms/
+        title: DCMI Metadata Terms - other
+      skos:
+        prefix: http://www.w3.org/2004/02/skos/core#
+        title: SKOS Simple Knowledge Organization System Namespace Document
+      schema.org:
+        prefix: http://schema.org/
+        title: Schema.org vocabulary
+  elements:
+    title: éléments des espaces de noms
+    data:
+      label:
+        namespace: rdfs
+      comment:
+        namespace: rdfs
+        uri: http://www.w3.org/2000/01/rdf-schema#comment
+      title:
+        namespace: dc
+      creator:
+        namespace: dc
+      subject:
+        namespace: dc
+      description:
+        namespace: dc
+      publisher:
+        namespace: dc
+      contributor:
+        namespace: dc
+      date:
+        namespace: dc
+      type:
+        namespace: dc
+      format:
+        namespace: dc
+      identifier:
+        namespace: dc
+      source:
+        namespace: dc
+      language:
+        namespace: dc
+      relation:
+        namespace: dc
+      coverage:
+        namespace: dc
+      rights:
+        namespace: dc
+      alternative:
+        namespace: dcterms
+      tableOfContents:
+        namespace: dcterms
+      abstract:
+        namespace: dcterms
+      created:
+        namespace: dcterms
+      valid:
+        namespace: dcterms
+      available:
+        namespace: dcterms
+      issued:
+        namespace: dcterms
+      modified:
+        namespace: dcterms
+      extent:
+        namespace: dcterms
+      medium:
+        namespace: dcterms
+      isAvailableAt:
+        namespace: dcterms
+      isVersionOf:
+        namespace: dcterms
+      hasVersion:
+        namespace: dcterms
+      isReplacedBy:
+        namespace: dcterms
+      replaces:
+        namespace: dcterms
+      isRequiredBy:
+        namespace: dcterms
+      requires:
+        namespace: dcterms
+      isPartOf:
+        namespace: dcterms
+      hasPart:
+        namespace: dcterms
+      isReferencedBy:
+        namespace: dcterms
+      references:
+        namespace: dcterms
+      isFormatOf:
+        namespace: dcterms
+      hasFormat:
+        namespace: dcterms
+      conformsTo:
+        namespace: dcterms
+      spatial:
+        namespace: dcterms
+      temporal:
+        namespace: dcterms
+      accessRights:
+        namespace: dcterms
+      licence:
+        namespace: dcterms
