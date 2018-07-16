@@ -1,0 +1,164 @@
+title: comparaison des droits entre Inspire et DublinCore
+comment: |
+  les 2 champs Inspire conditionsToAccessAndUse et limitationsOnPublicAccess ressemblent respectivement
+  aux 2 champs Dublincore licence et accessRights mais ne sont pas équivalents.
+dublincore:
+  rights:
+    name:
+      fr: Droits
+      en: Rights
+    definition:
+      fr: 'Une information à propos des droits détenus dans et sur la ressource.'
+    comment:
+      fr: 'Les droits comprennent typiquement une déclaration à propos des divers droits de propriété associés à la ressource, y compris les droits de propriété intellectuelle.'
+  licence:
+    name:
+      fr: Licence
+    definition:
+      fr: 'Un document légal donnant permission officielle de faire quelque chose avec la ressource.'
+  accessRights:
+    name:
+      fr: 'Droits d''accès'
+    definition:
+      fr: 'Une information à propos de qui peut accéder à la ressource ou une indication de son état de protection.'
+inspire:
+  conditionsToAccessAndUse:
+    label:
+      fr: Conditions applicables à l’accès et à l’utilisation (8.1.)
+      en: Conditions applying to access and use (8.1.)
+    definition:
+      fr: |
+        Cet élément de métadonnées définit les conditions applicables à l’accès et à l’utilisation des séries
+        et des services de données géographiques, et, le cas échéant, les frais correspondants, conformément
+        à l’article 5, paragraphe 2, point b), et à l’article 11, paragraphe 2, point f), de la directive 2007/2/CE.  
+        Le domaine de valeur de cet élément de métadonnées est du texte libre.  
+        Cet élément doit avoir des valeurs. Si aucune condition ne s’applique à l’accès à la ressource
+        et à son utilisation, on utilisera la mention «aucune condition ne s’applique».
+        Si les conditions sont inconnues, on utilisera la mention «conditions inconnues».  
+        Cet élément fournira aussi des informations sur tout frais éventuel à acquitter pour avoir accès à la ressource
+        et l’utiliser, le cas échéant, ou fera référence à un localisateur de ressource uniforme
+        (Uniform Resource Locator, URL) où il sera possible de trouver des informations sur les frais.
+      en: |
+        This metadata element defines the conditions for access and use of spatial data sets and services,
+        and where applicable, corresponding fees as required by Article 5(2)(b) and Article 11(2)(f) of
+        Directive 2007/2/EC.  
+        The value domain of this metadata element is free text.  
+        The element must have values. If no conditions apply to the access and use of the resource, ‘no conditions
+        apply’ shall be used. If conditions are unknown, ‘conditions unknown’ shall be used.  
+        This element shall also provide information on any fees necessary to access and use the resource,
+        if applicable, or refer to a uniform resource locator (URL) where information on fees is available.
+    xpath: '//gmd:identificationInfo/*/gmd:resourceConstraints/*/gmd:useLimitation/gco:CharacterString'
+    multiplicity:
+      data: '1..*'
+      service: '1..*'
+  limitationsOnPublicAccess:
+    label:
+      fr: Restrictions concernant l’accès public (8.2.)
+      en: Limitations on public access (8.2.)
+    definition:
+      fr: |
+        Lorsque les États membres restreignent l’accès public aux séries et aux services de données géographiques
+        au titre de l’article 13 de la directive 2007/2/CE, cet élément de métadonnées fournit des informations
+        sur les restrictions et les raisons de celles-ci.  
+        S’il n’y a pas de restrictions concernant l’accès public, cet élément de métadonnées l’indiquera.  
+        Le domaine de valeur de cet élément de métadonnées est du texte libre.
+      en: |
+        When Member States limit public access to spatial data sets and spatial data services under Article 13 of
+        Directive 2007/2/EC, this metadata element shall provide information on the limitations and the reasons
+        for them.  
+        If there are no limitations on public access, this metadata element shall indicate that fact.  
+        The value domain of this metadata element is free text.
+    xpath: '//gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints'
+    subelts:
+      code:
+        xpath: '//gmd:MD_LegalConstraints/gmd:accessConstraints/gmd:MD_RestrictionCode/@codeListValue'
+      others:
+        xpath: '//gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString'
+    multiplicity:
+      data: '1..*'
+      service: '1..*'
+codeLists:
+  ConditionsToAccessAndUse:
+    label:
+      en: Conditions applying to access and use
+      fr: Conditions applicables à l’accès et à l’utilisation
+    concepts:
+      conditionsUnknown:
+        label:
+          en: conditions to access and use unknown
+          fr: conditions inconnues
+        definition:
+          en: The conditions applying to access and use are unknown.
+          fr: Les conditions applicables à l’accès à la ressource et à son utilisation sont inconnues.
+      noConditionsApply:
+        label:
+          en: no conditions to access and use
+          fr: aucune condition
+        definition:
+          en: No conditions apply to access and use.
+          fr: Aucune condition ne s’applique à l’accès à la ressource et à son utilisation.
+    
+  LimitationsOnPublicAccess:
+    label:
+      en: Limitations on public access
+    concepts:
+      INSPIRE_Directive_Article13_1a:
+        label:
+          en: public access limited according to Article 13(1)(a) of the INSPIRE Directive
+        definition:
+          en: Public access to spatial data sets and services would adversely affect the confidentiality of the proceedings of public authorities, where such confidentiality is provided for by law.
+      INSPIRE_Directive_Article13_1b:
+        label:
+          en: public access limited according to Article 13(1)(b) of the INSPIRE Directive
+        definition:
+          en: Public access to spatial data sets and services would adversely affect international relations, public security or national defence.
+      INSPIRE_Directive_Article13_1c:
+        label:
+          en: public access limited according to Article 13(1)(c) of the INSPIRE Directive
+        definition:
+          en: Public access to spatial data sets and services would adversely affect the course of justice, the ability of any person to receive a fair trial or the ability of a public authority to conduct an enquiry of a criminal or disciplinary nature.
+      INSPIRE_Directive_Article13_1d:
+        label:
+          en: public access limited according to Article 13(1)(d) of the INSPIRE Directive
+        definition:
+          en: Public access to spatial data sets and services would adversely affect the confidentiality of commercial or industrial information, where such confidentiality is provided for by national or Community law to protect a legitimate economic interest, including the public interest in maintaining statistical confidentiality and tax secrecy.
+      INSPIRE_Directive_Article13_1e:
+        label:
+          en: public access limited according to Article 13(1)(e) of the INSPIRE Directive
+        definition:
+          en: Public access to spatial data sets and services would adversely affect intellectual property rights.
+      INSPIRE_Directive_Article13_1f:
+        label:
+          en: public access limited according to Article 13(1)(f) of the INSPIRE Directive
+        definition:
+          en: Public access to spatial data sets and services would adversely affect the confidentiality of personal data and/or files relating to a natural person where that person has not consented to the disclosure of the information to the public, where such confidentiality is provided for by national or Community law.
+      INSPIRE_Directive_Article13_1g:
+        label:
+          en: public access limited according to Article 13(1)(g) of the INSPIRE Directive
+        definition:
+          en: Public access to spatial data sets and services would adversely affect the interests or protection of any person who supplied the information requested on a voluntary basis without being under, or capable of being put under, a legal obligation to do so, unless that person has consented to the release of the information concerned.
+      INSPIRE_Directive_Article13_1h:
+        label:
+          en: public access limited according to Article 13(1)(h) of the INSPIRE Directive
+        definition:
+          en: Public access to spatial data sets and services would adversely affect the protection of the environment to which such information relates, such as the location of rare species.
+      noLimitations:
+        label:
+          en: no limitations to public access
+        definition:
+          en: There are no limitations on public access to spatial data sets and services.
+
+mapDC:
+  title: mapping Inspire / DublinCore
+  data:
+    conditionsToAccessAndUse:
+      dublinCore: licence
+      comment: |
+        Les 2 notions sont légèrement différentes.  
+        conditionsToAccessAndUse traite les 2 cas où les conditions sont inconnues et où il n'en existe pas.  
+        De plus conditionsToAccessAndUse mentionne des frais éventuels.
+    limitationsOnPublicAccess:
+      dublinCore: accessRights
+      comment: |
+        limitationsOnPublicAccess est calé sur les cas limitatifs prévus par la directive.
+        

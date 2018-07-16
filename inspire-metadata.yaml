@@ -33,7 +33,6 @@ tables:
         multiplicity:
           data: 1
           service: 1
-        valueDomain:
         xpath: '//gmd:identificationInfo/*/gmd:citation/*/gmd:title/gco:CharacterString'
       alternateTitle:
         labelFr: Intitulé alternatif de la ressource

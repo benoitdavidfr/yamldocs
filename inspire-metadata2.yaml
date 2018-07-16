@@ -1,5 +1,7 @@
 title: Modèle de données pour les métadonnées Inspire
 description: |
+  EN CHANTIER
+  
   Liste des thèmes des annexes de la [directive Inspire](http://data.europa.eu/eli/dir/2007/2/oj)
   listés dans l'ordre de la directive.  
   Les noms courts sont ceux utilisés dans le [registre Inspire](http://inspire.ec.europa.eu/theme).
@@ -35,6 +37,7 @@ domainScheme:
   hasTopConcept:
     - themes
     - metadata
+    - externaltypes
 domains:
   themes:
     prefLabel:
@@ -42,8 +45,12 @@ domains:
       en: Inspire Themes
   metadata:
     prefLabel:
-      fr: Vocabulaires contrôlés et type d'objet utilisés pour les métadonnées
-      en: Controlled vocabularies and object type for metadata
+      fr: Vocabulaires contrôlés et types d'objets pour les métadonnées
+      en: Controlled vocabularies and object types for metadata
+  externaltypes:
+    prefLabel:
+      fr: Types externes
+      en: External types
 schemes:
   inspireThemesAnnexI:
     prefLabel:
@@ -72,15 +79,15 @@ schemes:
   resourceTypes:
     prefLabel:
       fr: Types de ressource
-      en: Resource type
+      en: Resource types
     domain: [ metadata ]
     sameAsPrefix: http://inspire.ec.europa.eu/metadata-codelist/ResourceType/
     options:
       - nosort
   ISO639-2:
     prefLabel:
-      fr: codes alphabétiques de trois lettres listés dans la norme ISO 639-2 pour la représentation des noms des langues
-      en: three-letter alphabetic codes listed in ISO639-2 for the representation of names of languages
+      fr: Langues conformément à la norme ISO 639-2
+      en: Languages in accordance with ISO 639-2
     domain: [ metadata ]
     sameAsPrefix: http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/
     options:
@@ -90,6 +97,13 @@ schemes:
       fr: Catégories thématiques conformément à la norme EN ISO 19115
       en: Topic categories in accordance with EN ISO 19115
     domain: [ metadata ]
+  specifications:
+    prefLabel:
+      fr: Spécifications de données ou de service
+      en: Data or service specifications
+    domain: [ metadata ]
+    options:
+      - nosort
   degreeOfConformity:
     prefLabel:
       fr: Niveau de conformité
@@ -101,7 +115,7 @@ schemes:
   sdsTypes:
     prefLabel:
       fr: Types de service de données géographiques
-      en: Spatial Data Service Type
+      en: Spatial Data Service Types
     domain: [ metadata ]
     sameAsPrefix: http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/
     options:
@@ -114,12 +128,26 @@ schemes:
     sameAsPrefix: http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceCategory/
     options:
       - nosort
-  responsiblePartyRole:
+  conditionsToAccessAndUse:
     prefLabel:
-      fr: Rôle de la partie responsable
-      en: Responsible party role
+      fr: Conditions applicables à l’accès et à l’utilisation
+      en: Conditions applying to access and use
+    domain: [ metadata ]
+    options:
+      - nosort
+  responsiblePartyRoles:
+    prefLabel:
+      fr: Rôles de la partie responsable
+      en: Responsible party roles
     domain: [ metadata ]
     sameAsPrefix: http://inspire.ec.europa.eu/metadata-codelist/ResponsiblePartyRole/
+    options:
+      - nosort
+  unitsOfLength:
+    prefLabel:
+      fr: Unités de mesure pour une longueur
+      en: Units of measure for a length
+    domain: [ metadata ]
     options:
       - nosort
 concepts:
@@ -1485,13 +1513,51 @@ concepts:
     definition:
       fr: Service permettant d’accéder à un stockage distant des éléments géographiques comme s’il s’agissait de ressources locales.
 
-# responsiblePartyRole
+# responsiblePartyRoles
+  # conditionsToAccessAndUse
+  conditionsUnknown:
+    prefLabel:
+      fr: conditions inconnues
+      en: conditions to access and use unknown
+    inScheme: [ conditionsToAccessAndUse ]
+    topConceptOf: [ conditionsToAccessAndUse ]
+    definition:
+      fr: Les conditions applicables à l’accès à la ressource et à son utilisation sont inconnues.
+      en: The conditions applying to access and use are unknown.
+  noConditionsApply:
+    prefLabel:
+      fr: aucune condition
+      en: no conditions to access and use
+    inScheme: [ conditionsToAccessAndUse ]
+    topConceptOf: [ conditionsToAccessAndUse ]
+    definition:
+      fr: Aucune condition ne s’applique à l’accès à la ressource et à son utilisation.
+      en: No conditions apply to access and use.
+  frGouvOpenLicence:
+    prefLabel:
+      fr: Accès libre, conditions définies par la licence ouverte du gouvernement français 2.0
+      en: Free access, conditions defined by the French government open licence
+    inScheme: [ conditionsToAccessAndUse ]
+    topConceptOf: [ conditionsToAccessAndUse ]
+    definition:
+      fr: L'accès à la ressource est libre, les conditions applicables à son utilisation sont définies par la licence ouverte 2.0 du gouvernement français disponible sur https://www.data.gouv.fr/fr/licences.
+      en: Access to the resource is free, use conditions are defined by the French government open licence 2.0 available at https://www.data.gouv.fr/fr/licences.
+  odblLicence:
+    prefLabel:
+      fr: Accès libre, conditions définies par la licence Open Database Licence 1.0
+      en: Free access, conditions defined by the Open Database Licence 1.0 licence
+    inScheme: [ conditionsToAccessAndUse ]
+    topConceptOf: [ conditionsToAccessAndUse ]
+    definition:
+      fr: L'accès à la ressource est libre, les conditions applicables à son utilisation sont définies par la licence Open Database Licence 1.0.
+      en: Access to the resource is free, use conditions are defined by the Open Database Licence 1.0.
+      
   resourceProvider:
     prefLabel:
       fr: Fournisseur de la ressource
       en: Resource Provider
-    inScheme: [ responsiblePartyRole ]
-    topConceptOf: [ responsiblePartyRole ]
+    inScheme: [ responsiblePartyRoles ]
+    topConceptOf: [ responsiblePartyRoles ]
     definition:
       fr: Partie qui fournit la ressource.
       en: Party that supplies the resource.
@@ -1499,8 +1565,8 @@ concepts:
     prefLabel:
       fr: Gestionnaire
       en: Custodian
-    inScheme: [ responsiblePartyRole ]
-    topConceptOf: [ responsiblePartyRole ]
+    inScheme: [ responsiblePartyRoles ]
+    topConceptOf: [ responsiblePartyRoles ]
     definition:
       fr: Partie qui accepte d’assumer la responsabilité des données et d’assurer une maintenance appropriée de la ressource.
       en: Party that accepts accountability and responsibility for the data and ensures appropriate care and maintenance of the resource.
@@ -1508,8 +1574,8 @@ concepts:
     prefLabel:
       fr: Propriétaire
       en: Owner
-    inScheme: [ responsiblePartyRole ]
-    topConceptOf: [ responsiblePartyRole ]
+    inScheme: [ responsiblePartyRoles ]
+    topConceptOf: [ responsiblePartyRoles ]
     definition:
       fr: Partie à laquelle appartient la ressource.
       en: Party that owns the resource.
@@ -1517,8 +1583,8 @@ concepts:
     prefLabel:
       fr: Utilisateur
       en: User
-    inScheme: [ responsiblePartyRole ]
-    topConceptOf: [ responsiblePartyRole ]
+    inScheme: [ responsiblePartyRoles ]
+    topConceptOf: [ responsiblePartyRoles ]
     definition:
       fr: Partie qui utilise la ressource.
       en: Party who uses the resource.
@@ -1526,8 +1592,8 @@ concepts:
     prefLabel:
       fr: Distributeur
       en: Distributor
-    inScheme: [ responsiblePartyRole ]
-    topConceptOf: [ responsiblePartyRole ]
+    inScheme: [ responsiblePartyRoles ]
+    topConceptOf: [ responsiblePartyRoles ]
     definition:
       fr: Partie qui distribue la ressource.
       en: Party who distributes the resource.
@@ -1535,8 +1601,8 @@ concepts:
     prefLabel:
       fr: Commanditaire
       en: Originator
-    inScheme: [ responsiblePartyRole ]
-    topConceptOf: [ responsiblePartyRole ]
+    inScheme: [ responsiblePartyRoles ]
+    topConceptOf: [ responsiblePartyRoles ]
     definition:
       fr: Partie qui a créé la ressource.
       en: Party who created the resource.
@@ -1544,8 +1610,8 @@ concepts:
     prefLabel:
       fr: Point de contact
       en: Point of Contact
-    inScheme: [ responsiblePartyRole ]
-    topConceptOf: [ responsiblePartyRole ]
+    inScheme: [ responsiblePartyRoles ]
+    topConceptOf: [ responsiblePartyRoles ]
     definition:
       fr: Partie qu’il est possible de contacter pour s’informer sur la ressource ou en faire l’acquisition.
       en: Party who can be contacted for acquiring knowledge about or acquisition of the resource.
@@ -1553,8 +1619,8 @@ concepts:
     prefLabel:
       fr: Maître d’œuvre
       en: Principal Investigator
-    inScheme: [ responsiblePartyRole ]
-    topConceptOf: [ responsiblePartyRole ]
+    inScheme: [ responsiblePartyRoles ]
+    topConceptOf: [ responsiblePartyRoles ]
     definition:
       fr: Principale partie chargée de recueillir des informations et de mener les recherches.
       en: Key party responsible for gathering information and conducting research.
@@ -1562,8 +1628,8 @@ concepts:
     prefLabel:
       fr: Intégrateur
       en: Processor
-    inScheme: [ responsiblePartyRole ]
-    topConceptOf: [ responsiblePartyRole ]
+    inScheme: [ responsiblePartyRoles ]
+    topConceptOf: [ responsiblePartyRoles ]
     definition:
       fr: Partie qui a traité les données de manière telle que la ressource a été modifiée.
       en: Party who has processed the data in a manner such that the resource has been modified.
@@ -1571,8 +1637,8 @@ concepts:
     prefLabel:
       fr: Éditeur
       en: Publisher
-    inScheme: [ responsiblePartyRole ]
-    topConceptOf: [ responsiblePartyRole ]
+    inScheme: [ responsiblePartyRoles ]
+    topConceptOf: [ responsiblePartyRoles ]
     definition:
       fr: Partie qui a publié la ressource.
       en: Party who published the resource.
@@ -1580,17 +1646,24 @@ concepts:
     prefLabel:
       fr: Auteur
       en: Author
-    inScheme: [ responsiblePartyRole ]
-    topConceptOf: [ responsiblePartyRole ]
+    inScheme: [ responsiblePartyRoles ]
+    topConceptOf: [ responsiblePartyRoles ]
     definition:
       fr: Partie qui est l’auteur de la ressource.
       en: Party who authored the resource.
+  uommetre:
+    prefLabel:
+      fr: mètre
+      en: metre
+    inScheme: [ unitsOfLength ]
+    topConceptOf: [ unitsOfLength ]
+    definition:
+      fr: Unité de mesure du mètre du [système international d'unités](https://fr.wikipedia.org/wiki/Syst%C3%A8me_international_d%27unit%C3%A9s).
+      en: Metre unit of measure of the [international system of units](https://en.wikipedia.org/wiki/International_System_of_Units).
 objectTypes:
   metadata:
-    type:
-      - spatialobjecttype
-    domain:
-      - metadata
+    type: [spatialobjecttype]
+    domain: [metadata]
     property: abstracttype
     prefLabel:
       fr: Métadonnées d'une ressource (type abstrait)
@@ -1604,78 +1677,107 @@ objectTypes:
         en: https://eur-lex.europa.eu/legal-content/EN/TXT/ELI/?eliuri=eli:reg:2008:1205:oj
     attributes:
       title:
-        definition:
-          fr: Intitulé de la ressource
-          en: Resource title
+        label:
+          fr: Intitulé de la ressource (1.1.)
+          en: Resource title (1.1.)
         type:
-          externaltype: CharacterString
+          externaltype: FreeText
         multiplicity: 1
         voidability: notVoidable
       abstract:
-        definition:
-          fr: Résumé de la ressource
-          en: Resource abstract
+        label:
+          fr: Résumé de la ressource (1.2.)
+          en: Resource abstract (1.2.)
         type:
-          externaltype: CharacterString
+          externaltype: FreeText
         multiplicity: 1
         voidability: notVoidable
       type:
-        definition:
-          fr: Type de la ressource
-          en: Resource type
+        label:
+          fr: Type de la ressource (1.3.)
+          en: Resource type (1.3.)
         type:
           codelist: resourceTypes
         multiplicity: 1
         voidability: notVoidable
       locator:
-        definition:
-          fr: Localisateur de la ressource
-          en: Resource locator
+        label:
+          fr: Localisateur de la ressource (1.4.)
+          en: Resource locator (1.4.)
         type:
           externaltype: URL
         multiplicity: 0..*
         voidability: voidable
       keyword:
-        definition:
-          fr: Mot clé
-          en: Keyword
+        label:
+          fr: Mot clé (3.)
+          en: Keyword (3.)
         type:
           datatype: keyword
         multiplicity: 1..*
         voidability: notVoidable
       bbox:
-        definition:
-          fr: Rectangle de délimitation géographique
-          en: Geographic bounding box
+        label:
+          fr: Rectangle de délimitation géographique (4.1.)
+          en: Geographic bounding box (4.1.)
         type:
           datatype: bbox
         multiplicity: 1..*
         voidability: notVoidable
       temporalReference:
-        definition:
-          fr: Dimension temporelle des données
-          en: Temporal dimension of the data
+        label:
+          fr: Dimension temporelle des données (5.)
+          en: Temporal dimension of the data (5.)
         type:
           datatype: temporalReference
         multiplicity: 1..*
         voidability: notVoidable
       conformsTo:
-        definition:
-          fr: Spécification + Degré
-          en: Specification + Degree
+        label:
+          fr: Conformité d'une ressource à une spécification (7.)
+          en: Conformity of a resource to a specification (7.)
         type:
-          datatype: temporalReference
+          datatype: conformsTo
         multiplicity: 1..*
         voidability: notVoidable
+      conditionsToAccessAndUse:
+        label:
+          fr: Conditions applicables à l’accès et à l’utilisation (8.1.)
+          en: Conditions applying to access and use (8.1.)
+        type:
+          datatype: conditionsToAccessAndUse
+        multiplicity: 1..*
+        voidability: notVoidable
+      limitationsOnPublicAccess:
+        label:
+          fr: Restrictions concernant l’accès public (8.2.)
+          en: Limitations on public access (8.2.)
+        type:
+          codelist: limitationsOnPublicAccess
+        multiplicity: 1..*
+        voidability: notVoidable
+        definition:
+          fr: |
+            Lorsque les États membres restreignent l’accès public aux séries et aux services de données géographiques
+            au titre de l’article 13 de la directive 2007/2/CE, cet élément de métadonnées fournit des informations
+            sur les restrictions et les raisons de celles-ci.  
+            S’il n’y a pas de restrictions concernant l’accès public, cet élément de métadonnées l’indiquera.  
+            Le domaine de valeur de cet élément de métadonnées est du texte libre.  
+            [source: règlement CE No 1205/2008]
+          en: |
+            When Member States limit public access to spatial data sets and spatial data services under Article 13 of
+            Directive 2007/2/EC, this metadata element shall provide information on the limitations and the reasons
+            for them.  
+            If there are no limitations on public access, this metadata element shall indicate that fact.  
+            The value domain of this metadata element is free text.  
+            [source: regulation CE No 1205/2008]
   dataMetadata:
-    type:
-      - spatialobjecttype
-    domain:
-      - metadata
+    type: [spatialobjecttype]
+    domain: [metadata]
     subtypeOf: metadata
     prefLabel:
-      fr: Métadonnées d'une série de données ou d'un ensemble de séries de données
-      en: Dataset or series Metadata
+      fr: Métadonnées de données
+      en: Data Metadata
     definition:
       fr: xxx
       en: xxx
@@ -1685,53 +1787,51 @@ objectTypes:
         en: https://eur-lex.europa.eu/legal-content/EN/TXT/ELI/?eliuri=eli:reg:2008:1205:oj
     attributes:
       identifier:
-        definition:
-          fr: Identificateur de la ressource unique
-          en: Unique resource identifier
+        label:
+          fr: Identificateur de la ressource unique (1.5.)
+          en: Unique resource identifier (1.5.)
         type:
           externaltype: URI
         multiplicity: 1..*
         voidability: notVoidable
       language:
-        definition:
-          fr: Langue de la ressource
-          en: Resource language
+        label:
+          fr: Langue de la ressource (1.7.)
+          en: Resource language (1.7.)
         type:
           codelist: ISO639-2
         multiplicity: 1..*
         voidability: notVoidable
       topicCategory:
-        definition:
-          fr: Catégorie thématique
-          en: Topic category
+        label:
+          fr: Catégorie thématique (2.1.)
+          en: Topic category (2.1.)
         type:
           codelist: topicCategories
         multiplicity: 1..*
         voidability: notVoidable
       lineage:
-        definition:
-          fr: Généalogie
-          en: Lineage
+        label:
+          fr: Généalogie (6.1.)
+          en: Lineage (6.1.)
         type:
-          externaltype: CharacterString
+          externaltype: FreeText
         multiplicity: 1
         voidability: notVoidable
       spatialResolution:
-        definition:
-          fr: Résolution spatiale
-          en: Spatial resolution
+        label:
+          fr: Résolution spatiale (6.2.)
+          en: Spatial resolution (6.2.)
         type:
-          externaltype: MD_Resolution
+          datatype: spatialResolution
         multiplicity: 1..*
         voidability: notVoidable
   serviceMetadata:
-    type:
-      - spatialobjecttype
-    domain:
-      - metadata
+    type: [spatialobjecttype]
+    domain: [metadata]
     subtypeOf: metadata
     prefLabel:
-      fr: Métadonnées d'un service
+      fr: Métadonnées de service
       en: Service Metadata
     definition:
       fr: xxx
@@ -1742,58 +1842,54 @@ objectTypes:
         en: https://eur-lex.europa.eu/legal-content/EN/TXT/ELI/?eliuri=eli:reg:2008:1205:oj
     attributes:
       serviceType:
-        definition:
-          fr: Type de service de données géographiques
-          en: Spatial data service type
+        label:
+          fr: Type de service de données géographiques (2.2.)
+          en: Spatial data service type (2.2.)
         type:
           codelist: sdsTypes
         multiplicity: 1
         voidability: notVoidable
     relations:
       operatesOn:
-        definition:
-          fr: Ressource Couplée
-          en: Coupled resource
+        label:
+          fr: Ressource Couplée (1.6.)
+          en: Coupled resource (1.6.)
         type:
           spatialobjecttype: dataMetadata
         multiplicity: 0..*
         voidability: voidable
   keyword:
-    type:
-      - datatype
-    domain:
-      - metadata
+    type: [datatype]
+    domain: [metadata]
     prefLabel:
-      fr: mot-clé
-      en: keyword
+      fr: Mot-clé
+      en: Keyword
     attributes:
       value:
-        definition:
-          fr: valeur du mot-clé
-          en: value of the keyword
+        label:
+          fr: valeur du mot-clé (3.1.)
+          en: value of the keyword (3.1.)
         type:
-          externaltype: CharacterString
+          externaltype: FreeText
         multiplicity: 1
         voidability: notVoidable
       cvoc:
-        definition:
-          fr: Vocabulaire contrôlé d’origine
-          en: Originating controlled vocabulary
+        label:
+          fr: Vocabulaire contrôlé d’origine (3.2.)
+          en: Originating controlled vocabulary (3.2.)
         type:
-          externaltype: CharacterString
+          externaltype: FreeText
         multiplicity: 0..1
         voidability: voidable
   bbox:
-    type:
-      - datatype
-    domain:
-      - metadata
+    type: [datatype]
+    domain: [metadata]
     prefLabel:
       fr: Rectangle de délimitation géographique
       en: Geographic bounding box
     attributes:
       westBoundLongitude:
-        definition:
+        label:
           fr: longitude ouest en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
           en: westbound longitude in decimal degrees, with a precision of at least two decimals.
         type:
@@ -1801,7 +1897,7 @@ objectTypes:
         multiplicity: 1
         voidability: notVoidable
       eastBoundLongitude:
-        definition:
+        label:
           fr: longitude est en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
           en: eastbound longitude in decimal degrees, with a precision of at least two decimals.
         type:
@@ -1809,7 +1905,7 @@ objectTypes:
         multiplicity: 1
         voidability: notVoidable
       southBoundLatitude:
-        definition:
+        label:
           fr: latitude sud en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
           en: southbound latitude in decimal degrees, with a precision of at least two decimals.
         type:
@@ -1817,7 +1913,7 @@ objectTypes:
         multiplicity: 1
         voidability: notVoidable
       northBoundLatitude:
-        definition:
+        label:
           fr: latitude nord en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
           en: northbound latitude in decimal degrees, with a precision of at least two decimals.
         type:
@@ -1825,231 +1921,234 @@ objectTypes:
         multiplicity: 1
         voidability: notVoidable
   temporalReference:
-    type:
-      - datatype
-    domain:
-      - metadata
+    type: [datatype]
+    domain: [metadata]
     prefLabel:
       fr: Dimension temporelle des données
       en: Temporal dimension of the data
     attributes:
       valid:
-        definition:
-          fr: Étendue temporelle
-          en: Temporal extent
+        label:
+          fr: Étendue temporelle ( 5.1.)
+          en: Temporal extent (5.1.)
         type:
-          externaltype: TM_Period
+          externaltype: TimePeriod
         multiplicity: 0..*
         voidability: voidable
       issued:
-        definition:
-          fr: Date de publication
-          en: Date of publication
+        label:
+          fr: Date de publication (5.2.)
+          en: Date of publication (5.2.)
         type:
-          externaltype: TM_Period
+          externaltype: Date
         multiplicity: 0..*
         voidability: voidable
       modified:
-        definition:
-          fr: Date de dernière révision
-          en: Date of last revision
+        label:
+          fr: Date de dernière révision (5.3.)
+          en: Date of last revision (5.3.)
         type:
-          externaltype: Time
+          externaltype: Date
         multiplicity: 0..*
         voidability: voidable
       created:
-        definition:
-          fr: Date de création
-          en: Date of creation
+        label:
+          fr: Date de création (5.4.)
+          en: Date of creation (5.4.)
         type:
-          externaltype: Time
+          externaltype: Date
         multiplicity: 0..*
         voidability: voidable
-#  specification:
-  
-xx:
-  tables:
-    mdelements:
-      title: Eléments de MD Inspire + qqs éléments ISO 191115/19119/19139
-      description: |
-        Eléments de métadonnées fréquemment utilisés pour décrire les données géographiques.
-        On y trouve tous les éléments Inspire plus quelques éléments ISO hors Inspire.  
-        La clé des éléments est originale et n'est définie dans aucun autre document.  
-        Le champ numInspire est le numéro de l'élément dans le règlement métadonnées Inspire ;
-        son absence signifie que l'élément n'est pas un élément Inspire.
-        Les champs labelFr et labelEn correspondent aux formes lexicales françaises et anglaises,
-        pour les éléments Inspire, ce sont celles définies respectivement dans les versions françaises et anglaises
-        du règlement ;
-        le champ multiplicity définit, respectivement pour les données et les services,
-        si l'élément peut être répété (1..* ou 0..* ) ou non (1 ou 0..1),
-        et s'il est obligatoire (1 ou 1..* ) ou facultatif (0..1 ou 0..* ) ;
-        pour les éléments Inspire c'est celui défini dans le règlement métadonnées Inspire.
-        Le champ optionnel valueDomain référence la liste des valeurs possibles dans les
-        [vocabulaires contrôlés utilisés pour les métadonnées](?doc=inspire-mdcvoc).  
-        Les champs xpath et subelts correspondent à l'implémentation XML utilisant les normes ISO 191115/19119/19139.  
-      data:
-        # 7. CONFORMITÉ - 7. CONFORMITY
-        conformity:
-          numInspire: 7.
-          labelFr:  
-          labelEn: 
-          xpath: '//gmd:dataQualityInfo/*/gmd:report/*/gmd:result'
-          subelts:
-            specificationDate:
-              xpath: '//gmd:result/*/gmd:specification/*/gmd:date/*/gmd:date/gco:Date'
-            specificationTitle:
-              xpath: '//gmd:result/*/gmd:specification/*/gmd:title/gco:CharacterString'
-            degree:
-              xpath: '//gmd:result/*/gmd:pass/gco:Boolean'
-          multiplicity:
-            data: 1..*
-            service: 1..*
-        # 8. CONTRAINTES EN MATIÈRE D’ACCÈS ET D’UTILISATION - 8. CONSTRAINT RELATED TO ACCESS AND USE
-        useLimitation:
-          numInspire: 8.1.
-          labelFr: Conditions d'utilisation
-          labelEn: Use conditions
-          xpath: '//gmd:identificationInfo/*/gmd:resourceConstraints/*/gmd:useLimitation/gco:CharacterString'
-          multiplicity:
-            data: 1..*
-            service: 1..*
-        accessConstraints:
-          numInspire: 8.2.
-          labelFr: Restrictions concernant l’accès public
-          labelEn: Limitations on public access
-          xpath: '//gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints'
-          subelts:
-            code:
-              xpath: '//gmd:MD_LegalConstraints/gmd:accessConstraints/gmd:MD_RestrictionCode/@codeListValue'
-            others:
-              xpath: '//gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString'
-          multiplicity:
-            data: 1..*
-            service: 1..*
-        classification:
-          labelFr: Contrainte de sécurité intéressant la Défense nationale
-          labelEn: Classification
-          xpath: '//gmd:identificationInfo/*/gmd:resourceConstraints/*/gmd:classification/gmd:MD_ClassificationCode/@codeListValue'
-          multiplicity:
-            data: 0..*
-            service: 0..*
-        # 9. ORGANISATIONS RESPONSABLES DE L’ÉTABLISSEMENT, DE LA GESTION, DE LA MAINTENANCE ET DE LA DIFFUSION DES SÉRIES ET DES SERVICES DE DONNÉES GÉOGRAPHIQUES
-        # 9. ORGANISATIONS RESPONSIBLE FOR THE ESTABLISHMENT, MANAGEMENT, MAINTENANCE AND DISTRIBUTION OF SPATIAL DATA SETS AND SERVICE
-        responsibleParty:
-          numInspire: 9.1.
-          labelFr: Partie responsable
-          labelEn: Responsible party
-          xpath: '//gmd:identificationInfo/*/gmd:pointOfContact'
-          subelts:
-            name:
-              xpath: '//gmd:pointOfContact/*/gmd:organisationName/gco:CharacterString'
-            role:
-              xpath: '//gmd:pointOfContact/*/gmd:role/gmd:CI_RoleCode/@codeListValue'
-          multiplicity:
-            data: 1..*
-            service: 1..*
-          valueDomain: http://georef.eu/yamldoc/?doc=inspire-mdcvoc&ypath=/schemes/responsiblePartyRole
-        # 10. Métadonnées concernant les métadonnées - METADATA ON METADATA
-        # 10. Métadonnées concernant les métadonnées - METADATA ON METADATA
-        mdContact:
-          numInspire: 10.1.
-          labelFr: Point de contact des métadonnées
-          labelEn: Metadata point of contact
-          xpath: '//gmd:contact/*/gmd:organisationName/gco:CharacterString'
-          multiplicity:
-            data: 1..*
-            service: 1..*
-        mdDate:
-          numInspire: 10.2.
-          labelFr: Date des métadonnées
-          labelEn: Metadata date
-          xpath: '//gmd:dateStamp/gco:DateTime'
-          multiplicity:
-            data: 1
-            service: 1
-        mdLanguage:
-          numInspire: 10.3.
-          labelFr: Langue des métadonnées
-          labelEn: Metadata language
-          xpath: '//gmd:language/gmd:LanguageCode'
-          multiplicity:
-            data: 1
-            service: 1
-    mapDC:
-      title: mapping DublinCore
-      description: |
-        La présente table fournit un mapping possible en DublinCore des éléments de métadonnées de la table mdelements.
-      data:
-        title:
-          dublinCore: title
-        abstract:
-          dublinCore: abstract
+  spatialResolution:
+    type: [datatype]
+    domain: [metadata]
+    prefLabel:
+      fr: Résolution spatiale
+      en: Spatial resolution
+    attributes:
+      scaleDenominator:
+        label:
+          fr: dénominateur de l'échelle
+          en: scale denominator
         type:
-          dublinCore: type
-        locator:
-          dublinCore: relation
-        identifier:
-          dublinCore: identifier
-        operatesOn:
-          dublinCore: isFormatOf
-          comment: un service est un format particulier d'une série de données
-        language:
-          dublinCore: language
-        topicCategory:
-          dublinCore: subject
-        serviceType:
-          dublinCore: mettre en mot-clé
-        keyword:
-          dublinCore: subject
-        bbox:
-          dublinCore: spatial
-        temporalExtent:
-          dublinCore: temporal
-        dateOfPublication:
-          dublinCore: issued
-        dateOfLastRevision:
-          dublinCore: modified
-        dateOfCreation:
-          dublinCore: created
-        lineage:
-          dublinCore: peut être dans description
-        spatialResolutionScaleDenominator:
-          dublinCore: peut être dans description
-        spatialResolutionDistance:
-          dublinCore: peut être dans description
-        conformity:
-          dublinCore: conformsTo
-        useLimitation:
-          dublinCore: accessRights
-        accessConstraints:
-          dublinCore: licence
-        responsibleParty-resourceProvider:
-          dublinCore: '???'
-        responsibleParty-custodian:
-          dublinCore: '???'
-        responsibleParty-owner:
-          dublinCore: '???'
-        responsibleParty-user:
-          dublinCore: '???'
-        responsibleParty-distributor:
-          dublinCore: '???'
-        responsibleParty-originator:
-          dublinCore: '???'
-        responsibleParty-pointOfContact:
-          dublinCore: '???'
-        responsibleParty-principalInvestigator:
-          dublinCore: '???'
-        responsibleParty-processor:
-          dublinCore: '???'
-        responsibleParty-publisher:
-          dublinCore: publisher
-        responsibleParty-author:
-          dublinCore: creator
-        mdContact:
-          dublinCore: '???'
-        mdDate:
-          dublinCore: '???'
-          comment: utilisation de l'en-tête http Last-Modified
-        mdLanguage:
-          dublinCore: '???'
-          comment: utilisation de l'en-tête http Content-Language
+          externaltype: Decimal
+        multiplicity: 0..1
+        voidability: voidable
+      distance:
+        label:
+          fr: distance
+          en: distance
+        type:
+          datatype: Distance
+        multiplicity: 0..1
+        voidability: voidable
+  Distance:
+    type: [datatype]
+    domain: [metadata]
+    prefLabel:
+      fr: Distance
+      en: Distance
+    attributes:
+      unitOfMeasure:
+        label:
+          fr: unité de la mesure
+          en: unit of measure
+        type:
+          enum: unitsOfLength
+        multiplicity: 1
+        voidability: notVoidable
+      measure:
+        label:
+          fr: mesure
+          en: measure
+        type:
+          externaltype: Decimal
+        multiplicity: 1
+        voidability: notVoidable
+  conformsTo:
+    type: [datatype]
+    domain: [metadata]
+    prefLabel:
+      fr: Conformité d'une ressource à une spécification
+      en: Conformity of a resource to a specification
+    attributes:
+      specificationRef:
+        label:
+          fr: Référence à une spécification prédéfinie
+          en: Predefined specification reference
+        type:
+          codelist: specifications
+        multiplicity: 0..1
+        voidability: voidable
+      specificationDate:
+        label:
+          fr: Date de la spécification
+          en: Specification date
+        type:
+          externaltype: Date
+        multiplicity: 0..1
+        voidability: voidable
+      specificationTitle:
+        label:
+          fr: Titre de la spécification
+          en: Specification title
+        type:
+          externaltype: FreeText
+        multiplicity: 0..1
+        voidability: voidable
+      degreeOfConformity:
+        label:
+          fr: Niveau de conformité de la ressource à la spécification
+          en: Degree of conformity of the resource to the specification
+        type:
+          codelist: degreeOfConformity
+        multiplicity: 1
+        voidability: notVoidable
+  conditionsToAccessAndUse:
+    type: [datatype]
+    domain: [metadata]
+    prefLabel:
+      fr: Conditions applicables à l’accès et à l’utilisation
+      en: Conditions applying to access and use
+    attributes:
+      predefined:
+        label:
+          fr: Conditions prédéfinies
+          en: Predefined conditions
+        type:
+          codelist: ConditionsToAccessAndUse
+        multiplicity: 0..1
+        voidability: voidable
+      specific:
+        label:
+          fr: Conditions spécifiques
+          en: Specific conditions
+        type:
+          externaltype: FreeText
+        multiplicity: 0..1
+        voidability: voidable
+  FreeText:
+    type: [externaltype]
+    domain: [externaltypes]
+    prefLabel:
+      fr: Texte libre
+      en: Free text
+  Decimal:
+    type: [externaltype]
+    domain: [externaltypes]
+    prefLabel:
+      fr: Nombre décimal
+      en: Decimal number
+  Date:
+    type: [externaltype]
+    domain: [externaltypes]
+    prefLabel:
+      fr: Date
+      en: Date
+TODO:
+  mdelements:
+    title: Eléments de MD Inspire + qqs éléments ISO 191115/19119/19139
+    data:
+      # 8. CONTRAINTES EN MATIÈRE D’ACCÈS ET D’UTILISATION - 8. CONSTRAINT RELATED TO ACCESS AND USE
+      accessConstraints:
+        numInspire: 8.2.
+        labelFr: Restrictions concernant l’accès public
+        labelEn: Limitations on public access
+        xpath: '//gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints'
+        subelts:
+          code:
+            xpath: '//gmd:MD_LegalConstraints/gmd:accessConstraints/gmd:MD_RestrictionCode/@codeListValue'
+          others:
+            xpath: '//gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString'
+        multiplicity:
+          data: 1..*
+          service: 1..*
+      classification:
+        labelFr: Contrainte de sécurité intéressant la Défense nationale
+        labelEn: Classification
+        xpath: '//gmd:identificationInfo/*/gmd:resourceConstraints/*/gmd:classification/gmd:MD_ClassificationCode/@codeListValue'
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      # 9. ORGANISATIONS RESPONSABLES DE L’ÉTABLISSEMENT, DE LA GESTION, DE LA MAINTENANCE ET DE LA DIFFUSION DES SÉRIES ET DES SERVICES DE DONNÉES GÉOGRAPHIQUES
+      # 9. ORGANISATIONS RESPONSIBLE FOR THE ESTABLISHMENT, MANAGEMENT, MAINTENANCE AND DISTRIBUTION OF SPATIAL DATA SETS AND SERVICE
+      responsibleParty:
+        numInspire: 9.1.
+        labelFr: Partie responsable
+        labelEn: Responsible party
+        xpath: '//gmd:identificationInfo/*/gmd:pointOfContact'
+        subelts:
+          name:
+            xpath: '//gmd:pointOfContact/*/gmd:organisationName/gco:CharacterString'
+          role:
+            xpath: '//gmd:pointOfContact/*/gmd:role/gmd:CI_RoleCode/@codeListValue'
+        multiplicity:
+          data: 1..*
+          service: 1..*
+        valueDomain: http://georef.eu/yamldoc/?doc=inspire-mdcvoc&ypath=/schemes/responsiblePartyRoles
+      # 10. Métadonnées concernant les métadonnées - METADATA ON METADATA
+      # 10. Métadonnées concernant les métadonnées - METADATA ON METADATA
+      mdContact:
+        numInspire: 10.1.
+        labelFr: Point de contact des métadonnées
+        labelEn: Metadata point of contact
+        xpath: '//gmd:contact/*/gmd:organisationName/gco:CharacterString'
+        multiplicity:
+          data: 1..*
+          service: 1..*
+      mdDate:
+        numInspire: 10.2.
+        labelFr: Date des métadonnées
+        labelEn: Metadata date
+        xpath: '//gmd:dateStamp/gco:DateTime'
+        multiplicity:
+          data: 1
+          service: 1
+      mdLanguage:
+        numInspire: 10.3.
+        labelFr: Langue des métadonnées
+        labelEn: Metadata language
+        xpath: '//gmd:language/gmd:LanguageCode'
+        multiplicity:
+          data: 1
+          service: 1

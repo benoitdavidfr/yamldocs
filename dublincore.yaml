@@ -607,6 +607,22 @@ tables:
             comment?:
               KEY: STRING // commentaire dans la langue définie par la clé
     data:
+      W3CDTF:
+        name:
+          fr: spécification des formats de dates et d'heures du W3C
+          en: W3C Date and Time Formats Specification
+        example:
+          - {title: Year, format: YYYY, eg: '1997'}
+          - {title: Year and month, format: YYYY-MM, eg: '1997-07'}
+          - {title: Complete date, format: YYYY-MM-DD, eg: '1997-07-16'}
+          - {title: Complete date plus hours and minutes, format: YYYY-MM-DDThh:mmTZD, eg: '1997-07-16T19:20+01:00'}
+          - title: Complete date plus hours, minutes and seconds
+            format: YYYY-MM-DDThh:mm:ssTZD
+            eg: '1997-07-16T19:20:30+01:00'
+          - title: Complete date plus hours, minutes, seconds and a decimal fraction of a second
+            format: YYYY-MM-DDThh:mm:ss.sTZD
+            eg: '1997-07-16T19:20:30.45+01:00'
+        see: http://www.w3.org/TR/NOTE-datetime
       Period:
         name:
           fr: schéma de codage DCMI Period
@@ -746,19 +762,3 @@ tables:
           - telnet://192.0.2.16:80/
           - urn:oasis:names:specification:docbook:dtd:xml:4.1.2
         see: http://www.ietf.org/rfc/rfc3986.txt
-      W3CDTF:
-        name:
-          fr: spécification des formats de dates et d'heures du W3C
-          en: W3C Date and Time Formats Specification
-        example:
-          - {title: Year, format: YYYY, eg: '1997'}
-          - {title: Year and month, format: YYYY-MM, eg: '1997-07'}
-          - {title: Complete date, format: YYYY-MM-DD, eg: '1997-07-16'}
-          - {title: Complete date plus hours and minutes, format: YYYY-MM-DDThh:mmTZD, eg: '1997-07-16T19:20+01:00'}
-          - title: Complete date plus hours, minutes and seconds
-            format: YYYY-MM-DDThh:mm:ssTZD
-            eg: '1997-07-16T19:20:30+01:00'
-          - title: Complete date plus hours, minutes, seconds and a decimal fraction of a second
-            format: YYYY-MM-DDThh:mm:ss.sTZD
-            eg: '1997-07-16T19:20:30.45+01:00'
-        see: http://www.w3.org/TR/NOTE-datetime
