@@ -1774,7 +1774,7 @@ objectTypes:
   dataMetadata:
     type: [spatialobjecttype]
     domain: [metadata]
-    subtypeOf: metadata
+    subtypeOf: [metadata]
     prefLabel:
       fr: Métadonnées de données
       en: Data Metadata
@@ -1829,7 +1829,7 @@ objectTypes:
   serviceMetadata:
     type: [spatialobjecttype]
     domain: [metadata]
-    subtypeOf: metadata
+    subtypeOf: [metadata]
     prefLabel:
       fr: Métadonnées de service
       en: Service Metadata
@@ -1890,7 +1890,10 @@ objectTypes:
     attributes:
       westBoundLongitude:
         label:
-          fr: longitude ouest en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
+          fr: longitude Ouest
+          en: westbound longitude
+        definition:
+          fr: longitude Ouest en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
           en: westbound longitude in decimal degrees, with a precision of at least two decimals.
         type:
           externaltype: Decimal
@@ -1898,7 +1901,10 @@ objectTypes:
         voidability: notVoidable
       eastBoundLongitude:
         label:
-          fr: longitude est en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
+          fr: longitude Est
+          en: eastbound longitude
+        definition:
+          fr: longitude Est en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
           en: eastbound longitude in decimal degrees, with a precision of at least two decimals.
         type:
           externaltype: Decimal
@@ -1906,7 +1912,10 @@ objectTypes:
         voidability: notVoidable
       southBoundLatitude:
         label:
-          fr: latitude sud en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
+          fr: latitude Sud
+          en: southbound latitude
+        definition:
+          fr: latitude Sud en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
           en: southbound latitude in decimal degrees, with a precision of at least two decimals.
         type:
           externaltype: Decimal
@@ -1914,7 +1923,10 @@ objectTypes:
         voidability: notVoidable
       northBoundLatitude:
         label:
-          fr: latitude nord en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
+          fr: latitude Nord
+          en: northbound latitude
+        definition:
+          fr: latitude Nord en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
           en: northbound latitude in decimal degrees, with a precision of at least two decimals.
         type:
           externaltype: Decimal
