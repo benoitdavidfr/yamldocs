@@ -19,3 +19,5 @@ contents:
     title: Thèmes Inspire et vocabulaires contrôlés utilisés pour les métadonnées
   inspire-datamodel:
     title: Modèle de données Inspire déduit du règlement interopérabilité
+  inspire-metadata2:
+    title: Test d'un modèle de données des métadonnées Inspire
