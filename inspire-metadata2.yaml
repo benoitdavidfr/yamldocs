@@ -52,10 +52,23 @@ domains:
       fr: Types externes
       en: External types
 schemes:
+  inspireThemes:
+    prefLabel:
+      fr: Thèmes Inspire
+      en: Inspire Themes
+    hasPart:
+      - inspireThemesAnnexI
+      - inspireThemesAnnexII
+      - inspireThemesAnnexIII
+    domain: [ themes ]
+    sameAsPrefix: http://inspire.ec.europa.eu/theme/
+    options:
+      - nosort
   inspireThemesAnnexI:
     prefLabel:
       fr: Thèmes Inspire de l'annexe I
       en: Inspire Themes of Annex I
+    isPartOf: [inspireThemes]
     domain: [ themes ]
     sameAsPrefix: http://inspire.ec.europa.eu/theme/
     options:
@@ -72,6 +85,7 @@ schemes:
     prefLabel:
       fr: Thèmes Inspire de l'annexe III
       en: Inspire Themes of Annex III
+    isPartOf: [inspireThemes]
     domain: [ themes ]
     sameAsPrefix: http://inspire.ec.europa.eu/theme/
     options:
@@ -132,6 +146,13 @@ schemes:
     prefLabel:
       fr: Conditions applicables à l’accès et à l’utilisation
       en: Conditions applying to access and use
+    domain: [ metadata ]
+    options:
+      - nosort
+  limitationsOnPublicAccess:
+    prefLabel:
+      fr: Restrictions concernant l’accès public
+      en: Limitations on public access
     domain: [ metadata ]
     options:
       - nosort
@@ -1535,8 +1556,8 @@ concepts:
       en: No conditions apply to access and use.
   frGouvOpenLicence:
     prefLabel:
-      fr: Accès libre, conditions définies par la licence ouverte du gouvernement français 2.0
-      en: Free access, conditions defined by the French government open licence
+      fr: Accès libre, conditions d'utilisation définies par la licence ouverte du gouvernement français 2.0
+      en: Free access, use conditions defined by the French government open licence
     inScheme: [ conditionsToAccessAndUse ]
     topConceptOf: [ conditionsToAccessAndUse ]
     definition:
@@ -1544,14 +1565,96 @@ concepts:
       en: Access to the resource is free, use conditions are defined by the French government open licence 2.0 available at https://www.data.gouv.fr/fr/licences.
   odblLicence:
     prefLabel:
-      fr: Accès libre, conditions définies par la licence Open Database Licence 1.0
-      en: Free access, conditions defined by the Open Database Licence 1.0 licence
+      fr: Accès libre, conditions d'utilisation définies par la licence Open Database Licence 1.0
+      en: Free access, use conditions defined by the Open Database Licence 1.0 licence
     inScheme: [ conditionsToAccessAndUse ]
     topConceptOf: [ conditionsToAccessAndUse ]
     definition:
       fr: L'accès à la ressource est libre, les conditions applicables à son utilisation sont définies par la licence Open Database Licence 1.0.
       en: Access to the resource is free, use conditions are defined by the Open Database Licence 1.0.
-      
+  # limitationsOnPublicAccess
+  noLimitations:
+    prefLabel:
+      fr: no limitations to public access
+      en: aucune estriction concernant l’accès public
+    inScheme: [ limitationsOnPublicAccess ]
+    topConceptOf: [ limitationsOnPublicAccess ]
+    definition:
+      fr: Il n'existe aucune estriction concernant l’accès public aux séries et aux services de données géographiques. 
+      en: There are no limitations on public access to spatial data sets and services.
+  INSPIRE_Directive_Article13_1a:
+    prefLabel:
+      fr: accès public restreint conformément à l'article 13(1)(a) de la directive INSPIRE
+      en: public access limited according to Article 13(1)(a) of the INSPIRE Directive
+    inScheme: [ limitationsOnPublicAccess ]
+    topConceptOf: [ limitationsOnPublicAccess ]
+    definition:
+      fr: L'accès public aux séries et aux services de données nuirait à la confidentialité des travaux des autorités publiques, lorsque cette confidentialité est prévue par la loi.
+      en: Public access to spatial data sets and services would adversely affect the confidentiality of the proceedings of public authorities, where such confidentiality is provided for by law.
+  INSPIRE_Directive_Article13_1b:
+    prefLabel:
+      fr: accès public restreint conformément à l'article 13(1)(b) de la directive INSPIRE
+      en: public access limited according to Article 13(1)(b) of the INSPIRE Directive
+    inScheme: [ limitationsOnPublicAccess ]
+    topConceptOf: [ limitationsOnPublicAccess ]
+    definition:
+      fr: L'accès public aux séries et aux services de données nuirait aux relations internationales, à la sécurité publique ou à la défense nationale;.
+      en: Public access to spatial data sets and services would adversely affect international relations, public security or national defence.
+  INSPIRE_Directive_Article13_1c:
+    prefLabel:
+      fr: accès public restreint conformément à l'article 13(1)(c) de la directive INSPIRE
+      en: public access limited according to Article 13(1)(c) of the INSPIRE Directive
+    inScheme: [ limitationsOnPublicAccess ]
+    topConceptOf: [ limitationsOnPublicAccess ]
+    definition:
+      fr: L'accès public aux séries et aux services de données nuirait à la bonne marche de la justice, la possibilité pour toute personne d'être jugée équitablement ou la capacité d'une autorité publique d'effectuer une enquête d'ordre pénal ou disciplinaire.
+      en: Public access to spatial data sets and services would adversely affect the course of justice, the ability of any person to receive a fair trial or the ability of a public authority to conduct an enquiry of a criminal or disciplinary nature.
+  INSPIRE_Directive_Article13_1d:
+    prefLabel:
+      fr: accès public restreint conformément à l'article 13(1)(d) de la directive INSPIRE
+      en: public access limited according to Article 13(1)(d) of the INSPIRE Directive
+    inScheme: [ limitationsOnPublicAccess ]
+    topConceptOf: [ limitationsOnPublicAccess ]
+    definition:
+      fr: L'accès public aux séries et aux services de données nuirait à la confidentialité des informations commerciales ou industrielles, lorsque cette confidentialité est prévue par la législation nationale ou communautaire afin de protéger un intérêt économique légitime, notamment l'intérêt public lié à la préservation de la confidentialité des statistiques et du secret fiscal.
+      en: Public access to spatial data sets and services would adversely affect the confidentiality of commercial or industrial information, where such confidentiality is provided for by national or Community law to protect a legitimate economic interest, including the public interest in maintaining statistical confidentiality and tax secrecy.
+  INSPIRE_Directive_Article13_1e:
+    prefLabel:
+      fr: accès public restreint conformément à l'article 13(1)(e) de la directive INSPIRE
+      en: public access limited according to Article 13(1)(e) of the INSPIRE Directive
+    inScheme: [ limitationsOnPublicAccess ]
+    topConceptOf: [ limitationsOnPublicAccess ]
+    definition:
+      fr: L'accès public aux séries et aux services de données nuirait aux droits de propriété intellectuelle.
+      en: Public access to spatial data sets and services would adversely affect intellectual property rights.
+  INSPIRE_Directive_Article13_1f:
+    prefLabel:
+      fr: accès public restreint conformément à l'article 13(1)(f) de la directive INSPIRE
+      en: public access limited according to Article 13(1)(f) of the INSPIRE Directive
+    inScheme: [ limitationsOnPublicAccess ]
+    topConceptOf: [ limitationsOnPublicAccess ]
+    definition:
+      fr: L'accès public aux séries et aux services de données nuirait à la confidentialité des données à caractère personnel et/ou des fichiers concernant une personne physique lorsque cette personne n'a pas consenti à la divulgation de ces informations au public, lorsque la confidentialité de ce type d'information est prévue par la législation nationale ou communautaire
+      en: Public access to spatial data sets and services would adversely affect the confidentiality of personal data and/or files relating to a natural person where that person has not consented to the disclosure of the information to the public, where such confidentiality is provided for by national or Community law.
+  INSPIRE_Directive_Article13_1g:
+    prefLabel:
+      fr: accès public restreint conformément à l'article 13(1)(g) de la directive INSPIRE
+      en: public access limited according to Article 13(1)(g) of the INSPIRE Directive
+    inScheme: [ limitationsOnPublicAccess ]
+    topConceptOf: [ limitationsOnPublicAccess ]
+    definition:
+      fr: L'accès public aux séries et aux services de données nuirait aux intérêts ou à la protection de toute personne qui a fourni les informations demandées sur une base volontaire sans y être contrainte par la loi ou sans que la loi puisse l'y contraindre, à moins que cette personne n'ait consenti à la divulgation de ces données.
+      en: Public access to spatial data sets and services would adversely affect the interests or protection of any person who supplied the information requested on a voluntary basis without being under, or capable of being put under, a legal obligation to do so, unless that person has consented to the release of the information concerned.
+  INSPIRE_Directive_Article13_1h:
+    prefLabel:
+      fr: accès public restreint conformément à l'article 13(1)(h) de la directive INSPIRE
+      en: public access limited according to Article 13(1)(h) of the INSPIRE Directive
+    inScheme: [ limitationsOnPublicAccess ]
+    topConceptOf: [ limitationsOnPublicAccess ]
+    definition:
+      fr: L'accès public aux séries et aux services de données nuirait à la protection de l'environnement auquel ces informations ont trait, comme par exemple la localisation d'espèces rares.
+      en: Public access to spatial data sets and services would adversely affect the protection of the environment to which such information relates, such as the location of rare species.
+
   resourceProvider:
     prefLabel:
       fr: Fournisseur de la ressource
@@ -1664,7 +1767,7 @@ objectTypes:
   metadata:
     type: [spatialobjecttype]
     domain: [metadata]
-    property: abstracttype
+    property: [abstracttype]
     prefLabel:
       fr: Métadonnées d'une ressource (type abstrait)
       en: Resource Metadata (abstract type)
@@ -1680,74 +1783,117 @@ objectTypes:
         label:
           fr: Intitulé de la ressource (1.1.)
           en: Resource title (1.1.)
+        definition:
+          fr: Nom caractéristique et souvent unique sous lequel la ressource est connue.
+          en: This a characteristic, and often unique, name by which the resource is known.  
         type:
           externaltype: FreeText
         multiplicity: 1
-        voidability: notVoidable
       abstract:
         label:
           fr: Résumé de la ressource (1.2.)
           en: Resource abstract (1.2.)
+        definition:
+          fr: Bref résumé narratif du contenu de la ressource.
+          en: This is a brief narrative summary of the content of the resource.
         type:
           externaltype: FreeText
         multiplicity: 1
-        voidability: notVoidable
       type:
         label:
           fr: Type de la ressource (1.3.)
           en: Resource type (1.3.)
+        definition:
+          fr: Type de ressource décrit par les métadonnées.
+          en: This is the type of resource being described by the metadata.
         type:
           codelist: resourceTypes
         multiplicity: 1
-        voidability: notVoidable
       locator:
         label:
           fr: Localisateur de la ressource (1.4.)
           en: Resource locator (1.4.)
+        definition:
+          fr: >
+            Le localisateur de la ressource définit le ou les liens avec la ressource et/ou le lien avec les
+            informations supplémentaires concernant la ressource.
+          en: >
+            The resource locator defines the link(s) to the resource and/or the link to additional information
+            about the resource.
         type:
           externaltype: URL
         multiplicity: 0..*
-        voidability: voidable
-      keyword:
+      subject:
         label:
           fr: Mot clé (3.)
           en: Keyword (3.)
+        definition:
+          fr: |
+            Ensemble de mots-clés.  
+            Si la ressource est un service de données géographiques, un mot clé de la
+            [taxonomie des services géographiques de la norme EN ISO 19119](?ypath=/schemes/sdsCategories)
+            doit être fourni.  
+            Si la ressource est une série de données géographiques ou un ensemble de séries de données géographiques,
+            il convient de fournir au moins un mot clé du 
+            [thésaurus des thèmes Inspire](?ypath=/schemes/inspireThemes).
+          en: |
+            Set of keywords.  
+            If the resource is a spatial data service, at least one keyword from
+            [Geographic services taxonomy of EN ISO 19119](?ypath=/schemes/sdsCategories)
+            shall be provided.  
+            If a resource is a spatial data set or spatial data set series, at least one keyword shall be provided
+            from the [Inspire Themes thesaurus](?ypath=/schemes/inspireThemes).
         type:
           datatype: keyword
         multiplicity: 1..*
-        voidability: notVoidable
-      bbox:
+      spatial:
         label:
           fr: Rectangle de délimitation géographique (4.1.)
           en: Geographic bounding box (4.1.)
-        type:
-          datatype: bbox
+        definition:
+          fr: >
+            Étendue de la ressource dans l’espace géographique, exprimée sous la forme de rectangles de délimitation.
+            Si l'étendue peut se décomposer en plusieurs zones éloignées les unes des autres alors
+            pour chacune d'elles un rectangle est fourni.
+          en: >
+            This is the extent of the resource in the geographic space, given as bounding boxes.
+            If the extent breaks down into several zones distant from each other then each zone gives a bounding box.
+        scopeNote:
+          fr: >
+            Le réglement est incohérent: la partie B indique que l'élément correspond à un rectangle alors que la
+            partie C indique 1..* comme cardinalité.
+        type: { datatype: bbox }
         multiplicity: 1..*
-        voidability: notVoidable
-      temporalReference:
+      temporal:
         label:
-          fr: Dimension temporelle des données (5.)
-          en: Temporal dimension of the data (5.)
-        type:
-          datatype: temporalReference
+          fr: Référence temporelle (5.)
+          en: Temporal reference (5.)
+        definition:
+          fr: Informations sur la dimension temporelle des données.
+          en: Information on the temporal dimension of the data.
+        type: { datatype: temporalReference }
         multiplicity: 1..*
-        voidability: notVoidable
       conformsTo:
         label:
-          fr: Conformité d'une ressource à une spécification (7.)
-          en: Conformity of a resource to a specification (7.)
-        type:
-          datatype: conformsTo
+          fr: Conformité (7.)
+          en: Conformity (7.)
+        definition:
+          fr: Informations sur la conformité et le degré de conformité avec les règles de mise en œuvre adoptées au titre de l’article 7, paragraphe 1, de la directive 2007/2/CE.
+          en: Information on the conformity, and the degree of conformity, with implementing rules adopted under Article 7(1) of Directive 2007/2/EC.
+        type: { datatype: conformsTo }
         multiplicity: 1..*
-        voidability: notVoidable
       conditionsToAccessAndUse:
         label:
           fr: Conditions applicables à l’accès et à l’utilisation (8.1.)
           en: Conditions applying to access and use (8.1.)
+        definition:
+          fr: |
+            Cet élément de métadonnées définit les conditions applicables à l’accès et à l’utilisation des séries et des services de données géographiques, et, le cas échéant, les frais correspondants, conformément à l’article 5, paragraphe 2, point b), et à l’article 11, paragraphe 2, point f), de la directive 2007/2/CE.  
+          en: |
+            This metadata element defines the conditions for access and use of spatial data sets and services, and where applicable, corresponding fees as required by Article 5(2)(b) and Article 11(2)(f) of Directive 2007/2/EC.  
         type:
           datatype: conditionsToAccessAndUse
         multiplicity: 1..*
-        voidability: notVoidable
       limitationsOnPublicAccess:
         label:
           fr: Restrictions concernant l’accès public (8.2.)
@@ -1755,22 +1901,17 @@ objectTypes:
         type:
           codelist: limitationsOnPublicAccess
         multiplicity: 1..*
-        voidability: notVoidable
         definition:
           fr: |
             Lorsque les États membres restreignent l’accès public aux séries et aux services de données géographiques
             au titre de l’article 13 de la directive 2007/2/CE, cet élément de métadonnées fournit des informations
             sur les restrictions et les raisons de celles-ci.  
             S’il n’y a pas de restrictions concernant l’accès public, cet élément de métadonnées l’indiquera.  
-            Le domaine de valeur de cet élément de métadonnées est du texte libre.  
-            [source: règlement CE No 1205/2008]
           en: |
             When Member States limit public access to spatial data sets and spatial data services under Article 13 of
             Directive 2007/2/EC, this metadata element shall provide information on the limitations and the reasons
             for them.  
             If there are no limitations on public access, this metadata element shall indicate that fact.  
-            The value domain of this metadata element is free text.  
-            [source: regulation CE No 1205/2008]
   dataMetadata:
     type: [spatialobjecttype]
     domain: [metadata]
@@ -1790,26 +1931,39 @@ objectTypes:
         label:
           fr: Identificateur de la ressource unique (1.5.)
           en: Unique resource identifier (1.5.)
+        definition:
+          fr: |
+            Une valeur identifiant la ressource de manière unique.  
+            Le domaine de valeur de cet élément de métadonnées est un code obligatoire sous forme de chaîne de caractères, généralement attribué par le propriétaire des données, et un espace de noms sous forme de chaîne de caractères qui identifie de manière unique le contexte du code d’identification (par exemple le propriétaire des données).
+          en: |
+            A value uniquely identifying the resource.  
+            The value domain of this metadata element is a mandatory character string code, generally assigned by the data owner, and a character string namespace uniquely identifying the context of the identifier code (for example, the data owner).
         type:
           externaltype: URI
         multiplicity: 1..*
-        voidability: notVoidable
       language:
         label:
           fr: Langue de la ressource (1.7.)
           en: Resource language (1.7.)
-        type:
-          codelist: ISO639-2
+        definition:
+          fr: La langue ou les langues utilisées dans le cadre de la ressource.
+          en: The language(s) used within the resource.
+        type: {codelist: ISO639-2}
         multiplicity: 1..*
-        voidability: notVoidable
       topicCategory:
         label:
           fr: Catégorie thématique (2.1.)
           en: Topic category (2.1.)
+        definition:
+          fr: >
+            La catégorie thématique est un système de classification de haut niveau qui permet de regrouper
+            et de chercher par thème les ressources de données géographiques disponibles.
+          en: >
+            The topic category is a high-level classification scheme to assist in the grouping and topic-based
+            search of available spatial data resources.
         type:
           codelist: topicCategories
         multiplicity: 1..*
-        voidability: notVoidable
       lineage:
         label:
           fr: Généalogie (6.1.)
@@ -1817,7 +1971,6 @@ objectTypes:
         type:
           externaltype: FreeText
         multiplicity: 1
-        voidability: notVoidable
       spatialResolution:
         label:
           fr: Résolution spatiale (6.2.)
@@ -1825,7 +1978,6 @@ objectTypes:
         type:
           datatype: spatialResolution
         multiplicity: 1..*
-        voidability: notVoidable
   serviceMetadata:
     type: [spatialobjecttype]
     domain: [metadata]
@@ -1845,19 +1997,38 @@ objectTypes:
         label:
           fr: Type de service de données géographiques (2.2.)
           en: Spatial data service type (2.2.)
+        definition:
+          fr: >
+            Classification qui permet de rechercher les services de données géographiques disponibles.
+            Un service donné ne peut être classé que dans une seule catégorie.
+          en: >
+            This is a classification to assist in the search of available spatial data services.
+            A specific service shall be categorised in only one category.
         type:
           codelist: sdsTypes
         multiplicity: 1
-        voidability: notVoidable
+      spatialResolution:
+        label:
+          fr: Résolution spatiale (6.2.)
+          en: Spatial resolution (6.2.)
+        type:
+          datatype: spatialResolution
+        multiplicity: 0..*
     relations:
       operatesOn:
         label:
           fr: Ressource Couplée (1.6.)
           en: Coupled resource (1.6.)
+        definition:
+          fr: >
+            Cet élément de métadonnées identifie, le cas échéant, la série ou les séries de données géographiques
+            cibles du service grâce à leurs identificateurs de ressource uniques (Unique Resource Identifiers, URI).
+          en: >
+            If the resource is a spatial data service, this metadata element identifies, where relevant, the target
+            spatial data set(s) of the service through their unique resource identifiers (URI).  
         type:
           spatialobjecttype: dataMetadata
         multiplicity: 0..*
-        voidability: voidable
   keyword:
     type: [datatype]
     domain: [metadata]
@@ -1867,20 +2038,42 @@ objectTypes:
     attributes:
       value:
         label:
-          fr: valeur du mot-clé (3.1.)
-          en: value of the keyword (3.1.)
+          fr: Valeur du mot-clé (3.1.)
+          en: Keyword value (3.1.)
+        definition:
+          fr: >
+            La valeur du mot clé est un mot, un mot formalisé ou une expression couramment utilisés pour décrire
+            le sujet. La catégorie thématique étant trop imprécise pour des recherches détaillées, les mots clés
+            permettent d’affiner la recherche en texte intégral et permettent une recherche structurée par mot clé.
+          en: >
+            The keyword value is a commonly used word, formalised word or phrase used to describe the subject.
+            While the topic category is too coarse for detailed queries, keywords help narrowing a full text search
+            and they allow for structured keyword search.  
         type:
           externaltype: FreeText
         multiplicity: 1
-        voidability: notVoidable
       cvoc:
         label:
           fr: Vocabulaire contrôlé d’origine (3.2.)
           en: Originating controlled vocabulary (3.2.)
+        definition:
+          fr: |
+            Si la valeur du mot clé provient d’un vocabulaire contrôlé (thésaurus, ontologie), par exemple GEMET,
+            soit l'URI du mot-clé, soit l'URI du vocabulaire contrôlé, soit l’origine du vocabulaire contrôlé
+            sera indiquée.  
+            Cette indication d’origine inclut au moins le titre et une date de référence (date de publication,
+            date de dernière révision ou de création) du vocabulaire contrôlé en question.
+          en: |
+            If the keyword value originates from a controlled vocabulary (thesaurus, ontology), for example GEMET,
+            either the URI of the keyword, or the URI of the originating controlled vocabulary,
+            or the citation of the originating controlled vocabulary shall be provided.  
+            This citation shall include at least the title and a reference date (date of publication,
+            date of last revision or of creation) of the originating controlled vocabulary.
+        scopeNote:
+          fr: La possibilité d'indiquer un URI n'apparait pas dans le règlement.
         type:
           externaltype: FreeText
         multiplicity: 0..1
-        voidability: voidable
   bbox:
     type: [datatype]
     domain: [metadata]
@@ -1898,7 +2091,6 @@ objectTypes:
         type:
           externaltype: Decimal
         multiplicity: 1
-        voidability: notVoidable
       eastBoundLongitude:
         label:
           fr: longitude Est
@@ -1909,7 +2101,6 @@ objectTypes:
         type:
           externaltype: Decimal
         multiplicity: 1
-        voidability: notVoidable
       southBoundLatitude:
         label:
           fr: latitude Sud
@@ -1920,7 +2111,6 @@ objectTypes:
         type:
           externaltype: Decimal
         multiplicity: 1
-        voidability: notVoidable
       northBoundLatitude:
         label:
           fr: latitude Nord
@@ -1931,46 +2121,104 @@ objectTypes:
         type:
           externaltype: Decimal
         multiplicity: 1
-        voidability: notVoidable
   temporalReference:
     type: [datatype]
     domain: [metadata]
     prefLabel:
-      fr: Dimension temporelle des données
-      en: Temporal dimension of the data
+      fr: Référence temporelle
+      en: Temporal reference
+    definition:
+      fr: >
+        Cet élément de métadonnées fournit des informations sur la dimension temporelle des données.
+        Au moins un des attributs devra être fourni.
+      en: >
+        This metadata element gives information on the temporal dimension of the data.
+        At least one of the attributes shall be provided.
     attributes:
       valid:
         label:
           fr: Étendue temporelle ( 5.1.)
           en: Temporal extent (5.1.)
-        type:
-          externaltype: TimePeriod
+        definition:
+          fr: |
+            L’étendue temporelle définit la période de temps couverte par le contenu de la ressource.
+            Cette période peut être exprimée de l’une des manières suivantes:
+              
+              - une date déterminée,
+              - un intervalle de dates exprimé par la date de début et la date de fin de l’intervalle,
+              - un mélange de dates et d’intervalles.
+          en: |
+            The temporal extent defines the time period covered by the content of the resource.
+            This time period may be expressed as any of the following:
+              
+              - an individual date,
+              - an interval of dates expressed through the starting date and end date of the interval,
+              - a mix of individual dates and intervals of dates.
+        type: {datatype: DateOrInterval}
         multiplicity: 0..*
-        voidability: voidable
       issued:
         label:
           fr: Date de publication (5.2.)
           en: Date of publication (5.2.)
-        type:
-          externaltype: Date
+        definition:
+          fr: >
+            Date de publication de la ressource lorsqu’elle est disponible ou date d’entrée en vigueur.
+            Il peut y avoir plus d’une date de publication.
+          en: >
+            This is the date of publication of the resource when available, or the date of entry into force.
+            There may be more than one date of publication.
+        type: {externaltype: Date}
         multiplicity: 0..*
-        voidability: voidable
       modified:
         label:
           fr: Date de dernière révision (5.3.)
           en: Date of last revision (5.3.)
-        type:
-          externaltype: Date
-        multiplicity: 0..*
-        voidability: voidable
+        definition:
+          fr: >
+            Date de la dernière révision de la ressource, si la ressource a été révisée.
+            Il ne doit pas y avoir plus d’une date de dernière révision.
+          en: >
+            This is the date of last revision of the resource, if the resource has been revised.
+            There shall not be more than one date of last revision.
+        type: {externaltype: Date}
+        multiplicity: 0..1
       created:
         label:
           fr: Date de création (5.4.)
           en: Date of creation (5.4.)
-        type:
-          externaltype: Date
-        multiplicity: 0..*
-        voidability: voidable
+        definition:
+          fr: Date de création de la ressource. Il ne doit pas y avoir plus d’une date de création.
+          en: This is the date of creation of the resource. There shall not be more than one date of creation.
+        type: {externaltype: Date}
+        multiplicity: 0..1
+  DateOrInterval:
+    type: [datatype]
+    domain: [metadata]
+    prefLabel:
+      fr: Date ou intervalle de dates
+      en: Date or interval of dates
+    definition:
+      fr: >
+        Définit soit une date, soit un intervalle de dates.
+        Dans le premier cas, la date est fournie dans start et end est indéfini.
+        Dans le second cas, start et end sont tous les deux définis.
+      en: >
+        Defines either a date or an interval of dates.
+        In the first case, the date is given by start and end is undefined.
+        In the second case, both start and end are defined.
+    attributes:
+      start:
+        label:
+          fr: valeur de la date ou début de l'intervalle
+          en: value of the date or start of the interval
+        type: {externaltype: Date}
+        multiplicity: 1
+      end:
+        label:
+          fr: indéfini ou fin de l'intervalle
+          en: undefinded or end of the interval
+        type: {externaltype: Date}
+        multiplicity: 0..1
   spatialResolution:
     type: [datatype]
     domain: [metadata]
@@ -1985,7 +2233,6 @@ objectTypes:
         type:
           externaltype: Decimal
         multiplicity: 0..1
-        voidability: voidable
       distance:
         label:
           fr: distance
@@ -1993,7 +2240,6 @@ objectTypes:
         type:
           datatype: Distance
         multiplicity: 0..1
-        voidability: voidable
   Distance:
     type: [datatype]
     domain: [metadata]
@@ -2008,7 +2254,6 @@ objectTypes:
         type:
           enum: unitsOfLength
         multiplicity: 1
-        voidability: notVoidable
       measure:
         label:
           fr: mesure
@@ -2016,7 +2261,6 @@ objectTypes:
         type:
           externaltype: Decimal
         multiplicity: 1
-        voidability: notVoidable
   conformsTo:
     type: [datatype]
     domain: [metadata]
@@ -2031,7 +2275,6 @@ objectTypes:
         type:
           codelist: specifications
         multiplicity: 0..1
-        voidability: voidable
       specificationDate:
         label:
           fr: Date de la spécification
@@ -2039,7 +2282,6 @@ objectTypes:
         type:
           externaltype: Date
         multiplicity: 0..1
-        voidability: voidable
       specificationTitle:
         label:
           fr: Titre de la spécification
@@ -2047,7 +2289,6 @@ objectTypes:
         type:
           externaltype: FreeText
         multiplicity: 0..1
-        voidability: voidable
       degreeOfConformity:
         label:
           fr: Niveau de conformité de la ressource à la spécification
@@ -2055,22 +2296,29 @@ objectTypes:
         type:
           codelist: degreeOfConformity
         multiplicity: 1
-        voidability: notVoidable
   conditionsToAccessAndUse:
     type: [datatype]
     domain: [metadata]
     prefLabel:
       fr: Conditions applicables à l’accès et à l’utilisation
       en: Conditions applying to access and use
+    definition:
+      fr: |
+        Le domaine de valeur de cet élément de métadonnées est du texte libre.  
+        Cet élément doit avoir des valeurs. Si aucune condition ne s’applique à l’accès à la ressource et à son utilisation, on utilisera la mention «aucune condition ne s’applique». Si les conditions sont inconnues, on utilisera la mention «conditions inconnues».
+        Cet élément fournira aussi des informations sur tout frais éventuel à acquitter pour avoir accès à la ressource et l’utiliser, le cas échéant, ou fera référence à un localisateur de ressource uniforme (Uniform Resource Locator, URL) où il sera possible de trouver des informations sur les frais.
+      en: |
+        The value domain of this metadata element is free text.  
+        The element must have values. If no conditions apply to the access and use of the resource, ‘no conditions apply’ shall be used. If conditions are unknown, ‘conditions unknown’ shall be used.  
+        This element shall also provide information on any fees necessary to access and use the resource, if applicable, or refer to a uniform resource locator (URL) where information on fees is available.
     attributes:
       predefined:
         label:
           fr: Conditions prédéfinies
           en: Predefined conditions
         type:
-          codelist: ConditionsToAccessAndUse
+          codelist: conditionsToAccessAndUse
         multiplicity: 0..1
-        voidability: voidable
       specific:
         label:
           fr: Conditions spécifiques
@@ -2078,7 +2326,6 @@ objectTypes:
         type:
           externaltype: FreeText
         multiplicity: 0..1
-        voidability: voidable
   FreeText:
     type: [externaltype]
     domain: [externaltypes]

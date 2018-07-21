@@ -34,6 +34,9 @@ tables:
       skos:
         prefix: http://www.w3.org/2004/02/skos/core#
         title: SKOS Simple Knowledge Organization System Namespace Document
+      foaf:
+        prefix: http://xmlns.com/foaf/0.1/
+        title: Ontologie FOAF permettant de décrire des personnes et les relations qu’elles entretiennent entre elles
       schema.org:
         prefix: http://schema.org/
         title: Schema.org vocabulary
@@ -131,3 +134,5 @@ tables:
         namespace: dcterms
       licence:
         namespace: dcterms
+      depiction:
+        namespace: foaf
