@@ -1,23 +1,23 @@
 title: Modèle de données pour les métadonnées Inspire
 description: |
-  EN CHANTIER
-  
-  Liste des thèmes des annexes de la [directive Inspire](http://data.europa.eu/eli/dir/2007/2/oj)
-  listés dans l'ordre de la directive.  
-  Les noms courts sont ceux utilisés dans le [registre Inspire](http://inspire.ec.europa.eu/theme).
-  Le thème ac-mf fusionne les 2 thèmes officiels ac et mf.  
-  Les définitions sont issues de la directive. Les notes d'application (scopeNote) n'ont pas de valeur officielle.
-  
-  Ce document reprend aussi différents vocabulaires contrôlés définis dans le
-  [réglement Métadonnées](https://data.europa.eu/eli/reg/2008/1205/oj) :
+  Ce document décrit le modèle de données d'un jeu de métadonnées Inspire.  
+  Il reprend le [règlement Métadonnées Inspire](https://data.europa.eu/eli/reg/2008/1205/oj)
+  en lui apportant les quelques améliorations suivantes:
     
-    - les types de ressource,
-    - les catégories thématiques conformément à la norme EN ISO 19115 ainsi que la correspondance avec les thèmes,
-    - les codes définissant le niveau de conformité d'une ressource à une spécification,
-    - les types de service de données géographiques,
-    - la taxonomie des services géographiques de la norme EN ISO 19119,
-    - les différents rôles des parties par rapport aux ressources.
-    
+    - la [liste des thèmes Inspire](?ypath=/schemes/inspireThemes) est décomposée en 3 sous listes
+      correspondant chacune à une des annexes de la [directive](http://data.europa.eu/eli/dir/2007/2/oj) ;
+      elle contient à la fois les thèmes définie par la directive et ceux utilisés par le 
+      [règlement interopérabilité](http://eur-lex.europa.eu/legal-content/fr/NOT/?uri=CELEX:02010R1089-20141231) ;
+      de plus les identifiants sont ceux utilisés dans le [registre Inspire](http://inspire.ec.europa.eu/theme).
+    - dans plusieurs éléments de métadonnées, ce modèle donne la possibilité de remplacer par une valeur
+      d'une liste de code une chaine prédéfinie par le règlement ; c'est le cas des éléments:
+        - [Conformité](?ypath=/objectTypes/conformsTo),
+        - [Conditions applicables à l’accès et à l’utilisation](?ypath=/objectTypes/conditionsToAccessAndUse)
+        - [Restrictions concernant l’accès public](?ypath=/schemes/limitationsOnPublicAccess)
+    - les définitions reprennent celles du règlement en les adaptant aux améliorations apportées ;
+    - les identifiants des propriétés reprennent dans la mesure du possible
+      ceux des [éléments du Dublin Core](?doc=dublincore).
+
 source:
   - http://data.europa.eu/eli/dir/2007/2/oj
   - https://data.europa.eu/eli/reg/2008/1205/oj
@@ -1654,7 +1654,7 @@ concepts:
     definition:
       fr: L'accès public aux séries et aux services de données nuirait à la protection de l'environnement auquel ces informations ont trait, comme par exemple la localisation d'espèces rares.
       en: Public access to spatial data sets and services would adversely affect the protection of the environment to which such information relates, such as the location of rare species.
-
+  # responsiblePartyRoles
   resourceProvider:
     prefLabel:
       fr: Fournisseur de la ressource
@@ -1772,8 +1772,8 @@ objectTypes:
       fr: Métadonnées d'une ressource (type abstrait)
       en: Resource Metadata (abstract type)
     definition:
-      fr: xxx
-      en: xxx
+      fr: Ce type définit les propriétés communes aux métadonnées de données et de services.
+      en: This type defines common proprties of data and service matadata.
     source:
       eutext:
         fr: https://eur-lex.europa.eu/legal-content/FR/TXT/ELI/?eliuri=eli:reg:2008:1205:oj
@@ -1898,9 +1898,6 @@ objectTypes:
         label:
           fr: Restrictions concernant l’accès public (8.2.)
           en: Limitations on public access (8.2.)
-        type:
-          codelist: limitationsOnPublicAccess
-        multiplicity: 1..*
         definition:
           fr: |
             Lorsque les États membres restreignent l’accès public aux séries et aux services de données géographiques
@@ -1912,6 +1909,53 @@ objectTypes:
             Directive 2007/2/EC, this metadata element shall provide information on the limitations and the reasons
             for them.  
             If there are no limitations on public access, this metadata element shall indicate that fact.  
+        type:
+          codelist: limitationsOnPublicAccess
+        multiplicity: 1..*
+      # 9. ORGANISATIONS RESPONSABLES DE L’ÉTABLISSEMENT, DE LA GESTION, DE LA MAINTENANCE ET DE LA DIFFUSION DES SÉRIES ET DES SERVICES DE DONNÉES GÉOGRAPHIQUES
+      # 9. ORGANISATIONS RESPONSIBLE FOR THE ESTABLISHMENT, MANAGEMENT, MAINTENANCE AND DISTRIBUTION OF SPATIAL DATA SETS AND SERVICE
+      responsibleParty:
+        label:
+          fr: Partie responsable (9.)
+          en: Responsible party (9.)
+        definition:
+          fr: >
+            Description de l’organisation responsable de l’établissement, de la gestion, de la maintenance et de la diffusion de la ressource.  
+          en: >
+            Description of the organisation responsible for the establishment, management, maintenance and distribution of the resource. 
+        type:
+          datatype: responsibleParty
+        multiplicity: 1..*
+      # 10. Métadonnées concernant les métadonnées - METADATA ON METADATA
+      mdContact:
+        label:
+          fr: Point de contact des métadonnées (10.1.)
+          en: Metadata point of contact (10.1.)
+        definition:
+          fr: Description de l’organisation responsable de la création et de la maintenance des métadonnées.  
+          en: This is the description of the organisation responsible for the creation and maintenance of the metadata.
+        type:
+          datatype: Organization
+        multiplicity: 1..*
+      mdDate:
+        label:
+          fr: Date des métadonnées (10.2.)
+          en: Metadata date (10.2.)
+        definition:
+          fr: Date à laquelle l’enregistrement de métadonnées a été créé ou actualisé. 
+          en: The date which specifies when the metadata record was created or updated.
+        type:
+          datatype: Date
+        multiplicity: 1
+      mdLanguage:
+        label:
+          fr: Langue des métadonnées (10.3.)
+          en: Metadata language (10.3.)
+        definition:
+          fr: C’est la langue dans laquelle les éléments de métadonnées sont exprimés.
+          en: This is the language in which the metadata elements are expressed.
+        type: {codelist: ISO639-2}
+        multiplicity: 1
   dataMetadata:
     type: [spatialobjecttype]
     domain: [metadata]
@@ -1920,8 +1964,8 @@ objectTypes:
       fr: Métadonnées de données
       en: Data Metadata
     definition:
-      fr: xxx
-      en: xxx
+      fr: Ce type définit un jeu de métadonnées d'une série de données géographiques ou d'un ensemble de séries de données géographiques.
+      en: This type defines a metadata set for a Spatial data set or Spatial data set series.
     source:
       eutext:
         fr: https://eur-lex.europa.eu/legal-content/FR/TXT/ELI/?eliuri=eli:reg:2008:1205:oj
@@ -1986,8 +2030,8 @@ objectTypes:
       fr: Métadonnées de service
       en: Service Metadata
     definition:
-      fr: xxx
-      en: xxx
+      fr: Ce type définit un jeu de métadonnées d'un Service de données géographiques.
+      en: This type defines a metadata set for a Spatial data service.
     source:
       eutext:
         fr: https://eur-lex.europa.eu/legal-content/FR/TXT/ELI/?eliuri=eli:reg:2008:1205:oj
@@ -2137,7 +2181,7 @@ objectTypes:
     attributes:
       valid:
         label:
-          fr: Étendue temporelle ( 5.1.)
+          fr: Étendue temporelle (5.1.)
           en: Temporal extent (5.1.)
         definition:
           fr: |
@@ -2326,12 +2370,74 @@ objectTypes:
         type:
           externaltype: FreeText
         multiplicity: 0..1
+  responsibleParty:
+    type: [datatype]
+    domain: [metadata]
+    prefLabel:
+      fr: Partie responsable
+      en: Responsible party
+    definition:
+      fr: >
+        Description de l’organisation responsable de l’établissement, de la gestion, de la maintenance et de la diffusion de la ressource.  
+      en: >
+        Description of the organisation responsible for the establishment, management, maintenance and distribution of the resource. 
+    broadMatch: [ https://schema.org/Organization ]
+    attributes:
+      name:
+        label:
+          fr: Nom de l'organisation (9.1.1.)
+          en: Name of the organization (9.1.1.)
+        type:
+          externaltype: FreeText
+        multiplicity: 1
+      email:
+        label:
+          fr: Une adresse e-mail de contact (9.1.2.)
+          en: A contact e-mail address (9.1.2.)
+        type:
+          externaltype: CharacterString.
+        multiplicity: 1
+      roleName:
+        label:
+          fr: Fonction de l’organisation responsable (9.2.)
+          en: The role of the responsible organisation (9.2.)
+        type:
+          codelist: responsiblePartyRoles
+        multiplicity: 1
+  Organization:
+    type: [datatype]
+    domain: [metadata]
+    prefLabel:
+      fr: Description d'une organisation
+      en: description of an organisation
+    exactMatch: [ https://schema.org/Organization ]
+    attributes:
+      name:
+        label:
+          fr: Nom de l'organisation
+          en: Name of the organization
+        type:
+          externaltype: FreeText
+        multiplicity: 1
+      email:
+        label:
+          fr: Une adresse e-mail de contact
+          en: A contact e-mail address
+        type:
+          externaltype: CharacterString.
+        multiplicity: 1
   FreeText:
     type: [externaltype]
     domain: [externaltypes]
     prefLabel:
       fr: Texte libre
       en: Free text
+  CharacterString:
+    type: [externaltype]
+    domain: [externaltypes]
+    prefLabel:
+      fr: Chaine de caractères
+      en: Character string
   Decimal:
     type: [externaltype]
     domain: [externaltypes]
@@ -2344,70 +2450,6 @@ objectTypes:
     prefLabel:
       fr: Date
       en: Date
-TODO:
-  mdelements:
-    title: Eléments de MD Inspire + qqs éléments ISO 191115/19119/19139
-    data:
-      # 8. CONTRAINTES EN MATIÈRE D’ACCÈS ET D’UTILISATION - 8. CONSTRAINT RELATED TO ACCESS AND USE
-      accessConstraints:
-        numInspire: 8.2.
-        labelFr: Restrictions concernant l’accès public
-        labelEn: Limitations on public access
-        xpath: '//gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints'
-        subelts:
-          code:
-            xpath: '//gmd:MD_LegalConstraints/gmd:accessConstraints/gmd:MD_RestrictionCode/@codeListValue'
-          others:
-            xpath: '//gmd:MD_LegalConstraints/gmd:otherConstraints/gco:CharacterString'
-        multiplicity:
-          data: 1..*
-          service: 1..*
-      classification:
-        labelFr: Contrainte de sécurité intéressant la Défense nationale
-        labelEn: Classification
-        xpath: '//gmd:identificationInfo/*/gmd:resourceConstraints/*/gmd:classification/gmd:MD_ClassificationCode/@codeListValue'
-        multiplicity:
-          data: 0..*
-          service: 0..*
-      # 9. ORGANISATIONS RESPONSABLES DE L’ÉTABLISSEMENT, DE LA GESTION, DE LA MAINTENANCE ET DE LA DIFFUSION DES SÉRIES ET DES SERVICES DE DONNÉES GÉOGRAPHIQUES
-      # 9. ORGANISATIONS RESPONSIBLE FOR THE ESTABLISHMENT, MANAGEMENT, MAINTENANCE AND DISTRIBUTION OF SPATIAL DATA SETS AND SERVICE
-      responsibleParty:
-        numInspire: 9.1.
-        labelFr: Partie responsable
-        labelEn: Responsible party
-        xpath: '//gmd:identificationInfo/*/gmd:pointOfContact'
-        subelts:
-          name:
-            xpath: '//gmd:pointOfContact/*/gmd:organisationName/gco:CharacterString'
-          role:
-            xpath: '//gmd:pointOfContact/*/gmd:role/gmd:CI_RoleCode/@codeListValue'
-        multiplicity:
-          data: 1..*
-          service: 1..*
-        valueDomain: http://georef.eu/yamldoc/?doc=inspire-mdcvoc&ypath=/schemes/responsiblePartyRoles
-      # 10. Métadonnées concernant les métadonnées - METADATA ON METADATA
-      # 10. Métadonnées concernant les métadonnées - METADATA ON METADATA
-      mdContact:
-        numInspire: 10.1.
-        labelFr: Point de contact des métadonnées
-        labelEn: Metadata point of contact
-        xpath: '//gmd:contact/*/gmd:organisationName/gco:CharacterString'
-        multiplicity:
-          data: 1..*
-          service: 1..*
-      mdDate:
-        numInspire: 10.2.
-        labelFr: Date des métadonnées
-        labelEn: Metadata date
-        xpath: '//gmd:dateStamp/gco:DateTime'
-        multiplicity:
-          data: 1
-          service: 1
-      mdLanguage:
-        numInspire: 10.3.
-        labelFr: Langue des métadonnées
-        labelEn: Metadata language
-        xpath: '//gmd:language/gmd:LanguageCode'
-        multiplicity:
-          data: 1
-          service: 1
+    definition:
+      fr: Date exprimée conformément à la norme ISO 8601.
+      en: Date expressed in conformity with ISO 8601.
