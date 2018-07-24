@@ -1,0 +1,1003 @@
+title: Codification des langues selon la norme ISO 639-2
+language: [fr,en]
+yamlClass: YamlSkos
+domainScheme:
+  hasTopConcept:
+    - iso639-2
+domains:
+  iso639-2:
+    prefLabel: ISO 639-2
+schemes:
+  prefLabel:
+    fr: Codification des langues selon la norme ISO 639-2
+concepts:
+  aar:
+    prefLabel:
+      fr: Afar
+      en: Afar
+    comment: 
+  abk:
+    prefLabel:
+      fr: Abkhaze
+      en: Abkhazian
+    comment: 
+  ave:
+    prefLabel:
+      fr: Avestique
+      en: Avestan
+    comment: 
+  afr:
+    prefLabel:
+      fr: Afrikaans
+      en: Afrikaans
+    comment: 
+  aka:
+    prefLabel:
+      fr: Akan
+      en: Akan
+    comment: 
+  amh:
+    prefLabel:
+      fr: Amharique
+      en: Amharic
+    comment: 
+  arg:
+    prefLabel:
+      fr: Aragonais
+      en: Aragonese
+    comment: 
+  ara:
+    prefLabel:
+      fr: Arabe
+      en: Arabic
+    comment: L'arabe standard est arb en ISO 639-3 
+  asm:
+    prefLabel:
+      fr: Assamais
+      en: Assamese
+    comment: 
+  ava:
+    prefLabel:
+      fr: Avar
+      en: Avaric
+    comment: 
+  aym:
+    prefLabel:
+      fr: Aymara
+      en: Aymara
+    comment: 
+  aze:
+    prefLabel:
+      fr: Azéri
+      en: Azerbaijani
+    comment: 
+  bak:
+    prefLabel:
+      fr: Bachkir
+      en: Bashkir
+    comment: 
+  bel:
+    prefLabel:
+      fr: Biélorusse
+      en: Belarusian
+    comment: 
+  bul:
+    prefLabel:
+      fr: Bulgare
+      en: Bulgarian
+    comment: 
+  bih:
+    prefLabel:
+      fr: Bihari
+      en: Bihari
+    comment: Code de langue collectif pour le bhodjpouri, le magahi et le maïthili 
+  bis:
+    prefLabel:
+      fr: Bichelamar
+      en: Bislama
+    comment: 
+  bam:
+    prefLabel:
+      fr: Bambara
+      en: Bambara
+    comment: 
+  ben:
+    prefLabel:
+      fr: Bengali
+      en: Bengali
+    comment: 
+  tib:
+    prefLabel:
+      fr: Tibétain
+      en: Tibetan
+    comment: 
+  bod:
+    prefLabel:
+      fr: Tibétain
+      en: Tibetan
+    comment: 
+  bre:
+    prefLabel:
+      fr: Breton
+      en: Breton
+    comment: 
+  bos:
+    prefLabel:
+      fr: Bosnien
+      en: Bosnian
+    comment: 
+  cat:
+    prefLabel:
+      fr: Catalan
+      en: Catalan
+    comment: 
+  che:
+    prefLabel:
+      fr: Tchétchène
+      en: Chechen
+    comment: 
+  cha:
+    prefLabel:
+      fr: Chamorro
+      en: Chamorro
+    comment: 
+  cos:
+    prefLabel:
+      fr: Corse
+      en: Corsican
+    comment: 
+  cre:
+    prefLabel:
+      fr: Cri
+      en: Cree
+    comment: 
+  cze:
+    prefLabel:
+      fr: Tchèque
+      en: Czech
+  ces:
+    prefLabel:
+      fr: Tchèque
+      en: Czech
+    comment: bis
+  chu:
+    prefLabel:
+      fr: Vieux-slave
+      en: Old Church Slavonic
+    comment: 
+  chv:
+    prefLabel:
+      fr: Tchouvache
+      en: Chuvash
+    comment: 
+  wel:
+    prefLabel:
+      fr: Gallois
+      en: Welsh
+  cym:
+    prefLabel:
+      fr: Gallois
+      en: Welsh
+    comment: bis
+  dan:
+    prefLabel:
+      fr: Danois
+      en: Danish
+    comment: 
+  ger:
+    prefLabel:
+      fr: Allemand
+      en: German
+  deu:
+    prefLabel:
+      fr: Allemand
+      en: German
+    comment: bis
+  div:
+    prefLabel:
+      fr: Maldivien
+      en: Divehi
+    comment: 
+  dzo:
+    prefLabel:
+      fr: Dzongkha
+      en: Dzongkha
+    comment: 
+  ewe:
+    prefLabel:
+      fr: Ewe
+      en: Ewe
+    comment: 
+  gre:
+    prefLabel:
+      fr: Grec moderne
+      en: Greek
+  ell:
+    prefLabel:
+      fr: Grec moderne
+      en: Greek
+    comment: bis
+  eng:
+    prefLabel:
+      fr: Anglais
+      en: English
+    comment: 
+  epo:
+    prefLabel:
+      fr: Espéranto
+      en: Esperanto
+    comment: 
+  spa:
+    prefLabel:
+      fr: Espagnol
+      en: Spanish
+    comment: 
+  est:
+    prefLabel:
+      fr: Estonien
+      en: Estonian
+    comment: 
+  baq:
+    prefLabel:
+      fr: Basque
+      en: Basque
+  eus:
+    prefLabel:
+      fr: Basque
+      en: Basque
+    comment: bis
+  per:
+    prefLabel:
+      fr: Persan
+      en: Persian
+    comment: 
+  fas:
+    prefLabel:
+      fr: Persan
+      en: Persian
+    comment: bis
+  ful:
+    prefLabel:
+      fr: Peul
+      en: Fulah
+    comment: 
+  fin:
+    prefLabel:
+      fr: Finnois
+      en: Finnish
+    comment: 
+  fij:
+    prefLabel:
+      fr: Fidjien
+      en: Fijian
+    comment: 
+  fao:
+    prefLabel:
+      fr: Féroïen
+      en: Faroese
+    comment: 
+  fre:
+    prefLabel:
+      fr: Français
+      en: French
+    comment: 
+  fra:
+    prefLabel:
+      fr: Français
+      en: French
+    comment: 
+  fry:
+    prefLabel:
+      fr: Frison occidental
+      en: Western Frisian
+    comment: 
+  gle:
+    prefLabel:
+      fr: Irlandais
+      en: Irish
+    comment: 
+  gla:
+    prefLabel:
+      fr: Écossais
+      en: Scottish Gaelic
+    comment: 
+  glg:
+    prefLabel:
+      fr: Galicien
+      en: Galician
+    comment: 
+  grn:
+    prefLabel:
+      fr: Guarani
+      en: Guarani
+    comment: 
+  guj:
+    prefLabel:
+      fr: Gujarati
+      en: Gujarati
+    comment: 
+  glv:
+    prefLabel:
+      fr: Mannois
+      en: Manx
+    comment: 
+  hau:
+    prefLabel:
+      fr: Haoussa
+      en: Hausa
+    comment: 
+  heb:
+    prefLabel:
+      fr: Hébreu
+      en: Hebrew
+    comment: 
+  hin:
+    prefLabel:
+      fr: Hindi
+      en: Hindi
+    comment: 
+  hmo:
+    prefLabel:
+      fr: Hiri motu
+      en: Hiri Motu
+    comment: 
+  scr:
+    prefLabel:
+      fr: Croate
+      en: Croatian
+  hrv:
+    prefLabel:
+      fr: Croate
+      en: Croatian
+    comment: bis
+  hat:
+    prefLabel:
+      fr: Créole haïtien
+      en: Haitian
+    comment: 
+  hun:
+    prefLabel:
+      fr: Hongrois
+      en: Hungarian
+    comment: 
+  arm:
+    prefLabel:
+      fr: Arménien
+      en: Armenian
+  hye:
+    prefLabel:
+      fr: Arménien
+      en: Armenian
+    comment: bis
+  her:
+    prefLabel:
+      fr: Héréro
+      en: Herero
+    comment: 
+  ina:
+    prefLabel:
+      fr: Interlingua
+      en: Interlingua
+    comment: 
+  ind:
+    prefLabel:
+      fr: Indonésien
+      en: Indonesian
+    comment: 
+  ile:
+    prefLabel:
+      fr: Occidental
+      en: Interlingue
+    comment: 
+  ibo:
+    prefLabel:
+      fr: Igbo
+      en: Igbo
+    comment: 
+  iii:
+    prefLabel:
+      fr: Yi
+      en: Sichuan Yi
+    comment: 
+  ipk:
+    prefLabel:
+      fr: Inupiak
+      en: Inupiaq
+    comment: 
+  ido:
+    prefLabel:
+      fr: Ido
+      en: Ido
+    comment: 
+  ice:
+    prefLabel:
+      fr: Islandais
+      en: Icelandic
+  isl:
+    prefLabel:
+      fr: Islandais
+      en: Icelandic
+    comment: 
+  ita:
+    prefLabel:
+      fr: Italien
+      en: Italian
+    comment: 
+  iku:
+    prefLabel:
+      fr: Inuktitut
+      en: Inuktitut
+    comment: 
+  jpn:
+    prefLabel:
+      fr: Japonais
+      en: Japanese
+    comment: 
+  jav:
+    prefLabel:
+      fr: Javanais
+      en: Javanese
+    comment: 
+  geo:
+    prefLabel:
+      fr: Géorgien
+      en: Georgian
+  kat:
+    prefLabel:
+      fr: Géorgien
+      en: Georgian
+    comment: 
+  kon:
+    prefLabel:
+      fr: Kikongo
+      en: Kongo
+    comment: 
+  kik:
+    prefLabel:
+      fr: Kikuyu
+      en: Kikuyu
+    comment: 
+  kua:
+    prefLabel:
+      fr: Kuanyama
+      en: Kwanyama
+    comment: 
+  kaz:
+    prefLabel:
+      fr: Kazakh
+      en: Kazakh
+    comment: 
+  kal:
+    prefLabel:
+      fr: Groenlandais
+      en: Kalaallisut
+    comment: 
+  khm:
+    prefLabel:
+      fr: Khmer
+      en: Khmer
+    comment: 
+  kan:
+    prefLabel:
+      fr: Kannada
+      en: Kannada
+    comment: 
+  kor:
+    prefLabel:
+      fr: Coréen
+      en: Korean
+    comment: 
+  kau:
+    prefLabel:
+      fr: Kanouri
+      en: Kanuri
+    comment: 
+  kas:
+    prefLabel:
+      fr: Cachemiri
+      en: Kashmiri
+    comment: 
+  kur:
+    prefLabel:
+      fr: Kurde
+      en: Kurdish
+    comment: 
+  kom:
+    prefLabel:
+      fr: Komi
+      en: Komi
+    comment: 
+  cor:
+    prefLabel:
+      fr: Cornique
+      en: Cornish
+    comment: 
+  kir:
+    prefLabel:
+      fr: Kirghiz
+      en: Kirghiz
+    comment: 
+  lat:
+    prefLabel:
+      fr: Latin
+      en: Latin
+    comment: 
+  ltz:
+    prefLabel:
+      fr: Luxembourgeois
+      en: Luxembourgish
+    comment: 
+  lug:
+    prefLabel:
+      fr: Ganda
+      en: Ganda
+    comment: 
+  lim:
+    prefLabel:
+      fr: Limbourgeois
+      en: Limburgish
+    comment: 
+  lin:
+    prefLabel:
+      fr: Lingala
+      en: Lingala
+    comment: 
+  lao:
+    prefLabel:
+      fr: Lao
+      en: Lao
+    comment: 
+  lit:
+    prefLabel:
+      fr: Lituanien
+      en: Lithuanian
+    comment: 
+  lub:
+    prefLabel:
+      fr: Luba-katanga
+      en: Luba-Katanga
+    comment: 
+  lav:
+    prefLabel:
+      fr: Letton
+      en: Latvian
+    comment: 
+  mlg:
+    prefLabel:
+      fr: Malgache
+      en: Malagasy
+    comment: 
+  mah:
+    prefLabel:
+      fr: Marshallais
+      en: Marshallese
+    comment: 
+  mao:
+    prefLabel:
+      fr: Maori de Nouvelle-Zélande
+      en: Māori
+  mri:
+    prefLabel:
+      fr: Maori de Nouvelle-Zélande
+      en: Māori
+    comment: bis
+  mac:
+    prefLabel:
+      fr: Macédonien
+      en: Macedonian
+  mkd:
+    prefLabel:
+      fr: Macédonien
+      en: Macedonian
+    comment: bis
+  mal:
+    prefLabel:
+      fr: Malayalam
+      en: Malayalam
+    comment: 
+  mon:
+    prefLabel:
+      fr: Mongol
+      en: Mongolian
+    comment: 
+  mol:
+    prefLabel:
+      fr: Moldave
+      en: Moldavian
+    comment: Codes obsolete, utiliser les codes du roumain1. 
+  mar:
+    prefLabel:
+      fr: Marathi
+      en: Marathi
+    comment: 
+may/  msa:
+    prefLabel:
+      fr: Malais
+      en: Malay
+    comment: 
+  mlt:
+    prefLabel:
+      fr: Maltais
+      en: Maltese
+    comment: 
+bur/  mya:
+    prefLabel:
+      fr: Birman
+      en: Burmese
+    comment: 
+  nau:
+    prefLabel:
+      fr: Nauruan
+      en: Nauru
+    comment: 
+  nob:
+    prefLabel:
+      fr: Norvégien Bokmål
+      en: Norwegian Bokmål
+    comment: 
+  nde:
+    prefLabel:
+      fr: Sindebele
+      en: North Ndebele
+    comment: 
+  nep:
+    prefLabel:
+      fr: Népalais
+      en: Nepali
+    comment: 
+  ndo:
+    prefLabel:
+      fr: Ndonga
+      en: Ndonga
+    comment: 
+dut/  nld:
+    prefLabel:
+      fr: Néerlandais
+      en: Dutch
+    comment: 
+  nno:
+    prefLabel:
+      fr: Norvégien Nynorsk
+      en: Norwegian Nynorsk
+    comment: 
+  nor:
+    prefLabel:
+      fr: Norvégien
+      en: Norwegian
+    comment: 
+  nbl:
+    prefLabel:
+      fr: Nrebele
+      en: South Ndebele
+    comment: 
+  nav:
+    prefLabel:
+      fr: Navajo
+      en: Navajo
+    comment: 
+  nya:
+    prefLabel:
+      fr: Chichewa
+      en: Chichewa
+    comment: 
+  oci:
+    prefLabel:
+      fr: Occitan
+      en: Occitan
+    comment: 
+  oji:
+    prefLabel:
+      fr: Ojibwé
+      en: Ojibwa
+    comment: 
+  orm:
+    prefLabel:
+      fr: Oromo
+      en: Oromo
+    comment: 
+  ori:
+    prefLabel:
+      fr: Oriya
+      en: Oriya
+    comment: 
+  oss:
+    prefLabel:
+      fr: Ossète
+      en: Ossetian
+    comment: 
+  pan:
+    prefLabel:
+      fr: Pendjabi
+      en: Panjabi
+    comment: 
+  pli:
+    prefLabel:
+      fr: Pali
+      en: Pāli 
+    comment: 
+  pol:
+    prefLabel:
+      fr: Polonais
+      en: Polish
+    comment: 
+  pus:
+    prefLabel:
+      fr: Pachto
+      en: Pashto
+    comment: 
+  por:
+    prefLabel:
+      fr: Portugais
+      en: Portuguese
+    comment: 
+  que:
+    prefLabel:
+      fr: Quechua
+      en: Quechua
+    comment: 
+r  cf :
+    prefLabel:
+      fr: Créole Réunionnais 
+      en: Reunionese 
+    comment: 
+  roh:
+    prefLabel:
+      fr: Romanche
+      en: Romansh
+    comment: 
+  run:
+    prefLabel:
+      fr: Kirundi
+      en: Kirundi
+    comment: 
+rum/  ron:
+    prefLabel:
+      fr: Roumain
+      en: Romanian
+    comment: 
+  rus:
+    prefLabel:
+      fr: Russe
+      en: Russian
+    comment: 
+  kin:
+    prefLabel:
+      fr: Kinyarwanda
+      en: Kinyarwanda
+    comment: 
+  san:
+    prefLabel:
+      fr: Sanskrit
+      en: Sanskrit
+    comment: 
+  srd:
+    prefLabel:
+      fr: Sarde
+      en: Sardinian
+    comment: 
+  snd:
+    prefLabel:
+      fr: Sindhi
+      en: Sindhi
+    comment: 
+  sme:
+    prefLabel:
+      fr: Same du Nord
+      en: Northern Sami
+    comment: 
+  sag:
+    prefLabel:
+      fr: Sango
+      en: Sango
+    comment: 
+	Serbo-cro  ate:
+    prefLabel:
+      fr: Serbo-Croatian 
+      en: 
+sin
+    comment: Cingalais	Sinhalese	
+slo/  slk:
+    prefLabel:
+      fr: Slovaque
+      en: Slovak
+    comment: 
+  slv:
+    prefLabel:
+      fr: Slovène
+      en: Slovenian
+    comment: 
+  smo:
+    prefLabel:
+      fr: Samoan
+      en: Samoan
+    comment: 
+  sna:
+    prefLabel:
+      fr: Shona
+      en: Shona
+    comment: 
+  som:
+    prefLabel:
+      fr: Somali
+      en: Somali
+    comment: 
+alb/  sqi:
+    prefLabel:
+      fr: Albanais
+      en: Albanian
+    comment: 
+scc/  srp:
+    prefLabel:
+      fr: Serbe
+      en: Serbian
+    comment: 
+  ssw:
+    prefLabel:
+      fr: Swati
+      en: Swati
+    comment: 
+  sot:
+    prefLabel:
+      fr: Sotho du Sud
+      en: Sotho
+    comment: 
+  sun:
+    prefLabel:
+      fr: Soundanais
+      en: Sundanese
+    comment: 
+  swe:
+    prefLabel:
+      fr: Suédois
+      en: Swedish
+    comment: 
+  swa:
+    prefLabel:
+      fr: Swahili
+      en: Swahili
+    comment: 
+  tam:
+    prefLabel:
+      fr: Tamoul
+      en: Tamil
+    comment: 
+  tel:
+    prefLabel:
+      fr: Télougou
+      en: Telugu
+    comment: 
+  tgk:
+    prefLabel:
+      fr: Tadjik
+      en: Tajik
+    comment: 
+  tha:
+    prefLabel:
+      fr: Thaï
+      en: Thai
+    comment: 
+  tir:
+    prefLabel:
+      fr: Tigrigna
+      en: Tigrinya
+    comment: 
+  tuk:
+    prefLabel:
+      fr: Turkmène
+      en: Turkmen
+    comment: 
+  tgl:
+    prefLabel:
+      fr: Tagalog
+      en: Tagalog
+    comment: 
+  tsn:
+    prefLabel:
+      fr: Tswana
+      en: Tswana
+    comment: 
+  ton:
+    prefLabel:
+      fr: Tongien
+      en: Tonga
+    comment: 
+  tur:
+    prefLabel:
+      fr: Turc
+      en: Turkish
+    comment: 
+  tso:
+    prefLabel:
+      fr: Tsonga
+      en: Tsonga
+    comment: 
+  tat:
+    prefLabel:
+      fr: Tatar
+      en: Tatar
+    comment: 
+  twi:
+    prefLabel:
+      fr: Twi
+      en: Twi
+    comment: 
+  tah:
+    prefLabel:
+      fr: Tahitien
+      en: Tahitian
+    comment: 
+  uig:
+    prefLabel:
+      fr: Ouïghour
+      en: Uighur
+    comment: 
+  ukr:
+    prefLabel:
+      fr: Ukrainien
+      en: Ukrainian
+    comment: 
+  urd:
+    prefLabel:
+      fr: Ourdou
+      en: Urdu
+    comment: 
+  uzb:
+    prefLabel:
+      fr: Ouzbek
+      en: Uzbek
+    comment: 
+  ven:
+    prefLabel:
+      fr: Venda
+      en: Venda
+    comment: 
+  vie:
+    prefLabel:
+      fr: Vietnamien
+      en: Viêt Namese
+    comment: 
+  vol:
+    prefLabel:
+      fr: Volapük
+      en: Volapük
+    comment: 
+  wln:
+    prefLabel:
+      fr: Wallon
+      en: Walloon
+    comment: 
+  wol:
+    prefLabel:
+      fr: Wolof
+      en: Wolof
+    comment: 
+  xho:
+    prefLabel:
+      fr: Xhosa
+      en: Xhosa
+    comment: 
+  yid:
+    prefLabel:
+      fr: Yiddish
+      en: Yiddish
+    comment: 
+  yor:
+    prefLabel:
+      fr: Yoruba
+      en: Yoruba
+    comment: 
+  zha:
+    prefLabel:
+      fr: Zhuang
+      en: Zhuang
+    comment: 
+chi/  zho:
+    prefLabel:
+      fr: Chinois
+      en: Chinese
+    comment: 
+  zul:
+    prefLabel:
+      fr: Zoulou
+      en: Zulu
+    comment: 

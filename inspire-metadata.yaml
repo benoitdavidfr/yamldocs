@@ -4,7 +4,7 @@ description: |
   La table mdelements liste des éléments de métadonnées Inspire + éléments ISO 191115/19119/19139 les plus fréquents.  
   La table mapDC fournit un mapping possible entre les éléments de MD Inspire et les éléments Dublin Core.  
 yamlClass: YamlData
-modified: 2018-07-09
+modified: 2018-07-24
 source: http://data.europa.eu/eli/reg/2008/1205/oj
 tables:
   mdelements:
@@ -34,7 +34,7 @@ tables:
           data: 1
           service: 1
         xpath: '//gmd:identificationInfo/*/gmd:citation/*/gmd:title/gco:CharacterString'
-      alternateTitle:
+      alternative:
         labelFr: Intitulé alternatif de la ressource
         labelEn: Alternate resource title
         multiplicity:
@@ -85,7 +85,7 @@ tables:
           service: 1
         valueDomain: http://georef.eu/yamldoc/?doc=inspire-mdcvoc&ypath=/schemes/resourceTypes
         xpath: '//gmd:MD_Metadata/gmd:hierarchyLevel/gmd:MD_ScopeCode/@codeListValue'
-      locator:
+      relation:
         numInspire: 1.4.
         labelFr: Localisateur de la ressource
         labelEn: Resource locator
@@ -172,7 +172,7 @@ tables:
           service: 1
         valueDomain: http://georef.eu/yamldoc/?doc=inspire-mdcvoc&ypath=/schemes/sdsTypes
       # 3. MOT CLÉ - KEYWORD
-      keyword:
+      subject:
         numInspire: 3.
         labelFr: Mot clé
         labelEn: Keyword
@@ -192,7 +192,7 @@ tables:
             labelEn: Originating controlled vocabulary
             xpath: '//gmd:descriptiveKeywords/*/gmd:thesaurusName/*/gmd:title/gco:CharacterString'
       # 4. SITUATION GÉOGRAPHIQUE - 4. GEOGRAPHIC LOCATION
-      bbox:
+      spatial:
         numInspire: 4.1.
         labelFr: Rectangle de délimitation géographique
         labelEn: Geographic bounding box
@@ -211,7 +211,7 @@ tables:
           northBoundLatitude:
             xpath: '//gmd:EX_GeographicBoundingBox/gmd:northBoundLatitude/gco:Decimal'
       # 5. RÉFÉRENCE TEMPORELLE
-      temporalExtent:
+      valid:
         numInspire: 5.1.
         labelFr: Étendue temporelle
         labelEn: Temporal extent
@@ -219,7 +219,7 @@ tables:
           data: 0..*
           service: 0..*
         xpath: '//gmd:identificationInfo/*/gmd:extent/*/gmd:temporalElement'
-      dateOfPublication:
+      issued:
         numInspire: 5.2.
         labelFr: Date de publication
         labelEn: Date of publication
@@ -227,13 +227,13 @@ tables:
           data: 0..*
           service: 0..*
         xpath: "//gmd:identificationInfo/*/gmd:citation/*/gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='publication']/gmd:CI_Date/gmd:date/gco:Date"
-      dateOfLastRevision:
+      modified:
         numInspire: 5.3.
         labelFr: Date de dernière révision
         labelEn: Date of last revision
         multiplicity: [ data: 0..*, service: 0..* ]
         xpath: "//gmd:identificationInfo/*/gmd:citation/*/gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='revision']/gmd:CI_Date/gmd:date/gco:Date"
-      dateOfCreation:
+      created:
         numInspire: 5.4.
         labelFr: Date de création
         labelEn: Date of creation
@@ -271,7 +271,7 @@ tables:
           data: 0..*
           service: 0..*
       # 7. CONFORMITÉ - 7. CONFORMITY
-      conformity:
+      conformsTo:
         numInspire: 7.
         labelFr:  Spécification + Degré
         labelEn: Specification + Degree
@@ -287,7 +287,7 @@ tables:
           data: 1..*
           service: 1..*
       # 8. CONTRAINTES EN MATIÈRE D’ACCÈS ET D’UTILISATION - 8. CONSTRAINT RELATED TO ACCESS AND USE
-      useLimitation:
+      conditionsToAccessAndUse:
         numInspire: 8.1.
         labelFr: Conditions d'utilisation
         labelEn: Use conditions
@@ -295,7 +295,7 @@ tables:
         multiplicity:
           data: 1..*
           service: 1..*
-      accessConstraints:
+      limitationsOnPublicAccess:
         numInspire: 8.2.
         labelFr: Restrictions concernant l’accès public
         labelEn: Limitations on public access
@@ -364,11 +364,14 @@ tables:
     data:
       title:
         dublinCore: title
+      alternative:
+        dublinCore: alternative
+        comment: champ hors Inspire
       abstract:
         dublinCore: abstract
       type:
         dublinCore: type
-      locator:
+      relation:
         dublinCore: relation
       identifier:
         dublinCore: identifier
@@ -379,19 +382,21 @@ tables:
         dublinCore: language
       topicCategory:
         dublinCore: subject
+        comment: mettre en mot-clé
       serviceType:
-        dublinCore: mettre en mot-clé
-      keyword:
         dublinCore: subject
-      bbox:
+        comment: mettre en mot-clé
+      subject:
+        dublinCore: subject
+      spatial:
         dublinCore: spatial
-      temporalExtent:
-        dublinCore: temporal
-      dateOfPublication:
+      valid:
+        dublinCore: valid
+      issued:
         dublinCore: issued
-      dateOfLastRevision:
+      modified:
         dublinCore: modified
-      dateOfCreation:
+      created:
         dublinCore: created
       lineage:
         dublinCore: peut être dans description
@@ -399,12 +404,12 @@ tables:
         dublinCore: peut être dans description
       spatialResolutionDistance:
         dublinCore: peut être dans description
-      conformity:
+      conformsTo:
         dublinCore: conformsTo
-      useLimitation:
-        dublinCore: accessRights
-      accessConstraints:
+      conditionsToAccessAndUse:
         dublinCore: licence
+      limitationsOnPublicAccess:
+        dublinCore: accessRights
       responsibleParty-resourceProvider:
         dublinCore: '???'
       responsibleParty-custodian:

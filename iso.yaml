@@ -1,0 +1,100 @@
+title: normes ISO
+description: |
+  Sélection de quelques normes ISO d'intérêt pour l'information géographique.  
+  Sont notamment listées les normes référencées dans les règlements Inspire.  
+  Dans la mesure du possible sont indiqués la codification CEN et AFNOR.
+  Les normes annulée sont indiquées par le champ replacedBy qui indique la norme remplaçante.
+language: [fr,en]
+yamlClass: YamlData
+data:
+  ISO_3166:
+    title: Codes pour la représentation des noms de pays et de leurs subdivisions
+    abstract: |
+      Comprend 3 parties:
+        
+        - ISO 3166-1: codes pour les pays ou territoires autonomes
+        - ISO 3166-2: codes pour les principales subdivisions des pays ou territoires
+        - ISO 3166-3: codes devenus obsolètes
+    wikipedia:
+      - https://fr.wikipedia.org/wiki/ISO_3166
+      - https://fr.wikipedia.org/wiki/ISO_3166-1
+      - https://fr.wikipedia.org/wiki/ISO_3166-2:FR
+  ISO_639:
+    title: codes pour la représentation des noms de langues
+    abstract: |
+      - ISO 639-1 (2002) - Partie 1 : Code alpha-2
+      - ISO 639-2 (1998) - Partie 2 : Code alpha-3
+      - ISO 639-3 (2007) - Partie 3 : Code alpha-3 pour un traitement exhaustif des langues
+    wikipedia:
+      - https://fr.wikipedia.org/wiki/ISO_639
+      - https://fr.wikipedia.org/wiki/Liste_des_codes_ISO_639-1
+      - https://fr.wikipedia.org/wiki/Liste_des_codes_ISO_639-2
+      - https://fr.wikipedia.org/wiki/Liste_des_codes_ISO_639-3
+  ISO_6709:2008:
+    title: Représentation normalisée de la localisation des points géographiques par coordonnées
+    abstract: représentation normalisée des latitude, longitude et altitude pour la localisation des points géographiques. L'ordre des éléments est la latitude, la longitude et l'altitude.
+    wikipedia: https://fr.wikipedia.org/wiki/ISO_6709
+  ISO_19103:2015:
+    title:
+      fr: Information géographique -- Langage de schéma conceptuel
+      en: Geographic information - Conceptual schema language
+    web: https://www.iso.org/fr/standard/56734.html
+  ISO/TS_19103:2005:
+    title: Information géographique -- Langage de schéma conceptuel
+    replacedBy: ISO_19103:2015
+  ISO_19115-1:2014/Amd_1:2018:
+    title: "Information géographique - Métadonnées - Partie 1: Principes de base - Amendement 1"
+    web: https://www.iso.org/fr/standard/73118.html
+    afnor: NF EN ISO 19115-1/A1 (E) (2018-02-28) Prépubliée / Prepublished 
+  ISO_19115-1:2014:
+    title: "Information géographique -- Métadonnées -- Partie 1: Principes de base"
+    abstract: Définit le schéma requis pour décrire des informations géographiques et des services au moyen de métadonnées. Elle fournit des informations concernant l'identification, l'étendue, la qualité, les aspects spatiaux et temporels, le contenu, la référence spatiale, la représentation des données, la distribution et d'autres propriétés des données géographiques numériques et des services.
+    web: https://www.iso.org/fr/standard/53798.html
+    afnor: NF EN ISO 19115-1 (2014-08-02) 
+  ISO_19115:2003:
+    title: Information géographique -- Métadonnées
+    replacedBy: ISO_19115-1:2014
+  ISO_19115:2003/Cor_1:2006:
+    replacedBy: ISO_19115-1:2014
+  ISO_19119:2016:
+    title: Information géographique -- Services
+    abstract: ISO 19119:2016 définit des exigences sur la façon dont une spécification de services propre à une plate-forme et applicable à toutes les plates-formes doit être créée, de manière à ce qu'un service puisse être spécifié indépendamment d'une ou de plusieurs plates-formes informatiques distribuées sous-jacentes.
+    afnor: NF EN ISO 19119 (2016-06-25)
+    cen: EN ISO 19119 (2016-06-25)
+  ISO_19119:2014:
+    title: Information géographique -- Services
+    afnor: NF EN ISO 19119 (2014-08-02)
+    cen: EN ISO 19119 (2014-08-02)
+    replacedBy: ISO_19119:2016 
+  ISO_19119:2005:
+    title: Information géographique -- Services
+    afnor: NF EN ISO 19119 (2006-12-01)
+    cen: EN ISO 19119 (2006-12-01)
+    replacedBy: ISO_19119:2014
+  ISO_19123:2005:
+    title: Information géographique -- Schéma de la géométrie et des fonctions de couverture
+    web: https://www.iso.org/fr/standard/40121.html
+    cen: EN ISO 19123 (2008-05-01)
+    afnor: NF EN ISO 19123 (2008-05-01)
+  ISO_19135-1:2015:
+    title: "Information géographique -- Procédures pour l'enregistrement d'éléments -- Partie 1: Principes de base"
+    web: https://www.iso.org/fr/standard/54721.html
+    cen: EN ISO 19135-1 (2015-12-18)
+    afnor: NF EN ISO 19135-1:201512
+  ISO_19135:2005:
+    title: Information géographique -- Procédures pour l'enregistrement d'éléments
+    replacedBy: ISO_19135-1:2015
+    afnor: NF EN ISO 19135 (2008-05-01)
+    cen: EN ISO 19135:2007 (référence Inspire)
+  ISO/TS_19139:2007:
+    title:
+      fr: Information géographique - Metadonnées - Implémentation de schémas XML 
+      en: Geographic information -- Metadata -- XML schema implementation
+    abstract: defines Geographic MetaData XML (gmd) encoding, an XML Schema implementation derived from ISO 19115.
+    afnor: aucune
+    cen: aucune
+  ISO/TS_19139-2:2012:
+    title: "Information Geographique - Métadonnées - Mise en oeuvre par des schémas XML - Partie 2 : extension pour l'imagerie et les données maillées"
+    afnor: aucune
+    cen: aucune
+    

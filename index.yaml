@@ -21,3 +21,5 @@ contents:
     title: Modèle de données Inspire déduit du règlement interopérabilité
   inspire-metadata2:
     title: Test d'un modèle de données des métadonnées Inspire
+  inspire-directive:
+    title: Test de structuration de la directive Inspire

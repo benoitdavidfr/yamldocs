@@ -1,7 +1,7 @@
 title: Modèle de données pour les métadonnées Inspire
 description: |
   Ce document décrit le modèle de données d'un jeu de métadonnées Inspire.  
-  Il reprend le [règlement Métadonnées Inspire](https://data.europa.eu/eli/reg/2008/1205/oj)
+  Il précise le [règlement Métadonnées Inspire](https://data.europa.eu/eli/reg/2008/1205/oj)
   en lui apportant les quelques améliorations suivantes:
     
     - la [liste des thèmes Inspire](?ypath=/schemes/inspireThemes) est décomposée en 3 sous listes
@@ -19,17 +19,12 @@ description: |
       ceux des [éléments du Dublin Core](?doc=dublincore).
 
 source:
-  - http://data.europa.eu/eli/dir/2007/2/oj
-  - https://data.europa.eu/eli/reg/2008/1205/oj
-  - http://inspire.ec.europa.eu/theme
-  - http://inspire.ec.europa.eu/metadata-codelist/ResourceType
-  - http://inspire.ec.europa.eu/metadata-codelist/TopicCategory
-  - http://inspire.ec.europa.eu/metadata-codelist/DegreeOfConformity
-  - http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType
-  - http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceCategory
-  - http://inspire.ec.europa.eu/metadata-codelist/ResponsiblePartyRole
+  - "[directive Inspire](http://data.europa.eu/eli/dir/2007/2/oj)"
+  - "[règlement métadonnées](https://data.europa.eu/eli/reg/2008/1205/oj)"
+  - "[registre des thèmes Inspire](http://inspire.ec.europa.eu/theme)"
+  - "[regitre des listes de codes pour les métadonnées](http://inspire.ec.europa.eu/metadata-codelist)"
 language: [fr, en]
-date: 20180703
+date: 2018-07-24
 yamlClass: DataModel
 domainScheme:
   prefLabel:
@@ -103,7 +98,6 @@ schemes:
       fr: Langues conformément à la norme ISO 639-2
       en: Languages in accordance with ISO 639-2
     domain: [ metadata ]
-    sameAsPrefix: http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/
     options:
       - nosort
   topicCategories:
@@ -1809,7 +1803,7 @@ objectTypes:
         type:
           codelist: resourceTypes
         multiplicity: 1
-      locator:
+      relation:
         label:
           fr: Localisateur de la ressource (1.4.)
           en: Resource locator (1.4.)
@@ -1851,18 +1845,21 @@ objectTypes:
           fr: Rectangle de délimitation géographique (4.1.)
           en: Geographic bounding box (4.1.)
         definition:
-          fr: >
+          fr: |
             Étendue de la ressource dans l’espace géographique, exprimée sous la forme de rectangles de délimitation.
             Si l'étendue peut se décomposer en plusieurs zones éloignées les unes des autres alors
-            pour chacune d'elles un rectangle est fourni.
-          en: >
+            pour chacune d'elles un rectangle est fourni.  
+            Les coordonnées doivent être fournies avec une précision d’au moins deux chiffres après la virgule.
+          en: |
             This is the extent of the resource in the geographic space, given as bounding boxes.
-            If the extent breaks down into several zones distant from each other then each zone gives a bounding box.
-        scopeNote:
-          fr: >
+            If the extent breaks down into several zones distant from each other then each zone gives a bounding box.  
+            Coordinates shall be given with a precision of at least two decimals.
+        editorialNote:
+          fr: |
             Le réglement est incohérent: la partie B indique que l'élément correspond à un rectangle alors que la
-            partie C indique 1..* comme cardinalité.
-        type: { datatype: bbox }
+            partie C indique 1..* comme cardinalité.  
+            Le choix est fait ici des raisons pour décrire une étendue par plusieurs rectangles.
+        type: { datatype: Box }
         multiplicity: 1..*
       temporal:
         label:
@@ -1945,7 +1942,7 @@ objectTypes:
           fr: Date à laquelle l’enregistrement de métadonnées a été créé ou actualisé. 
           en: The date which specifies when the metadata record was created or updated.
         type:
-          datatype: Date
+          externaltype: Date
         multiplicity: 1
       mdLanguage:
         label:
@@ -2118,50 +2115,56 @@ objectTypes:
         type:
           externaltype: FreeText
         multiplicity: 0..1
-  bbox:
+  Box:
     type: [datatype]
     domain: [metadata]
     prefLabel:
       fr: Rectangle de délimitation géographique
       en: Geographic bounding box
+    subtypeOf: [ http://dublincore.org/documents/dcmi-box/ ]
+    editorialNote:
+      fr: >
+        Ce type reprend les champs définis par [schéma de codage DCMI Box](http://dublincore.org/documents/dcmi-box/).
+      en: >
+        This type uses the fields defined by [DCMI Box encoding scheme](http://dublincore.org/documents/dcmi-box/).
     attributes:
-      westBoundLongitude:
+      westlimit:
         label:
           fr: longitude Ouest
           en: westbound longitude
         definition:
-          fr: longitude Ouest en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
-          en: westbound longitude in decimal degrees, with a precision of at least two decimals.
+          fr: longitude Ouest en degrés décimaux.
+          en: westbound longitude in decimal degrees.
         type:
           externaltype: Decimal
         multiplicity: 1
-      eastBoundLongitude:
+      eastlimit:
         label:
           fr: longitude Est
           en: eastbound longitude
         definition:
-          fr: longitude Est en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
-          en: eastbound longitude in decimal degrees, with a precision of at least two decimals.
+          fr: longitude Est en degrés décimaux.
+          en: eastbound longitude in decimal degrees.
         type:
           externaltype: Decimal
         multiplicity: 1
-      southBoundLatitude:
+      southlimit:
         label:
           fr: latitude Sud
           en: southbound latitude
         definition:
-          fr: latitude Sud en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
-          en: southbound latitude in decimal degrees, with a precision of at least two decimals.
+          fr: latitude Sud en degrés décimaux.
+          en: southbound latitude in decimal degrees.
         type:
           externaltype: Decimal
         multiplicity: 1
-      northBoundLatitude:
+      northlimit:
         label:
           fr: latitude Nord
           en: northbound latitude
         definition:
-          fr: latitude Nord en degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
-          en: northbound latitude in decimal degrees, with a precision of at least two decimals.
+          fr: latitude Nord en degrés décimaux.
+          en: northbound latitude in decimal degrees, 
         type:
           externaltype: Decimal
         multiplicity: 1
@@ -2410,7 +2413,12 @@ objectTypes:
     prefLabel:
       fr: Description d'une organisation
       en: description of an organisation
-    exactMatch: [ https://schema.org/Organization ]
+    subtypeOf: [ https://schema.org/Organization ]
+    editorialNote:
+      fr: >
+        Ce type reprend les champs définis par [le schéma Organization](https://schema.org/Organization).
+      en: >
+        This type uses the fields defined by [the Organization schema](https://schema.org/Organization).
     attributes:
       name:
         label:

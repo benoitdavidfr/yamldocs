@@ -1,7 +1,13 @@
 title: comparaison des droits entre Inspire et DublinCore
-comment: |
+abstract: |
   les 2 champs Inspire conditionsToAccessAndUse et limitationsOnPublicAccess ressemblent respectivement
-  aux 2 champs Dublincore licence et accessRights mais ne sont pas équivalents.
+  aux 2 champs Dublincore licence et accessRights mais ne sont pas équivalents.  
+  Ils sont cependant distincts:
+    
+    - conditionsToAccessAndUse traite les 2 cas où les conditions sont inconnues et où il n'en existe pas.
+    - conditionsToAccessAndUse mentionne des frais éventuels.
+    - limitationsOnPublicAccess est calé sur les cas limitatifs prévus par la directive.
+        
 dublincore:
   rights:
     name:
