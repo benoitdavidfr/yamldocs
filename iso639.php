@@ -2,7 +2,7 @@
 /*PhpDoc:
 title: génération du Thésaurus ISO 639 avce les codifications alpha-2 et alpha-3
 doc: |
-  La génération est effectuée à partir de iso639.csv qui provient de https://fr.wikipedia.org/wiki/Liste_des_codes_ISO_639-1
+  La génération est effectuée à partir de iso639.tsv qui provient de https://fr.wikipedia.org/wiki/Liste_des_codes_ISO_639-1
 */
 // Seul l'utilisateur benoit a le droit de modifier le code
 if (isset($ydcheckWriteAccessForPhpCode))
@@ -64,7 +64,7 @@ if (1) {
 }
 
 $norow = 0;
-if (($handle = fopen('pub/iso639.csv', 'r')) !== FALSE) {
+if (($handle = fopen('pub/iso639.tsv', 'r')) !== FALSE) {
   while (($data = fgetcsv($handle, 1000, "\t")) !== FALSE) {
     //print_r($data); echo "<br>";
     if ($norow > 1) {
