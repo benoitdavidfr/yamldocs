@@ -15,9 +15,6 @@ use Symfony\Component\Yaml\Yaml;
 if (isset($ydcheckWriteAccessForPhpCode))
   return ['benoit'];
 else {
-  //require_once __DIR__.'/../yd.inc.php';
-
-
   // initialisation du résultat
   $text = <<<EOT
 title: Codifications des langues selon la norme ISO 639
@@ -74,26 +71,25 @@ EOT;
 
   // [0] => English Name of Language [1] => All English Names [2] => All French Names [3] => ISO 639-2 [4] => ISO 639-1
   $concepts = [];
-  $norow = 0;
-  if (($handle = fopen('pub/iso639.tsv', 'r')) !== FALSE) {
-    while (($data = fgetcsv($handle, 1000, "\t")) !== FALSE) {
-      //print_r($data); echo "<br>";
-      if ($norow > 0) {
-        if ($ca2 = trim($data[4]))
-          $concepts[$ca2] = conceptIso639($data, 'alpha2');
-        if ($ca3 = trim($data[3])) {
-          if (preg_match('!^(...)/(...)$!', $ca3, $matches)) {
-            $concepts[$matches[1]] = conceptIso639($data, 'alpha3');
-            $concepts[$matches[2]] = conceptIso639($data, 'alpha3', ' (ISO 639-2/T)');
-          }
-          else
-            $concepts[$ca3] = conceptIso639($data, 'alpha3');
-        }
+  if (($handle = fopen('pub/iso639.tsv', 'r')) === FALSE)
+    throw new Exception("Erreur ouverture de pub/iso639.tsv dans ".__FILE__.", ligne ".__LINE__);
+    
+  // lecture de la ligne d'en-tete
+  $data = fgetcsv($handle, 1000, "\t");
+  while (($data = fgetcsv($handle, 1000, "\t")) !== FALSE) {
+    //print_r($data); echo "<br>";
+    if ($ca2 = trim($data[4]))
+      $concepts[$ca2] = conceptIso639($data, 'alpha2');
+    if ($ca3 = trim($data[3])) {
+      if (preg_match('!^(...)/(...)$!', $ca3, $matches)) {
+        $concepts[$matches[1]] = conceptIso639($data, 'alpha3');
+        $concepts[$matches[2]] = conceptIso639($data, 'alpha3', ' (ISO 639-2/T)');
       }
-      $norow++;
+      else
+        $concepts[$ca3] = conceptIso639($data, 'alpha3');
     }
-    fclose($handle);
   }
+  fclose($handle);
 
   $yaml['concepts'] = $concepts;
   //echo '<pre>',Yaml::dump($yaml, 999, 2),"</pre>\n";
