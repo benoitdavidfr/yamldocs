@@ -5,6 +5,7 @@ doc: |
   Le script exploite le fichier iso638.tsv qui est un copié/collé du tableau de la page
   https://www.loc.gov/standards/iso639-2/php/English_list.php
   dont la première ligne indique les libellé des colonnes.
+  La définition de la fonction doit être dans un test afin qu'elle ne soit pas définie 2 fois
 journal: |
   25/7/2018:
     création
@@ -53,6 +54,7 @@ concepts:
 EOT;
   $yaml = Yaml::parse($text, Yaml::PARSE_DATETIME);
 
+  // transforme un enregistrement du fichier tsv en structure de concept Skos
   function conceptIso639(array $data, string $scheme, $nature='') {
     $enlabels = explode('; ', trim($data[1]));
     $frlabels = explode('; ', trim($data[2]));

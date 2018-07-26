@@ -2124,9 +2124,10 @@ objectTypes:
     subtypeOf: [ http://dublincore.org/documents/dcmi-box/ ]
     editorialNote:
       fr: >
-        Ce type reprend les champs définis par [schéma de codage DCMI Box](http://dublincore.org/documents/dcmi-box/).
+        Ce type reprend les champs définis par le
+        [schéma de codage DCMI Box](http://dublincore.org/documents/dcmi-box/).
       en: >
-        This type uses the fields defined by [DCMI Box encoding scheme](http://dublincore.org/documents/dcmi-box/).
+        This type uses the fields defined by the [DCMI Box encoding scheme](http://dublincore.org/documents/dcmi-box/).
     attributes:
       westlimit:
         label:
@@ -2446,6 +2447,12 @@ objectTypes:
     prefLabel:
       fr: Chaine de caractères
       en: Character string
+  URL:
+    type: [externaltype]
+    domain: [externaltypes]
+    prefLabel:
+      fr: URL
+      en: URL
   Decimal:
     type: [externaltype]
     domain: [externaltypes]

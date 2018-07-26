@@ -17,8 +17,11 @@ data:
     definition: Un schéma de concepts auquel le concept courant appartient.
     comment: Un concept peut appartenir à plus d'un schéma de concepts.
   hasTopConcept:
-    label: concept de niveau 1
+    label: a pour concept de niveau 1
     definition: Indique un concept de niveau 1 dans un schéma de concepts.
+  topConceptOf:
+    label: est concept de niveau 1 de
+    definition: Indique un schéma dont le concept est de niveau 1.
   prefLabel:
     label: forme lexicale préférentielle
     definition: La forme lexicale préférentielle utilisée pour désigner un concept dans une langue donnée.

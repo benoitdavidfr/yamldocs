@@ -1,0 +1,121 @@
+title:
+  fr: document test LegalDoc
+alternative:
+  fr: texte alternatif
+description: |
+  description
+language: [fr,en]
+yamlClass: LegalDoc
+visa: |
+  visa
+recitals:
+  r1:
+    fr: >
+      considérant 1
+  r2:
+    fr: >
+      considérant 2
+domainScheme:
+  prefLabel:
+    fr: Sommaire du vocabulaire
+  hasTopConcept:
+    - definitions
+domains:
+  definitions:
+    prefLabel:
+      fr: Définitions
+schemes:
+  inspireDefinitions:
+    prefLabel:
+      fr: Définitions arrêtées à l'article 3 de la directive Inspire
+    domain: [definitions]
+concepts:
+  # inspireDefinitions
+  infrastructureForSpatialInformation:
+    prefLabel:
+      fr: infrastructure d'information géographique
+    inScheme: [ inspireDefinitions ]
+    topConceptOf: [ inspireDefinitions ]
+    definition:
+      fr: des métadonnées, des séries de données géographiques et des services de données géographiques; des services et des technologies en réseau; des accords sur le partage, l'accès et l'utilisation; et des mécanismes, des processus et des procédures de coordination et de suivi établis, exploités ou mis à disposition conformément à la présente directive.
+  spatialData:
+    prefLabel:
+      fr: donnée géographique
+    inScheme: [ inspireDefinitions ]
+    topConceptOf: [ inspireDefinitions ]
+    definition:
+      fr: toute donnée faisant directement ou indirectement référence à un lieu ou une zone géographique spécifique.
+body:
+  chapter1:
+    title: CHAPITRE I - DISPOSITIONS GÉNÉRALES
+    hasPart:
+      - article1
+      - article2
+      - article3
+      - article4
+  article1:
+    title: Article premier
+    paragraph:
+      1: La présente directive vise à fixer les règles générales destinées à établir l'infrastructure d'information géographique dans la Communauté européenne (ci-après dénommé «INSPIRE»), aux fins des politiques environnementales communautaires et des politiques ou des activités de la Communauté susceptibles d'avoir une incidence sur l'environnement.
+      2: INSPIRE s'appuie sur les infrastructures d'information géographique établies et exploitées par les États membres.
+  article2:
+    title: Article 2
+    paragraph:
+      1: La présente directive s'applique sans préjudice des directives 2003/4/CE et 2003/98/CE.
+      2: La présente directive n'affecte pas l'existence ou la titularité de droits de propriété intellectuelle par des autorités publiques.
+  article3:
+    title: Article 3
+    text: >
+      [Les définitions arrêtées par cet article sont structurés en micro-thésaurus](?ypath=/schemes/inspireDefinitions)
+    
+  article4:
+    title: Article 4
+    paragraph:
+      1: |
+        La présente directive s'applique aux séries de données géographiques qui remplissent les conditions suivantes:
+        ...
+          
+      2: Lorsque plusieurs copies identiques d'une même série de données géographiques sont détenues par plusieurs autorités publiques ou en leur nom, la présente directive s'applique uniquement à la version de référence dont sont tirées les différentes copies.
+
+  chapter2:
+    title: CHAPITRE II - MÉTADONNÉES
+    hasPart:
+      - article5
+      - article6
+
+  article5:
+    title: Article 5
+    paragraph:
+      1: Les États membres veillent à ce que des métadonnées soient créées pour les séries et les services de données géographiques correspondant aux thèmes figurant aux annexes I, II et III, et à ce que ces métadonnées soient tenues à jour.
+
+      2: |
+        Les métadonnées comprennent des informations sur les aspects suivants: ...
+
+      3: Les États membres prennent les mesures nécessaires pour garantir que les métadonnées sont complètes et d'une qualité suffisante pour satisfaire à l'objectif visé à [l'article 3, point 6](?ypath=/concepts/metadata).
+
+      4: Les règles de mise en œuvre du présent article sont adoptées conformément à la procédure de réglementation visée à l'article 22, paragraphe 2, au plus tard le 15 mai 2008. Ces règles tiennent compte des normes internationales et des exigences des utilisateurs qui existent en la matière, en particulier en ce qui concerne les métadonnées sur la validité.
+
+  article6:
+    title: Article 6
+    content: |
+      Les États membres créent les métadonnées visées à l'article 5 conformément au calendrier suivant:
+
+        - a) au plus tard deux ans après la date d'adoption des règles de mise en œuvre, conformément à l'article 5, paragraphe 4, dans le cas des séries de données géographiques correspondant aux thèmes figurant aux annexes I et II;
+        - b) au plus tard cinq ans après la date d'adoption des règles de mise en œuvre, conformément à l'article 5, paragraphe 4, dans le cas des séries de données géographiques correspondant aux thèmes figurant à l'annexe III.
+
+signature: |
+  Fait à Strasbourg, le 14 mars 2007. ...
+
+  
+notes:
+  1: JO C 221 du 8.9.2005, p. 33.
+
+  2: Avis du Parlement européen du 7 juin 2005 (JO C 124 E du 25.5.2006, p. 116), position commune du Conseil du 23 janvier 2006 (JO C 126 E du 30.5.2006, p. 16) et position du Parlement européen du 13 juin 2006 (non encore parue au Journal officiel). Décision du Conseil du 29 janvier 2007 et résolution législative du Parlement européen du 13 février 2007 (non encore parue au Journal officiel).
+
+
+annexes:
+  annex1:
+    title: ANNEXE I - THÈMES DE DONNÉES GÉOGRAPHIQUES VISÉS À L'ARTICLE 6, POINT A), À L'ARTICLE 8, PARAGRAPHE 1, ET À L'ARTICLE 9, POINT A)
+    text: "[voir la liste des thèmes structurée en micro-thésaurus](?ypath=/schemes/annex1Themes)"
+    isReplacedBy: { ypath: /schemes/annex1Themes }
+    

@@ -168,15 +168,15 @@ schemes:
     prefLabel:
       fr: Définitions arrêtées à l'article 3 de la directive Inspire
     domain: [definitions]
-  inspireThemesAnnexI:
+  annex1Themes:
     prefLabel:
       fr: Thèmes de l'annexe I de la directive Inspire
     domain: [themes]
-  inspireThemesAnnexII:
+  annex2Themes:
     prefLabel:
       fr: Thèmes de l'annexe II de la directive Inspire
     domain: [themes]
-  inspireThemesAnnexIII:
+  annex3Themes:
     prefLabel:
       fr: Thèmes de l'annexe III de la directive Inspire
     domain: [themes]
@@ -261,279 +261,279 @@ concepts:
     definition:
       fr: toute personne physique ou morale autre qu'une autorité publique.
       
-  # inspireThemesAnnexI
+  # annex1Themes
   rs:
     prefLabel:
       fr: Référentiels de coordonnées
       en: Coordinate reference systems
-    inScheme: [ inspireThemesAnnexI ]
-    topConceptOf: [ inspireThemesAnnexI ]
+    inScheme: [ annex1Themes ]
+    topConceptOf: [ annex1Themes ]
     definition:
       fr: Systèmes de référencement unique des informations géographiques dans l'espace sous forme d'une série de coordonnées (x, y, z) et/ou la latitude et la longitude et l'altitude, en se fondant sur un point géodésique horizontal et vertical.
   gg:
     prefLabel:
       fr: Systèmes de maillage géographique
       en: Geographical grid systems
-    inScheme: [ inspireThemesAnnexI ]
-    topConceptOf: [ inspireThemesAnnexI ]
+    inScheme: [ annex1Themes ]
+    topConceptOf: [ annex1Themes ]
     definition:
       fr: Grille multi-résolution harmonisée avec un point d'origine commun et une localisation ainsi qu'une taille des cellules harmonisées.
   gn:
     prefLabel:
       fr: Dénominations géographiques
       en: Geographical names
-    inScheme: [ inspireThemesAnnexI ]
-    topConceptOf: [ inspireThemesAnnexI ]
+    inScheme: [ annex1Themes ]
+    topConceptOf: [ annex1Themes ]
     definition:
       fr: Noms de zones, de régions, de localités, de grandes villes, de banlieues, de villes moyennes ou d'implantations, ou tout autre élément géographique ou topographique d'intérêt public ou historique.
   au:
     prefLabel:
       fr: Unités administratives
       en: Administrative units
-    inScheme: [ inspireThemesAnnexI ]
-    topConceptOf: [ inspireThemesAnnexI ]
+    inScheme: [ annex1Themes ]
+    topConceptOf: [ annex1Themes ]
     definition:
       fr: Unités d'administration séparées par des limites administratives et délimitant les zones dans lesquelles les États membres détiennent et/ou exercent leurs compétences, aux fins de l'administration locale, régionale et nationale.
   ad:
     prefLabel:
       fr: Adresses
       en: Addresses
-    inScheme: [ inspireThemesAnnexI ]
-    topConceptOf: [ inspireThemesAnnexI ]
+    inScheme: [ annex1Themes ]
+    topConceptOf: [ annex1Themes ]
     definition:
       fr: Localisation des propriétés fondée sur les identifiants des adresses, habituellement le nom de la rue, le numéro de la maison et le code postal.
   cp:
     prefLabel:
       fr: Parcelles cadastrales
       en: Cadastral parcels
-    inScheme: [ inspireThemesAnnexI ]
-    topConceptOf: [ inspireThemesAnnexI ]
+    inScheme: [ annex1Themes ]
+    topConceptOf: [ annex1Themes ]
     definition:
       fr: Zones définies par les registres cadastraux ou équivalents.
   tn:
     prefLabel:
       fr: Réseaux de transport
       en: Transport networks
-    inScheme: [ inspireThemesAnnexI ]
-    topConceptOf: [ inspireThemesAnnexI ]
+    inScheme: [ annex1Themes ]
+    topConceptOf: [ annex1Themes ]
     definition:
       fr: Réseaux routier, ferroviaire, aérien et navigable ainsi que les infrastructures associées. Sont également incluses les correspondances entre les différents réseaux, ainsi que le réseau transeuropéen de transport tel que défini dans la décision no 1692/96/CE du Parlement européen et du Conseil du 23 juillet 1996 sur les orientations communautaires pour le développement du réseau transeuropéen de transport [1] et les révisions futures de cette décision.
   hy:
     prefLabel:
       fr: Hydrographie
       en: Hydrography
-    inScheme: [ inspireThemesAnnexI ]
-    topConceptOf: [ inspireThemesAnnexI ]
+    inScheme: [ annex1Themes ]
+    topConceptOf: [ annex1Themes ]
     definition:
       fr: Éléments hydrographiques, y compris les zones maritimes ainsi que toutes les autres masses d'eau et les éléments qui y sont liés, y compris les bassins et sous-bassins hydrographiques. Conformes, le cas échéant, aux définitions établies par la directive 2000/60/CE du Parlement européen et du Conseil du 23 octobre 2000 établissant un cadre pour une politique communautaire dans le domaine de l'eau [2] et sous forme de réseaux.
   ps:
     prefLabel:
       fr: Sites protégés
       en: Protected sites
-    inScheme: [ inspireThemesAnnexI ]
-    topConceptOf: [ inspireThemesAnnexI ]
+    inScheme: [ annex1Themes ]
+    topConceptOf: [ annex1Themes ]
     definition:
       fr: Zone désignée ou gérée dans un cadre législatif international, communautaire ou national en vue d'atteindre des objectifs spécifiques de conservation.
-  # inspireThemesAnnexII
+  # annex2Themes
   el:
     prefLabel:
       fr: Altitude
       en: Elevation
-    inScheme: [ inspireThemesAnnexII ]
-    topConceptOf: [ inspireThemesAnnexII ]
+    inScheme: [ annex2Themes ]
+    topConceptOf: [ annex2Themes ]
     definition:
       fr: Modèles numériques pour l'altitude des surfaces terrestres, glaciaires et océaniques. Comprend l'altitude terrestre, la bathymétrie et la ligne de rivage.
   lc:
     prefLabel:
       fr: Occupation des terres
       en: Land cover
-    inScheme: [ inspireThemesAnnexII ]
-    topConceptOf: [ inspireThemesAnnexII ]
+    inScheme: [ annex2Themes ]
+    topConceptOf: [ annex2Themes ]
     definition:
       fr: Couverture physique et biologique de la surface terrestre, y compris les surfaces artificielles, les zones agricoles, les forêts, les zones (semi-)naturelles, les zones humides et les masses d'eau.
   oi:
     prefLabel:
       fr: Ortho-imagerie
       en: Orthoimagery
-    inScheme: [ inspireThemesAnnexII ]
-    topConceptOf: [ inspireThemesAnnexII ]
+    inScheme: [ annex2Themes ]
+    topConceptOf: [ annex2Themes ]
     definition:
       fr: Images géoréférencées de la surface terrestre, provenant de satellites ou de capteurs aéroportés.
   ge:
     prefLabel:
       fr: Géologie
       en: Geology
-    inScheme: [ inspireThemesAnnexII ]
-    topConceptOf: [ inspireThemesAnnexII ]
+    inScheme: [ annex2Themes ]
+    topConceptOf: [ annex2Themes ]
     definition:
       fr: Géologie caractérisée en fonction de la composition et de la structure. Englobe le substratum rocheux, les aquifères et la géomorphologie.
-  # inspireThemesAnnexIII
+  # annex3Themes
   su:
     prefLabel:
       fr: Unités statistiques
       en: Statistical units
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Unités de diffusion ou d'utilisation d'autres informations statistiques.
   bu:
     prefLabel:
       fr: Bâtiments
       en: Buildings
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Situation géographique des bâtiments.
   so:
     prefLabel:
       fr: Sols
       en: Soil
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Sols et sous-sol caractérisés selon leur profondeur, texture, structure et teneur en particules et en matières organiques, pierrosité, érosion, le cas échéant pente moyenne et capacité anticipée de stockage de l'eau.
   lu:
     prefLabel:
       fr: Usage des sols
       en: Land use
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Territoire caractérisé selon sa dimension fonctionnelle prévue ou son objet socioéconomique actuel et futur (par exemple, résidentiel, industriel, commercial, agricole, forestier, récréatif).
   hh:
     prefLabel:
       fr: Santé et sécurité des personnes
       en: Human health and safety
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Répartition géographique des pathologies dominantes (allergies, cancers, maladies respiratoires, etc.) liées directement (pollution de l'air, produits chimiques, appauvrissement de la couche d'ozone, bruit, etc.) ou indirectement (alimentation, organismes génétiquement modifiés, etc.) à la qualité de l'environnement, et ensemble des informations relatif à l'effet de celle-ci sur la santé des hommes (marqueurs biologiques, déclin de la fertilité, épidémies) ou leur bien-être (fatigue, stress, etc.).
   us:
     prefLabel:
       fr: Services d'utilité publique et services publics
       en: Utility and governmental services
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Comprend les installations d'utilité publique, tels que les égouts ou les réseaux et installations liés à la gestion des déchets, à l'approvisionnement énergétique, à l'approvisionnement en eau, ainsi que les services administratifs et sociaux publics, tels que les administrations publiques, les sites de la protection civile, les écoles et les hôpitaux.
   ef:
     prefLabel:
       fr: Installations de suivi environnemental
       en: Environmental monitoring facilities
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: La situation et le fonctionnement des installations de suivi environnemental comprennent l'observation et la mesure des émissions, de l'état du milieu environnemental et d'autres paramètres de l'écosystème (biodiversité, conditions écologiques de la végétation, etc.) par les autorités publiques ou pour leur compte.
   pf:
     prefLabel:
       fr: Lieux de production et sites industriels
       en: Production and industrial facilities
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Sites de production industrielle, y compris les installations couvertes par la directive 96/61/CE du Conseil du 24 septembre 1996 relative à la prévention et à la réduction intégrées de la pollution [1] et les installations de captage d'eau, d'extraction minière et de stockage.
   af:
     prefLabel:
       fr: Installations agricoles et aquacoles
       en: Agricultural and aquaculture facilities
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Équipement et installations de production agricoles (y compris les systèmes d'irrigation, les serres et les étables).
   pd:
     prefLabel:
       fr: Répartition de la population — démographie
       en: Population distribution - demography
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Répartition géographique des personnes, avec les caractéristiques de population et les niveaux d'activité, regroupées par grille, région, unité administrative ou autre unité analytique.
   am:
     prefLabel:
       fr: Zones de gestion, de restriction ou de réglementation et unités de déclaration
       en: Area management/restriction/regulation zones and reporting units
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Zones gérées, réglementées ou utilisées pour les rapports aux niveaux international, européen, national, régional et local. Sont inclus les décharges, les zones restreintes aux alentours des sources d'eau potable, les zones vulnérables aux nitrates, les chenaux réglementés en mer ou les eaux intérieures importantes, les zones destinées à la décharge de déchets, les zones soumises à limitation du bruit, les zones faisant l'objet de permis d'exploration et d'extraction minière, les districts hydrographiques, les unités correspondantes utilisées pour les rapports et les zones de gestion du littoral.
   nz:
     prefLabel:
       fr: Zones à risque naturel
       en: Natural risk zones
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Zones sensibles caractérisées en fonction des risques naturels (tous les phénomènes atmosphériques, hydrologiques, sismiques, volcaniques, ainsi que les feux de friche qui peuvent, en raison de leur situation, de leur gravité et de leur fréquence, nuire gravement à la société), tels qu'inondations, glissements et affaissements de terrain, avalanches, incendies de forêts, tremblements de terre et éruptions volcaniques.
   ac:
     prefLabel:
       fr: Conditions atmosphériques
       en: Atmospheric conditions
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Conditions physiques dans l'atmosphère. Comprend les données géographiques fondées sur des mesures, sur des modèles ou sur une combinaison des deux, ainsi que les lieux de mesure.
   mf:
     prefLabel:
       fr: Caractéristiques géographiques météorologiques
       en: Meteorological geographical features
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: "Conditions météorologiques et leur mesure: précipitations, température, évapotranspiration, vitesse et direction du vent."
   of:
     prefLabel:
       fr: Caractéristiques géographiques océanographiques
       en: Oceanographic geographical features
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Conditions physiques des océans (courants, salinité, hauteur des vagues, etc.).
   sr:
     prefLabel:
       fr: Régions maritimes
       en: Sea regions
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Conditions physiques des mers et des masses d'eau salée divisées en régions et en sous-régions à caractéristiques communes.
   br:
     prefLabel:
       fr: Régions biogéographiques
       en: Bio-geographical regions
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Zones présentant des conditions écologiques relativement homogènes avec des caractéristiques communes.
   hb:
     prefLabel:
       fr: Habitats et biotopes
       en: Habitats and biotopes
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Zones géographiques ayant des caractéristiques écologiques particulières — conditions, processus, structures et fonctions (de maintien de la vie) — favorables aux organismes qui y vivent. Sont incluses les zones terrestres et aquatiques qui se distinguent par leurs caractéristiques géographiques, abiotiques ou biotiques, qu'elles soient naturelles ou semi-naturelles.
   sd:
     prefLabel:
       fr: Répartition des espèces
       en: Species distribution
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Répartition géographique de l'occurrence des espèces animales et végétales regroupées par grille, région, unité administrative ou autre unité analytique.
   er:
     prefLabel:
       fr: Sources d'énergie
       en: Energy resources
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Sources d'énergie comprenant les hydrocarbures, l'énergie hydraulique, la bioénergie, l'énergie solaire, l'énergie éolienne, etc., le cas échéant accompagnées d'informations relatives à la profondeur/la hauteur de la source.
   mr:
     prefLabel:
       fr: Ressources minérales
       en: Mineral resources
-    inScheme: [ inspireThemesAnnexIII ]
-    topConceptOf: [ inspireThemesAnnexIII ]
+    inScheme: [ annex3Themes ]
+    topConceptOf: [ annex3Themes ]
     definition:
       fr: Ressources minérales comprenant les minerais métalliques, les minéraux industriels, etc., le cas échéant accompagnées d'informations relatives à la profondeur/la hauteur de la ressource.
 
@@ -922,14 +922,18 @@ notes:
   13: JO L 184 du 17.7.1999, p. 23. Décision modifiée par la décision 2006/512/CE (JO L 200 du 22.7.2006, p. 11).
 
 annexes:
-  annexI:
+  annex1:
     title: ANNEXE I - THÈMES DE DONNÉES GÉOGRAPHIQUES VISÉS À L'ARTICLE 6, POINT A), À L'ARTICLE 8, PARAGRAPHE 1, ET À L'ARTICLE 9, POINT A)
-    text: "[voir la liste des thèmes structurée en micro-thésaurus](?ypath=/schemes/inspireThemesAnnexI)"
+    text: "[voir la liste des thèmes structurée en micro-thésaurus](?ypath=/schemes/annex1Themes)"
+    isReplacedBy: { ypath: /schemes/annex1Themes }
     
-  annexII:
+  annex2:
     title: ANNEXE II - THÈMES DE DONNÉES GÉOGRAPHIQUES VISÉS À L'ARTICLE 6, POINT A), À L'ARTICLE 8, PARAGRAPHE 1, ET À L'ARTICLE 9, POINT B)
-    text: "[voir la liste des thèmes structurée en micro-thésaurus](?ypath=/schemes/inspireThemesAnnexII)"
+    text: "[voir la liste des thèmes structurée en micro-thésaurus](?ypath=/schemes/annex2Themes)"
+    isReplacedBy: { ypath: /schemes/annex2Themes }
 
-  annexIII:
+  annex3:
     title: ANNEXE III - THÈMES DE DONNÉES GÉOGRAPHIQUES VISÉS À L'ARTICLE 6, POINT B), ET À L'ARTICLE 9, POINT B)
-    text: "[voir la liste des thèmes structurée en micro-thésaurus](?ypath=/schemes/inspireThemesAnnexIII)"
+    text: "[voir la liste des thèmes structurée en micro-thésaurus](?ypath=/schemes/annex3Themes)"
+    isReplacedBy: { ypath: /schemes/annex3Themes }
+    
