@@ -1,0 +1,185 @@
+title: JSON Schema
+source:
+  - http://json-schema.org/
+description: JSON Schema is a vocabulary that allows you to annotate and validate JSON documents.
+advantages: |
+  JSON Schema:
+
+    - Describes your existing data format(s).
+    - Provides clear human- and machine- readable documentation.
+    - Validates data which is useful for:
+        - Automated testing.
+        - Ensuring quality of client submitted data.
+
+  JSON Hyper-Schema:
+
+    - Make any JSON format a hypermedia format with no constraints on document structure
+    - Allows use of URI Templates with instance data
+    - Describe client data for use with links using JSON Schema.
+    - Recognizes collections and collection items.
+    
+Quickstart: |
+  The JSON document being validated or described we call the instance, and the document containing the description
+  is called the schema.
+start:
+  source:
+    - http://json-schema.org/learn/getting-started-step-by-step.html
+  basic: |
+    a JSON object:
+      
+        {
+          "productId": 1,
+          "productName": "A green door",
+          "price": 12.50,
+          "tags": [ "home", "green" ]
+        }
+       
+    a basic JSON schema:
+      
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "$id": "http://example.com/product.schema.json",
+          "title": "Product",
+          "description": "A product from Acme's catalog",
+          "type": "object",
+          "properties": {
+            "productId": {
+              "description": "The unique identifier for a product",
+              "type": "integer"
+            },
+            "productName": {
+              "description": "Name of the product",
+              "type": "string"
+            },
+            "price": {
+              "description": "The price of the product",
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "tags": {
+              "description": "Tags for the product",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            }
+          },
+          "required": [ "productId", "productName", "price" ]
+        }
+  nesting: |
+    Nesting data structures
+    
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "$id": "http://example.com/product.schema.json",
+          "title": "Product",
+          "description": "A product from Acme's catalog",
+          "type": "object",
+          "properties": {
+            "productId": {
+              "description": "The unique identifier for a product",
+              "type": "integer"
+            },
+            "productName": {
+              "description": "Name of the product",
+              "type": "string"
+            },
+            "price": {
+              "description": "The price of the product",
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "tags": {
+              "description": "Tags for the product",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "dimensions": {
+              "type": "object",
+              "properties": {
+                "length": {
+                  "type": "number"
+                },
+                "width": {
+                  "type": "number"
+                },
+                "height": {
+                  "type": "number"
+                }
+              },
+              "required": [ "length", "width", "height" ]
+            }
+          },
+          "required": [ "productId", "productName", "price" ]
+        }
+  references: |
+    References outside the schema:
+      
+        {
+          "id": "https://example.com/geographical-location.schema.json",
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "Longitude and Latitude",
+          "description": "A geographical coordinate on a planet (most commonly Earth).",
+          "required": [ "latitude", "longitude" ],
+          "type": "object",
+          "properties": {
+            "latitude": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "longitude": {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            }
+          }
+        }
+        
+        {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "$id": "http://example.com/product.schema.json",
+          "title": "Product",
+          "description": "A product from Acme's catalog",
+          "type": "object",
+          "properties": {
+            "productId": {
+              "description": "The unique identifier for a product",
+              "type": "integer"
+            },
+            "productName": {
+              "description": "Name of the product",
+              "type": "string"
+            },
+            [...]
+            "warehouseLocation": {
+              "description": "Coordinates of the warehouse where the product is located.",
+              "$ref": "https://example.com/geographical-location.schema.json"
+            }
+          },
+          "required": [ "productId", "productName", "price" ]
+        }
+        
+    an object:
+      
+        {
+            "productId": 1,
+            "productName": "An ice sculpture",
+            "price": 12.50,
+            "tags": [ "cold", "ice" ],
+            "dimensions": {
+              "length": 7.0,
+              "width": 12.0,
+              "height": 9.5
+            },
+            "warehouseLocation": {
+              "latitude": -78.75,
+              "longitude": 20.4
+            }
+          }

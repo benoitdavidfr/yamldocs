@@ -1,5 +1,6 @@
 title: Modèle de données pour les métadonnées Inspire
 description: |
+  **TRAVAIL EN COURS**  
   Ce document décrit le modèle de données d'un jeu de métadonnées Inspire.  
   Il précise le [règlement Métadonnées Inspire](https://data.europa.eu/eli/reg/2008/1205/oj)
   en lui apportant les quelques améliorations suivantes:
@@ -2385,7 +2386,7 @@ objectTypes:
         Description de l’organisation responsable de l’établissement, de la gestion, de la maintenance et de la diffusion de la ressource.  
       en: >
         Description of the organisation responsible for the establishment, management, maintenance and distribution of the resource. 
-    broadMatch: [ https://schema.org/Organization ]
+    subtypeOf: [ https://schema.org/Organization ]
     attributes:
       name:
         label:
