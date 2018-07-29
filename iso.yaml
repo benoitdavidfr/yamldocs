@@ -35,7 +35,7 @@ data:
     abstract: représentation normalisée des latitude, longitude et altitude pour la localisation des points géographiques. L'ordre des éléments est la latitude, la longitude et l'altitude.
     wikipedia: https://fr.wikipedia.org/wiki/ISO_6709
   ISO/IEC_13249-3:2016:
-    title: Information technology – Database languages – SQL multimedia and application packages – Part 3: Spatial (SQL/MM)
+    title: "Information technology – Database languages – SQL multimedia and application packages – Part 3: Spatial (SQL/MM)"
   ISO_19103:2015:
     title:
       fr: Information géographique -- Langage de schéma conceptuel
