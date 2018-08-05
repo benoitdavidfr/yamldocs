@@ -1,0 +1,89 @@
+# Description de ROUTE 500
+title: ROUTE 500 2018
+abstract: |
+  La base de données ROUTE 500® contient l'intégralité du réseau routier classé caractérisé par un certain nombre de propriétés et complété par les éléments du réseau routier secondaire permettant la desserte des chefs-lieux de communes et des principales infrastructures de transport.
+licence:
+  uri: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+  title: licence ouverte Etalab.
+doc_url: http://professionels.ign.fr/route500
+metadata: http://professionels.ign.fr/sites/default/files/IGNF_ROUTE500r_2-1.xml
+yamlClass: GeoData
+# chemins d'accès principal pour le chargement à partir du répertoire des données
+dbpath:  route500/ROUTE500_2-1__SHP_LAMB93_FXX_2018-04-09/ROUTE500/1_DONNEES_LIVRAISON_2018-04-00189/R500_2-1_SHP_LAMB93_FXX-ED181
+default_crs: L93 # CRS par défaut si non défini par dataset
+# liste des lots avec chemin d'accès pour le chargement
+datasets:
+  fxx :
+    title: Lot unique correspondant à la métropole
+    suffix:
+    path: 
+# encodage des fichiers SHP
+encoding: ISO-8859-1
+# Je considère que la résolution de Route 500 est de 40 m
+# (360° = 40 000 km => 40 m = 360 / 40 000 000 * 40 = 0,00036 °)
+# J'arrondis donc les coordonnées à 4 décimales
+precision: 4
+minZoom: 8
+maxZoom: 18
+# Liste des couches avec chemin et index à créer
+layers:
+  commune:
+    title: commune
+    doc_url: URL de documentation de la couche
+    path: ADMINISTRATIF/COMMUNE.shp
+    indexes:
+      id_rte500: true
+  limite_administrative:
+    title: limite_administrative
+    path: ADMINISTRATIF/LIMITE_ADMINISTRATIVE.shp
+    indexes:
+      id_rte500: true
+  coastline:
+    title: limite côtière
+    select: limite_administrative / nature='Limite côtière'
+  land_boundary_line:
+    title: frontière internationale
+    select: limite_administrative / nature='Frontière internationale'
+  noeud_commune:
+    title: noeud_commune
+    path: RESEAU_ROUTIER/NOEUD_COMMUNE.shp
+    indexes:
+      id_rte500: true
+      nom_comm: false
+      insee_comm: false
+      statut: false
+  noeud_routier:
+    title: noeud_routier
+    path: RESEAU_ROUTIER/NOEUD_ROUTIER.shp
+  troncon_route:
+    title: troncon_route
+    path: RESEAU_ROUTIER/TRONCON_ROUTE.shp
+  aerodrome:
+    title: aerodrome
+    path: RESEAU_ROUTIER/AERODROME.shp
+  communication_restreinte:
+    title: communication_restreinte
+    path: RESEAU_ROUTIER/COMMUNICATION_RESTREINTE.shp
+  noeud_ferre:
+    title: noeud_ferre
+    path: RESEAU_FERRE/NOEUD_FERRE.shp
+  troncon_voie_ferree:
+    title: troncon_voie_ferree
+    path: RESEAU_FERRE/TRONCON_VOIE_FERREE.shp
+  cote_frontiere:
+    title: cote_frontiere
+    path: HABILLAGE/COTE_FRONTIERE.shp
+  troncon_hydrographique:
+    title: troncon_hydrographique
+    path: HABILLAGE/TRONCON_HYDROGRAPHIQUE.shp
+  zone_occupation_sol:
+    title: zone_occupation_sol
+    path: HABILLAGE/ZONE_OCCUPATION_SOL.shp
+  zone_batie:
+    title: zone_batie
+    select: zone_occupation_sol / nature='Bâti'
+
+# Nom de la base MySQL en fonction du serveur MySQL
+mysql_database:
+  '172.17.0.3': route500 # MySql docker
+  mysql-bdavid.alwaysdata.net: bdavid_route500

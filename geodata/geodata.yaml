@@ -1,0 +1,50 @@
+title: Réflexions sur l'API d'accès aux geodata inspirée de celle de bdv.geoapi.fr
+doc: |
+  YamlDoc offre une gestion de documents avec API unifiant l'accès aux données géographiques.
+  Un document YamlDoc décrit une série de données (SD).
+  On distingue les données vecteur, les données image et les données d'affichage.
+  Ces données peuvent affichées dans des cartes.
+vector: |
+  Parmi les données vecteur, on distingue les types de documents suivants :
+    
+    - une BD géo vecteur réelle (VectorGeoData), tel que Route500, composée de couches vecteur réelles.
+      Une couche réelle est constitué d'objets géographiques ayant un schéma commun.
+      Ces objets  correspondre à une table MySQL ou à une requête.
+    - un service WFS 
+    - une BD géo vecteur virtuelle (VirtualVectorGeoData) composée de couches virtuelles. 
+      Une couche virtuelle correspond à différentes autres couches en fonction du niveau de zoom. 
+      Par exemple, la couche vituelle coastline correspond en fonction du zoom aux lignes de côte de Natural Earth,
+      de GéoFLA, de Route 500, de la BDCarto ou de la BD Topo.
+      Les objets géographiques d'une couche virtuelle n'ont pas forcément le même schéma.
+      
+  Une SD vecteur est composée d'un ensemble de couches vecteur ;
+  chaque couche vecteur correspond à un URI et interrogée avec un bbox renvoie un FeatureCollection GeoJSON.
+  Un exemple de SD vecteur est:
+      http://127.0.0.1/yamldoc/id.php/geodata/route500
+  
+  Une BD géo vecteur peut être découpée en différents jeux de données (dataset) en fonction du territoire. 
+  Par exemple la BDTopo est découpée par département. Ce découpage est transparent pour l'utilisation.
+  
+  Liste des points d'entrée de l'API:
+  - /{database} : description de la base de données, y compris la liste de ses couches
+  - /{database}/{layer} : description de la couche
+  - /{database}/{layer}?{query} : requête sur la couche
+    ex:
+      /route500/commune?bbox=4.8,47,4.9,47.1&zoom=12
+        retourne les objets inclus dans la boite
+      /route500/noeud_commune?where=nom_comm~BEAUN%
+        retourne les objets dont la propriété nom_comm correspond à BEAUNE%
+  - /{database}/{layer}/id/{id} : renvoie l'objet d'id {id}
+
+display: |
+  Les SD d'affichage sont constituées de couches d'affichage.
+  Chaque couche d'affichage correspond à un URI et interrogée avec un {x},{y},{z} renvoie une image PNG ou JPEG.
+  exemple: http://igngp.geoapi.fr/tile.php
+  
+image: |
+  Les SD image sont constituées de couches d'images.
+  
+map: |
+ Un document carte décrit une carte Leaflet;
+ 
+  
