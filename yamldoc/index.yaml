@@ -2,19 +2,22 @@ title: Présentation résumée de YamlDoc
 description: |
   YamlDoc
   -------
-  YamDoc est un système de gestion documentaire fondé sur :
+  YamlDoc est un système de gestion documentaire fondé sur :
   
     - l'organisation de documents correspondants à des fichiers texte structurés au
       **[format Yaml](?ypath=/yaml)**,
     - l'utilisation, quand cela est adapté, pour les champs d'une **[sémantique bien connue](?ypath=/semantic)**
-      (DublinCore, Skos, Schema.org, ...), conformément aux principes
+      (DublinCore, Skos, Schema.org, GeoJSON, ...), conformément aux principes
       du [Web des données](https://fr.wikipedia.org/wiki/Web_des_donn%C3%A9es),
     - le formattage de textes à l'intérieur du fichier Yaml utilisant le **[langage Markdown](?ypath=/markdown)**,
-    - l'utilisation d'un [visualisateur](?ypath=/visu) de document extensible,
+    - l'utilisation d'un [visualisateur](?ypath=/viewer) de document extensible,
     - un mécanisme de [requête simple (ypath)](?ypath=/ypath) dans les documents,
     - la possibilité d'effectuer des [recherches plein texte](?ypath=/search) sur les documents,
     - l'[organisation d'espaces documentaires partagés chacun sous la forme d'une archive Git](?ypath=/git),
-    - la possibilité de définir des [requêtes sur les documents en Php](?ypath=/query).
+    - la définition de [requêtes sur les documents en Php](?ypath=/query),
+    - la possibilité d'étendre le système en définissant des [classes documents](?ypath=/ydclass)
+      et l'accès aux documents au moyen d'API,
+    - une extension particulière du système pour l'[accès aux données géographiques](?doc=geodata).
     
 yaml: |
   ### Fondé sur le format Yaml
@@ -39,12 +42,13 @@ semantic: |
       date, ...) pour définir les métadonnées de chaque document
       ([synthèse des principaux champs ici](?doc=dublincore)) ;
     - le [standard SKOS](https://fr.wikipedia.org/wiki/Simple_Knowledge_Organization_System) ([résumé ici](?doc=skos))
-      encodé en Yaml
-      est utilisé pour représenter des thésaurus comme le [thésaurus EuroVoc](?doc=eurovoc)
+      encodé en Yaml est utilisé pour représenter des thésaurus comme le [thésaurus EuroVoc](?doc=eurovoc)
       ou le [lexique topographique](?doc=topovoc) de l'AFT ;
-    - enfin le [standard Schema.org](https://fr.wikipedia.org/wiki/Schema.org) est utilisé pour structurer
+    - le [standard Schema.org](https://fr.wikipedia.org/wiki/Schema.org) est utilisé pour structurer
       des bases de données, telles que par exemple des listes d'organismes en utilisant le
-      [type Organization](https://schema.org/Organization).
+      [type Organization](https://schema.org/Organization),
+    - le [standard GeoJSON](https://tools.ietf.org/html/rfc7946) est utilisé pour décrire des bases de données
+      géographiques vecteur, [plus de détails ici](?doc=geodata).
       
 markdown: |
   ### Markdown
@@ -53,7 +57,7 @@ markdown: |
   son utilisation est [illustrée ici](?doc=markdown).
   Les différentes parties du présent document constituent un autre exemple d'utilisation du Markdown.
   
-visu: |
+viewer: |
   ### Visualisateur
   Un visualisateur des documents en mode web permet de visualiser les documents et de naviguer entre eux.
   Il offre aussi une fonctionnalité limitée de modification des documents.  
@@ -154,3 +158,33 @@ query: |
       sélectionne la liste des départements de la région ayant 32 comme insee_code.
     - autre exemple, le document [cregions](?doc=cregions) sélectionne les régions actuelles
       ([consulter le code source Php de la requête](?action=showPhpSrc&amp;doc=cregions)).
+
+api: |
+  ### Accès aux documents au moyen d'API
+  Les infos contenues dans un document sont exposées au travers d'une API.
+
+ydclass: |
+  ### Définition de classes de documents
+  Une classe de documents correspond à une classe d'objets Php implémentant des méthodes de consultation du document
+  ainsi qu'une API de consultation en machine to machine. Les classes définies sont les suivantes:
+    
+    - [BasicYamlDoc](?action=version&doc=yamldoc&name=basicyamldoc.inc.php) 
+    - [YamlCatalog](?action=version&doc=yamldoc&name=catalog.inc.php) 
+    - [YamlData](?action=version&doc=yamldoc&name=yamldata.inc.php) - gestion des données
+    - [MultiData](?action=version&doc=yamldoc&name=multidata.inc.php) pour décomposer une grande table
+      en sous-tables stockées chacune dans un sous-document
+    - [YamlSkos](?action=version&doc=yamldoc&name=yamlskos.inc.php) - gestion d'un thésaurus Skos
+      organisé en micro-thésaurus
+    - [DataModel](?action=version&doc=yamldoc&name=datamodel.inc.php) - gestion d'un modèle de données
+      UML comme extension d'un YamlSkos
+    - [LegalDoc]((?action=version&doc=yamldoc&name=legaldoc.inc.php)) - gestion d'un texte juridique
+    - [OdtDoc](?action=version&doc=yamldoc&name=odtdoc.inc.php) - gestion des fichiers ODT
+    - [PdfDoc](?action=version&doc=yamldoc&name=pdfdoc.inc.php) - gestion des fichiers PDF
+    - [YData](?action=version&doc=yamldoc&name=ydata.inc.php) pour la gestion des données
+    - [Map](?action=version&doc=yamldoc&name=map.inc.php) - affichage d'une carte Leaflet
+    - [ShapeDataset](?action=version&doc=yamldoc&name=shapeds.inc.php) - document définissant une série de données
+      géo constituée d'un ensemble de fichiers Shape
+    - [WfsServer](?action=version&doc=yamldoc&name=wfsserver.inc.php) - définition d'un ensemble de couches
+      exposées par un serveur WFS
+    - [MultiScaleDataset](?action=version&doc=yamldoc&name=mscaleds.inc.php) - documents décrivant des
+      SD multi-échelles

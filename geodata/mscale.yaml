@@ -1,0 +1,19 @@
+title: Série de données géographiques multi-échelles
+abstract: |
+  Cette série de données géographiques est composée de couches, chacune référencant une autre couche vecteur
+  d'une série de données en fonction du niveau de zoom.
+  La carte corespondante peut être [générée ici](/yamldoc/id.php/geodata/mscale/map/display).
+yamlClass: MultiScaleDataset
+layers:
+  coastline:
+    title: coastline
+    definition:
+      0: http://127.0.0.1/yamldoc/id.php/geodata/ne_110m_physical/coastline # 0-3
+      4: http://127.0.0.1/yamldoc/id.php/geodata/ne_10m_physical/coastline # 4-8
+      9: http://127.0.0.1/yamldoc/id.php/geodata/route500/coastline # 9-11
+      12: http://127.0.0.1/yamldoc/id.php/geodata/bdcarto/coastline # 12-14
+      15: http://127.0.0.1/yamldoc/id.php/geodata/bdtopo/coastline # 15-18
+      19: null
+    style: { color: blue, weight: 2, opacity: 0.65 }
+
+      

@@ -1,0 +1,140 @@
+title: représentation multi-échelles de base vecteurs
+alternative: réflexion sur une base vecteur multi-échelles
+yamlClass: YamlData
+tables:
+  products:
+    title: Echelles officielles de quelques produits
+    data:
+      ne 110 m:
+        min: 110 M
+        max: 560 M
+      ne 50 m:
+        min: 50 M
+        max: 110 M
+      ne 10 m:
+        min: 10 M
+        max: 50 M
+      Route 120:
+        min: 500 K
+        max: 4 M
+        comment: n'est plus mis à jour
+      Route 500:
+        min: 200 K
+        max: 500 k
+      BD Carto:
+        min: 50 K
+        max: 200 K
+      BD Topo:
+        min: 5 K
+        max: 50 K
+
+  scales:
+    title: possibilité de bdv par niveau standardisé
+    legend: |
+      Légende du tableau:
+        
+        - La clé du tableau est le niveau standardisé:
+          - niveau 0 = la Terre en 256 x 256,
+          - chaque niveau > 0 décomposition de chaque tuile en 4.
+        - **résolution** est la résolution du pixel en mètres.  
+        - **échelle** est le dénominateur de l'échelle.  
+        - **ScanExp** indique le produit Scan Express correspondant.  
+        - **produit** indique une première possibilité de produit pour ce niveau.  
+        - **p2** indique une seconde possibilité de produit pour ce niveau en retirant R 120.  
+        - **comment** est un éventuel commentaire.
+      
+    data:
+      0:
+        résolution:
+        échelle: 559 M
+        ScanExp:
+        produit: ne 110m
+        p2: ne 110m
+        comment:
+      1:
+        échelle: 280 M
+      2:
+        échelle: 140 M
+      3:
+        échelle: 70 M
+        produit: ne 50m
+        p2: ne 50m
+      4:
+        échelle: 35 M
+      5:
+        échelle: 17 M
+        produit: ne 10m
+        p2: ne 10m
+      6:
+        résolution: 2_446
+        échelle: 8,7 M
+        ScanExp: M
+      7:
+        résolution: 1_223
+        échelle: 4.3 M
+        ScanExp: M
+        produit: R 120
+        comment: métro sur écran
+      8:
+        résolution: 611
+        échelle: 2.2 M
+        ScanExp: M
+      9:
+        résolution: 306
+        échelle: 1,1 M
+        ScanExp: M
+        p2: R 500
+        comment: démarrage typique
+      10:
+        résolution: 153
+        échelle: 546 k
+        ScanExp: M
+        produit: R 500
+      11:
+        résolution: 76
+        échelle: 273 k
+        ScanExp: 250 k
+      12:
+        résolution: 38
+        échelle: 136 k
+        ScanExp: 250 k
+        produit: BDCarto
+        p2: BDCarto
+      13:
+        résolution: 19
+        échelle: 68 k
+        ScanExp: 100 k
+      14:
+        résolution: 9.6
+        échelle: 34 k
+        ScanExp: 50 k
+        produit: BDTopo
+        comment:
+      15:
+        résolution: 4.8
+        échelle: 17 k
+        ScanExp: 25 k
+        p2: BDTopo
+        comment: maison indiv.
+      16:
+        résolution: 2.4
+        échelle: 9 k
+        ScanExp: 10 k (rues)
+        comment: noms des rues
+      17:
+        résolution: 1.2
+        échelle: 4 k
+        ScanExp: 5 k
+      18:
+        résolution: 0.60
+        échelle: 2 k
+        ScanExp: 5 k
+      19:
+        résolution: 0.30
+        échelle: 1066
+        produit: XXX
+        p2: XXX
+        comment: aucun produit
+      20:
+        résolution: 0.15
+        échelle: 533

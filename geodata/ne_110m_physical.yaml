@@ -1,0 +1,75 @@
+title: Natural Earth 1/110M physical
+abstract: |
+  Natural Earth is a public domain map dataset available at 1:10m, 1:50m, and 1:110 million scales. Featuring tightly integrated vector and raster data, with Natural Earth you can make a variety of visually pleasing, well-crafted maps with cartography or GIS software.  
+  Small scale data, 1:110m  
+  Suitable for schematic maps of the world on a postcard or as a small locator globe.
+identifier: https://www.naturalearthdata.com/downloads/110m-physical-vectors/
+licence:
+  uri: http://www.naturalearthdata.com/about/terms-of-use/
+  title: Public domain
+doc_url: http://www.naturalearthdata.com/
+yamlClass: ShapeDataset
+# chemins d'accès principal pour le chargement
+dbpath: naturalearth/110m_physical
+# liste des lots avec chemin d'accès pour le chargement
+datasets:
+  wld :
+    title: Lot unique
+    suffix:
+    path: 
+# J'arrondis les coordonnées à 3 décimales, 2 est insuffisant
+precision: 3
+minZoom: 0
+maxZoom: 18
+# Liste des couches avec chemin et index à créer
+layers:
+  coastline:
+    title: coastline
+    path: ne_110m_coastline.shp
+  geographic_lines:
+    title: geographic_lines
+    path: ne_110m_geographic_lines.shp
+  geography_marine_polys:
+    title: geography_marine_polys
+    path: ne_110m_geography_marine_polys.shp
+  geography_regions_elevation_points:
+    title: geography_regions_elevation_points
+    path: ne_110m_geography_regions_elevation_points.shp
+  geography_regions_points:
+    title: geography_regions_points
+    path: ne_110m_geography_regions_points.shp
+  geography_regions_polys:
+    title: geography_regions_polys
+    path: ne_110m_geography_regions_polys.shp
+  glaciated_areas:
+    title: glaciated_areas
+    path: ne_110m_glaciated_areas.shp
+  lakes:
+    title: lakes
+    path: ne_110m_lakes.shp
+  land:
+    title: land
+    path: ne_110m_land.shp
+  ocean:
+    title: ocean
+    path: ne_110m_ocean.shp
+  rivers_lake_centerlines:
+    title: rivers_lake_centerlines
+    path: ne_110m_rivers_lake_centerlines.shp
+  wgs84_bounding_box:
+    title: wgs84_bounding_box
+    path: ne_110m_wgs84_bounding_box.shp
+      
+# Fichiers shp non recopiés comme layer
+shpfiles:
+  - ne_110m_graticules_1.shp
+  - ne_110m_graticules_10.shp
+  - ne_110m_graticules_15.shp
+  - ne_110m_graticules_20.shp
+  - ne_110m_graticules_30.shp
+  - ne_110m_graticules_5.shp
+
+# Nom de la base MySQL en fonction du serveur MySQL
+mysql_database:
+  '172.17.0.3': ne_110m_phy # MySql docker
+  mysql-bdavid.alwaysdata.net: bdavid_ne_110m_phy

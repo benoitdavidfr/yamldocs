@@ -1,0 +1,73 @@
+title: Présentation de l'accès aux données géographiques avec YamlDoc
+journal:
+  '2018-08-10':
+    - revisite du document après avoir implanté GeoData, WfsServer, MultiScaleGeoData et Map
+  '2018-08-05':
+    - première réflexions inspirée de bdv.geoapi.fr avec version minimum de GeoData et Map fonctionne avec Route500
+description: |
+  YamlDoc définit des mécanismes d'accès aux données géographiques au travers de types de documents
+  correspondant à des séries de données géographiques (SD),
+  en distinguant des [SD vecteur](?ypath=/vector), des [SD image](?ypath=/image)
+  et des [SD en consultation](?ypath=/view).
+  Ces mécanismes sont conçus pour être facilement affichés avec la [bibliothèque Leaflet](https://leafletjs.com/) :
+    
+    - les SD vecteur au moyen du plugin [uGeoJson](https://github.com/BenjaminVadant/leaflet-ugeojson),
+    - les SD en consultation au moyen de la classe [TileLayer](https://leafletjs.com/reference-1.3.2.html#tilelayer).
+    
+  En outre, des [documents carte](?ypath=/map) permettent d'afficher ces SD, ou certaines de leurs couches,
+  dans des cartes Leaflet.
+  
+vector: |
+  Une SD vecteur est composée de couches vecteur, chacune correspondant à une FeatureCollection
+  [GeoJSON](https://tools.ietf.org/html/rfc7946) ;
+  chaque couche est composée d'objets vecteur, cad des Feature GeoJSON.  
+  Un document décrivant une SD vecteur peut, d'une part, s'afficher et, d'autre part, expose une API
+  constituée des 6 points d'entrée suivants :
+    
+    1. {docid} : description de la SD en JSON (ou en Yaml), y compris la liste de ses couches
+      ([exemple de Route500](/yamldoc/id.php/geodata/route500),
+      [en Yaml](/yamldoc/id.php/geodata/route500?format=yaml)),
+    2. {docid}/{lyrname} : description de la couche en JSON (ou en Yaml), cette URI identifie la couche
+      ([exemple de la couche commune de Route500](/yamldoc/id.php/geodata/route500/commune)),
+    3. {docid}/{lyrname}?{query} : requête sur la couche renvoyant un FeatureCollection GeoJSON  
+      où {query} peut être:
+        - bbox={lonMin},{latMin},{lonMax},{latMax}&zoom={zoom}
+          ([exemple](/yamldoc/id.php/geodata/route500/commune?bbox=-2.71,47.21,2.72,47.22&zoom=10)),
+        - where={critère SQL/CQL}
+          ([exemple des communes dont le nom commence par
+          BEAUN](/yamldoc/id.php/geodata/route500/noeud_commune?where=nom_comm%20like%20'BEAUN%')),
+    4. {docid}/{lyrname}/id/{id} : renvoie l'objet d'id {id} (A FAIRE)
+    5. {docid}/map : renvoie le document JSON décrivant la carte standard affichant la SD
+      ([exemple de la carte Route500](/yamldoc/id.php/geodata/route500/map)),
+    6. {docid}/map/display : renvoie le code HTML d'affichage de la carte standard affichant la SD
+      ([exemple d'affichage de la carte Route500](/yamldoc/id.php/geodata/route500/map/display)),
+
+  Une SD vecteur peut être implantée de 3 manières différentes:
+    
+    - elle peut correspondre à un ensemble de fichiers SHP (ShapeDataset) chargés dans une base MySQL.
+      Dans ce cas une première étape de téléchargement des fichiers et de chargement en base est nécessaire.
+      Des exemples de telles SD sont:
+        - la base [Route500](?doc=geodata/route500) de l'IGN,
+        - les bases Nature Earth:
+          - [Large scale data, 1:10m, Physical](?doc=geodata/ne_10m_physical),
+          - [Large scale data, 1:110m, Physical](?doc=geodata/ne_110m_physical),
+          - [Large scale data, 1:110m, Cultural](?doc=geodata/ne_110m_cultural),
+    - elle peut aussi correspondre à un ensemble de couches exposées par un service WFS (WfsServer).  
+      Des exemples de telles SD sont les bases [ADMIN EXPRESS](?doc=geodata/adminexpress),
+      [BDCARTO](?doc=geodata/bdcarto) et [BDTOPO](?doc=geodata/bdtopo) de l'IGN,
+    - elle peut enfin correspondre à un ensemble de couches, chacune définie par une des couches des SD
+      précédentes en fonction du zoom d'affichage (MultiScaleDataset).
+      Un exemple d'une telle SD est la [SD multi-échelles](?doc=geodata/mscale).
+    
+image: |
+  Les SD image sont constituées de couches d'images.
+  
+view: |
+  Les SD d'affichage sont constituées de couches d'affichage.
+  Chaque couche d'affichage correspond à un URI et interrogée avec un {x},{y},{z} renvoie une image PNG ou JPEG.
+  exemple: http://igngp.geoapi.fr/tile.php
+  
+map: |
+ Un document carte décrit une carte Leaflet;
+ 
+  

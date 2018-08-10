@@ -1,0 +1,162 @@
+title: Natural Earth 1/10M physical
+abstract: |
+  Natural Earth is a public domain map dataset available at 1:10m, 1:50m, and 1:110 million scales. Featuring tightly integrated vector and raster data, with Natural Earth you can make a variety of visually pleasing, well-crafted maps with cartography or GIS software.
+  The most detailed. Suitable for making zoomed-in maps of countries and regions. Show the world on a large wall poster.
+licence:
+  uri: http://www.naturalearthdata.com/about/terms-of-use/
+  title: Public domain
+doc_url: http://www.naturalearthdata.com/
+yamlClass: ShapeDataset
+# chemin d'accès principal pour le chargement
+dbpath: naturalearth/10m_physical
+# liste des lots avec chemin d'accès pour le chargement
+datasets:
+  wld :
+    title: jeu unique mondial
+    suffix:
+    path: 
+# J'arrondis les coordonnées à 3 décimales, 2 est insuffisant
+precision: 3
+minZoom: 0
+maxZoom: 18
+# Liste des couches avec chemin et index à créer
+layers:
+  coastline:
+    title: coastline
+    path: ne_10m_coastline.shp
+  bathymetry_l_0:
+    title: bathymetry_L_0
+    path: ne_10m_bathymetry_L_0.shp
+  bathymetry_k_200:
+    title: bathymetry_K_200
+    path: ne_10m_bathymetry_K_200.shp
+  bathymetry_j_1000:
+    title: bathymetry_J_1000
+    path: ne_10m_bathymetry_J_1000.shp
+  bathymetry_i_2000:
+    title: bathymetry_I_2000
+    path: ne_10m_bathymetry_I_2000.shp
+  bathymetry_h_3000:
+    title: bathymetry_H_3000
+    path: ne_10m_bathymetry_H_3000.shp
+  bathymetry_g_4000:
+    title: bathymetry_G_4000
+    path: ne_10m_bathymetry_G_4000.shp
+  bathymetry_f_5000:
+    title: bathymetry_F_5000
+    path: ne_10m_bathymetry_F_5000.shp
+  bathymetry_e_6000:
+    title: bathymetry_E_6000
+    path: ne_10m_bathymetry_E_6000.shp
+  bathymetry_d_7000:
+    title: bathymetry_D_7000
+    path: ne_10m_bathymetry_D_7000.shp
+  bathymetry_c_8000:
+    title: bathymetry_C_8000
+    path: ne_10m_bathymetry_C_8000.shp
+  bathymetry_b_9000:
+    title: bathymetry_B_9000
+    path: ne_10m_bathymetry_B_9000.shp
+  bathymetry_a_10000:
+    title: bathymetry_A_10000
+    path: ne_10m_bathymetry_A_10000.shp
+  lakes:
+    title: lakes
+    path: ne_10m_lakes.shp
+  lakes_europe:
+    title: lakes_europe
+    path: ne_10m_lakes_europe.shp
+  lakes_historic:
+    title: lakes_historic
+    path: ne_10m_lakes_historic.shp
+  lakes_north_america:
+    title: lakes_north_america
+    path: ne_10m_lakes_north_america.shp
+  lakes_pluvial:
+    title: lakes_pluvial
+    path: ne_10m_lakes_pluvial.shp
+  land:
+    title: land
+    path: ne_10m_land.shp
+  minor_islands:
+    title: minor_islands
+    path: ne_10m_minor_islands.shp
+  minor_islands_coastline:
+    title: minor_islands_coastline
+    path: ne_10m_minor_islands_coastline.shp
+  minor_islands_label_points:
+    title: minor_islands_label_points
+    path: ne_10m_minor_islands_label_points.shp
+  ocean:
+    title: ocean
+    path: ne_10m_ocean.shp
+  ocean_scale_rank:
+    title: ocean_scale_rank
+    path: ne_10m_ocean_scale_rank.shp
+  playas:
+    title: playas
+    path: ne_10m_playas.shp
+  reefs:
+    title: reefs
+    path: ne_10m_reefs.shp
+  rivers_europe:
+    title: rivers_europe
+    path: ne_10m_rivers_europe.shp
+  rivers_lake_centerlines:
+    title: rivers_lake_centerlines
+    path: ne_10m_rivers_lake_centerlines.shp
+  rivers_lake_centerlines_scale_rank:
+    title: rivers_lake_centerlines_scale_rank
+    path: ne_10m_rivers_lake_centerlines_scale_rank.shp
+  rivers_lake_centerlines_rank0-4:
+    title: rivers_lake_centerlines_rank0-4
+    select: rivers_lake_centerlines_scale_rank / scalerank in(0,1,2,3,4)
+  rivers_lake_centerlines_rank0-5:
+    title: rivers_lake_centerlines_rank0-5
+    select: rivers_lake_centerlines_scale_rank / scalerank in(0,1,2,3,4,5)
+  rivers_lake_centerlines_rank0-6:
+    title: rivers_lake_centerlines_rank0-6
+    select: rivers_lake_centerlines_scale_rank / scalerank in(0,1,2,3,4,5,6)
+  rivers_lake_centerlines_rank0-7:
+    title: rivers_lake_centerlines_rank0-7
+    select: rivers_lake_centerlines_scale_rank / scalerank in(0,1,2,3,4,5,6,7)
+  rivers_lake_centerlines_rank0-8:
+    title: rivers_lake_centerlines_rank0-8
+    select: rivers_lake_centerlines_scale_rank / scalerank in(0,1,2,3,4,5,6,7,8)
+  rivers_north_america:
+    title: rivers_north_america
+    path: rivers_north_america.shp
+  land_ocean_label_points:
+    title: land_ocean_label_points
+    path: ne_10m_land_ocean_label_points.shp
+  land_ocean_seams:
+    title: land_ocean_seams
+    path: ne_10m_land_ocean_seams.shp
+  land_scale_rank:
+    title: land_scale_rank
+    path: ne_10m_land_scale_rank.shp
+  wgs84_bounding_box:
+    title: wgs84_bounding_box
+    path: ne_10m_wgs84_bounding_box.shp
+      
+# Fichiers shp non recopiés comme layer
+shpfiles:
+    - ne_10m_antarctic_ice_shelves_lines.shp
+    - ne_10m_antarctic_ice_shelves_polys.shp
+    - ne_10m_geographic_lines.shp
+    - ne_10m_geography_marine_polys.shp
+    - ne_10m_geography_regions_elevation_points.shp
+    - ne_10m_geography_regions_points.shp
+    - ne_10m_geography_regions_polys.shp
+    - ne_10m_glaciated_areas.shp
+    - ne_10m_graticules_1.shp
+    - ne_10m_graticules_10.shp
+    - ne_10m_graticules_15.shp
+    - ne_10m_graticules_20.shp
+    - ne_10m_graticules_30.shp
+    - ne_10m_graticules_5.shp
+
+# Nom de la base MySQL en fonction du serveur MySQL
+mysql_database:
+  '172.17.0.3': ne_10m_phy
+  mysql-bdavid.alwaysdata.net: bdavid_ne_10m_phy

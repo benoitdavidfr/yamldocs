@@ -39,31 +39,31 @@ overlays:
   r500-commune:
     title: r500-commune
     type: UGeoJSONLayer
-    endpoint: http://bdavid.alwaysdata.net/yamldoc/id.php/geodata/route500/commune
+    endpoint: http://127.0.0.1/yamldoc/id.php/geodata/route500/commune
   r500-coastline:
     title: r500-coastline
     type: UGeoJSONLayer
-    endpoint: http://bdavid.alwaysdata.net/yamldoc/id.php/geodata/route500/coastline
+    endpoint: http://127.0.0.1/yamldoc/id.php/geodata/route500/coastline
   r500-lim_admin:
     title: r500-limite_administrative
     type: UGeoJSONLayer
-    endpoint: http://bdavid.alwaysdata.net/yamldoc/id.php/geodata/route500/limite_administrative
+    endpoint: http://127.0.0.1/yamldoc/id.php/geodata/route500/limite_administrative
   r500-noeud_commune:
     title: r500-noeud_commune
     type: UGeoJSONLayer
-    endpoint: http://bdavid.alwaysdata.net/yamldoc/id.php/geodata/route500/noeud_commune
+    endpoint: http://127.0.0.1/yamldoc/id.php/geodata/route500/noeud_commune
   r500-troncon_route:
     title: r500-troncon_route
     type: UGeoJSONLayer
-    endpoint: http://bdavid.alwaysdata.net/yamldoc/id.php/geodata/route500/troncon_route
+    endpoint: http://127.0.0.1/yamldoc/id.php/geodata/route500/troncon_route
   r500-aerodrome:
     title: r500-aerodrome
     type: UGeoJSONLayer
-    endpoint: http://bdavid.alwaysdata.net/yamldoc/id.php/geodata/route500/aerodrome
+    endpoint: http://127.0.0.1/yamldoc/id.php/geodata/route500/aerodrome
   r500-troncon_voie_ferree:
     title: r500-troncon_voie_ferree
     type: UGeoJSONLayer
-    endpoint: http://bdavid.alwaysdata.net/yamldoc/id.php/geodata/route500/troncon_voie_ferree
+    endpoint: http://127.0.0.1/yamldoc/id.php/geodata/route500/troncon_voie_ferree
     style:
       color: black
       weight: 2
@@ -71,9 +71,9 @@ overlays:
   r500-noeud_ferre:
     title: r500-noeud_ferre
     type: UGeoJSONLayer
-    endpoint: http://bdavid.alwaysdata.net/yamldoc/id.php/geodata/route500/noeud_ferre
+    endpoint: http://127.0.0.1/yamldoc/id.php/geodata/route500/noeud_ferre
   r500-troncon_hydrographique:
     title: r500-troncon_hydrographique
     type: UGeoJSONLayer
-    endpoint: http://bdavid.alwaysdata.net/yamldoc/id.php/geodata/route500/troncon_hydrographique
+    endpoint: http://127.0.0.1/yamldoc/id.php/geodata/route500/troncon_hydrographique
 addLayer: cartes

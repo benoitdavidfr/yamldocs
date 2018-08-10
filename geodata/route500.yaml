@@ -7,7 +7,7 @@ licence:
   title: licence ouverte Etalab.
 doc_url: http://professionels.ign.fr/route500
 metadata: http://professionels.ign.fr/sites/default/files/IGNF_ROUTE500r_2-1.xml
-yamlClass: GeoData
+yamlClass: ShapeDataset
 # chemins d'accès principal pour le chargement à partir du répertoire des données
 dbpath:  route500/ROUTE500_2-1__SHP_LAMB93_FXX_2018-04-09/ROUTE500/1_DONNEES_LIVRAISON_2018-04-00189/R500_2-1_SHP_LAMB93_FXX-ED181
 default_crs: L93 # CRS par défaut si non défini par dataset
@@ -27,26 +27,49 @@ minZoom: 8
 maxZoom: 18
 # Liste des couches avec chemin et index à créer
 layers:
-  commune:
-    title: commune
-    doc_url: URL de documentation de la couche
-    path: ADMINISTRATIF/COMMUNE.shp
-    indexes:
-      id_rte500: true
   limite_administrative:
-    title: limite_administrative
+    title: Limite administrative
     path: ADMINISTRATIF/LIMITE_ADMINISTRATIVE.shp
     indexes:
       id_rte500: true
+    selectOnZoom:
+      6: limite_administrative / nature in ('Limite côtière','Frontière internationale')
+      7: limite_administrative / nature in ('Limite côtière','Frontière internationale','Limite de région')
+      9: limite_administrative / nature in ('Limite côtière','Frontière internationale','Limite de région','Limite de département')
+      11: limite_administrative
+    style: |
+      function(feature) {
+          switch (feature.properties.nature) {
+              case 'Limite côtière': return {color: 'blue', weight: 1};
+              case 'Frontière internationale': return {color: 'maroon'};
+              case 'Limite de région': return {color: 'red', weight: 1};
+              case 'Limite de département': return {color: 'orange', weight: 1};
+              case 'Limite d\'arrondissement':   return {color: 'lightGrey', weight: 1};
+              case 'Limite de commune':   return {color: 'lightGrey', weight: 1};
+          }
+      }
   coastline:
-    title: limite côtière
+    title: Limite côtière
     select: limite_administrative / nature='Limite côtière'
+    style: { color: blue, weight: 2, opacity: 0.65 }
   land_boundary_line:
-    title: frontière internationale
+    title: Frontière internationale
     select: limite_administrative / nature='Frontière internationale'
+    style: { color: maroon, weight: 2, opacity: 0.65 }
+  commune:
+    title: commune
+    path: ADMINISTRATIF/COMMUNE.shp
+    indexes:
+      id_rte500: true
+    style: { color: grey, weight: 1, opacity: 0.65 }
   noeud_commune:
     title: noeud_commune
     path: RESEAU_ROUTIER/NOEUD_COMMUNE.shp
+    selectOnZoom:
+      6: noeud_commune / statut in ('Préfecture de région','Préfecture')
+      10: noeud_commune / statut in ('Préfecture de région','Préfecture','Sous-préfecture')
+      12: noeud_commune / population >= 1.0
+      14: noeud_commune
     indexes:
       id_rte500: true
       nom_comm: false
@@ -56,20 +79,59 @@ layers:
     title: noeud_routier
     path: RESEAU_ROUTIER/NOEUD_ROUTIER.shp
   troncon_route:
-    title: troncon_route
+    title: troncon de route
     path: RESEAU_ROUTIER/TRONCON_ROUTE.shp
+    selectOnZoom:
+      6: troncon_route / vocation in ('Type autoroutier')
+      9: troncon_route / vocation in ('Type autoroutier','Liaison principale')
+      11: troncon_route / vocation in ('Type autoroutier','Liaison principale','Liaison régionale')
+      14: troncon_route
+    style: |
+      function(feature) {
+          switch (feature.properties.vocation) {
+              case 'Type autoroutier': return { color: 'violet', weight: 2};
+              case 'Liaison principale': return { color: 'red', weight: 1};
+              case 'Liaison régionale': return { color: 'orange', weight: 1};
+              case 'Liaison locale': return { color: 'yellow', weight: 1};
+          }
+      }
   aerodrome:
     title: aerodrome
     path: RESEAU_ROUTIER/AERODROME.shp
   communication_restreinte:
-    title: communication_restreinte
+    title: Communication restreinte
     path: RESEAU_ROUTIER/COMMUNICATION_RESTREINTE.shp
   noeud_ferre:
-    title: noeud_ferre
+    title: Noeud ferré
     path: RESEAU_FERRE/NOEUD_FERRE.shp
   troncon_voie_ferree:
-    title: troncon_voie_ferree
+    title: Voie ferrée
     path: RESEAU_FERRE/TRONCON_VOIE_FERREE.shp
+    selectOnZoom:
+      10: troncon_voie_ferree
+      8: troncon_voie_ferree / nature='LGV' or energie='Electrifiée'
+      6: troncon_voie_ferree / nature='LGV'
+    style3: |
+      function(feature) {
+          switch (feature.properties.nature) {
+              case 'LGV': return { color: 'black', weight: 2, opacity: 0.65 };
+              case 'Voie normale': return { color: 'black', weight: 1, opacity: 0.65 };
+          }
+      }
+    style: |
+      function(feature) {
+        if (feature.properties.nature=='LGV')
+          return { color: 'black', weight: 2, opacity: 0.65 };
+        else if (feature.properties.energie=='Electrifiée')
+          return { color: 'black', weight: 1, opacity: 0.65 };
+        else
+          return { color: 'black', weight: 1, 
+          stroke_dasharray:'8,2', 
+          'line-dasharray': [2, 1],
+          'dasharrayx': [2, 5],
+          'dasharray': '4, 5',
+          opacity: 0.65 };
+      }
   cote_frontiere:
     title: cote_frontiere
     path: HABILLAGE/COTE_FRONTIERE.shp
@@ -79,9 +141,18 @@ layers:
   zone_occupation_sol:
     title: zone_occupation_sol
     path: HABILLAGE/ZONE_OCCUPATION_SOL.shp
+    style: |
+      function(feature) {
+          switch (feature.properties.nature) {
+              case 'Eau': return { color: 'blue', weight: 1};
+              case 'Forêt': return { color: 'lightGreen', weight: 1};
+              case 'Bâti': return { color: 'orange', weight: 1};
+          }
+      }
   zone_batie:
     title: zone_batie
     select: zone_occupation_sol / nature='Bâti'
+    style: { color: orange, weight: 2, opacity: 0.65 }
 
 # Nom de la base MySQL en fonction du serveur MySQL
 mysql_database:
