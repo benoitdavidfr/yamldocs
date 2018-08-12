@@ -21,7 +21,7 @@ vector: |
   Une SD vecteur est composée de couches vecteur, chacune correspondant à une FeatureCollection
   [GeoJSON](https://tools.ietf.org/html/rfc7946) ;
   chaque couche est composée d'objets vecteur, cad des Feature GeoJSON.  
-  Un document décrivant une SD vecteur peut, d'une part, s'afficher et, d'autre part, expose une API
+  Un document décrivant une SD vecteur, d'une part, peut s'afficher et, d'autre part, expose une API
   constituée des 6 points d'entrée suivants :
     
     1. {docid} : description de la SD en JSON (ou en Yaml), y compris la liste de ses couches
@@ -31,7 +31,7 @@ vector: |
       ([exemple de la couche commune de Route500](/yamldoc/id.php/geodata/route500/commune)),
     3. {docid}/{lyrname}?{query} : requête sur la couche renvoyant un FeatureCollection GeoJSON  
       où {query} peut être:
-        - bbox={lonMin},{latMin},{lonMax},{latMax}&zoom={zoom}
+        - bbox={lngMin},{latMin},{lngMax},{latMax}&zoom={zoom}
           ([exemple](/yamldoc/id.php/geodata/route500/commune?bbox=-2.71,47.21,2.72,47.22&zoom=10)),
         - where={critère SQL/CQL}
           ([exemple des communes dont le nom commence par
@@ -42,6 +42,19 @@ vector: |
     6. {docid}/map/display : renvoie le code HTML d'affichage de la carte standard affichant la SD
       ([exemple d'affichage de la carte Route500](/yamldoc/id.php/geodata/route500/map/display)),
 
+  Cette API respecte le standard défini par OSM et une carte avec une SD vecteur peut être construite
+  par exemple avec le logiciel [umap](https://umap.openstreetmap.fr/fr/).
+  Pour cela définir un calque en indiquant :
+    
+    - comme *données distantes*
+      l'URL `{docid}/{lyrname}?bbox={bbox}&zoom={zoom}`,  
+      par exemple: `http://georef.eu/yamldoc/route500/limite_administrative?bbox={bbox}&zoom={zoom}`
+    - comme *format des données*: **geojson**,
+    - qu'il s'agit d'un calque *dynamique* afin que les données soient requêtées à chaque fois que la vue
+      de la carte change,
+    - d'activer le **proxy**.
+      
+  
   Une SD vecteur peut être implantée de 3 manières différentes:
     
     - elle peut correspondre à un ensemble de fichiers SHP (ShapeDataset) chargés dans une base MySQL.
@@ -52,12 +65,12 @@ vector: |
           - [Large scale data, 1:10m, Physical](?doc=geodata/ne_10m_physical),
           - [Large scale data, 1:110m, Physical](?doc=geodata/ne_110m_physical),
           - [Large scale data, 1:110m, Cultural](?doc=geodata/ne_110m_cultural),
-    - elle peut aussi correspondre à un ensemble de couches exposées par un service WFS (WfsServer).  
-      Des exemples de telles SD sont les bases [ADMIN EXPRESS](?doc=geodata/adminexpress),
+    - elle peut aussi correspondre à un ensemble de couches exposées par un service WFS (WfsServer) ;  
+      des exemples de telles SD sont les bases [ADMIN EXPRESS](?doc=geodata/adminexpress),
       [BDCARTO](?doc=geodata/bdcarto) et [BDTOPO](?doc=geodata/bdtopo) de l'IGN,
-    - elle peut enfin correspondre à un ensemble de couches, chacune définie par une des couches des SD
-      précédentes en fonction du zoom d'affichage (MultiScaleDataset).
-      Un exemple d'une telle SD est la [SD multi-échelles](?doc=geodata/mscale).
+    - elle peut enfin correspondre à un ensemble de couches, chacune définie en fonction du zoom d'affichage
+      par une des couches des SD précédentes (MultiScaleDataset) ;  
+      Un exemple d'une telle SD est la [SD multi-échelles](?doc=geodata/mscale) en construction.
     
 image: |
   Les SD image sont constituées de couches d'images.
@@ -68,6 +81,7 @@ view: |
   exemple: http://igngp.geoapi.fr/tile.php
   
 map: |
- Un document carte décrit une carte Leaflet;
+ Un document carte décrit une carte Leaflet
+ ([exemple de la carte Route500](/yamldoc/id.php/geodata/route500/map))
  
   
