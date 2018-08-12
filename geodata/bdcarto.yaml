@@ -17,6 +17,8 @@ abstract: |
 
   Depuis 2015, un nouveau processus de production a été mis en oeuvre, pour offrir une meilleure mise à jour.
   
+  La carte corespondante peut être [générée ici](/yamldoc/id.php/geodata/bdcarto/map/display).
+  
 identifier: http://professionnels.ign.fr/bdcarto
 coverage: "iso:code:3166:FR (métropole)"
 licence: Licence ouverte Etalab 2.0

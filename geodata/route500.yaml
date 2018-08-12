@@ -2,6 +2,8 @@
 title: ROUTE 500 2018
 abstract: |
   La base de données ROUTE 500® contient l'intégralité du réseau routier classé caractérisé par un certain nombre de propriétés et complété par les éléments du réseau routier secondaire permettant la desserte des chefs-lieux de communes et des principales infrastructures de transport.
+  
+  La carte corespondante peut être [générée ici](/yamldoc/id.php/geodata/route500/map/display).
 licence:
   uri: https://www.etalab.gouv.fr/licence-ouverte-open-licence
   title: licence ouverte Etalab.
