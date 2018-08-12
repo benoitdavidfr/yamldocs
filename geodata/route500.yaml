@@ -3,7 +3,7 @@ title: ROUTE 500 2018
 abstract: |
   La base de données ROUTE 500® contient l'intégralité du réseau routier classé caractérisé par un certain nombre de propriétés et complété par les éléments du réseau routier secondaire permettant la desserte des chefs-lieux de communes et des principales infrastructures de transport.
   
-  La carte corespondante peut être [générée ici](/yamldoc/id.php/geodata/route500/map/display).
+  La carte correspondante peut être [générée ici](/yamldoc/id.php/geodata/route500/map/display).
 licence:
   uri: https://www.etalab.gouv.fr/licence-ouverte-open-licence
   title: licence ouverte Etalab.
@@ -12,13 +12,6 @@ metadata: http://professionels.ign.fr/sites/default/files/IGNF_ROUTE500r_2-1.xml
 yamlClass: ShapeDataset
 # chemins d'accès principal pour le chargement à partir du répertoire des données
 dbpath:  route500/ROUTE500_2-1__SHP_LAMB93_FXX_2018-04-09/ROUTE500/1_DONNEES_LIVRAISON_2018-04-00189/R500_2-1_SHP_LAMB93_FXX-ED181
-default_crs: L93 # CRS par défaut si non défini par dataset
-# liste des lots avec chemin d'accès pour le chargement
-datasets:
-  fxx :
-    title: Lot unique correspondant à la métropole
-    suffix:
-    path: 
 # encodage des fichiers SHP
 encoding: ISO-8859-1
 # Je considère que la résolution de Route 500 est de 40 m

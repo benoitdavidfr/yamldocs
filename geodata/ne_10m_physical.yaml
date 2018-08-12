@@ -2,19 +2,16 @@ title: Natural Earth 1/10M physical
 abstract: |
   Natural Earth is a public domain map dataset available at 1:10m, 1:50m, and 1:110 million scales. Featuring tightly integrated vector and raster data, with Natural Earth you can make a variety of visually pleasing, well-crafted maps with cartography or GIS software.
   The most detailed. Suitable for making zoomed-in maps of countries and regions. Show the world on a large wall poster.
+  
+  La carte correspondante peut être [générée ici](/yamldoc/id.php/geodata/ne_10m_physical/map/display).
 licence:
   uri: http://www.naturalearthdata.com/about/terms-of-use/
   title: Public domain
-doc_url: http://www.naturalearthdata.com/
+identifier: http://www.naturalearthdata.com/downloads/10m-physical-vectors/
+source: http://www.naturalearthdata.com/
 yamlClass: ShapeDataset
 # chemin d'accès principal pour le chargement
 dbpath: naturalearth/10m_physical
-# liste des lots avec chemin d'accès pour le chargement
-datasets:
-  wld :
-    title: jeu unique mondial
-    suffix:
-    path: 
 # J'arrondis les coordonnées à 3 décimales, 2 est insuffisant
 precision: 3
 minZoom: 0
@@ -23,7 +20,34 @@ maxZoom: 18
 layers:
   coastline:
     title: coastline
+    abstract: Includes major islands.
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-coastline/
+      description: |
+        Ocean coastline, including major islands. Coastline is matched to land and water polygons.
+        The Caspian Sea, which is technically a lake, is included.
+        The ocean coastline, the foundation for building all of NEV, primarily derives from World Data Bank 2
+        with modest generalization applied via line simplification in Adobe Illustrator.
+        The Antarctica coast derives from NASA Mosaic of Antarctica.
     path: ne_10m_coastline.shp
+  land:
+    title: land
+    abstract: Land polygons including major islands.
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-land/
+      description: |
+        Derived from 10m coastline. Continental polygons broken into smaller, contiguous pieces to avoid having too many
+        points in any one polygon, facilitating faster data processing in certain software applications.  
+      issues: |
+        Coastline accuracy is suspect for northern Russia and southern Chile.  
+        Some rank 5 land should be reclassified as rank 6.
+    selectOnZoom:
+      4: land / scalerank = 0
+      5: land / scalerank <= 1
+      6: land / scalerank <= 3
+      7: land / scalerank <= 4
+      8: land
+    path: ne_10m_land.shp
   bathymetry_l_0:
     title: bathymetry_L_0
     path: ne_10m_bathymetry_L_0.shp
@@ -75,9 +99,6 @@ layers:
   lakes_pluvial:
     title: lakes_pluvial
     path: ne_10m_lakes_pluvial.shp
-  land:
-    title: land
-    path: ne_10m_land.shp
   minor_islands:
     title: minor_islands
     path: ne_10m_minor_islands.shp
