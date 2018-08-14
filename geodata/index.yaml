@@ -62,10 +62,9 @@ vector: |
       Dans ce cas une première étape de téléchargement des fichiers et de chargement en base est nécessaire.
       Des exemples de telles SD sont:
         - la base [Route500](?doc=geodata/route500) de l'IGN,
-        - les bases Nature Earth:
-          - [Large scale data, 1:10m, Physical](?doc=geodata/ne_10m_physical),
-          - [Large scale data, 1:110m, Physical](?doc=geodata/ne_110m_physical),
-          - [Large scale data, 1:110m, Cultural](?doc=geodata/ne_110m_cultural),
+        - 2 des bases Nature Earth:
+          - [Large scale data, 1:10m, Physical](?doc=geodata/ne_10m),
+          - [Small scale data, 1:110m, Cultural](?doc=geodata/ne_110m),
     - elle peut aussi correspondre à un ensemble de couches exposées par un service WFS (WfsServer) ;  
       des exemples de telles SD sont les bases [ADMIN EXPRESS](?doc=geodata/adminexpress),
       [BDCARTO](?doc=geodata/bdcarto) et [BDTOPO](?doc=geodata/bdtopo) de l'IGN,
