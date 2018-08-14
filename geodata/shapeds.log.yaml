@@ -1,0 +1,12 @@
+title: log d'utilisation de shapeds
+logs:
+  url: http://localhost/yamldoc/id.php/geodata/route500/commune?bbox=-2.7,47.2,2.8,49.7&zoom=8
+  date: '2018-08-12T12:18:38+00:00'
+  version: 'sortie optimisée avec json_encode par feature'
+  duration: 5.3926811218262
+  nbFeatures: 6737
+  
+  date: '2018-08-12T14:07:54+00:00'
+  duration: 5.3133411407471
+  nbFeatures: 6737
+  

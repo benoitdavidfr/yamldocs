@@ -1,0 +1,352 @@
+title: Natural Earth 1/110M
+abstract: |
+  Natural Earth is a public domain map dataset available at 1:10m, 1:50m, and 1:110 million scales. Featuring tightly integrated vector and raster data, with Natural Earth you can make a variety of visually pleasing, well-crafted maps with cartography or GIS software.  
+  Small scale data, 1:110m  
+  Suitable for schematic maps of the world on a postcard or as a small locator globe.
+licence:
+  uri: http://www.naturalearthdata.com/about/terms-of-use/
+  title: Public domain
+doc_url: http://www.naturalearthdata.com/
+yamlClass: ShapeDataset
+# chemins d'accès principal pour le chargement
+dbpath: naturalearth/110m
+# J'arrondis les coordonnées à 3 décimales, 2 est insuffisant
+precision: 3
+minZoom: 0
+maxZoom: 18
+# Liste des couches avec chemin et index à créer
+layers:
+  #
+  # physical
+  #
+  coastline:
+    title: coastline
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    path: ne_110m_coastline.shp
+  land:
+    title: land
+    style: { color: sandyBrown, weight: 0, opacity: 0.65 }
+    path: ne_110m_land.shp
+  ocean:
+    title: ocean
+    style: { color: deepSkyBlue, weight: 1, opacity: 0.65 }
+    path: ne_110m_ocean.shp
+  rivers_lake_centerlines:
+    title: rivers_lake_centerlines
+    style: { color: darkBlue, weight: 1, opacity: 0.65 }
+    path: ne_110m_rivers_lake_centerlines.shp
+  geographic_lines:
+    title: geographic_lines
+    path: ne_110m_geographic_lines.shp
+  geography_marine_polys:
+    title: geography_marine_polys
+    path: ne_110m_geography_marine_polys.shp
+  geography_regions_elevation_points:
+    title: geography_regions_elevation_points
+    path: ne_110m_geography_regions_elevation_points.shp
+  geography_regions_points:
+    title: geography_regions_points
+    path: ne_110m_geography_regions_points.shp
+  geography_regions_polys:
+    title: geography_regions_polys
+    path: ne_110m_geography_regions_polys.shp
+  glaciated_areas:
+    title: glaciated_areas
+    style: { color: cyan, weight: 1, opacity: 0.65 }
+    path: ne_110m_glaciated_areas.shp
+  lakes:
+    title: lakes
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    path: ne_110m_lakes.shp
+  wgs84_bounding_box:
+    title: wgs84_bounding_box
+    style: { color: grey, weight: 1, opacity: 0.65 }
+    path: ne_110m_wgs84_bounding_box.shp
+  #
+  # cultural
+  #
+  # Admin 0 – Boundary Lines
+  admin_0_boundary_lines_land:
+    title: Land boundaries
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-boundary-lines/
+    style: { color: darkOrange, weight: 1, opacity: 0.65 }
+    path: ne_110m_admin_0_boundary_lines_land.shp
+  admin_0_pacific_groupings:
+    title: Pacific grouping boxes
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-boundary-lines/
+    style: { color: darkBlue, weight: 1, opacity: 0.65 }
+    path: ne_110m_admin_0_pacific_groupings.shp
+  # Admin 0 – Countries
+  admin_0_countries:
+    title: Countries
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-countries/
+      description: |
+        Countries distinguish between metropolitan (homeland) and independent and semi-independent portions
+        of sovereign states. To see the dependent overseas regions broken out (like in ISO codes, see France for example),
+        use map units instead.
+    style: { color: orange, weight: 1, opacity: 0.65 }
+    path: ne_110m_admin_0_countries.shp
+    excludedFields:
+      - SOVEREIGNT
+      - SOV_A3
+      - GEOU_DIF
+      - GEOUNIT
+      - GU_A3
+      - BRK_DIFF
+      - BRK_A3
+      - BRK_NAME
+      - BRK_GROUP
+      - NAME_CIAWF
+      - NOTE_BRK
+      - MAPCOLOR7
+      - MAPCOLOR8
+      - MAPCOLOR9
+      - MAPCOLOR13
+      - ECONOMY
+      - INCOME_GRP
+      - WIKIPEDIA
+      - FIPS_10_
+      - ISO_A3_EH
+      - ISO_N3
+      - UN_A3
+      - WB_A2
+      - WB_A3
+      - WOE_ID
+      - WOE_ID_EH
+      - WOE_NOTE
+      - ADM0_A3_IS
+      - ADM0_A3_US
+      - ADM0_A3_UN
+      - ADM0_A3_WB
+      - REGION_WB
+      - NAME_LEN
+      - LONG_LEN
+      - ABBREV_LEN
+      - TINY
+      - HOMEPART
+      - MIN_ZOOM
+      - MIN_LABEL
+      - MAX_LABEL
+      - NE_ID
+      - WIKIDATAID
+      - NAME_AR
+      - NAME_BN
+      - NAME_DE
+      - NAME_ES
+      - NAME_EL
+      - NAME_HI
+      - NAME_HU
+      - NAME_ID
+      - NAME_IT
+      - NAME_JA
+      - NAME_KO
+      - NAME_NL
+      - NAME_PL
+      - NAME_PT
+      - NAME_RU
+      - NAME_SV
+      - NAME_TR
+      - NAME_VI
+      - NAME_ZH
+  # pays dont ont été enlevés les grands lacs
+  admin_0_countries_lakes:
+    title: Countries without boundary lakes
+    style: { color: orange, weight: 1, opacity: 0.65 }
+    path: ne_110m_admin_0_countries_lakes.shp
+    excludedFields:
+      - SOVEREIGNT
+      - SOV_A3
+      - GEOU_DIF
+      - GEOUNIT
+      - GU_A3
+      - BRK_DIFF
+      - BRK_A3
+      - BRK_NAME
+      - BRK_GROUP
+      - NAME_CIAWF
+      - NOTE_BRK
+      - MAPCOLOR7
+      - MAPCOLOR8
+      - MAPCOLOR9
+      - MAPCOLOR13
+      - ECONOMY
+      - INCOME_GRP
+      - WIKIPEDIA
+      - FIPS_10_
+      - ISO_A3_EH
+      - ISO_N3
+      - UN_A3
+      - WB_A2
+      - WB_A3
+      - WOE_ID
+      - WOE_ID_EH
+      - WOE_NOTE
+      - ADM0_A3_IS
+      - ADM0_A3_US
+      - ADM0_A3_UN
+      - ADM0_A3_WB
+      - REGION_WB
+      - NAME_LEN
+      - LONG_LEN
+      - ABBREV_LEN
+      - TINY
+      - HOMEPART
+      - MIN_ZOOM
+      - MIN_LABEL
+      - MAX_LABEL
+      - NE_ID
+      - WIKIDATAID
+      - NAME_AR
+      - NAME_BN
+      - NAME_DE
+      - NAME_ES
+      - NAME_EL
+      - NAME_HI
+      - NAME_HU
+      - NAME_ID
+      - NAME_IT
+      - NAME_JA
+      - NAME_KO
+      - NAME_NL
+      - NAME_PL
+      - NAME_PT
+      - NAME_RU
+      - NAME_SV
+      - NAME_TR
+      - NAME_VI
+      - NAME_ZH
+  # Admin 0 – Details
+  admin_0_sovereignty:
+    title: Sovereignty
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-details/
+    style: { color: orange, weight: 1, opacity: 0.65 }
+    path: ne_110m_admin_0_sovereignty.shp
+  admin_0_map_units:
+    title: Map units
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-details/
+    style: { color: orange, weight: 1, opacity: 0.65 }
+    path: ne_110m_admin_0_map_units.shp
+    excludedFields:
+      - SOVEREIGNT
+      - SOV_A3
+      - GEOU_DIF
+      - GEOUNIT
+      - GU_A3
+      - BRK_DIFF
+      - BRK_A3
+      - BRK_NAME
+      - BRK_GROUP
+      - NAME_CIAWF
+      - NOTE_BRK
+      - MAPCOLOR7
+      - MAPCOLOR8
+      - MAPCOLOR9
+      - MAPCOLOR13
+      - ECONOMY
+      - INCOME_GRP
+      - WIKIPEDIA
+      - FIPS_10_
+      - ISO_A3_EH
+      - ISO_N3
+      - UN_A3
+      - WB_A2
+      - WB_A3
+      - WOE_ID
+      - WOE_ID_EH
+      - WOE_NOTE
+      - ADM0_A3_IS
+      - ADM0_A3_US
+      - ADM0_A3_UN
+      - ADM0_A3_WB
+      - REGION_WB
+      - NAME_LEN
+      - LONG_LEN
+      - ABBREV_LEN
+      - TINY
+      - HOMEPART
+      - MIN_ZOOM
+      - MIN_LABEL
+      - MAX_LABEL
+      - NE_ID
+      - WIKIDATAID
+      - NAME_AR
+      - NAME_BN
+      - NAME_DE
+      - NAME_ES
+      - NAME_EL
+      - NAME_HI
+      - NAME_HU
+      - NAME_ID
+      - NAME_IT
+      - NAME_JA
+      - NAME_KO
+      - NAME_NL
+      - NAME_PL
+      - NAME_PT
+      - NAME_RU
+      - NAME_SV
+      - NAME_TR
+      - NAME_VI
+      - NAME_ZH
+  admin_0_scale_rank:
+    title: admin_0_scale_rank
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-details/
+    style: { color: orange, weight: 1, opacity: 0.65 }
+    path: ne_110m_admin_0_scale_rank.shp
+  admin_0_tiny_countries:
+    title: Tiny country points
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-details/
+    path: ne_110m_admin_0_tiny_countries.shp
+  # Admin 1 – States, Provinces
+  admin_1_states_provinces:
+    title: States and provinces
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-1-states-provinces/
+    style: { color: lightSalmon, weight: 1, opacity: 0.65 }
+    path: ne_110m_admin_1_states_provinces.shp
+  admin_1_states_provinces_lakes:
+    title: States and provinces without large lakes
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-1-states-provinces/
+    style: { color: lightSalmon, weight: 1, opacity: 0.65 }
+    path: ne_110m_admin_1_states_provinces_lakes.shp
+  admin_1_states_provinces_lines:
+    title: State and province boundaries
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-1-states-provinces/
+    style: { color: lightSalmon, weight: 1, opacity: 0.65 }
+    path: ne_110m_admin_1_states_provinces_lines.shp
+  admin_1_states_provinces_scale_rank:
+    title: States and provinces whith scale rank
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-1-states-provinces/
+    style: { color: lightSalmon, weight: 1, opacity: 0.65 }
+    path: ne_110m_admin_1_states_provinces_scale_rank.shp
+  # Populated Places
+  populated_places:
+    title: City and town points
+    path: ne_110m_populated_places.shp
+  populated_places_simple:
+    title: City and town points (with less fields)
+    path: ne_110m_populated_places_simple.shp
+
+# Fichiers shp non recopiés comme layer
+shpfiles:
+  - ne_110m_graticules_1.shp
+  - ne_110m_graticules_10.shp
+  - ne_110m_graticules_15.shp
+  - ne_110m_graticules_20.shp
+  - ne_110m_graticules_30.shp
+  - ne_110m_graticules_5.shp
+
+# Nom de la base MySQL en fonction du serveur MySQL
+mysql_database:
+  '172.17.0.3': ne_110m # MySql docker
+  mysql-bdavid.alwaysdata.net: bdavid_ne_110m
