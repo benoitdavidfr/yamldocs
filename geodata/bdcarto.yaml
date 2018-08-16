@@ -19,29 +19,37 @@ abstract: |
   
   La carte corespondante peut être [générée ici](/yamldoc/id.php/geodata/bdcarto/map/display).
   
+  URL de test:
+    
+    - [doc BDCarto](http://localhost/yamldoc/id.php/geodata/bdcarto)
+    - [description de limite_administrative](http://localhost/yamldoc/id.php/geodata/bdcarto/limite_administrative)
+    - [affichage de limite_administrative
+    ](http://localhost/yamldoc/id.php/geodata/bdcarto/limite_administrative?bbox=1.4,47.3,4.5,48.6&zoom=9)
+
 identifier: http://professionnels.ign.fr/bdcarto
 coverage: "iso:code:3166:FR (métropole)"
 licence: Licence ouverte Etalab 2.0
-yamlClass: WfsServer
+yamlClass: VectorDataset
 urlWfs: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
+referer: http://gexplor.fr/
 layers:
 # Thème ADMINISTRATIF
   region:
     title: région
-    typename: BDCARTO_BDD_WLD_WGS84G:region
     style: { color: red, weight: 1, opacity: 0.65 }
+    typename: BDCARTO_BDD_WLD_WGS84G:region
   departement:
     title: départment
-    typename: BDCARTO_BDD_WLD_WGS84G:departement
     style: { color: orange, weight: 1, opacity: 0.65 }
+    typename: BDCARTO_BDD_WLD_WGS84G:departement
   arrondissement:
     title: arrondissement
-    typename: BDCARTO_BDD_WLD_WGS84G:arrondissement
     style: { color: darkGrey, weight: 1, opacity: 0.65 }
+    typename: BDCARTO_BDD_WLD_WGS84G:arrondissement
   commune:
     title: commune
-    typename: BDCARTO_BDD_WLD_WGS84G:commune
     style: { color: lightGrey, weight: 1, opacity: 0.65 }
+    typename: BDCARTO_BDD_WLD_WGS84G:commune
   limite_administrative:
     title: limite administrative
     conformsTo:
@@ -74,6 +82,11 @@ layers:
               description: >
                 Précision non définie, en particulier pour les limites s’appuyant sur les surfaces d’eau
                 du domaine public de l’État
+    filterOnZoom:
+      6: nature in ('Limite côtière','Frontière internationale')
+      7: nature in ('Limite côtière','Frontière internationale','Limite de région')
+      9: nature in ('Limite côtière','Frontière internationale','Limite de région','Limite de département')
+      11: all
     style: |
       function(feature) {
           switch (feature.properties.nature) {
@@ -108,6 +121,30 @@ layers:
     select: limite_administrative / nature='Limite de commune'
     style: { color: lightGrey, weight: 1 }
 
+  # Thème Hydrographie
+  troncon_hydrographique:
+    title: Cours d’eau
+    filterOnZoom:
+      9: classe in ('100')
+      10: classe in ('100','50')
+      11: classe in ('100','50','25')
+      12: classe in ('100','50','25','10')
+      13: classe in ('100','50','25','10','5')
+      14: all
+    style: { color: blue, weight: 1 }
+    typename: BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique
+  surface_hydrographique:
+    title: Zone couverte d’eau
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    typename: BDCARTO_BDD_WLD_WGS84G:surface_hydrographique
+  ponctuel_hydrographique:
+    title: Nœud hydrographique et point d’eau isolé
+    typename: BDCARTO_BDD_WLD_WGS84G:ponctuel_hydrographique
+  zone_hydrographique_texture:
+    title: Zone hydrographie de texture
+    style: { color: mediumSeaGreen, weight: 1, opacity: 0.65 }
+    typename: BDCARTO_BDD_WLD_WGS84G:zone_hydrographique_texture
+  
 listeRestante: |
   BDCARTO_BDD_WLD_WGS84G:troncon_route
 
@@ -137,10 +174,6 @@ listeRestante: |
   BDCARTO_BDD_WLD_WGS84G:noeud_routier
   BDCARTO_BDD_WLD_WGS84G:piste_aerodrome
   BDCARTO_BDD_WLD_WGS84G:point_remarquable_relief
-  BDCARTO_BDD_WLD_WGS84G:surface_hydrographique
-  BDCARTO_BDD_WLD_WGS84G:zone_hydrographique_texture
-  BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique
-  BDCARTO_BDD_WLD_WGS84G:ponctuel_hydrographique
   BDCARTO_BDD_WLD_WGS84G:transport_cable
   
   BDCARTO_BDD_WLD_WGS84G:zone_occupation_sol

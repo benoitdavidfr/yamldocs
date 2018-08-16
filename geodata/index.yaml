@@ -1,5 +1,7 @@
 title: Présentation de l'accès aux données géographiques avec YamlDoc
 journal:
+  '2018-08-15':
+    - nouvelle vesrion fusionnant dans VectorDataset ShapeDataset, WfsLayers et MultiScaleDataset
   '2018-08-10':
     - revisite du document après avoir implanté GeoData, WfsServer, MultiScaleGeoData et Map
   '2018-08-05':
@@ -21,7 +23,7 @@ description: |
   dans des cartes Leaflet.
   
 vector: |
-  Une SD vecteur est composée de couches vecteur, chacune correspondant à une FeatureCollection
+  Une SD vecteur (VectorDataset) est composée de couches vecteur, chacune correspondant à une FeatureCollection
   [GeoJSON](https://tools.ietf.org/html/rfc7946) ;
   chaque couche est composée d'objets vecteur, cad des Feature GeoJSON.  
   Un document décrivant une SD vecteur, d'une part, peut s'afficher et, d'autre part, expose une API
@@ -39,38 +41,56 @@ vector: |
         - where={critère SQL/CQL}
           ([exemple des communes dont le nom commence par
           BEAUN](/yamldoc/id.php/geodata/route500/noeud_commune?where=nom_comm%20like%20'BEAUN%')),
+        - la combinaire des 2 précéents
     4. {docid}/{lyrname}/id/{id} : renvoie l'objet d'id {id} (A FAIRE)
     5. {docid}/map : renvoie le document JSON décrivant la carte standard affichant la SD
       ([exemple de la carte Route500](/yamldoc/id.php/geodata/route500/map)),
     6. {docid}/map/display : renvoie le code HTML d'affichage de la carte standard affichant la SD
       ([exemple d'affichage de la carte Route500](/yamldoc/id.php/geodata/route500/map/display)),
 
-  Une carte affichant une SD vecteur peut être construite avec le logiciel [umap](https://umap.openstreetmap.fr/fr/).
+  De plus, une carte affichant une SD vecteur peut être construite
+  avec le [logiciel umap](https://umap.openstreetmap.fr/fr/).
   Pour cela définir un calque en indiquant :
     
     - comme *données distantes*
       l'URL `{docid}/{lyrname}?bbox={bbox}&zoom={zoom}`,  
-      par exemple: `http://georef.eu/yamldoc/route500/limite_administrative?bbox={bbox}&zoom={zoom}`
+      par exemple: `http://georef.eu/yamldoc/id.php/geodata/route500/limite_administrative?bbox={bbox}&zoom={zoom}`
     - comme *format des données*: **geojson**,
     - qu'il s'agit d'un calque *dynamique* afin que les données soient requêtées à chaque fois que la vue
       de la carte change,
     - d'activer le **proxy**.
   
-  Une SD vecteur peut être implantée de 3 manières différentes:
+  Une couche vecteur peut être implantée de 4 manières différentes :
     
-    - elle peut correspondre à un ensemble de fichiers SHP (ShapeDataset) chargés dans une base MySQL.
-      Dans ce cas une première étape de téléchargement des fichiers et de chargement en base est nécessaire.
-      Des exemples de telles SD sont:
-        - la base [Route500](?doc=geodata/route500) de l'IGN,
-        - 2 des bases Nature Earth:
-          - [Large scale data, 1:10m, Physical](?doc=geodata/ne_10m),
-          - [Small scale data, 1:110m, Cultural](?doc=geodata/ne_110m),
-    - elle peut aussi correspondre à un ensemble de couches exposées par un service WFS (WfsServer) ;  
-      des exemples de telles SD sont les bases [ADMIN EXPRESS](?doc=geodata/adminexpress),
-      [BDCARTO](?doc=geodata/bdcarto) et [BDTOPO](?doc=geodata/bdtopo) de l'IGN,
-    - elle peut enfin correspondre à un ensemble de couches, chacune définie en fonction du zoom d'affichage
-      par une des couches des SD précédentes (MultiScaleDataset) ;  
-      Un exemple d'une telle SD est la [SD multi-échelles](?doc=geodata/mscale) en construction.
+    1. elle peut correspondre à un fichier OGR chargé dans une table MySQL ;
+      dans ce cas une première étape de chargement des fichiers en base est nécessaire ;
+      de telles exemples sont   :
+        - la [couche limite administrative
+          de Route500](http://georef.eu/yamldoc/id.php/geodata/route500/limite_administrative),
+        - la [couche coastline
+          de la Natural Earth 10M](http://localhost/yamldoc/id.php/geodata/ne_10m/coastline)
+    2. elle peut aussi correspondre à une couche exposée par un service WFS ;
+      de telles exemples sont :
+        - la [couche commune d'ADMIN EXPRESS](http://localhost/yamldoc/id.php/geodata/adminexpress/commune),
+        - la [couche troncon_hydrographique
+          de la BDCARTO](http://localhost/yamldoc/id.php/geodata/bdcarto/troncon_hydrographique),
+        - la [couche troncon_laisse de la BDTOPO](http://localhost/yamldoc/id.php/geodata/bdtopo/troncon_laisse),
+        
+      Une couche OGR ou WFS peut en outre être filtrée en fonction du zoom ;
+      la [couche limite administrative
+      de Route500](http://georef.eu/yamldoc/id.php/geodata/route500/limite_administrative)
+      en est une illustration.
+      
+    3. une couche peut aussi être définie par une sélection dans une des couches précédentes définie dans la même SD ;  
+      Un exemple est la [couche coastlinede Route 500](http://localhost/yamldoc/id.php/geodata/route500/coastline).
+      
+    4. une couche peut enfin être définie en fonction du zoom d'affichage et de la zone géographique
+      par une des couches précédentes ;  
+      Un exemple d'une telle couche est la [couche coastline
+      de la SD multi-échelles](http://localhost/yamldoc/id.php/geodata/mscale/coastline) en construction.
+      
+  Par ailleurs, pour utiliser les serveurs WFS, un type de document WfsServer est défini.
+  Le [serveur WFS du Géoportail IGN](http://localhost/yamldoc/?doc=geodata/igngpwfs) en est un exemple.
     
 image: |
   Les SD image sont constituées de couches d'images.

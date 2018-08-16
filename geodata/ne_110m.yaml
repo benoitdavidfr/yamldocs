@@ -3,11 +3,16 @@ abstract: |
   Natural Earth is a public domain map dataset available at 1:10m, 1:50m, and 1:110 million scales. Featuring tightly integrated vector and raster data, with Natural Earth you can make a variety of visually pleasing, well-crafted maps with cartography or GIS software.  
   Small scale data, 1:110m  
   Suitable for schematic maps of the world on a postcard or as a small locator globe.
+  
+  **URL de test** :
+    
+  - [coastline](http://localhost/yamldoc/id.php/geodata/ne_110m_physical/coastline?bbox=-95.8,-4.5,101.7,74.5&zoom=3)
+  
 licence:
   uri: http://www.naturalearthdata.com/about/terms-of-use/
   title: Public domain
 doc_url: http://www.naturalearthdata.com/
-yamlClass: ShapeDataset
+yamlClass: VectorDataset
 # chemins d'accès principal pour le chargement
 dbpath: naturalearth/110m
 # J'arrondis les coordonnées à 3 décimales, 2 est insuffisant
@@ -22,46 +27,46 @@ layers:
   coastline:
     title: coastline
     style: { color: blue, weight: 1, opacity: 0.65 }
-    path: ne_110m_coastline.shp
+    ogrPath: ne_110m_coastline.shp
   land:
     title: land
     style: { color: sandyBrown, weight: 0, opacity: 0.65 }
-    path: ne_110m_land.shp
+    ogrPath: ne_110m_land.shp
   ocean:
     title: ocean
     style: { color: deepSkyBlue, weight: 1, opacity: 0.65 }
-    path: ne_110m_ocean.shp
+    ogrPath: ne_110m_ocean.shp
   rivers_lake_centerlines:
-    title: rivers_lake_centerlines
+    title: Rivers and lake centerlines
     style: { color: darkBlue, weight: 1, opacity: 0.65 }
-    path: ne_110m_rivers_lake_centerlines.shp
+    ogrPath: ne_110m_rivers_lake_centerlines.shp
   geographic_lines:
     title: geographic_lines
-    path: ne_110m_geographic_lines.shp
+    ogrPath: ne_110m_geographic_lines.shp
   geography_marine_polys:
     title: geography_marine_polys
-    path: ne_110m_geography_marine_polys.shp
+    ogrPath: ne_110m_geography_marine_polys.shp
   geography_regions_elevation_points:
     title: geography_regions_elevation_points
-    path: ne_110m_geography_regions_elevation_points.shp
+    ogrPath: ne_110m_geography_regions_elevation_points.shp
   geography_regions_points:
     title: geography_regions_points
-    path: ne_110m_geography_regions_points.shp
+    ogrPath: ne_110m_geography_regions_points.shp
   geography_regions_polys:
     title: geography_regions_polys
-    path: ne_110m_geography_regions_polys.shp
+    ogrPath: ne_110m_geography_regions_polys.shp
   glaciated_areas:
     title: glaciated_areas
     style: { color: cyan, weight: 1, opacity: 0.65 }
-    path: ne_110m_glaciated_areas.shp
+    ogrPath: ne_110m_glaciated_areas.shp
   lakes:
     title: lakes
     style: { color: blue, weight: 1, opacity: 0.65 }
-    path: ne_110m_lakes.shp
+    ogrPath: ne_110m_lakes.shp
   wgs84_bounding_box:
     title: wgs84_bounding_box
     style: { color: grey, weight: 1, opacity: 0.65 }
-    path: ne_110m_wgs84_bounding_box.shp
+    ogrPath: ne_110m_wgs84_bounding_box.shp
   #
   # cultural
   #
@@ -71,13 +76,13 @@ layers:
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-boundary-lines/
     style: { color: darkOrange, weight: 1, opacity: 0.65 }
-    path: ne_110m_admin_0_boundary_lines_land.shp
+    ogrPath: ne_110m_admin_0_boundary_lines_land.shp
   admin_0_pacific_groupings:
     title: Pacific grouping boxes
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-boundary-lines/
     style: { color: darkBlue, weight: 1, opacity: 0.65 }
-    path: ne_110m_admin_0_pacific_groupings.shp
+    ogrPath: ne_110m_admin_0_pacific_groupings.shp
   # Admin 0 – Countries
   admin_0_countries:
     title: Countries
@@ -88,7 +93,7 @@ layers:
         of sovereign states. To see the dependent overseas regions broken out (like in ISO codes, see France for example),
         use map units instead.
     style: { color: orange, weight: 1, opacity: 0.65 }
-    path: ne_110m_admin_0_countries.shp
+    ogrPath: ne_110m_admin_0_countries.shp
     excludedFields:
       - SOVEREIGNT
       - SOV_A3
@@ -155,7 +160,7 @@ layers:
   admin_0_countries_lakes:
     title: Countries without boundary lakes
     style: { color: orange, weight: 1, opacity: 0.65 }
-    path: ne_110m_admin_0_countries_lakes.shp
+    ogrPath: ne_110m_admin_0_countries_lakes.shp
     excludedFields:
       - SOVEREIGNT
       - SOV_A3
@@ -224,13 +229,13 @@ layers:
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-details/
     style: { color: orange, weight: 1, opacity: 0.65 }
-    path: ne_110m_admin_0_sovereignty.shp
+    ogrPath: ne_110m_admin_0_sovereignty.shp
   admin_0_map_units:
     title: Map units
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-details/
     style: { color: orange, weight: 1, opacity: 0.65 }
-    path: ne_110m_admin_0_map_units.shp
+    ogrPath: ne_110m_admin_0_map_units.shp
     excludedFields:
       - SOVEREIGNT
       - SOV_A3
@@ -298,44 +303,44 @@ layers:
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-details/
     style: { color: orange, weight: 1, opacity: 0.65 }
-    path: ne_110m_admin_0_scale_rank.shp
+    ogrPath: ne_110m_admin_0_scale_rank.shp
   admin_0_tiny_countries:
     title: Tiny country points
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-details/
-    path: ne_110m_admin_0_tiny_countries.shp
+    ogrPath: ne_110m_admin_0_tiny_countries.shp
   # Admin 1 – States, Provinces
   admin_1_states_provinces:
     title: States and provinces
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-1-states-provinces/
     style: { color: lightSalmon, weight: 1, opacity: 0.65 }
-    path: ne_110m_admin_1_states_provinces.shp
+    ogrPath: ne_110m_admin_1_states_provinces.shp
   admin_1_states_provinces_lakes:
     title: States and provinces without large lakes
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-1-states-provinces/
     style: { color: lightSalmon, weight: 1, opacity: 0.65 }
-    path: ne_110m_admin_1_states_provinces_lakes.shp
+    ogrPath: ne_110m_admin_1_states_provinces_lakes.shp
   admin_1_states_provinces_lines:
     title: State and province boundaries
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-1-states-provinces/
     style: { color: lightSalmon, weight: 1, opacity: 0.65 }
-    path: ne_110m_admin_1_states_provinces_lines.shp
+    ogrPath: ne_110m_admin_1_states_provinces_lines.shp
   admin_1_states_provinces_scale_rank:
     title: States and provinces whith scale rank
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-1-states-provinces/
     style: { color: lightSalmon, weight: 1, opacity: 0.65 }
-    path: ne_110m_admin_1_states_provinces_scale_rank.shp
+    ogrPath: ne_110m_admin_1_states_provinces_scale_rank.shp
   # Populated Places
   populated_places:
     title: City and town points
-    path: ne_110m_populated_places.shp
+    ogrPath: ne_110m_populated_places.shp
   populated_places_simple:
     title: City and town points (with less fields)
-    path: ne_110m_populated_places_simple.shp
+    ogrPath: ne_110m_populated_places_simple.shp
 
 # Fichiers shp non recopiés comme layer
 shpfiles:

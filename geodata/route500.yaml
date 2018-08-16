@@ -4,29 +4,39 @@ abstract: |
   La base de données ROUTE 500® contient l'intégralité du réseau routier classé caractérisé par un certain nombre de propriétés et complété par les éléments du réseau routier secondaire permettant la desserte des chefs-lieux de communes et des principales infrastructures de transport.
   
   La carte correspondante peut être [générée ici](/yamldoc/id.php/geodata/route500/map/display).
+  
+  **URL de test** :
+    
+  - [ogrPath simple: aerodrome](http://localhost/yamldoc/id.php/geodata/route500/commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
+  - [ogrPath simple: commune](http://localhost/yamldoc/id.php/geodata/route500/commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
+  - [filterOnZoom: troncon_voie_ferree
+  ](http://localhost/yamldoc/id.php/geodata/route500/troncon_voie_ferree?bbox=-2.7,47.2,2.8,49.7&zoom=8)
+  - [filterOnZoom: noeud_commune
+  ](http://localhost/yamldoc/id.php/geodata/route500/noeud_commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
+  - [select: coastline](http://localhost/yamldoc/id.php/geodata/route500/coastline?bbox=-1.97,46.68,-1.92,46.70&zoom=8)
+  - [troncon_hydrographique
+  ](http://localhost/yamldoc/id.php/geodata/route500/troncon_hydrographique?bbox=-1.97,46.68,-1.92,46.70&zoom=8)
+  - [noeud_commune / nom_comm like 'BEAUN%'
+  ](http://localhost/yamldoc/id.php/geodata/route500/noeud_commune?where=nom_comm%20like%20'BEAUN%')
+  
 licence:
   uri: https://www.etalab.gouv.fr/licence-ouverte-open-licence
   title: licence ouverte Etalab.
 doc_url: http://professionels.ign.fr/route500
 metadata: http://professionels.ign.fr/sites/default/files/IGNF_ROUTE500r_2-1.xml
-yamlClass: ShapeDataset
+yamlClass: VectorDataset
 # chemins d'accès principal pour le chargement à partir du répertoire des données
 dbpath:  route500/ROUTE500_2-1__SHP_LAMB93_FXX_2018-04-09/ROUTE500/1_DONNEES_LIVRAISON_2018-04-00189/R500_2-1_SHP_LAMB93_FXX-ED181
-# encodage des fichiers SHP
-encoding: ISO-8859-1
 # Je considère que la résolution de Route 500 est de 40 m
 # (360° = 40 000 km => 40 m = 360 / 40 000 000 * 40 = 0,00036 °)
 # J'arrondis donc les coordonnées à 4 décimales
 precision: 4
 minZoom: 8
 maxZoom: 18
-# Liste des couches avec chemin et index à créer
+
 layers:
   limite_administrative:
     title: Limite administrative
-    path: ADMINISTRATIF/LIMITE_ADMINISTRATIVE.shp
-    indexes:
-      id_rte500: true
     filterOnZoom:
       6: nature in ('Limite côtière','Frontière internationale')
       7: nature in ('Limite côtière','Frontière internationale','Limite de région')
@@ -36,13 +46,16 @@ layers:
       function(feature) {
           switch (feature.properties.nature) {
               case 'Limite côtière': return {color: 'blue', weight: 1};
-              case 'Frontière internationale': return {color: 'maroon'};
+              case 'Frontière internationale': return {color: 'maroon', weight: 2};
               case 'Limite de région': return {color: 'red', weight: 1};
               case 'Limite de département': return {color: 'orange', weight: 1};
               case 'Limite d\'arrondissement':   return {color: 'lightGrey', weight: 1};
               case 'Limite de commune':   return {color: 'lightGrey', weight: 1};
           }
       }
+    ogrPath: ADMINISTRATIF/LIMITE_ADMINISTRATIVE.shp
+    indexes:
+      id_rte500: true
   coastline:
     title: Limite côtière
     select: limite_administrative / nature='Limite côtière'
@@ -53,18 +66,18 @@ layers:
     style: { color: maroon, weight: 2, opacity: 0.65 }
   commune:
     title: commune
-    path: ADMINISTRATIF/COMMUNE.shp
+    style: { color: grey, weight: 1, opacity: 0.65 }
+    ogrPath: ADMINISTRATIF/COMMUNE.shp
     indexes:
       id_rte500: true
-    style: { color: grey, weight: 1, opacity: 0.65 }
   noeud_commune:
     title: noeud_commune
-    path: RESEAU_ROUTIER/NOEUD_COMMUNE.shp
     filterOnZoom:
       6: statut in ('Préfecture de région','Préfecture')
       10: statut in ('Préfecture de région','Préfecture','Sous-préfecture')
       12: population >= 1.0
       14: all
+    ogrPath: RESEAU_ROUTIER/NOEUD_COMMUNE.shp
     indexes:
       id_rte500: true
       nom_comm: false
@@ -72,10 +85,9 @@ layers:
       statut: false
   noeud_routier:
     title: noeud_routier
-    path: RESEAU_ROUTIER/NOEUD_ROUTIER.shp
+    ogrPath: RESEAU_ROUTIER/NOEUD_ROUTIER.shp
   troncon_route:
     title: troncon de route
-    path: RESEAU_ROUTIER/TRONCON_ROUTE.shp
     filterOnZoom:
       6: vocation in ('Type autoroutier')
       9: vocation in ('Type autoroutier','Liaison principale')
@@ -90,29 +102,22 @@ layers:
               case 'Liaison locale': return { color: 'yellow', weight: 1};
           }
       }
+    ogrPath: RESEAU_ROUTIER/TRONCON_ROUTE.shp
   aerodrome:
     title: aerodrome
-    path: RESEAU_ROUTIER/AERODROME.shp
+    ogrPath: RESEAU_ROUTIER/AERODROME.shp
   communication_restreinte:
     title: Communication restreinte
-    path: RESEAU_ROUTIER/COMMUNICATION_RESTREINTE.shp
+    ogrPath: RESEAU_ROUTIER/COMMUNICATION_RESTREINTE.shp
   noeud_ferre:
     title: Noeud ferré
-    path: RESEAU_FERRE/NOEUD_FERRE.shp
+    ogrPath: RESEAU_FERRE/NOEUD_FERRE.shp
   troncon_voie_ferree:
     title: Voie ferrée
-    path: RESEAU_FERRE/TRONCON_VOIE_FERREE.shp
     filterOnZoom:
       6: nature='LGV'
       8: nature='LGV' or energie='Electrifiée'
       10: all
-    style3: |
-      function(feature) {
-          switch (feature.properties.nature) {
-              case 'LGV': return { color: 'black', weight: 2, opacity: 0.65 };
-              case 'Voie normale': return { color: 'black', weight: 1, opacity: 0.65 };
-          }
-      }
     style: |
       function(feature) {
         if (feature.properties.nature=='LGV')
@@ -127,15 +132,16 @@ layers:
           'dasharray': '4, 5',
           opacity: 0.65 };
       }
+    ogrPath: RESEAU_FERRE/TRONCON_VOIE_FERREE.shp
   cote_frontiere:
     title: cote_frontiere
-    path: HABILLAGE/COTE_FRONTIERE.shp
+    ogrPath: HABILLAGE/COTE_FRONTIERE.shp
   troncon_hydrographique:
-    title: troncon_hydrographique
-    path: HABILLAGE/TRONCON_HYDROGRAPHIQUE.shp
+    title: Tronçon hydrographique et cours d’eau
+    ogrPath: HABILLAGE/TRONCON_HYDROGRAPHIQUE.shp
   zone_occupation_sol:
     title: zone_occupation_sol
-    path: HABILLAGE/ZONE_OCCUPATION_SOL.shp
+    ogrPath: HABILLAGE/ZONE_OCCUPATION_SOL.shp
     style: |
       function(feature) {
           switch (feature.properties.nature) {

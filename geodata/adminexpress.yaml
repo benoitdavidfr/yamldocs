@@ -14,44 +14,45 @@ abstract: |
   Cette représentation cartographique peut différer de la limite administrative lorsque cela s’avère mieux 
   représenter le territoire.
   
-  La carte corespondante peut être [générée ici](/yamldoc/id.php/geodata/adminexpress/map/display).
+  La carte correspondante peut être [générée ici](/yamldoc/id.php/geodata/adminexpress/map/display).
   
 identifier: http://professionnels.ign.fr/adminexpress
 coverage: "iso:code:3166:FR (métropole + DOM)"
 licence: Licence ouverte Etalab 2.0
-yamlClass: WfsServer
+yamlClass: VectorDataset
 urlWfs: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
+referer: http://gexplor.fr/
 layers:
   region_carto:
     title: région COG 2018 généralisée
-    select: ADMINEXPRESS_COG_2018_CARTO:region_carto
+    typename: ADMINEXPRESS_COG_2018_CARTO:region_carto
     style: { color: red, weight: 1, opacity: 0.65 }
   departement_carto:
     title: départment COG 2018 généralisé
-    select: ADMINEXPRESS_COG_2018_CARTO:departement_carto
+    typename: ADMINEXPRESS_COG_2018_CARTO:departement_carto
     style: { color: orange, weight: 1, opacity: 0.65 }
   commune_carto:
     title: commune COG 2018 généralisée
     abstract: Découpage en communes COG 2018 - géométrie généralisée
-    select: ADMINEXPRESS_COG_2018_CARTO:commune_carto
+    typename: ADMINEXPRESS_COG_2018_CARTO:commune_carto
     style: { color: lightGrey, weight: 1, opacity: 0.65 }
   region:
     title: région COG 2018
-    select: ADMINEXPRESS_COG_2018:region
+    typename: ADMINEXPRESS_COG_2018:region
     style: { color: red, weight: 1, opacity: 0.65 }
   departement:
     title: départment COG 2018
-    select: ADMINEXPRESS_COG_2018:departement
+    typename: ADMINEXPRESS_COG_2018:departement
     style: { color: orange, weight: 1, opacity: 0.65 }
   arrondissement_departemental:
     title: arrondissement départemental COG 2018
-    select: ADMINEXPRESS_COG_2018:arrondissement_departemental
+    typename: ADMINEXPRESS_COG_2018:arrondissement_departemental
     style: { color: darkGrey, weight: 1, opacity: 0.65 }
   commune:
     title: commune COG 2018
     abstract: Découpage en communes COG 2018
-    select: ADMINEXPRESS_COG_2018:commune
+    typename: ADMINEXPRESS_COG_2018:commune
     style: { color: lightGrey, weight: 1, opacity: 0.65 }
   chef_lieu:
     title: chef lieu COG 2018
-    select: ADMINEXPRESS_COG_2018:chef_lieu
+    typename: ADMINEXPRESS_COG_2018:chef_lieu

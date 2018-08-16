@@ -8,7 +8,7 @@ licence:
   uri: http://www.naturalearthdata.com/about/terms-of-use/
   title: Public domain
 source: http://www.naturalearthdata.com/
-yamlClass: ShapeDataset
+yamlClass: VectorDataset
 # chemin d'accès principal pour le chargement
 dbpath: naturalearth/10m
 # J'arrondis les coordonnées à 3 décimales, 2 est insuffisant
@@ -32,7 +32,7 @@ layers:
         The ocean coastline, the foundation for building all of NEV, primarily derives from World Data Bank 2
         with modest generalization applied via line simplification in Adobe Illustrator.
         The Antarctica coast derives from NASA Mosaic of Antarctica.
-    path: ne_10m_coastline.shp
+    ogrPath: ne_10m_coastline.shp
   land_scale_rank:
     title: Land
     abstract: Land polygons including major islands.
@@ -56,7 +56,7 @@ layers:
       7: scalerank <= 5
       8: all
     style: { color: sandyBrown, weight: 0, opacity: 0.65 }
-    path: ne_10m_land_scale_rank.shp
+    ogrPath: ne_10m_land_scale_rank.shp
   minor_islands:
     title: Minor Islands
     abstract: Islands that are 2 sq. km or less in size.
@@ -75,14 +75,14 @@ layers:
       7: scalerank <= 7
       8: all 
     style: { color: sandyBrown, weight: 1, opacity: 0.65 }
-    path: ne_10m_minor_islands.shp
+    ogrPath: ne_10m_minor_islands.shp
   minor_islands_coastline:
     title: minor_islands_coastline
     style: { color: blue, weight: 1, opacity: 0.65 }
-    path: ne_10m_minor_islands_coastline.shp
+    ogrPath: ne_10m_minor_islands_coastline.shp
   minor_islands_label_points:
     title: minor_islands_label_points
-    path: ne_10m_minor_islands_label_points.shp
+    ogrPath: ne_10m_minor_islands_label_points.shp
   reefs:
     title: Reefs
     abstract: Coral reefs and atolls.
@@ -99,7 +99,7 @@ layers:
       7: scalerank <= 7
       8: all 
     style: { color: darkCyan, weight: 1, opacity: 0.65 }
-    path: ne_10m_reefs.shp
+    ogrPath: ne_10m_reefs.shp
   ocean_scale_rank:
     title: Ocean
     abstract: Ocean polygon split into contiguous pieces.
@@ -110,7 +110,7 @@ layers:
         Looking for labeled oceans, seas, bays, and more? Try our marine labels, attributed 50m scale ocean polygons.
       issues: Caspian’s Garabogaz Aylagy and other “lagoons” might better belong in the lake theme than oceans.
     style: { color: blue, weight: 0, opacity: 0.65 }
-    path: ne_10m_ocean_scale_rank.shp
+    ogrPath: ne_10m_ocean_scale_rank.shp
   rivers_lake_centerlines_scale_rank:
     title: Rivers + lake centerlines
     abstract: |
@@ -136,50 +136,50 @@ layers:
       7: scalerank <= 9
       8: all
     style: { color: blue, weight: 1, opacity: 0.65 }
-    path: ne_10m_rivers_lake_centerlines_scale_rank.shp
+    ogrPath: ne_10m_rivers_lake_centerlines_scale_rank.shp
   rivers_europe:
     title: Rivers - Suppl. Europe
     style: { color: blue, weight: 1, opacity: 0.65 }
-    path: ne_10m_rivers_europe.shp
+    ogrPath: ne_10m_rivers_europe.shp
   rivers_north_america:
     title: Rivers - Suppl. North America
     style: { color: blue, weight: 1, opacity: 0.65 }
-    path: ne_10m_rivers_north_america.shp
+    ogrPath: ne_10m_rivers_north_america.shp
   lakes:
     title: Lakes
     style: { color: blue, weight: 1, opacity: 0.65 }
-    path: ne_10m_lakes.shp
+    ogrPath: ne_10m_lakes.shp
   lakes_historic:
     title: Historic lakes
     style: { color: blue, weight: 1, opacity: 0.65 }
-    path: ne_10m_lakes_historic.shp
+    ogrPath: ne_10m_lakes_historic.shp
   lakes_pluvial:
     title: Pluvial lakes
     style: { color: blue, weight: 1, opacity: 0.65 }
-    path: ne_10m_lakes_pluvial.shp
+    ogrPath: ne_10m_lakes_pluvial.shp
   lakes_europe:
     title: Lakes - Suppl. Europe
     style: { color: blue, weight: 1, opacity: 0.65 }
-    path: ne_10m_lakes_europe.shp
+    ogrPath: ne_10m_lakes_europe.shp
   lakes_north_america:
     title: Lakes - Suppl. North America
     style: { color: blue, weight: 1, opacity: 0.65 }
-    path: ne_10m_lakes_north_america.shp
+    ogrPath: ne_10m_lakes_north_america.shp
   playas:
     title: playas
     abstract: a desert basin with no outlet which periodically fills with water to form a temporary lake
-    path: ne_10m_playas.shp
+    ogrPath: ne_10m_playas.shp
   land_ocean_label_points:
     title: land_ocean_label_points
-    path: ne_10m_land_ocean_label_points.shp
+    ogrPath: ne_10m_land_ocean_label_points.shp
   # geométries erronées
   #land_ocean_seams:
     #title: land_ocean_seams
-    #path: ne_10m_land_ocean_seams.shp
+    #ogrPath: ne_10m_land_ocean_seams.shp
   bathymetry:
     title: bathymetry
     style: { color: blue, weight: 1, opacity: 0.10 }
-    path:
+    ogrPath:
       - ne_10m_bathymetry_L_0.shp
       - ne_10m_bathymetry_K_200.shp
       - ne_10m_bathymetry_J_1000.shp
@@ -194,17 +194,17 @@ layers:
       - ne_10m_bathymetry_A_10000.shp
   wgs84_bounding_box:
     title: wgs84_bounding_box
-    path: ne_10m_wgs84_bounding_box.shp
+    ogrPath: ne_10m_wgs84_bounding_box.shp
   #
   # Cultural
   #
   admin_0_countries:
-    title: Admin 0 – Countries
+    title: Countries
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/
       note: Plusieurs attributs supprimés pour faciliter l'affichage.
-    style: { color: orange, weight: 1, opacity: 0.10 }
-    path: ne_10m_admin_0_countries.shp
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_countries.shp
     excludedFields:
       - SOVEREIGNT
       - SOV_A3
@@ -268,59 +268,67 @@ layers:
       - NAME_VI
       - NAME_ZH
   admin_0_countries_full:
-    title: Admin 0 – Countries (tous champs)
+    title: Countries (tous champs)
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/
       note: Tous attributs disponibles.
-    style: { color: orange, weight: 1, opacity: 0.10 }
-    path: ne_10m_admin_0_countries.shp
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_countries.shp
   countryFrance:
     title: France
     select: admin_0_countries / name_en='France'
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
   admin_0_sovereignty:
     title: États souverains
     abstract: There are 197 sovereign states in the world.
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/
-    path: ne_10m_admin_0_sovereignty.shp
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_sovereignty.shp
   admin_0_map_units:
     title: Parties d'États souverains
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/
-    path: ne_10m_admin_0_map_units.shp
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_map_units.shp
   admin_0_map_subunits:
     title: Sous-parties d'États souverains
     conformsTo:
       source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/
-    path: ne_10m_admin_0_map_subunits.shp
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_map_subunits.shp
   admin_0_boundary_lines_land:
     title: admin_0_boundary_lines_land
-    path: ne_10m_admin_0_boundary_lines_land.shp
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_boundary_lines_land.shp
   admin_0_boundary_lines_map_units:
     title: admin_0_boundary_lines_map_units
-    path: ne_10m_admin_0_boundary_lines_map_units.shp
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_boundary_lines_map_units.shp
   admin_0_boundary_lines_maritime_indicator:
     title: admin_0_boundary_lines_maritime_indicator
-    path: ne_10m_admin_0_boundary_lines_maritime_indicator.shp
+    style: { color: blue, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_boundary_lines_maritime_indicator.shp
   admin_0_pacific_groupings:
     title: admin_0_pacific_groupings
-    path: ne_10m_admin_0_pacific_groupings.shp
+    style: { color: blue, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_pacific_groupings.shp
   # je ne comprends pas ce que c'est
-  # admin_0_seams: { title: admin_0_seams, path: ne_10m_admin_0_seams.shp }
+  # admin_0_seams: { title: admin_0_seams, ogrPath: ne_10m_admin_0_seams.shp }
   # populated_places comporte trop de champs
-  # populated_places: { title: populated_places, path: ne_10m_populated_places.shp }
+  # populated_places: { title: populated_places, ogrPath: ne_10m_populated_places.shp }
   populated_places_simple:
     title: City and town points
-    path: ne_10m_populated_places_simple.shp
+    ogrPath: ne_10m_populated_places_simple.shp
   roads:
     title: roads
-    path: ne_10m_roads.shp
+    ogrPath: ne_10m_roads.shp
   railroads:
     title: railroads
-    path: ne_10m_railroads.shp
+    ogrPath: ne_10m_railroads.shp
   airports:
     title: airports
-    path: ne_10m_airports.shp
+    ogrPath: ne_10m_airports.shp
     excludedFields:
       - name_ar
       - name_bn
@@ -343,15 +351,15 @@ layers:
       - name_zh
   ports:
     title: ports
-    path: ne_10m_ports.shp
+    ogrPath: ne_10m_ports.shp
   urban_areas:
     title: urban_areas
     style: { color: orange, weight: 0, opacity: 0.65 }
-    path: ne_10m_urban_areas.shp
+    ogrPath: ne_10m_urban_areas.shp
   urban_areas_landscan:
     title: urban_areas_landscan
     style: { color: orange, weight: 0, opacity: 0.65 }
-    path: ne_10m_urban_areas_landscan.shp
+    ogrPath: ne_10m_urban_areas_landscan.shp
     # correction du type erroné decimal(19,11) pour Beijing (137_121_250) et NewDelhi (224_908_923)
     fieldtypes:
       max_pop_31: decimal(19,5)
