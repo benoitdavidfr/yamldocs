@@ -7,7 +7,7 @@ abstract: |
   
   **URL de test** :
     
-  - [ogrPath simple: aerodrome](id.php/geodata/route500/commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
+  - [ogrPath simple: aerodrome](id.php/geodata/route500/aerodrome?bbox=-2.7,47.2,2.8,49.7&zoom=8)
   - [ogrPath simple: commune](id.php/geodata/route500/commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
   - [filterOnZoom: troncon_voie_ferree
   ](id.php/geodata/route500/troncon_voie_ferree?bbox=-2.7,47.2,2.8,49.7&zoom=8)

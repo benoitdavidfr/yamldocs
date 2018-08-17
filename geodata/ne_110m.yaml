@@ -6,7 +6,7 @@ abstract: |
   
   **URL de test** :
     
-  - [coastline](id.php/geodata/ne_110m_physical/coastline?bbox=-95.8,-4.5,101.7,74.5&zoom=3)
+  - [coastline](id.php/geodata/ne_110m/coastline?bbox=-95.8,-4.5,101.7,74.5&zoom=3)
   
 licence:
   uri: http://www.naturalearthdata.com/about/terms-of-use/
