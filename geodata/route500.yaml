@@ -3,21 +3,20 @@ title: ROUTE 500 2018
 abstract: |
   La base de données ROUTE 500® contient l'intégralité du réseau routier classé caractérisé par un certain nombre de propriétés et complété par les éléments du réseau routier secondaire permettant la desserte des chefs-lieux de communes et des principales infrastructures de transport.
   
-  La carte correspondante peut être [générée ici](/yamldoc/id.php/geodata/route500/map/display).
+  La carte correspondante peut être [générée ici](id.php/geodata/route500/map/display).
   
   **URL de test** :
     
-  - [ogrPath simple: aerodrome](http://localhost/yamldoc/id.php/geodata/route500/commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
-  - [ogrPath simple: commune](http://localhost/yamldoc/id.php/geodata/route500/commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
+  - [ogrPath simple: aerodrome](id.php/geodata/route500/commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
+  - [ogrPath simple: commune](id.php/geodata/route500/commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
   - [filterOnZoom: troncon_voie_ferree
-  ](http://localhost/yamldoc/id.php/geodata/route500/troncon_voie_ferree?bbox=-2.7,47.2,2.8,49.7&zoom=8)
-  - [filterOnZoom: noeud_commune
-  ](http://localhost/yamldoc/id.php/geodata/route500/noeud_commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
-  - [select: coastline](http://localhost/yamldoc/id.php/geodata/route500/coastline?bbox=-1.97,46.68,-1.92,46.70&zoom=8)
+  ](id.php/geodata/route500/troncon_voie_ferree?bbox=-2.7,47.2,2.8,49.7&zoom=8)
+  - [filterOnZoom: noeud_commune](id.php/geodata/route500/noeud_commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
+  - [select: coastline](id.php/geodata/route500/coastline?bbox=-1.97,46.68,-1.92,46.70&zoom=8)
   - [troncon_hydrographique
-  ](http://localhost/yamldoc/id.php/geodata/route500/troncon_hydrographique?bbox=-1.97,46.68,-1.92,46.70&zoom=8)
+  ](id.php/geodata/route500/troncon_hydrographique?bbox=-1.97,46.68,-1.92,46.70&zoom=8)
   - [noeud_commune / nom_comm like 'BEAUN%'
-  ](http://localhost/yamldoc/id.php/geodata/route500/noeud_commune?where=nom_comm%20like%20'BEAUN%')
+  ](id.php/geodata/route500/noeud_commune?where=nom_comm%20like%20'BEAUN%')
   
 licence:
   uri: https://www.etalab.gouv.fr/licence-ouverte-open-licence

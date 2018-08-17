@@ -1,28 +1,47 @@
 title: Série de données géographiques multi-échelles
 abstract: |
   Cette série de données géographiques est composée de couches, chacune référencant une autre couche vecteur
-  d'une série de données en fonction du niveau de zoom.
+  d'une série de données en fonction du niveau de zoom.  
+  Par exemple, la couche *coastline* est définie en fonction du zoom de 0 à 18 par une des couches d'un autre produit.
+  Route500 et BDCarto son référencés en métropole n'existent pas ailleurs et c'est donc ne_10m qui est référencé.
+  Pour les zoom >= 19, aucune autre couche n'est définie.
+  
   La carte corespondante peut être [générée ici](/yamldoc/id.php/geodata/mscale/map/display).
-yamlClass: MultiScaleDataset
+  
+  **URL de test**:
+    
+    - [affichage de coastline au zoom 11 en FXX
+      ](/yamldoc/id.php/geodata/mscale/coastline?bbox=-3.4,47.4,-2.6,47.7&zoom=11)
+    - [affichage de coastline au zoom 19 aux Antilles
+      ](/yamldoc/id.php/geodata/mscale/coastline?bbox=-61.549,16.257,-61.546,16.259&zoom=19)
+    - [description de coastline au zoom 5](/yamldoc/id.php/geodata/mscale/coastline?zoom=5)
+    - [description de coastline au zoom 11](/yamldoc/id.php/geodata/mscale/coastline?zoom=11)
+    - [description de coastline au zoom 19](/yamldoc/id.php/geodata/mscale/coastline?zoom=19)
+
+yamlClass: VectorDataset
 layers:
   coastline:
     title: coastline
-    definition:
-      0: http://{server}/yamldoc/id.php/geodata/ne_110m_physical/coastline # 0-3
-      4: http://{server}/yamldoc/id.php/geodata/ne_10m_physical/coastline # 4-8
-      9: http://{server}/yamldoc/id.php/geodata/route500/coastline # 9-11
-      12: http://{server}/yamldoc/id.php/geodata/bdcarto/coastline # 12-14
-      15: http://{server}/yamldoc/id.php/geodata/bdtopo/coastline # 15-18
+    selectOnZooom:
+      0: /geodata/ne_110m/coastline # 0-3
+      4: /geodata/ne_10m/coastline # 4-8
+      9:
+        FXX: /geodata/route500/coastline # 9-11
+        WLD: /geodata/ne_10m/coastline
+      12:
+        FXX: /geodata/bdcarto/coastline # 12-14
+        WLD: /geodata/ne_10m/coastline
+      15: /geodata/bdtopo/coastline # 15-18
       19: null
     style: { color: blue, weight: 2, opacity: 0.65 }
 
   rivers_lake_centerlines:
     title: Rivers and lake centerlines
-    definition:
-      0: http://{server}/yamldoc/id.php/geodata/ne_110m_physical/rivers_lake_centerlines # 0-3
-      4: http://{server}/yamldoc/id.php/geodata/ne_10m_physical/rivers_lake_centerlines # 4-8
-      9: http://{server}/yamldoc/id.php/geodata/route500/troncon_hydrographique # 9-11
-      12: http://{server}/yamldoc/id.php/geodata/bdcarto/rivers_lake_centerlines # 12-14
-      15: http://{server}/yamldoc/id.php/geodata/bdtopo/rivers_lake_centerlines # 15-18
+    selectOnZooom:
+      0: /geodata/ne_110m/rivers_lake_centerlines # 0-3
+      4: /geodata/ne_10m/rivers_lake_centerlines_scale_rank # 4-8
+      9: /geodata/route500/troncon_hydrographique # 9-11
+      12: /geodata/bdcarto/troncon_hydrographique # 12-14
+      15: /geodata/bdtopo/rivers_lake_centerlines # 15-18
       19: null
     style: { color: darkBlue, weight: 1, opacity: 0.65 }

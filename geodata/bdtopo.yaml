@@ -9,12 +9,13 @@ abstract: |
   La description des objets géographiques en 3D permet de représenter de façon réaliste les analyses spatiales
   utiles aux processus de décision dans le cadre d’études diverses.
   
-  La carte corespondante peut être [générée ici](/yamldoc/id.php/geodata/bdtopo/map/display).
+  La carte corespondante peut être [générée ici](id.php/geodata/bdtopo/map/display).
   
 identifier: http://professionnels.ign.fr/bdtopo
 coverage: "iso:code:3166:FR (métropole + DOM)"
-yamlClass: WfsServer
+yamlClass: VectorDataset
 urlWfs: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
+referer: http://gexplor.fr/
 layers:
   troncon_laisse:
     title: tronçon de laisse

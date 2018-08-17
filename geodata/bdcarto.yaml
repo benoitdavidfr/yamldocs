@@ -17,14 +17,13 @@ abstract: |
 
   Depuis 2015, un nouveau processus de production a été mis en oeuvre, pour offrir une meilleure mise à jour.
   
-  La carte corespondante peut être [générée ici](/yamldoc/id.php/geodata/bdcarto/map/display).
+  La carte corespondante peut être [générée ici](id.php/geodata/bdcarto/map/display).
   
   URL de test:
     
-    - [doc BDCarto](http://localhost/yamldoc/id.php/geodata/bdcarto)
-    - [description de limite_administrative](http://localhost/yamldoc/id.php/geodata/bdcarto/limite_administrative)
-    - [affichage de limite_administrative
-    ](http://localhost/yamldoc/id.php/geodata/bdcarto/limite_administrative?bbox=1.4,47.3,4.5,48.6&zoom=9)
+    - [doc BDCarto](id.php/geodata/bdcarto)
+    - [description de limite_administrative](id.php/geodata/bdcarto/limite_administrative)
+    - [affichage de limite_administrative](id.php/geodata/bdcarto/limite_administrative?bbox=1.4,47.3,4.5,48.6&zoom=9)
 
 identifier: http://professionnels.ign.fr/bdcarto
 coverage: "iso:code:3166:FR (métropole)"

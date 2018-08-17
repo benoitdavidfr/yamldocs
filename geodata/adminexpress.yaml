@@ -14,7 +14,7 @@ abstract: |
   Cette représentation cartographique peut différer de la limite administrative lorsque cela s’avère mieux 
   représenter le territoire.
   
-  La carte correspondante peut être [générée ici](/yamldoc/id.php/geodata/adminexpress/map/display).
+  La carte correspondante peut être [générée ici](id.php/geodata/adminexpress/map/display).
   
 identifier: http://professionnels.ign.fr/adminexpress
 coverage: "iso:code:3166:FR (métropole + DOM)"

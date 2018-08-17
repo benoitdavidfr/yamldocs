@@ -54,43 +54,49 @@ vector: |
     
     - comme *données distantes*
       l'URL `{docid}/{lyrname}?bbox={bbox}&zoom={zoom}`,  
-      par exemple: `http://georef.eu/yamldoc/id.php/geodata/route500/limite_administrative?bbox={bbox}&zoom={zoom}`
+      par exemple: `id.php/geodata/route500/limite_administrative?bbox={bbox}&zoom={zoom}`
     - comme *format des données*: **geojson**,
     - qu'il s'agit d'un calque *dynamique* afin que les données soient requêtées à chaque fois que la vue
       de la carte change,
     - d'activer le **proxy**.
   
+  Les principales SD vecteur définies sont :
+  
+    - [Natural Earth 110M](?doc=geodata/ne_110m)
+    - [Natural Earth 10M](?doc=geodata/ne_10m)
+    - [Route500](?doc=geodata/route500)
+    - [Admin Express](?doc=geodata/adminexpress)
+    - [BD Carto](?doc=geodata/bdcarto)
+    - [BD Topo](?doc=geodata/bdtopo)
+    - [la SD multi-échelles](?doc=geodata/mscale)
+          
   Une couche vecteur peut être implantée de 4 manières différentes :
     
     1. elle peut correspondre à un fichier OGR chargé dans une table MySQL ;
       dans ce cas une première étape de chargement des fichiers en base est nécessaire ;
       de telles exemples sont   :
-        - la [couche limite administrative
-          de Route500](http://georef.eu/yamldoc/id.php/geodata/route500/limite_administrative),
-        - la [couche coastline
-          de la Natural Earth 10M](http://localhost/yamldoc/id.php/geodata/ne_10m/coastline)
+        - la [couche limite administrative de Route500](id.php/geodata/route500/limite_administrative),
+        - la [couche coastline de la Natural Earth 10M](id.php/geodata/ne_10m/coastline)
     2. elle peut aussi correspondre à une couche exposée par un service WFS ;
       de telles exemples sont :
-        - la [couche commune d'ADMIN EXPRESS](http://localhost/yamldoc/id.php/geodata/adminexpress/commune),
-        - la [couche troncon_hydrographique
-          de la BDCARTO](http://localhost/yamldoc/id.php/geodata/bdcarto/troncon_hydrographique),
-        - la [couche troncon_laisse de la BDTOPO](http://localhost/yamldoc/id.php/geodata/bdtopo/troncon_laisse),
+        - la [couche commune d'ADMIN EXPRESS](id.php/geodata/adminexpress/commune),
+        - la [couche troncon_hydrographique de la BDCARTO](id.php/geodata/bdcarto/troncon_hydrographique),
+        - la [couche troncon_laisse de la BDTOPO](id.php/geodata/bdtopo/troncon_laisse),
         
       Une couche OGR ou WFS peut en outre être filtrée en fonction du zoom ;
-      la [couche limite administrative
-      de Route500](http://georef.eu/yamldoc/id.php/geodata/route500/limite_administrative)
+      la [couche limite administrative de Route500](id.php/geodata/route500/limite_administrative)
       en est une illustration.
       
     3. une couche peut aussi être définie par une sélection dans une des couches précédentes définie dans la même SD ;  
-      Un exemple est la [couche coastlinede Route 500](http://localhost/yamldoc/id.php/geodata/route500/coastline).
+      Un exemple est la [couche coastlinede Route 500](id.php/geodata/route500/coastline).
       
     4. une couche peut enfin être définie en fonction du zoom d'affichage et de la zone géographique
       par une des couches précédentes ;  
-      Un exemple d'une telle couche est la [couche coastline
-      de la SD multi-échelles](http://localhost/yamldoc/id.php/geodata/mscale/coastline) en construction.
+      Un exemple d'une telle couche est
+      la [couche coastline de la SD multi-échelles](id.php/geodata/mscale/coastline) en construction.
       
   Par ailleurs, pour utiliser les serveurs WFS, un type de document WfsServer est défini.
-  Le [serveur WFS du Géoportail IGN](http://localhost/yamldoc/?doc=geodata/igngpwfs) en est un exemple.
+  Le [serveur WFS du Géoportail IGN](?doc=geodata/igngpwfs) en est un exemple.
     
 image: |
   Les SD image sont constituées de couches d'images.
@@ -105,6 +111,10 @@ view: |
   
 map: |
  Un document carte décrit une carte Leaflet
- ([exemple de la carte Route500](/yamldoc/id.php/geodata/route500/map)).
+ ([exemple de la carte de test](?doc=geodata/testmap)).
+ 
+ De plus, chaque SD vecteur a la capacité de générer une carte standard
+ ([exemple de la carte standard de Route500](id.php/geodata/route500/map)).
+
  
   
