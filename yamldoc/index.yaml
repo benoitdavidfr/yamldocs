@@ -178,13 +178,10 @@ ydclass: |
     - [DataModel](?action=version&doc=yamldoc&name=datamodel.inc.php) - gestion d'un modèle de données
       UML comme extension d'un YamlSkos
     - [LegalDoc]((?action=version&doc=yamldoc&name=legaldoc.inc.php)) - gestion d'un texte juridique
-    - [OdtDoc](?action=version&doc=yamldoc&name=odtdoc.inc.php) - gestion des fichiers ODT
-    - [PdfDoc](?action=version&doc=yamldoc&name=pdfdoc.inc.php) - gestion des fichiers PDF
+    - [OdtDoc](?action=version&doc=yamldoc&name=odtdoc.inc.php) - affichage de fichiers ODT
+    - [PdfDoc](?action=version&doc=yamldoc&name=pdfdoc.inc.php) - affichage de fichiers PDF
     - [YData](?action=version&doc=yamldoc&name=ydata.inc.php) pour la gestion des données
-    - [Map](?action=version&doc=yamldoc&name=map.inc.php) - affichage d'une carte Leaflet
-    - [ShapeDataset](?action=version&doc=yamldoc&name=shapeds.inc.php) - document définissant une série de données
-      géo constituée d'un ensemble de fichiers Shape
-    - [WfsServer](?action=version&doc=yamldoc&name=wfsserver.inc.php) - définition d'un ensemble de couches
-      exposées par un serveur WFS
-    - [MultiScaleDataset](?action=version&doc=yamldoc&name=mscaleds.inc.php) - documents décrivant des
-      SD multi-échelles
+    - [Map](?action=version&doc=yamldoc&name=map.inc.php) - description et affichage d'une carte Leaflet
+    - [WfsServer](?action=version&doc=yamldoc&name=wfsserver.inc.php) - document correspondant à un serveur WFS
+    - [VectorDataset](?action=version&doc=yamldoc&name=vectords.inc.php) - document définissant une série de données
+      géographiques vecteur
