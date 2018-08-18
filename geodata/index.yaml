@@ -11,7 +11,7 @@ description: |
   correspondant à des séries de données géographiques (SD),
   en distinguant des [SD vecteur](?ypath=/vector), des [SD image](?ypath=/image)
   et des [SD en consultation](?ypath=/view).
-  Ces mécanismes sont conçus afin que les SD puissent être facilement affichées
+  Ces mécanismes sont conçus afin que les SD puissent facilement être affichées
   avec la [bibliothèque Leaflet](https://leafletjs.com/) 
   et sont utilisables avec des logiciels comme [umap](https://umap.openstreetmap.fr/fr/) qui respecte
   les mêmes standards d'interopérabilité :
@@ -41,14 +41,13 @@ vector: |
         - where={critère SQL/CQL}
           ([exemple des communes dont le nom commence par
           BEAUN](/yamldoc/id.php/geodata/route500/noeud_commune?where=nom_comm%20like%20'BEAUN%')),
-        - la combinaire des 2 précéents
     4. {docid}/{lyrname}/id/{id} : renvoie l'objet d'id {id} (A FAIRE)
     5. {docid}/map : renvoie le document JSON décrivant la carte standard affichant la SD
       ([exemple de la carte Route500](/yamldoc/id.php/geodata/route500/map)),
     6. {docid}/map/display : renvoie le code HTML d'affichage de la carte standard affichant la SD
       ([exemple d'affichage de la carte Route500](/yamldoc/id.php/geodata/route500/map/display)),
 
-  De plus, une carte affichant une SD vecteur peut être construite
+  En utilisant cette API, une carte affichant une SD vecteur peut être construite
   avec le [logiciel umap](https://umap.openstreetmap.fr/fr/).
   Pour cela définir un calque en indiquant :
     
@@ -95,10 +94,12 @@ vector: |
       Un exemple d'une telle couche est
       la [couche coastline de la SD multi-échelles](id.php/geodata/mscale/coastline) en construction.
       
+  [Voir ici les spécs détaillées des documents VectorDataset](?action=version&doc=geodata&name=vectords.inc.php).
+  
   Par ailleurs, pour utiliser les serveurs WFS, un type de document WfsServer est défini.
   Le [serveur WFS du Géoportail IGN](?doc=geodata/igngpwfs) en est un exemple.
   La classe VectorDataset hérite de la classe WfsServer.
-    
+      
 image: |
   Les SD image sont constituées de couches d'images. (A FAIRE)
   

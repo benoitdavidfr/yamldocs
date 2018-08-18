@@ -12,6 +12,11 @@ abstract: |
   - [onZoomGeo: troncon_voie_ferree
   ](id.php/geodata/route500/troncon_voie_ferree?bbox=-2.7,47.2,2.8,49.7&zoom=8)
   - [onZoomGeo: noeud_commune](id.php/geodata/route500/noeud_commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
+  - [badZoom](id.php/geodata/route500/troncon_voie_ferree?bbox=-2.7,47.2,2.8,49.7&zoom=bad)
+  - [badBbox](id.php/geodata/route500/troncon_voie_ferree?bbox=-2.7,47.2,2.8&zoom=8)
+  - [badSelect](id.php/geodata/route500/badSelect?bbox=-2.7,47.2,2.8,49.7&zoom=8)
+  - [badOnZoomGeo](id.php/geodata/route500/badOnZoomGeo?bbox=-2.7,47.2,2.8,49.7&zoom=8)
+  - [badLayer](id.php/geodata/route500/badLayer?bbox=-2.7,47.2,2.8,49.7&zoom=8)
   - [select: coastline](id.php/geodata/route500/coastline?bbox=-1.97,46.68,-1.92,46.70&zoom=8)
   - [troncon_hydrographique
   ](id.php/geodata/route500/troncon_hydrographique?bbox=-1.97,46.68,-1.92,46.70&zoom=8)
@@ -28,7 +33,7 @@ yamlClass: VectorDataset
 dbpath:  route500/ROUTE500_2-1__SHP_LAMB93_FXX_2018-04-09/ROUTE500/1_DONNEES_LIVRAISON_2018-04-00189/R500_2-1_SHP_LAMB93_FXX-ED181
 # Je considère que la résolution de Route 500 est de 40 m
 # (360° = 40 000 km => 40 m = 360 / 40 000 000 * 40 = 0,00036 °)
-# J'arrondis donc les coordonnées à 4 décimales
+# J'arrondis donc au chargement dans MySQL les coordonnées à 4 décimales
 precision: 4
 minZoom: 8
 maxZoom: 18
@@ -155,6 +160,12 @@ layers:
     title: zone_batie
     select: zone_occupation_sol / nature='Bâti'
     style: { color: orange, weight: 2, opacity: 0.65 }
+  # couches d'erreur pour vérifier le bon traitement des erreurs
+  badLayer: { title: badLayer }
+  badSelect: { title: badSelect,  select: limite administrative / nature='Frontière internationale' }
+  badOnZoomGeo:
+    title: badOnZoomGeo
+    onZoomGeo: [ 0: /geodata/ne_110m/admin_0_boundary_lines_land, 7: nature='Limite côtière', 11: all ]
 
 # Nom de la base MySQL en fonction du serveur MySQL
 mysql_database:

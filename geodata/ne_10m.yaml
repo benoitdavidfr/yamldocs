@@ -1,9 +1,12 @@
 title: Natural Earth 1/10M
 abstract: |
-  Natural Earth is a public domain map dataset available at 1:10m, 1:50m, and 1:110 million scales. Featuring tightly integrated vector and raster data, with Natural Earth you can make a variety of visually pleasing, well-crafted maps with cartography or GIS software.
-  The most detailed. Suitable for making zoomed-in maps of countries and regions. Show the world on a large wall poster.
+  Natural Earth is a public domain map dataset available at 1:10m, 1:50m, and 1:110 million scales.
+  Featuring tightly integrated vector and raster data, with Natural Earth you can make a variety of visually pleasing,
+  well-crafted maps with cartography or GIS software.  
+  The 1:10 million scale is the most detailed. Suitable for making zoomed-in maps of countries and regions.
+  Show the world on a large wall poster.
   
-  La carte correspondante peut être [générée ici](id.php/geodata/ne_10m/map/display).
+  The [corresponding can be displayed here](id.php/geodata/ne_10m/map/display).
 licence:
   uri: http://www.naturalearthdata.com/about/terms-of-use/
   title: Public domain
@@ -33,6 +36,38 @@ layers:
         with modest generalization applied via line simplification in Adobe Illustrator.
         The Antarctica coast derives from NASA Mosaic of Antarctica.
     ogrPath: ne_10m_coastline.shp
+  # fusion des 2 fichiers en une seule table avec style distinguant les 2
+  coastAdminBoundaryLines:
+    title: Coast and land boundaries
+    abstract: |
+      Concaténation des couches coastline et admin_0_boundary_lines_land en excluant les champs non communs
+    style: |
+      function(feature) {
+          if (feature.properties.featurecla == 'Coastline') {
+              return {color: 'blue', weight: 1};
+          } else {
+              return {color: 'chocolate', weight: 1};
+          }
+      }
+    ogrPath:
+      - ne_10m_admin_0_boundary_lines_land.shp
+      - ne_10m_coastline.shp
+    excludedFields:
+      - name
+      - comment
+      - adm0_usa
+      - adm0_left
+      - adm0_right
+      - adm0_a3_l
+      - adm0_a3_r
+      - sov_a3_l
+      - sov_a3_r
+      - type
+      - labelrank
+      - min_label
+      - note
+      - adm0_abr_l
+      - adm0_abr_r
   land_scale_rank:
     title: Land
     abstract: Land polygons including major islands.
@@ -299,19 +334,19 @@ layers:
     ogrPath: ne_10m_admin_0_map_subunits.shp
   admin_0_boundary_lines_land:
     title: admin_0_boundary_lines_land
-    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    style: { color: sandyBrown, weight: 1, opacity: 0.65 }
     ogrPath: ne_10m_admin_0_boundary_lines_land.shp
   admin_0_boundary_lines_map_units:
     title: admin_0_boundary_lines_map_units
-    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    style: { color: sandyBrown, weight: 1, opacity: 0.65 }
     ogrPath: ne_10m_admin_0_boundary_lines_map_units.shp
   admin_0_boundary_lines_maritime_indicator:
     title: admin_0_boundary_lines_maritime_indicator
-    style: { color: blue, weight: 1, opacity: 0.10 }
+    style: { color: blue, weight: 1, opacity: 0.65 }
     ogrPath: ne_10m_admin_0_boundary_lines_maritime_indicator.shp
   admin_0_pacific_groupings:
     title: admin_0_pacific_groupings
-    style: { color: blue, weight: 1, opacity: 0.10 }
+    style: { color: blue, weight: 1, opacity: 0.65 }
     ogrPath: ne_10m_admin_0_pacific_groupings.shp
   # je ne comprends pas ce que c'est
   # admin_0_seams: { title: admin_0_seams, ogrPath: ne_10m_admin_0_seams.shp }

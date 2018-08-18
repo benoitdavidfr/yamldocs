@@ -30,6 +30,23 @@ layers:
     title: coastline
     style: { color: blue, weight: 1, opacity: 0.65 }
     ogrPath: ne_110m_coastline.shp
+  # fusion des 2 fichiers en une seule table avec style distinguant les 2
+  coastAdminBoundaryLines:
+    title: Coast and land boundaries
+    style: |
+      function(feature) {
+          if (feature.properties.featurecla == 'Coastline') {
+              return {color: 'blue', weight: 1};
+          } else {
+              return {color: 'chocolate', weight: 1};
+          }
+      }
+    ogrPath:
+      - ne_110m_admin_0_boundary_lines_land.shp
+      - ne_110m_coastline.shp
+    excludedFields:
+      - name
+      - name_alt
   land:
     title: land
     style: { color: sandyBrown, weight: 0, opacity: 0.65 }
