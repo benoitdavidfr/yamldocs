@@ -9,9 +9,9 @@ abstract: |
     
   - [ogrPath simple: aerodrome](id.php/geodata/route500/aerodrome?bbox=-2.7,47.2,2.8,49.7&zoom=8)
   - [ogrPath simple: commune](id.php/geodata/route500/commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
-  - [filterOnZoom: troncon_voie_ferree
+  - [onZoomGeo: troncon_voie_ferree
   ](id.php/geodata/route500/troncon_voie_ferree?bbox=-2.7,47.2,2.8,49.7&zoom=8)
-  - [filterOnZoom: noeud_commune](id.php/geodata/route500/noeud_commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
+  - [onZoomGeo: noeud_commune](id.php/geodata/route500/noeud_commune?bbox=-2.7,47.2,2.8,49.7&zoom=8)
   - [select: coastline](id.php/geodata/route500/coastline?bbox=-1.97,46.68,-1.92,46.70&zoom=8)
   - [troncon_hydrographique
   ](id.php/geodata/route500/troncon_hydrographique?bbox=-1.97,46.68,-1.92,46.70&zoom=8)
@@ -36,9 +36,11 @@ maxZoom: 18
 layers:
   limite_administrative:
     title: Limite administrative
-    filterOnZoom:
-      6: nature in ('Limite côtière','Frontière internationale')
-      7: nature in ('Limite côtière','Frontière internationale','Limite de région')
+    onZoomGeo:
+      0: /geodata/ne_110m/admin_0_boundary_lines_land
+      5: /geodata/ne_10m/admin_0_boundary_lines_land
+      7: nature in ('Limite côtière','Frontière internationale')
+      8: nature in ('Limite côtière','Frontière internationale','Limite de région')
       9: nature in ('Limite côtière','Frontière internationale','Limite de région','Limite de département')
       11: all
     style: |
@@ -71,7 +73,7 @@ layers:
       id_rte500: true
   noeud_commune:
     title: noeud_commune
-    filterOnZoom:
+    onZoomGeo:
       6: statut in ('Préfecture de région','Préfecture')
       10: statut in ('Préfecture de région','Préfecture','Sous-préfecture')
       12: population >= 1.0
@@ -87,7 +89,7 @@ layers:
     ogrPath: RESEAU_ROUTIER/NOEUD_ROUTIER.shp
   troncon_route:
     title: troncon de route
-    filterOnZoom:
+    onZoomGeo:
       6: vocation in ('Type autoroutier')
       9: vocation in ('Type autoroutier','Liaison principale')
       11: vocation in ('Type autoroutier','Liaison principale','Liaison régionale')
@@ -113,7 +115,7 @@ layers:
     ogrPath: RESEAU_FERRE/NOEUD_FERRE.shp
   troncon_voie_ferree:
     title: Voie ferrée
-    filterOnZoom:
+    onZoomGeo:
       6: nature='LGV'
       8: nature='LGV' or energie='Electrifiée'
       10: all

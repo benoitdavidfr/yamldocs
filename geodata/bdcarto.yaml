@@ -81,7 +81,7 @@ layers:
               description: >
                 Précision non définie, en particulier pour les limites s’appuyant sur les surfaces d’eau
                 du domaine public de l’État
-    filterOnZoom:
+    onZoomGeo:
       6: nature in ('Limite côtière','Frontière internationale')
       7: nature in ('Limite côtière','Frontière internationale','Limite de région')
       9: nature in ('Limite côtière','Frontière internationale','Limite de région','Limite de département')
@@ -123,7 +123,7 @@ layers:
   # Thème Hydrographie
   troncon_hydrographique:
     title: Cours d’eau
-    filterOnZoom:
+    onZoomGeo:
       9: classe in ('100')
       10: classe in ('100','50')
       11: classe in ('100','50','25')

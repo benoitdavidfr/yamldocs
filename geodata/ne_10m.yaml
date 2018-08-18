@@ -47,7 +47,7 @@ layers:
       note: |
         Il existe aussi une couche land. La seule différence entre land et land_rank semble être que land_rank est
         découpé en polygones ayant moins de points. Par ex l'Afrique continentale est découpée en 5 morceaux.
-    filterOnZoom:
+    onZoomGeo:
       2: scalerank = 0
       3: scalerank <= 1
       4: scalerank <= 2
@@ -70,7 +70,7 @@ layers:
         Ocean bathymetry and ocean polygon are not punched out for minor islands, nor are they included
         in land polygon or any country or state (admin-0 and admin-1) polygons.
       issues: Great barrier reef off Australia could use better definition.
-    filterOnZoom:
+    onZoomGeo:
       6: scalerank <= 6
       7: scalerank <= 7
       8: all 
@@ -94,7 +94,7 @@ layers:
         Great barrier reef off Australia and reefs elsewhere could use better definition.
         Should replace entire dataset with VMAP0 reefs, which will require considerable generalization
         and fitting to coastlines and atolls.
-    filterOnZoom:
+    onZoomGeo:
       6: scalerank <= 6
       7: scalerank <= 7
       8: all 
@@ -127,7 +127,7 @@ layers:
         When available, Admin 0 and 1 political boundaries in reservoirs serve as the lake centerlines.
 
         Ranked by relative importance. Includes name and line width attributes for creating tapered drainages.
-    filterOnZoom:
+    onZoomGeo:
       2: scalerank <= 4
       3: scalerank <= 5
       4: scalerank <= 6

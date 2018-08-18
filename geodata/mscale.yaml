@@ -17,12 +17,13 @@ abstract: |
     - [description de coastline au zoom 5](/yamldoc/id.php/geodata/mscale/coastline?zoom=5)
     - [description de coastline au zoom 11](/yamldoc/id.php/geodata/mscale/coastline?zoom=11)
     - [description de coastline au zoom 19](/yamldoc/id.php/geodata/mscale/coastline?zoom=19)
+    - [description de rivers_lake_centerlines au zoom 13](/yamldoc/id.php/geodata/mscale/rivers_lake_centerlines?zoom=13)
 
 yamlClass: VectorDataset
 layers:
   coastline:
     title: coastline
-    selectOnZooom:
+    onZoomGeo:
       0: /geodata/ne_110m/coastline # 0-3
       4: /geodata/ne_10m/coastline # 4-8
       9:
@@ -37,7 +38,7 @@ layers:
 
   rivers_lake_centerlines:
     title: Rivers and lake centerlines
-    selectOnZooom:
+    onZoomGeo:
       0: /geodata/ne_110m/rivers_lake_centerlines # 0-3
       4: /geodata/ne_10m/rivers_lake_centerlines_scale_rank # 4-8
       9: /geodata/route500/troncon_hydrographique # 9-11

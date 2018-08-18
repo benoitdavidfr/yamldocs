@@ -4,6 +4,8 @@ abstract: |
   Small scale data, 1:110m  
   Suitable for schematic maps of the world on a postcard or as a small locator globe.
   
+  La carte correspondante peut être [générée ici](id.php/geodata/ne_110m/map/display).
+  
   **URL de test** :
     
   - [coastline](id.php/geodata/ne_110m/coastline?bbox=-95.8,-4.5,101.7,74.5&zoom=3)
