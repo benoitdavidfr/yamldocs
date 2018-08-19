@@ -49,6 +49,7 @@ layers:
               return {color: 'chocolate', weight: 1};
           }
       }
+    displayedByDefault: true
     ogrPath:
       - ne_10m_admin_0_boundary_lines_land.shp
       - ne_10m_coastline.shp
@@ -171,6 +172,7 @@ layers:
       7: scalerank <= 9
       8: all
     style: { color: blue, weight: 1, opacity: 0.65 }
+    displayedByDefault: true
     ogrPath: ne_10m_rivers_lake_centerlines_scale_rank.shp
   rivers_europe:
     title: Rivers - Suppl. Europe

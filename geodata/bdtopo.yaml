@@ -9,118 +9,213 @@ abstract: |
   La description des objets géographiques en 3D permet de représenter de façon réaliste les analyses spatiales
   utiles aux processus de décision dans le cadre d’études diverses.
   
-  La carte corespondante peut être [générée ici](id.php/geodata/bdtopo/map/display).
+  La carte correspondante peut être [générée ici](id.php/geodata/bdtopo/map/display).
   
 identifier: http://professionnels.ign.fr/bdtopo
 coverage: "iso:code:3166:FR (métropole + DOM)"
 yamlClass: VectorDataset
 urlWfs: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
 referer: http://gexplor.fr/
+minZoom: 13
+maxZoom: 21
+
 layers:
+  # Thème Réseau routier
+  route:
+    title: route
+    typename: BDTOPO_BDD_WLD_WGS84G:route
+  route_nommee:
+    title: route_nommee
+    typename: BDTOPO_BDD_WLD_WGS84G:route_nommee
+  route_primaire:
+    title: route_primaire
+    typename: BDTOPO_BDD_WLD_WGS84G:route_primaire
+  route_secondaire:
+    title: route_secondaire
+    typename: BDTOPO_BDD_WLD_WGS84G:route_secondaire
+  surface_route:
+    title: surface_route
+    typename: BDTOPO_BDD_WLD_WGS84G:surface_route
+  toponyme_communication:
+    title: toponyme_communication
+    typename: BDTOPO_BDD_WLD_WGS84G:toponyme_communication
+  chemin:
+    title: chemin
+    typename: BDTOPO_BDD_WLD_WGS84G:chemin
+  
+  # Thème Voies ferrées
+  troncon_voie_ferree:
+    title: troncon_voie_ferree
+    typename: BDTOPO_BDD_WLD_WGS84G:troncon_voie_ferree
+  gare:
+    title: gare
+    typename: BDTOPO_BDD_WLD_WGS84G:gare
+  aire_triage:
+    title: aire_triage
+    typename: BDTOPO_BDD_WLD_WGS84G:aire_triage
+  transport_cable:
+    title: transport_cable
+    typename: BDTOPO_BDD_WLD_WGS84G:transport_cable
+  toponyme_ferre:
+    title: toponyme_ferre
+    typename: BDTOPO_BDD_WLD_WGS84G:toponyme_ferre
+  
+  # Thème Transport d'énergie
+  ligne_electrique:
+    title: ligne_electrique
+    typename: BDTOPO_BDD_WLD_WGS84G:ligne_electrique
+  conduite:
+    title: conduite
+    typename: BDTOPO_BDD_WLD_WGS84G:conduite
+  poste_transformation:
+    title: poste_transformation
+    typename: BDTOPO_BDD_WLD_WGS84G:poste_transformation
+  pylone:
+    title: pylone
+    typename: BDTOPO_BDD_WLD_WGS84G:pylone
+    
+  # Thème Hydrographie
+  troncon_cours_eau:
+    title: troncon_cours_eau
+    style: { color: blue, weight: 1 }
+    typename: BDTOPO_BDD_WLD_WGS84G:troncon_cours_eau
   troncon_laisse:
     title: tronçon de laisse
     typename: BDTOPO_BDD_WLD_WGS84G:troncon_laisse
   coastline:
     title: Laisse des plus hautes eaux
     select: troncon_laisse / nature='Hautes mers'
-
-listeRestante: |
-  BDTOPO.EXTENSION.NOM_USUEL:extension_nom_usuel
-  BDTOPO_BDD_WLD_WGS84G:aire_triage
-  BDTOPO_BDD_WLD_WGS84G:arrondissement
-  BDTOPO_BDD_WLD_WGS84G:bati_indifferencie
-  BDTOPO_BDD_WLD_WGS84G:bati_industriel
-  BDTOPO_BDD_WLD_WGS84G:bati_remarquable
-  BDTOPO_BDD_WLD_WGS84G:canalisation_eau
-  BDTOPO_BDD_WLD_WGS84G:chef_lieu
-  BDTOPO_BDD_WLD_WGS84G:chemin
-  BDTOPO_BDD_WLD_WGS84G:cimetiere
-  BDTOPO_BDD_WLD_WGS84G:commune
-  BDTOPO_BDD_WLD_WGS84G:conduite
-  BDTOPO_BDD_WLD_WGS84G:construction_legere
-  BDTOPO_BDD_WLD_WGS84G:construction_lineaire
-  BDTOPO_BDD_WLD_WGS84G:construction_ponctuelle
-  BDTOPO_BDD_WLD_WGS84G:construction_surfacique
-  BDTOPO_BDD_WLD_WGS84G:gare
-  BDTOPO_BDD_WLD_WGS84G:hydronyme
-  BDTOPO_BDD_WLD_WGS84G:lieu_dit_habite
-  BDTOPO_BDD_WLD_WGS84G:lieu_dit_non_habite
-  BDTOPO_BDD_WLD_WGS84G:ligne_electrique
-  BDTOPO_BDD_WLD_WGS84G:ligne_orographique
-  BDTOPO_BDD_WLD_WGS84G:oronyme
-  BDTOPO_BDD_WLD_WGS84G:pai_administratif_militaire
-  BDTOPO_BDD_WLD_WGS84G:pai_culture_loisirs
-  BDTOPO_BDD_WLD_WGS84G:pai_espace_naturel
-  BDTOPO_BDD_WLD_WGS84G:pai_gestion_eaux
-  BDTOPO_BDD_WLD_WGS84G:pai_hydrographie
-  BDTOPO_BDD_WLD_WGS84G:pai_industriel_commercial
-  BDTOPO_BDD_WLD_WGS84G:pai_orographie
-  BDTOPO_BDD_WLD_WGS84G:pai_religieux
-  BDTOPO_BDD_WLD_WGS84G:pai_sante
-  BDTOPO_BDD_WLD_WGS84G:pai_science_enseignement
-  BDTOPO_BDD_WLD_WGS84G:pai_sport
-  BDTOPO_BDD_WLD_WGS84G:pai_transport
-  BDTOPO_BDD_WLD_WGS84G:pai_zone_habitation
-  BDTOPO_BDD_WLD_WGS84G:piste_aerodrome
-  BDTOPO_BDD_WLD_WGS84G:point_eau
-  BDTOPO_BDD_WLD_WGS84G:poste_transformation
-  BDTOPO_BDD_WLD_WGS84G:pylone
-  BDTOPO_BDD_WLD_WGS84G:reservoir
-  BDTOPO_BDD_WLD_WGS84G:reservoir_eau
-  BDTOPO_BDD_WLD_WGS84G:route
-  BDTOPO_BDD_WLD_WGS84G:route_nommee
-  BDTOPO_BDD_WLD_WGS84G:route_primaire
-  BDTOPO_BDD_WLD_WGS84G:route_secondaire
-  BDTOPO_BDD_WLD_WGS84G:surface_activite
-  BDTOPO_BDD_WLD_WGS84G:surface_eau
-  BDTOPO_BDD_WLD_WGS84G:surface_route
-  BDTOPO_BDD_WLD_WGS84G:terrain_sport
-  BDTOPO_BDD_WLD_WGS84G:toponyme_communication
-  BDTOPO_BDD_WLD_WGS84G:toponyme_divers
-  BDTOPO_BDD_WLD_WGS84G:toponyme_ferre
-  BDTOPO_BDD_WLD_WGS84G:transport_cable
-  BDTOPO_BDD_WLD_WGS84G:troncon_cours_eau
-  BDTOPO_BDD_WLD_WGS84G:troncon_laisse
-  BDTOPO_BDD_WLD_WGS84G:troncon_voie_ferree
-  BDTOPO_BDD_WLD_WGS84G:zone_vegetation
+  canalisation_eau:
+    title: canalisation_eau
+    typename: BDTOPO_BDD_WLD_WGS84G:canalisation_eau
+  hydronyme:
+    title: hydronyme
+    typename: BDTOPO_BDD_WLD_WGS84G:hydronyme
+  point_eau:
+    title: point_eau
+    typename: BDTOPO_BDD_WLD_WGS84G:point_eau
+  surface_eauv:
+    title: surface_eau
+    typename: BDTOPO_BDD_WLD_WGS84G:surface_eau
+  reservoir_eau:
+    title: reservoir_eau
+    typename: BDTOPO_BDD_WLD_WGS84G:reservoir_eau
   
-bdcarto:
-# Thème ADMINISTRATIF
-  BDCARTO_BDD_WLD_WGS84G:region:
-    title: région
-  BDCARTO_BDD_WLD_WGS84G:departement:
-    title: départment
-  BDCARTO_BDD_WLD_WGS84G:arrondissement:
+  # Thème Bati
+  bati_indifferencie:
+    title: bati_indifferencie
+    typename: BDTOPO_BDD_WLD_WGS84G:bati_indifferencie
+  bati_industriel:
+    title: bati_industriel
+    typename: BDTOPO_BDD_WLD_WGS84G:bati_industriel
+  bati_remarquable:
+    title: bati_remarquable
+    typename: BDTOPO_BDD_WLD_WGS84G:bati_remarquable
+  cimetiere:
+    title: cimetiere
+    typename: BDTOPO_BDD_WLD_WGS84G:cimetiere
+  construction_legere:
+    title: construction_legere
+    typename: BDTOPO_BDD_WLD_WGS84G:construction_legere
+  construction_lineaire:
+    title: construction_lineaire
+    typename: BDTOPO_BDD_WLD_WGS84G:construction_lineaire
+  construction_ponctuelle:
+    title: construction_ponctuelle
+    typename: BDTOPO_BDD_WLD_WGS84G:construction_ponctuelle
+  construction_surfacique:
+    title: construction_surfacique
+    typename: BDTOPO_BDD_WLD_WGS84G:construction_surfacique
+  piste_aerodrome:
+    title: piste_aerodrome
+    typename: BDTOPO_BDD_WLD_WGS84G:piste_aerodrome
+  reservoir:
+    title: reservoir
+    typename: BDTOPO_BDD_WLD_WGS84G:reservoir
+  terrain_sport:
+    title: terrain_sport
+    typename: BDTOPO_BDD_WLD_WGS84G:terrain_sport
+  
+  # Thème Végétation
+  zone_vegetation:
+    title: zone_vegetation
+    typename: BDTOPO_BDD_WLD_WGS84G:zone_vegetation
+    
+  # Thème Orographie
+  ligne_orographique:
+    title: ligne_orographique
+    typename: BDTOPO_BDD_WLD_WGS84G:ligne_orographique
+  oronyme:
+    title: oronyme
+    typename: BDTOPO_BDD_WLD_WGS84G:oronyme
+    
+  # Thème Administratif
+  arrondissement:
     title: arrondissement
-  BDCARTO_BDD_WLD_WGS84G:commune:
+    typename: BDTOPO_BDD_WLD_WGS84G:arrondissement
+  chef_lieu:
+    title: chef_lieu
+    typename: BDTOPO_BDD_WLD_WGS84G:chef_lieu
+  commune:
     title: commune
-  BDCARTO_BDD_WLD_WGS84G:limite_administrative:
-    title: limite administrative
-    style: |
-      function(feature) {
-          switch (feature.properties.nature) {
-              case 'Limite côtière': return {color: 'blue', weight: 1};
-              case 'Frontière internationale': return {color: 'maroon'};
-              case 'Limite de région': return {color: 'red', weight: 1};
-              case 'Limite de département': return {color: 'orange', weight: 1};
-              case 'Limite d\'arrondissement':   return {color: 'lightGrey', weight: 1};
-              case 'Limite de commune':   return {color: 'lightGrey', weight: 1};
-          }
-      }
-  coastline:
-    title: Limite côtière
-    abstract: Laisse des plus hautes eaux
-    select: BDCARTO_BDD_WLD_WGS84G:limite_administrative / nature='Limite côtière'
-    style: { color: blue, weight: 2, opacity: 0.65 }
-  land_boundary_line:
-    title: Frontière internationale
-    select: BDCARTO_BDD_WLD_WGS84G:limite_administrative / nature='Frontière internationale'
-    style: { color: maroon, weight: 2, opacity: 0.65 }
-  limite_de_region:
-    title: Limite de région
-    select: BDCARTO_BDD_WLD_WGS84G:limite_administrative / nature='Limite de région'
-    style: { color: red, weight: 1 }
-  limite_de_departement:
-    title: Limite de département
-    select: BDCARTO_BDD_WLD_WGS84G:limite_administrative / nature='Limite de département'
-    style: { color: orange, weight: 1 }
+    typename: BDTOPO_BDD_WLD_WGS84G:commune
+    
+  # Thème Zones d'activité
+  pai_administratif_militaire:
+    title: pai_administratif_militaire
+    typename: BDTOPO_BDD_WLD_WGS84G:pai_administratif_militaire
+  pai_culture_loisirs:
+    title: pai_culture_loisirs
+    typename: BDTOPO_BDD_WLD_WGS84G:pai_culture_loisirs
+  pai_espace_naturel:
+    title: pai_espace_naturel
+    typename: BDTOPO_BDD_WLD_WGS84G:pai_espace_naturel
+  pai_gestion_eaux:
+    title: pai_gestion_eaux
+    typename: BDTOPO_BDD_WLD_WGS84G:pai_gestion_eaux
+  pai_hydrographie:
+    title: pai_hydrographie
+    typename: BDTOPO_BDD_WLD_WGS84G:pai_hydrographie
+  pai_industriel_commercial:
+    title: pai_industriel_commercial
+    typename: BDTOPO_BDD_WLD_WGS84G:pai_industriel_commercial
+  pai_orographie:
+    title: pai_orographie
+    typename: BDTOPO_BDD_WLD_WGS84G:pai_orographie
+  pai_religieux:
+    title: pai_religieux
+    typename: BDTOPO_BDD_WLD_WGS84G:pai_religieux
+  pai_sante:
+    title: pai_sante
+    typename: BDTOPO_BDD_WLD_WGS84G:pai_sante
+  pai_science_enseignement:
+    title: pai_science_enseignement
+    typename: BDTOPO_BDD_WLD_WGS84G:pai_science_enseignement
+  pai_sport:
+    title: pai_sport
+    typename: BDTOPO_BDD_WLD_WGS84G:pai_sport
+  pai_transport:
+    title: pai_transport
+    typename: BDTOPO_BDD_WLD_WGS84G:pai_transport
+  pai_zone_habitation:
+    title: pai_zone_habitation
+    typename: BDTOPO_BDD_WLD_WGS84G:pai_zone_habitation
+  surface_activite:
+    title: surface_activite
+    typename: BDTOPO_BDD_WLD_WGS84G:surface_activite
+    
+  # Thème Toponymes
+  lieu_dit_habite:
+    title: lieu_dit_habite
+    typename: BDTOPO_BDD_WLD_WGS84G:lieu_dit_habite
+  lieu_dit_non_habite:
+    title: lieu_dit_non_habite
+    typename: BDTOPO_BDD_WLD_WGS84G:lieu_dit_non_habite
+  toponyme_divers:
+    title: toponyme_divers
+    typename: BDTOPO_BDD_WLD_WGS84G:toponyme_divers
+  # je ne comprends pas: Pas de géométrie
+  #extension_nom_usuel:
+  #  title: extension_nom_usuel
+  #  typename: BDTOPO.EXTENSION.NOM_USUEL:extension_nom_usuel
+    

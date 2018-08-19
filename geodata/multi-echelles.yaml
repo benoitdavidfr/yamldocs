@@ -40,7 +40,7 @@ tables:
         - **échelle** est le dénominateur de l'échelle.  
         - **ScanExp** indique le produit Scan Express correspondant.  
         - **produit** indique une première possibilité de produit pour ce niveau.  
-        - **p2** indique une seconde possibilité de produit pour ce niveau en retirant R 120.  
+        - **p2** indique une seconde possibilité de produit pour ce niveau en retirant ne 50m et R 120.  
         - **comment** est un éventuel commentaire.
       
     data:
@@ -58,23 +58,22 @@ tables:
       3:
         échelle: 70 M
         produit: ne 50m
-        p2: ne 50m
       4:
         échelle: 35 M
+        p2: ne 10m
       5:
         échelle: 17 M
         produit: ne 10m
-        p2: ne 10m
       6:
         résolution: 2_446
         échelle: 8,7 M
         ScanExp: M
+        comment: métro sur écran
       7:
         résolution: 1_223
         échelle: 4.3 M
         ScanExp: M
         produit: R 120
-        comment: métro sur écran
       8:
         résolution: 611
         échelle: 2.2 M
@@ -109,12 +108,12 @@ tables:
         échelle: 34 k
         ScanExp: 50 k
         produit: BDTopo
+        p2: BDTopo
         comment:
       15:
         résolution: 4.8
         échelle: 17 k
         ScanExp: 25 k
-        p2: BDTopo
         comment: maison indiv.
       16:
         résolution: 2.4

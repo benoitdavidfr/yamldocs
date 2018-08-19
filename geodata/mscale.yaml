@@ -30,19 +30,88 @@ layers:
         FXX: /geodata/route500/coastline # 9-11
         WLD: /geodata/ne_10m/coastline
       12:
-        FXX: /geodata/bdcarto/coastline # 12-14
+        FXX: /geodata/bdcarto/coastline # 12-13
         WLD: /geodata/ne_10m/coastline
-      15: /geodata/bdtopo/coastline # 15-18
+      14: /geodata/bdtopo/coastline # 14-18
       19: null
     style: { color: blue, weight: 2, opacity: 0.65 }
+
+  coastAdminBoundaryLines:
+    title: coast + boundary lines
+    onZoomGeo:
+      0: /geodata/ne_110m/coastAdminBoundaryLines # 0-3
+      5: /geodata/ne_10m/coastAdminBoundaryLines # 4-8
+      9:
+        FXX: /geodata/route500/limite_administrative # 9-11
+        WLD: /geodata/ne_10m/coastAdminBoundaryLines
+      12:
+        FXX: /geodata/bdcarto/limite_administrative # 12-14
+        WLD: /geodata/ne_10m/coastAdminBoundaryLines
+      14: /geodata/bdtopo/coastline # 15-18
+      19: null
+    style: |
+      function(feature) {
+          if (feature.properties.featurecla == 'Coastline') {
+              return {color: 'blue', weight: 1};
+          } else if (feature.properties.nature == 'Limite côtière') {
+              return {color: 'blue', weight: 1};
+          } else {
+              return {color: 'chocolate', weight: 1};
+          }
+      }
 
   rivers_lake_centerlines:
     title: Rivers and lake centerlines
     onZoomGeo:
-      0: /geodata/ne_110m/rivers_lake_centerlines # 0-3
-      4: /geodata/ne_10m/rivers_lake_centerlines_scale_rank # 4-8
-      9: /geodata/route500/troncon_hydrographique # 9-11
-      12: /geodata/bdcarto/troncon_hydrographique # 12-14
-      15: /geodata/bdtopo/rivers_lake_centerlines # 15-18
+      0: /geodata/ne_110m/rivers_lake_centerlines # 0-4
+      5: /geodata/ne_10m/rivers_lake_centerlines_scale_rank # 5-8
+      9:
+        FXX: /geodata/route500/troncon_hydrographique # 9-11
+        WLD: /geodata/ne_10m/rivers_lake_centerlines_scale_rank # 9-11
+      12:
+        FXX: /geodata/bdcarto/troncon_hydrographique # 12-13
+        WLD: /geodata/ne_10m/rivers_lake_centerlines_scale_rank # 12-13
+      14: /geodata/bdtopo/troncon_cours_eau # 14-18
       19: null
     style: { color: darkBlue, weight: 1, opacity: 0.65 }
+
+  roads:
+    title: Routes
+    onZoomGeo:
+      4: /geodata/ne_10m/roads # 4-8
+      9:
+        FXX: /geodata/route500/troncon_route # 9-11
+        WLD: /geodata/ne_10m/roads # 9-11
+      12:
+        FXX: /geodata/bdcarto/troncon_route # 12-13
+        WLD: /geodata/ne_10m/roads # 12-13
+      14: /geodata/bdtopo/route # 14-18
+      19: null
+    style: { color: red, weight: 1, opacity: 0.65 }
+
+  railroads:
+    title: Voies ferrées
+    onZoomGeo:
+      4: /geodata/ne_10m/railroads # 4-8
+      9:
+        FXX: /geodata/route500/troncon_voie_ferree # 9-11
+        WLD: /geodata/ne_10m/railroads # 9-11
+      12:
+        FXX: /geodata/bdcarto/troncon_voie_ferree # 12-13
+        WLD: /geodata/ne_10m/railroads # 12-13
+      14: /geodata/bdtopo/troncon_voie_ferree # 14-18
+      19: null
+    style: { color: darkGrey, weight: 1, opacity: 0.65 }
+
+  railroads:
+    title: Espaces urbanisés
+    onZoomGeo:
+      4: /geodata/ne_10m/urban_areas # 4-8
+      9:
+        FXX: /geodata/route500/zone_batie # 9-11
+        WLD: /geodata/ne_10m/urban_areas # 9-11
+      12:
+        FXX: /geodata/bdcarto/zone_batie_activites # 12-13
+        WLD: /geodata/ne_10m/urban_areas # 12-13
+      14: null
+    style: { color: maroon, weight: 1, opacity: 0.65 }

@@ -80,4 +80,5 @@ overlays:
     title: r500-troncon_hydrographique
     type: UGeoJSONLayer
     endpoint: geodata/route500/troncon_hydrographique
-addLayer: cartes
+defaultLayers:
+  - cartes

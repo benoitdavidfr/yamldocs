@@ -1,0 +1,31 @@
+title: BD PARCELLAIRE-VECTEUR
+creator: IGN
+abstract: |
+  
+  La carte corespondante peut être [générée ici](id.php/geodata/bdparcellaire/map/display).
+  
+identifier: http://professionnels.ign.fr/bdparcellaire
+coverage: "iso:code:3166:FR (métropole + DOM)"
+yamlClass: VectorDataset
+urlWfs: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
+referer: http://gexplor.fr/
+layers:
+  # Thème Réseau routier
+  arrondissement:
+    title: arrondissement
+    typename: BDPARCELLAIRE-VECTEUR_WLD_BDD_WGS84G:arrondissement
+  commune:
+    title: commune
+    typename: BDPARCELLAIRE-VECTEUR_WLD_BDD_WGS84G:commune
+  divcad:
+    title: divcad
+    typename: BDPARCELLAIRE-VECTEUR_WLD_BDD_WGS84G:divcad
+  parcelle:
+    title: parcelle
+    typename: BDPARCELLAIRE-VECTEUR_WLD_BDD_WGS84G:parcelle
+  batiment:
+    title: batiment
+    typename: BDPARCELLAIRE-VECTEUR_WLD_BDD_WGS84G:batiment
+  localisant:
+    title: localisant
+    typename: BDPARCELLAIRE-VECTEUR_WLD_BDD_WGS84G:localisant

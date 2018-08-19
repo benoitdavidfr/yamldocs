@@ -1,0 +1,47 @@
+title: BD ADRESSE
+creator: IGN
+abstract: |
+  
+  La carte corespondante peut être [générée ici](id.php/geodata/bdadresse/map/display).
+  
+  URL de test:
+    
+    - [doc](id.php/geodata/bdadresse)
+
+identifier: http://professionnels.ign.fr/bdadresse
+coverage: "iso:code:3166:FR (métropole)"
+yamlClass: VectorDataset
+urlWfs: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
+referer: http://gexplor.fr/
+layers:
+  arrondissement:
+    title: arrondissement
+    style: { color: darkGrey, weight: 1, opacity: 0.65 }
+    typename: BDCARTO_BDD_WLD_WGS84G:arrondissement
+  commune:
+    title: commune
+    style: { color: darkGrey, weight: 1, opacity: 0.65 }
+    typename: BDCARTO_BDD_WLD_WGS84G:commune
+  chef_lieu:
+    title: chef_lieu
+    style: { color: darkGrey, weight: 1, opacity: 0.65 }
+    typename: BDCARTO_BDD_WLD_WGS84G:chef_lieu
+  lieu_dit_habite:
+    title: lieu_dit_habite
+    style: { color: darkGrey, weight: 1, opacity: 0.65 }
+    typename: BDCARTO_BDD_WLD_WGS84G:lieu_dit_habite
+  route_adresse:
+    title: route_adresse
+    style: { color: darkGrey, weight: 1, opacity: 0.65 }
+    typename: BDCARTO_BDD_WLD_WGS84G:route_adresse
+  route_adresse_nommee:
+    title: route_adresse_nommee
+    style: { color: darkGrey, weight: 1, opacity: 0.65 }
+    typename: BDCARTO_BDD_WLD_WGS84G:route_adresse_nommee
+  adresse:
+    title: adresse
+    style: { color: darkGrey, weight: 1, opacity: 0.65 }
+    typename: BDCARTO_BDD_WLD_WGS84G:adresse
+
+listeRestante: |
+  

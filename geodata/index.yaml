@@ -7,6 +7,7 @@ journal:
   '2018-08-05':
     - première réflexions inspirée de bdv.geoapi.fr avec version minimum de GeoData et Map fonctionne avec Route500
 description: |
+  ## Accès aux données géographiques
   YamlDoc définit des mécanismes d'accès aux données géographiques au travers de types de documents
   correspondant à des séries de données géographiques (SD),
   en distinguant des [SD vecteur](?ypath=/vector), des [SD image](?ypath=/image)
@@ -23,9 +24,65 @@ description: |
   dans des cartes Leaflet.
   
 vector: |
-  Une SD vecteur (VectorDataset) est composée de couches vecteur, chacune correspondant à une FeatureCollection
-  [GeoJSON](https://tools.ietf.org/html/rfc7946) ;
-  chaque couche est composée d'objets vecteur, cad des Feature GeoJSON.  
+  ## SD vecteur
+  Une SD vecteur (VectorDataset) est composée de couches vecteur,
+  chacune correspondant à une FeatureCollection [GeoJSON](https://tools.ietf.org/html/rfc7946) ;
+  chaque couche est donc composée d'objets vecteur, les Feature GeoJSON,
+  sur lesquels des critères de sélection peuvent être appliqués.
+  
+  ### Affichage multi-échelles
+  Les SD vecteur sont conçues pour permettre un [affichage multi-échelles](?doc=geodata/multi-echelles) des données.  
+  Le tableau ci-dessous indique les produits utilisés en fonction du zoom.
+  
+  | Niveaux || Echelles (dénom.)| Produit utilisé |
+  | :------ || :------------: | :-------------- |
+  |  0 - 3  || > 70 M | [Natural Earth 110M](?doc=geodata/ne_110m) |
+  |  4 - 8  || 35 M - 2 M | [Natural Earth 10M](?doc=geodata/ne_10m) |
+  |  9 - 11 || 1 M - 273 k | [Route500](?doc=geodata/route500) |
+  | 12 - 13 || 136 k - 68 k | [BD Carto](?doc=geodata/bdcarto) |
+  | 14 - 18 || 34 k - 2 k | [BD Topo](?doc=geodata/bdtopo) |
+  
+  Les couches suivantes sont définies dans plusieurs SD et peuvent être visualisées dans différents produits :
+  <table border=1><th>NE 110M</th><th>NE 10M</th>
+    <th>Route500</th><th>BD Carto</th>
+    <th>BD Topo</th>
+    <th>Commentaire</th>
+  <tr><td colspan=2 align=center>coastline</td>
+    <td colspan=2 align=center>coastline</td>
+    <td>coastline</td>
+    <td>trait de côte</td></tr>
+  <tr><td colspan=2 align=center>coastAdminBoundaryLines</td>
+    <td colspan=2 align=center>limite_administrative</td>
+    <td></td>
+    <td>fusion du trait de côte et de limites administratives</td></tr>
+  <tr><td colspan=2 align=center>rivers_lake_centerlines</td>
+    <td colspan=2 align=center>troncon_hydrographique</td>
+    <td>troncon_cours_eau</td>
+    <td>axes des rivières et des lacs</td></tr>
+  <tr><td></td><td align=center>roads</td>
+    <td colspan=2 align=center>troncon_route</td>
+    <td>route</td>
+    <td>routes</td></tr>
+  <tr><td></td><td align=center>railroads</td>
+    <td colspan=2 align=center>troncon_voie_ferree</td>
+    <td>troncon_voie_ferree</td>
+    <td>voies ferrées</td></tr>
+  <tr><td></td><td align=center>urban_areas</td>
+    <td align=center>zone_batie</td><td align=center>zone_batie_activites</td>
+    <td></td>
+    <td>zones urbanisées</td></tr>
+
+  </table>
+  La [SD multi-échelles](?doc=geodata/mscale) définie ces couches appellant le produit adapté au zoom d'affichage.  
+  De plus, chaque SD, comme par exemple la BD CARTO, peut intégrer des couches aux échelles plus petites.
+     
+  Les autres SD vecteur définies sont :
+  
+    - [Admin Express](?doc=geodata/adminexpress)
+    - [BD ADRESSE](?doc=geodata/bdadresse)
+    - [BD PARCELLAIRE VECTEUR](?doc=geodata/bdparcellaire)
+  
+  ### API exposée
   Un document décrivant une SD vecteur, d'une part, peut s'afficher et, d'autre part, expose une API
   constituée des 6 points d'entrée suivants :
     
@@ -58,26 +115,17 @@ vector: |
     - qu'il s'agit d'un calque *dynamique* afin que les données soient requêtées à chaque fois que la vue
       de la carte change,
     - d'activer le **proxy**.
-  
-  Les principales SD vecteur définies sont :
-  
-    - [Natural Earth 110M](?doc=geodata/ne_110m)
-    - [Natural Earth 10M](?doc=geodata/ne_10m)
-    - [Route500](?doc=geodata/route500)
-    - [Admin Express](?doc=geodata/adminexpress)
-    - [BD Carto](?doc=geodata/bdcarto)
-    - [BD Topo](?doc=geodata/bdtopo)
-    - [la SD multi-échelles](?doc=geodata/mscale)
-          
+
+  ### Définition des couches
   Une couche vecteur peut être implantée de 4 manières différentes :
     
     1. elle peut correspondre à un fichier OGR chargé dans une table MySQL ;
       dans ce cas une première étape de chargement des fichiers en base est nécessaire ;
-      de telles exemples sont   :
+      des exemples sont   :
         - la [couche limite administrative de Route500](id.php/geodata/route500/limite_administrative),
         - la [couche coastline de la Natural Earth 10M](id.php/geodata/ne_10m/coastline)
     2. elle peut aussi correspondre à une couche exposée par un service WFS ;
-      de telles exemples sont :
+      des exemples sont :
         - la [couche commune d'ADMIN EXPRESS](id.php/geodata/adminexpress/commune),
         - la [couche troncon_hydrographique de la BDCARTO](id.php/geodata/bdcarto/troncon_hydrographique),
         - la [couche troncon_laisse de la BDTOPO](id.php/geodata/bdtopo/troncon_laisse),
@@ -87,7 +135,7 @@ vector: |
       en est une illustration.
       
     3. une couche peut aussi être définie par une sélection dans une des couches précédentes définie dans la même SD ;  
-      Un exemple est la [couche coastlinede Route 500](id.php/geodata/route500/coastline).
+      Un exemple est la [couche coastline de Route 500](id.php/geodata/route500/coastline).
       
     4. une couche peut enfin être définie en fonction du zoom d'affichage et de la zone géographique
       par une des couches précédentes ;  

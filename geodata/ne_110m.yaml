@@ -4,9 +4,9 @@ abstract: |
   Small scale data, 1:110m  
   Suitable for schematic maps of the world on a postcard or as a small locator globe.
   
-  La carte correspondante peut être [générée ici](id.php/geodata/ne_110m/map/display).
+  The [corresponding can be displayed here](id.php/geodata/ne_110m/map/display).
   
-  **URL de test** :
+  **test URL** :
     
   - [coastline](id.php/geodata/ne_110m/coastline?bbox=-95.8,-4.5,101.7,74.5&zoom=3)
   
@@ -41,6 +41,7 @@ layers:
               return {color: 'chocolate', weight: 1};
           }
       }
+    displayedByDefault: true
     ogrPath:
       - ne_110m_admin_0_boundary_lines_land.shp
       - ne_110m_coastline.shp

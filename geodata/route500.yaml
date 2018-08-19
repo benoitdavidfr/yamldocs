@@ -38,27 +38,33 @@ precision: 4
 minZoom: 8
 maxZoom: 18
 
-layers:
+layers: 
   limite_administrative:
     title: Limite administrative
+    minZoom: 0
     onZoomGeo:
-      0: /geodata/ne_110m/admin_0_boundary_lines_land
-      5: /geodata/ne_10m/admin_0_boundary_lines_land
-      7: nature in ('Limite côtière','Frontière internationale')
-      8: nature in ('Limite côtière','Frontière internationale','Limite de région')
+      0: /geodata/ne_110m/coastAdminBoundaryLines
+      4: /geodata/ne_10m/coastAdminBoundaryLines
+      7: nature in ('Limite côtière','Frontière internationale','Limite de région')
       9: nature in ('Limite côtière','Frontière internationale','Limite de région','Limite de département')
       11: all
     style: |
       function(feature) {
           switch (feature.properties.nature) {
               case 'Limite côtière': return {color: 'blue', weight: 1};
-              case 'Frontière internationale': return {color: 'maroon', weight: 2};
+              case 'Frontière internationale': return {color: 'chocolate', weight: 2};
               case 'Limite de région': return {color: 'red', weight: 1};
               case 'Limite de département': return {color: 'orange', weight: 1};
               case 'Limite d\'arrondissement':   return {color: 'lightGrey', weight: 1};
               case 'Limite de commune':   return {color: 'lightGrey', weight: 1};
           }
+          // /geodata/ne_110m/coastAdminBoundaryLines + /geodata/ne_10m/coastAdminBoundaryLines
+          switch (feature.properties.featurecla) {
+              case 'Coastline': return {color: 'blue', weight: 1};
+              default: return {color: 'chocolate', weight: 2};
+          }
       }
+    displayedByDefault: true
     ogrPath: ADMINISTRATIF/LIMITE_ADMINISTRATIVE.shp
     indexes:
       id_rte500: true
@@ -66,10 +72,6 @@ layers:
     title: Limite côtière
     select: limite_administrative / nature='Limite côtière'
     style: { color: blue, weight: 2, opacity: 0.65 }
-  land_boundary_line:
-    title: Frontière internationale
-    select: limite_administrative / nature='Frontière internationale'
-    style: { color: maroon, weight: 2, opacity: 0.65 }
   commune:
     title: commune
     style: { color: grey, weight: 1, opacity: 0.65 }
@@ -147,7 +149,6 @@ layers:
     ogrPath: HABILLAGE/TRONCON_HYDROGRAPHIQUE.shp
   zone_occupation_sol:
     title: zone_occupation_sol
-    ogrPath: HABILLAGE/ZONE_OCCUPATION_SOL.shp
     style: |
       function(feature) {
           switch (feature.properties.nature) {
@@ -156,6 +157,7 @@ layers:
               case 'Bâti': return { color: 'orange', weight: 1};
           }
       }
+    ogrPath: HABILLAGE/ZONE_OCCUPATION_SOL.shp
   zone_batie:
     title: zone_batie
     select: zone_occupation_sol / nature='Bâti'
