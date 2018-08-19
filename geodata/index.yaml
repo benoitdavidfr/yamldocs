@@ -55,7 +55,7 @@ vector: |
     <td colspan=2 align=center>limite_administrative</td>
     <td></td>
     <td>fusion du trait de côte et de limites administratives</td></tr>
-  <tr><td colspan=2 align=center>rivers_lake_centerlines</td>
+  <tr><td align=center>rivers_lake_centerlines</td><td align=center>rivers_lake_centerlines_scale_rank</td>
     <td colspan=2 align=center>troncon_hydrographique</td>
     <td>troncon_cours_eau</td>
     <td>axes des rivières et des lacs</td></tr>

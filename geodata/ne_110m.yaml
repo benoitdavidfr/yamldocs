@@ -4,7 +4,7 @@ abstract: |
   Small scale data, 1:110m  
   Suitable for schematic maps of the world on a postcard or as a small locator globe.
   
-  The [corresponding can be displayed here](id.php/geodata/ne_110m/map/display).
+  The [corresponding map can be displayed here](id.php/geodata/ne_110m/map/display).
   
   **test URL** :
     
@@ -58,7 +58,7 @@ layers:
     ogrPath: ne_110m_ocean.shp
   rivers_lake_centerlines:
     title: Rivers and lake centerlines
-    style: { color: darkBlue, weight: 1, opacity: 0.65 }
+    style: { color: MediumBlue, weight: 1, opacity: 0.65 }
     ogrPath: ne_110m_rivers_lake_centerlines.shp
   geographic_lines:
     title: geographic_lines

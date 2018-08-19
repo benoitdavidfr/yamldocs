@@ -9,7 +9,8 @@ abstract: |
   La description des objets géographiques en 3D permet de représenter de façon réaliste les analyses spatiales
   utiles aux processus de décision dans le cadre d’études diverses.
   
-  La carte correspondante peut être [générée ici](id.php/geodata/bdtopo/map/display).
+  La carte correspondante peut être
+  [générée ici pour St Léger les Vignes, zoom 14](id.php/geodata/bdtopo/map/display?latlon=47.135,-1.730&zoom=14).
   
 identifier: http://professionnels.ign.fr/bdtopo
 coverage: "iso:code:3166:FR (métropole + DOM)"
@@ -20,9 +21,281 @@ minZoom: 13
 maxZoom: 21
 
 layers:
+  limite_administrative:
+    title: <i>limite administrative</i>
+    abstract: en l'absence de limites administratives dans la BD Topo, utilisation de celles de BDCarto, ...
+    minZoom: 0
+    onZoomGeo:
+      0: /geodata/ne_110m/coastAdminBoundaryLines
+      4: /geodata/ne_10m/coastAdminBoundaryLines
+      9: /geodata/route500/limite_administrative
+      12: /geodata/bdcarto/limite_administrative
+    style: |
+      function(feature) {
+          switch (feature.properties.nature) {
+              case 'Limite côtière': return {color: 'blue', weight: 1};
+              case 'Frontière internationale': return {color: 'chocolate'};
+              case 'Limite de région': return {color: 'red', weight: 1};
+              case 'Limite de département': return {color: 'orange', weight: 1};
+              case 'Limite d\'arrondissement':   return {color: 'lightGrey', weight: 1};
+              case 'Limite de commune':   return {color: 'lightGrey', weight: 1};
+          }
+          // /geodata/ne_110m/coastAdminBoundaryLines + /geodata/ne_10m/coastAdminBoundaryLines
+          switch (feature.properties.featurecla) {
+              case 'Coastline': return {color: 'blue', weight: 1};
+              default: return {color: 'chocolate', weight: 2};
+          }
+      }
+    displayedByDefault: true
+    
   # Thème Réseau routier
   route:
     title: route
+    conformsTo:
+      description: |
+        Portion de voie de communication destinée aux automobiles, aux piétons, aux cycles ou aux animaux, 
+        homogène pour l'ensemble des attributs et des relations qui la concerne.
+        Le tronçon de route peut être revêtu ou non revêtu (pas de revêtement de surface ou revêtement de surface
+        fortement dégradé).
+        Dans le cas d’un tronçon de route revêtu, on représente uniquement la chaussée, délimitée par les bas-côtés
+        ou les trottoirs.
+      geometryType: LineString3D
+      properties:
+        id:
+          description: Identifiant du tronçon
+        prec_plani:
+          description: Précision planimétrique
+        prec_alti:
+          description: Précision altimétrique
+        nature:
+          description: Nature de la voie
+          enum:
+            'Autoroute':
+              description: |
+                Routes sans croisement, accessibles seulement en des points aménagés à cet effet et réservées aux
+                véhicules à propulsion mécanique.
+                Le classement dans la catégorie des autoroutes est prononcé par décret en conseil d’état, pris après
+                enquête publique.
+            'Quasi-autoroute':
+              description: |
+                Routes de même définition que l’autoroute mais non classées officiellement dans cette catégorie.
+                Ce sont des routes à chaussées séparées par un terre-plein central, qui ne possèdent pas de
+                croisement à niveau avec le reste du réseau routier.
+            'Bretelle':
+              description: |
+                Bretelles de liaison (ou d’échangeur) ou voies d’accès à une Aire de Service ou de Repos.
+            'Route à 2 chaussées':
+              description: |
+                Routes comportant 2 chaussées séparées par un obstacle physique éventuellement ouvert aux carrefours.
+                Elles possèdent donc des croisements à niveau, ce qui leur interdit d'être classées dans la catégorie 
+                Autoroute ou Quasi-autoroute.
+            'Route à 1 chaussée':
+              description: |
+                Routes comportant 1 chaussée.
+                Se retrouvent dans cette classe toutes les routes goudronnées qui ne sont pas classées en
+                Autoroute, Quasi-autoroute ou Route à 2 chaussées.
+            'Route empierrée':
+              description: |
+                Routes sommairement revêtues (pas de revêtement de surface ou revêtement très dégradé), mais
+                permettant la circulation de véhicules automobiles de tourisme par tout temps.
+                Toutes les routes empierrées sont incluses.
+            'Chemin':
+              description: |
+                Les chemins sont prévus pour la circulation de véhicules ou d’engins d’exploitation.
+                Ils ne sont pas forcément carrossables pour tous les véhicules et par tout temps.
+            'Bac auto':
+              description: |
+                Trajets  du  bateau  servant  à  passer  des  véhicules  d’une  rive  à l’autre d’un cours d’eau
+                ou d’un bras de mer.
+            'Bac piéton':
+              description: |
+                Trajets du bateau servant à passer des piétons d’une rive à l’autre d’un cours d’eau
+                ou d’un bras de mer.
+            'Piste cyclable':
+              description: |
+                Tronçons de chaussée en site propre, réservés aux cycles.
+                La  longueur  doit  être  supérieure  à  200m.  Les  bandes cyclables sont exclues.
+            'Sentier':
+              description: |
+                Chemins étroits ne permettant pas le passage de véhicules.
+                Seuls les principaux sentiers sont inclus.
+                Passerelles  supportant une allée, directement reliées au réseau routier.
+                Les passerelles ont une position par rapport au sol supérieure à 0.
+            'Escalier':
+              description: |
+                Escaliers directement reliés au réseau routier, assurant la jonction entre deux voies de communication
+                ou entre le réseau routier et un élément adressable.
+                Sur rue, les escaliers visibles sur les photographies aériennes sont distingués quelle que soit
+                leur longueur.
+        numero:
+          description: Numéro de la voie (D50, N106...)
+        nom_voie_g:
+          description: Nom du côté gauche de la voie
+        nom_voie_d:
+          description: Nom du côté droit de la voie 
+        importance:
+          description: |
+            Cet attribut matérialise une hiérarchisation du réseau routier fondée, non pas sur un critère
+            administratif, mais sur l'importance des tronçons de route pour le trafic routier.
+            Ainsi, les valeurs 1, 2, 3, 4 et 5 permettent un maillage de plus en plus dense du territoire.
+            Le graphe des éléments appartenant à un degré (autre que le plus bas) et aux niveaux supérieurs est connexe.
+          enum:
+            '1':
+              description: |
+                Le réseau 1 assure les liaisons entre métropoles et compose l’essentiel du réseau européen.
+                Il est composé en général d’autoroutes et quasi-autoroutes, parfois de nationales.
+            '2':
+              description: |
+                Liaisons entre départements.
+                Cette valeur représente une densification du maillage routier défini par les tronçons d’importance 1. 
+                Les liaisons d’importance 2 ont fonction :
+                  - d’assurer les liaisons à fort trafic à caractère prioritaire entre agglomérations importantes ;
+                  - d’assurer les liaisons des agglomérations importantes au réseau d’importance 1 ;
+                  - d’offrir une alternative à une autoroute si celle-ci est payante ;
+                  - de proposer des itinéraires de contournement des agglomérations ;
+                  - d’assurer la continuité, en agglomération, des liaisons interurbaines à fort trafic quand il 
+                    n’y a pas de contournement possible.
+            '3':
+              description: |
+                Liaisons ville à ville à l’intérieur d’un département.
+                Ce niveau est majoritairement représenté par des routes départementales, toutefois certaines 
+                départementales peuvent avoir une importance 4 ou 5.
+                Cette valeur représente une densification du maillage routier défini par les tronçons d’importance 2. 
+                Les liaisons d’importance 3 ont fonction :
+                  - de relier les communes de moindre importance entre elles
+                    (les chefs-lieux de canton en particulier) ;
+                  - de desservir les localités et sites touristiques importants ;
+                  - de desservir les points de passage des obstacles naturels quand ils sont peu nombreux
+                    (cols routiers, ponts) ;
+                  - de desservir les agglomérations d'où partent des liaisons maritimes ;
+                  - de structurer la circulation en agglomération
+            '4':
+              description: |
+                Voies  permettant de se  déplacer rapidement à l’intérieur d’une commune et, dans les zones rurales,
+                de relier le bourg aux hameaux proches.
+                Cette valeur représente une densification du maillage routier défini par les tronçons d’importance 3. 
+                Les liaisons d’importance 4 ont fonction : 
+                  - de structurer la circulation en agglomération ;
+                  - de relier le bourg aux hameaux proches.
+            '5':
+              description: |
+                Voies permettant de desservir l’intérieur d’une commune.
+                Valeur prise par exclusion des autres valeurs de l'attribut.
+            NC:
+              description: Non concerné par cet attribut.
+            NR:
+              description: Non renseigné.
+        cl_admin:
+          description: |
+            Classement administratif
+            Attribut précisant le statut administratif d’une route numérotée ou nommée.
+          enum:
+            Autoroute:
+              description: |
+                Les autoroutes sont des routes sans croisement, accessibles seulement en des points aménagés
+                à cet effet et réservées aux véhicules à propulsion mécanique (Article L122-1 du code de la 
+                voirie routière).
+            Nationale:
+              description: |
+                Route nationale (voies du domaine public routier national autres que les autoroutes précédemment
+                définies).
+            Départementale:
+              description: Voie qui fait partie du domaine public routier départemental.
+            Autre:
+              description: Toute autre voie non classée dans les catégories administratives précédentes.
+        gestion:
+          description: Gestionnaire de la voie
+        mise_serv:
+          description: Date de mise en service
+        it_vert:
+          description: Appartenance à un itinéraire vert
+        it_europ:
+          description: Numéro de l’itinéraire européen
+        fictif:
+          description: Indique la nature fictive ou réelle du tronçon
+        franchisst:
+          description: Nature du franchissement
+        largeur:
+          description: Largeur de la chaussée
+        nom_iti:
+          description: Nom d’itinéraire
+        nb_voies:
+          description: Nombre de voies
+        pos_sol:
+          description: Position par rapport au sol
+        sens:
+          description: Sens de circulation de la voie
+        alias_g:
+          description: Ancien ou autre nom utilisé côté gauche de la voie
+        alias_d:
+          description: Ancien ou autre nom utilisé côté droit de la voie
+        inseecom_g:
+          description: Code INSEE de la commune à gauche de la voie
+        inseecom_d:
+          description: Code INSEE de la commune à droite de la voie
+        codevoie_g:
+          description: Identifiant du côté gauche de la voie
+        codevoie_d:
+          description: Identifiant du côté droit de la voie
+        codepost_g:
+          description: Code postal du côté gauche de la voie
+        codepost_d:
+          description: Code postal du côté droit de la voie
+        typ_adres:
+          description: Type d’adressage de la voie
+        bornedeb_g:
+          description: Borne gauche de début de voie
+        bornedeb_d:
+          description: Borne droite de début de voie
+        bornefin_g:
+          description: Borne gauche de fin de voie
+        bornefin_d:
+          description: Borne droite de fin de voie
+        etat:
+          description: Indique si le tronçon est en construction
+        z_ini:
+          description: Altitude du sommet initial du tronçon
+        z_fin:
+          description: Altitude du sommet final du tronçon
+    minZoom: 4
+    onZoomGeo:
+      4: /geodata/ne_10m/roads
+      9: /geodata/route500/troncon_route
+      12: /geodata/bdcarto/troncon_route
+      14: importance in ('1','2','3','4')
+      15: importance in ('1','2','3','4','5')
+      16: all
+    style: |
+      function(feature) {
+          switch (feature.properties.importance) {
+              case '1': return {color: 'violet', weight: 1, opacity: 0.9};
+              case '2': return {color: 'red', weight: 1, opacity: 0.9};
+              case '3': return {color: 'orange', weight: 1, opacity: 0.9};
+              case '4': return {color: 'orange', weight: 1, opacity: 0.9};
+              case '5': return {color: 'gold', weight: 1, opacity: 0.9};
+              case 'NC': return {color: 'grey', weight: 1, opacity: 0.9};
+              case 'NR': return {color: 'grey', weight: 1, opacity: 0.9};
+          }
+          // /geodata/route500/troncon_route
+          switch (feature.properties.vocation) {
+              case 'Type autoroutier': return { color: 'violet', weight: 2, opacity: 0.9};
+              case 'Liaison principale': return { color: 'red', weight: 1, opacity: 0.9};
+              case 'Liaison régionale': return { color: 'orange', weight: 1, opacity: 0.9};
+              case 'Liaison locale': return { color: 'gold', weight: 1, opacity: 0.9};
+          }
+          // /geodata/ne10m/roads
+          switch (feature.properties.scalerank) {
+              case '3': return { color: 'violet', weight: 2, opacity: 0.9 };
+              case '4': return { color: 'violet', weight: 2, opacity: 0.9 };
+              case '5': return { color: 'red', weight: 1, opacity: 0.9};
+              case '6': return { color: 'red', weight: 1, opacity: 0.9};
+              case '7': return { color: 'orange', weight: 1, opacity: 0.9};
+              case '8': return { color: 'orange', weight: 1, opacity: 0.9};
+              case '9': return { color: 'orange', weight: 1, opacity: 0.9};
+              case '10': return { color: 'gold', weight: 1, opacity: 0.9};
+          }
+      }
+    displayedByDefault: true
     typename: BDTOPO_BDD_WLD_WGS84G:route
   route_nommee:
     title: route_nommee
@@ -76,8 +349,24 @@ layers:
     
   # Thème Hydrographie
   troncon_cours_eau:
-    title: troncon_cours_eau
-    style: { color: blue, weight: 1 }
+    title: <i>Cours d'eau</i>
+    minZoom: 0
+    onZoomGeo:
+      0: /geodata/ne_110m/rivers_lake_centerlines
+      4: /geodata/ne_10m/rivers_lake_centerlines_scale_rank
+      9: /geodata/route500/troncon_hydrographique
+      12: /geodata/bdcarto/troncon_hydrographique
+      14: regime='Permanent'
+      16: all
+    style: |
+      function(feature) {
+          switch (feature.properties.regime) {
+              case 'Permanent': return {color: 'blue', weight: 1, opacity: .8 };
+              case 'Intermittent': return {color:'blue', weight:1, opacity:.8, dashArray:'2,5', lineJoin:'round'};
+              default: return {color: 'MediumBlue', weight: 1};
+          }
+      }
+    displayedByDefault: true
     typename: BDTOPO_BDD_WLD_WGS84G:troncon_cours_eau
   troncon_laisse:
     title: tronçon de laisse
