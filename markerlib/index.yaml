@@ -1,0 +1,52 @@
+title: bibliothèque de symboles
+abstract: |
+  Ce document décrit des symboles potentiellement utilisés pour des cartes Leaflet  
+  ##URL de test :
+    
+    - [affichage de l'image church](/yamldoc/id.php/markerlib/church.png)
+    - [génération du JavaScript](/yamldoc/id.php/markerlib/-/asJavaScript)
+    
+yamlClass: MarkerLib
+javaScripVarName: markerLib
+markers:
+  # https://mapicons.mapsmarker.com/category/markers/tourism/cult-religion/
+  church:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/cult-religion/
+    iconSize: [32, 37] # [width, height]
+  cross:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/cult-religion/
+    iconSize: [32, 37] # [width, height]
+  mosquee:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/cult-religion/
+    iconSize: [32, 37] # [width, height]
+  mosquee2:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/cult-religion/
+    iconSize: [32, 37] # [width, height]
+  chapel2:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/cult-religion/
+    iconSize: [32, 37] # [width, height]
+  cemetary:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/cult-religion/
+    iconSize: [32, 37] # [width, height]
+  synagogue2:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/cult-religion/
+    iconSize: [32, 37] # [width, height]
+  synagogue22:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/cult-religion/
+    iconSize: [32, 37] # [width, height]
+  japanesetemple:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/cult-religion/
+    iconSize: [32, 37] # [width, height]
+  warning:
+    extension: png
+    source: https://www.flaticon.com/free-icon/warning_752755
+    iconSize: [16, 16] # [width, height]
