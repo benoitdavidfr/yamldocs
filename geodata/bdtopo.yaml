@@ -14,6 +14,9 @@ abstract: |
   
 identifier: http://professionnels.ign.fr/bdtopo
 coverage: "iso:code:3166:FR (métropole + DOM)"
+journal: |
+  20/8/2018:
+    - ajout de symboles pour les pai_religieux
 yamlClass: VectorDataset
 urlWfs: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
 referer: http://gexplor.fr/
@@ -473,6 +476,86 @@ layers:
     typename: BDTOPO_BDD_WLD_WGS84G:pai_orographie
   pai_religieux:
     title: pai_religieux
+    conformsTo:
+      description: Désignation d’un bâtiment réservé à la pratique d’une religion
+      geometryType: Point2D
+      properties:
+        id:
+          description: Identifiant du PAI
+        origine:
+          description: Origine du PAI
+        nature:
+          description: Nature du PAI.
+          enum:
+            Croix:
+              description: "Monument religieux : croix, calvaire, vierge, statue religieuse."
+            'Culte catholique ou orthodoxe':
+              description: |
+                Bâtiment réservé à l’exercice du culte catholique ou orthodoxe :
+                église, cathédrale, basilique, chapelle, abbaye, oratoire.
+            'Culte protestant':
+              description: |
+                Bâtiment réservé à l’exercice du culte protestant : temple (protestant), église réformée.
+            'Culte israélite':
+              description: "Bâtiment réservé à l’exercice du culte israélite : synagogue."
+            'Culte islamique':
+              description: "Bâtiment réservé à l’exercice du culte islamique : mosquée."
+            'Culte divers':
+              description: |
+                Bâtiment réservé à l’exercice d’un culte religieux autre que chrétien, islamique ou israélite :
+                temple bouddhiste, temple hindouiste.
+            'Tombeau':
+              description: "Cimetière, tombe ou tombeau nommé : cimetière, tombe, tombeau, ossuaire."
+            NR:
+              description: Non renseignée, l’information est manquante dans la base.
+        toponyme:
+          description: Nom
+        importance:
+          description: Importance du toponyme dans son environnement.
+          enum:
+            '1':
+              description: plus important
+            '2':
+              description: intermédiaire
+            '3':
+              description: intermédiaire
+            '4':
+              description: intermédiaire
+            '5':
+              description: intermédiaire
+            '6':
+              description: intermédiaire
+            '7':
+              description: intermédiaire
+            '8':
+              description: moins important
+            NC:
+              description: Non concerné par cet attribut.
+            NR:
+              description: Non renseigné.
+    # le champ importance ne semble pas réellement rempli
+    #onZoomGeo:
+    #  13: importance in ('1','2')
+    #  14: importance in ('1','2','3','4')
+    #  15: importance in ('1','2','3','4','5','6')
+    #  16: all
+    minZoom: 0
+    onZoomGeo:
+      4: nature <> 'Croix'
+      12: all
+    pointToLayer: |
+      function(feature, latlng) {
+        switch(feature.properties.nature) {
+          case 'Croix': return L.marker(latlng, markerLib.cross);
+          case 'Culte catholique ou orthodoxe': return L.marker(latlng, markerLib.church);
+          case 'Culte protestant': return L.marker(latlng, markerLib.chapel2);
+          case 'Culte israélite': return L.marker(latlng, markerLib.synagogue2);
+          case 'Culte islamique': return L.marker(latlng, markerLib.mosquee);
+          case 'Culte divers': return L.marker(latlng, markerLib.japanesetemple);
+          case 'Tombeau': return L.marker(latlng, markerLib.cemetary);
+          default: return L.marker(latlng, markerLib.warning);
+        }
+      }
     typename: BDTOPO_BDD_WLD_WGS84G:pai_religieux
   pai_sante:
     title: pai_sante
