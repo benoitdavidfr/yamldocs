@@ -17,6 +17,8 @@ abstract: |
 
   Depuis 2015, un nouveau processus de production a été mis en oeuvre, pour offrir une meilleure mise à jour.
   
+  Affichage complet au zoom 13.
+  
   La [carte correspondante peut être générée ici](id.php/geodata/bdcarto/map/display?latlon=47.135,-1.730&zoom=11).
   
   URL de test:
@@ -113,7 +115,7 @@ layers:
     typename: BDCARTO_BDD_WLD_WGS84G:arrondissement
   commune:
     title: commune
-    style: { color: lightGrey, weight: 1, opacity: 0.65 }
+    style: { color: darkGrey, weight: 1, opacity: 0.65 }
     typename: BDCARTO_BDD_WLD_WGS84G:commune
 
   # Thème Equipement
@@ -180,14 +182,17 @@ layers:
   # Thème Hydrographie
   troncon_hydrographique:
     title: Cours d’eau
+    minZoom: 0
     onZoomGeo:
+      0: /geodata/ne_110m/rivers_lake_centerlines
+      4: /geodata/ne_10m/rivers_lake_centerlines_scale_rank
       9: classe in ('100')
       10: classe in ('100','50')
       11: classe in ('100','50','25')
       12: classe in ('100','50','25','10')
-      13: classe in ('100','50','25','10','5')
-      14: all
-    style: { color: blue, weight: 1 }
+      13: all
+    style: { color: MediumBlue, weight: 1, opacity: 0.65 }
+    displayedByDefault: true
     typename: BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique
   surface_hydrographique:
     title: Zone couverte d’eau
@@ -208,17 +213,75 @@ layers:
   # Thème Réseau ferré
   troncon_voie_ferree:
     title: troncon_voie_ferree
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
+    minZoom: 4
+    onZoomGeo:
+      4: /geodata/ne_10m/railroads
+      8: /geodata/route500/troncon_voie_ferree
+      9: nature='LGV' or energie='Electrifiée'
+      11: all
+    style: |
+      function(feature) {
+        if (feature.properties.nature=='LGV')
+          return { color: 'black', weight: 2, opacity: 1 };
+        else if (feature.properties.energie=='Electrifiée')
+          return { color: 'black', weight: 1, opacity: 1 };
+        else
+          return { color: 'black', weight: 1, 
+          line_dasharray: [2, 1],
+          //'dasharray': '4, 5',
+          opacity: 0.65 };
+      }
     typename: BDCARTO_BDD_WLD_WGS84G:troncon_voie_ferree
   noeud_ferre:
     title: noeud_ferre
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
+    minZoom: 8
+    onZoomGeo:
+      8: nature in ('Gare de voyageurs','Gare de voyageurs et de fret','Gare de fret')
+      11: all
+    pointToLayer: |
+      function(feature, latlng) {
+        switch(feature.properties.nature) {
+          case 'Gare de voyageurs': return L.marker(latlng, markerLib.railway);
+          case 'Gare de voyageurs et de fret': return L.marker(latlng, markerLib.railway);
+          case 'Gare de fret': return L.marker(latlng, markerLib.steamtrain);
+          case 'Embranchement': return L.marker(latlng, markerLib.junction);
+          case 'Changement d\'attribut': return L.marker(latlng, markerLib.point55);
+          default: return L.marker(latlng, markerLib.warning);
+        }
+      }
     typename: BDCARTO_BDD_WLD_WGS84G:noeud_ferre
-  
+   
   # Thème Réseau routier
   troncon_route:
     title: troncon_route
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
+    minZoom: 4
+    onZoomGeo:
+      4: /geodata/ne_10m/roads
+      9: /geodata/route500/troncon_route
+      10: vocation in ('Type autoroutier','Liaison principale')
+      12: vocation in ('Type autoroutier','Liaison principale','Liaison régionale')
+      13: all
+    style: |
+      function(feature) {
+          switch (feature.properties.vocation) {
+              case 'Type autoroutier': return { color: 'violet', weight: 2};
+              case 'Liaison principale': return { color: 'red', weight: 1};
+              case 'Liaison régionale': return { color: 'orange', weight: 1};
+              case 'Liaison locale': return { color: 'gold', weight: 1};
+              case 'Bretelle': return { color: 'red', weight: 1};
+          }
+          switch (feature.properties.scalerank) {
+              case '3': return { color: 'violet', weight: 2, opacity: 0.9 };
+              case '4': return { color: 'violet', weight: 2, opacity: 0.9 };
+              case '5': return { color: 'red', weight: 1, opacity: 0.9};
+              case '6': return { color: 'red', weight: 1, opacity: 0.9};
+              case '7': return { color: 'orange', weight: 1, opacity: 0.9};
+              case '8': return { color: 'orange', weight: 1, opacity: 0.9};
+              case '9': return { color: 'orange', weight: 1, opacity: 0.9};
+              case '10': return { color: 'gold', weight: 1, opacity: 0.9};
+          }
+      }
+    displayedByDefault: true
     typename: BDCARTO_BDD_WLD_WGS84G:troncon_route
   noeud_routier:
     title: noeud_routier

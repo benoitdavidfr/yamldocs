@@ -4,7 +4,7 @@ abstract: |
   Small scale data, 1:110m  
   Suitable for schematic maps of the world on a postcard or as a small locator globe.
   
-  The [corresponding map can be displayed here](id.php/geodata/ne_110m/map/display).
+  The [corresponding map can be displayed here at zoom 3](id.php/geodata/ne_110m/map/display?latlon=45,3&zoom=3).
   
   **test URL** :
     
@@ -26,10 +26,6 @@ layers:
   #
   # physical
   #
-  coastline:
-    title: coastline
-    style: { color: blue, weight: 1, opacity: 0.65 }
-    ogrPath: ne_110m_coastline.shp
   # fusion des 2 fichiers en une seule table avec style distinguant les 2
   coastAdminBoundaryLines:
     title: Coast and land boundaries
@@ -48,6 +44,10 @@ layers:
     excludedFields:
       - name
       - name_alt
+  coastline:
+    title: coastline
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    ogrPath: ne_110m_coastline.shp
   land:
     title: land
     style: { color: sandyBrown, weight: 0, opacity: 0.65 }

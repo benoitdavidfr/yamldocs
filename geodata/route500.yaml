@@ -3,6 +3,8 @@ title: ROUTE 500 2018
 abstract: |
   La base de données ROUTE 500® contient l'intégralité du réseau routier classé caractérisé par un certain nombre de propriétés et complété par les éléments du réseau routier secondaire permettant la desserte des chefs-lieux de communes et des principales infrastructures de transport.
   
+  Affichage complet au zoom 11.
+  
   La carte correspondante peut être [générée ici](id.php/geodata/route500/map/display).
   
   **URL de test** :
@@ -96,20 +98,34 @@ layers:
     ogrPath: RESEAU_ROUTIER/NOEUD_ROUTIER.shp
   troncon_route:
     title: troncon de route
+    editorialNote: Collection trop voluminseuse pour être affichée pour les zoom < 8
+    minZoom: 4
     onZoomGeo:
-      6: vocation in ('Type autoroutier')
+      4: /geodata/ne_10m/roads
+      8: vocation in ('Type autoroutier')
       9: vocation in ('Type autoroutier','Liaison principale')
-      11: vocation in ('Type autoroutier','Liaison principale','Liaison régionale')
-      14: all
+      10: vocation in ('Type autoroutier','Liaison principale','Liaison régionale')
+      11: all
     style: |
       function(feature) {
           switch (feature.properties.vocation) {
               case 'Type autoroutier': return { color: 'violet', weight: 2};
               case 'Liaison principale': return { color: 'red', weight: 1};
               case 'Liaison régionale': return { color: 'orange', weight: 1};
-              case 'Liaison locale': return { color: 'yellow', weight: 1};
+              case 'Liaison locale': return { color: 'gold', weight: 1};
+          }
+          switch (feature.properties.scalerank) {
+              case '3': return { color: 'violet', weight: 2, opacity: 0.9 };
+              case '4': return { color: 'violet', weight: 2, opacity: 0.9 };
+              case '5': return { color: 'red', weight: 1, opacity: 0.9};
+              case '6': return { color: 'red', weight: 1, opacity: 0.9};
+              case '7': return { color: 'orange', weight: 1, opacity: 0.9};
+              case '8': return { color: 'orange', weight: 1, opacity: 0.9};
+              case '9': return { color: 'orange', weight: 1, opacity: 0.9};
+              case '10': return { color: 'gold', weight: 1, opacity: 0.9};
           }
       }
+    displayedByDefault: true
     ogrPath: RESEAU_ROUTIER/TRONCON_ROUTE.shp
   aerodrome:
     title: aerodrome
@@ -122,6 +138,7 @@ layers:
     ogrPath: RESEAU_FERRE/NOEUD_FERRE.shp
   troncon_voie_ferree:
     title: Voie ferrée
+    minZoom: 6
     onZoomGeo:
       6: nature='LGV'
       8: nature='LGV' or energie='Electrifiée'
@@ -140,21 +157,33 @@ layers:
           'dasharray': '4, 5',
           opacity: 0.65 };
       }
+    displayedByDefault: true
     ogrPath: RESEAU_FERRE/TRONCON_VOIE_FERREE.shp
   cote_frontiere:
     title: cote_frontiere
     ogrPath: HABILLAGE/COTE_FRONTIERE.shp
   troncon_hydrographique:
-    title: Tronçon hydrographique et cours d’eau
+    title: Cours d’eau
+    editorialNote: Collection trop voluminseuse pour être affichée pour les zoom < 8
+    minZoom: 0
+    onZoomGeo:
+      0: /geodata/ne_110m/rivers_lake_centerlines
+      4: /geodata/ne_10m/rivers_lake_centerlines_scale_rank
+      8: largeur in ('Plus de 50 mètres')
+      9: largeur in ('Plus de 50 mètres','Entre 15 et 50 mètres')
+      10: largeur in ('Plus de 50 mètres','Entre 15 et 50 mètres','De 0 à 15 mètres')
+      11: all
+    style: { color: MediumBlue, weight: 1, opacity: 0.65 }
+    displayedByDefault: true
     ogrPath: HABILLAGE/TRONCON_HYDROGRAPHIQUE.shp
   zone_occupation_sol:
     title: zone_occupation_sol
     style: |
       function(feature) {
           switch (feature.properties.nature) {
-              case 'Eau': return { color: 'blue', weight: 1};
-              case 'Forêt': return { color: 'lightGreen', weight: 1};
-              case 'Bâti': return { color: 'orange', weight: 1};
+              case 'Eau': return { color: 'blue', weight: 0};
+              case 'Forêt': return { color: 'lightGreen', weight: 0, opacity: 0.65};
+              case 'Bâti': return { color: 'orange', weight: 0, opacity: 0.65};
           }
       }
     ogrPath: HABILLAGE/ZONE_OCCUPATION_SOL.shp

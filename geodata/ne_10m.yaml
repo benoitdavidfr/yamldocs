@@ -6,7 +6,13 @@ abstract: |
   The 1:10 million scale is the most detailed. Suitable for making zoomed-in maps of countries and regions.
   Show the world on a large wall poster.
   
-  The [corresponding map can be displayed here](id.php/geodata/ne_10m/map/display).
+  Complete display at zoom 8.
+  
+  ### Corresponding maps :
+    
+    - [zoom 6 centered on France metropolitan area](id.php/geodata/ne_10m/map/display?latlon=46.5,3&zoom=6)
+    - [zoom 10 centered on Guadeloupe](id.php/geodata/ne_10m/map/display?latlon=16.2,-61.4&zoom=10)
+    
 licence:
   uri: http://www.naturalearthdata.com/about/terms-of-use/
   title: Public domain
@@ -23,24 +29,13 @@ layers:
   #
   # Physical
   #
-  coastline:
-    title: coastline
-    abstract: Includes major islands.
-    style: { color: blue, weight: 1, opacity: 0.65 }
-    conformsTo:
-      source: https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-coastline/
-      description: |
-        Ocean coastline, including major islands. Coastline is matched to land and water polygons.
-        The Caspian Sea, which is technically a lake, is included.
-        The ocean coastline, the foundation for building all of NEV, primarily derives from World Data Bank 2
-        with modest generalization applied via line simplification in Adobe Illustrator.
-        The Antarctica coast derives from NASA Mosaic of Antarctica.
-    ogrPath: ne_10m_coastline.shp
-  # fusion des 2 fichiers en une seule table avec style distinguant les 2
   coastAdminBoundaryLines:
     title: Coast and land boundaries
     abstract: |
       Concaténation des couches coastline et admin_0_boundary_lines_land en excluant les champs non communs
+    onZoomGeo:
+      0: /geodata/ne_110m/coastAdminBoundaryLines
+      3: all
     style: |
       function(feature) {
           if (feature.properties.featurecla == 'Coastline') {
@@ -69,6 +64,20 @@ layers:
       - note
       - adm0_abr_l
       - adm0_abr_r
+  coastline:
+    title: coastline
+    abstract: Includes major islands.
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-coastline/
+      description: |
+        Ocean coastline, including major islands. Coastline is matched to land and water polygons.
+        The Caspian Sea, which is technically a lake, is included.
+        The ocean coastline, the foundation for building all of NEV, primarily derives from World Data Bank 2
+        with modest generalization applied via line simplification in Adobe Illustrator.
+        The Antarctica coast derives from NASA Mosaic of Antarctica.
+    ogrPath: ne_10m_coastline.shp
+  # fusion des 2 fichiers en une seule table avec style distinguant les 2
   land_scale_rank:
     title: Land
     abstract: Land polygons including major islands.
@@ -178,10 +187,6 @@ layers:
     title: Rivers - Suppl. Europe
     style: { color: blue, weight: 1, opacity: 0.65 }
     ogrPath: ne_10m_rivers_europe.shp
-  rivers_north_america:
-    title: Rivers - Suppl. North America
-    style: { color: blue, weight: 1, opacity: 0.65 }
-    ogrPath: ne_10m_rivers_north_america.shp
   lakes:
     title: Lakes
     style: { color: blue, weight: 1, opacity: 0.65 }
@@ -198,10 +203,6 @@ layers:
     title: Lakes - Suppl. Europe
     style: { color: blue, weight: 1, opacity: 0.65 }
     ogrPath: ne_10m_lakes_europe.shp
-  lakes_north_america:
-    title: Lakes - Suppl. North America
-    style: { color: blue, weight: 1, opacity: 0.65 }
-    ogrPath: ne_10m_lakes_north_america.shp
   playas:
     title: playas
     abstract: a desert basin with no outlet which periodically fills with water to form a temporary lake
@@ -311,39 +312,12 @@ layers:
       note: Tous attributs disponibles.
     style: { color: sandyBrown, weight: 1, opacity: 0.10 }
     ogrPath: ne_10m_admin_0_countries.shp
-  countryFrance:
-    title: France
-    select: admin_0_countries / name_en='France'
-    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
-  admin_0_sovereignty:
-    title: États souverains
-    abstract: There are 197 sovereign states in the world.
-    conformsTo:
-      source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/
-    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
-    ogrPath: ne_10m_admin_0_sovereignty.shp
-  admin_0_map_units:
-    title: Parties d'États souverains
-    conformsTo:
-      source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/
-    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
-    ogrPath: ne_10m_admin_0_map_units.shp
-  admin_0_map_subunits:
-    title: Sous-parties d'États souverains
-    conformsTo:
-      source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/
-    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
-    ogrPath: ne_10m_admin_0_map_subunits.shp
   admin_0_boundary_lines_land:
     title: admin_0_boundary_lines_land
     style: { color: sandyBrown, weight: 1, opacity: 0.65 }
     ogrPath: ne_10m_admin_0_boundary_lines_land.shp
-  admin_0_boundary_lines_map_units:
-    title: admin_0_boundary_lines_map_units
-    style: { color: sandyBrown, weight: 1, opacity: 0.65 }
-    ogrPath: ne_10m_admin_0_boundary_lines_map_units.shp
   admin_0_boundary_lines_maritime_indicator:
-    title: admin_0_boundary_lines_maritime_indicator
+    title: Maritime indicators
     style: { color: blue, weight: 1, opacity: 0.65 }
     ogrPath: ne_10m_admin_0_boundary_lines_maritime_indicator.shp
   admin_0_pacific_groupings:
@@ -368,11 +342,9 @@ layers:
       3: scalerank <= 3
       4: scalerank <= 4
       5: scalerank <= 5
-      6: scalerank <= 6
-      7: scalerank <= 7
-      8: scalerank <= 8
-      9: scalerank <= 9
-      10: all
+      6: scalerank <= 7
+      7: scalerank <= 9
+      8: all
     style: |
       function(feature) {
           switch (feature.properties.scalerank) {
@@ -390,6 +362,15 @@ layers:
     ogrPath: ne_10m_roads.shp
   railroads:
     title: railroads
+    minZoom: 3
+    onZoomGeo:
+      3: scalerank <= 3
+      4: scalerank <= 4
+      5: scalerank <= 5
+      6: scalerank <= 7
+      7: scalerank <= 9
+      8: all
+    style: { color: darkGrey, weight: 1, opacity: 0.65 }
     ogrPath: ne_10m_railroads.shp
   airports:
     title: airports
@@ -429,6 +410,43 @@ layers:
     fieldtypes:
       max_pop_31: decimal(19,5)
 
+  # moins intéressant
+  countryFrance:
+    title: France (as admin_0_countries)
+    select: admin_0_countries / name_en='France'
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+  rivers_north_america:
+    title: Rivers - Suppl. North America
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_rivers_north_america.shp
+  lakes_north_america:
+    title: Lakes - Suppl. North America
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_lakes_north_america.shp
+  admin_0_sovereignty:
+    title: États souverains
+    abstract: There are 197 sovereign states in the world.
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_sovereignty.shp
+  admin_0_boundary_lines_map_units:
+    title: Lim. de parties d'États souverains
+    style: { color: sandyBrown, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_admin_0_boundary_lines_map_units.shp
+  admin_0_map_units:
+    title: Parties d'États souverains
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_map_units.shp
+  admin_0_map_subunits:
+    title: Sous-parties d'États souverains
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_map_subunits.shp
+  
 # Fichiers shp non recopiés comme layer
 shpfiles: |
   ne_10m_admin_0_antarctic_claim_limit_lines.shp

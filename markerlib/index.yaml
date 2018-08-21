@@ -1,13 +1,14 @@
 title: bibliothèque de symboles
 abstract: |
   Ce document décrit des symboles potentiellement utilisés pour des cartes Leaflet  
-  ##URL de test :
+  #### URL de test :
     
-    - [affichage de l'image church](/yamldoc/id.php/markerlib/church.png)
-    - [génération du JavaScript](/yamldoc/id.php/markerlib/-/asJavaScript)
+    - [définition du symbole church](/yamldoc/id.php/markerlib/church)
+    - [affichage dy symbole church](/yamldoc/id.php/markerlib/church.png)
+    - [génération du JavaScript définissant la bibliothèque](/yamldoc/id.php/markerlib/-/asJavaScript)
     
 yamlClass: MarkerLib
-javaScripVarName: markerLib
+javaScriptVarName: markerLib
 markers:
   # https://mapicons.mapsmarker.com/category/markers/tourism/cult-religion/
   church:
@@ -46,7 +47,39 @@ markers:
     extension: png
     source: https://mapicons.mapsmarker.com/category/markers/tourism/cult-religion/
     iconSize: [32, 37] # [width, height]
+  railway:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/transportation/
+    iconSize: [32, 37] # [width, height]
+    iconAnchor: [16, 22]
+  steamtrain:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/transportation/
+    iconSize: [32, 37] # [width, height]
+    iconAnchor: [16, 22]
+  airport:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/transportation/
+    iconSize: [32, 37] # [width, height]
+  harbor:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/transportation/
+    iconSize: [32, 37] # [width, height]
+  junction:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/transportation/
+    iconSize: [32, 37] # [width, height]
+    iconAnchor: [16, 22]
   warning:
     extension: png
     source: https://www.flaticon.com/free-icon/warning_752755
     iconSize: [16, 16] # [width, height]
+    iconAnchor: [8, 8]
+  point77:
+    extension: png
+    iconSize: [7, 7] # [width, height]
+    iconAnchor: [3, 3]
+  point55:
+    extension: png
+    iconSize: [5, 5] # [width, height]
+    iconAnchor: [2, 2]
