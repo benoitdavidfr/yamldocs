@@ -1,11 +1,21 @@
 title: bibliothèque de symboles
 abstract: |
-  Ce document décrit des symboles potentiellement utilisés pour des cartes Leaflet  
-  #### URL de test :
-    
+  Ce document décrit des symboles potentiellement utilisés pour des cartes Leaflet.  
+  
+  **Mapping Symbols** :
+  [https://www.nevadadot.com/home/showdocument?id=1431](https://www.nevadadot.com/home/showdocument?id=1431)
+  
+  **URL de test** :
     - [définition du symbole church](/yamldoc/id.php/markerlib/church)
-    - [affichage dy symbole church](/yamldoc/id.php/markerlib/church.png)
+    - [affichage du symbole church](/yamldoc/id.php/markerlib/church.png)
     - [génération du JavaScript définissant la bibliothèque](/yamldoc/id.php/markerlib/-/asJavaScript)
+    
+  Recherche symbole échangeur partiel:
+    
+    - search openstreetmap marker for highway interchange
+    - https://en.wikipedia.org/wiki/Roundabout_interchange
+      - Partial cloverleaf interchange parclo
+    - search Partial cloverleaf interchange parclo marker icon
     
 yamlClass: MarkerLib
 javaScriptVarName: markerLib
@@ -66,6 +76,24 @@ markers:
     source: https://mapicons.mapsmarker.com/category/markers/tourism/transportation/
     iconSize: [32, 37] # [width, height]
   junction:
+    extension: png
+    source: https://mapicons.mapsmarker.com/category/markers/tourism/transportation/
+    iconSize: [32, 37] # [width, height]
+    iconAnchor: [16, 22]
+  parclo:
+    extension: png
+    iconSize: [16, 16] # [width, height]
+    iconAnchor: [8, 8]
+    note: échangeur partiel
+  parclo2:
+    extension: png
+    iconSize: [16, 16] # [width, height]
+    iconAnchor: [8, 8]
+  parclo32:
+    extension: png
+    iconSize: [32, 32] # [width, height]
+    iconAnchor: [16, 16]
+  wendepunkt:
     extension: png
     source: https://mapicons.mapsmarker.com/category/markers/tourism/transportation/
     iconSize: [32, 37] # [width, height]

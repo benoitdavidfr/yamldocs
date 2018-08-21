@@ -5,7 +5,10 @@ abstract: |
   
   Affichage complet au zoom 11.
   
-  La carte correspondante peut être [générée ici](id.php/geodata/route500/map/display).
+  **Cartes correspondantes** :
+  
+    - [par défaut](id.php/geodata/route500/map/display)
+    - [au zoom 10 au Sud de Nantes](id.php/geodata/route500/map/display?latlon=47,-1.3&zoom=10)    
   
   **URL de test** :
     
@@ -84,9 +87,12 @@ layers:
     title: noeud_commune
     onZoomGeo:
       6: statut in ('Préfecture de région','Préfecture')
-      10: statut in ('Préfecture de région','Préfecture','Sous-préfecture')
-      12: population >= 1.0
-      14: all
+      9: statut in ('Préfecture de région','Préfecture','Sous-préfecture')
+      11: population >= 1.0
+      13: all
+    label:
+      field: nom_comm
+      color: black
     ogrPath: RESEAU_ROUTIER/NOEUD_COMMUNE.shp
     indexes:
       id_rte500: true
@@ -95,6 +101,18 @@ layers:
       statut: false
   noeud_routier:
     title: noeud_routier
+    pointToLayer: |
+      function(feature, latlng) {
+        switch(feature.properties.nature) {
+          case 'Carrefour simple': return L.marker(latlng, markerLib.junction);
+          case 'Rond-point': return L.marker(latlng, markerLib.wendepunkt);
+          case 'Echangeur partiel': return L.marker(latlng, markerLib.parclo);
+          case 'Echangeur complet': return L.marker(latlng, markerLib.parclo);
+          case 'Changement d\'attribut': return L.marker(latlng, markerLib.point55);
+          case 'Noeud représentatif d\'une commune': return L.marker(latlng, markerLib.point77);
+          default: return L.marker(latlng, markerLib.warning);
+        }
+      }
     ogrPath: RESEAU_ROUTIER/NOEUD_ROUTIER.shp
   troncon_route:
     title: troncon de route
@@ -129,6 +147,7 @@ layers:
     ogrPath: RESEAU_ROUTIER/TRONCON_ROUTE.shp
   aerodrome:
     title: aerodrome
+    pointToLayer: function(feature, latlng) { return L.marker(latlng, markerLib.airport); }
     ogrPath: RESEAU_ROUTIER/AERODROME.shp
   communication_restreinte:
     title: Communication restreinte
@@ -191,14 +210,14 @@ layers:
     title: zone_batie
     select: zone_occupation_sol / nature='Bâti'
     style: { color: orange, weight: 2, opacity: 0.65 }
-  # couches d'erreur pour vérifier le bon traitement des erreurs
-  badLayer: { title: badLayer }
+ 
+  badLayer: { title: badLayer }  # couches d'erreur pour vérifier le bon traitement des erreurs
   badSelect: { title: badSelect,  select: limite administrative / nature='Frontière internationale' }
   badOnZoomGeo:
     title: badOnZoomGeo
     onZoomGeo: [ 0: /geodata/ne_110m/admin_0_boundary_lines_land, 7: nature='Limite côtière', 11: all ]
 
-# Nom de la base MySQL en fonction du serveur MySQL
-mysql_database:
+
+mysql_database: # Nom de la base MySQL en fonction du serveur MySQL
   '172.17.0.3': route500 # MySql docker
   mysql-bdavid.alwaysdata.net: bdavid_route500

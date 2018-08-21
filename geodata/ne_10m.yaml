@@ -8,7 +8,7 @@ abstract: |
   
   Complete display at zoom 8.
   
-  ### Corresponding maps :
+  **Corresponding maps**:
     
     - [zoom 6 centered on France metropolitan area](id.php/geodata/ne_10m/map/display?latlon=46.5,3&zoom=6)
     - [zoom 10 centered on Guadeloupe](id.php/geodata/ne_10m/map/display?latlon=16.2,-61.4&zoom=10)
