@@ -16,9 +16,9 @@ description: |
     - l'[organisation d'espaces documentaires partagés chacun sous la forme d'une archive Git](?ypath=/git),
       pouvant ainsi utiliser soit [Github](https://github.com/benoitdavidfr/yamldocs),
       soit une archive Git privée,
-    - la définition de [requêtes sur les documents en Php](?ypath=/query),
-    - la possibilité d'étendre le système en définissant des [classes documents](?ypath=/ydclass)
-      et l'accès aux documents au moyen d'API.
+    - la définition en Php de [requêtes sur les documents](?ypath=/query),
+    - l'accès aux documents au moyen d'[API](?ypath=/api),
+    - la possibilité d'étendre le système en définissant des [classes de documents](?ypath=/ydclass).
       
   Une extension particulière permet l'[accès aux données géographiques](?doc=geodata).
     
@@ -164,7 +164,7 @@ query: |
 
 api: |
   ### Accès aux documents au moyen d'API
-  Les infos contenues dans un document sont exposées au travers d'une API Php et d'une API REST.
+  Les infos contenues dans un document sont exposées au travers de méthodes Php et d'une API REST.
   Une description OpenAPI de l'API REST serait nécessaire.
 
 ydclass: |
@@ -172,22 +172,32 @@ ydclass: |
   Une classe de documents correspond à une classe d'objets Php implémentant des méthodes de consultation du document
   ainsi qu'une API de consultation en machine to machine. Les classes définies sont les suivantes:
     
-    - [BasicYamlDoc](?action=version&doc=yamldoc&name=basicyamldoc.inc.php) - document simple
-    - [YamlCatalog](?action=version&doc=yamldoc&name=catalog.inc.php) - catalogue de documents
-    - [YamlData](?action=version&doc=yamldoc&name=yamldata.inc.php) - gestion des données
+    - [BasicYamlDoc](?action=version&doc=yamldoc&name=basicyamldoc.inc.php) - document simple,
+      comme par exemple le présent document ;
+    - [YamlCatalog](?action=version&doc=yamldoc&name=catalog.inc.php) - catalogue de documents,
+      comme par exemple le [document d'accueil](?doc=index) de cet espace ;
+    - [YamlData](?action=version&doc=yamldoc&name=yamldata.inc.php) - gestion des données,
+      comme par exemples la [liste des régions historisées](?doc=geohisto/regions)
+      ou la [synthèse des principaux champs Dublin Core](?doc=dublincore) ;
     - [MultiData](?action=version&doc=yamldoc&name=multidata.inc.php) pour décomposer une grande table
-      en sous-tables stockées chacune dans un sous-document
+      en sous-tables stockées chacune dans un sous-document ;
     - [YamlSkos](?action=version&doc=yamldoc&name=yamlskos.inc.php) - gestion d'un thésaurus Skos
-      organisé en micro-thésaurus
+      organisé en micro-thésaurus,
+      comme par exemples le [thésaurus EuroVoc](?doc=eurovoc) ou le [lexique topographique](?doc=topovoc) de l'AFT ;
     - [DataModel](?action=version&doc=yamldoc&name=datamodel.inc.php) - gestion d'un modèle de données
-      UML comme extension d'un YamlSkos
-    - [LegalDoc]((?action=version&doc=yamldoc&name=legaldoc.inc.php)) - gestion d'un texte juridique
+      UML comme extension d'un YamlSkos,
+      comme par exemple le [modèle de données Inspire déduit du règlement interopérabilité](?doc=inspire-datamodel) ;
+    - [LegalDoc]((?action=version&doc=yamldoc&name=legaldoc.inc.php)) - gestion d'un texte juridique,
+      comme par exemple la [directive Inspire](?doc=inspire-directive) ;
     - [OdtDoc](?action=version&doc=yamldoc&name=odtdoc.inc.php) - affichage de fichiers ODT
     - [PdfDoc](?action=version&doc=yamldoc&name=pdfdoc.inc.php) - affichage de fichiers PDF
-    - [YData](?action=version&doc=yamldoc&name=ydata.inc.php) pour la gestion des données
+    - [YData](?action=version&doc=yamldoc&name=ydata.inc.php) pour la gestion des données (EN CONSTRUCTION) ;
     - [Map](?action=version&doc=yamldoc&name=map.inc.php) - description et affichage d'une carte Leaflet
-    - [MarkerLib](?action=version&doc=yamldoc&name=markerlib.inc.php) - gestion d'une bibliothèques de symboles
-      ponctuels utilisés dans les cartes
-    - [WfsServer](?action=version&doc=yamldoc&name=wfsserver.inc.php) - document correspondant à un serveur WFS
+    - [MarkerLib](?action=version&doc=yamldoc&name=markerlib.inc.php) - gestion d'une bibliothèque de symboles
+      ponctuels utilisés dans les cartes,
+      illustrée par cette [bibliothèque](?doc=markerlib) ;
+    - [WfsServer](?action=version&doc=yamldoc&name=wfsserver.inc.php) - gestion de requêtes à un serveur WFS,
+      illustré par le [serveur WFS du Géoportail IGN](?doc=geodata/igngpwfs) ;
     - [VectorDataset](?action=version&doc=yamldoc&name=vectords.inc.php) - document définissant une série de données
-      géographiques vecteur
+      géographiques vecteur,
+      illustré par [Route500](?doc=geodata/route500) ou la [BDTopo](?doc=geodata/bdtopo) de l'IGN.
