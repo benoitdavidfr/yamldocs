@@ -11,18 +11,22 @@ description: |
   YamlDoc définit des mécanismes d'accès aux données géographiques au travers de types de documents
   correspondant à des séries de données géographiques (SD),
   en distinguant des [SD vecteur](?ypath=/vector), des [SD image](?ypath=/image)
-  et des [SD en consultation](?ypath=/view).
+  et des [SD de consultation](?ypath=/view).
   Ces mécanismes sont conçus afin que les SD puissent facilement être affichées
-  avec la [bibliothèque Leaflet](https://leafletjs.com/) 
-  et sont utilisables avec des logiciels comme [umap](https://umap.openstreetmap.fr/fr/) qui respecte
-  les mêmes standards d'interopérabilité :
+  avec la [bibliothèque Leaflet](https://leafletjs.com/) :
     
     - les SD vecteur au moyen du plugin [uGeoJson](https://github.com/BenjaminVadant/leaflet-ugeojson),
     - les SD en consultation au moyen de la classe [TileLayer](https://leafletjs.com/reference-1.3.2.html#tilelayer).
     
-  En outre, des [documents carte](?ypath=/map) permettent d'afficher ces SD, ou certaines de leurs couches,
-  dans des cartes Leaflet.
+  De plus les couches sont utilisables avec des logiciels comme [umap](https://umap.openstreetmap.fr/fr/)
+  qui respectent les mêmes standards d'interopérabilité.
   
+  En outre :
+    
+    - des [documents carte](?ypath=/map) permettent d'afficher ces SD, ou certaines de leurs couches,
+      au travers de cartes Leaflet,
+    - un [document bibliothèque de symboles](?doc=markerlib) gère une bibliothèque de symboles ponctuels
+      utilisés dans les cartes.
 vector: |
   ## SD vecteur
   Une SD vecteur (VectorDataset) est composée de couches vecteur,
@@ -156,7 +160,7 @@ image: |
   Les SD image sont constituées de couches d'images. (A FAIRE)
   
 view: |
-  Les SD d'affichage sont constituées de couches d'affichage.
+  Les SD de consultation sont constituées de couches d'affichage.
   Chaque couche d'affichage correspond à un URI et interrogée avec un {x},{y},{z} renvoie une image PNG ou JPEG.
   exemple: http://igngp.geoapi.fr/tile.php
   

@@ -10,14 +10,17 @@ description: |
       (DublinCore, Skos, Schema.org, GeoJSON, ...), conformément aux principes
       du [Web des données](https://fr.wikipedia.org/wiki/Web_des_donn%C3%A9es),
     - le formattage de textes à l'intérieur du fichier Yaml utilisant le **[langage Markdown](?ypath=/markdown)**,
-    - l'utilisation d'un [visualisateur](?ypath=/viewer) de document extensible,
+    - l'utilisation d'un [visualiseur](?ypath=/viewer) extensible de documents,
     - un mécanisme de [requête simple (ypath)](?ypath=/ypath) dans les documents,
-    - la possibilité d'effectuer des [recherches plein texte](?ypath=/search) sur les documents,
+    - la possibilité d'effectuer des [recherches plein texte](?ypath=/textSearch) dans les documents,
     - l'[organisation d'espaces documentaires partagés chacun sous la forme d'une archive Git](?ypath=/git),
+      pouvant ainsi utiliser soit [Github](https://github.com/benoitdavidfr/yamldocs),
+      soit une archive Git privée,
     - la définition de [requêtes sur les documents en Php](?ypath=/query),
     - la possibilité d'étendre le système en définissant des [classes documents](?ypath=/ydclass)
-      et l'accès aux documents au moyen d'API,
-    - une extension particulière du système pour l'[accès aux données géographiques](?doc=geodata).
+      et l'accès aux documents au moyen d'API.
+      
+  Une extension particulière permet l'[accès aux données géographiques](?doc=geodata).
     
 yaml: |
   ### Fondé sur le format Yaml
@@ -37,17 +40,17 @@ semantic: |
   ### Sémantique bien connue
   Lorsque cela est adapté, la sémantique des champs des tableaux associatifs Yaml respecte les standards suivants:
     
-    - le [standard Dublin Core](https://fr.wikipedia.org/wiki/Dublin_Core) est utilisé pour décrire les métadonnées
+    - le [standard Dublin Core](https://fr.wikipedia.org/wiki/Dublin_Core) pour décrire les métadonnées
       d'un document ; ainsi il est recommandé d'utiliser des champs Dublin Core (comme title, subject, description,
       date, ...) pour définir les métadonnées de chaque document
       ([synthèse des principaux champs ici](?doc=dublincore)) ;
     - le [standard SKOS](https://fr.wikipedia.org/wiki/Simple_Knowledge_Organization_System) ([résumé ici](?doc=skos))
-      encodé en Yaml est utilisé pour représenter des thésaurus comme le [thésaurus EuroVoc](?doc=eurovoc)
+      encodé en Yaml pour représenter des thésaurus comme le [thésaurus EuroVoc](?doc=eurovoc)
       ou le [lexique topographique](?doc=topovoc) de l'AFT ;
-    - le [standard Schema.org](https://fr.wikipedia.org/wiki/Schema.org) est utilisé pour structurer
+    - le [standard Schema.org](https://fr.wikipedia.org/wiki/Schema.org) pour structurer
       des bases de données, telles que par exemple des listes d'organismes en utilisant le
       [type Organization](https://schema.org/Organization),
-    - le [standard GeoJSON](https://tools.ietf.org/html/rfc7946) est utilisé pour décrire des bases de données
+    - le [standard GeoJSON](https://tools.ietf.org/html/rfc7946) pour décrire des bases de données
       géographiques vecteur, [plus de détails ici](?doc=geodata).
       
 markdown: |
@@ -58,9 +61,9 @@ markdown: |
   Les différentes parties du présent document constituent un autre exemple d'utilisation du Markdown.
   
 viewer: |
-  ### Visualisateur
-  Un visualisateur des documents en mode web permet de visualiser les documents et de naviguer entre eux.
-  Il offre aussi une fonctionnalité limitée de modification des documents.  
+  ### Visualiseur
+  Un visualiseur en mode web permet de visualiser les documents et de naviguer entre eux.
+  Il offre aussi une fonctionnalité limitée de modification.  
   Un mode de visualisation par défaut est défini mais le visualisateur peut être étendu pour s'adapter aux
   différentes structures de document. Par exemples:
     
@@ -76,7 +79,7 @@ ypath: |
   ### Ypath: mécanisme de requêtes simples
   La fourniture d'une chaine de caractères particulière (appelée Ypath), permet de sélectionner
   une partie d'un document ou d'une base de données.
-  Les exemples ci-dessous illustrent son utilisation:
+  Son utilisation est illustrée par les exemples ci-dessous :
     
     - dans le présent document, la sélection de la partie *yaml* du document s'effectue en entrant
       dans le champ de saisie en dessous du menu la chaine `/yaml`,
@@ -95,9 +98,9 @@ ypath: |
       - la projection sur les champs *insee_code*, *name* et *successors* s'effectue par la 
         chaine [`/data/insee_code,name,successors`](?doc=geohisto/departements&ypath=/data/insee_code,name,successors)
 
-search: |
+textSearch: |
   ### Recherche plein texte
-  Des recherches plein texte sont possibles en tapant un mot ou plusieurs dans le champ de saisie.
+  En tapant un mot ou plusieurs dans le champ de saisie, une recherche plein texte est effectuée dans les documents.
   Si la chaine ne commence pas par un '/' la chaine est interprétée comme une liste de mots.  
   Par exemple, en tapant le mot `bourgogne` on trouve les fragments d'EuroVoc et de geohisto qui
   contiennent ce mot.  
@@ -120,8 +123,8 @@ search: |
       par exemple la chaine `geograph*` permet de trouver géographie et geography.
     
   Il est aussi possible de restreindre la recherche à un document, voire à certains fragments,
-  pr exemple on peut rechercher le mot géographie uniquement dans les concepts d'Eurovoc
-  on indiquant dans le champ key `eurovoc/concepts`.
+  par exemple on peut rechercher le mot géographie uniquement dans les concepts d'Eurovoc
+  en indiquant dans le champ key `eurovoc/concepts`.
   
 git: |
   ### Organisation d'espaces documentaires partagés chacun sous la forme d'une archive Git
@@ -136,19 +139,19 @@ git: |
   
   Dans un premier temps, seuls 2 espaces sont définis: un espace public et un espace privé.  
   L'archive Git de l'espace public est accessible à l'URL:
-  [https://github.com/benoitdavidfr/yamldocs.git](https://github.com/benoitdavidfr/yamldocs).  
-  Le visualisateur de cet espace est accessible sous
+  [https://github.com/benoitdavidfr/yamldocs](https://github.com/benoitdavidfr/yamldocs) et
+  le visualisateur de cet espace est accessible sous
   [http://georef.eu/yamldoc/?doc=index](http://georef.eu/yamldoc/?doc=index).  
   
-  L'utilisation du mécanisme des branches de git permet d'isoler les modifications de différents utilisateurs.
-  Cette fonctionnalité potentielle est en cours d'investigation.
+  L'utilisation du mécanisme des branches de git permet d'isoler les modifications de différents utilisateurs ;
+  cette fonctionnalité potentielle n'a pas encore été mise en oeuvre.
 
 query: |
   ### Requêtes en Php
   Les documents correspondant à des bases de données peuvent facilement être exploités par des scripts Php
   qui effectuent des requêtes dans les données.
   Ces requêtes sont appelées comme des documents.  
-  Par exemples:
+  Par exemples :
     
     - le document [jregdept](?doc=jregdept) réalise une jointure entre les régions actuelles et les départements
       actuels et renvoie la liste des régions actuelles avec pour chacune la liste de ses départements
@@ -161,15 +164,16 @@ query: |
 
 api: |
   ### Accès aux documents au moyen d'API
-  Les infos contenues dans un document sont exposées au travers d'une API.
+  Les infos contenues dans un document sont exposées au travers d'une API Php et d'une API REST.
+  Une description OpenAPI de l'API REST serait nécessaire.
 
 ydclass: |
   ### Définition de classes de documents
   Une classe de documents correspond à une classe d'objets Php implémentant des méthodes de consultation du document
   ainsi qu'une API de consultation en machine to machine. Les classes définies sont les suivantes:
     
-    - [BasicYamlDoc](?action=version&doc=yamldoc&name=basicyamldoc.inc.php) 
-    - [YamlCatalog](?action=version&doc=yamldoc&name=catalog.inc.php) 
+    - [BasicYamlDoc](?action=version&doc=yamldoc&name=basicyamldoc.inc.php) - document simple
+    - [YamlCatalog](?action=version&doc=yamldoc&name=catalog.inc.php) - catalogue de documents
     - [YamlData](?action=version&doc=yamldoc&name=yamldata.inc.php) - gestion des données
     - [MultiData](?action=version&doc=yamldoc&name=multidata.inc.php) pour décomposer une grande table
       en sous-tables stockées chacune dans un sous-document
@@ -182,6 +186,8 @@ ydclass: |
     - [PdfDoc](?action=version&doc=yamldoc&name=pdfdoc.inc.php) - affichage de fichiers PDF
     - [YData](?action=version&doc=yamldoc&name=ydata.inc.php) pour la gestion des données
     - [Map](?action=version&doc=yamldoc&name=map.inc.php) - description et affichage d'une carte Leaflet
+    - [MarkerLib](?action=version&doc=yamldoc&name=markerlib.inc.php) - gestion d'une bibliothèques de symboles
+      ponctuels utilisés dans les cartes
     - [WfsServer](?action=version&doc=yamldoc&name=wfsserver.inc.php) - document correspondant à un serveur WFS
     - [VectorDataset](?action=version&doc=yamldoc&name=vectords.inc.php) - document définissant une série de données
       géographiques vecteur

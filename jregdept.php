@@ -7,14 +7,15 @@ if (isset($ydcheckWriteAccessForPhpCode))
   return ['benoit'];
 
 require_once __DIR__.'/../yd.inc.php';
+require_once __DIR__.'/../ydclasses.inc.php';
 
 // initialisation du résultat
 $result = [];
 
 // ouverture des 2 documents regions et departements
-if (!($regions = new_yamlDoc($store, 'geohisto/regions')))
+if (!($regions = new_doc('geohisto/regions')))
   die("Erreur d'ouverture de regions");
-if (!($depts = new_yamlDoc($store, 'geohisto/departements')))
+if (!($depts = new_doc('geohisto/departements')))
   die("Erreur d'ouverture de departements");
 
 // itération sur les régions
@@ -38,7 +39,8 @@ foreach ($regions->extract('/data') as $region) {
 // restructuration pour regrouper les départements par région et renommer les champs de région
 $result = YamlDoc::nest($result, ['rcode'=>'insee_code','rname'=>'name'], 'depts');
 // Renvoi du résultat en y ajoutant le titre du document
-return new YamlDoc([
+$doc = [
   'title'=> "jointure geohisto/regions X geohisto/departements suivie d'un regroupement des départements par région",
   'data'=> $result,
-]);
+];
+return new BasicYamlDoc($doc);
