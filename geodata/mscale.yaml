@@ -51,14 +51,50 @@ layers:
       19: null
     style: |
       function(feature) {
-          if (feature.properties.featurecla == 'Coastline') {
+          if (feature.properties.featurecla == 'Coastline') { // NE
               return {color: 'blue', weight: 1};
-          } else if (feature.properties.nature == 'Limite côtière') {
+          } else if (feature.properties.nature == 'Limite côtière') { // Route500 + BDCarto
+              return {color: 'blue', weight: 1};
+          } else if (feature.properties.nature == 'Hautes mers') { // BDTopo
               return {color: 'blue', weight: 1};
           } else {
               return {color: 'chocolate', weight: 1};
           }
       }
+    displayedByDefault: true
+
+  populated_places:
+    title: City and town points
+    onZoomGeo:
+      0: /geodata/ne_110m/populated_places_simple # 0-3
+      5: /geodata/ne_10m/populated_places_simple # 4-8
+      9:
+        FXX: /geodata/route500/noeud_commune # 9-11
+        WLD: /geodata/ne_10m/populated_places_simple
+      12:
+        FXX: /geodata/bdcarto/zone_habitat # 12-14
+        WLD: /geodata/ne_10m/populated_places_simple
+      14: /geodata/bdtopo/chef_lieu # 15-18
+      19: null
+    pointToLayer: |
+      function(feature, latlng) {
+        var label = '';
+        if (feature.properties.nom) // bdtopo
+          label = feature.properties.nom;
+        else if (feature.properties.toponyme) // bdcarto
+          label = feature.properties.toponyme;
+        else if (feature.properties.nom_comm) // route500
+          label = feature.properties.nom_comm;
+        else if (feature.properties.name) // ne_10m + ne_110m
+          label = feature.properties.name;
+        var myIcon = L.icon({
+            iconUrl: '/yamldoc/label.php?color=DarkSlateGray&font=3&label='+label,
+            iconSize: [label.length*7, 13],
+            iconAnchor: [label.length*7/2, 6],
+        });
+        return L.marker(latlng, {icon: myIcon});
+      }
+    displayedByDefault: true
 
   rivers_lake_centerlines:
     title: Rivers and lake centerlines
@@ -74,9 +110,11 @@ layers:
       14: /geodata/bdtopo/troncon_cours_eau # 14-18
       19: null
     style: { color: darkBlue, weight: 1, opacity: 0.65 }
+    displayedByDefault: true
 
   roads:
     title: Routes
+    minZoom: 4
     onZoomGeo:
       4: /geodata/ne_10m/roads # 4-8
       9:
@@ -88,9 +126,11 @@ layers:
       14: /geodata/bdtopo/route # 14-18
       19: null
     style: { color: red, weight: 1, opacity: 0.65 }
+    displayedByDefault: true
 
   railroads:
     title: Voies ferrées
+    minZoom: 4
     onZoomGeo:
       4: /geodata/ne_10m/railroads # 4-8
       9:
@@ -102,9 +142,12 @@ layers:
       14: /geodata/bdtopo/troncon_voie_ferree # 14-18
       19: null
     style: { color: darkGrey, weight: 1, opacity: 0.65 }
+    displayedByDefault: true
 
-  railroads:
+  urban_areas:
     title: Espaces urbanisés
+    minZoom: 4
+    maxZoom: 13
     onZoomGeo:
       4: /geodata/ne_10m/urban_areas # 4-8
       9:
@@ -115,3 +158,4 @@ layers:
         WLD: /geodata/ne_10m/urban_areas # 12-13
       14: null
     style: { color: maroon, weight: 1, opacity: 0.65 }
+    displayedByDefault: true

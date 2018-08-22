@@ -36,304 +36,362 @@ referer: http://gexplor.fr/
 minZoom: 11
 maxZoom: 18
 
-layers:
-# Thème ADMINISTRATIF
-  limite_administrative:
-    title: limite administrative
-    conformsTo:
-      description: Portion continue de contour de commune
-      geometryType: LineString
-      properties:
-        id:
-          description: Identifiant de la limite administrative
-        nature:
-          description: Nature de la limite administrative
-          enum:
-            'Frontière internationale':
-              description: Limite d’État
-            'Limite côtière':
-              description: Laisse des plus hautes eaux
-            'Limite de région':
-              description: Limite régionale
-            'Limite de département':
-              description: Limite départementale
-            'Limite d''arrondissement':
-              description: Limite d’arrondissement
-            'Limite de commune':
-              description: Limite de communale
-        precision:
-          description: Précision de la localisation
-          enum:
-            'Standard':
-              description: Précision standard de localisation
-            'Non définie':
-              description: >
-                Précision non définie, en particulier pour les limites s’appuyant sur les surfaces d’eau
-                du domaine public de l’État
-    minZoom: 0
-    onZoomGeo:
-      0: /geodata/ne_110m/coastAdminBoundaryLines
-      4: /geodata/ne_10m/coastAdminBoundaryLines
-      7: /geodata/route500/limite_administrative
-      9: nature in ('Limite côtière','Frontière internationale','Limite de région')
-      10: nature in ('Limite côtière','Frontière internationale','Limite de région','Limite de département')
-      12: all
-    style: |
-      function(feature) {
-          switch (feature.properties.nature) {
-              case 'Limite côtière': return {color: 'blue', weight: 1};
-              case 'Frontière internationale': return {color: 'chocolate'};
-              case 'Limite de région': return {color: 'red', weight: 1};
-              case 'Limite de département': return {color: 'orange', weight: 1};
-              case 'Limite d\'arrondissement':   return {color: 'lightGrey', weight: 1};
-              case 'Limite de commune':   return {color: 'lightGrey', weight: 1};
-          }
-          // /geodata/ne_110m/coastAdminBoundaryLines + /geodata/ne_10m/coastAdminBoundaryLines
-          switch (feature.properties.featurecla) {
-              case 'Coastline': return {color: 'blue', weight: 1};
-              default: return {color: 'chocolate', weight: 2};
-          }
-      }
-    displayedByDefault: true
-    typename: BDCARTO_BDD_WLD_WGS84G:limite_administrative
-  coastline:
-    title: Limite côtière
-    description: Laisse des plus hautes eaux
-    select: limite_administrative / nature='Limite côtière'
-    style: { color: blue, weight: 2, opacity: 0.65 }
-  region:
-    title: région
-    style: { color: red, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:region
-  departement:
-    title: départment
-    style: { color: orange, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:departement
-  arrondissement:
-    title: arrondissement
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:arrondissement
-  commune:
-    title: commune
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:commune
-
-  # Thème Equipement
-  aerodrome:
-    title: aerodrome
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:aerodrome
-  piste_aerodrome:
-    title: piste_aerodrome
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:piste_aerodrome
-  metro_aerien:
-    title: metro_aerien
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:metro_aerien
-  transport_cable:
-    title: transport_cable
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:transport_cable
-  ligne_electrique:
-    title: ligne_electrique
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:ligne_electrique
-  cimetiere:
-    title: cimetiere
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:cimetiere
-  construction_elevee:
-    title: construction_elevee
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:construction_elevee
-  digue:
-    title: digue
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:digue
-  enceinte_militaire:
-    title: enceinte_militaire
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:enceinte_militaire
-
-  # Thème Habillage
-  zone_occupation_sol:
-    title: zone_occupation_sol
-    style: |
-      function(feature) {
-          switch (feature.properties.nature) {
-              case 'Eau libre': return { color: 'blue', weight: 0, opacity: 0.8 };
-              case 'Forêt': return { color: 'green', weight: 0, opacity: 0.8 };
-              case 'Bâti': return { color: 'OrangeRed', weight: 0, opacity: 0.8 };
-              case 'Vigne, verger': return { color: 'fuchsia', weight: 0, opacity: 0.8 };
-              case 'Prairie': return { color: 'lightGreen', weight: 0, opacity: 0.8 };
-              case 'Marais, tourbière': return { color: 'LightSeaGreen', weight: 0, opacity: 0.8 };
-              case 'Zone d\'activités': return { color: 'Maroon', weight: 0, opacity: 0.8 };
-              
-              default: return { color: 'red', weight: 2, opacity: 1 }; // identif des natures non prises en compte
-          }
-      }
-    typename: BDCARTO_BDD_WLD_WGS84G:zone_occupation_sol
-  zone_batie_activites:
-    title: Zones bâties et d'activités
-    select: zone_occupation_sol / nature in ('Bâti','Zone d\'activités')
-    style: { color: Maroon, weight: 1, opacity: 0.65 }
-    
-  # Thème Hydrographie
-  troncon_hydrographique:
-    title: Cours d’eau
-    minZoom: 0
-    onZoomGeo:
-      0: /geodata/ne_110m/rivers_lake_centerlines
-      4: /geodata/ne_10m/rivers_lake_centerlines_scale_rank
-      9: classe in ('100')
-      10: classe in ('100','50')
-      11: classe in ('100','50','25')
-      12: classe in ('100','50','25','10')
-      13: all
-    style: { color: MediumBlue, weight: 1, opacity: 0.65 }
-    displayedByDefault: true
-    typename: BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique
-  surface_hydrographique:
-    title: Zone couverte d’eau
-    style: { color: blue, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:surface_hydrographique
-  ponctuel_hydrographique:
-    title: Nœud hydrographique et point d’eau isolé
-    typename: BDCARTO_BDD_WLD_WGS84G:ponctuel_hydrographique
-  laisse:
-    title: laisse
-    style: { color: mediumSeaGreen, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:laisse
-  zone_hydrographique_texture:
-    title: Zone hydrographie de texture
-    style: { color: mediumSeaGreen, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:zone_hydrographique_texture
-  
-  # Thème Réseau ferré
-  troncon_voie_ferree:
-    title: troncon_voie_ferree
-    minZoom: 4
-    onZoomGeo:
-      4: /geodata/ne_10m/railroads
-      8: /geodata/route500/troncon_voie_ferree
-      9: nature='LGV' or energie='Electrifiée'
-      11: all
-    style: |
-      function(feature) {
-        if (feature.properties.nature=='LGV')
-          return { color: 'black', weight: 2, opacity: 1 };
-        else if (feature.properties.energie=='Electrifiée')
-          return { color: 'black', weight: 1, opacity: 1 };
-        else
-          return { color: 'black', weight: 1, 
-          line_dasharray: [2, 1],
-          //'dasharray': '4, 5',
-          opacity: 0.65 };
-      }
-    typename: BDCARTO_BDD_WLD_WGS84G:troncon_voie_ferree
-  noeud_ferre:
-    title: noeud_ferre
-    minZoom: 8
-    onZoomGeo:
-      8: nature in ('Gare de voyageurs','Gare de voyageurs et de fret','Gare de fret')
-      11: all
-    pointToLayer: |
-      function(feature, latlng) {
-        switch(feature.properties.nature) {
-          case 'Gare de voyageurs': return L.marker(latlng, markerLib.railway);
-          case 'Gare de voyageurs et de fret': return L.marker(latlng, markerLib.railway);
-          case 'Gare de fret': return L.marker(latlng, markerLib.steamtrain);
-          case 'Embranchement': return L.marker(latlng, markerLib.junction);
-          case 'Changement d\'attribut': return L.marker(latlng, markerLib.point55);
-          default: return L.marker(latlng, markerLib.warning);
+layersByTheme:
+  Thème_Administratif:
+    limite_administrative:
+      title: limite administrative
+      conformsTo:
+        description: Portion continue de contour de commune
+        geometryType: LineString
+        properties:
+          id:
+            description: Identifiant de la limite administrative
+          nature:
+            description: Nature de la limite administrative
+            enum:
+              'Frontière internationale':
+                description: Limite d’État
+              'Limite côtière':
+                description: Laisse des plus hautes eaux
+              'Limite de région':
+                description: Limite régionale
+              'Limite de département':
+                description: Limite départementale
+              'Limite d''arrondissement':
+                description: Limite d’arrondissement
+              'Limite de commune':
+                description: Limite de communale
+          precision:
+            description: Précision de la localisation
+            enum:
+              'Standard':
+                description: Précision standard de localisation
+              'Non définie':
+                description: >
+                  Précision non définie, en particulier pour les limites s’appuyant sur les surfaces d’eau
+                  du domaine public de l’État
+      minZoom: 0
+      onZoomGeo:
+        0: /geodata/ne_110m/coastAdminBoundaryLines
+        4: /geodata/ne_10m/coastAdminBoundaryLines
+        7: /geodata/route500/limite_administrative
+        9: nature in ('Limite côtière','Frontière internationale','Limite de région')
+        10: nature in ('Limite côtière','Frontière internationale','Limite de région','Limite de département')
+        12: all
+      style: |
+        function(feature) {
+            switch (feature.properties.nature) {
+                case 'Limite côtière': return {color: 'blue', weight: 1};
+                case 'Frontière internationale': return {color: 'chocolate'};
+                case 'Limite de région': return {color: 'red', weight: 1};
+                case 'Limite de département': return {color: 'orange', weight: 1};
+                case 'Limite d\'arrondissement':   return {color: 'lightGrey', weight: 1};
+                case 'Limite de commune':   return {color: 'lightGrey', weight: 1};
+            }
+            // /geodata/ne_110m/coastAdminBoundaryLines + /geodata/ne_10m/coastAdminBoundaryLines
+            switch (feature.properties.featurecla) {
+                case 'Coastline': return {color: 'blue', weight: 1};
+                default: return {color: 'chocolate', weight: 2};
+            }
         }
-      }
-    typename: BDCARTO_BDD_WLD_WGS84G:noeud_ferre
-   
-  # Thème Réseau routier
-  troncon_route:
-    title: troncon_route
-    minZoom: 4
-    onZoomGeo:
-      4: /geodata/ne_10m/roads
-      9: /geodata/route500/troncon_route
-      10: vocation in ('Type autoroutier','Liaison principale')
-      12: vocation in ('Type autoroutier','Liaison principale','Liaison régionale')
-      13: all
-    style: |
-      function(feature) {
-          switch (feature.properties.vocation) {
-              case 'Type autoroutier': return { color: 'violet', weight: 2};
-              case 'Liaison principale': return { color: 'red', weight: 1};
-              case 'Liaison régionale': return { color: 'orange', weight: 1};
-              case 'Liaison locale': return { color: 'gold', weight: 1};
-              case 'Bretelle': return { color: 'red', weight: 1};
-          }
-          switch (feature.properties.scalerank) {
-              case '3': return { color: 'violet', weight: 2, opacity: 0.9 };
-              case '4': return { color: 'violet', weight: 2, opacity: 0.9 };
-              case '5': return { color: 'red', weight: 1, opacity: 0.9};
-              case '6': return { color: 'red', weight: 1, opacity: 0.9};
-              case '7': return { color: 'orange', weight: 1, opacity: 0.9};
-              case '8': return { color: 'orange', weight: 1, opacity: 0.9};
-              case '9': return { color: 'orange', weight: 1, opacity: 0.9};
-              case '10': return { color: 'gold', weight: 1, opacity: 0.9};
-          }
-      }
-    displayedByDefault: true
-    typename: BDCARTO_BDD_WLD_WGS84G:troncon_route
-  noeud_routier:
-    title: noeud_routier
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:noeud_routier
-  liaison_maritime:
-    title: liaison_maritime
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:liaison_maritime
-  itineraire:
-    title: itineraire
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:itineraire
-  franchissement:
-    title: franchissement
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:franchissement
-  communication_restreinte:
-    title: communication_restreinte
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:communication_restreinte
-  equipement_routier:
-    title: equipement_routier
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:equipement_routier
-  acces_equipement:
-    title: acces_equipement
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:acces_equipement
+      displayedByDefault: true
+      typename: BDCARTO_BDD_WLD_WGS84G:limite_administrative
+    coastline:
+      title: Limite côtière
+      description: Laisse des plus hautes eaux
+      select: limite_administrative / nature='Limite côtière'
+      style: { color: blue, weight: 2, opacity: 0.65 }
+    region:
+      title: région
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:region
+    departement:
+      title: départment
+      style: { color: orange, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:departement
+    arrondissement:
+      title: arrondissement
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:arrondissement
+    commune:
+      title: commune
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:commune
+
+  Thème_Equipement:
+    aerodrome:
+      title: aerodrome
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:aerodrome
+    piste_aerodrome:
+      title: piste_aerodrome
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:piste_aerodrome
+    metro_aerien:
+      title: metro_aerien
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:metro_aerien
+    transport_cable:
+      title: transport_cable
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:transport_cable
+    ligne_electrique:
+      title: ligne_electrique
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:ligne_electrique
+    cimetiere:
+      title: cimetiere
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:cimetiere
+    construction_elevee:
+      title: construction_elevee
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:construction_elevee
+    digue:
+      title: digue
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:digue
+    enceinte_militaire:
+      title: enceinte_militaire
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:enceinte_militaire
+
+  Thème_Habillage:
+    zone_occupation_sol:
+      title: zone_occupation_sol
+      style: |
+        function(feature) {
+            switch (feature.properties.nature) {
+                case 'Eau libre': return { color: 'blue', weight: 0, opacity: 0.8 };
+                case 'Forêt': return { color: 'green', weight: 0, opacity: 0.8 };
+                case 'Bâti': return { color: 'OrangeRed', weight: 0, opacity: 0.8 };
+                case 'Vigne, verger': return { color: 'fuchsia', weight: 0, opacity: 0.8 };
+                case 'Prairie': return { color: 'lightGreen', weight: 0, opacity: 0.8 };
+                case 'Marais, tourbière': return { color: 'LightSeaGreen', weight: 0, opacity: 0.8 };
+                case 'Zone d\'activités': return { color: 'Maroon', weight: 0, opacity: 0.8 };
+              
+                default: return { color: 'red', weight: 2, opacity: 1 }; // identif des natures non prises en compte
+            }
+        }
+      typename: BDCARTO_BDD_WLD_WGS84G:zone_occupation_sol
+    zone_batie_activites:
+      title: Zones bâties et d'activités
+      select: zone_occupation_sol / nature in ('Bâti','Zone d\'activités')
+      style: { color: Maroon, weight: 1, opacity: 0.65 }
     
-  # Thème Toponymie
-  etablissement:
-    title: etablissement
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:etablissement
-  massif_boise:
-    title: massif_boise
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:massif_boise
-  point_remarquable_relief:
-    title: point_remarquable_relief
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:point_remarquable_relief
-  zone_activite:
-    title: zone_activite
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:zone_activite
-  zone_habitat:
-    title: zone_habitat
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:zone_habitat
-  zone_reglementee_touristique:
-    title: zone_reglementee_touristique
-    style: { color: darkGrey, weight: 1, opacity: 0.65 }
-    typename: BDCARTO_BDD_WLD_WGS84G:zone_reglementee_touristique
+  Thème_Hydrographie:
+    troncon_hydrographique:
+      title: Cours d’eau
+      minZoom: 0
+      onZoomGeo:
+        0: /geodata/ne_110m/rivers_lake_centerlines
+        4: /geodata/ne_10m/rivers_lake_centerlines_scale_rank
+        9: classe in ('100')
+        10: classe in ('100','50')
+        11: classe in ('100','50','25')
+        12: classe in ('100','50','25','10')
+        13: all
+      style: { color: MediumBlue, weight: 1, opacity: 0.65 }
+      displayedByDefault: true
+      typename: BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique
+    surface_hydrographique:
+      title: Zone couverte d’eau
+      style: { color: blue, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:surface_hydrographique
+    ponctuel_hydrographique:
+      title: Nœud hydrographique et point d’eau isolé
+      typename: BDCARTO_BDD_WLD_WGS84G:ponctuel_hydrographique
+    laisse:
+      title: laisse
+      style: { color: mediumSeaGreen, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:laisse
+    zone_hydrographique_texture:
+      title: Zone hydrographie de texture
+      style: { color: mediumSeaGreen, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:zone_hydrographique_texture
+  
+  Thème_Réseau_ferré:
+    troncon_voie_ferree:
+      title: troncon_voie_ferree
+      minZoom: 4
+      onZoomGeo:
+        4: /geodata/ne_10m/railroads
+        8: /geodata/route500/troncon_voie_ferree
+        9: nature='LGV' or energie='Electrifiée'
+        11: all
+      style: |
+        function(feature) {
+          if (feature.properties.nature=='LGV')
+            return { color: 'black', weight: 2, opacity: 1 };
+          else if (feature.properties.energie=='Electrifiée')
+            return { color: 'black', weight: 1, opacity: 1 };
+          else
+            return { color: 'black', weight: 1, 
+            line_dasharray: [2, 1],
+            //'dasharray': '4, 5',
+            opacity: 0.65 };
+        }
+      typename: BDCARTO_BDD_WLD_WGS84G:troncon_voie_ferree
+    noeud_ferre:
+      title: noeud_ferre
+      minZoom: 8
+      onZoomGeo:
+        8: nature in ('Gare de voyageurs','Gare de voyageurs et de fret','Gare de fret')
+        11: all
+      pointToLayer: |
+        function(feature, latlng) {
+          switch(feature.properties.nature) {
+            case 'Gare de voyageurs': return L.marker(latlng, markerLib.railway);
+            case 'Gare de voyageurs et de fret': return L.marker(latlng, markerLib.railway);
+            case 'Gare de fret': return L.marker(latlng, markerLib.steamtrain);
+            case 'Embranchement': return L.marker(latlng, markerLib.junction);
+            case 'Changement d\'attribut': return L.marker(latlng, markerLib.point55);
+            default: return L.marker(latlng, markerLib.warning);
+          }
+        }
+      typename: BDCARTO_BDD_WLD_WGS84G:noeud_ferre
+   
+  Thème_Réseau_routier:
+    troncon_route:
+      title: troncon_route
+      minZoom: 4
+      onZoomGeo:
+        4: /geodata/ne_10m/roads
+        9: /geodata/route500/troncon_route
+        10: vocation in ('Type autoroutier','Liaison principale')
+        12: vocation in ('Type autoroutier','Liaison principale','Liaison régionale')
+        13: all
+      style: |
+        function(feature) {
+            switch (feature.properties.vocation) {
+                case 'Type autoroutier': return { color: 'violet', weight: 2};
+                case 'Liaison principale': return { color: 'red', weight: 1};
+                case 'Liaison régionale': return { color: 'orange', weight: 1};
+                case 'Liaison locale': return { color: 'gold', weight: 1};
+                case 'Bretelle': return { color: 'red', weight: 1};
+            }
+            switch (feature.properties.scalerank) {
+                case '3': return { color: 'violet', weight: 2, opacity: 0.9 };
+                case '4': return { color: 'violet', weight: 2, opacity: 0.9 };
+                case '5': return { color: 'red', weight: 1, opacity: 0.9};
+                case '6': return { color: 'red', weight: 1, opacity: 0.9};
+                case '7': return { color: 'orange', weight: 1, opacity: 0.9};
+                case '8': return { color: 'orange', weight: 1, opacity: 0.9};
+                case '9': return { color: 'orange', weight: 1, opacity: 0.9};
+                case '10': return { color: 'gold', weight: 1, opacity: 0.9};
+            }
+        }
+      displayedByDefault: true
+      typename: BDCARTO_BDD_WLD_WGS84G:troncon_route
+    noeud_routier:
+      title: noeud_routier
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:noeud_routier
+    liaison_maritime:
+      title: liaison_maritime
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:liaison_maritime
+    itineraire:
+      title: itineraire
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:itineraire
+    franchissement:
+      title: franchissement
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:franchissement
+    communication_restreinte:
+      title: communication_restreinte
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:communication_restreinte
+    equipement_routier:
+      title: equipement_routier
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:equipement_routier
+    acces_equipement:
+      title: acces_equipement
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:acces_equipement
+    
+  Thème_Toponymie:
+    etablissement:
+      title: etablissement
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:etablissement
+    massif_boise:
+      title: massif_boise
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:massif_boise
+    point_remarquable_relief:
+      title: point_remarquable_relief
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:point_remarquable_relief
+    zone_activite:
+      title: zone_activite
+      style: { color: darkGrey, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:zone_activite
+    zone_habitat:
+      title: zone d’habitat
+      conformsTo:
+        description: Point représentant une zone d’habitat.
+        geometryType: Point
+        properties:
+          id:
+            description: Identifiant de la zone d’habitat
+          importance:
+            description: Importance de la zone d’habitat.
+            enum:
+              'Chef-lieu de commune':
+                description: Chef-lieu de commune
+              'Quartier de ville':
+                description: Quartier de ville
+              'Hameau':
+                description: Hameau
+              'Sans objet':
+                description: Sans objet
+          insee:
+            description: Numéro INSEE de la commune dont la zone d’habitat est chef-lieu.
+          toponyme:
+            description: Toponyme éventuellement associé à la zone d’habitat.
+      minZoom: 0
+      onZoomGeo:
+        0: /geodata/ne_10m/populated_places_simple
+        4: /geodata/ne_10m/populated_places_simple
+        9: /geodata/route500/noeud_commune
+        11: importance = 'Chef-lieu de commune'
+        12: importance in ('Chef-lieu de commune','Quartier de ville')
+        13: all
+      pointToLayer: |
+        function(feature, latlng) {
+          var label = '';
+          if (feature.properties.toponyme) // bdcarto
+            label = feature.properties.toponyme;
+          else if (feature.properties.nom_comm) // route500
+            label = feature.properties.nom_comm;
+          else if (feature.properties.name) // ne_10m + ne_110m
+            label = feature.properties.name;
+          var myIcon = L.icon({
+              iconUrl: '/yamldoc/label.php?color=DarkSlateGray&font=3&label='+label,
+              iconSize: [label.length*7, 13],
+              iconAnchor: [label.length*7/2, 6],
+              //popupAnchor: [label.length*7/2, 6]
+          });
+          return L.marker(latlng, {icon: myIcon});
+        }
+      displayedByDefault: true
+      typename: BDCARTO_BDD_WLD_WGS84G:zone_habitat
+    zone_reglementee_touristique:
+      title: Zone réglementée et d’intérêt touristique
+      description: |
+        Sont retenus :
+          
+          - les parcs naturels marins et les parcs nationaux avec leurs zones périphériques ;
+          - les parcs naturels régionaux ;
+          - les  réserves naturelles accessibles au public.
+            Dans certaines de ces réserves, le public ne peut pas pénétrer mais l’observation peut
+            se faire de l’extérieur ; c’est le cas le plus courant pour les îles.
+            Une réserve naturelle est un espace soumis à des restrictions et à une législation particulière
+            afin de protéger un milieu naturel fragile ou menacé ;
+          - les réserves nationales de chasse ;
+          - certaines forêts domaniales.
+      style: { color: green, weight: 1, opacity: 0.65 }
+      typename: BDCARTO_BDD_WLD_WGS84G:zone_reglementee_touristique

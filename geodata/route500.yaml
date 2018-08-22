@@ -85,14 +85,27 @@ layers:
       id_rte500: true
   noeud_commune:
     title: noeud_commune
+    minZoom: 0
     onZoomGeo:
-      6: statut in ('Préfecture de région','Préfecture')
+      0: /geodata/ne_10m/populated_places_simple
+      4: statut in ('Préfecture de région')
+      7: statut in ('Préfecture de région','Préfecture')
       9: statut in ('Préfecture de région','Préfecture','Sous-préfecture')
+      10: statut in ('Préfecture de région','Préfecture','Sous-préfecture') or (population >= 10.0)
       11: population >= 1.0
       13: all
-    label:
-      field: nom_comm
-      color: black
+    pointToLayer: |
+      function(feature, latlng) {
+        var label = feature.properties.nom_comm;
+        var myIcon = L.icon({
+            iconUrl: '/yamldoc/label.php?color=DarkSlateGray&font=3&label='+label,
+            iconSize: [label.length*7, 13],
+            iconAnchor: [label.length*7/2, 6],
+            popupAnchor: [label.length*7/2, 6]
+        });
+        return L.marker(latlng, {icon: myIcon});
+      }
+    displayedByDefault: true
     ogrPath: RESEAU_ROUTIER/NOEUD_COMMUNE.shp
     indexes:
       id_rte500: true

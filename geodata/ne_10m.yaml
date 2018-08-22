@@ -330,6 +330,27 @@ layers:
   # populated_places: { title: populated_places, ogrPath: ne_10m_populated_places.shp }
   populated_places_simple:
     title: City and town points
+    minZoom: 2
+    onZoomGeo:
+      2: scalerank = 0
+      3: scalerank <= 1
+      4: scalerank <= 2
+      5: scalerank <= 3
+      6: scalerank <= 6
+      7: scalerank <= 7
+      8: all
+    pointToLayer: |
+      function(feature, latlng) {
+        var label = feature.properties.name;
+        var myIcon = L.icon({
+            iconUrl: '/yamldoc/label.php?color=DarkSlateGray&font=3&label='+label,
+            iconSize: [label.length*7, 13],
+            iconAnchor: [label.length*7/2, 6],
+            popupAnchor: [label.length*7/2, 6]
+        });
+        return L.marker(latlng, {icon: myIcon});
+      }
+    displayedByDefault: true
     ogrPath: ne_10m_populated_places_simple.shp
   roads:
     title: roads
