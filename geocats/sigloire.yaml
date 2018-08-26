@@ -1,11 +1,18 @@
 title: catalogue SigLoire
 abstract: |
   test de la classe Geocat  
-  **URL de test**:
+  **URL de test html**:
+    
+    - [affichage des mots-clés](?ypath=/listSubjects)
+    
+  **URL de test JSON**:
     
     - [affichage du doc](id.php/geocats/sigloire)
     - [build](id.php/geocats/sigloire/build)
-    - [search](id.php/geocats/sigloire/search)
+    - [search plein texte sur urbanisme](id.php/geocats/sigloire/search?text=urbanisme)
+    - [listSubjects](id.php/geocats/sigloire/listSubjects)
+    - [search subject Aménagement Urbanisme/Zonages Planification](id.php/geocats/sigloire/search?subject=Aménagement+Urbanisme/Zonages+Planification)
+    - [affichage d'un record](id.php/geocats/sigloire/items/7661247d9e2491969735384e20903b13)
     
 yamlClass: Geocat
 urlCsw: https://catalogue.sigloire.fr/geonetwork/srv/fre/csw

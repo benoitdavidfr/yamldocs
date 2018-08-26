@@ -83,75 +83,8 @@ api: |
   {geocat}/items/{resid}/wms?params: 
     pour un service WMS exécute la requête WMS
 
-paths:
-  /:
-    get:
-      tags:
-        - API documentation
-      summary: Returns a short description of the API
-      operationId: desc
-      produces:
-        - text/html
-        - application/json
-      responses:
-        '200':
-          description: opération réussie
-  /doc:
-    get:
-      tags:
-        - API documentation
-      summary: Forward to complete documentation site
-      operationId: doc
-      produces:
-        - text/html
-      responses:
-        '200':
-          description: opération réussie
-  /spec:
-    get:
-      tags:
-        - API documentation
-      summary: Forward to API specification in Swagger
-      operationId: spec
-      produces:
-        - text/html
-        - application/json
-      responses:
-        '200':
-          description: opération réussie
-  /terms:
-    get:
-      tags:
-        - API documentation
-      summary: Returns the terms of use
-      operationId: terms
-      produces:
-        - text/html
-      responses:
-        '200':
-          description: opération réussie
-  '/{dsid}':
-    get:
-      tags:
-        - dataset URI
-      summary: the dataset URI returns the dataset metadata
-      operationId: datasetUri
-      produces:
-        - application/json
-      parameters:
-        - name: dsid
-          in: path
-          description: ID of the dataset
-          required: true
-          type: string
-      responses:
-        '200':
-          description: >-
-            the dataset metadata
-            'https://raw.githubusercontent.com/benoitdavidfr/inspireinoai/master/metadata.yaml#/definitions/metadata'
-          schema:
-            $ref: '#/definitions/metadata'
-        '404':
-          description: no dataset corresponds to this URI
-        '410':
-          description: the dataset corresponding to this URI doesn't exist anymore
+search: |
+  - sélectionner un ou plusieurs mots-clé
+    subject={subject}
+  - recherche plein texte
+    text={text}
