@@ -20,7 +20,6 @@ else {
   $text = <<<EOT
 title: Codifications des langues selon la norme ISO 639
 language: [fr, en]
-source: https://www.loc.gov/standards/iso639-2/php/English_list.php
 description: |
   Ce document présente la norme ISO 639 en 2 thésaurus, le premier pour les codes alpha-2 (ISO 639-1)
   et le second pour les codes alpha-3 (ISO 639-2).  
@@ -28,6 +27,7 @@ description: |
   un code bibliographique (ISO 639-2/B) et un code terminologique (ISO 639-2/T).
   Dans ce cas l'indication (ISO 639-2/T) est ajoutée derrière le nom de la langue du code terminologique.  
   Ces thésaurus sont produits à partir du document cité en source.
+  source: https://www.loc.gov/standards/iso639-2/php/English_list.php
 domainScheme:
   prefLabel:
     fr: Codifications des langues selon la norme ISO 639

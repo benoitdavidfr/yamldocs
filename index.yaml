@@ -25,3 +25,7 @@ contents:
     title: Test d'un modèle de données des métadonnées Inspire
   inspire-directive:
     title: Test de structuration de la directive Inspire
+  iso:
+    title: Qqs normes ISO d'intérêt pour l'information géographique
+  iso639:
+    title: Codifications des langues selon la norme ISO 639

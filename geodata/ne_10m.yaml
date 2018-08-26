@@ -6,6 +6,7 @@ abstract: |
   The 1:10 million scale is the most detailed. Suitable for making zoomed-in maps of countries and regions.
   Show the world on a large wall poster.
   
+  Displays mainly between zooms 4 and 8.  
   Complete display at zoom 8.
   
   **Corresponding maps**:
@@ -468,7 +469,7 @@ layers:
     style: { color: sandyBrown, weight: 1, opacity: 0.10 }
     ogrPath: ne_10m_admin_0_map_subunits.shp
   
-# Fichiers shp non recopiés comme layer
+# Fichiers shp non pris en compte comme layer
 shpfiles: |
   ne_10m_admin_0_antarctic_claim_limit_lines.shp
   ne_10m_admin_0_antarctic_claims.shp

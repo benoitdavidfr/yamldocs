@@ -1,0 +1,11 @@
+title: catalogue SigLoire
+abstract: |
+  test de la classe Geocat  
+  **URL de test**:
+    
+    - [affichage du doc](id.php/geocats/sigloire)
+    - [build](id.php/geocats/sigloire/build)
+    - [search](id.php/geocats/sigloire/search)
+    
+yamlClass: Geocat
+urlCsw: https://catalogue.sigloire.fr/geonetwork/srv/fre/csw

@@ -1,0 +1,4 @@
+title: réflexion sur l'exposition OAI DE YamlDoc
+doc: |
+  Chaque classe d'objet sait définir son interface OAI.
+  Ainsi chaque document expose son API en OAI
