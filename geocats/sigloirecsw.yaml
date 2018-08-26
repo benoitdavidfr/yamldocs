@@ -9,6 +9,7 @@ abstract: |
     - [GetRecordsInIso 1](id.php/geocats/sigloirecsw/GetRecordsInIso/1)
     - [GetRecordsInDC 1](id.php/geocats/sigloirecsw/GetRecordsInDC/1)
     - [harvest](id.php/geocats/sigloirecsw/harvest)
-    
+    - [tests de la classe IsoMetadata](isometadata.inc.php/geocats/sigloirecsw)
+    - [visualisation des MD](isometadata.inc.php/geocats/sigloirecsw?action=std)
 yamlClass: CswServer
 urlCsw: https://catalogue.sigloire.fr/geonetwork/srv/fre/csw
