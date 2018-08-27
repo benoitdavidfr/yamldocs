@@ -1,8 +1,9 @@
 title: réflexion sur l'intégration de catalogues de données géographiques (GeoCat)
-doc: |
-  **Exemples de catalogues**:
+examples: |
+  **Exemples** :
     
     - [SigLoire](?doc=geocats/sigloire)
+    - [une SD issue de SigLoire](?doc=geocats/sigloire-pprt)
     
 GeoCat: |
   Un catalogue de données géographiques (GeoCat) sait exécuter une requête

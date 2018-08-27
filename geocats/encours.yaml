@@ -1,0 +1,21 @@
+title: dev en cours 27/8/2018 6:50
+doc: |
+  pb d'utilisation des serveurs WFS de SigLoire
+  Les appels génèrent des erreurs de PROXY
+  
+  Appel local génèrant les appels WFS:
+  http://localhost/yamldoc/id.php/geocats/sigloire-pprt/ms:n_perimetre_pprt_20090002_s_072?bbox=-10.5,41.7,16.5,51.8&zoom=6
+
+  https://datacarto.sigloire.fr/WFS/340124a8-0c4e-4c1f-88a7-57333f2d8cfe?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=ms:n_perimetre_pprt_20090002_s_072&SRSNAME=CRS:84&RESULTTYPE=hits&CQL_FILTER=Intersects%28the_geom%2CPOLYGON%28%2841.7+-10.5%2C41.7+16.5%2C51.8+16.5%2C51.8+-10.5%2C41.7+-10.5%29%29%29
+
+  https://datacarto.sigloire.fr/WFS/340124a8-0c4e-4c1f-88a7-57333f2d8cfe?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=ms:n_perimetre_pprt_20090002_s_072&SRSNAME=CRS:84&RESULTTYPE=hits
+
+  https://datacarto.sigloire.fr/WFS/340124a8-0c4e-4c1f-88a7-57333f2d8cfe?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetCapabilities
+
+  https://datacarto.sigloire.fr/WFS/n_zone_reg_pprt_20090002_s_072?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=ms:n_perimetre_pprt_20090002_s_072&SRSNAME=CRS:84&RESULTTYPE=hits
+
+  https://datacarto.sigloire.fr/WFS/n_zone_reg_pprt_20090002_s_072?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=ms:n_perimetre_pprt_20090002_s_072&SRSNAME=CRS:84
+
+  https://datacarto.sigloire.fr/WFS/340124a8-0c4e-4c1f-88a7-57333f2d8cfe?service=WFS&version=2.0.0&request=GetFeature&typenames=ms:n_perimetre_pprt_20090002_s_072&srsname=CRS:84&resulttype=hits
+
+  https://datacarto.sigloire.fr/WFS/340124a8-0c4e-4c1f-88a7-57333f2d8cfe?service=WFS&version=2.0.0&request=GetCapabilities

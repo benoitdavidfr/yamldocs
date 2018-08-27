@@ -14,6 +14,7 @@ abstract: |
     - [search subject Aménagement Urbanisme/Zonages Planification](id.php/geocats/sigloire/search?subject=Aménagement+Urbanisme/Zonages+Planification)
     - [affichage d'un record](id.php/geocats/sigloire/items/7661247d9e2491969735384e20903b13)
     - [buildOperatedBy](id.php/geocats/sigloire/buildOperatedBy)
+    - [download d'une SD](id.php/geocats/sigloire/items/f62c888d1bc7d7d0e612c42a31de2d7d/download)
     
 yamlClass: Geocat
 urlCsw: https://catalogue.sigloire.fr/geonetwork/srv/fre/csw
