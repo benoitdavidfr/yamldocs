@@ -25,7 +25,8 @@ abstract: |
     
     - [doc BDCarto](id.php/geodata/bdcarto)
     - [description de limite_administrative](id.php/geodata/bdcarto/limite_administrative)
-    - [affichage de limite_administrative](id.php/geodata/bdcarto/limite_administrative?bbox=1.4,47.3,4.5,48.6&zoom=9)
+    - [affichage de limite_administrative
+    ](id.php/geodata/bdcarto/limite_administrative?bbox=1.4,47.3,4.5,48.6&zoom=9)
 
 identifier: http://professionnels.ign.fr/bdcarto
 coverage: "iso:code:3166:FR (métropole)"
