@@ -1,27 +1,27 @@
-title: Accueil de l'espace public de YamlDoc
+title: 'Accueil de l''espace public de YamlDoc'
 yamlClass: YamlCatalog
 contents:
-  yamldoc:
-    title: Présentation de YamlDoc
-  dublincore:
-    title: Eléments de MD du Dublin Core 
-  skos:
-    title: Vocabulaire SKOS de base en français
-  eurovoc:
-    title: Thésaurus EuroVoc
-  topovoc:
-    title: Lexique topographique (extrait)
-  geodata:
-    title: Accès à des données géographiques
-  geohisto:
-    title: Référentiel géographique administratif historisé
-  inspire-metadata:
-    title: Eléments de métadonnées Inspire, ISO et Dublin Core
-  inspire-mdcvoc:
-    title: Thèmes Inspire et vocabulaires contrôlés utilisés pour les métadonnées
-  inspire-datamodel:
-    title: Modèle de données Inspire déduit du règlement interopérabilité
-  inspire-metadata2:
-    title: Test d'un modèle de données des métadonnées Inspire
-  inspire-directive:
-    title: Test de structuration de la directive Inspire
+    yamldoc:
+        title: 'Présentation de YamlDoc'
+    dublincore:
+        title: 'Eléments de MD du Dublin Core'
+    skos:
+        title: 'Vocabulaire SKOS de base en français'
+    eurovoc:
+        title: 'Thésaurus EuroVoc'
+    topovoc:
+        title: 'Lexique topographique (extrait)'
+    geodata:
+        title: 'Accès à des données géographiques'
+    geohisto:
+        title: 'Référentiel géographique administratif historisé'
+    inspire-metadata:
+        title: 'Eléments de métadonnées Inspire, ISO et Dublin Core'
+    inspire-mdcvoc:
+        title: 'Thèmes Inspire et vocabulaires contrôlés utilisés pour les métadonnées'
+    inspire-datamodel:
+        title: 'Modèle de données Inspire déduit du règlement interopérabilité'
+    inspire-metadata2:
+        title: 'Test d''un modèle de données des métadonnées Inspire'
+    inspire-directive:
+        title: 'Test de structuration de la directive Inspire'
