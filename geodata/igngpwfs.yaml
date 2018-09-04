@@ -5,22 +5,25 @@ abstract: |
   
   URL de test:
     
-    - [getCapabilities](id.php/geodata/igngpwfs/getCapabilities)
+    - [getCapabilities](id.php/geodata/igngpwfs/getCapabilities),
+      [capabilities](id.php/geodata/igngpwfs/capabilities)
     - [query](id.php/geodata/igngpwfs/query?request=GetCapabilities)
-    - [liste des couches](id.php/geodata/igngpwfs/t)
-    - [dscription de la couche BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique
-      ](id.php/geodata/igngpwfs/t/BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique)
-    - [getFeature pour BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique et bbox=2.2,48.0,3.7,48.6
-      ](id.php/geodata/igngpwfs/t/BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique/getFeature?bbox=2.2,48.0,3.7,48.6)
+    - [liste des couches](id.php/geodata/igngpwfs/ft)
+    - [description de la couche BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique
+      ](id.php/geodata/igngpwfs/ft/BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique)
+    - [nom du champ géométrique de la couche BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique
+      ](id.php/geodata/igngpwfs/ft/BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique/geomPropertyName)
+    - [getFeatures pour BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique et bbox=2.2,48.0,3.7,48.6
+      ](id.php/geodata/igngpwfs/ft/BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique/getFeature?bbox=2.2,48.0,3.7,48.6)
     - [numberMatched pour BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique et bbox=2.2,48.0,3.7,48.6
-      ](id.php/geodata/igngpwfs/t/BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique/numberMatched?bbox=2.2,48.0,3.7,48.6)
+      ](id.php/geodata/igngpwfs/ft/BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique/numberMatched?bbox=2.2,48.0,3.7,48.6)
     - [getAllFeatures pour BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique et bbox=2.2,48.0,3.7,48.6
-      ](id.php/geodata/igngpwfs/t/BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique/getAllFeatures?bbox=2.2,48.0,3.7,48.6)
-    - [getFeature pour BDCARTO_BDD_WLD_WGS84G:transport_cable sans bbox et sans where
-      ](id.php/geodata/igngpwfs/t/BDCARTO_BDD_WLD_WGS84G:transport_cable/getFeature)
-    - [getFeature pour BDCARTO_BDD_WLD_WGS84G:transport_cable sans bbox pour nature='Téléphérique, télécabine'](id.php/geodata/igngpwfs/t/BDCARTO_BDD_WLD_WGS84G:transport_cable/getFeature?where=nature%3D%27T%C3%A9l%C3%A9ph%C3%A9rique%2C+t%C3%A9l%C3%A9cabine%27)
+      ](id.php/geodata/igngpwfs/ft/BDCARTO_BDD_WLD_WGS84G:troncon_hydrographique/getAllFeatures?bbox=2.2,48.0,3.7,48.6)
+    - [getFeatures pour BDCARTO_BDD_WLD_WGS84G:transport_cable sans bbox et sans where
+      ](id.php/geodata/igngpwfs/ft/BDCARTO_BDD_WLD_WGS84G:transport_cable/getFeature)
+    - [getFeature pour BDCARTO_BDD_WLD_WGS84G:transport_cable sans bbox pour nature='Téléphérique, télécabine'](id.php/geodata/igngpwfs/ft/BDCARTO_BDD_WLD_WGS84G:transport_cable/getFeature?where=nature%3D%27T%C3%A9l%C3%A9ph%C3%A9rique%2C+t%C3%A9l%C3%A9cabine%27)
   
 coverage: "iso:code:3166:FR"
-yamlClass: WfsServer
+yamlClass: WfsServerJson
 urlWfs: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
 referer: http://gexplor.fr/

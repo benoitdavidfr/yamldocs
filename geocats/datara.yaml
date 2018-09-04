@@ -1,0 +1,21 @@
+title: catalogue DatAra
+abstract: |
+  test de la classe Geocat  
+  **URL de test html**:
+    
+    - [affichage des mots-clés](?ypath=/listSubjects)
+    
+  **URL de test JSON**:
+    
+    - [affichage du doc](id.php/geocats/datara)
+    - [build](id.php/geocats/datara/build)
+    - [search plein texte sur urbanisme](id.php/geocats/datara/search?text=urbanisme)
+    - [listSubjects](id.php/geocats/datara/listSubjects)
+    - [search subject Aménagement Urbanisme/Zonages Planification](id.php/geocats/datara/search?subject=Aménagement+Urbanisme/Zonages+Planification)
+    - [affichage d'un record](id.php/geocats/datara/items/7661247d9e2491969735384e20903b13)
+    - [buildOperatedBy](id.php/geocats/datara/buildOperatedBy)
+    - [download d'une SD](id.php/geocats/datara/items/f62c888d1bc7d7d0e612c42a31de2d7d/download)
+    
+yamlClass: Geocat
+# http://www.datara.gouv.fr/geonetwork/srv/fre/csw-RAIN?constraintLanguage=CQL_TEXT&
+urlCsw: http://www.datara.gouv.fr/geonetwork/srv/fre/csw-RAIN

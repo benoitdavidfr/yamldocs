@@ -467,6 +467,7 @@ layersByTheme:
     chef_lieu:
       title: Chef-lieu de commune
       conformsTo:
+        source: http://professionnels.ign.fr/doc/DC_BDTOPO_2-2.pdf#%5B%7B%22num%22%3A355%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22XYZ%22%7D%2C69%2C785%2C0%5D
         description: |
           Centre de la zone d’habitat dans laquelle se trouve la mairie de la commune.  
           Dans certains cas, le chef-lieu n’est pas dans la commune.

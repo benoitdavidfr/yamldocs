@@ -1,0 +1,21 @@
+title: GéoCatalogue basique
+astract: |
+   GéoCatalogue des SD décrites dans geodata
+yamlClass: GeoCat
+metadata:
+  geodata/ne_110m:
+    title: Natural Earth 110M
+  geodata/ne_10m:
+    title: Natural Earth 10M
+  geodata/route500:
+    title: ROUTE 500
+  geodata/bdcarto:
+    title: BD Carto
+  geodata/bdtopo:
+    title: BD Topo
+  geodata/adminexpress:
+    title: Admin Express
+  geodata/bdadresse:
+    title: BD ADRESSE
+  geodata/bdparcellaire:
+    title: BD PARCELLAIRE VECTEUR

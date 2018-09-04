@@ -62,7 +62,7 @@ vector: |
   <tr><td colspan=2 align=center>populated_places_simple</td>
     <td align=center>noeud_commune</td><td align=center>zone_habitat</td>
     <td><a href='?doc=geodata/bdtopo&amp;ypath=/layers/chef_lieu'>chef_lieu</a></td>
-    <td>étiquette des noms principales villes</td></tr>
+    <td>étiquette des noms des principales villes</td></tr>
   <tr><td align=center>rivers_lake_centerlines</td><td align=center>rivers_lake_centerlines_scale_rank</td>
     <td colspan=2 align=center>troncon_hydrographique</td>
     <td>troncon_cours_eau</td>

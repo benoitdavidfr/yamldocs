@@ -1,0 +1,61 @@
+title: [Galileo] La révolution du positionnement centimétrique en marche
+source: https://cnes.fr/fr/galileo-la-revolution-du-positionnement-centimetrique-en-marche
+abstract: |
+  Avec sa 4e fréquence d’émission, Galileo ouvre la voie à la diffusion d'une nouvelle méthode de localisation
+  instantanée par satellites au centimètre près. On vous explique tout (ou presque) sur cette technique made in CNES.
+doc: |
+  Si oui, votre position est alors déduite des signaux qu’il reçoit à la fois de satellites GPS et de satellites Galileo.
+  Le tout avec une précision de l’ordre de 5 à 10 m.
+  « Il est difficile de connaître exactement cette précision car elle dépend fortement des conditions atmosphériques
+  et des corrections, que nous ne connaissons pas, appliquées par les fabricants de puce » indique Denis Laurichesse,
+  ingénieur au sein du service “Missions et services de Navigation” du CNES à Toulouse. 
+
+  Une douzaine de sources d’erreurs affecte en effet la localisation précise d’un point par le système de positionnement
+  par satellites dit GNSS (pour Global Navigation Satellite System). Ce sont, par exemple, des erreurs liées :
+  
+    - à la détermination de l’orbite des satellites,
+    - à la synchronisation de leurs horloges,
+    - à la propagation du signal dans l’atmosphère terrestre,
+    - aux réflexions parasites qui dépendent de l’environnement de réception (présence d’immeubles dans les grandes villes),
+      aux caractéristiques de l'antenne du récepteur…
+
+  Pour enlever ces sources d'erreurs et atteindre une précision de l’ordre du centimètre, le CNES a développé,
+  avec persévérance et perspicacité, une méthode de calcul totalement novatrice.
+  
+  Actuellement, la distance entre un satellite GNSS et un récepteur est calculée via le temps mis par le message pour arriver au récepteur. « Avec notre méthode, cette distance est calculée via le nombre de sinusoïdes portés par l'onde envoyée par le satellite et captée par le récepteur » explique Denis Laurichesse. Il suffit ensuite de multiplier ce nombre de ''vagues'' (plus de 100 millions !) par la longueur de l'onde électromagnétique de fréquence connue (environ 20 cm).
+  
+  ### Vers un changement de paradigme ?
+  Jusqu’au début de l’année 2018, cette méthode made in CNES avait un inconvénient majeur.
+  Elle nécessitait que le récepteur reçoive, sans AUCUNE discontinuité, les signaux en provenance d’au moins
+  5 satellites durant une trentaine de minutes.
+  Il ne fallait pas passer sous un pont ! Mais cette limitation vient de disparaître grâce à la mise à
+  disposition gratuite par la Commission européenne de la 4e fréquence des satellites Galileo en mars 2018.
+  Une expérimentation menée par le CNES en Australie, en collaboration avec un laboratoire canadien du NRCAN,
+  vient de le montrer. Les résultats ont été publiés — en priorité  —  dans le journal GPS World, le 4 juillet 2018
+  ([voir l'article 
+  ](http://gpsworld.com/innovation-instantaneous-centimeter-level-multi-frequency-precise-point-positioning/)).
+  
+  Par rapport au GPS qui ne diffuse ses signaux de navigation que sur 3 bandes de fréquences,
+  Galileo nous gratifie d’une 4e bande.
+  
+  Le traitement optimal des données de navigation issues de ces 4 bandes permet d’atteindre des performances ultimes.
+  L’utilisateur pourra bientôt accéder en temps réel et de façon instantanée à une précision centimétrique
+  grâce à Galileo » souligne Nadia Karouche, cheffe du service “Missions et services de navigation” du CNES.
+  
+  Cette révolution méthodologique devrait concerner, dans un premier temps, des applications professionnelles
+  au bénéfice de l’agriculture, la construction, les transports (voitures ou trains autonomes)
+  car les récepteurs multi-fréquences coûtent plus chers que les mono-fréquences. Toutefois,
+  rien ne semble empêcher leur avènement pour le grand public puisque les premiers téléphones dotés d’un récepteur
+  bi-fréquence sont déjà sortis en Chine, en juillet 2018.
+  De plus, des fabricants de puces ont ouvert les mesures brutes des capteurs GNSS, ce qui a déjà permis au CNES
+  de développer une application de position précis pour smartphone sous Android appelée
+  [PPP WizLite](https://cnes.fr/fr/application-mobile-un-positionnement-au-metre-pres-grace-au-cnes).
+  Les satellites chinois Beidou dotés de 5 fréquences de signaux devraient également contribuer à l’émergence
+  et l'expansion de ces techniques dites de “positionnement précis en temps réel”
+  (ou PPP pour Precise Point Positioning).
+  
+EnSavoirPlus:
+  - https://play.google.com/store/apps/details?id=jocs.fr.gnss_ppp
+  - https://cnes.fr/fr/web/CNES-fr/9246-gp-l-amelioration-du-positionnement-gps.php%20%20
+  
+  

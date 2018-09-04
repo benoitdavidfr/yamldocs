@@ -183,3 +183,23 @@ start:
               "longitude": 20.4
             }
           }
+          
+stepByStep:
+  source: https://json-schema.org/understanding-json-schema/structuring.html#reuse
+  extending: |
+    an allOf keyword entry combining both the core address schema definition and an extra schema snippet for the address type:
+        "shipping_address": {
+          "allOf": [
+            // Here, we include our "core" address schema...
+            { "$ref": "#/definitions/address" },
+
+            // ...and then extend it with stuff specific to a shipping
+            // address
+            { "properties": {
+                "type": { "enum": [ "residential", "business" ] }
+              },
+              "required": ["type"]
+            }
+          ]
+        }
+    

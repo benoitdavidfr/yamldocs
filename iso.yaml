@@ -3,7 +3,7 @@ description: |
   Sélection de quelques normes ISO d'intérêt pour l'information géographique.  
   Sont notamment listées les normes référencées dans les règlements Inspire.  
   Dans la mesure du possible sont indiqués la codification CEN et AFNOR.
-  Les normes annulée sont indiquées par le champ replacedBy qui indique la norme remplaçante.
+  Les normes annulées sont indiquées par le champ replacedBy qui indique la norme remplaçante.
 language: [fr,en]
 yamlClass: YamlData
 data:

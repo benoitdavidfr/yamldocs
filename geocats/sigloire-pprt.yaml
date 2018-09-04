@@ -1,0 +1,90 @@
+fileIdentifier: f395d5cc-4434-4f01-9a1a-23dcab144d1f
+parentIdentifier:
+  - 6b70e723-c11c-4be0-99aa-7f739724887a
+title: 'PPRT de Butagaz à Arnage - Sarthe'
+abstract: "Pour les PPRT, le code de l'environnement définit une seule catégorie de zones pour des zones (L515-15 et suiv.) : les zones exposées aux risques. A la différence des PPR naturels, les PPRT ne comportent jamais de zones réglementées non directement exposées aux risques.\n\nEn fonction du niveau d'aléa, chaque zone du PPRT fait l'objet d'un règlement opposable. Les règlements PPRT distinguent généralement deux types de zones :\n\n1- les « zones d'interdiction de construire », dites « zones rouges », lorsque le niveau d'aléa est fort et que la règle générale est l'interdiction de construire ;\n\n2- les « zones soumises à prescriptions », dites « zones bleues », lorsque le niveau d'aléa est moyen et que les projets sont soumis à des prescriptions adaptées au type d'enjeu.\n\nLes instructions du guide d'élaboration PPRT ajoutent une gradation à l'intérieur des « zones rouges » et des « zones bleues »."
+type: dataset
+relation:
+  - url: 'https://catalogue.sigloire.fr/geosource/panierDownloadFrontalParametrage?LAYERIDTS=108335'
+    protocol: 'WWW:DOWNLOAD-1.0-http--download'
+  - url: 'https://catalogue.sigloire.fr/rss/atomfeed/atomdataset/f395d5cc-4434-4f01-9a1a-23dcab144d1f'
+    protocol: 'WWW:LINK-1.0-http--link'
+    name: 'Téléchargement direct des données'
+identifier:
+  - code: 'https://catalogue.sigloire.fr/geonetwork/srv/f395d5cc-4434-4f01-9a1a-23dcab144d1f'
+language:
+  - fre
+format:
+  - name: ZIP
+  - name: ZIP
+characterSet: utf8
+spatialRepresentationType:
+  - vector
+topicCategory:
+  - environment
+subject:
+  - value: 'Zones de gestion, de restriction ou de réglementation et unités de déclaration'
+    cvoc: 'GEMET - INSPIRE themes, version 1.0'
+  - value: 'DDT 72'
+    cvoc: theme.prodige.rdf
+  - value: 'RISQUES TECHNOLOGIQUES'
+    cvoc: theme.prodige.rdf
+  - value: DREAL
+    cvoc: theme.prodige.rdf
+  - value: 'données ouvertes'
+    cvoc: OPENDATA
+  - value: 'open data'
+    cvoc: OPENDATA
+  - value: 'RISQUES TECHNOLOGIQUES'
+    cvoc: theme.prodige.rdf
+  - value: DREAL
+    cvoc: theme.prodige.rdf
+  - value: 'DDT 72'
+    cvoc: theme.prodige.rdf
+  - value: 'GRAND PUBLIC'
+    cvoc: theme.prodige.rdf
+spatial:
+  - westlimit: '-0.423'
+    eastlimit: '0.881'
+    southlimit: '47.575'
+    northlimit: '48.479'
+issued:
+  - '2015-01-29T00:00:00'
+modified:
+  - '2018-07-24T16:30:01'
+lineage: "Les limites d'une zone réglementée sont représentées sur les documents graphiques du PPR. Les limites réglementaires sont généralement calées sur les phénomènes naturels, qui ne suivent ni le découpage cadastral ni les limites administratives. Un PPRT détermine les limites des différentes zones réglementées en fonction de l'emprise calculée des phénomènes dangereux du site.\n\nCertains PPR peuvent parfois contenir des règlements associés à des figurés linéaires ou ponctuels (cavités, axe de ruissellement...). Les primitives graphiques linéaire et ponctuelle sont à utiliser respectivement dans ces cas de figure."
+spatialResolutionScaleDenominator:
+  - '5000'
+conformsTo:
+  - referenceDate: '2010-11-23'
+    title: 'COMMISSION REGULATION (EU) No 1089/2010 of 23 November 2010 implementing Directive 2007/2/EC of the European Parliament and of the Council as regards interoperability of spatial data sets and services'
+    degreeOfConformity: 'true'
+conditionsToAccessAndUse:
+  - 'Aucune condition d''accès ne s''applique. Utilisation libre sous réserve de mentionner la source (a minima le nom du producteur) et la date de sa dernière mise à jour'
+limitationsOnPublicAccess:
+  - code: otherRestrictions
+    others: 'Pas de restriction d’accès public selon INSPIRE'
+responsibleParty:
+  - name: 'DREAL Pays de la Loire (Direction régionale de l''environnement, de l''aménagement et du logement Pays de la Loire)'
+    email: adl.dreal-pdl@developpement-durable.gouv.fr
+    role: pointOfContact
+mdContact:
+  - name: 'DREAL Pays de la Loire (Direction régionale de l''environnement, de l''aménagement et du logement Pays de la Loire)'
+    email: adl.dreal-pdl@developpement-durable.gouv.fr
+mdDate: '2018-07-25T15:37:54'
+mdLanguage: fre
+operatedBy:
+  download:
+    - e510fb5a45dc805b3cb788022ec43fc7
+    - 9f6ed796913e62b7ce9c702761b6479f
+  view:
+    - 55cf7a2e917ee978a767b8a0c3820b00
+yamlClass: VectorDataset
+urlWfs: 'https://datacarto.sigloire.fr/WFS/340124a8-0c4e-4c1f-88a7-57333f2d8cfe'
+layers:
+  'ms:n_zone_reg_pprt_20090002_s_072':
+    title: 'PPRT de Butagaz à Arnage - Sarthe'
+    typename: 'ms:n_zone_reg_pprt_20090002_s_072'
+  'ms:n_perimetre_pprt_20090002_s_072':
+    title: 'PPRT de Butagaz à Arnage - Sarthe'
+    typename: 'ms:n_perimetre_pprt_20090002_s_072'

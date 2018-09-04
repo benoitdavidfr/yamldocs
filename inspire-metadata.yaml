@@ -1,4 +1,5 @@
 title: éléments de métadonnées Inspire et ISO plus réflexion d'utilisation du Dublin Core pour les métadonnées Inspire
+isReplacedBy: http://georef.eu/yamldoc/?doc=inspire-metadata3
 creator: https://github.com/benoitdavidfr
 description: |
   La table mdelements liste des éléments de métadonnées Inspire + éléments ISO 191115/19119/19139 les plus fréquents.  

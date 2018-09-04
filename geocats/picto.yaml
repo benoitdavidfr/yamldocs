@@ -1,0 +1,27 @@
+title: catalogue PICTO-Occitanie
+abstract: |
+  Ne semble pas fonctionner 28/8/2018  
+  
+  test de la classe Geocat  
+  **URL de test html**:
+    
+    - [affichage des mots-clés](?ypath=/listSubjects)
+    
+  **URL de test JSON**:
+    
+    - [affichage du doc](id.php/geocats/picto)
+    - [getCapabilities](id.php/geocats/picto/csw/getCapabilities)
+    - [numberMatched](id.php/geocats/picto/csw/numberMatched)
+    - [GetRecordsInIso 1](id.php/geocats/picto/csw/GetRecordsInIso/1)
+    - [build](id.php/geocats/picto/build)
+    - [search plein texte sur urbanisme](id.php/geocats/picto/search?text=urbanisme)
+    - [listSubjects](id.php/geocats/picto/listSubjects)
+    - [search subject Aménagement Urbanisme/Zonages Planification](id.php/geocats/picto/search?subject=Aménagement+Urbanisme/Zonages+Planification)
+    - [affichage d'un record](id.php/geocats/picto/items/7661247d9e2491969735384e20903b13)
+    - [buildOperatedBy](id.php/geocats/picto/buildOperatedBy)
+    - [download d'une SD](id.php/geocats/picto/items/f62c888d1bc7d7d0e612c42a31de2d7d/download)
+    
+yamlClass: Geocat
+www: http://www.picto-occitanie.fr/
+# http://catalogue.picto-occitanie.fr/geonetwork/srv/fre/csw?constraintLanguage=CQL_TEXT&
+urlCsw: https://www.picto-occitanie.fr/geonetwork/srv/eng/csw
