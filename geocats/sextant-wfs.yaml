@@ -1,0 +1,1074 @@
+- title: extrait des MDD Sextant comportant au moins une relation ayant un protocol WFS
+  mdd:
+    - id: 257df016a828414ed560655035d79676
+      relation:
+        - url: 'http://www.ifremer.fr/services/wms/sih_referentiels'
+          protocol: 'OGC:WMS'
+          name: IFR_STOCKS_HALIEUTIQUES_2018
+        - url: {  }
+          protocol: COPYFILE
+          name: IFR_STOCKS_HALIEUTIQUES_2018
+        - url: 'http://www.ifremer.fr/services/wfs/sih_referentiels'
+          protocol: 'OGC:WFS'
+          name: IFR_STOCKS_HALIEUTIQUES_2018
+        - url: 'http://dx.doi.org/10.12770/5440435a-a744-4bfa-ac0a-a24c41322ed2'
+          protocol: 'WWW:LINK-1.0-http--metadata-URL'
+          name: 'DOI of the dataset'
+    - id: 44f907712ab277ab0d83164f0ec04153
+      relation:
+        - url: 'http://www.ifremer.fr/services/wms/sih_referentiels'
+          protocol: 'OGC:WMS'
+          name: IFR_LOCATION_PORTS
+        - url: 'http://www.ifremer.fr/services/wfs/sih_referentiels'
+          protocol: 'OGC:WFS'
+          name: IFR_LOCATION_PORTS
+        - url: 'http://dx.doi.org/10.12770/59ab5f6f-79ea-425d-830e-be5ecdb7bdbe'
+          protocol: 'WWW:LINK-1.0-http--metadata-URL'
+          name: 'DOI of the dataset'
+    - id: 960e8a03f144911043a9524d1a75828d
+      relation:
+        - url: 'http://www.coriolis.eu.org/'
+          protocol: 'WWW:LINK'
+          name: 'Coriolis Web Site'
+        - url: 'http://doi.org/10.17882/42182'
+          protocol: 'WWW:LINK-1.0-http--metadata-URL'
+          name: 'Argo GDAC snapshots access'
+        - url: 'ftp://ftp.ifremer.fr/ifremer/argo/'
+          protocol: 'WWW:DOWNLOAD-1.0-link--download'
+          name: 'FTP ARGO'
+        - url: 'http://gis.jcommops.org/arcgis/services/Argo/ARGOLocations/MapServer/WFSServer?'
+          protocol: 'OGC:WFS'
+          name: 'Argo_ARGOLocations:Latest_Locations'
+    - id: aa5181df3e582ad0ec71271264260dee
+      relation:
+        - url: 'http://www.emodnet.eu/geology'
+          protocol: 'WWW:LINK'
+          name: 'EMODNet Geology'
+        - url: 'https://sextant.ifremer.fr/geonetwork/srv/api/records/7afb3e3f-860e-4752-8f49-93d65b13440b/at
+    tachments/Bibliographical-References_Lines-Features.pdf'
+          protocol: 'WWW:LINK'
+          name: 'Références Bibliographiques_Figures linéaires'
+        - url: 'https://sextant.ifremer.fr/geonetwork/srv/api/records/7afb3e3f-860e-4752-8f49-93d65b13440b/attachments/Bibliographical-References_Polygons-Features.pdf'
+          protocol: 'WWW:LINK'
+          name: 'Références Bibliographiques_Figures polygônales'
+        - url: 'http://www.ifremer.fr/services/wms/geologie'
+          protocol: 'OGC:WMS'
+          name: StructuresGravitaires_polygones_EMODNetGeology_Simplet_2016
+        - url: 'http://www.ifremer.fr/services/wfs/geologie'
+          protocol: 'OGC:WFS'
+          name: StructuresGravitaires_polygones_EMODNetGeology_Simplet_2016
+        - url: 'http://www.ifremer.fr/services/wms/geologie'
+          protocol: 'OGC:WMS'
+          name: StructuresGravitaires_lignes_EMODNetGeology_Simplet_2016
+        - url: 'http://www.ifremer.fr/services/wfs/geologie'
+          protocol: 'OGC:WFS'
+          name: StructuresGravitaires_lignes_EMODNetGeology_Simplet_2016
+    - id: bff69c5391854ffcd0fb91f8cf5ab0f7
+      relation:
+        - url: 'http://www.ifremer.fr/services/wms/biologie'
+          protocol: 'OGC:WMS'
+          name: IFR_NATURA2000_ZSC_BMO_HAB_P
+        - url: {  }
+          protocol: FILE
+          name: IFR_NATURA2000_ZSC_BMO_HAB_P
+        - url: 'http://www.ifremer.fr/services/wfs/biologie'
+          protocol: 'OGC:WFS'
+          name: IFR_NATURA2000_ZSC_BMO_HAB_P
+    - id: 5f8522fe06024245e1367631cf561be3
+      relation:
+        - url: 'http://www.ifremer.fr/services/wms/sismer'
+          protocol: 'OGC:WMS'
+          name: IFR_SISMER_COURANTOMETRES
+        - url: 'http://www.ifremer.fr/services/wfs/sismer'
+          protocol: 'OGC:WFS'
+          name: IFR_SISMER_COURANTOMETRES
+        - url: 'http://campagnes.flotteoceanographique.fr/'
+          protocol: 'WWW:LINK'
+          name: ''
+        - url: 'http://data.ifremer.fr/SISMER'
+          protocol: 'WWW:LINK'
+          name: ''
+    - id: e8dd618fc9990662f6d4218cc9015bc0
+      relation:
+        - url: 'http://envlit.ifremer.fr/surveillance/contaminants_chimiques'
+          protocol: 'WWW:LINK'
+          name: 'ROCCH, Réseau d''Observation de la Contamination CHimique du littoral'
+        - url: 'http://www.ifremer.fr/services/wms/surveillance_littorale'
+          protocol: 'OGC:WMS'
+          name: surval_rocch_biote_historique
+        - url: 'http://www.ifremer.fr/services/wfs/surveillance_littorale'
+          protocol: 'OGC:WFS'
+          name: surval_rocch_biote_historique
+        - url: 'http://www.ifremer.fr/services/wms/surveillance_littorale'
+          protocol: 'OGC:WMS'
+          name: surval_rocch_sediment_historique
+        - url: 'http://www.ifremer.fr/services/wfs/surveillance_littorale'
+          protocol: 'OGC:WFS'
+          name: surval_rocch_sediment_historique
+        - url: 'http://www.ifremer.fr/services/wms/surveillance_littorale'
+          protocol: 'OGC:WMS'
+          name: surval_rocch_biote
+        - url: 'http://www.ifremer.fr/services/wfs/surveillance_littorale'
+          protocol: 'OGC:WFS'
+          name: surval_rocch_biote
+        - url: 'http://www.ifremer.fr/services/wms/surveillance_littorale'
+          protocol: 'OGC:WMS'
+          name: surval_rocch_sediment
+        - url: 'http://www.ifremer.fr/services/wfs/surveillance_littorale'
+          protocol: 'OGC:WFS'
+          name: surval_rocch_sediment
+    - id: 4cb59532d9affa622e26864053158055
+      title:
+        fre: 'DCE – Bassin Loire-Bretagne - Etat chimique'
+        eng: 'WFD - Loire-Bretagne Basin - Chemical status'
+      relation:
+        - url: 'http://envlit.ifremer.fr/var/envlit/storage/documents/atlas_DCE/scripts/site/carte.php?map=LB'
+          protocol: 'WWW:LINK'
+          name: 'atlas DCE Loire - Bretagne'
+        - url: 'http://www.ifremer.fr/services/wms/dce'
+          protocol: 'OGC:WMS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_CHIMIQUE_2010_P
+        - url: 'http://www.ifremer.fr/services/wfs/dce'
+          protocol: 'OGC:WFS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_CHIMIQUE_2010_P
+        - url: 'http://www.ifremer.fr/services/wms/dce'
+          protocol: 'OGC:WMS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_CHIMIQUE_2011_P
+        - url: 'http://www.ifremer.fr/services/wfs/dce'
+          protocol: 'OGC:WFS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_CHIMIQUE_2011_P
+        - url: 'http://www.ifremer.fr/services/wms/dce'
+          protocol: 'OGC:WMS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_CHIMIQUE_2012_P
+        - url: 'http://www.ifremer.fr/services/wfs/dce'
+          protocol: 'OGC:WFS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_CHIMIQUE_2012_P
+        - url: 'http://www.ifremer.fr/services/wms/dce'
+          protocol: 'OGC:WMS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_CHIMIQUE_2013_P
+        - url: 'http://www.ifremer.fr/services/wfs/dce'
+          protocol: 'OGC:WFS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_CHIMIQUE_2013_P
+    - id: 6328c74988a88e2e460811ab10416858
+      title:
+        fre: 'DCE – Bassin Loire-Bretagne - Etat global'
+        eng: 'WFD - Loire-Bretagne Basin - Global status'
+      relation:
+        - url: 'http://envlit.ifremer.fr/var/envlit/storage/documents/atlas_DCE/scripts/site/carte.php?map=LB'
+          protocol: 'WWW:LINK'
+          name: 'atlas DCE Loire - Bretagne'
+        - url: 'http://www.ifremer.fr/services/wms/dce'
+          protocol: 'OGC:WMS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_GLOBAL_2010_P
+        - url: 'http://www.ifremer.fr/services/wfs/dce'
+          protocol: 'OGC:WFS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_GLOBAL_2010_P
+        - url: 'http://www.ifremer.fr/services/wms/dce'
+          protocol: 'OGC:WMS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_GLOBAL_2011_P
+        - url: 'http://www.ifremer.fr/services/wfs/dce'
+          protocol: 'OGC:WFS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_GLOBAL_2011_P
+        - url: 'http://www.ifremer.fr/services/wms/dce'
+          protocol: 'OGC:WMS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_GLOBAL_2012_P
+        - url: 'http://www.ifremer.fr/services/wfs/dce'
+          protocol: 'OGC:WFS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_GLOBAL_2012_P
+        - url: 'http://www.ifremer.fr/services/wms/dce'
+          protocol: 'OGC:WMS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_GLOBAL_2013_P
+        - url: 'http://www.ifremer.fr/services/wfs/dce'
+          protocol: 'OGC:WFS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_GLOBAL_2013_P
+    - id: aa1784fc51f4d1ae982ad73a1b6ad9bf
+      title:
+        fre: 'Campagnes océanographiques - Gravimétrie (brute)'
+        eng: 'Oceanographic cruises - Raw gravity data'
+      relation:
+        - url: 'http://www.ifremer.fr/services/wms/sismer'
+          protocol: 'OGC:WMS'
+          name: CAMPAGNES_GRAVIMETRIE_SISMER
+        - url: 'http://www.ifremer.fr/services/wfs/sismer'
+          protocol: 'OGC:WFS'
+          name: CAMPAGNES_GRAVIMETRIE_SISMER
+    - id: 06cae81b75686f6f6848e4e7c81b7d06
+      title:
+        fre: 'DCE – Bassin Loire-Bretagne - Etat écologique'
+        eng: 'WFD - Loire-Bretagne basin - Ecological status'
+      relation:
+        - url: 'http://envlit.ifremer.fr/var/envlit/storage/documents/atlas_DCE/scripts/site/carte.php?map=LB'
+          protocol: 'WWW:LINK'
+          name: 'atlas DCE Loire - Bretagne'
+        - url: 'http://www.ifremer.fr/services/wms/dce'
+          protocol: 'OGC:WMS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_ECOLOGIQUE_2010_P
+        - url: 'http://www.ifremer.fr/services/wfs/dce'
+          protocol: 'OGC:WFS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_ECOLOGIQUE_2010_P
+        - url: 'http://www.ifremer.fr/services/wms/dce'
+          protocol: 'OGC:WMS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_ECOLOGIQUE_2011_P
+        - url: 'http://www.ifremer.fr/services/wfs/dce'
+          protocol: 'OGC:WFS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_ECOLOGIQUE_2011_P
+        - url: 'http://www.ifremer.fr/services/wms/dce'
+          protocol: 'OGC:WMS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_ECOLOGIQUE_2012_P
+        - url: 'http://www.ifremer.fr/services/wfs/dce'
+          protocol: 'OGC:WFS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_ECOLOGIQUE_2012_P
+        - url: 'http://www.ifremer.fr/services/wms/dce'
+          protocol: 'OGC:WMS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_ECOLOGIQUE_2013_P
+        - url: 'http://www.ifremer.fr/services/wfs/dce'
+          protocol: 'OGC:WFS'
+          name: ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_ECOLOGIQUE_2013_P
+    - id: 05be746a3810b56490617364122a08ef
+      title:
+        fre: 'Espaces terrestres (France et pays riverains)'
+        eng: 'Terrestrial areas (France and Border Countries)'
+      relation:
+        - url: 'http://www.ifremer.fr/services/wms/dcsmm'
+          protocol: 'OGC:WMS'
+          name: ESPACES_TERRESTRES_P
+        - url: {  }
+          protocol: FILE
+          name: ref_oatl_terre_afb_pol_4326
+        - url: 'http://www.ifremer.fr/services/wfs/dcsmm'
+          protocol: 'OGC:WFS'
+          name: ESPACES_TERRESTRES_P
+    - id: 7db333573a5521032957cce6288b3692
+      title:
+        fre: 'Carte d’habitats physiques des fonds marins en France métropolitaine (échelle 1 / 1 000 000) - Version 2011'
+        eng: 'Map of Physical Habitats of Seabeds in Mainland France (scale 1 / 1 000 000) - Version 2011'
+      relation:
+        - url: 'http://archimer.ifremer.fr/doc/00026/13751/'
+          protocol: 'WWW:LINK'
+          name: 'Rapport de contrat'
+        - url: 'http://www.ifremer.fr/services/wms/biologie'
+          protocol: 'OGC:WMS'
+          name: IFR_AAMP_HAB_EUNIS_1M_ATL_P
+        - url: {  }
+          protocol: FILE
+          name: IFR_AAMP_HAB_EUNIS_1M_ATL_P
+        - url: 'http://www.ifremer.fr/services/wfs/biologie'
+          protocol: 'OGC:WFS'
+          name: IFR_AAMP_HAB_EUNIS_1M_ATL_P
+        - url: 'http://www.ifremer.fr/services/wms/biologie'
+          protocol: 'OGC:WMS'
+          name: IFR_AAMP_HAB_EUNIS_1M_MED_P
+        - url: {  }
+          protocol: FILE
+          name: IFR_AAMP_HAB_EUNIS_1M_MED_P
+        - url: 'http://www.ifremer.fr/services/wfs/biologie'
+          protocol: 'OGC:WFS'
+          name: IFR_AAMP_HAB_EUNIS_1M_MED_P
+    - id: f81741d6f50a4b866d1dbc2a0e0c27f0
+      title:
+        fre: 'Carte d’habitats physiques des fonds marins en France métropolitaine (échelle 1 / 300 000) - Version 2011'
+        eng: 'Map of Physical Habitats of Seabeds in Mainland France (scale 1 / 300 000) - Version 2011'
+      relation:
+        - url: 'http://archimer.ifremer.fr/doc/00026/13751/'
+          protocol: 'WWW:LINK'
+          name: 'Rapport de contrat'
+        - url: 'http://www.ifremer.fr/services/wms/biologie'
+          protocol: 'OGC:WMS'
+          name: IFR_AAMP_HAB_EUNIS_300_ATL_P
+        - url: {  }
+          protocol: FILE
+          name: IFR_AAMP_HAB_EUNIS_300_ATL_P
+        - url: 'http://www.ifremer.fr/services/wfs/biologie'
+          protocol: 'OGC:WFS'
+          name: IFR_AAMP_HAB_EUNIS_300_ATL_P
+        - url: 'http://www.ifremer.fr/services/wms/biologie'
+          protocol: 'OGC:WMS'
+          name: IFR_AAMP_HAB_EUNIS_300_MED_P
+        - url: {  }
+          protocol: FILE
+          name: IFR_AAMP_HAB_EUNIS_300_MED_P
+        - url: 'http://www.ifremer.fr/services/wfs/biologie'
+          protocol: 'OGC:WFS'
+          name: IFR_AAMP_HAB_EUNIS_300_MED_P
+- title: 'liste des serveurs WFS recensés dans les MDD Sextant'
+  wfsservers:
+    'http://cartographie.aires-marines.fr/cgi-bin/mapserv.exe?map=wms/wfs.map':
+      protocol: 'OGC:WFS'
+      names:
+        - us_omon_cantonnementpeche_aamp_pol_wgs84
+        - ges_omon_amp_aamp_pol_wgs84_vue-1
+    'http://geolittoral.application.developpement-durable.gouv.fr/wms2/metropole?':
+      protocol: 'OGC:WFS'
+      names:
+        - n_ipli_77_s
+        - n_littomos_s
+    'http://gis.jcommops.org/arcgis/services/Argo/ARGOLocations/MapServer/WFSServer?':
+      protocol: 'OGC:WFS'
+      names:
+        - 'Argo_ARGOLocations:Latest_Locations'
+    'http://portail.indigeo.fr/geoserver/LETG-BREST/ows?SERVICE=WFS&':
+      protocol: 'OGC:WFS'
+      names:
+        - TDC_VOUG
+        - MNT_VOUG_2005
+        - MNT_VOUG_2009
+    'http://portail.indigeo.fr/geoserver/wfs':
+      protocol: 'OGC:WFS'
+      names:
+        - 'LETG-CAEN:Trait-cote-GPS2012'
+    'http://services.sandre.eaufrance.fr/geo/MasseDEau_VRAP2016?Request=GetCapabilities&SERVICE=WFS&VERSION=1.1.0':
+      protocol: 'OGC:WFS'
+      names:
+        - MasseDEauTransition
+        - MasseDEauCotiere
+    'http://services.sandre.eaufrance.fr/geo/eth_FXX?Request=GetCapabilities&SERVICE=WFS&VERSION=1.1.0':
+      protocol: 'OGC:WFS-1.0.0-http-get-capabilities'
+      names:
+        - SecteurHydro
+    'http://services.sandre.eaufrance.fr/geo/eth_metropole?Request=GetCapabilities&SERVICE=WFS&VERSION=1.0.0':
+      protocol: 'OGC:WFS-1.0.0-http-get-capabilities'
+      names:
+        - CoursEau1
+        - CoursEau2
+        - CoursEau3
+        - CoursEau4
+        - CoursEau5
+        - CoursEau6
+        - CoursEau7
+        - SousSecteurHydro
+        - ZoneHydro
+    'http://services.sandre.eaufrance.fr/geo/mdo_FRA?Request=GetCapabilities&SERVICE=WFS&VERSION=1.1.0':
+      protocol: 'OGC:WFS'
+      names:
+        - BassinDCE
+    'http://services.sandre.eaufrance.fr/geo/mdo_FXX?SERVICE=WFS&VERSION=1.3.0&REQUEST=GetCapabilities':
+      protocol: 'OGC:WFS'
+      names:
+        - MasseDEauTransition
+        - MasseDEauCotiere
+    'http://services.sandre.eaufrance.fr/geo/mdo_VEDL2013?Request=GetCapabilities&SERVICE=WFS&VERSION=1.1.0':
+      protocol: 'OGC:WFS'
+      names:
+        - MasseDEauTransition_FXX
+    'http://services.sandre.eaufrance.fr/geo/mdo_VEDL_FXX?Request=GetCapabilities&SERVICE=WFS&VERSION=1.1.0':
+      protocol: 'OGC:WFS'
+      names:
+        - MasseDEauCotiere
+        - MasseDEauCotiere
+    'http://services.sandre.eaufrance.fr/geo/zon_FXX?':
+      protocol: 'OGC:WFS'
+      names:
+        - ZoneVuln
+        - ZoneVuln_2012
+    'http://services.sandre.eaufrance.fr/geo/zon_FXX?REQUEST=GetCapabilities&SERVICE=WFS&VERSION=1.1.0':
+      protocol: 'OGC:WFS'
+      names:
+        - ZoneProdConchy
+    'http://services.sandre.eaufrance.fr/geo/zon_FXX?Request=GetCapabilities&SERVICE=WFS&VERSION=1.1.0':
+      protocol: 'OGC:WFS'
+      names:
+        - SegClassContinuiteEco_Liste1
+        - SegClassContinuiteEco_Liste2
+    'http://services.sandre.eaufrance.fr/geo/zonage??REQUEST=GetCapabilities&SERVICE=WFS&VERSION=1.0.0':
+      protocol: 'OGC:WFS-1.0.0-http-get-capabilities'
+      names:
+        - SPC
+    'http://ws.carmencarto.fr/WFS/119/fxx_inpn?':
+      protocol: 'OGC:WFS'
+      names:
+        - Reserves_naturelles_nationales
+        - Reserves_biologiques
+        - Terrains_du_Conservatoire_du_Littoral
+        - Sites_Ramsar
+        - Znieff1
+        - Parcs_naturels_regionaux
+        - Terrains_des_Conservatoires_des_espaces_naturels
+        - Zones_de_protection_speciale
+        - Reserves_naturelles_regionales
+        - Arretes_de_protection_de_biotope
+        - Reserves_de_la_biosphere
+        - Znieff1_mer
+        - Znieff2_mer
+        - Sites_d_importance_communautaire
+        - Bien_du_patrimoine_mondial_de_l_UNESCO
+        - Znieff2
+        - Reserves_nationales_de_chasse_et_faune_sauvage
+        - Parcs_nationaux
+    'http://www.ifremer.fr/services/wfs/ambio':
+      protocol: 'OGC:WFS'
+      names:
+        - IFR_NEW_CAL_AMBIO_CORAIL_VIVANT_BRANCHU
+        - IFR_NEW_CAL_AMBIO_CORAIL_VIVANT
+        - IFR_NEW_CAL_AMBIO_HERBIERS
+        - IFR_NEW_CAL_AMBIO_MACROALGUE
+        - IFR_NEW_CAL_AMBIO_TYPO_HABITAT
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_FBgext15
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_FNgext15
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_FEgext15
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_TSvext13
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_SNgext15
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_PEgext15
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_VIbext13
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_ACbext13
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_BCbext13
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_PEbext13
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_RObext13
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_TSbext13
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_BAgext15
+        - IFR_NEW_CAL_AMBIO_TYPO_HABITAT_SITE
+        - IFR_NEW_CAL_AMBIO_REF_SPATIAL_GRAND_NOUMEA_VIgext15
+        - IFR_NEW_CAL_AMBIO_VIDEO_INFOSTATION_STAVIRO_WGS84_PT
+        - IFR_NEW_CAL_AMBIO_VIDEO_INFOSTATION_MICADO_WGS84_PT
+    'http://www.ifremer.fr/services/wfs/aot_reunion':
+      protocol: 'OGC:WFS'
+      names:
+        - AOT_MARINES_DATE_DMSOI
+    'http://www.ifremer.fr/services/wfs/biologie':
+      protocol: 'OGC:WFS'
+      names:
+        - IFR_NATURA2000_ZSC_BMO_HAB_P
+        - IFR_AAMP_HAB_EUNIS_1M_ATL_P
+        - IFR_AAMP_HAB_EUNIS_1M_MED_P
+        - IFR_AAMP_HAB_EUNIS_300_ATL_P
+        - IFR_AAMP_HAB_EUNIS_300_MED_P
+        - IFR_AAMP_ZONES_BIO_ATL_P
+        - IFR_AAMP_ZONES_BIO_MED_P
+        - IFR_NATURA2000_ZSC_AGK_P
+        - SINP_RSP_CORSE_TIZZANO_P
+        - IFR_NATURA2000_INDICE_CONFIANCE_FR5300010_P
+        - PERSIG_INVENTAIRE_PETONCLES_1951
+        - IFR_NATURA2000_ZSC_RPE_P
+        - PERSIG_LAGARDERE_FACIES_P
+        - PERSIG_LAGARDERE_STATIONS_PT
+        - IFR_NATURA2000_ZSC_RBA_P
+        - IFR_NATURA2000_ZSC_MSM_P
+        - IFR_NATURA2000_ZSC_TTJ_AMGMT_P
+        - IFR_NATURA2000_ZSC_RBA_AMGMT_P
+        - IFR_NATURA2000_ZSC_GMO_P
+        - SINP_HAB_PEREZ_SIEC8182_SUB_P
+        - SINP_HAB_PEREZ_SIEC8182_VEG_P
+        - SINP_HAB_PEREZ_SIEC8182_VEG_PT
+        - IFR_RBT_VEGET_ARZEL_MOLENE89_P
+        - IFR_RBT_VEGET_GLENAN_ARZEL_P
+        - SINP_HAB_JOUBIN_ROSC908_VEG_PT
+        - SINP_HAB_JOUBIN_ROSC908_VEG_P
+        - IFR_RBT_VEGET_ILE_D_ER_1974_PT
+        - IFR_RBT_SUBSTR_ILE_D_ER_1974_P
+        - IFR_RBT_VEGET_ILE_D_ER_1974_P
+        - IFR_RBT_PEUPL_ILE_D_ER_1974_P
+        - IFR_RBT_PEUPL_DAVOULT_88_P
+        - IFR_RBT_PEUPL_PERTUIS_CHAR_P
+        - IFR_NATURA2000_ZSC_PIC_P
+        - IFR_RBT_VEGET_ABERS_P
+        - LIENSS_PAPY1941_FAUNE_RE_PT
+        - LIENSS_PAPY1941_FAUNE_FLORE_RE_P
+        - SINP_HAB_FLOCH_MOLENE67_VEG_PT
+        - SINP_HAB_FLOCH_MOLENE67_VEG_P
+        - LIENSS_ZOSTERE_DEBEAUCHAMPS_1923_P
+        - IFR_NATURA2000_ZSC_GSI_AMGMT_P
+        - IFR_NATURA2000_ZSC_TTJ_SCHOR_P
+        - IFR_NATURA2000_ZSC_GUI_SCHOR_P
+        - IFR_RBT_PEUPL_ARCACHON_P
+        - SINP_HAB_ARZEL_GROIX89_VEG_P
+        - IFR_NATURA2000_ZSC_BMO_SCHOR_P
+        - PERSIG_GISEMENTS_MOLUSQUES_1907_cerastoderma_edule
+        - PERSIG_GISEMENTS_MOLUSQUES_1907_crassostrea_gigas
+        - PERSIG_GISEMENTS_MOLUSQUES_1907_ensis
+        - PERSIG_GISEMENTS_MOLUSQUES_1907_lutraria_oblonga
+        - PERSIG_GISEMENTS_MOLUSQUES_1907_mimachlamys_varia
+        - PERSIG_GISEMENTS_MOLUSQUES_1907_mytilus_edulis
+        - PERSIG_GISEMENTS_MOLUSQUES_1907_ostrea_edulis
+        - PERSIG_GISEMENTS_MOLUSQUES_1907_scrobiculara_plana
+        - PERSIG_GISEMENTS_MOLUSQUES_1907_solen_marginatus
+        - PERSIG_GISEMENTS_MOLUSQUES_1907_venerupis_decussata
+        - PERSIG_GISEMENTS_MOLUSQUES_1907_autre_gisement2
+        - PERSIG_GISEMENTS_MOLUSQUES_1907_autre_gisement
+        - IFR_NATURA2000_ZSC_V1R0_P
+        - IFR_RBT_PEUPL_PLOGOFF1980_81_P
+        - IFR_NATURA2000_ZSC_MGQ_P
+        - IFR_NATURA2000_ZSC_BMO_AMGMT_P
+        - IFR_NATURA2000_ZSC_MMO_P
+        - IFR_RBT_CHENAL_RANCE_1994_A
+        - IFR_RBT_SBCO_FREHEL_1984_94_PT
+        - IFR_RBT_CONCH_FREHEL_1984_94_P
+        - IFR_RBT_SEDIM_FREHEL_1984_94_P
+        - IFR_NATURA2000_ZSC_MGQ_VEG_P
+        - IFR_NATURA2000_ZSC_GUI_P
+        - IFR_NATURA2000_ZSC_AGK_AMGMT_P
+        - LIENSS_MYTILUS_EDULIS_MO_1981_PT
+        - LIENSS_MYTILUS_STATIONS_MASSE_LAGARDERE_1981_PT
+        - LIENSS_ZOSTERA_MARINA_RE_P
+        - IFR_NATURA2000_ZSC_RBA_SCHOR_P
+        - IFR_NATURA2000_ZSC_RLA_P
+        - IFR_NATURA2000_ZSC_ABW_P
+        - IFR_NATURA2000_ZSC_ABW_HAB_P
+        - IFR_NATURA2000_ZSC_BIM_HAB_P
+        - SINP_HAB_PEREZ_BREHAT79_SUB_P
+        - IFR_NATURA2000_ZSC_ABW_SCHOR_P
+        - SINP_CORSE_PASQUALINI_P
+        - IFR_NATURA2000_ZSC_BIM_AMGMT_P
+        - SINP_HAB_BRAUD_PENM7477_SUB_P
+        - SINP_HAB_BRAUD_PENM7477_VEG_P
+        - SINP_HAB_BRAUD_PENM7477_VEG_PT
+        - IFR_RBT_PEUPL_ST_BRIEUC_1992_P
+        - IFR_RBT_PEUPL_RAFFIN_03_P
+        - IFR_NATURA2000_ZSC_AGL_HAB_P
+        - IFR_NATURA2000_7ILES_P
+        - LIENSS_ZOSTERE_SYNTHESE_PC2011_P
+        - IFR_RBT_PEUPL_CABIOCH_78_P
+        - IFR_NATURA2000_ROCHE_PENMARCH_2000_P
+        - IFR_NATURA2000_SYNTHESE_HABITAT_FR5300023_P
+        - IFR_RBT_MAERL_BZH_P
+        - PERSIG_INVENTAIRE_ECLUSE_POISSONS_A
+        - IFR_NATURA2000_ZSC_TTJ_HAB_P
+        - IFR_NATURA2000_ZSC_RET_P
+        - IFR_NATURA2000_ZSC_PCC_SCHOR_P
+        - IFR_NATURA2000_ZSC_PCC_P
+        - IFR_SUIVI_HERBIER_BZH_2007_P
+        - IFR_NATURA2000_SYNTHESE_HABITAT_FR5300010_P
+        - IFR_NATURA2000_ZSC_MGQ_AMGMT_P
+        - IFR_NATURA2000_INDICE_CONFIANCE_FR5300023_P
+        - IFR_NATURA2000_ZSC_EVI_HAB_P
+        - IFR_NATURA2000_ZSC_EVI_AMGMT_P
+        - SINP_HAB_KAAS_BELLEILE01_VEG_A
+        - SINP_HAB_KAAS_BELLEILE01_VEG_P
+    'http://www.ifremer.fr/services/wfs/dce':
+      protocol: 'OGC:WFS'
+      names:
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_CHIMIQUE_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_CHIMIQUE_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_CHIMIQUE_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_CHIMIQUE_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_GLOBAL_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_GLOBAL_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_GLOBAL_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_GLOBAL_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_ECOLOGIQUE_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_ECOLOGIQUE_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_ECOLOGIQUE_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_ETAT_ECOLOGIQUE_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_MAERL_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_MAERL_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_MAERL_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_MAERL_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_TRANSPARENCE_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_TRANSPARENCE_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_TRANSPARENCE_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_TRANSPARENCE_2013_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_TRANSPARENCE_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_MACRO_INTER_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_CHIMIQUE_ML_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_ETAT_GLOBAL_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_MACRO_PROLIF_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_BENTH_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_BENTH_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_BENTH_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_BENTH_2013_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_MACRO_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_NUTRI_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_NUTRI_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_NUTRI_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_NUTRI_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_POISSONS_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_POISSONS_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_POISSONS_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_POISSONS_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_PEST_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_PEST_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_PEST_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_PEST_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_POL_INDU_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_POL_INDU_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_POL_INDU_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_POL_INDU_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_POLLUANTS_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_POLLUANTS_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_POLLUANTS_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_POLLUANTS_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_AUTRES_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_AUTRES_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_AUTRES_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_AUTRES_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_2013_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_CHIMIQUE_POL_INDU_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_BENTH_INTER_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_BENTH_INTER_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_BENTH_INTER_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_BENTH_INTER_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_SALINITE_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_SALINITE_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_SALINITE_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_SALINITE_2013_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_CHIMIQUE_PEST_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_MACRO_SUB_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_ETAT_ECOLOGIQUE_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_POLLUANTS_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_POISSONS_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_TEMP_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_TEMP_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_TEMP_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_TEMP_2013_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_NUTRI_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_2013_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_CHIMIQUE_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_BENTH_INTER_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_HYDROMORPHO_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_HYDROMORPHO_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_HYDROMORPHO_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_HYDROMORPHO_2013_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_CHIMIQUE_AUTRES_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_PROLIF_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_PROLIF_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_PROLIF_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_PROLIF_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_BENTH_SUB_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_BENTH_SUB_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_BENTH_SUB_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_BENTH_SUB_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_PHYTO_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_PHYTO_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_PHYTO_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_PHYTO_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_OXYGENE_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_OXYGENE_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_OXYGENE_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_OXYGENE_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_SUB_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_SUB_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_SUB_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_SUB_2013_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_BENTH_SUB_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_BENTH_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_OXYGENE_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_PHYTO_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_ML_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_ML_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_ML_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_CHIMIQUE_ML_2013_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_TEMP_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_SALINITE_2010_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_QUALITE_HYDROMORPHO_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_INTER_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_INTER_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_INTER_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_INTER_2013_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_ANGIOSPERME_2010_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_ANGIOSPERME_2011_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_ANGIOSPERME_2012_P
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_ANGIOSPERME_2013_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_TRANSPARENCE_2013_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_TRANSPARENCE_2016_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_SUBSTRATS_MEUBLES_2013_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_SUBSTRATS_MEUBLES_2016_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_NUTRI_2013_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_NUTRI_2016_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_SALINITE_2013_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_SALINITE_2016_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_HYDROMORPHO_2013_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_HYDROMORPHO_2016_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_SUBSTRATS_DURS_2013_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_SUBSTRATS_DURS_2016_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_PHYTO_2013_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_PHYTO_2016_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_TEMP_2013_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_TEMP_2016_P
+        - ATLAS_DCE_REUNION_ME_ETAT_GLOBAL_2013_P
+        - ATLAS_DCE_REUNION_ME_ETAT_GLOBAL_2016_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_POLLUANTS_2013_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_POLLUANTS_2016_P
+        - ATLAS_DCE_REUNION_ME_ETAT_ECOLOGIQUE_2013_P
+        - ATLAS_DCE_REUNION_ME_ETAT_ECOLOGIQUE_2016_P
+        - ATLAS_DCE_ARTOIS_PICARDIE_ME_ETAT_CHIMIQUE_2010_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_OXYGENE_2013_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_OXYGENE_2016_P
+        - ATLAS_DCE_REUNION_ME_ETAT_CHIMIQUE_2013_P
+        - ATLAS_DCE_REUNION_ME_ETAT_CHIMIQUE_2016_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_CHIMIQUE_2013_P
+        - ATLAS_DCE_REUNION_ME_QUALITE_CHIMIQUE_2016_P
+    'http://www.ifremer.fr/services/wfs/dcsmm':
+      protocol: 'OGC:WFS'
+      names:
+        - ESPACES_TERRESTRES_P
+        - DCSMM_MARINE_REPORTS_UNIT_P
+        - DCSMM_SRM_TERRITORIALE_201806_P
+        - DCSMM_SRM_TERRITORIALE_201806_L
+        - DCSMM_SOUS_REGIONS_MARINES_201806_P
+        - DCSMM_SOUS_REGIONS_MARINES_REPORT_P
+        - DCSMM_REPOMS
+        - DCSMM_ROCCH-SED
+    'http://www.ifremer.fr/services/wfs/euroshell':
+      protocol: 'OGC:WFS'
+      names:
+        - EUROSHELL_CONNAISSANCE_FRANCE
+        - EUROSHELL_CONNAISSANCE_IRLANDE
+        - EUROSHELL_CONNAISSANCE_ITALY
+        - EUROSHELL_CONNAISSANCE_NETHERLANDS
+        - EUROSHELL_CONNAISSANCE_SPAIN
+        - EUROSHELL_CONNAISSANCE_UK
+        - EUROSHELL_ORGANISME_PRO_FRANCE
+        - EUROSHELL_ORGANISME_PRO_IRLANDE
+        - EUROSHELL_ORGANISME_PRO_ITALY
+        - EUROSHELL_ORGANISME_PRO_NETHERLANDS
+        - EUROSHELL_ORGANISME_PRO_SPAIN
+        - EUROSHELL_ORGANISME_PRO_UK
+        - EUROSHELL_ZONES_PRODUCTION_FRANCE_PT
+        - EUROSHELL_ZONES_PRODUCTION_IRLANDE_PT
+        - EUROSHELL_ZONES_PRODUCTION_ITALY_PT
+        - EUROSHELL_ZONES_PRODUCTION_NETHERLANDS_PT
+        - EUROSHELL_ZONES_PRODUCTION_UK_PT
+    'http://www.ifremer.fr/services/wfs/geologie':
+      protocol: 'OGC:WFS'
+      names:
+        - StructuresGravitaires_polygones_EMODNetGeology_Simplet_2016
+        - StructuresGravitaires_lignes_EMODNetGeology_Simplet_2016
+        - FaciesSedimentaires_250k_EMODNetGeology_Simplet_2016
+        - Indexation_Fiabilite_Cartes_EMODNetGeology_Simplet_2016
+        - FaciesSedimentaires_1M_EMODNetGeology_Simplet_2016
+        - Indexation_Fiabilite_Cartes_EMODNetGeology_Simplet_2016
+    'http://www.ifremer.fr/services/wfs/granulats_marins':
+      protocol: 'OGC:WFS'
+      names:
+        - IFR_GRA_SITES_EXPLOITATION
+        - IFR_GRA_HAL_R_COM_OSTREDU_ORHA
+        - IFR_GRA_HAL_R_COM
+        - IFR_NAV_GEOL_nav_profil
+        - IFR_NAV_GEOL_nav_point
+        - IFR_GRA_HAL_R_COM_NEPHNOR_LANG
+        - IFR_GRA_HAL_R_COM_NEPHNOR_ORHA
+        - IFR_GRA_HAL_R_FRA_BUGLLUT_IBTS
+        - IFR_GRA_HAL_R_COM_LOTI_CGFS
+        - IFR_GRA_HAL_R_COM_LOTI_ORHA
+        - IFR_GRA_HAL_R_COM_LOTI_LANG
+        - IFR_GRA_HAL_R_COM_LOTI_EVHO
+        - IFR_GRA_HAL_R_COM_MUNIBAM_LANG
+        - IFR_GRA_HAL_R_COM_MUNIBAM_ORHA
+        - IFR_GRA_HAL_R_COM_TRACDRA_CGFS
+        - IFR_GRA_HAL_R_COM_TRACDRA_ORHA
+        - IFR_GRA_HAL_R_COM_TRACDRA_EVHO
+        - IFR_GRA_HAL_R_FRA_CALLIO_IBTS
+        - IFR_GRA_HAL_R_COM_ARNO_CGFS
+        - IFR_GRA_HAL_R_COM_ARNO_LANG
+        - IFR_GRA_HAL_R_COM_ARNO_ORHA
+        - IFR_GRA_HAL_R_COM_TRISMIN_CGFS
+        - IFR_GRA_HAL_R_COM_TRISMIN_ORHA
+        - IFR_GRA_HAL_R_COM_TRISMIN_LANG
+        - IFR_GRA_HAL_R_COM_TRISMIN_EVHO
+        - IFR_GRA_HAL_R_COM_DICOCUN_ORHA
+        - IFR_GRA_HAL_R_COM_DICELAB_CGFS
+        - IFR_GRA_HAL_R_COM_DICELAB_EVHO
+        - IFR_GRA_HAL_R_NOU_PSETMAX_BDSO
+        - IFR_GRA_HAL_R_NOU_SOLESOL_BDSE
+        - IFR_GRA_HAL_R_NOU_SOLESOL_BDSO
+        - IFR_GRA_HAL_R_NOU_SOLESOL_LOGI
+        - IFR_GRA_HAL_R_NOU_SOLESOL_NURS
+        - IFR_GRA_HAL_R_NOU_SOLESOL_PECO
+        - IFR_GRA_HAL_R_NOU_SCOPRHO_BDSO
+        - IFR_GRA_HAL_R_DIV_MARGA_BDSE
+        - IFR_GRA_HAL_R_DIV_MARGA_BDSO
+        - IFR_GRA_HAL_R_DIV_MARGA_CGFS
+        - IFR_GRA_HAL_R_DIV_MARGA_EVHO
+        - IFR_GRA_HAL_R_DIV_MARGA_LANG
+        - IFR_GRA_HAL_R_DIV_MARGA_LOGI
+        - IFR_GRA_HAL_R_DIV_MARGA_NURS
+        - IFR_GRA_HAL_R_DIV_MARGA_ORHA
+        - IFR_GRA_HAL_R_DIV_MARGA_PECO
+        - IFR_GRA_HAL_R_COM_CALLIO_CGFS
+        - IFR_GRA_HAL_R_COM_CALLIO_ORHA
+        - IFR_GRA_HAL_R_COM_CALLIO_LANG
+        - IFR_GRA_HAL_R_COM_CALLIO_EVHO
+        - IFR_GRA_HAL_R_COM_LOPH_LANG
+        - IFR_GRA_HAL_R_COM_LOPH_EVHO
+        - IFR_GRA_HAL_R_COM_GADUMOR_CGFS
+        - IFR_GRA_HAL_R_COM_GADUMOR_LANG
+        - IFR_GRA_HAL_R_COM_SCYLCAN_CGFS
+        - IFR_GRA_HAL_R_COM_SCYLCAN_ORHA
+        - IFR_GRA_HAL_R_COM_SCYLCAN_LANG
+        - IFR_GRA_HAL_R_COM_SCYLCAN_EVHO
+        - IFR_GRA_HAL_R_FRA_SOLESOL_IBTS
+        - IFR_GRA_HAL_R_FRA_SOLESOL_SOLD
+        - IFR_GRA_HAL_R_NOU_TRISLUS_PECO
+        - IFR_GRA_HAL_R_NOU_TRISLUS_BDSE
+        - IFR_GRA_HAL_R_NOU_TRISLUS_BDSO
+        - IFR_GRA_HAL_R_NOU_TRISLUS_LOGI
+        - IFR_GRA_HAL_R_NOU_TRISLUS_NURS
+        - IFR_GRA_HAL_R_COM_MICRVAR_CGFS
+        - IFR_GRA_HAL_R_COM_MICRVAR_ORHA
+        - IFR_GRA_HAL_R_COM_MICRVAR_LANG
+        - IFR_GRA_GEOL_indice_sedim
+        - IFR_GRA_HAL_R_COM_RAJACLA_CGFS
+        - IFR_GRA_HAL_R_COM_RAJACLA_EVHO
+        - IFR_GRA_HAL_R_COM_RAJACLA_LANG
+        - IFR_GRA_HAL_R_COM_LEUCNAE_CGFS
+        - IFR_GRA_HAL_R_COM_LEUCNAE_LANG
+        - IFR_GRA_HAL_R_COM_LEUCNAE_EVHO
+        - IFR_GRA_HAL_R_NOU
+        - IFR_GRA_HAL_R_COM_BUCCUND_ORHA
+        - IFR_GRA_HAL_R_COM_BUCCUND_CGFS
+        - IFR_GRA_HAL_R_NOU_MULLSUR_BDSO
+        - IFR_GRA_HAL_R_NOU_MULLSUR_PECO
+        - IFR_GRA_HAL_R_NOU_MULLSUR_NURS
+        - IFR_GRA_HAL_R_NOU_MULLSUR_LOGI
+        - IFR_GRA_HAL_R_COM_TRISLUS_CGFS
+        - IFR_GRA_HAL_R_COM_TRISLUS_ORHA
+        - IFR_GRA_HAL_R_COM_TRISLUS_LANG
+        - IFR_GRA_HAL_R_COM_TRISLUS_EVHO
+        - IFR_GRA_HAL_R_NOU_PLATFLE_BDSE
+        - IFR_GRA_HAL_R_NOU_PLATFLE_BDSO
+        - IFR_GRA_HAL_R_FRA_PLATFLE_IBTS
+        - IFR_GRA_HAL_R_FRA_MERNMER_IBTS
+        - IFR_GRA_HAL_R_FRA_PLEUPLA_IBTS
+        - IFR_GRA_HAL_R_FRA_MELAAEG_IBTS
+        - IFR_GRA_HAL_R_COM_MICRPOU_CGFS
+        - IFR_GRA_HAL_R_COM_MICRPOU_EVHO
+        - IFR_GRA_HAL_R_COM_MICRPOU_LANG
+        - IFR_GRA_HAL_R_COM_MICRPOU_ORHA
+        - IFR_GRA_HAL_R_COM_PSETMAX_CGFS
+        - IFR_GRA_HAL_R_COM_PSETMAX_ORHA
+        - IFR_GRA_HAL_R_COM_SEPIORB_EVHO
+        - IFR_GRA_HAL_R_COM_SEPIORB_ORHA
+        - IFR_GRA_HAL_R_COM_SEPIORB_LANG
+        - IFR_GRA_HAL_R_COM_SOLESOL_CGFS
+        - IFR_GRA_HAL_R_COM_SOLESOL_ORHA
+        - IFR_GRA_HAL_R_COM_SOLESOL_LANG
+        - IFR_GRA_HAL_R_COM_SOLELAS_ORHA
+        - IFR_GRA_HAL_R_NOU_DICOCUN_NURS
+        - IFR_GRA_HAL_R_NOU_DICOCUN_LOGI
+        - IFR_GRA_HAL_R_NOU_DICOCUN_PECO
+        - IFR_GRA_HAL_R_COM_SEPIELE_EVHO
+        - IFR_GRA_HAL_R_COM_SEPIELE_ORHA
+        - IFR_GRA_HAL_R_COM_SEPIELE_LANG
+        - IFR_GRA_HAL_R_COM_RAJAMON_CGFS
+        - IFR_GRA_HAL_R_COM_RAJAMON_ORHA
+        - IFR_GRA_HAL_R_COM_RAJAMON_LANG
+        - IFR_GRA_HAL_R_NOU_DICELAB_PECO
+        - IFR_GRA_HAL_R_NOU_DICELAB_BDSE
+        - IFR_GRA_HAL_R_NOU_DICELAB_BDSO
+        - IFR_GRA_HAL_R_NOU_DICELAB_LOGI
+        - IFR_GRA_HAL_R_NOU_DICELAB_NURS
+        - IFR_GRA_HAL_R_NOU_SPONCAN_BDSO
+        - IFR_GRA_HAL_R_NOU_SPONCAN_PECO
+        - IFR_GRA_HAL_R_NOU_SPONCAN_NURS
+        - IFR_GRA_HAL_R_NOU_SPONCAN_LOGI
+        - IFR_GRA_GEOL_Adeq_Outils
+        - IFR_GRA_HAL_R_COM_MERNMER_CGFS
+        - IFR_GRA_HAL_R_COM_MERNMER_ORHA
+        - IFR_GRA_HAL_R_COM_MERNMER_LANG
+        - IFR_GRA_HAL_R_COM_MERNMER_EVHO
+        - IFR_GRA_HAL_R_COM_SCYLSTE_CGFS
+        - IFR_GRA_HAL_R_NOU_MERNMER_PECO
+        - IFR_GRA_HAL_R_NOU_MERNMER_BDSE
+        - IFR_GRA_HAL_R_NOU_MERNMER_BDSO
+        - IFR_GRA_HAL_R_NOU_MERNMER_LOGI
+        - IFR_GRA_HAL_R_NOU_MERNMER_NURS
+        - IFR_GRA_GEOL_isop_bancs
+        - IFR_GRA_GEOL_isop_bancs_a
+        - IFR_GRA_HAL_R_FRA_GADUMOR_IBTS
+        - IFR_GRA_HAL_R_FRA_HIPPPLA_IBTS
+        - IFR_GRA_HAL_R_COM_MULLSUR_CGFS
+        - IFR_GRA_HAL_R_COM_MULLSUR_EVHO
+        - IFR_GRA_HAL_R_COM_MULLSUR_LANG
+        - IFR_GRA_HAL_R_COM_MULLSUR_ORHA
+        - IFR_GRA_HAL_R_NOU_NEPHNOR_LANG
+        - IFR_GRA_HAL_R_COM_ELEDCIR_EVHO
+        - IFR_GRA_HAL_R_COM_ELEDCIR_ORHA
+        - IFR_GRA_HAL_R_COM_ELEDCIR_LANG
+        - IFR_GRA_HAL_R_COM_AEQUOPE_LANG
+        - IFR_GRA_HAL_R_COM_AEQUOPE_ORHA
+        - IFR_GRA_GEOL_isop_CouvInd
+        - IFR_GRA_GEOL_isop_CouvInd_a
+        - IFR_GRA_HAL_R_NOU_PLEUPLA_BDSE
+        - IFR_GRA_HAL_R_NOU_PLEUPLA_BDSO
+        - IFR_GRA_HAL_R_NOU_PLEUPLA_LOGI
+        - IFR_GRA_HAL_R_NOU_PLEUPLA_NURS
+        - IFR_GRA_HAL_R_NOU_PLEUPLA_PECO
+        - IFR_GRA_HAL_R_COM_TRIGL_CGFS
+        - IFR_GRA_HAL_R_COM_TRIGL_EVHO
+        - IFR_GRA_HAL_R_COM_TRIGL_LANG
+        - IFR_GRA_HAL_R_COM_TRIGL_ORHA
+        - IFR_GRA_HAL_R_COM_SPONCAN_CGFS
+        - IFR_GRA_HAL_R_COM_SPONCAN_EVHO
+        - IFR_GRA_HAL_R_FRA_LOTI_IBTS
+        - IFR_GRA_HAL_R_COM_LIMAND_CGFS
+        - IFR_GRA_HAL_R_COM_LIMAND_LANG
+        - IFR_GRA_HAL_R_COM_ARGYREG_EVHO
+        - IFR_GRA_HAL_R_COM_PECTMAX_COMO
+        - IFR_GRA_HAL_R_COM_PECTMAX_COPE
+        - IFR_GRA_HAL_R_COM_PECTMAX_COSB
+        - IFR_GRA_HAL_R_FRA
+        - IFR_GRA_HAL_R_FRA_MICRVAR_IBTS
+        - IFR_GRA_HAL_R_NOU_MERLMER_LANG
+        - IFR_GRA_HAL_R_NOU_MERLMER_PECO
+        - IFR_GRA_HAL_R_NOU_MERLMER_NURS
+        - IFR_GRA_HAL_R_NOU_MERLMER_LOGI
+        - IFR_GRA_HAL_R_COM_LEPI_LANG
+        - IFR_GRA_HAL_R_COM_MELAAEG_EVHO
+        - IFR_GRA_HAL_R_COM_MELAAEG_ORHA
+        - IFR_GRA_HAL_R_COM_MELAAEG_LANG
+        - IFR_GRA_HAL_R_COM_PHRYN_LANG
+        - IFR_GRA_HAL_R_COM_PHRYN_ORHA
+        - IFR_GRA_HAL_R_COM_SEPIOFF_CGFS
+        - IFR_GRA_HAL_R_COM_SEPIOFF_ORHA
+        - IFR_GRA_HAL_R_COM_SEPIOFF_LANG
+        - IFR_GRA_HAL_R_COM_SEPIOFF_EVHO
+        - IFR_GRA_HAL_R_COM_CANCPAG_CGFS
+        - IFR_GRA_HAL_R_COM_CANCPAG_ORHA
+        - IFR_GRA_HAL_R_COM_CANCPAG_LANG
+        - IFR_GRA_HAL_R_COM_ZEUSFAB_CGFS
+        - IFR_GRA_HAL_R_COM_ZEUSFAB_EVHO
+        - IFR_GRA_HAL_R_COM_ZEUSFAB_LANG
+        - IFR_GRA_HAL_R_COM_ZEUSFAB_ORHA
+        - IFR_GRA_HAL_R_Fiabilite
+        - IFR_GRA_HAL_R_COM_Fiabilite
+        - IFR_GRA_HAL_R_DIV_Fiabilite
+        - IFR_GRA_HAL_R_FRA_Fiabilite
+        - IFR_GRA_HAL_R_NOU_Fiabilite
+        - IFR_GRA_HAL_R_COM_MERLMER_EVHO
+        - IFR_GRA_HAL_R_COM_MERLMER_LANG
+        - IFR_GRA_HAL_R_COM_MERLMER_ORHA
+        - IFR_GRA_HAL_R_FRA_LEPIWHI_IBTS
+        - IFR_GRA_HAL_R_NOU_ARGYREG_LOGI
+        - IFR_GRA_HAL_R_NOU_ARGYREG_PECO
+        - IFR_GRA_HAL_R_DIV
+        - IFR_GRA_HAL_R_COM_ECHIVIP_CGFS
+        - IFR_GRA_HAL_R_COM_ECHIVIP_ORHA
+        - IFR_GRA_HAL_R_COM_ECHIVIP_LANG
+        - IFR_GRA_HAL_R_COM_ECHIVIP_EVHO
+        - IFR_GRA_HAL_R_COM_BUGLLUT_CGFS
+        - IFR_GRA_HAL_R_COM_BUGLLUT_ORHA
+        - IFR_GRA_HAL_R_FRA_LIMAND_IBTS
+        - IFR_GRA_HAL_R_COM_MAJASQU_CGFS
+        - IFR_GRA_HAL_R_COM_MAJASQU_ORHA
+        - IFR_GRA_HAL_R_COM_MAJASQU_LANG
+        - IFR_GRA_HAL_R_COM_NECOPUB_CGFS
+        - IFR_GRA_HAL_R_COM_NECOPUB_ORHA
+        - IFR_GRA_HAL_R_COM_NECOPUB_LANG
+        - IFR_GRA_HAL_R_COM_PLEUPLA_CGFS
+        - IFR_GRA_HAL_R_COM_PLEUPLA_LANG
+        - IFR_GRA_HAL_R_COM_PLEUPLA_ORHA
+        - IFR_GRA_GEOL_prelev
+        - IFR_GRA_GEOL_Pot_Extrac
+        - IFR_GRA_GEOL_indice_morpho
+        - IFR_GRA_GEOL_isop_NapAlluv
+        - IFR_GRA_GEOL_isop_NapAlluv_a
+        - IFR_GRA_HAL_R
+    'http://www.ifremer.fr/services/wfs/humboldt?':
+      protocol: 'OGC:WFS'
+      names:
+        - AAMP_PNM_FRANCE_P
+        - AAMP_PNM_FRANCE_P_harmo
+        - ESI_29_Raw
+        - ESI_29_Harmo
+        - polrep_france
+        - polrep_france_harmo
+        - Mothy_Ouessant
+    'http://www.ifremer.fr/services/wfs/nouvelle_caledonie':
+      protocol: 'OGC:WFS'
+      names:
+        - IFR_UNIQUEST_NEW_CAL_TIDAL_WETLAND_FLORA_SURVEY_WGS84_PT
+        - IFR_UNIQUEST_NEW_CAL_TIDAL_WETLAND_FLORA_SALTMARSH_NBSPP_WGS84_PT
+        - IFR_UNIQUEST_NEW_CAL_TIDAL_WETLAND_FLORA_MANGROVE_NBSPP_WGS84_PT
+        - IFR_NEW_CAL_VIBRIO_PATHOTYP_PENAE_2007_2015
+        - IFR_NEW_CAL_ECOTOX_MEAS_RES_WGS84
+        - IFR_NEW_CAL_FIL_CREVETTE_PT
+        - IFR_NEW_CAL_VIBRIO_PATHOTYP_NIGRIMP_2007_2015
+        - IFR_NEW_CAL_INSTAL_AQUACOLE_RGNC_PT
+        - IFR_NEW_CAL_VIBRIO_PATHOTYP_NIGRINT_2007_2015
+        - IFR_NEW_CAL_ECOTOX_PRELEV_SED_WGS84
+        - IFR_NEW_CAL_Q2_ZONES_MARINES_NC_RGNC
+        - IFR_UNIQUEST_NC_Tidal_Wetland_Flora_Mangrove_Spp
+        - IFR_NEW_CAL_VIBRIO_PATHOTYP_NIGRIHP_2007_2015
+        - IFR_UNIQUEST_NC_Tidal_Wetland_Flora_Saltmarsh_Spp
+    'http://www.ifremer.fr/services/wfs/ocean_indien':
+      protocol: 'OGC:WFS'
+      names:
+        - REUNION_CARTOMAR_BENNES_PT
+        - IFR_HYDRORUN_COURANTS_BAROTROPES_PT
+        - IFR_HYDRORUN_COURANT_SURFACE_PT
+        - IFR_HYDRORUN_DIRECTION_PT
+        - IFR_HYDRORUN_TRI1_DIRECTION_PT
+        - IFR_HYDRORUN_TRI2_DIRECTION_PT
+        - IFR_HYDRORUN_TRI3_DIRECTION_P
+        - IFR_HYDRORUN_TRI4_DIRECTION_PT
+        - REUNION_CARTOMAR_NATURE_FOND_P
+        - REUNION_CARTOMAR_NATUR_FOND_PT
+        - REUNION_CARTOMAR_FORME_SEDI_P
+        - REUNION_CARTOMAR_FORME_SED_A
+        - REUNION_CARTOMAR_STRUCTURE_A
+    'http://www.ifremer.fr/services/wfs/odatis':
+      protocol: 'OGC:WFS'
+      names:
+        - ODATIS_LEFE_CYBER_CRUISES
+    'http://www.ifremer.fr/services/wfs/sih_referentiels':
+      protocol: 'OGC:WFS'
+      names:
+        - IFR_STOCKS_HALIEUTIQUES_2018
+        - IFR_LOCATION_PORTS
+    'http://www.ifremer.fr/services/wfs/sisaqua':
+      protocol: 'OGC:WFS'
+      names:
+        - TRONCON_COURS_D_EAU_MMN_40km
+        - COURS_D_EAU_2017_MMN-5km
+    'http://www.ifremer.fr/services/wfs/sismer':
+      protocol: 'OGC:WFS'
+      names:
+        - IFR_SISMER_COURANTOMETRES
+        - IFR_SISMER_CTD
+        - BIGOOD_prelevements
+        - IFR_SISMER_PRELEVEMENTS_BOUTEILLES
+        - CAMPAGNES_SISMIQUE_SISMER
+        - CAMPAGNES_MAGNETISME_SISMER
+        - CAMPAGNES_GRAVIMETRIE_SISMER
+        - CAMPAGNES_SONAR_LATERAL_SISMER
+        - CAMPAGNES_IMAGERIE_MULTIFAISCEAUX_SISMER
+        - CAMPAGNES_BATHY_SINGLEBEAM_SISMER
+        - CAMPAGNES_ADCP
+        - CAMPAGNES_BATHY_SISMER
+        - IFR_SISMER_PRELEVEMENT_GRANULATS
+        - IFR_SISMER_PROFILS_SISMIQUES_GRANULATS
+    'http://www.ifremer.fr/services/wfs/sno_dynalit':
+      protocol: 'OGC:WFS'
+      names:
+        - SNO_DYNALIT_AL_ALL_ZONE_PL
+        - SNO_DYNALIT_ALL_ALL_IMPLAN_PT
+        - SNO_DYNALIT_PAR_MAT_STATIO_PT
+    'http://www.ifremer.fr/services/wfs/surveillance_littorale':
+      protocol: 'OGC:WFS'
+      names:
+        - surval_rocch_biote_historique
+        - surval_rocch_sediment_historique
+        - surval_rocch_biote
+        - surval_rocch_sediment
+        - surval_rhln_historique
+        - surval_srn_historique
+        - surval_rslhyd_historique
+        - surval_archyd_historique
+        - surval_remi_historique
+        - surval_remi_surv
+        - referentiel_lieux_quadrige_point
+        - referentiel_lieux_quadrige_line
+        - referentiel_lieux_quadrige_area
+        - surval_rephytox
+        - surval_rephytox_area
+        - surval_rephy
+        - surval_rephy_area
+        - surval_rephy_historique
+        - surval_rephy_area_historique
+        - surval_rephytox_historique
+        - surval_rephytox_area_historique
+        - ZONES_MARINES_P
+        - surval_OI_lieux_ponctuels
+        - surval_OI_Hydrologie_PT
+        - surval_OI_Phytoplancton_PT
+        - surval_OI_Contaminants_chimiques_PT
+        - surval_OI_Autres_parametres_PT
+        - surval_OI_Benthos_substrats_meubles_PT
+        - surval_parametre_point
+    'http://www.ifremer.fr/services/wms/dce':
+      protocol: 'OGC:WFS'
+      names:
+        - ATLAS_DCE_LOIRE_BRETAGNE_ME_QUALITE_MACRO_2011_P

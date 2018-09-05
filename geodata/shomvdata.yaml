@@ -1,0 +1,182 @@
+title: Données Shom
+creator: Shom
+abstract: |
+  Données exposées sur le serveur Wfs du Shom.
+  
+  Ne fonctionne pas car le champ geometry porte différents noms en fonction du featureType.
+  Il faut faire un DescribeFeatureType sur le featureType pour connaitre le nom de ce champ.
+  
+  La [carte correspondante peut être générée ici](id.php/geodata/shomvdata/map/display?latlon=47.135,-1.730&zoom=11).
+  
+  URL de test:
+    
+    - [doc](id.php/geodata/shomvdata)
+    - [wfs](?doc=geodata/shomwfs)
+    - [description de grille_geotiff_800](id.php/geodata/shomvdata/grille_geotiff_800)
+    - [affichage de grille_geotiff_800
+    ](id.php/geodata/shomvdata/grille_geotiff_800?bbox=1.4,47.3,4.5,48.6&zoom=9)
+    - [au_baseline](id.php/geodata/shomvdata/au_baseline?bbox=-50,16,57,60&zoom=4)
+    
+
+yamlClass: VectorDataset
+urlWfs: http://services.data.shom.fr/INSPIRE/wfs
+minZoom: 1
+maxZoom: 18
+
+layersByTheme:
+  ARCHIVES_CARTES_MARINES_GRILLES:
+    grilles_archipel_cm_30:
+      title: grilles_archipel_cm_30
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: ARCHIVES_CARTES_MARINES_GRILLES:grilles_archipel_cm_30
+    grilles_archipel_cm_300_800:
+      title: grilles_archipel_cm_300_800
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: ARCHIVES_CARTES_MARINES_GRILLES:grilles_archipel_cm_300_800
+    grilles_archipel_cm_30_300:
+      title: grilles_archipel_cm_30_300
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: ARCHIVES_CARTES_MARINES_GRILLES:grilles_archipel_cm_30_300
+    grilles_archipel_cm_800:
+      title: grilles_archipel_cm_800
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: ARCHIVES_CARTES_MARINES_GRILLES:grilles_archipel_cm_800
+  ARCHIVES_MINUTES_ANCIENNES_GRILLES:
+    archipel_min_30:
+      title: archipel_min_30
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: ARCHIVES_MINUTES_ANCIENNES_GRILLES:archipel_min_30
+    archipel_min_300_800:
+      title: archipel_min_300_800
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: ARCHIVES_MINUTES_ANCIENNES_GRILLES:archipel_min_300_800
+    archipel_min_30_300:
+      title: archipel_min_30_300
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: ARCHIVES_MINUTES_ANCIENNES_GRILLES:archipel_min_30_300
+    archipel_min_800:
+      title: archipel_min_800
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: ARCHIVES_MINUTES_ANCIENNES_GRILLES:archipel_min_800
+  CARTES_MARINES_GRILLE:
+    grille_geotiff_30:
+      title: grille_geotiff_30
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: CARTES_MARINES_GRILLE:grille_geotiff_30
+    grille_geotiff_300_800:
+      title: grille_geotiff_300_800
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: CARTES_MARINES_GRILLE:grille_geotiff_300_800
+    grille_geotiff_30_300:
+      title: grille_geotiff_30_300
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: CARTES_MARINES_GRILLE:grille_geotiff_30_300
+    grille_geotiff_800:
+      title: grille_geotiff_800
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: CARTES_MARINES_GRILLE:grille_geotiff_800
+  DELMAR_BDD_WFS:
+    au_baseline:
+      title: au_baseline
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: DELMAR_BDD_WFS:au_baseline
+    au_maritimeboundary_agreedmaritimeboundary:
+      title: au_maritimeboundary_agreedmaritimeboundary
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: DELMAR_BDD_WFS:au_maritimeboundary_agreedmaritimeboundary
+    au_maritimeboundary_contiguouszone:
+      title: au_maritimeboundary_contiguouszone
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: DELMAR_BDD_WFS:au_maritimeboundary_contiguouszone
+    au_maritimeboundary_continentalshelf:
+      title: au_maritimeboundary_continentalshelf
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: DELMAR_BDD_WFS:au_maritimeboundary_continentalshelf
+    au_maritimeboundary_economicexclusivezone:
+      title: au_maritimeboundary_economicexclusivezone
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: DELMAR_BDD_WFS:au_maritimeboundary_economicexclusivezone
+    au_maritimeboundary_nonagreedmaritimeboundary:
+      title: au_maritimeboundary_nonagreedmaritimeboundary
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: DELMAR_BDD_WFS:au_maritimeboundary_nonagreedmaritimeboundary
+    au_maritimeboundary_territorialsea:
+      title: au_maritimeboundary_territorialsea
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: DELMAR_BDD_WFS:au_maritimeboundary_territorialsea
+  GRILLE_S57_WFSc:
+    catalogues57_1:
+      title: catalogues57_1
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: GRILLE_S57_WFSc:catalogues57_1
+    catalogues57_2:
+      title: catalogues57_2
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: GRILLE_S57_WFSc:catalogues57_2
+    catalogues57_3:
+      title: catalogues57_3
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: GRILLE_S57_WFSc:catalogues57_3
+    catalogues57_4:
+      title: catalogues57_4
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: GRILLE_S57_WFSc:catalogues57_4
+    catalogues57_5:
+      title: catalogues57_5
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: GRILLE_S57_WFSc:catalogues57_5
+    catalogues57_6:
+      title: catalogues57_6
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: GRILLE_S57_WFSc:catalogues57_6
+  LOTS_BATHY:
+    lots_bathy_1970_1990_3857:
+      title: lots_bathy_1970_1990_3857
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: LOTS_BATHY_1970_1990_WFS:lots_bathy_1970_1990_3857
+    lots_bathy_1990_2005_3857:
+      title: lots_bathy_1990_2005_3857
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: LOTS_BATHY_1990_2005_WFS:lots_bathy_1990_2005_3857
+    lots_bathy_apres_2005_3857:
+      title: lots_bathy_apres_2005_3857
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: LOTS_BATHY_APRES_2005_WFS:lots_bathy_apres_2005_3857
+    lots_bathy_avant_1970_3857:
+      title: lots_bathy_avant_1970_3857
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: LOTS_BATHY_AVANT_1970_WFS:lots_bathy_avant_1970_3857
+  NIVEAUX_EXREMES_BDD_4326_WFS:
+    niv_ext_pm100:
+      title: niv_ext_pm100
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: NIVEAUX_EXREMES_BDD_4326_WFS:niv_ext_pm100
+      MetadataURL: http://services.data.shom.fr/csw/ISOAP?service=CSW&version=2.0.2&request=GetRecordById&Id=MAREE_COURANTS_NIV_EXTR.xml
+  RAM_BDD_WLD_WGS84G_WFS:
+    ram_2017_3857:
+      title: ram_2017_3857
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: RAM_BDD_WLD_WGS84G_WFS:ram_2017_3857
+  TCH:
+    tch_complet_wfs:
+      title: tch_complet_wfs
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: TCH-LINE_BDD_WLD_WGS84G_WFS:tch_complet_wfs
+    tchr_11_3857:
+      title: tchr_11_3857
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: TCHR_3857_WFS:tchr_11_3857
+      MetadataURL: http://wxs-shom-fr.aw.atos.net/geonetwork/INSPIRE?service=CSW&version=2.0.2&request=GetRecordById&Id=BDML_TCHR.xml
+    tchr_83_3857:
+      title: tchr_83_3857
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: TCHR_3857_WFS:tchr_83_3857
+      MetadataURL: http://wxs-shom-fr.aw.atos.net/geonetwork/INSPIRE?service=CSW&version=2.0.2&request=GetRecordById&Id=BDML_TCHR.xml
+  TYPE_MAREE_BDD_4326_WFS:
+    type_maree:
+      title: type_maree
+      style: { color: red, weight: 1, opacity: 0.65 }
+      typename: TYPE_MAREE_BDD_4326_WFS:type_maree
+      MetadataURL: http://wxs-shom-fr.aw.atos.net/geonetwork/INSPIRE?service=CSW&version=2.0.2&request=GetRecordById&Id=MAREE_COURANTS_TYPE_MAREE.xml
+            
+      
