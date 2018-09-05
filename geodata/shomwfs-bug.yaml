@@ -1,0 +1,46 @@
+title: bug
+bug20180904:
+  title: erreur exécution requête WFS
+  demande: |
+    Sujet : 	difficultés avec le service WFS INSPIRE du SHOM
+    Date : 	Tue, 4 Sep 2018 17:16:28 +0200
+    De : 	DAVID Benoît - CGDD/DRI/SDI/MIG 
+    Organisation : 	CGDD/DRI/SDI/MIG
+    Pour : 	data-support@shom.fr
+
+
+    Bonjour,
+
+    Je cherche à utiliser le service WFS INSPIRE du SHOM et j'obtiens une 
+    erreur.
+
+    Ma requête est:
+    http://services.data.shom.fr/INSPIRE/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=DELMAR_BDD_WFS:au_baseline&OUTPUTFORMAT=application/json&SRSNAME=CRS:84&COUNT=100&STARTINDEX=0
+
+    L'erreur est:
+
+    java.lang.RuntimeException: java.io.IOException
+    java.io.IOExceptionCannot do natural order without a primary key, please 
+    add it or specify a manual sort over existing 
+    attributes
+
+    Il me semble que cela provient d'une erreur de configuration de votre 
+    serveur et pas d'une erreur de requête.
+    Pouvez-vous SVP m'indiquer si vous pensez que cela provient d'une erreur 
+    de requête et si non s'il est possible de faire le nécessaire pour que 
+    cela fonctionne ?
+
+    Cordialement
+  reponse: |
+    Le 04/09/2018 à 17:41, "> data support (par Internet, dépôt fanny.lecuy@shom.fr)" a écrit :
+    > Bonjour,
+    >
+    > Le STARTINDEX=0 fait planter la requête parce q'uil n'y a pas de tri demandé et donc pas de choix de premier élément à afficher à faire.
+    > La requête http://services.data.shom.fr/INSPIRE/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=DELMAR_BDD_WFS:au_baseline&OUTPUTFORMAT=application/json&SRSNAME=CRS:84&COUNT=100  fonctionne parfaitement pour afficher les 100 premiers éléments de la couche sans tri sur un attribut.
+    > J'espère que cela répond à votre demande.
+    >
+    > Cordialement,
+    > L'équipe support de data.shom.fr
+    > Aide en ligne data.shom.fr
+    >
+    

@@ -29,12 +29,12 @@ abstract: |
     - [getFeature pour DELMAR_BDD_WFS:au_baseline sans bbox et sans where
       ](id.php/geodata/shomwfs/ft/DELMAR_BDD_WFS:au_baseline/getFeature)
 
-    xx
-    
-  L'URL: http://services.data.shom.fr/INSPIRE/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=DELMAR_BDD_WFS:au_baseline&OUTPUTFORMAT=application/json&SRSNAME=CRS:84&COUNT=100&STARTINDEX=0
-  génère une erreur:
-    java.lang.RuntimeException: java.io.IOException
-    java.io.IOExceptionCannot do natural order without a primary key, please add it or specify a manual sort over existing attributes
+bugs:
+  bug20180904: |
+    L'URL: http://services.data.shom.fr/INSPIRE/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=DELMAR_BDD_WFS:au_baseline&OUTPUTFORMAT=application/json&SRSNAME=CRS:84&COUNT=100&STARTINDEX=0
+    génère l'erreur:
+      java.lang.RuntimeException: java.io.IOException
+      java.io.IOExceptionCannot do natural order without a primary key, please add it or specify a manual sort over existing attributes
     
 yamlClass: WfsServerJson
 urlWfs: http://services.data.shom.fr/INSPIRE/wfs
