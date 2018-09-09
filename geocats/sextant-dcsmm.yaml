@@ -2,23 +2,23 @@ title: Service web WFS de la Directive Cadre Strategie pour le Milieu Marin (DCS
 creator: Ifremer
 abstract: |
   Accès au serveur WFS DCSMM de Sextant.  
+  [Carte affichant les données](id.php/geocats/sextant-dcsmm/map/display)  
   Test d'accès à un serveur WFS de Sextant.
   
   **URL** :
     
-    - [Requête de base ne fonctionnant pas
+    - [Requête test
       ](/yamldoc/id.php/geocats/sextant-dcsmm/ESPACES_TERRESTRES_P?bbox=-10,41,16,51&zoom=6)
-    - [Requête WFS générée par la requête de base ci-dessus
-      ](http://www.ifremer.fr/services/wfs/dcsmm?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=ESPACES_TERRESTRES_P&SRSNAME=CRS:84&RESULTTYPE=hits&CQL_FILTER=Intersects%28the_geom%2CPOLYGON%28%2841+-10%2C41+16%2C51+16%2C51+-10%2C41+-10%29%29%29)
     - [WFS GetCapabilities](http://www.ifremer.fr/services/wfs/dcsmm?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetCapabilities)
     - [capabilities](id.php/geocats/sextant-dcsmm/wfs/capabilities)
-    - [requête correcte ESPACES_TERRESTRES_P renvoyant les données en GML 3.2 EPSG:4326
-    ](http://www.ifremer.fr/services/wfs/dcsmm?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=ESPACES_TERRESTRES_P&RESULTTYPE=results&SRSNAME=EPSG:4326&BBOX=41,-10,51,16)
-    - [requête correcte DCSMM_SRM_TERRITORIALE_201806_L renvoyant du GML 3.2 en EPSG:4326
-    ](http://www.ifremer.fr/services/wfs/dcsmm?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=DCSMM_SRM_TERRITORIALE_201806_L&RESULTTYPE=results&SRSNAME=EPSG:4326&BBOX=41,-10,51,16)
-    - [requête correcte DCSMM_SRM_TERRITORIALE_201806_L renvoyant du GML2 en EPSG:4326
-    ](http://www.ifremer.fr/services/wfs/dcsmm?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=DCSMM_SRM_TERRITORIALE_201806_L&RESULTTYPE=results&SRSNAME=EPSG:4326&BBOX=41,-10,51,16&OUTPUTFORMAT=GML2)
-  
+    - [DCSMM_SOUS_REGIONS_MARINES_REPORT_P autour de Brest
+      ](id.php/geocats/sextant-dcsmm/DCSMM_SOUS_REGIONS_MARINES_REPORT_P?bbox=-5,48,-3,48.6&zoom=10)
+    - [DCSMM_REPOMS
+      ](id.php/geocats/sextant-dcsmm/DCSMM_REPOMS?bbox=-5,47,-2,48&zoom=9)
+    - [DCSMM_SRM_TERRITORIALE_201806_P bbox=-7,47,-2,49&zoom=8
+      ](id.php/geocats/sextant-dcsmm/DCSMM_SRM_TERRITORIALE_201806_P?bbox=-7,47,-2,49&zoom=8)
+      
+   
   Par rapport au WFS IGN:
     
     - le serveur n'accepte pas le CRS CRS:84 et ne sait pas fournir de GeoJSON
@@ -30,26 +30,26 @@ wfsOptions:
   Gml4326: true
 layers:
   ESPACES_TERRESTRES_P:
-    title: ESPACES_TERRESTRES_P
-    typename: ESPACES_TERRESTRES_P
+    title: Espaces terrestres (France et pays riverains)
+    typename: ms:ESPACES_TERRESTRES_P
   DCSMM_MARINE_REPORTS_UNIT_P:
-    title: DCSMM_MARINE_REPORTS_UNIT_P
-    typename: DCSMM_MARINE_REPORTS_UNIT_P
-  DCSMM_SRM_TERRITORIALE_201806_P:
-    title: DCSMM_SRM_TERRITORIALE_201806_P
-    typename: DCSMM_SRM_TERRITORIALE_201806_P
+    title: DCSMM - Marine Reports Unit (2017)
+    typename: ms:DCSMM_MARINE_REPORTS_UNIT_P
   DCSMM_SRM_TERRITORIALE_201806_L:
-    title: DCSMM_SRM_TERRITORIALE_201806_L
-    typename: DCSMM_SRM_TERRITORIALE_201806_L
+    title: Délimitations des sous-régions marines françaises et limites de la mer territoriale - version polylignes (juin 2018)
+    typename: ms:DCSMM_SRM_TERRITORIALE_201806_L
+  DCSMM_SRM_TERRITORIALE_201806_P:
+    title: Délimitations des sous-régions marines françaises et limites de la mer territoriale - version polygones (juin 2018)
+    typename: ms:DCSMM_SRM_TERRITORIALE_201806_P
   DCSMM_SOUS_REGIONS_MARINES_201806_P:
-    title: DCSMM_SOUS_REGIONS_MARINES_201806_P
-    typename: DCSMM_SOUS_REGIONS_MARINES_201806_P
+    title: Sous régions marines (mai 2018)
+    typename: ms:DCSMM_SOUS_REGIONS_MARINES_201806_P
   DCSMM_SOUS_REGIONS_MARINES_REPORT_P:
-    title: DCSMM_SOUS_REGIONS_MARINES_REPORT_P
-    typename: DCSMM_SOUS_REGIONS_MARINES_REPORT_P
+    title: Sous régions marines (rapportage 2018)
+    typename: ms:DCSMM_SOUS_REGIONS_MARINES_REPORT_P
   DCSMM_REPOMS:
-    title: DCSMM_REPOMS
-    typename: DCSMM_REPOMS
+    title: Données contaminants côtiers sédiment 1997-2016 (REPOMS)
+    typename: ms:DCSMM_REPOMS
   DCSMM_ROCCH-SED:
-    title: DCSMM_ROCCH-SED
-    typename: DCSMM_ROCCH-SED
+    title: Données contaminants côtiers sédiment 1995-2015 (ROCC-SED)
+    typename: ms:DCSMM_ROCCH-SED
