@@ -25,6 +25,10 @@ abstract: |
     - [build](id.php/geocats/sextant/build)
     - [listSubjects](id.php/geocats/sextant/listSubjects)
     
+  **SD particulières**:
+    
+    - [DCSMM](?doc=geocats/sextant-dcsmm)
+    
   **URL de test SigLoire**:
     
     - [search plein texte sur urbanisme](id.php/geocats/sigloire/search?text=urbanisme)
