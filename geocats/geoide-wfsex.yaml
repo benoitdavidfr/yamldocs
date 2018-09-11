@@ -1,0 +1,8 @@
+title: exemples d'URL de service WFS de Géo-IDE
+datasets:
+  - title: SRE, ZDE, mats éoliens
+    author: DREAL HdF (Direction Régionale de l'Environnement de l'Aménagement et du Logement des Hauts de France)
+    url: http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=%2Fopt%2Fdata%2Fcarto%2Fgeoide-catalogue%2F1.4%2Forg_38148%2Ffr-120066022-orphan-17b6ec0e-edb7-4297-98a8-087a3dac2b1c.intranet.map&SERVICE=WFS&REQUEST=GetCapabilities
+  - title: Eau - Zone Vulnérable à la Pollution par les Nitrates d'origine agricole en Loir-et-Cher
+    url:
+http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=%2Fopt%2Fdata%2Fcarto%2Fgeoide-catalogue%2F1.4%2Forg_38024%2Ff19f7c24-c605-43f5-b4a0-74676524d00a.internet.map&SERVICE=WFS&REQUEST=GetCapabilities
