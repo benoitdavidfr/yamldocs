@@ -25,9 +25,9 @@ abstract: |
     - permet d'utiliser BBOX plus simple à utiliser que CQL
   
 yamlClass: VectorDataset
-urlWfs: http://www.ifremer.fr/services/wfs/dcsmm
+wfsUrl: http://www.ifremer.fr/services/wfs/dcsmm
 wfsOptions:
-  Gml4326: true
+  gml: true
 layers:
   ESPACES_TERRESTRES_P:
     title: Espaces terrestres (France et pays riverains)

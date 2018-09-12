@@ -37,4 +37,4 @@ bugs:
       java.io.IOExceptionCannot do natural order without a primary key, please add it or specify a manual sort over existing attributes
     
 yamlClass: WfsServerJson
-urlWfs: http://services.data.shom.fr/INSPIRE/wfs
+wfsUrl: http://services.data.shom.fr/INSPIRE/wfs

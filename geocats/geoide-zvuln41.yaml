@@ -5,7 +5,7 @@ abstract: |
     - [carte](id.php/geocats/geoide-zvuln41/map)
     
 yamlClass: VectorDataset
-urlWfs: http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=%2Fopt%2Fdata%2Fcarto%2Fgeoide-catalogue%2F1.4%2Forg_38024%2Ff19f7c24-c605-43f5-b4a0-74676524d00a.internet.map
+wfsUrl: http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=%2Fopt%2Fdata%2Fcarto%2Fgeoide-catalogue%2F1.4%2Forg_38024%2Ff19f7c24-c605-43f5-b4a0-74676524d00a.internet.map
 wfsOptions:
   Gml4326: true
 layers:

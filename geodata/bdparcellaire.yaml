@@ -7,8 +7,9 @@ abstract: |
 identifier: http://professionnels.ign.fr/bdparcellaire
 coverage: "iso:code:3166:FR (métropole + DOM)"
 yamlClass: VectorDataset
-urlWfs: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
-referer: http://gexplor.fr/
+wfsUrl: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
+wfsOptions:
+  referer: http://gexplor.fr/
 layers:
   # Thème Réseau routier
   arrondissement:
