@@ -39,5 +39,5 @@ abstract: |
     - [download d'une SD](id.php/geocats/sigloire/items/f62c888d1bc7d7d0e612c42a31de2d7d/download)
     
 yamlClass: Geocat
-urlCsw: http://sextant.ifremer.fr/geonetwork/srv/eng/csw
+cswUrl: http://sextant.ifremer.fr/geonetwork/srv/eng/csw
 www: http://sextant.ifremer.fr/

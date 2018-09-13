@@ -1,8 +1,7 @@
 title: catalogue Géo-IDE
 abstract: |
   Moissonnage complet le 10/9/2018 entre 20h et 21h30.  
-  Dans les MD moissonnées, aucune MD de service de téléchargement !!!  
-  Les URL OGC doivent être complétées par le paramètre SERVICE et le paramètre map doit être encodé !!!  
+  Les URL OGC doivent être complétées par le paramètre SERVICE.   
   
   **URL de test html**:
     
@@ -16,9 +15,21 @@ abstract: |
     - [un mot-clé](id.php/geocats/geoide/subjects/Arborescence%20th%C3%A9matique%20de%20la%20COVADIS/9)
     - [search](id.php/geocats/geoide/search?subject=Aménagement%20Urbanisme/Assiette%20Servitude)
     - [une fiche](id.php/geocats/geoide/items/0f273cefe809b076f09d3fd8bdb46f29)
+    - [fiche N_VULNERABLE_ZSUP_041](id.php/geocats/geoide/items/d861ca04062243f27ec2a3fafa69109f)
     - [liste des fiches](id.php/geocats/geoide/db)
     - id.php/geocats/geoide/csw/GetRecordByIdInDC/fr-120066022-jdd-9450de81-bbc9-4175-a4b1-f9726bebf602
+    - [buildHasFormat](id.php/geocats/geoide/db/buildHasFormat)
   
+  **SD particulières**:
+    
+    - [N_VULNERABLE_ZSUP_041 server WFS](?doc=geocats/geoide-zvuln41-wfs)
+    - [N_VULNERABLE_ZSUP_041 GeoDataset](?doc=geocats/geoide-zvuln41)
+    
 yamlClass: Geocat
-urlCsw: http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/eng/csw-moissonnable-ds-2
+cswUrl: http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/eng/csw-moissonnable-ds-2
 www: http://catalogue.geo-ide.developpement-durable.gouv.fr/
+wfsOptions:
+  /ogc.geo-ide.developpement-durable.gouv.fr/:
+    gml: true
+    version: 1.0.0
+    coordOrderInGml: lngLat

@@ -4,6 +4,8 @@ examples: |
     
     - [SigLoire](?doc=geocats/sigloire)
     - [une SD issue de SigLoire](?doc=geocats/sigloire-pprt)
+    - [Sextant](?doc=geocats/sextant)
+    - [Géo-IDE](?doc=geocats/geoide)
     
 GeoCat: |
   Un catalogue de données géographiques (GeoCat) sait exécuter une requête
@@ -44,21 +46,21 @@ implem: |
     - si un de ces identifiants correspond à un GeoDataset, l'interpréter comme VectorDataset et/ou ImageDataset
     - si un de ces identifiants correspond à un GeoService, réaliser les opérations définies pour ce type de service.
 
-api: |
-  {geocat}: renvoie les métadonnées du géocat
-  {geocat}/spec: renvoie les specs OAI de la classe géocat
-  {geocat}/csw?params: exécute la requête CSW
-  {geocat}/search: |
+api:
+  '{geocat}': renvoie les métadonnées du géocat
+  '{geocat}/spec': renvoie les specs OAI de la classe géocat
+  '{geocat}/csw?params': exécute la requête CSW
+  '{geocat}/search': |
     exécute une recherche dans le catalogue et retourne une liste d'URI de la forme {geocat}/items/{resid}
     Ce retour est paginé
-  {geocat}/items/{resid}: |
-    renvoie au moins les MD de la ressource
-      + si la ressource est une SD alors un GeoDataset est retourné,
-        il contient l'information sur les différents services proposés download et view
-      + si la ressource est un service WFS alors un WfsService est retourné
-      + si la ressource est un service WMS alors un WmsService est retourné
-      + si la ressource est un service Atom alors un AtomService est retourné
-  {geocat}/items/{vdsid}/download: |
+  '{geocat}/items/{resid}': |
+    renvoie au moins les MD de la ressource  
+      + si la ressource est une SD alors un GeoDataset est retourné,  
+        il contient l'information sur les différents services proposés download et view  
+      + si la ressource est un service WFS alors un WfsService est retourné  
+      + si la ressource est un service WMS alors un WmsService est retourné  
+      + si la ressource est un service Atom alors un AtomService est retourné  
+  '{geocat}/items/{vdsid}/download': |
     Si la ressource est une SDV alors un VectorDataset est retourné
     Si plusieurs services de téléchargement sont proposés, celui par défaut est choisi (un WFS plutot qu'un Atom)
     La liste des couches exposées par ce service est générée
@@ -67,21 +69,21 @@ api: |
     Dans ce dernier cas, une version de la SD est effectivement téléchargée
     et stockée dans le répertoire {geocat}/{resid}
     Prévoir dans VectorDataset l'utilisation directe de fichiers OGR sans passer par MySql
-  {geocat}/items/{vdsid}/download/{lyrname}?bbox={bbox}&zoom={zoom}: 
+  '{geocat}/items/{vdsid}/download/{lyrname}?bbox={bbox}&zoom={zoom}': 
     pour une SDV renvoie la FeatureCollection correspondant au bbox et au zoom
-  {geocat}/items/{vdsid}/download/map/display: |
+  '{geocat}/items/{vdsid}/download/map/display': |
     pour une SDV affiche la carte Leaflet correspondante avec les couches vecteur
-  {geocat}/items/{vdsid}/view: |
+  '{geocat}/items/{vdsid}/view': |
     Si la ressource est une SDV alors un ViewDataset est retourné contenant notamment la liste des couches de consultation.
-  {geocat}/items/{vdsid}/view/{lyrname}: |
+  '{geocat}/items/{vdsid}/view/{lyrname}': |
     Si la ressource est une SDV alors une info sur la couche est retournée.
-  {geocat}/items/{vdsid}/view/{lyrname}/{z}/{x}/{y}.{fmt}: |
+  '{geocat}/items/{vdsid}/view/{lyrname}/{z}/{x}/{y}.{fmt}': |
     Si la ressource est une SDV alors l'image correspondante est retournée.
-  {geocat}/items/{vdsid}/view/map/display: |
+  '{geocat}/items/{vdsid}/view/map/display': |
     pour une SDV affiche la carte Leaflet de consultation correspondante
-  {geocat}/items/{resid}/wfs?params: 
+  '{geocat}/items/{resid}/wfs?params': 
     pour un service WFS exécute la requête WFS
-  {geocat}/items/{resid}/wms?params: 
+  '{geocat}/items/{resid}/wms?params': 
     pour un service WMS exécute la requête WMS
 
 search: |

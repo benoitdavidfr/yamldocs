@@ -1,0 +1,181 @@
+title: spec WFS - résumé des paramètres KVP
+wfs200:
+  title: WFS 2.0.0 spec (also ISO 19142)
+  source: http://portal.opengeospatial.org/files/?artifact_id=39967
+  allOperations:
+    GetCapabilities:
+    DescribeFeatureType:
+    GetPropertyValue:
+    GetFeature:
+    GetFeatureWithLock:
+    LockFeature:
+    Transaction:
+    CreateStoredQuery:
+    DropStoredQuery:
+    ListStoredQueries:
+    DescribeStoredQueries:
+  conformanceClass:
+    SimpleWFS: |
+      The server shall implement the following operations: GetCapabilities, DescribeFeatureType, ListStoredQueries, DescribeStoredQueries, GetFeature operation with only the StoredQuery action.
+      One stored query, that fetches a feature using its id, shall be available but the server may also offer additional stored queries.
+      Additionally the server shall conform to at least one of the HTTP GET, HTTP POST or SOAP conformance classes.
+    BasicWFS: |
+      The server shall implement the Simple WFS conformance class and shall additionally implement the GetFeature operation with the Query action and the GetPropertyValue operation.
+    'HTTP GET': The server shall implement the Key-value pair encoding for the operations that the server offers.
+    'HTTP POST': The server shall implement the XML encoding for the operations that the server implements.
+    SOAP: The server shall implement XML encoded requests and results within SOAP Envelopes.
+  Namespaces: |
+    Namespaces (see W3C XML Namespaces) are used to discriminate XML vocabularies from one another. For the WFS there are four normative namespace definitions, namely:
+    ⎯ (http://www.opengis.net/wfs/2.0) - for the WFS interface vocabulary
+    ⎯ (http://www.opengis.net/gml/3.2) - for the GML vocabulary (see ISO 19136:2007)
+    ⎯ (http://www.opengis.net/fes/2.0)- for the OGC Filter vocabulary (see ISO 19143, 5.4)
+    ⎯ (http://www.opengis.net/ows/1.1) - for the OWS Common vocabulary (see OGC 06-121r3)
+    In addition, WFS implementations may make use of one or more GML Application Schemas and these schemas will, in turn, use one or more application namespaces (e.g. http://www.someserver.com/myns). While many of the examples in this International Standard use a single namespace, multiple namespaces may be used, as shown in 11.3.3.
+  commonElements:
+    gml: |
+      Servers shall operate upon features encoded using GML. The version of GML that shall be supported is ISO 19136:2007. However the operations are defined in a manner that allows them to work with pervious and future versions of GML. So, servers may implement support for additional versions of GML, other than ISO 19136:2007. Servers shall advertise all supported versions of GML in their capabilities document using the inputFormat and outputFormat parameter domains.
+    CommonRequestParameters:
+      SERVICE: obligatoire, vaut 'WFS'
+      VERSION: obligatoire sauf pour GetCapabilities, vaut '2.0.0'
+      REQUEST: obligatoire
+  operations:
+    GetCapabilities:
+      params:
+        request: GetCapabilities
+    DescribeFeatureType:
+      params:
+        request: DescribeFeatureType
+        typeNames: The typeNames attribute is used to indicate the name of the feature type or class to be queried.
+        outputFormat:
+          Shall support the value "application/gml+xml; version=3.2" indicating that a GML (see ISO19136:2007)
+          application schema shall be generated.
+          A server may support other values to which this International Standard does not assign any meaning.
+    GetFeature:
+      title: 11 GetFeature operation
+      commonKeywords:
+        NAMESPACES:
+          note: |
+            Used to specify namespaces and their prefixes. The format shall be xmlns(prefix,escaped_url)
+            where escaped_url is defined in (see OGC 06-121r3:2009, 11.3).
+            If the prefix is not specified then the default namespace shall be assumed.
+            More that one namespace may be bound by specifying a comma separated list of xmlns() values.
+      presentationParameters:
+        startIndex:
+          operations: GetPropertyValue, GetFeature, GetFeatureWithLock
+          optional: true
+          default: 1
+          note: |
+            indicates the index within the result set from which the server shall begin presenting results
+            in the response document.
+        count:
+          operations: GetPropertyValue, GetFeature, GetFeatureWithLock
+          optional: true
+          default: 1
+          note: |
+            limits the number of explicitly requested values (i.e. features or property values) that are presented
+            in a response document.
+            Only values of the types explicitly requested as the value of the typeNames parameter shall be counted
+            in the tally. Nested values contained within the explicitly requested value types shall not be counted.
+        resultType:
+          operations: GetPropertyValue, GetFeature, GetFeatureWithLock
+          optional: true
+          possibleValues: results, hits
+          default: results
+        outputFormat:
+          operations: DescribeFeatureType, GetPropertyValue, GetFeature, GetFeatureWithLock
+          optional: true
+          defaultAndMandatory: application/gml+xml; version=3.2
+      standardResolveParameters:
+      adhocQueryKeywords:
+        typeNames:
+          mandatory: true
+          See: 7.9.2.4.1.
+        aliases:
+          optional: true
+          See: 7.9.2.4.3.
+        srsName:
+          optional: true
+          note: |
+            The value of the srsName parameter may be the wfs:DefaultCRS or any of the wfs:OtherCRS values listed
+            for the feature type in a server's capabilities document (see 8.3.3).
+            If no srsName value is supplied, then the feature geometries shall be encoded in the response document
+            using the advertised wfs:DefaultCRS value.
+            This attribute has no meaning for feature types with no spatial properties and shall be ignored.
+            Servers that advertise more than one wfs:OtherCRS value in their capabilities document (see 8.3.3) shall be
+            able to transform between the CRS used to store features and any CRS requested using the srsName attribute.
+            Servers **shall be able** to process srsName attribute values using the following format model:
+              urn:ogc:def:objectType:authority:version:<EPSG code> (see OGC 07-092r2)
+            In this format model, objectType shall have the value of "crs", authority shall have the value "crs"
+            and the value <EPSG Code> is a placeholder for the actual EPSG code value.
+        propertyName:
+          optional: true
+          note: |
+            A list of non-mandatory properties to include in the response.
+            If more that one feature type name is specified as the value of the TYPENAMES keyword (in a non-join query),
+            a corresponding list of parameter lists shall be specified (see 6.2.5.3).
+            Each sub list shall correspond 1:1 with each feature type name listed as the value of the TYPENAMES parameter.
+        FILTER:
+          optional: true
+          See: ISO 19143:2010, 6.3.3.
+        FILTER_LANGUAGE:
+          optional:
+          See: ISO 19143:2010, 6.3.3.
+        RESOURCEID:
+          optional: true
+          See: ISO 19143:2010, 6.3.3.
+        BBOX:
+          optional: true
+          See: OGC 06-121r3.
+        SORTBY:
+          optional: true
+          See: ISO 19143:2010, Clause 8
+          note: |
+            The SORTBY parameter is used to specify a list of property names whose values should be used to order (upon presentation) the set of feature instances that satisfy the query. The value of the SORTBY parameter shall have the form “PropertyName [ASC|DESC][,PropertyName [AASC|DESC],...]” where the letters ASC are used to indicate an ascending sort and the letters DESC are used to indicate a descending sort. If neither ASC nor DESC are specified, the default sort order shall be ascending. An example value might be: “SORTBY=Field1 DESC,Field2 DESC,Field3”. In this case the results are sorted by Field 1 descending, Field2 descending and Field3 ascending      
+      storedQueryKeywords:
+        STOREDQUERY_ID:
+          mandatory: true
+          note: The identifier of the stored query to invoke.
+        storedquery_parameter:
+          note: parameters specific to a stored query
+
+wfs100:
+  title: WFS 1.0.0 spec
+  source: http://portal.opengeospatial.org/files/?artifact_id=7176
+  gml: |
+    - Feature geometry must be expressed using the GML geometry description. (geometry.xsd).
+    - Spatial Reference Systems must be expressed as defined in the OpenGIS Geography Markup Language (GML)
+      Implementation Specification, version 2.1.1.
+  Namespaces:
+    http://www.opengis.net/wfs: for the WFS interface vocabulary
+    http://www.opengis.net/gml: for the GML vocabulary
+    http://www.opengis.net/ogc: for the OGC Filter vocabulary
+  commonAttributes:
+    VERSION: obligatoire sauf pour GetCapabilities, vaut '1.0.0'
+    SERVICE: obligatoire, vaut 'WFS'
+    REQUEST: obligatoire
+    BBOX: The SRS of the bounding box must be the same as the SRS of the feature type(s) in a request.
+  Exceptions:
+  requests:
+    GetCapabilities:
+      params:
+        request: GetCapabilities
+    DescribeFeatureType:
+      params:
+        request: DescribeFeatureType
+        typeName: The typeName attribute is used to indicate the name of the feature type or class to be queried.
+        outputFormat: XMLSCHEMA
+    GetFeature:
+      params:
+        request: GetFeature
+        typeName: The typeName attribute is used to indicate the name of the feature type or class to be queried.
+        maxFeatures: |
+          The optional maxFeatures attribute can be used to limit the number of features that a GetFeature request retrieves. Once the maxFeatures limit is reached, the result set is truncated at that point.
+        featureid: |
+          An enumerated list of feature instances to fetch identified by their feature identifiers.
+        bbox:
+        outputFormat: |
+          The outputFormat attribute defines the format to use to generate the result set. The default value is GML2 (2.1.1) indicating that GML [2] shall be used. Vendor specific formats (including non-XML and binary formats), declared in the capabilities document are also possible.
+      mapserverExtensions:
+        source: https://mapserver.org/de/ogc/wfs_server.html
+        params:
+          STARTINDEX:

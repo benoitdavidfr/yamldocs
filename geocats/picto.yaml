@@ -24,4 +24,4 @@ abstract: |
 yamlClass: Geocat
 www: http://www.picto-occitanie.fr/
 # http://catalogue.picto-occitanie.fr/geonetwork/srv/fre/csw?constraintLanguage=CQL_TEXT&
-urlCsw: https://www.picto-occitanie.fr/geonetwork/srv/eng/csw
+cswUrl: https://www.picto-occitanie.fr/geonetwork/srv/eng/csw

@@ -18,4 +18,4 @@ abstract: |
     
 yamlClass: Geocat
 # http://www.datara.gouv.fr/geonetwork/srv/fre/csw-RAIN?constraintLanguage=CQL_TEXT&
-urlCsw: http://www.datara.gouv.fr/geonetwork/srv/fre/csw-RAIN
+cswUrl: http://www.datara.gouv.fr/geonetwork/srv/fre/csw-RAIN

@@ -1,9 +1,18 @@
 title: Eau - Zone Vulnérable à la Pollution par les Nitrates d'origine agricole en Loir-et-Cher
 abstract: |
+  Document test pour l'utilisation d'un serveur WFS 1.0.0 en GML 2.0.  
+  
   **URL de test**:
     
     - [capabilities](id.php/geocats/geoide-zvuln41-wfs/capabilities)
     - [liste des featureTypes](id.php/geocats/geoide-zvuln41-wfs/ft)
+    - [description N_VULNERABLE_ZSUP_041](id.php/geocats/geoide-zvuln41-wfs/ft/N_VULNERABLE_ZSUP_041)
+    - [geomPropertyName N_VULNERABLE_ZSUP_041](id.php/geocats/geoide-zvuln41-wfs/ft/N_VULNERABLE_ZSUP_041/geomPropertyName)
+    - [numberMatched](id.php/geocats/geoide-zvuln41-wfs/ft/N_VULNERABLE_ZSUP_041/numberMatched?bbox=-8.0,42.4,14.0,51.1)
     
 yamlClass: WfsServerGml
-wfsUrl: http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=%2Fopt%2Fdata%2Fcarto%2Fgeoide-catalogue%2F1.4%2Forg_38024%2Ff19f7c24-c605-43f5-b4a0-74676524d00a.internet.map
+wfsUrl: http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38024/f19f7c24-c605-43f5-b4a0-74676524d00a.internet.map
+wfsOptions:
+  gml: true
+  version: 1.0.0
+  coordOrderInGml: lngLat

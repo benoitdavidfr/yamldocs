@@ -1,1 +1,12 @@
 title: structuration des liens de consultation et de téléchargement associés aux MDD
+doc: |
+  ajouter aux MDD une propriété **hasFormat** définissant la liste des représentations possibles avec les propriétés:
+    
+    - url
+    - protocol
+      - ATOM
+      - OGC:WFS
+      - OGC:WMS
+      - download
+    - typenames: pour un WFS la liste des typenames
+    - layers: pour un WMS la liste des layers
