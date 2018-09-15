@@ -12,4 +12,4 @@ abstract: |
     - [tests de la classe IsoMetadata](isometadata.inc.php/geocats/sigloirecsw)
     - [visualisation des MD](isometadata.inc.php/geocats/sigloirecsw?action=std)
 yamlClass: CswServer
-urlCsw: https://catalogue.sigloire.fr/geonetwork/srv/fre/csw
+cswUrl: https://catalogue.sigloire.fr/geonetwork/srv/fre/csw

@@ -18,8 +18,9 @@ journal: |
   20/8/2018:
     - ajout de symboles pour les pai_religieux
 yamlClass: VectorDataset
-urlWfs: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
-referer: http://gexplor.fr/
+wfsUrl: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
+wfsOptions:
+  referer: http://gexplor.fr/
 minZoom: 13
 maxZoom: 21
 

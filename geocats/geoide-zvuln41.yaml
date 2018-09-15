@@ -2,12 +2,14 @@ title: Eau - Zone Vulnérable à la Pollution par les Nitrates d'origine agricol
 abstract: |
   **URL de test**:
     
-    - [carte](id.php/geocats/geoide-zvuln41/map)
+    - [carte](id.php/geocats/geoide-zvuln41/map/display)
     
 yamlClass: VectorDataset
-urlWfs: http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=%2Fopt%2Fdata%2Fcarto%2Fgeoide-catalogue%2F1.4%2Forg_38024%2Ff19f7c24-c605-43f5-b4a0-74676524d00a.internet.map
+wfsUrl: http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38024/f19f7c24-c605-43f5-b4a0-74676524d00a.internet.map
 wfsOptions:
-  Gml4326: true
+  gml: true
+  version: 1.0.0
+  coordOrderInGml: lngLat
 layers:
   N_VULNERABLE_ZSUP_041:
     title: "Eau   Zone Vulnerable a la Pollution par les Nitrates d'origine agricole en Loir et Cher"

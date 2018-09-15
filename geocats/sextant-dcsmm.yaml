@@ -1,7 +1,8 @@
-title: Service web WFS de la Directive Cadre Strategie pour le Milieu Marin (DCSMM)
+title: Donnees publiques de la Directive Cadre Strategie pour le Milieu Marin (DCSMM)
 creator: Ifremer
 abstract: |
   Accès au serveur WFS DCSMM de Sextant.  
+  Document test pour l'utilisation d'un serveur WFS 2.0.0 en GML 3.2.1.  
   [Carte affichant les données](id.php/geocats/sextant-dcsmm/map/display)  
   Test d'accès à un serveur WFS de Sextant.
   
@@ -25,9 +26,9 @@ abstract: |
     - permet d'utiliser BBOX plus simple à utiliser que CQL
   
 yamlClass: VectorDataset
-urlWfs: http://www.ifremer.fr/services/wfs/dcsmm
+wfsUrl: http://www.ifremer.fr/services/wfs/dcsmm
 wfsOptions:
-  Gml4326: true
+  gml: true
 layers:
   ESPACES_TERRESTRES_P:
     title: Espaces terrestres (France et pays riverains)

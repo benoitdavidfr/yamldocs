@@ -1,0 +1,15 @@
+title: tests WFS Géo-IDE
+doc:
+  qgis:
+    url: http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38024/f19f7c24-c605-43f5-b4a0-74676524d00a.internet.map&
+    retour: ok dans qgis
+  GetFeature:
+    url: http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?
+      map=/opt/data/carto/geoide-catalogue/1.4/org_38024/f19f7c24-c605-43f5-b4a0-74676524d00a.internet.map&
+      service=WFS&
+      version=1.0.0&
+      REQUEST=GetFeature&
+      TYPENAME=N_VULNERABLE_ZSUP_041&
+      srsname=CRS:84&
+      BBOX=-8.0,42.4,14.0,51.1
+    retour: ok

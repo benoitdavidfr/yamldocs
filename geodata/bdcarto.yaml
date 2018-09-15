@@ -32,8 +32,9 @@ identifier: http://professionnels.ign.fr/bdcarto
 coverage: "iso:code:3166:FR (métropole)"
 licence: Licence ouverte Etalab 2.0
 yamlClass: VectorDataset
-urlWfs: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
-referer: http://gexplor.fr/
+wfsUrl: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
+wfsOptions:
+  referer: http://gexplor.fr/
 minZoom: 11
 maxZoom: 18
 

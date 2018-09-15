@@ -19,7 +19,7 @@ abstract: |
     
 
 yamlClass: VectorDataset
-urlWfs: http://services.data.shom.fr/INSPIRE/wfs
+wfsUrl: http://services.data.shom.fr/INSPIRE/wfs
 minZoom: 1
 maxZoom: 18
 
