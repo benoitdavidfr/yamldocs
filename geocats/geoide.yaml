@@ -3,27 +3,48 @@ abstract: |
   Moissonnage complet le 10/9/2018 entre 20h et 21h30.  
   Les URL OGC doivent être complétées par le paramètre SERVICE.   
   
+  **Opérations**:
+    
+    - [affichage des mots-clés](?doc=geocats/geoide/subjects)
+    
   **URL de test html**:
     
-    - [visualisation des MD](isometadata.inc.php/geocats/geoide?action=std)
+    - [visualisation des MD](isometadata.inc.php/geocats/geoide?action=titles)
     - [affichage des mots-clés](?ypath=/listSubjects)
     
-  **URL de test JSON**:
+  **URL de test CSW REST**:
     
+    - [affichage du doc csw](id.php/geocats/geoide/csw)
+    - [getCapabilities](id.php/geocats/geoide/csw/getCapabilities)
+    - [numberMatchedInIso](id.php/geocats/geoide/csw/numberMatchedInIso)
+    - [getRecordsInIso/1](id.php/geocats/geoide/csw/getRecordsInIso/1)
+    - [getRecordByIdInIso/fr-120066022-jdd-0805a614-4665-44ac-8af5-866883d1ff5a
+      ](id.php/geocats/geoide/csw/getRecordByIdInIso/fr-120066022-jdd-0805a614-4665-44ac-8af5-866883d1ff5a)
+    
+  **URL de test Geocat JSON**:
+    
+    - [affichage du doc geocat](id.php/geocats/geoide)
+    - [construit la base des MD à partir de la moisson](id.php/geocats/geoide/buildDb)
+    - [affiche la base des MD](id.php/geocats/geoide/db)
+    - [construit la liste des mots-clés à partir de la BDMD](id.php/geocats/geoide/buildSubjects)
     - [liste des vocabulaires](id.php/geocats/geoide/subjects)
-    - [liste des mots-clés](id.php/geocats/geoide/subjects/*)
-    - [un mot-clé](id.php/geocats/geoide/subjects/Arborescence%20th%C3%A9matique%20de%20la%20COVADIS/9)
-    - [search](id.php/geocats/geoide/search?subject=Aménagement%20Urbanisme/Assiette%20Servitude)
-    - [une fiche](id.php/geocats/geoide/items/0f273cefe809b076f09d3fd8bdb46f29)
-    - [fiche N_VULNERABLE_ZSUP_041](id.php/geocats/geoide/items/d861ca04062243f27ec2a3fafa69109f)
-    - [liste des fiches](id.php/geocats/geoide/db)
-    - id.php/geocats/geoide/csw/GetRecordByIdInDC/fr-120066022-jdd-9450de81-bbc9-4175-a4b1-f9726bebf602
+    - [liste des mots-clés du voc Covadis
+      ](id.php/geocats/geoide/subjects/Arborescence%20th%C3%A9matique%20de%20la%20COVADIS)
+    - [search sur le mot-clé 'Aménagement Urbanisme/Assiette Servitude'
+      ](id.php/geocats/geoide/search?subject=Aménagement%20Urbanisme/Assiette%20Servitude)
+    - [une fiche de MD](id.php/geocats/geoide/items/fr-120066022-jdd-b3465bb0-9c34-43f4-abe0-c82b50ea86a7)
     - [buildHasFormat](id.php/geocats/geoide/db/buildHasFormat)
   
-  **SD particulières**:
+  **SD particulières statiques**:
     
     - [N_VULNERABLE_ZSUP_041 server WFS](?doc=geocats/geoide-zvuln41-wfs)
     - [N_VULNERABLE_ZSUP_041 GeoDataset](?doc=geocats/geoide-zvuln41)
+    
+  **Bugs**:
+    
+    - [The server encountered an internal error or misconfiguration and was unable to complete your request
+      ]( id.php/geocats/geoide/db/items/fr-120066022-jdd-63b3096d-a73a-469e-9f52-fb11e1d5d0c5/wfs/Carte_Geologique_homogeneisee_Aquitaine?bbox=-1.9,43.5,3.2,46.0&zoom=8)
+
     
 yamlClass: Geocat
 cswUrl: http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/eng/csw-moissonnable-ds-2

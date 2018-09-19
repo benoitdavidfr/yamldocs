@@ -27,7 +27,7 @@ description: |
   un code bibliographique (ISO 639-2/B) et un code terminologique (ISO 639-2/T).
   Dans ce cas l'indication (ISO 639-2/T) est ajoutée derrière le nom de la langue du code terminologique.  
   Ces thésaurus sont produits à partir du document cité en source.
-  source: https://www.loc.gov/standards/iso639-2/php/English_list.php
+source: https://www.loc.gov/standards/iso639-2/php/English_list.php
 domainScheme:
   prefLabel:
     fr: Codifications des langues selon la norme ISO 639
@@ -95,5 +95,5 @@ EOT;
 
   $yaml['concepts'] = $concepts;
   //echo '<pre>',Yaml::dump($yaml, 999, 2),"</pre>\n";
-  return new YamlSkos($yaml);
+  return new YamlSkos($yaml, 'iso639');
 }
