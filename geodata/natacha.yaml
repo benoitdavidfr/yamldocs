@@ -1,0 +1,66 @@
+title: essai WFS pour Natacha
+solutionQGis:
+  title: accès au WFS par QGis
+  login: mig
+  mdp: mig2018
+  url: http://wxs.ign.fr/e6ys0yqxo2jub70iuikx0jmq/geoportail/wfs?
+  resultat: ne marche pas - mail support
+solutionDwld:
+  title: téléchargement par ogr2ogr et fabrication de fichiers SHP UTF-8
+  ogr2ogr: |
+    https://www.gdal.org/ogr2ogr.html  
+    Usage: ogr2ogr [--help-general] [-skipfailures] [-append] [-update]
+                   [-select field_list] [-where restricted_where|\@filename]
+                   [-progress] [-sql <sql statement>|\@filename] [-dialect dialect]
+                   [-preserve_fid] [-fid FID] [-limit nb_features]
+                   [-spat xmin ymin xmax ymax] [-spat_srs srs_def] [-geomfield field]
+                   [-a_srs srs_def] [-t_srs srs_def] [-s_srs srs_def]
+                   [-f format_name] [-overwrite] [[-dsco NAME=VALUE] ...]
+                   dst_datasource_name src_datasource_name
+                   [-lco NAME=VALUE] [-nln name]
+                   [-nlt type|PROMOTE_TO_MULTI|CONVERT_TO_LINEAR|CONVERT_TO_CURVE]
+                   [-dim XY|XYZ|XYM|XYZM|2|3|layer_dim] [layer [layer ...]]
+      -lco ENCODING=UTF-8 (pour forcer un encodage UTF-8 en SHP)
+      -clipdst xmin ymin xmax ymax: clip geometries after reprojection to the specified bbox (expressed in dest SRS)
+      -clipdst 0 6000000 1300000 7200000
+  wfsUrl: http://georef.eu/yamldoc/id.php/geodata/igngpwfs/query?service=WFS&request=GetCapabilities
+  layers:
+    bdc:
+      BDCARTO_BDD_WLD_WGS84G:noeud_ferre
+      BDCARTO_BDD_WLD_WGS84G:troncon_voie_ferree
+    bdt:
+      BDTOPO_BDD_WLD_WGS84G:troncon_voie_ferree
+      BDTOPO_BDD_WLD_WGS84G:gare
+      BDTOPO_BDD_WLD_WGS84G:aire_triage
+      BDTOPO_BDD_WLD_WGS84G:transport_cable
+      BDTOPO_BDD_WLD_WGS84G:toponyme_ferre
+      
+  igngpwfs.xml: |
+    <OGRWFSDataSource>
+      <URL>http://georef.eu/yamldoc/id.php/geodata/igngpwfs/query</URL>
+    </OGRWFSDataSource>
+    
+  cmdeSh: |
+    # cmdes exécutées dans ~/html/yamldoc/natacha
+    ogr2ogr -f "ESRI Shapefile" -t_srs EPSG:2154 bdc_trvf.shp igngpwfs.xml BDCARTO_BDD_WLD_WGS84G:troncon_voie_ferree \
+      -lco ENCODING=UTF-8
+    ogr2ogr -f "ESRI Shapefile" -t_srs EPSG:2154 bdc_nvf.shp igngpwfs.xml BDCARTO_BDD_WLD_WGS84G:noeud_ferre \
+      -lco ENCODING=UTF-8
+    ogr2ogr -f "ESRI Shapefile" -t_srs EPSG:2154 -clipdst 0 6000000 1300000 7200000 bdt/troncon_voie_ferree.shp \
+      igngpwfs.xml BDTOPO_BDD_WLD_WGS84G:troncon_voie_ferree -lco ENCODING=UTF-8
+    ogr2ogr -f "ESRI Shapefile" -t_srs EPSG:2154 -clipdst 0 6000000 1300000 7200000 bdt/gare.shp \
+      igngpwfs.xml BDTOPO_BDD_WLD_WGS84G:gare -lco ENCODING=UTF-8
+    ogr2ogr -f "ESRI Shapefile" -t_srs EPSG:2154 -clipdst 0 6000000 1300000 7200000 bdt/aire_triage.shp \
+      igngpwfs.xml BDTOPO_BDD_WLD_WGS84G:aire_triage -lco ENCODING=UTF-8
+    ogr2ogr -f "ESRI Shapefile" -t_srs EPSG:2154 -clipdst 0 6000000 1300000 7200000 bdt/transport_cable.shp \
+      igngpwfs.xml BDTOPO_BDD_WLD_WGS84G:transport_cable -lco ENCODING=UTF-8
+    ogr2ogr -f "ESRI Shapefile" -t_srs EPSG:2154 -clipdst 0 6000000 1300000 7200000 bdt/toponyme_ferre.shp \
+      igngpwfs.xml BDTOPO_BDD_WLD_WGS84G:toponyme_ferre -lco ENCODING=UTF-8
+
+  questions: |
+  
+  pbs: |
+    - toponymes BDT ératiques
+    - dans BDC LGV Paris-Bdx pas à jour / inauguration 2/7/2017
+      - petits morceaux de troncons disjoints inutilisables
+        

@@ -1,0 +1,20 @@
+title: architecture des API de YamlDoc
+doc: |
+  YamlDoc définit pour chaque classe de documents 3 API:
+    - une API HTML qui permet que chaque doc ou sous-doc sache s'afficher en HTML et éventuellement
+      proposer des liens vers les documents liés
+      Cette API est implémentée au travers la méthode show() que chaque classe de docs doit définir.
+      Les appels s'effectuent par index.php
+      ex: http://localhost/yamldoc/?doc=eurovoc&ypath=/schemes/100163
+      
+    - une API Rest qui permet d'accéder à un doc ou à un sous-doc
+      Les appels sont effectués au travers d'URI utilisant id.php avec des paramètres éventuels
+      ex: http://localhost/yamldoc/id.php/eurovoc/schemes/100163
+      L'API est implémentée au travers de la méthode extractByUri(string $docuri, string $ypath)
+      Le retour est normalement un array Php qui pourra être transmis en JSOn et en Yaml
+      
+      La méthode api() de chaque classe fournit les points d'entrée
+      
+    - une API Php définie par les méthodes Php des différentes classes de document
+      De plus:
+        

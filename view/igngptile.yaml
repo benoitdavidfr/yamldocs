@@ -1,0 +1,338 @@
+title: Tuiles IGN au travers des serveurs WMS et WMTS
+abstract: |
+  Le document expose différentes couches (layers) qui correspondent chacune à une couche d'un des serveurs WMS/WMTS IGN  
+  Les couches sont exposées sous la forme tuiles selon le protocole popularisé par OSM et Google Maps (appelé XYZ)  
+  C'est l'équivalent de http://igngp.geoapi.fr/
+  
+yamlClass: TileServer
+servers:
+  wmts:
+    url: http://gpp3-wxs.ign.fr/49qcg7rckqrk3og45nm5i4s3/wmts
+    protocol: WMTS
+    referer: http://visu.gexplor.fr/viewer.php
+  wmsr:
+    url: http://gpp3-wxs.ign.fr/49qcg7rckqrk3og45nm5i4s3/geoportail/r/wms
+    protocol: WMS
+    referer: http://visu.gexplor.fr/viewer.php
+
+layers:
+  cartes:
+    title: cartes
+    server: wmts
+    name: GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD, GEOGRAPHICALGRIDSYSTEMS.PLANIGN
+    abstract: |
+      Couche constituée du Scan-Express là où il est disponible et sinon de la couche plan IGN (aux petites échelles)
+    format: jpg
+    minZoom: 0
+    maxZoom: 18
+  orthos:
+    title: Ortho-images
+    server: wmts
+    name: ORTHOIMAGERY.ORTHOPHOTOS
+    doc:
+      0:
+        max: 12
+        title: images Planet Observer
+        www: http://www.planetobserver.fr/produits/planetsat/
+      13:
+        max: 18
+        title: BD Ortho
+        www: http://professionnels.ign.fr/bdortho-50cm
+      19:
+        max: 20
+        title: Ortho HR
+        www: http://professionnels.ign.fr/orthohr
+    format: jpg
+    minZoom: 0
+    maxZoom: 20
+    
+afaire: |
+  $layers = [
+  
+    'orthoshr'=> [
+      'protocol'=>'WMS',
+      'url'=>'http://gpp3-wxs.ign.fr/KEY/geoportail/r/wms',
+      'gpname'=>'HR.ORTHOIMAGERY.ORTHOPHOTOS',
+      'title'=>"Ortho-images HR",
+      'doc'=>"http://professionnels.ign.fr/orthohr",
+      'format'=>'jpg', 'minZoom'=>0, 'maxZoom'=>21,
+    ],
+    'ortho-express'=> [
+      'gpname'=>'ORTHOIMAGERY.ORTHOPHOTOS.ORTHO-EXPRESS',
+      'title'=>"Ortho Express",
+      'abstract'=>"L’Ortho Express est une mosaïque d’ortho-images numériques. Elle se différencie des autres produits orthophotographiques de l’IGN par le fait que, par souci de minimiser les délais de sa production, elle résulte d'un traitement massivement automatisé. L’Ortho Express vise en premier lieu à répondre à une exigence sur les délais de production. Il s’agit donc d’un produit dont les caractéristiques techniques sont contraintes par cette exigence forte.",
+      'format'=>'jpg', 'minZoom'=>0, 'maxZoom'=>19,
+    ],
+    'orthos2006-2010'=> [
+      'gpname'=>'ORTHOIMAGERY.ORTHOPHOTOS2006-2010',
+      'title'=>"Ortho-images 2006-2010",
+      'doc'=>"http://professionnels.ign.fr/bdorthohisto",
+      'format'=>'jpg', 'minZoom'=>0, 'maxZoom'=>18,
+    ],
+    'orthos2000-2005'=> [
+      'gpname'=>'ORTHOIMAGERY.ORTHOPHOTOS2000-2005',
+      'title'=>"Ortho-images 2000-2005",
+      'doc'=>"http://professionnels.ign.fr/bdorthohisto",
+      'format'=>'jpg', 'minZoom'=>0, 'maxZoom'=>18,
+    ],
+    'orthos1950-1965'=> [
+      'gpname'=>'ORTHOIMAGERY.ORTHOPHOTOS.1950-1965',
+      'title'=>"Ortho-images 1950-1965",
+      'doc'=>"http://professionnels.ign.fr/bdorthohisto",
+      'format'=>'png', 'minZoom'=>0, 'maxZoom'=>18,
+    ],
+    'spot2014'=> [
+      'gpname'=>'ORTHOIMAGERY.ORTHO-SAT.SPOT.2014',
+      'title'=>"Spot 2014",
+      'doc'=>'http://professionnels.ign.fr/spot',
+      'format'=>'jpg', 'minZoom'=>0, 'maxZoom'=>17,
+      'attribution'=>"CNES, IGN, GEOSUD",
+    ],
+    'spot2015'=> [
+      'gpname'=>'ORTHOIMAGERY.ORTHO-SAT.SPOT.2015',
+      'title'=>"Spot 2015",
+      'doc'=>'http://professionnels.ign.fr/spot',
+      'format'=>'jpg', 'minZoom'=>0, 'maxZoom'=>17,
+      'attribution'=>"CIRAD, CNES, CNRS, IGN, IRD, Irstea, GEOSUD",
+    ],
+    'spot2016'=> [
+      'gpname'=>'ORTHOIMAGERY.ORTHO-SAT.SPOT.2016',
+      'title'=>"Spot 2016",
+      'doc'=>'http://professionnels.ign.fr/spot',
+      'format'=>'jpg', 'minZoom'=>0, 'maxZoom'=>17,
+      'attribution'=>"CIRAD, CNES, CNRS, IGN, IRD, Irstea, GEOSUD",
+    ],
+    'pleiades2013'=> [
+      'gpname'=>'ORTHOIMAGERY.ORTHO-SAT.PLEIADES.2013',
+      'title'=>"Pléiades 2013",
+      'doc'=>'http://professionnels.ign.fr/images-pleiades',
+      'format'=>'png', 'minZoom'=>0, 'maxZoom'=>18,
+      'attribution'=>"",
+    ],
+    'pleiades2014'=> [
+      'gpname'=>'ORTHOIMAGERY.ORTHO-SAT.PLEIADES.2014',
+      'title'=>"Pléiades 2014",
+      'doc'=>'http://professionnels.ign.fr/images-pleiades',
+      'format'=>'png', 'minZoom'=>0, 'maxZoom'=>18,
+      'attribution'=>"",
+    ],
+    'pleiades2015'=> [
+      'gpname'=>'ORTHOIMAGERY.ORTHO-SAT.PLEIADES.2015',
+      'title'=>"Pléiades 2015",
+      'doc'=>'http://professionnels.ign.fr/images-pleiades',
+      'format'=>'png', 'minZoom'=>0, 'maxZoom'=>18,
+    ],
+    'pleiades2016'=> [
+      'protocol'=>'WMS',
+      'url'=>'http://gpp3-wxs.ign.fr/KEY/geoportail/r/wms',
+      'gpname'=>'ORTHOIMAGERY.ORTHO-SAT.PLEIADES.2016', 'style'=>'white_is_transparent',
+      'title'=>"Pléiades 2016",
+      'doc'=>'http://professionnels.ign.fr/images-pleiades',
+      'format'=>'png', 'minZoom'=>0, 'maxZoom'=>18,
+      'attribution'=>"",
+    ],
+    'ortho-litto2000'=> [
+      'gpname'=>'ORTHOIMAGERY.ORTHOPHOTOS.COAST2000',
+      'title'=>"Ortholittorale 2000",
+      'doc'=>'http://www.geolittoral.developpement-durable.gouv.fr/ortho-littorale-2000-r182.html',
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
+      'attribution'=>"METL, IGN",
+    ],
+  
+  // 3) les cartes
+    'cartes-classiques'=> [
+      'gpname'=>'GEOGRAPHICALGRIDSYSTEMS.MAPS',
+      'title'=>"Cartes IGN classiques",
+      'doc'=>'https://www.geoportail.gouv.fr/depot/fiches/cartesIGN/composition_donnee_cartes_ign.pdf',
+      'format'=>'jpg', 'minZoom'=>0, 'maxZoom'=>18,
+      'ranges'=>[ // zmin=>[zone=>zmax]
+        0=>['wld'=>6],
+        7=>['eur'=>8,'ant'=>8,'guf'=>9],
+        9=>['fxx'=>18, 'glp'=>9, 'mtq'=>9],
+      ],
+    ],
+    'scan-express'=> [
+      'gpname'=>'GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD',
+      'title'=>"Pyramide SCAN Express",
+      'doc'=>'http://professionnels.ign.fr/pyramide-scan-express',
+      'format'=>'jpg', 'minZoom'=>6, 'maxZoom'=>18,
+    ],
+    'scan-express-ng'=> [
+      'gpname'=>'GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.NIVEAUXGRIS',
+      'title'=>"Pyramide SCAN Express N&amp;B",
+      'doc'=>'http://professionnels.ign.fr/pyramide-scan-express',
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
+    ],
+    'plan-ign'=> [
+      'gpname'=>'GEOGRAPHICALGRIDSYSTEMS.PLANIGN',
+      'title'=>"Pyramide Plan IGN",
+      'doc'=>'http://professionnels.ign.fr/plan-ign',
+      'format'=>'jpg', 'minZoom'=>0, 'maxZoom'=>18,
+    ],
+    'carte-littorale'=> [
+      'protocol'=>'WMS',
+      'url'=>'http://gpp3-wxs.ign.fr/KEY/geoportail/r/wms',
+      'gpname'=>'SCANLITTO_PYR-JPEG_WLD_WM', 'style'=>'normal',
+      'title'=>"Carte littorale",
+      'doc'=>'http://professionnels.ign.fr/scanlitto',
+      'format'=>'png', 'minZoom'=>0, 'maxZoom'=>18,
+      'attribution'=>"&copy; <a href='http://www.ign.fr'>IGN</a>, &copy; <a href='http://data.shom.fr'>SHOM</a>",
+    ],
+    'cartes-oaci'=> [
+      'gpname'=>'GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-OACI',
+      'title'=>"carte OACI-VFR 2016",
+      'doc'=>'http://professionnels.ign.fr/scanoaci',
+      'format'=>'jpg', 'minZoom'=>6, 'maxZoom'=>11,
+      'attribution'=>"",
+    ],
+    'scan50-1950'=> [
+      'gpname'=>'GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN50.1950',
+      'title'=>"Cartes 1:50.000 de 1950",
+      'doc'=>'http://professionnels.ign.fr/scanhisto',
+      'format'=>'jpg', 'minZoom'=>3, 'maxZoom'=>15,
+    ],
+    'cartes-etatmajor40'=> [
+      'gpname'=>'GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR40',
+      'title'=>"Cartes de l'état-major 1/40 000 (1820-1866)",
+      'doc'=>'http://professionnels.ign.fr/scanhisto',
+      'format'=>'jpg', 'minZoom'=>6, 'maxZoom'=>15,
+    ],
+    'cartes-etatmajor10'=> [
+      'gpname'=>'GEOGRAPHICALGRIDSYSTEMS.ETATMAJOR10',
+      'title'=>"Carte des environs de Paris 1/10 000 (1818-1824)",
+      'doc'=>'http://professionnels.ign.fr/scanhisto',
+      'format'=>'jpg', 'minZoom'=>6, 'maxZoom'=>15,
+    ],
+    'carte-paris-1906'=> [
+      'gpname'=>'GEOGRAPHICALGRIDSYSTEMS.1900TYPEMAPS',
+      'title'=>"Carte de Paris de 1906",
+      'doc'=>'http://professionnels.ign.fr/scanhisto',
+      'format'=>'jpg', 'minZoom'=>6, 'maxZoom'=>15,
+    ],
+    'carte-guyane-bonne'=> [
+      'gpname'=>'GEOGRAPHICALGRIDSYSTEMS.BONNE',
+      'title'=>"Carte de Guyane (1780 - Col Bonne)",
+      'abstract'=>"Carte de Guyane française établie par M. Bonne, Ingénieur-Hydrographe de la Marine. Cette carte figure dans ‘L’atlas de toutes les parties connues du globe terrestre’, ouvrage rédigé par l’abbé Guillaume-Thomas RAYNAL et publié à Genève en 1780.",
+      'format'=>'jpg', 'minZoom'=>6, 'maxZoom'=>10,
+    ],
+  
+  // 4) couches issues de MNT
+    'altitude'=> [
+      'gpname'=>'ELEVATION.SLOPES',
+      'title'=>"MNT affiché en teintes hypsométriques",
+      'abstract'=>"La couche altitude se compose d'un MNT (Modèle Numérique de Terrain) affiché en teintes hypsométriques et issu de la BD ALTI®.",
+      'format'=>'jpg', 'minZoom'=>6, 'maxZoom'=>14,
+    ],
+    'carte-pentes'=> [
+      'gpname'=>'GEOGRAPHICALGRIDSYSTEMS.SLOPES.MOUNTAIN',
+      'title'=>"Carte des pentes",
+      'abstract'=>"Carte des zones ayant une valeur de pente supérieure à 30°-35°-40°-45° d'après la BD ALTI au pas de 5m.",
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>14,
+    ],
+    'estompage'=> [
+      'protocol'=>'WMS',
+      'url'=>'http://gpp3-wxs.ign.fr/KEY/geoportail/r/wms',
+      'gpname'=>'ELEVATION.ELEVATIONGRIDCOVERAGE.SHADOW',
+      'title'=>"Estompage",
+      'abstract'=>"Couche d'ombrage calculée à partir des données altimétriques de l'IGN permettant de mieux appréhender le relief. L'estompage proposé est réalisé à partir des données MNT BDAlti au pas de 25m avec deux soleils : un au nord-est de hauteur 45°, l'autre zénithal.",
+      'format'=>'jpg', 'minZoom'=>0, 'maxZoom'=>21,
+    ],
+  
+  // 5) OCS-GE
+    'ocsge-couverture'=> [
+      'gpname'=>'OCSGE.COUVERTURE',
+      'title'=>"OCSGE - Couverture",
+      'doc'=>'http://professionnels.ign.fr/ocsge',
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>16,
+      'attribution'=>"",
+    ],
+    'ocsge-usage'=> [
+      'gpname'=>'OCSGE.USAGE',
+      'title'=>"OCSGE - Usage",
+      'doc'=>'http://professionnels.ign.fr/ocsge',
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>16,
+      'attribution'=>"",
+    ],
+    'ocsge-constructions'=> [
+      'gpname'=>'OCSGE.CONSTRUCTIONS',
+      'title'=>"OCSGE - Constructions",
+      'doc'=>'http://professionnels.ign.fr/ocsge',
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>16,
+      'attribution'=>"",
+    ],
+  
+  // 6) diverses couches vecteur dans l'ordre logique d'affichage
+    'aerodromes'=> [
+      'gpname'=>'TRANSPORTNETWORKS.RUNWAYS',
+      'title'=>"Aérodromes",
+      'abstract'=>"Localisation des aéroports, aérodromes et héliports, des pistes, bâtiments et équipements dédiés.",
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
+      'attribution'=>"IGN",
+    ],
+    'hydrographie'=> [
+      'gpname'=>'HYDROGRAPHY.HYDROGRAPHY',
+      'title'=>"Hydrographie",
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
+      'attribution'=>"IGN",
+    ],
+    'trait-de-cote-histolitt'=> [
+      'gpname'=>'ELEVATION.LEVEL0',
+      'title'=>"Trait de côte Histolitt",
+      'abstract'=>"Produit par le Shom et l'IGN, ce trait de côte correspond à la laisse des plus hautes mers dans le cas d'une marée astronomique de coefficient 120 et dans des conditions météorologiques normales (pas de vent du large, pas de dépression atmosphérique susceptible d'élever le niveau de la mer).",
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
+      'attribution'=>"&copy; <a href='http://www.ign.fr'>IGN</a>, &copy; <a href='http://data.shom.fr'>SHOM</a>",
+    ],
+    'ferroviaire'=> [
+      'gpname'=>'TRANSPORTNETWORKS.RAILWAYS',
+      'title'=>"Réseau ferroviaire",
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
+      'attribution'=>"IGN",
+    ],
+    'batiments'=> [
+      'gpname'=>'BUILDINGS.BUILDINGS',
+      'title'=>"Bâtiments",
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
+      'attribution'=>"IGN",
+    ],
+    'routes'=> [
+      'gpname'=>'TRANSPORTNETWORKS.ROADS',
+      'title'=>"Routes",
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
+      'attribution'=>"IGN",
+    ],
+    'lignes-electriques'=> [
+      'gpname'=>'UTILITYANDGOVERNMENTALSERVICES.ALL',
+      'title'=>"Lignes électriques",
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
+      'attribution'=>"IGN",
+    ],
+    'limites-administratives'=> [
+      'gpname'=>'ADMINISTRATIVEUNITS.BOUNDARIES',
+      'title'=>"Limites administratives",
+      'abstract'=>"Limites des régions, départements, cantons et communes.",
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
+      'attribution'=>"IGN",
+    ],
+    'parcelles-cadastrales'=> [
+      'gpname'=>'CADASTRALPARCELS.PARCELS',
+      'title'=>"Parcelles cadastrales (orange)",
+      'doc'=>'http://professionnels.ign.fr/bdparcellaire',
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
+      'style'=>'bdparcellaire_o',
+      'attribution'=>"IGN &amp; DGFiP",
+    ],
+    'toponymes'=> [
+      'gpname'=>'GEOGRAPHICALNAMES.NAMES',
+      'title'=>"Dénominations géographiques",
+      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
+      'attribution'=>"IGN",
+    ],
+  /* Utile pour vérifier la génération d'erreur
+    'debug'=> [
+      'gpname'=>'debug',
+      'title'=>"Debug",
+      'format'=>'png', 'minZoom'=>0, 'maxZoom'=>21,
+      'attribution'=>"moi",
+    ],
+  */
+  ];

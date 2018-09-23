@@ -1,0 +1,18 @@
+title: Serveur WMTS pratique
+abstract: |
+  Test WmtsServer
+  
+  **URL de test**:
+    
+    - [doc en JSON](id.php/view/pratique/api)
+    - [api](id.php/view/pratique/api)
+    - [layers](id.php/view/pratique/layers)
+    - [GEOGRAPHICALGRIDSYSTEMS.MAPS](id.php/view/pratique/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS)
+    - [GEOGRAPHICALGRIDSYSTEMS.MAPS 0 0 0 jpg](id.php/view/pratique/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/0/0/0.jpg)
+    - [GEOGRAPHICALGRIDSYSTEMS.MAPS 1 1 0 jpg](id.php/view/pratique/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/1/1/0.jpg)
+    - [GEOGRAPHICALGRIDSYSTEMS.MAPS 2 2 1 jpg](id.php/view/pratique/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/2/2/1.jpg)
+    - [map](id.php/view/pratique/map)
+    - [affichage de la carte](id.php/view/pratique/map/display)
+    
+yamlClass: WmtsServer
+url: http://wxs.ign.fr/pratique/wmts

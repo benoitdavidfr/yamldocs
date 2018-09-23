@@ -1,0 +1,23 @@
+title: Serveur WMTS choisirgeoportail
+abstract: |
+  Test WmtsServer  
+  **Je ne comprends pas pourquoi cela ne marche pas !!!**
+  
+  **URL de test**:
+    
+    -  [requete WMTS
+    ](http://wxs.ign.fr/choisirgeoportail/wmts?SERVICE=WMTS&version=1.0.0&request=GetTile&layer=GEOGRAPHICALGRIDSYSTEMS.MAPS&format=image/jpeg&style=normal&tilematrixSet=PM&tilematrix=2&tilecol=2&tilerow=1&height=256&width=256)
+    - [doc en JSON](id.php/view/choisirgeoportail/api)
+    - [api](id.php/view/choisirgeoportail/api)
+    - [layers](id.php/view/choisirgeoportail/layers)
+    - [GEOGRAPHICALGRIDSYSTEMS.MAPS](id.php/view/choisirgeoportail/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS)
+    - [GEOGRAPHICALGRIDSYSTEMS.MAPS 0 0 0 jpg](id.php/view/choisirgeoportail/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/0/0/0.jpg)
+    - [GEOGRAPHICALGRIDSYSTEMS.MAPS 1 1 0 jpg](id.php/view/choisirgeoportail/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/1/1/0.jpg)
+    - [GEOGRAPHICALGRIDSYSTEMS.MAPS 2 2 1 jpg](id.php/view/choisirgeoportail/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/2/2/1.jpg)
+    - [CADASTRALPARCELS.PARCELS](id.php/view/choisirgeoportail/layers/CADASTRALPARCELS.PARCELS)
+    - [map](id.php/view/choisirgeoportail/map)
+    - [affichage de la carte](id.php/view/choisirgeoportail/map/display)
+    
+yamlClass: WmtsServer
+url: http://wxs.ign.fr/choisirgeoportail/wmts
+referer: http://visu.gexplor.fr/viewer.php

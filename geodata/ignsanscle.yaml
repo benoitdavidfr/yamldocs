@@ -1,0 +1,21 @@
+title: clefs d'accès sans compte au services du Géoportail
+choisirgeoportail:
+  source: https://geoservices.ign.fr/blog/2018/09/06/acces_geoportail_sans_compte.html
+  url:
+    - https://wxs.ign.fr/choisirgeoportail/geoportail/wmts
+    - https://wxs.ign.fr/choisirgeoportail/geoportail/wfs
+pratique:
+  title: utiliser le Géoportail sans compte
+  source: https://geoservices.ign.fr/blog/2017/06/28/geoportail_sans_compte.html
+  url: https://wxs.ign.fr/pratique/geoportail/wmts
+  
+beta:
+  title: accéder à certaines données brutes ou en cours de tests
+  url: https://wxs.ign.fr/beta/geoportail/wmts?SERVICE=WMTS&REQUEST=GetCapabilities
+metadata:
+  title: accéder aux graphes de mosaiquage des données IGN
+  url: https://wxs.ign.fr/metadata/geoportail/v/wms?SERVICE=WMS&REQUEST=GetCapabilities
+corinelandcover:
+  title: accéder uniquement aux données Corine Land Cover
+  url: https://wxs.ign.fr/corinelandcover/geoportail/r/wms?SERVICE=WMS&REQUEST=GetCapabilities
+  

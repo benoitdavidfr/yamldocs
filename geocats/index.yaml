@@ -6,6 +6,7 @@ examples: |
     - [une SD issue de SigLoire](?doc=geocats/sigloire-pprt)
     - [Sextant](?doc=geocats/sextant)
     - [Géo-IDE](?doc=geocats/geoide)
+    - [Géo-IDE](?doc=geocats/sigena)
     
 GeoCat: |
   Un catalogue de données géographiques (GeoCat) sait exécuter une requête

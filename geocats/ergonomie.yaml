@@ -1,0 +1,15 @@
+title: interface homme-machine ergonomique d'interrogation d'un catalogue
+besoin: |
+  Il faudrait nettoyer les MD avant de les stocker dans db.
+  
+  Il faut pouvoir:
+    - interroger les SD sur:
+      - un ou plusieurs mots-clés,
+      - un des organismes producteurs (responsibleParty) de la SD,
+      - du texte libre (title, abstract, ...)
+      - les liens parentIdentifier/aggregationInfo
+      - la localisation géographique
+    - construire la requête itérativement
+    - afficher la liste des titres des SD correspondant à une requête
+    - afficher les MD d'une SD
+    - afficher dans une carte les objets d'une SD
