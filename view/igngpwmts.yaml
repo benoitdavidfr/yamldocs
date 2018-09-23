@@ -1,0 +1,19 @@
+title: Serveur WMTS du Géoportail
+abstract: |
+  Test WmtsServer  
+  **URL de test**:
+    
+    - [doc en JSON](id.php/view/igngpwmts/api)
+    - [api](id.php/view/igngpwmts/api)
+    - [layers](id.php/view/igngpwmts/layers)
+    - [GEOGRAPHICALGRIDSYSTEMS.MAPS](id.php/view/igngpwmts/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS)
+    - [GEOGRAPHICALGRIDSYSTEMS.MAPS 0 0 0 jpg](id.php/view/igngpwmts/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/0/0/0.jpg)
+    - [GEOGRAPHICALGRIDSYSTEMS.MAPS 1 1 0 jpg](id.php/view/igngpwmts/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/1/1/0.jpg)
+    - [GEOGRAPHICALGRIDSYSTEMS.MAPS 2 2 1 jpg](id.php/view/igngpwmts/layers/GEOGRAPHICALGRIDSYSTEMS.MAPS/2/2/1.jpg)
+    - [CADASTRALPARCELS.PARCELS](id.php/view/igngpwmts/layers/CADASTRALPARCELS.PARCELS)
+    - [map](id.php/view/igngpwmts/map)
+    - [affichage de la carte](id.php/view/igngpwmts/map/display)
+    
+yamlClass: WmtsServer
+url: http://wxs.ign.fr/49qcg7rckqrk3og45nm5i4s3/wmts
+referer: http://visu.gexplor.fr/viewer.php

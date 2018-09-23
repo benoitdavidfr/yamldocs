@@ -1,0 +1,14 @@
+title: Serveur WFS du Géoportail IGN
+creator: IGN
+abstract: |
+  Le serveur WFS du Géoportail avec la clé choisirgeoportail.
+  
+  URL de test:
+    
+    - [getCapabilities](id.php/geodata/choisirgeoportail/getCapabilities),
+      [capabilities](id.php/geodata/choisirgeoportail/capabilities)
+    - [query](id.php/geodata/choisirgeoportail/query?request=GetCapabilities)
+    - [liste des couches](id.php/geodata/choisirgeoportail/ft)
+  
+yamlClass: WfsServerJson
+wfsUrl: https://wxs.ign.fr/choisirgeoportail/geoportail/wfs

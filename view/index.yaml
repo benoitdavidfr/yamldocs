@@ -1,0 +1,13 @@
+title: consultation de données géographiques
+abstract: |
+  Utilisation de services de consultation.  
+  Les séries de données (SD) de consultation sont constituées de couches d'affichage,
+  chacune correspondant à un URI et interrogeable
+  selon le [schéma XYZ](https://en.wikipedia.org/wiki/Tiled_web_map)
+  renvoyant pour un niveau de zoom, un x et un y une tuile PNG ou JPEG.
+
+  Les tuiles peuvent être issues de serveurs WMS ou WMTS.
+  
+  Exemples:
+    
+    - [serveur WMS R du Géoportail](?doc=view/igngpwmsr)

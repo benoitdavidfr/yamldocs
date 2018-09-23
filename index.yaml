@@ -13,6 +13,8 @@ contents:
     title: Lexique topographique (extrait)
   geodata:
     title: Accès à des données géographiques
+  view:
+    title: Consultation de données géographiques
   geocats:
     title: Réflexion sur l'intégration de catalogues de données géographiques (GeoCat)
   geohisto:

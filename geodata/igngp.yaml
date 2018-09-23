@@ -1,0 +1,18 @@
+title: Géoportail IGN
+doc: |
+  **Liste d'adresses**:
+    
+    - [le site](https://www.geoportail.gouv.fr/)
+    - [l'espace pro - gestion des comptes](http://professionnels.ign.fr/)
+    - [doc et support géoservices](https://geoservices.ign.fr/)
+    
+  **Documents**:
+    
+    - [BD Carto](?doc=geodata/bdcarto)
+    - [BD Topo](?doc=geodata/bdtopo)
+    - [BD Adresse](?doc=geodata/bdadresse)
+    - [BD Parcellaire](?doc=geodata/bdparcellaire)
+    - [AdminExpress](?doc=geodata/adminexpress)
+    - [Serveur WFS clé Gexplor](?doc=geodata/igngpwfs)
+    - [SDV clé metadata](?doc=geodata/igngpmd)
+    - [clefs d'accès sans compte au services du Géoportail](?doc=geodata/ignsanscle)

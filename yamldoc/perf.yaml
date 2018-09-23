@@ -1,0 +1,7 @@
+title: performances de YamlDoc
+doc: |
+  date: '2018-09-17T12:33:58+00:00'
+  _GET:
+    doc: geocats/geoide/db
+    ypath: /items/fr-120066022-ldd-9db103b7-ca62-4f95-82f3-743bb88dccce
+  dtime: 1.6528480052948

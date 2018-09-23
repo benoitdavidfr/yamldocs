@@ -1,0 +1,56 @@
+title: Couches de métadonnées IGN en WFS
+source: https://geoservices.ign.fr/blog/2018/02/19/cle_metadata.html
+creator: IGN
+abstract: |
+  L'IGN propose une URL d'accès dédiée aux couches de métadonnées sans création préalable de compte.
+
+  Après l’URL pratique et l’URL “beta”, l’IGN propose désormais une troisième URL “metadata” pour accéder,
+  sans contractualisation préalable sur Espace pro, aux “cartes de métadonnées” des grands référentiels
+  nationaux actuels ou historiques.
+
+  Cette URL est utilisable à la fois dans des sites internet (comme celui du Géoportail), des visionneuses de flux,
+  des applications ou des SIG.
+  
+  [Carte](id.php/geodata/igngpmd/map/display)
+  
+  Les ressources accessibles sur cette clé sont les suivantes :
+
+    - Graphe de mosaïquage BD ORTHO
+    - Graphe de mosaïquage ORTHO 1950-1965
+    - Graphe de mosaïquage ORTHO EXPRESS
+    - Graphe de mosaïquage SCAN 25
+    - Graphe de mosaïquage SCAN 50 1950
+    - Graphe de mosaïquage SPOT 2015
+    - Graphe de mosaïquage BD PARCELLAIRE
+  
+  URL de test:
+    
+    - [getCapabilities](id.php/geodata/igngpmd/wfs/getCapabilities),
+      [capabilities](id.php/geodata/igngpmd/wfs/capabilities)
+    - [query](id.php/geodata/igngpmd/wfs/query?request=GetCapabilities)
+    - [liste des couches](id.php/geodata/igngpmd/wfs/ft)
+  
+yamlClass: VectorDataset
+wfsUrl: https://wxs.ign.fr/metadata/geoportail/wfs
+layers:
+  ortho:
+    title: BDORTHO
+    typename: ORTHOIMAGERY.ORTHOPHOTOS.GRAPHE-MOSAIQUAGE:graphe_bdortho
+  orthoexpress:
+    title: ORTHO-EXPRESS
+    typename: ORTHOIMAGERY.ORTHOPHOTOS.ORTHO-EXPRESS.GRAPHE-MOSAIQUAGE:orthoexpress
+  CADASTRALPARCELS:
+    title: Graphe de mosaïquage des parcelles cadastrales
+    typename: CADASTRALPARCELS.GRAPHE:graphe
+  scan25:
+    title: Graphe de mosaïquage des parcelles cadastrales
+    typename: GEOGRAPHICAL.GRIDSYSTEMS.MAPS.SCAN25.GRAPHE-MOSAIQUAGE:graphe_scan25
+  spot2015:
+    title: Graphe de mosaïquage de la couche SPOT 6-7 - 2015
+    typename: ORTHOIMAGERY.ORTHO-SAT.SPOT.2015.GRAPHE-MOSAIQUAGE:france_2015
+  spot2016:
+    title: Graphe de mosaïquage de la couche SPOT 6-7 - 2015
+    typename: ORTHOIMAGERY.ORTHO-SAT.SPOT.2016.GRAPHE-MOSAIQUAGE:france_2016
+  ortho1950-1965:
+    title: photographies aériennes historiques 1950-1965
+    typename: ORTHOIMAGERY.ORTHOPHOTOS.1950-1965.GRAPHE-MOSAIQUAGE:graphe
