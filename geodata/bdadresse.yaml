@@ -10,7 +10,7 @@ abstract: |
 
 identifier: http://professionnels.ign.fr/bdadresse
 coverage: "iso:code:3166:FR (métropole)"
-yamlClass: VectorDataset
+yamlClass: FeatureDataset
 wfsUrl: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
 wfsOptions:
   referer: http://gexplor.fr/

@@ -30,7 +30,7 @@ abstract: |
     - [query](id.php/geodata/igngpmd/wfs/query?request=GetCapabilities)
     - [liste des couches](id.php/geodata/igngpmd/wfs/ft)
   
-yamlClass: VectorDataset
+yamlClass: FeatureDataset
 wfsUrl: https://wxs.ign.fr/metadata/geoportail/wfs
 layers:
   ortho:

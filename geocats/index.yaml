@@ -16,12 +16,12 @@ GeoCat: |
 GeoDataset: |
   Un GeoDataset contient des métadonnées (titre, résumé, ...) et sait, dans le contexte du GeoCat, s'exposer comme :
     
-    - d'une part soit un ImageDataset, soit un VectorDataset (c'est l'opération Download d'Inspire),
+    - d'une part soit un ImageDataset, soit un FeatureDataset (c'est l'opération Download d'Inspire),
       (on pourrait aussi imaginer des GeoDataset s'exposant sous les 2 formes, par exemple une OCS)
     - d'autre part un ViewDataset (c'est l'opération consultation d'Inspire)
   
   Un GeoDataset correspond à l'identification d'une SD dans le contexte d'un GeoCat.
-  Un ImageDataset ou un VectorDataset en sont une réalisation indépendante du contexte du GeoCat.
+  Un ImageDataset ou un FeatureDataset en sont une réalisation indépendante du contexte du GeoCat.
   
 GeoService: |
   Un GeoService contient des métadonnées (titre, résumé, ...) et sait exécuter des requêtes et en retourner des données.  
@@ -44,7 +44,7 @@ implem: |
 
   Le GeoCat doit savoir :
     - exécuter une requête (dont la forme est à définir) et en retourner un ensemble d'identifiants
-    - si un de ces identifiants correspond à un GeoDataset, l'interpréter comme VectorDataset et/ou ImageDataset
+    - si un de ces identifiants correspond à un GeoDataset, l'interpréter comme FeatureDataset et/ou ImageDataset
     - si un de ces identifiants correspond à un GeoService, réaliser les opérations définies pour ce type de service.
 
 api:
@@ -62,14 +62,14 @@ api:
       + si la ressource est un service WMS alors un WmsService est retourné  
       + si la ressource est un service Atom alors un AtomService est retourné  
   '{geocat}/items/{vdsid}/download': |
-    Si la ressource est une SDV alors un VectorDataset est retourné
+    Si la ressource est une SDV alors un FeatureDataset est retourné
     Si plusieurs services de téléchargement sont proposés, celui par défaut est choisi (un WFS plutot qu'un Atom)
     La liste des couches exposées par ce service est générée
     Pour forcer l'utilisation du service WFS le mot-clé download est remplacé par wfs
     Pour forcer l'utilisation du service Atom le mot-clé download est remplacé par atom
     Dans ce dernier cas, une version de la SD est effectivement téléchargée
     et stockée dans le répertoire {geocat}/{resid}
-    Prévoir dans VectorDataset l'utilisation directe de fichiers OGR sans passer par MySql
+    Prévoir dans FeatureDataset l'utilisation directe de fichiers OGR sans passer par MySql
   '{geocat}/items/{vdsid}/download/{lyrname}?bbox={bbox}&zoom={zoom}': 
     pour une SDV renvoie la FeatureCollection correspondant au bbox et au zoom
   '{geocat}/items/{vdsid}/download/map/display': |

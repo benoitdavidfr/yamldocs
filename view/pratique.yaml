@@ -1,5 +1,6 @@
-title: Serveur WMTS pratique
+title: Serveur WMTS du Géoportail, clé pratique
 abstract: |
+  la clé pratique donne accès sans compte aux couches Cartes et Photos
   Test WmtsServer
   
   **URL de test**:
