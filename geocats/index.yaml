@@ -2,11 +2,11 @@ title: réflexion sur l'intégration de catalogues de données géographiques (G
 examples: |
   **Exemples** :
     
-    - [SigLoire](?doc=geocats/sigloire)
-    - [une SD issue de SigLoire](?doc=geocats/sigloire-pprt)
-    - [Sextant](?doc=geocats/sextant)
+    - [SigLoire (Pays-de-la-Loire Etat)](?doc=geocats/sigloire)
+    - [exemple d'une SD issue de SigLoire](?doc=geocats/sigloire-pprt)
+    - [Sextant (Ifremer)](?doc=geocats/sextant)
     - [Géo-IDE](?doc=geocats/geoide)
-    - [Géo-IDE](?doc=geocats/sigena)
+    - [Sigena (Nouvelle Aquitaine Etat)](?doc=geocats/sigena)
     
 GeoCat: |
   Un catalogue de données géographiques (GeoCat) sait exécuter une requête

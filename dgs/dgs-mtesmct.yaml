@@ -1,0 +1,281 @@
+title: Données géographiques souveraines MTES-MCT
+yamlClass: YData
+tables:
+  dgs:
+    title: liste des types de données géographiques souveraines
+    data:
+      zoneVulnérable:
+        title: Zones vulnérables à la pollution par les nitrates d'origine agricole
+        catégorie: Zonage réglementaire
+        domaine: eau
+        thème Inspire: III.11
+        point de vérité: Sandre.eaufrance.fr
+        contact: deb
+      zoneSensible:
+        title: Zones sensibles
+        catégorie: Zonage réglementaire
+        domaine: eau
+        thème Inspire: III.11
+        point de vérité: Sandre.eaufrance.fr
+        contact: deb
+      sage:
+        title: Schéma d’aménagement et de gestion de l’eau (SAGE)
+        catégorie: Zonage réglementaire
+        domaine: eau
+        thème Inspire: III.11
+        point de vérité: Sandre.eaufrance.fr
+        contact: deb
+      continuitéEcologique:
+        title: Classement de Continuité Ecologique
+        catégorie: Zonage réglementaire
+        domaine: eau
+        thème Inspire: III.11
+        point de vérité: Sandre.eaufrance.fr
+        contact: deb
+      dpf:
+        title: Domaine public fluvial
+        catégorie: Zonage réglementaire
+        domaine: eau
+        thème Inspire: III.11
+        point de vérité: Sandre.eaufrance.fr
+        contact: deb
+      zre:
+        title: Zone de répartition des eaux
+        catégorie: Zonage réglementaire
+        domaine: eau
+        thème Inspire: III.11
+        point de vérité: Sandre.eaufrance.fr
+        contact: deb
+      baae:
+        title: Bassin administratif agences de l’eau
+        catégorie: Zonage non réglementaire
+        domaine: eau
+        thème Inspire: III.11
+        point de vérité: Sandre.eaufrance.fr
+        contact: deb
+      masseDEau:
+        title: Masses d’eau (cours d’eau, plans d’eau, eau souterraine, de transition ou littoral)
+        catégorie: Zonage non réglementaire
+        domaine: eau
+        thème Inspire: III.11
+        point de vérité: Sandre.eaufrance.fr
+        contact: deb
+      thvc:
+        title: Tronçons hydrographiques de vigilance crue
+        catégorie: Zonage non réglementaire
+        domaine: eau
+        thème Inspire: III.11
+        point de vérité: Sandre.eaufrance.fr
+        contact: deb
+      parcsNationaux:
+        title: Parcs nationaux dont les cœurs et aire d’adhésion et les réserves intégrales de cœur de parc national
+        catégorie: Zonage réglementaire
+        domaine: biodiversité
+        thème Inspire: I.9
+        point de vérité: https://inpn.mnhn.fr
+        contact: deb
+      pnm:
+        title: Parcs naturels marins
+        catégorie: Zonage réglementaire
+        domaine: biodiversité
+        thème Inspire: I.9
+        point de vérité: https://inpn.mnhn.fr
+        contact: deb
+      pnr:
+        title: Parcs naturels régionaux
+        catégorie: Zonage réglementaire
+        domaine: biodiversité
+        thème Inspire: I.9
+        point de vérité: https://inpn.mnhn.fr
+        contact: deb
+      rnn:
+        title: réserves naturelles nationales et périmètres de protection éventuels
+        catégorie: Zonage réglementaire
+        domaine: biodiversité
+        thème Inspire: I.9
+        point de vérité: https://inpn.mnhn.fr
+        contact: deb
+      rnr:
+        title: réserves naturelles régionales et périmètres de protection éventuels
+        catégorie: Zonage réglementaire
+        domaine: biodiversité
+        thème Inspire: I.9
+        point de vérité: https://inpn.mnhn.fr
+        contact: deb
+      rnc:
+        title: réserves naturelles de Corse et périmètres de protection éventuels
+        catégorie: Zonage réglementaire
+        domaine: biodiversité
+        thème Inspire: I.9
+        point de vérité: https://inpn.mnhn.fr
+        contact: deb
+      rbdi:
+        title: réserves biologiques dirigées et intégrales
+        catégorie: Zonage réglementaire
+        domaine: biodiversité
+        thème Inspire: I.9
+        point de vérité: https://inpn.mnhn.fr
+        contact: deb
+      rncfs:
+        title: réserves nationales de chasse et de faune sauvage
+        catégorie: Zonage réglementaire
+        domaine: biodiversité
+        thème Inspire: I.9
+        point de vérité: https://inpn.mnhn.fr
+        contact: deb
+      zch:
+        title: zone de conservation halieutique
+        catégorie: Zonage réglementaire
+        domaine: biodiversité
+        thème Inspire: I.9
+        point de vérité: https://inpn.mnhn.fr
+        contact: deb
+      apb:
+        title: aires de protection de biotope
+        catégorie: Zonage réglementaire
+        domaine: biodiversité
+        thème Inspire: I.9
+        point de vérité: https://inpn.mnhn.fr
+        contact: deb
+      zoneRamsar:
+        title: zones humides d'importance internationale (Ramsar)
+        catégorie: Zonage réglementaire
+        domaine: biodiversité
+        thème Inspire: I.9
+        point de vérité: https://inpn.mnhn.fr
+        contact: deb
+      réserveBiosphère:
+        title: réserves de biosphère (zone centrale, zone tampon et zone de transition) reconnues par l’UNESCO
+        catégorie: Zonage réglementaire
+        domaine: biodiversité
+        thème Inspire: I.9
+        point de vérité: https://inpn.mnhn.fr
+        contact: deb
+      scen:
+        title: site « acquis ou assimilé » des conservatoires d’espaces naturels (CEN)
+        catégorie: Zonage non réglementaire
+        domaine: biodiversité
+        thème Inspire: I.9
+        point de vérité: https://inpn.mnhn.fr
+        contact: deb
+      aAntarctique:
+        title: aires spécialement protégées du traité de l'Antarctique
+        catégorie: Zonage réglementaire
+        domaine: mer
+        thème Inspire: I.9
+        point de vérité: http://cartographie.aires-marines.fr/
+        contact: deb
+      zoneOspar:
+        title: zones marines protégées de la convention Oslo-Paris (convention OSPAR)
+        catégorie: Zonage réglementaire
+        domaine: mer
+        thème Inspire: I.9
+        point de vérité: http://cartographie.aires-marines.fr/
+        contact: deb
+      aireBarcelone:
+        title: aires spécialement protégées d'importance méditerranéenne (convention de Barcelone)
+        catégorie: Zonage réglementaire
+        domaine: mer
+        thème Inspire: I.9
+        point de vérité: http://cartographie.aires-marines.fr/
+        contact: deb
+      aireCarthagène:
+        title: aires spécialement protégées de la convention de Carthagène 
+        catégorie: Zonage réglementaire
+        domaine: mer
+        thème Inspire: I.9
+        point de vérité: http://cartographie.aires-marines.fr/
+        contact: deb
+      zoneNairobi:
+        title: zones marines protégées de la convention de Nairobi
+        catégorie: Zonage réglementaire
+        domaine: mer
+        thème Inspire: I.9
+        point de vérité: http://cartographie.aires-marines.fr/
+        contact: deb
+      plu:
+        title: Plans locaux d'urbanisme
+        catégorie: Zonage réglementaire
+        domaine: urbanisme
+        thème Inspire: III.4
+        point de vérité: https://www.geoportail-urbanisme.gouv.fr/
+        contact: dhup
+      carteCommunale:
+        title: cartes communales
+        catégorie: Zonage réglementaire
+        domaine: urbanisme
+        thème Inspire: III.4
+        point de vérité: https://www.geoportail-urbanisme.gouv.fr/
+        contact: deb
+      sup:
+        title: Servitudes d'utilité publique
+        catégorie: Zonage réglementaire
+        domaine: urbanisme
+        thème Inspire: III.11
+        point de vérité: https://www.geoportail-urbanisme.gouv.fr/
+        contact: deb
+      xxx:
+        title: xxx
+        catégorie: Zonage réglementaire
+        domaine: mer
+        thème Inspire: III.4 Usage des sols
+        point de vérité: http://cartographie.aires-marines.fr/
+        contact: deb
+        
+  idées:
+    title: idées
+    data:
+      sre:
+        title: Schéma régional éolien
+      pcet:
+        title: plan climat énergie territorial
+      pcaet:
+        title: plan climat air énergie territorial
+      pdu:
+        title: plan de déplacement urbain
+      planActionsPollutionHauteSavoie:
+        title: périmètres des plans d'actions mis en place afin de réduire la pollution atmosphérique en Haute-Savoie
+      zoneActionRenforcéeNitrate:
+        title: Zones d'actions renforcées prévues par le décret du 7 mai 2012 relatif aux programmes d'actions régionaux en vue de la protection des eaux contre la pollution par les nitrates d'origine agricole
+      dta:
+        title: directive territoriale d'aménagement
+      plh:
+        title: programme local de l'habitat
+      zrr:
+        title: zone de revitalisation rurale
+      insee:
+        title: zonages INSEE unité urbaine, zones d'emploi, ...
+      ppr:
+        title: plan de prévention des risques
+        
+        
+  contact:
+    title: contacts
+    data:
+      deb:
+        title: MTES/DGALN/DEB
+      dhup:
+        title: MCT/DGALN/DHUP
+        
+  thèmeInspire:
+    title: thèmes Inspire cités
+    data:
+      I.9:
+        title: I.9 Sites protégés
+      III.4:
+        title: III.4 Usage des sols
+      III.11:
+        title: III.11 Zones de gestion, de restriction ou de réglementation et unités de déclaration
+
+  codes:
+    title: codes définissant des DGS
+    data:
+      curba:
+        title: code de l'urbanisme
+        www: https://www.legifrance.gouv.fr/affichCode.do?cidTexte=LEGITEXT000006074075
+      cenv:
+        title: code de l'environnement
+        www: https://www.legifrance.gouv.fr/affichCode.do?cidTexte=LEGITEXT000006074220
+        
+afaire: |
+

@@ -13,7 +13,6 @@ layersByGroup:
       server: view/igngpwmts # serveur WMTS
       name: GEOGRAPHICALGRIDSYSTEMS.MAPS.SCAN-EXPRESS.STANDARD
       abstract: Scan-Express
-      format: image/jpeg
       minZoom: 0
       maxZoom: 18
     orthos:
@@ -42,7 +41,7 @@ layersByGroup:
       server: view/igngpwmsr # serveur WMS-R
       name: HR.ORTHOIMAGERY.ORTHOPHOTOS
       doc: http://professionnels.ign.fr/orthohr
-      format: image/jpeg
+      #format: image/jpeg
       minZoom: 0
       maxZoom: 21
     ortho-express:
@@ -55,9 +54,16 @@ layersByGroup:
         les délais de sa production, elle résulte d'un traitement massivement automatisé.
         L’Ortho Express vise en premier lieu à répondre à une exigence sur les délais de production.
         Il s’agit donc d’un produit dont les caractéristiques techniques sont contraintes par cette exigence forte.
-      format: image/jpeg
+      #format: image/jpeg
       minZoom: 0
       maxZoom: 19
+  divers:
+    parcellaire:
+      title: Parcelles cadastrales
+      server: view/igngpwmts # serveur WMTS
+      name: CADASTRALPARCELS.PARCELS
+      doc: http://professionnels.ign.fr/bdparcellaire
+      attribution: IGN & DGFiP
     
 afaire: |
   $layers = [
@@ -311,14 +317,6 @@ afaire: |
       'abstract'=>"Limites des régions, départements, cantons et communes.",
       'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
       'attribution'=>"IGN",
-    ],
-    'parcelles-cadastrales'=> [
-      'gpname'=>'CADASTRALPARCELS.PARCELS',
-      'title'=>"Parcelles cadastrales (orange)",
-      'doc'=>'http://professionnels.ign.fr/bdparcellaire',
-      'format'=>'png', 'minZoom'=>6, 'maxZoom'=>18,
-      'style'=>'bdparcellaire_o',
-      'attribution'=>"IGN &amp; DGFiP",
     ],
     'toponymes'=> [
       'gpname'=>'GEOGRAPHICALNAMES.NAMES',
