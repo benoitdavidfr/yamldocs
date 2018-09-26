@@ -12,11 +12,13 @@ contents:
   topovoc:
     title: Lexique topographique (extrait)
   geodata:
-    title: Accès à des données géographiques
+    title: Accès à des données géographiques vecteur
   view:
     title: Consultation de données géographiques
   geocats:
-    title: Réflexion sur l'intégration de catalogues de données géographiques (GeoCat)
+    title: Consultation de catalogues de données géographiques (GeoCat)
+  dgs:
+    title: Données géographiques souveraines
   geohisto:
     title: Référentiel géographique administratif historisé
   inspire-metadata:

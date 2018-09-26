@@ -198,6 +198,6 @@ ydclass: |
       illustrée par cette [bibliothèque](?doc=markerlib) ;
     - [WfsServer](?action=version&doc=yamldoc&name=wfsserver.inc.php) - gestion de requêtes à un serveur WFS,
       illustré par le [serveur WFS du Géoportail IGN](?doc=geodata/igngpwfs) ;
-    - [VectorDataset](?action=version&doc=yamldoc&name=vectords.inc.php) - document définissant une série de données
-      géographiques vecteur,
+    - [FeatureDataset](?action=version&doc=yamldoc&name=featureds.inc.php) - document définissant une série de données
+      géographiques d'objets vecteur,
       illustré par [Route500](?doc=geodata/route500) ou la [BDTopo](?doc=geodata/bdtopo) de l'IGN.

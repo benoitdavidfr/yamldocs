@@ -1,0 +1,25 @@
+title: message envoyé au support IGN sur clé choisirgeoportail
+message: |
+  Sujet : 	erreur avec la clé choisirgeoportail
+  Date : 	Mon, 24 Sep 2018 09:21:53 +0200
+  De : 	DAVID Benoît - CGDD/DRI/SDI/MIG 
+  <Benoit.David@developpement-durable.gouv.fr>
+  Organisation : 	CGDD/DRI/SDI/MIG
+  Pour : 	contact.geoservices@ign.fr
+
+  Bonjour,
+
+  J'ai cherché à utiliser la clé choisirgeoportail et j'ai rencontré une
+  erreur en effectuant la requête dans un script Php au moyen de la
+  fonction file_get_contents(). La même requête avec la clé pratique
+  fonctionne correctement.
+
+  Le script http://georef.eu/yamldoc/divers/testgp.php illustre cette erreur.
+  La première image provient de la clé pratique.
+  L'erreur en dessous correspond à un appel identique avec la clé
+  choisirgeoportail
+  L'erreur peut être affichée en cliquant sur le texte erreur.
+
+  Le code source du script Php est affiché en cliquant sur "Affichage du
+  code source Php".
+

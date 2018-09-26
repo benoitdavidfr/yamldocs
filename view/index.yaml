@@ -10,4 +10,8 @@ abstract: |
   
   Exemples:
     
+    - [SD de consultation du Géoportail](?doc=view/igngp)
     - [serveur WMS R du Géoportail](?doc=view/igngpwmsr)
+    - [serveur WMTS du Géoportail](?doc=view/igngpwmts)
+    - [serveur WMTS pratique du Géoportail](?doc=view/pratique)
+    - [serveur WMTS choisirGéoportail](?doc=view/choisirgeoportail)

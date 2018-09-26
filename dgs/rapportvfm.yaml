@@ -1,0 +1,738 @@
+title: Rapport "Les données géographiques souveraines"
+author: Mme Valéria FAURE-MUNTIAN, Députée de la Loire
+date: 20180720
+tableOfContents: |
+  #Les données géographiques souveraines
+  Rapport au Gouvernement, établi en application de l’article L.O. 144 du code électoral,  
+  par Mme Valéria **FAURE-MUNTIAN**, Députée de la Loire  
+  Juillet 2018
+  
+  ##Sommaire
+  - [Introduction](?ypath=/intro)
+  - [Synthèse des principales recommandations](?ypath=/recommandations)
+  
+  1. [Définir la donnée géographique souveraine](?ypath=/s1)
+    - 1.1. [La donnée géographique souveraine : esquisse de définition](?ypath=/s1.1)
+    - 1.2. [Une notion à visée opérationnelle](?ypath=/s1.2)
+  2. [Produire la donnée géographique souveraine](?ypath=/s2)
+    - 2.1. [Si le besoin de coordination et de pilotage de la production des données géographiques souveraines est réel, aucune réponse univoque ne semble pouvoir lui être apportée](?ypath=/s2.1)
+    - 2.2. [Mieux connaître, pour la rationaliser, la production de données géographiques souveraines par l’Etat et ses établissements publics](?ypath=/s2.2)
+    - 2.3	[Renforcer les partenariats entre producteurs de données géographiques souveraines selon une logique de projet](?ypath=/s2.3)
+    - 2.4	[Réunir les conditions techniques et institutionnelles d’une coopération plus étroite](?ypath=/s2.4)
+    - 2.5	[Repositionner l’IGN en conséquence](?ypath=/s2.5)
+  3. [Propositions d’actions prioritaires](?ypath=/s3)
+    - 3.1. [Mutualiser la production des données parcellaires](?ypath=/s3.1)
+    - 3.2. [Généraliser la démarche « GPU »](?ypath=/s3.2)
+    - 3.3. [Piloter plus activement les coopérations déjà engagées](?ypath=/s3.3)
+  4. [Financer la donnée géographique souveraine](?ypath=/s4)
+    - 4.1 [La production et l’entretien des données géographiques souveraines appellent un financement public](?ypath=/s4.1)
+    - 4.2 [Conséquences pour l’IGN](?ypath=/s4.2)
+      
+  - [Conclusion](?ypath=/conclusion)
+  - [Remerciements](?ypath=/remerciements)
+  - Annexe 1 – Discontinuité du parcellaire cadastral
+  - Annexe 2 – [Liste des personnes entendues et des contributions reçues](?ypath=/annex2)
+intro: |
+  La révolution numérique confronte la puissance publique à des défis inédits. L’un d’eux concerne l’exercice de la souveraineté même, entendue au sens large comme la capacité à agir de manière indépendante et à exercer l’autorité dont les pouvoirs publics sont démocratiquement investis, face à des acteurs internationaux dont la puissance croissante réside dans la maîtrise et l’exploitation de quantités considérables de données.
+
+  La géographie illustre mieux que n’importe quel autre domaine les mutations à l’œuvre dans la société numérique. Historiquement, la donnée géographique entretient un lien très étroit avec l’exercice de la souveraineté, d’abord dans sa dimension militaire. Citons, sans qu’il soit besoin de remonter à la « carte de Cassini », première cartographie homogène du territoire initiée par l’Académie des sciences en 1666, l’établissement de la carte d’état-major en 1817 ou à la création, quatre-vingts ans plus tard, du Service géographique de l’armée devenu en 1940 Institut géographique national puis, en 2012, Institut National de l’Information Géographique et forestières après sa fusion avec l’Inventaire forestier national (IFN). De nos jours, la puissance publique acquiert, produit et mobilise quotidiennement des données géographiques – et plus largement des données géolocalisées – à l’appui de ses décisions et de son action, dans des domaines aussi variés que la défense nationale, la sécurité, la prévention des risques naturels et technologiques, la fiscalité, l’urbanisme, les transports, la santé…
+
+  Illustrative, la géographie l’est aussi, et surtout, parce qu’elle constitue l’un des domaines dans lesquelles le risque de « disruption » de la puissance publique est le plus patent. Compte tenu de l’intérêt stratégique évident que présente l’information géolocalisée, les « GAFAM1 » ont constitué des fonds géographiques dont la richesse, la simplicité d’utilisation et la gratuité (à tout le moins pour les données de base et les usages élémentaires) en ont fait des produits de consommation courante pour les citoyens. Plus généralement, la société civile et des acteurs historiques de la géomatique jouent un rôle actif et positif dans la mutation de l’écosystème.
+
+  Le présent rapport fait donc le présupposé que la puissance publique, pour exercer souverainement ses prérogatives et accomplir ses missions d’intérêt général, doit conserver la maîtrise des données qui fondent ses décisions, au même titre qu’elle conserve celle de ses autres « infrastructures essentielles »2. Cette maîtrise conditionne non seulement l’efficience de l’action publique, qui doit pouvoir se fonder sur des données qualifiées, mais aussi la confiance que les citoyens3 placent en elle. Elle contribue également à la souveraineté nationale entendue dans son acception économique, en permettant à nos entreprises de ne pas dépendre de grandes plateformes étrangères pour accéder aux marchés et développer leur activité et en leur offrant un support à l’innovation (voiture autonome, livraison par drone, villes intelligentes…). Une telle approche ne signifie évidemment pas que la puissance publique doive se comporter en « forteresse assiégée » à l’égard des acteurs privés. Les autorités publiques ont parfois intérêt à coopérer avec eux dans l’élaboration de communs numériques ou à collecter leurs données lorsque le législateur leur reconnaît un caractère d’intérêt général.
+
+  La lettre de mission à laquelle s’efforce de répondre le présent rapport comportait un grand nombre de questions, dont la caractérisation même d’une donnée « souveraine » n’était pas la moins épineuse. Le calendrier des travaux était par ailleurs commandé par la nécessité d’articuler les réflexions ici conduites avec l’élaboration du nouveau projet d’établissement de l’IGN, elle-même inscrite dans le processus « Action publique 2022 ». Il a été, dans ce court laps de temps, choisi d’auditionner un panel aussi large que possible d’acteurs, publics et privés, concernés par les mutations du secteur de l’information géographique.
+
+  Les grands axes de la commande (souveraineté de la donnée, organisation optimale de la puissance publique en matière d’information géographique) sont depuis plusieurs années au cœur des réflexions de l’IGN et de ses autorités de tutelle. Comme le rappelle un rapport récemment consacré à l’institut par le Conseil général de l’environnement et du développement durable et le Conseil général de l’alimentation, de l’agriculture et des espaces ruraux4, deux des trois orientations principales de son contrat d’objectifs et de performance 2013-2016 étaient déjà consacrées à la nécessité pour l’IGN de devenir une composante de la souveraineté et de l’indépendance nationale en fournissant aux administrations publiques les données de référence permettant une description du territoire faisant autorité, et d’ancrer son rôle d’opérateur de référence en matière d’information géolocalisée en organisant un système collaboratif d’échanges et de partage de données entre les acteurs publics et en favorisant leur diffusion. Certaines questions abordées dans les développements qui suivent étaient également en germe dans le rapport Lengagne sur les Perspectives d’évolution de l’information géographique et les conséquences pour l’IGN, pourtant rendu il y a près de vingt ans.
+
+  La persistance de ces interrogations trahit la difficulté qu’ont pu éprouver les pouvoirs publics à adapter leur organisation et leurs modalités d’intervention dans un contexte très évolutif, marqué par des initiatives foisonnantes et dispersées, ainsi que par des progrès technologiques rapides et continus. Les travaux dont le présent rapport est issu ont rapidement fait apparaître que l’extrême variété des données géographiques intervenant dans les décisions de la puissance publique et la complexité de l’écosystème d’acteurs que fait intervenir leur production se prêtaient mal à une approche monolithique ou systématique des solutions à mettre en œuvre. 
+
+  Dans ces conditions, il n’est apparu opportun ni de conférer une portée normative à la définition des données géographique souveraines, ni de préconiser un modèle unique d’organisation et de gouvernance qui, bien qu'intellectuellement séduisant, aurait eu toutes les chances de demeurer théorique. Une production plus efficiente des données géographiques souveraines passe essentiellement par la sensibilisation des administrations aux enjeux de la maîtrise de ces données et par le développement de coopérations autour de projets communs dont l’animation nationale doit être renforcée. Le financement de cette production doit, conformément au choix des pouvoirs publics de privilégier l’open data, reposer sur l’impôt.
+
+  Les préconisations qui suivent se veulent avant tout réalistes et pragmatiques. Elles constituent à la fois des orientations générales pour l’action, des recommandations opérationnelles ciblées là où il est apparu que la réflexion était assez mûre pour en formuler et des suggestions d’expérimentations dont le succès conditionnera, le cas échéant, la généralisation.
+
+recommandations: |
+  1. Faire réaliser et actualiser périodiquement par les administrations centrales et les établissements publics de l’Etat un recensement des données géographiques souveraines qu’ils produisent ou dont ils ont besoin.
+  2. Mobiliser les administrations impliquées dans la gestion de crise autour d’un projet de mutualisation visant à ce qu’un même objet géographique fasse l’objet d’une description commune à l’ensemble de leurs systèmes d’information.
+  3. Fixer dans une circulaire du Premier ministre les exigences minimales auxquelles doivent répondre les données géographiques auxquelles les administrations centrales et déconcentrées adossent leurs décisions.
+  4. Créer un point d’accès unique aux données et métadonnées géographiques souveraines placé sous la responsabilité de l’IGN.
+  5. Transférer la tenue du Géocatalogue « INSPIRE » du BRGM à l’IGN.
+  6. Fédérer les producteurs de données géographiques souveraines autour de projets d’équipement communs, notamment dans les domaines des données de transport ou de la réalisation d’un modèle numérique tridimensionnel à maille très fine.
+  7. Renforcer les synergies entre l’IGN et les collectivités territoriales dans la réalisation de la couverture orthophotographique du territoire.
+  8. Mettre en place une plateforme mutualisée d’information et de services géolocalisés pour la préparation et le déroulement des Jeux olympiques et paralympiques de Paris 2024.
+  9. Créer une géoplateforme nationale des données géographiques souveraines conçue à terme comme une infrastructure mutualisée entre les différents producteurs.
+  10. Afin de favoriser l’adhésion des acteurs, expérimenter la constitution et l’exploitation de bases de données communes entre l’IGN et les producteurs « tiers » (collectivités notamment) à partir de l’infrastructure mutualisée.
+  11. Valoriser et encourager le développement d’acteurs français et européens du stockage et du calcul.
+  12. Faire jouer au Conseil national de l’information géographique un rôle effectif de coordination et d’animation des producteurs de données géographiques souveraines.
+  13. Placer le CNIG auprès du Premier ministre, faire assurer son secrétariat par la DINSIC et adapter sa composition.
+  14. Structurer un réseau homogène de conseils régionaux de l’information géographique.
+  15. Créer dans chaque région une plateforme unique d’information géographique, commune à la région et à l’Etat.
+  16. Préserver les moyens dédiés à l’information géographique dans les services déconcentrés de l’Etat.
+  17. Repositionner l’IGN sur l’agrégation, la standardisation, la certification des données géographiques souveraines et l’accompagnement technique des producteurs.
+  18. Structurer et animer une communauté des géomaticiens publics favorisant le partage d’expériences et de bonnes pratiques et développer avec eux une réflexion sur les compétences et savoir-faire spécifiques que requièrent la production et la diffusion des données géographiques souveraines.
+  19. Adapter la composition du conseil d’administration de l’IGN en renforçant notamment la représentation des régions. Y faire siéger le DINSIC ès-qualité.
+  20. Évaluer à échéance du 1er trimestre 2019 les impacts techniques, organisationnels, juridiques et financiers d’un transfert des missions topographiques de la DGFiP à l’IGN et procéder au transfert avant la fin de la législature.
+  21. Étendre progressivement à l’ensemble des zonages réglementaires la démarche entreprise autour du Géoportail de l’Urbanisme.
+  22. Étudier, en concertation avec les associations représentatives des communes, l’opportunité de systématiser l’obligation de réaliser des plans d’adressage et de rendre l’adresse opposable.
+  23. Mandater l’IGN pour jouer un rôle plus actif dans le pilotage du déploiement du PCRS et revoir les modalités de financement du projet, soit par la création d’un fonds de mutualisation, soit par l’identification d’une enveloppe dédiée dans le cadre de la prochaine génération de CPER.
+  24. Poser un principe de gratuité de la mise à disposition des données géographiques souveraines.
+  25. Faire couvrir par la subvention pour charges de services public les dépenses de fonctionnement et de personnel consacrées par l’IGN à la production, à l’entretien, à la certification des données géographiques souveraines, ainsi qu’à l’accompagnement technique des autres acteurs de l’écosystème et à la gestion de la géoplateforme nationale.
+  26. Clarifier l’articulation des licences ouvertes de type Etalab avec les licences dites « contaminantes ».
+  27. Diffuser à terme l’ensemble des données géographiques souveraines sous licence ouverte type Etalab.
+  28. N’autoriser l’IGN à recourir à la licence payante qu’à titre transitoire et au plus tard jusqu’en 2022.
+
+s1: |
+  # 1. Définir la donnée géographique souveraine
+  Les données géographiques souveraines se définissent, selon une logique de destination, comme les données servant de support direct aux décisions de la puissance publique. Quelles sont, dès lors, les caractéristiques qui doivent découler de cet usage et comment articuler le concept de donnée géographique souveraine avec les définitions de la donnée déjà consacrées par le législateur ?
+  
+  - 1.1. [La donnée géographique souveraine : esquisse de définition](?ypath=/s1.1)
+  - 1.2. [Une notion à visée opérationnelle](?ypath=/s1.2)
+s1.1: |
+  ## 1.1.	La donnée géographique souveraine : esquisse de définition
+  ### 1.1.1. La donnée géographique
+
+  On retiendra, dans les développements qui suivent, une définition large de la donnée géographique comme étant, d’une part, une donnée de description physique du territoire dans ses aspects naturels (chaîne de montagne) et artificiels (agglomération), visibles (cours d’eau) et invisibles (réseau enterré) et, d’autre part, une donnée positionnée par rapport au territoire ou « géolocalisée » (informations statistiques produites par l’inventaire forestier). Comme il est possible de géolocaliser à peu près n’importe quelle donnée, on se bornera à évoquer ici les données dont l’intérêt et l’usage dépendent directement de leur géolocalisation (zonage réglementaire, parcellaire dont dépend l’application de la loi fiscale ou le versement d’aides publiques…). 
+  
+  Cette définition se double d’une distinction, liée au producteur de la donnée, entre les données « socle » et les données « métier ». Les premières désignent en général des données de base, des « fonds de carte » produits par un opérateur dont c’est la mission principale, et au premier rang desquels on trouve l’IGN. Les données « métier » sont, quant à elles, le plus souvent produites à titre secondaire, pour les besoins d’une mission (d’un « métier »), par un opérateur dont ce n’est pas la spécialité. La couche orthophotographique du référentiel à grande échelle de l’IGN est une donnée socle. La zone nationale d’intérêt écologique, faunistique et floristique (ZNIEFF) dessinée par une DREAL est une donnée métier.
+  
+  Enfin, les données géographiques peuvent être distinguées selon qu’elles décrivent un phénomène statique (massif) ou dynamique (flux de trafic routier ou débit de cours d’eau en temps réel). 
+  
+  Ces définitions élémentaires – que les experts en géomatique pourront même trouver rudimentaires – suffisent à embrasser et à caractériser la réalité des données géographiques intervenant dans la prise de décision publique.
+
+  ### 1.1.2. La donnée souveraine : indépendance et autorité
+
+  Aux termes de la lettre de mission du Premier ministre, la souveraineté d’une donnée géographique1 se définit donc par sa destination ou par son usage, qui est de servir de support direct aux décisions de la puissance publique. Une donnée n’est donc souveraine que si sa disponibilité conditionne la possibilité même de la décision publique, c’est-à-dire qu’elle présente pour la puissance publique une véritable criticité.
+  
+  Ensuite, et sauf à se priver de la possibilité de constituer des fonds géographiques riches et de créer des synergies au sein de la sphère publique, la puissance publique ne saurait, dans le cadre de cette définition, se limiter à l’Etat et désigne l’ensemble plus vaste formé par l’Etat, les établissements publics, les collectivités territoriales et certaines personnes privées chargées d’une mission de service public. Ce champ est mutatis mutandis le même que celui que retiennent le code de l’environnement pour définir l’autorité publique au sens de la directive « Inspire » (art. L. 127-1 et L. 124-3) et le code des relations entre le public et l’administration pour définir l’information publique (art. L. 321-1 et L. 300-2). Partant, les données souveraines n’interviennent pas seulement dans l’exercice par l’Etat de ses missions « régaliennes », mais concernent également, par exemple, la contribution à la fourniture de services publics ou aux activités de régulation.
+  
+  Enfin, et dès lors que l’action de l’administration consiste à prendre, dans l’intérêt général, des décisions qui s’imposent aux citoyens2 et qui sont, le cas échéant, susceptibles d’engager sa responsabilité, la donnée sur laquelle repose cette action doit présenter des garanties d’indépendance et faire autorité3.
+  
+  ***
+  #### Indépendance
+  En 1999 déjà, le rapport Lengagne sur les Perspectives d’évolution de l’information géographique et les conséquences pour l’IGN relevait que l’émergence de producteurs privés de données géographiques posait la question de la légitimité d’une intervention publique dans ce domaine. Le premier argument qui plaidait, aux termes de ce rapport, pour le maintien d’une telle intervention tenait à ce que l’information relative au territoire est un outil de la décision publique, et que « la dépendance informationnelle serait le premier pas vers la dépendance économique et politique »4.
+  
+  Si l’autorité publique ne doit dépendre de personne pour disposer de la donnée souveraine, elle doit, si ce n’est la produire en totalité, au moins maîtriser techniquement et continûment son processus de production, de l’acquisition de l’information de base jusqu’au stockage de la donnée, en passant par son élaboration, sa qualification5 et sa mise à disposition.
+  
+  ***
+  #### Autorité
+  La donnée géographique souveraine ne doit pas être imposée par voie d’autorité, mais faire autorité, dans une logique d’influence, par :
+    
+  1. sa qualité, laquelle dépend à son tour de son exhaustivité (l’information est disponible et homogène sur l’ensemble du territoire pertinent auquel s’applique la politique publique considérée), de sa fiabilité (l’information provient d’une source sûre et a fait, le cas échéant, l’objet d’une authentification6), de sa précision (géométrique ou sémantique) et de sa fraîcheur ;
+  2. son caractère documenté : elle doit donc s’accompagner des informations descriptives – ou métadonnées – indispensables à l’utilisateur pour évaluer sa qualité. A titre d’exemple, pour le ministère des armées, la parfaite maîtrise des processus de production et de certification de l’information géographique militaire permet à la France de s’imposer comme un référent géographique aux nations alliées et de légitimer sa capacité à intervenir en coalition. Un outil pour assurer l’interopérabilité entre les nations alliées est la normalisation de l’information géographique. La représentation du ministère des armées assurée par l’IGN depuis 2002 au sein des instances de normalisation civiles et militaires internationales permet à la France de préserver ses intérêts.
+  
+  Enfin, compte tenu de la multiplicité des acteurs qui interviennent dans la production de données géographiques souveraines, les gains d’efficience que susciterait une meilleure coordination entre eux supposent que ces données soient interopérables (cf. partie 2).
+  
+  ***
+  Au total, cette définition n’emporte que deux contraintes substantielles pour les autorités publiques : celle de ne pas se mettre entièrement dans la main d’une entité tierce pour disposer de données critiques et celle de ne pas fonder ses décisions sur des données dont elle ne maîtriserait pas la qualification.
+  
+  Le caractère souverain de la donnée ne fait donc pas obstacle à ce que la puissance publique acquière et utilise, pour ses besoins propres, des données produites par le secteur privé, soit dans le cadre d’une relation commerciale traditionnelle, soit en instituant des obligations de communication de données produites par des opérateurs dans le cadre de leur mission7.
+  
+  Il ne fait pas davantage obstacle à ce que certains référentiels soient, à l’instar de la base adresse nationale (BAN8), constitués et entretenus en lien avec des partenaires privés, selon une logique de « commun numérique », ni à ce que certaines données fassent l’objet d’une élaboration collaborative (crowdsourcing ou, en français, « myriadisation »). Certes, les exigences de fiabilité qui s’attachent à ce type de données impliqueront parfois que les contributeurs susceptibles d’intervenir directement sur leur contenu soient sélectionnés et identifiés comme des « tiers de confiance9 » (community sourcing). Cela ne devrait toutefois pas empêcher que l’ensemble des usagers puisse signaler d’éventuelles erreurs ou suggérer des modifications. Dans le domaine de la prévention du risque d’inondation par exemple, le site www.reperedecrues.developpement-durable.gouv.fr offre une application interactive qui permet de consulter la base de données nationale des repères et traces géolocalisés laissés par une crue. Cette base peut être enrichie par des experts, mais également par le public en fournissant une photographie géolocalisée accompagnée d’un commentaire. Ces témoignages sont analysés par un service expert et sont portés sur la base s’ils sont jugés fiables. La BD Topo de l’IGN est également produite de façon collaborative et intègre notamment les contributions des communes.
+  
+  Au total, la compatibilité de l’élaboration collaborative avec les exigences propres à une donnée souveraine devra donc faire l’objet d’une analyse au cas par cas et, en toute hypothèse, les exigences de qualification pourront être modulées en fonction des sources mobilisées. Plus la donnée sera mobilisée au service de missions régaliennes, qui constituent le « cœur » de la souveraineté, plus les possibilités d’élaboration par myriadisation seront restreintes10.
+s1.2: |
+  ##1.2. Une notion à visée opérationnelle
+  ###1.2.1. La notion de donnée géographique souveraine ne doit pas revêtir de portée normative
+
+  La loi ne connaît pas la donnée géographique souveraine et il n’apparaît ni opportun, ni utile de conférer à cette notion – ni même à celle de donnée souveraine en général – une portée normative.
+  
+  En premier lieu, et comme on s’apprête à le voir, la législation en vigueur distingue déjà les informations publiques, les données de référence et les données géographiques mobilisées dans le cadre de la protection de l’environnement. Conférer une portée législative ou réglementaire à la notion de donnée géographique souveraine aboutirait donc à définir une nouvelle approche de la donnée géographique et à définir dans un régime distinct ses règles d’élaboration, de diffusion, de financement, ce qui n’irait pas sans une certaine complexité.
+  
+  Ensuite, et surtout, fixer la définition d’une notion dans la loi ou le règlement n’a de sens que si l’on entend lui faire produire des effets de droit. Ces effets seraient par exemple, pour une donnée géographique, une opposabilité aux tiers dans le cadre d’une réglementation reposant sur un zonage1 ou une obligation d’utilisation à l’exclusion de toute autre donnée2. Or l’extension que la mission propose de donner à la notion de donnée géographique souveraine lui fera englober une très grande diversité de données, socle ou métier, ayant trait à des domaines d’intervention très divers et mobilisées par une pluralité d’acteurs. Dans ces conditions, il est illusoire de penser que toutes les données géographiques pourraient produire les mêmes effets de droit du seul fait qu’elles seraient qualifiées de souveraines.
+  
+  Enfin, les objectifs poursuivis par la lettre de mission, qui sont principalement d’améliorer, par une coordination plus étroite et plus agile des acteurs, l’efficacité du processus de production et de certification des données utilisées par la puissance publique, n’impliquent qu’une définition opérationnelle permettant de délimiter le champ des acteurs concernés et de définir les principes qui doivent guider leur action.
+
+  ###1.2.2. Donnée géographique souveraine et donnée de référence 
+
+  Les données géographiques peuvent être envisagées par la loi comme des informations publiques3 au sens de l’article L. 321-1 code des relations entre le public et l’administration, informations figurant dans des documents communiqués ou publiés par les administrations et qui peuvent être réutilisées par toute personne qui le souhaite à d'autres fins que celles de la mission de service public pour les besoins de laquelle elles ont été produites ou reçues.
+  
+  Certaines d’entre elles sont en outre identifiées comme des « données de référence » au sens de l’article L. 321-4 du même code, issu de la loi n° 2016-1321 du 7 octobre 2016 pour une République numérique. Au sens de ces dispositions, les données de référence sont les informations publiques visées à l’article L. 321-1 qui constituent une référence commune pour nommer ou identifier des produits, des services, des territoires ou des personnes, sont réutilisées fréquemment par des personnes publiques ou privées autres que l'administration qui les détient et dont la réutilisation nécessite qu'elles soient mises à disposition avec un niveau élevé de qualité.
+  
+  Parmi les données de référence dont la mise à disposition constitue une mission de service public incombant à l’Etat, l’article R. 321-5 du code des relations entre le public et l’administration identifie six jeux de données (sur neuf au total) faisant intervenir de l’information géographique : le plan cadastral informatisé produit par la direction générale des finances publiques, le registre parcellaire graphique (RPG) produit par l’Agence de services et de paiement (ASP) pour la mise en œuvre des aides de la PAC, le référentiel à grande échelle (RGE) produit par l’IGN, la base adresse nationale déjà évoquée, la base de données de l'organisation administrative de l'Etat, produite par la direction de l'information légale et administrative à partir du recensement des coordonnées des services publics nationaux et locaux et le code officiel géographique produit par l’INSEE.
+  
+  Telle qu’elle vient d’être esquissée, la donnée géographique souveraine constitue un ensemble qui recoupe en partie, mais en partie seulement, la notion de donnée de référence. En témoignent les six jeux de données4 qui viennent d’être évoqués, certaines données souveraines sont aussi des données de référence en tant qu’elles présentent un intérêt justifiant qu’on les mette à la disposition du public pour que celui-ci les réutilise à des fins autres que celle pour laquelle elles ont été conçues. En revanche, certaines données souveraines ne peuvent, par leur nature même, constituer des données de référence, en raison notamment de leur sensibilité. On pense notamment aux données élaborées « à façon » par l’IGN à la demande du ministère des armées pour la cartographie des théâtres d’opérations, et dont on comprend aisément que tout un chacun ne puisse y avoir accès.
+  
+  Au fond, et comme l’explique très clairement l’administrateur général des données dans son récent rapport au Premier ministre5, la donnée de référence désigne la donnée publique dont le « potentiel d’usage » est élevé. Cette notion renvoie à une compréhension de la souveraineté informationnelle comme reposant sur des standards de fait : la souveraineté d’un référentiel de données ne se décrète pas par la puissance publique, elle s’impose par l’usage que la multitude décide de faire de tel ou tel référentiel6 de préférence à tel ou tel autre. La donnée de référence serait, en quelque sorte, la donnée « élue » par la majorité des citoyens. Dans son étude annuelle7 consacrée à ces questions, le Conseil d’Etat relève également que « le débat est d’ores et déjà lancé sur le risque et les avantages d’une nouvelle conception sociétale de l’imperium. La multitude, par sa contribution active au réseau ou à travers l’analyse de ses comportements, concurrencerait le souverain légitime dans la prescription des valeurs et des normes ». En faisant émerger la notion de donnée de référence, la puissance publique se place donc à son tour sur le terrain de la souveraineté de fait et s’efforce, par une politique de diffusion large et d’accessibilité renforcée de ses données, de les maintenir ou de les ériger en standards.
+  
+  La définition de la donnée géographique souveraine retenue dans le présent rapport ne contredit pas la conception de la souveraineté qui sous-tend la notion de donnée de référence. Mais, alors que la donnée de référence s’envisage du point de vue du citoyen (quelle donnée émergera comme souveraine au gré de l’usage ?), la donnée géographique souveraine s’envisage du point de vue de l’autorité publique (sur quelle donnée puis-je me fonder en confiance pour exercer mes prérogatives de puissance publique ?). Et si les citoyens utilisent plus volontiers les cartes fournies par les GAFA pour trouver le commerce le plus proche, on peut raisonnablement supposer qu’ils préfèreront, pour quelques temps encore, que l’Etat s’appuie sur une représentation parcellaire « officielle » pour calculer leur impôt foncier ou leur appliquer une réglementation d’urbanisme.
+  
+  En d’autres termes, la notion de donnée géographique souveraine ne poursuit pas l’objectif de concurrencer les grands opérateurs privés dans l’usage des données que font les citoyens, particuliers ou entreprises, pour les besoins de leurs activités quotidiennes. Elle vise néanmoins à ce qu’une certaine légitimité soit reconnue aux données mobilisées dans le cadre des rapports que les citoyens entretiennent avec les services publics. Une donnée géographique souveraine n’est donc pas nécessairement une donnée de référence, mais rien ne s’oppose à ce qu’elle le devienne.
+
+  ### 1.2.3. Donnée géographique souveraine et donnée « Inspire »
+
+  La directive 2007/2/CE du Parlement européen et du Conseil du 14 mars 2007, dite « Inspire » prévoit la mise en place par chaque Etat membre d’une infrastructure d’information géographique dédiée à la protection de l’environnement et ayant plus largement pour objet d’améliorer l’information des citoyens, de faciliter la décision publique et de favoriser la croissance et l’emploi grâce au développement du secteur de l’information géographique et des activités reposant sur l’exploitation de cette information. Transposé aux articles L. 127-1 et suivants du code de l’environnement, ce texte retient une définition très large de la donnée géographique, comprise comme toute donnée faisant directement ou indirectement référence à un lieu spécifique ou une zone géographique. Sont concernées les données détenues par les autorités publiques8 ou en leur nom, sous forme électronique, relatives à une zone sur laquelle la France détient ou exerce sa compétence et concernant au moins un thème énuméré par les annexes à la directive. Ces annexes visent à la fois des données géographiques « socle » (systèmes géodésiques, topographie, hydrographie, parcellaire…) que des données dites « métier » (servitudes d’utilité publique, zonages administratifs divers, santé et sécurité des personnes…). Ces données, les séries qu’elles composent et les services9 dont elles sont le support doivent obéir à des standards d’interopérabilité déterminés par les règlements pris en application de la directive « Inspire » (art. L. 127-3)10. 
+  
+  Les données géographiques au sens de la directive « Inspire », en tant que données détenues par les autorités publiques ou en leur nom, sous forme électronique, et relatives à une zone sur laquelle la France détient ou exerce sa compétence recoupent très largement, en première analyse, la notion de donnée géographique souveraine. Cela est d’autant plus vrai que, comme il a déjà été indiqué, les annexes I à III de la directive énumèrent des catégories de données très largement définies. Certaines données peuvent toutefois répondre à la définition des données géographiques souveraines sans relever de la directive « Inspire ». Il en va ainsi, par exemple, de données relatives au transport (trafic), aux circonscriptions électorales, à la carte scolaire…
+
+s2: |
+  # 2. Produire la donnée géographique souveraine
+
+  Afin d’améliorer l’efficacité globale de la puissance publique, la lettre de mission invitait à s’interroger sur l’organisation et la coopération entre services publics dans la production et la certification des données géographiques souveraines, de redéfinir le rôle de l’IGN dans cet écosystème et de proposer une structure de gouvernance éclairée par les usages et les besoins, fixant les objectifs et pilotant avec agilité l’organisation.
+  Cet aspect de la commande était de loin le plus délicat à traiter, en raison de l’extrême diversité des données produites, des politiques qui les mobilisent et des acteurs en charge de ces politiques1. On s’est efforcé d’y répondre avec pragmatisme et en cohérence avec, d’une part, les orientations définies dans le cadre de la politique nationale des données2 et, d’autre part, les préoccupations exprimées par l’IGN au gré de l’élaboration de son nouveau projet d’établissement.
+  
+  - 2.1. [Si le besoin de coordination et de pilotage de la production des données géographiques souveraines est réel, aucune réponse univoque ne semble pouvoir lui être apportée](?ypath=/s2.1)
+  - 2.2. [Mieux connaître, pour la rationaliser, la production de données géographiques souveraines par l’Etat et ses établissements publics](?ypath=/s2.2)
+  - 2.3	[Renforcer les partenariats entre producteurs de données géographiques souveraines selon une logique de projet](?ypath=/s2.3)
+  - 2.4	[Réunir les conditions techniques et institutionnelles d’une coopération plus étroite](?ypath=/s2.4)
+  - 2.5	[Repositionner l’IGN en conséquence](?ypath=/s2.5)
+s2.1: |
+  ## 2.1. Si le besoin de coordination et de pilotage de la production des données géographiques souveraines est réel, aucune réponse univoque ne semble pouvoir lui être apportée
+  ### 2.1.1. Un réel besoin de coordination
+
+  La production de l’information géographique n’est plus, loin s’en faut, le monopole de l’IGN. Si l’institut demeure le principal producteur des données « socle », au premier rang desquelles les principales « couches » du Référentiel à grande échelle (RGE), les données « métier » sont de plus en plus souvent produites par d’autres acteurs pour les besoins des politiques publiques dont ils ont la charge (sécurité, environnement, aménagement du territoire, transport, santé, agriculture…).
+  
+  Si certains acteurs se tournent parfois vers l’IGN pour assurer la production des données « à façon » dont ils ont besoin (cas du ministère des armées ou du ministère de l’agriculture), d’autres ont recours à des prestataires privés1 ou se dotent de compétences propres. Les services centraux et déconcentrés des ministères, les collectivités territoriales les plus importantes (régions, métropoles, départements…), certains opérateurs de réseau sur qui le législateur fait peser des obligations de cartographie de leur infrastructure recrutent ainsi des géomaticiens pour produire et assembler les données dont ils ont l’usage dans le cadre de leurs missions.
+  
+  Ce mouvement d’essaimage de la production de données géographiques au sein de la sphère publique ne s’est, à ce jour, pas accompagné d’une réflexion sur la coordination dont cette production pourrait faire l’objet. Les interlocuteurs rencontrés dans le cadre de la mission ont pourtant, dans une belle unanimité, appelé de leurs vœux une telle coordination. Certains représentants des territoires se sont en outre montrés ouverts à une animation nationale plus active de la production des données géographiques souveraines, pourvu que les objectifs en soient préalablement concertés.
+  
+  Ce besoin de rationalisation dépasse en outre le champ des seules données géographiques, puisque l’administrateur général des données relève pour sa part qu’« il y a encore des gisements d’économie et d’efficience dans la production des données de référence. Dans la situation actuelle, la production des données de référence repose sur quelques opérateurs ou directions ministérielles. Leur savoir-faire et leur expertise dans cette production doivent être soulignés, mais des progrès restent possibles dans la gouvernance de la production de ces données. En effet, la plupart de ces producteurs agissent de manière assez autonome, notamment vis-à-vis de leurs tutelles ministérielles. Les principaux référentiels, bien que liés, sont ainsi produits sans nécessairement partager un cadre stratégique commun. Une meilleure gouvernance de la production serait ainsi un facteur d’économie et d’efficience »2.
+
+  ###2.1.2. Une problématique rétive à tout systématisme
+
+  Les gains d’efficience recherchés dans la production de données géographiques souveraines ne sauraient pour autant résulter d’un modèle d’organisation uniforme dans lequel chaque acteur (national, local, producteur de données « socle » ou « métier »…) se verrait assigner une place bien définie.
+  
+  La raison en est d’abord que les données géographiques souveraines ne constituent pas en elles-mêmes une catégorie homogène et qu’il existe autant de « chaînes » de production que de types de données3, voire plusieurs chaînes pour un même type4. Dès lors, et comme l’ont souligné certaines personnalités auditionnées, la coordination des acteurs ne peut efficacement s’opérer que dans les limites d’une même politique publique ou d’un même projet, car alors il existe entre ces acteurs une communauté d’intérêts et une compréhension commune des objets. D’autres mettent en avant qu’une coordination trop rigide et venue « d’en haut » de la production des données irait à l’encontre de l’objectif d’agilité recherché. 
+  
+  On relève au demeurant que la politique d’open data mise en œuvre par les pouvoirs publics n’envisage pas prioritairement les données de référence sous le rapport de leur production, mais sous celui de leur diffusion5. Plus fondamentalement, dans un contexte de transformation numérique qui bouleverse les rapports traditionnels de production, la distinction s’estompe entre producteur et consommateur. C’est particulièrement vrai en ce qui concerne les données géographiques souveraines, dont les producteurs sont aussi, le plus souvent, les usagers. Selon plusieurs personnalités auditionnées, cela emporte notamment pour l’IGN de passer du statut de producteur de la donnée stricto sensu à celui de facilitateur d’accès et de fournisseur de référentiels communs. Ce choix de construction de l’infrastructure de données « par l’aval », guidé par des objectifs d’agilité et de rapidité, s’accommoderait probablement mal d’une refonte complète et systématique des processus de production des données souveraines, fût-elle limitée au domaine de la géographie.
+  
+  Les progrès ne peuvent donc résulter que de démarches progressives, structurées autour d’objets communs.
+s2.2: |
+  ##2.2. Mieux connaître, pour la rationaliser, la production de données géographiques souveraines par l’Etat et ses établissements publics
+
+  La mission a d’abord été l’occasion de s’interroger sur les gains d’efficience que permettraient certaines mutualisations au sein du périmètre formé par l’Etat et ses établissements publics. Ce questionnement s’est rapidement heurté aux lacunes de l’information disponible, tant en ce qui concerne les données existantes et leur accessibilité que les besoins exprimés par les administrations.
+  
+  Il est impératif de sensibiliser l’administration aux enjeux des données géographiques souveraines.
+  
+  Le calendrier imparti pour la restitution du présent rapport ne permettait pas d’établir un recensement complet des données géographiques souveraines disponibles ou souhaitées. Les entretiens conduits ont cependant mis en évidence des besoins non ou mal couverts.
+  
+  Selon les cas, ces lacunes peuvent résulter de la limitation des moyens humains ou financiers qu’il est, dans un contexte de maîtrise des comptes publics, possible de consacrer à l’acquisition ou à la production de données, de certaines restrictions d'accès (secret industriel et commercial par exemple) ou de la réticence que continuent de manifester certains services publics à l’idée de rendre accessibles les données qu'ils détiennent ou produisent, en particulier quand leur acquisition a été cofinancée par divers acteurs (collectivités, organismes de recherche...) et quand des conventions d’utilisation multipartites sont exigées, la complexité du financement se reportant alors sur les modalités de diffusion.
+
+  ###2.2.1. Des besoins réels, mais mal identifiés 
+
+  Dans le domaine de la protection de l’environnement, la direction générale de l’aménagement, du logement et de la nature (DGALN) du ministère de la transition écologique et solidaire a par exemple fait part de trois besoins majeurs en information géographique, directement associés à la mise en œuvre de politiques publiques dont elle a la charge, et concernant une base de données d’occupation des sols pour mesurer la consommation de l’espace et ainsi mieux la prévenir, une cartographie des habitats pour mieux connaître et préserver la biodiversité et une connaissance approfondie de l’interface terre-mer pour une gestion intégrée du littoral. En matière de gestion de crise, de données fines de circulation routière de calculs de temps de parcours pour les interventions d’urgence, certains représentants des services de l’Etat nous ont confié avoir dû recourir à des sites de prestataires privés faute de fiabilité ou de fraîcheur suffisante des données publiques1. A également été évoquée l’opportunité de développer une base de données répertoriant les établissements sensibles (hôpitaux, EHPAD, écoles …) dont la géolocalisation précise améliorerait les conditions d’évacuation en cas de nécessité. La politique de prévention des risques gagnerait en efficacité si elle pouvait disposer de données actualisées et territorialisées de sinistralité qui sont pour l’essentiel détenues par les sociétés d’assurances. L’IGN a, enfin et quant à lui, recensé plus de quatre cents réglementations territorialisées dont la traduction sous formes d’emprises géolocalisées permettrait d’accélérer la dématérialisation des procédures. 
+  
+  Au-delà de ces exemples, il apparaît qu’aucun recensement systématique des données géographiques souveraines produites par l’Etat et ses opérateurs n’a été conduit, de nature à identifier de possibles doublons, à mettre en commun certaines données dont l’existence n’est pas toujours connue des services qui ne la produisent pas, ou encore à identifier des manques. Ce défaut d’information expose les services de l’Etat au risque de collecter et d’exploiter en parallèle des données très similaires ou d’enrichir les données fournies par d’autres sans organiser de retour vers le producteur initial. A titre d’illustration, les ministères de l’intérieur et de l’écologie administrent pour leurs besoins propres des systèmes d’information géographique dédiés à la gestion de crise (respectivement SYNAPSE et OGERIC).
+
+  Plus fondamentalement, les auditions ont mis en lumière une réflexion inégalement aboutie sur la production et l’utilisation des données géographiques. Certains ministères ou services ont acquis une indéniable expérience en la matière, soit parce que la donnée géographique présente de longue date pour eux un intérêt stratégique majeur – ainsi du ministère des armées, qui a développé un partenariat fructueux avec l’IGN2 –, soit sous l’effet d’impératifs plus conjoncturels. C’est notamment le cas du ministère de l’agriculture, qui a procédé, en collaboration avec l’institut, à une fiabilisation à marche forcée du registre parcellaire graphique (RPG) sous la menace, brandie par la Commission européenne, de corrections financières massives au titre des aides de la PAC3. Les administrations en charge des transports, de l’énergie, de la sécurité nous ont en revanche semblé moins avancées dans leur réflexion.
+
+  ###2.2.2. Des coopérations tributaires des « prospections » de l’IGN
+
+  Faute d’analyse d’ensemble des besoins, les coopérations entre administrations se nouent souvent au gré de démarches prospectives conduites à l’initiative de l’IGN, comme l’illustrent les contacts récemment noués entre l’institut et la communauté nationale du renseignement (CNR). L’IGN a cherché dès novembre 2017 à établir des relations avec les six services de renseignement du « premier cercle » de la CNR. Fin avril 2018, des échanges ont eu lieu avec quatre de ces services (la DGSE, la DRM, la DGSI et la DNRED) et les représentants de l’institut doivent encore rencontrer la DRSD et TRACFIN. Cette prospection a pris la forme de rencontres généralistes où l’IGN a présenté ses savoir-faire et a interrogé les différents services sur leurs besoins géographiques. Certaines entrevues ont pu aboutir à des réponses immédiates de l’IGN, notamment en matière d’accès aux données de références (cas de la DGSI) ou de mise en place d’ateliers techniques entre experts (cas de la DGSE et de la DRM).
+  
+  Les compétences de l’IGN les plus recherchées par ces interlocuteurs exigeants étaient l’acquisition et la diffusion de données géographiques de référence sur le territoire national, la production de données géographiques en environnement classifié, les expertises techniques au travers des travaux de recherche scientifique, l’enseignement sous forme de participation à des modules4 (existants ou à construire) et l’assistance à maitrise d’ouvrage pour les services n’ayant aucune compétence géographique. Les services de renseignement ont en outre manifesté leur intérêt pour travailler avec un établissement bénéficiant d’infrastructures et de personnels habilités secret défense et confidentiel défense. L’IGN souhaite poursuivre ses échanges avec la CNR (et notamment avec le coordinateur national du renseignement et de la lutte anti-terroriste) et lui proposer à terme une offre de services répondant à ses besoins. 
+
+  ###2.2.3. Recenser les données géographiques souveraines et sensibiliser les administrations à leur usage
+
+  La nécessité d’une démarche globale et organisée sur les besoins en données géographiques souveraines et sur la mise en commun des données existantes est, semble-t-il, diagnostiquée de longue date5.
+  
+  Il apparaît en premier lieu nécessaire que l’ensemble des directions d’administration centrale et établissements publics mobilisant de l’information géographique entreprennent à brève échéance et, le cas échéant, actualisent périodiquement un état des lieux de la production, de l’utilisation et des besoins en données géographiques souveraines en leur sein. Ce chantier pourrait être articulé avec le déploiement du réseau des administrateurs ministériels des données, dont une des vocations est précisément d’opérer un inventaire et une cartographie des données existantes. L’exploitation des résultats de ce recensement permettrait de formuler des propositions de mutualisation et de priorisation des chantiers de production des données manquantes en fonction de leur intérêt stratégique et de leur utilité collective, propositions qui seraient arbitrées par la DINSIC, en lien avec la mission d’information géographique de l’IGN.
+  
+  Comme cela a déjà été indiqué, le domaine de l’information géographique de crise constitue vraisemblablement un domaine prometteur de mutualisation et pourrait par conséquent donner lieu à une première expérience pilote de la démarche proposée. L’Etat devrait ainsi, dans ce domaine, se donner pour objectif qu’un même objet géographique fasse l’objet d’une description unique et commune à l’ensemble de ses systèmes d’information de gestion de crise6.
+  
+  Ensuite, la sensibilisation inégale des administrations aux risques et enjeux de l’utilisation des données géographiques à l’appui de leurs décisions appelle une action plus volontariste. Une circulaire du Premier ministre pourrait donner instruction aux services de l’Etat, en particulier déconcentrés, de n’adosser leurs décisions qu’à des données géographiques répondant aux exigences permettant de les qualifier de souveraines, et notamment qu’à des données dont le producteur et le certificateur soient précisément identifiés.
+  
+  Enfin, l’usage des données géographiques souveraines sera d’autant plus développé (et leur souveraineté « de fait » d’autant plus affirmée) que leur accessibilité sera garantie. Des progrès dans ce domaine sont possibles, tant au bénéfice des administrations que des citoyens. Il ne semble pas exister à ce jour de « guichet unique » permettant à un usager de savoir rapidement si la donnée qu’elle recherche est disponible au niveau de qualité requis et auprès de qui se la procurer. Certaines personnes auditionnées ont avoué se perdre un peu dans le « maquis » du Géoportail, du Géocatalogue ou du site geo.data.gouv.fr proposé par Etalab. Il apparaît raisonnable de confier à l’IGN la responsabilité de ce point d’accès unique aux données et métadonnées géographiques souveraines.
+
+  1. Faire réaliser et actualiser périodiquement par les administrations centrales et les établissements publics de l’Etat un recensement des données géographiques souveraines qu’ils produisent ou dont ils ont besoin.
+  2. Mobiliser les administrations impliquées dans la gestion de crise autour d’un projet de mutualisation visant à ce qu’un même objet géographique fasse l’objet d’une description commune à l’ensemble de leurs systèmes d’information.
+  3. Fixer dans une circulaire du Premier ministre les exigences minimales auxquelles doivent répondre les données géographiques auxquelles les administrations centrales et déconcentrées adossent leurs décisions.
+  4. Créer un point d’accès unique aux données et métadonnées géographiques souveraines place sous la responsabilité de l’IGN.
+  5. Transférer la tenue du Géocatalogue « INSPIRE » du BRGM à l’IGN.
+s2.3: |
+  ## 2.3 Renforcer les partenariats entre producteurs de données géographiques souveraines selon une logique de projet
+
+  Si la recherche de mutualisations doit prévaloir au sein du périmètre formé par l’Etat et ses établissements publics, il semble plus réaliste de rechercher des coopérations autour de projets communs avec les collectivités territoriales ou les opérateurs privés chargés d’une mission de service public.
+  
+  ###2.3.1 Toutes les conséquences n’ont pas été tirées de l’affirmation de l’échelon régional en matière d’information géographique
+
+  Le législateur a récemment confié à la région, à travers la loi n° 2015-991 du 7 août 2015 portant nouvelle organisation territoriale de la République (NOTRe), le soin d’assurer « la coordination, au moyen d'une plateforme de services numériques qu'elle anime, de l'acquisition et de la mise à jour des données géographiques de référence nécessaires à la description détaillée de son territoire ainsi qu'à l'observation et à l'évaluation de ses politiques territoriales, données dont elle favorise l'accès et la réutilisation » (art. L. 4211-1, 13° du code général des collectivités territoriales).
+  
+  Cette disposition, qui a résulté d’une initiative parlementaire au stade de la deuxième lecture du texte, visait à consacrer et à conforter l’action entreprise de longue date par la plupart régions au soutien de leur mission en termes d’aménagement et de développement des territoires, tant en termes de production que de collecte et de mutualisation des données géographiques. La démarche témoigne aussi d’une certaine volonté d’émancipation des collectivités, qui ne voulaient pas ou plus dépendre d’acteurs nationaux pour disposer des données nécessaires à l’exercice de leurs compétences1.
+  
+  L’action des régions se matérialise par la mise en place de plateformes territoriales d’information géographique ayant pour vocation de coordonner les acteurs locaux, de contribuer à l’infrastructure nationale requise par la directive INSPIRE et d’assurer l’interface avec l’échelon national. L’action de ces plateformes concerne tant l’animation des initiatives locales (mise en réseau, formation…) que l’acquisition et la production mutualisées de données (orthophotographies, adresses, données altimétriques…), l’expertise technique, le développement de services (visualisation, recherche, transformation des données) ou l’expression des besoins locaux auprès des instances nationales.
+  
+  Paradoxalement, la coordination au niveau régional de la production des données géographiques et surtout son articulation avec l’échelon national semblent, aux dires de certains acteurs, moins performantes aujourd’hui qu’elles ne l’étaient hier. Les causes de cette relative dégradation seraient multiples. D’une part, la refonte de la carte des régions a pu désorganiser transitoirement certaines plateformes régionales d’information géographique. Début 2018, la totalité des régions, à l’exception de l’Ile-de-France et des Hauts de France2, disposent toutefois d’une plateforme régionale d’information géographique, parfois commune aux services déconcentrés de l’Etat, à l’image de la plateforme GéoGrandEst copilotée et cofinancée par l’Etat et la région.
+  
+  Ensuite, la réalisation d’économies budgétaires a, selon certains interlocuteurs de la mission, conduit l’Etat à ne pas honorer en totalité les engagements souscrits au travers des contrats de projet Etat-région en matière d’information géographique. Plusieurs représentants de plateformes régionales se sont plaints également d’une attitude peu collaborative des services déconcentrés de l’Etat, consistant à mettre en place des plateformes d’information géographique distinctes de celles des régions (Pays de Loire, Auvergne-Rhône-Alpes, Nouvelle Aquitaine), voire à mettre fin à des coopérations déjà engagées (Centre). 
+  
+  En définitive, la relation entre l’Etat et les collectivités territoriales en matière de production de données géographiques souveraines voit globalement son effectivité et sa fécondité dépendre des contextes locaux et de la bonne volonté des acteurs.
+
+  ###2.3.2 Fédérer les acteurs autour de grands projets d’équipement en données géographiques souveraines
+
+  Trois grandes options sont envisageables en matière de coordination des producteurs nationaux et locaux de données géographiques souveraines. 
+  
+  La première, qui correspond peu ou prou au statu quo, consiste à tenir pour inéluctable le caractère foisonnant des initiatives, à laisser chaque acteur maître de sa production, et à favoriser une coopération fondée sur une participation volontaire. Chaque producteur aurait intérêt, sans y être contraint, à participer à l’écosystème global en ayant, par exemple, accès aux données des autres ou en mutualisant certaines actions. Cette approche souple présente l’avantage de la simplicité, en ne nécessitant pas ou peu de dispositions législatives ou réglementaires. Le risque est néanmoins que, comme on le constate aujourd’hui, la mobilisation ne soit pas toujours au rendez-vous et que la qualité et la disponibilité de la donnée ne s’en ressente.
+  
+  La deuxième approche, plus systématique mais aussi plus contraignante, consiste à répartir plus clairement les tâches de production des données géographiques souveraines entre l’Etat et les collectivités. Elle pourrait conduire à faire de l’IGN le simple agrégateur de données produites territorialement. Cette option, qui obéit à une logique de décentralisation poussée et implique donc de légiférer, rapprocherait notre écosystème de production de la donnée géographique souveraine des modèles existant dans certains Etats fédéraux. Ainsi du Bundesamt für Kartographie und Geodäsie allemand, de l’IGNe espagnol, du Swisstopo ou du Geological Survey américain, qui agrègent les données produites soit par les Länder, Etats, régions… soit par diverses agences publiques. Outre qu’une telle démarche susciterait immanquablement des débats sur le périmètre des compétences à transférer et sur l’équité des compensations financières, il n’est pas certain qu’elle soit, par son systématisme, la plus adaptée à un pilotage agile de la production des données géographiques souveraines (cf. point 2.1). Au surplus, si une réorganisation systématique et en profondeur des missions respectives de l’Etat et des collectivités devait être envisagée, il n’y aurait vraisemblablement pas lieu de la limiter aux données géographiques3.
+  
+  Une troisième option, intermédiaire, consiste à fédérer les acteurs selon une logique de projet. Cette option présente l’avantage d’adapter le format de la coopération aux objectifs poursuivis, de répartir les tâches entre acteurs ayant une compréhension commune des enjeux et un intérêt mutuel à la réalisation du projet et d’en maximiser ainsi les chances de succès. Elle n’est en outre pas incompatible avec un pilotage national énergique, mobilisant le cas échéant l’outil législatif, réglementaire4 ou budgétaire, qui garantisse que les objectifs seront atteints dans un calendrier déterminé et avec un niveau homogène de qualité sur l’ensemble du territoire. Compte tenu de son expertise reconnue, l’IGN devrait jouer un rôle de premier plan dans ce pilotage.
+  
+  Les domaines dans lesquels ce fonctionnement « en mode projet » pourrait être expérimenté ne manquent pas. On songe par exemple à l’élaboration d’un modèle numérique tridimensionnel à maille très fine, dont l’IGN estime qu’il pourrait constituer une nouvelle catégorie de données « socle » susceptible de répondre à de nombreux usages (gestion des risques, détection de changements, maquettes 3D…). De la même manière, des synergies plus fortes et plus systématiques pourraient être recherchées entre l’IGN et les collectivités, notamment les métropoles, pour la réalisation de la couverture orthophotographique du territoire (coordination accrue des calendriers de réalisation des prises de vu, répartition partagée des zones à couvrir5). Au-delà, l’IGN gagnerait également à identifier plus systématiquement les partenaires dont les agents de terrain lui permettraient d’enrichir ses propres données via la géolocalisation (La Poste, gestionnaires de réseaux de distribution, services de secours…).
+  
+  Les auditions conduites dans le cadre de la mission ont enfin mis en évidence une sous-exploitation des données de transport (données de circulation notamment), alors même qu’elles revêtent un intérêt majeur pour l’accomplissement de certaines missions de service public (sécurité, organisation des secours…). Le potentiel des données de transport est désormais clairement identifié. Ainsi la DINSIC et le ministère chargé des transports travaillent-ils à la structuration d’une « verticale de données » sur ce thème, permettant de développer une offre de services spécifiques adaptée et de fédérer des communautés spécialisées. L’enjeux réside notamment dans la création d’une plateforme d’accès aux données ouvertes préfigurant le point d’accès national aux données de transport (transport.data.gouv.fr) prévu par la réglementation européenne. L’IGN est par ailleurs pleinement mobilisé dans le cadre de la stratégie nationale pour le véhicule autonome6. Enfin, la direction générale des infrastructures, des transports et de la mer du ministère de la transition écologique et solidaire a fait état de travaux en cours permettant de rapprocher du référentiel géographique « traditionnel » (positionnement selon des coordonnées x-y) sont propre référentiel exprimé en points kilométriques. Ces initiatives doivent être encouragées et s’inscrire dans le cadre d’une stratégie plus globale et multi-acteurs orientée vers le partage et la valorisation d’un maximum de données géolocalisées de transport.
+
+  6. **Fédérer les producteurs de données géographiques souveraines autour de projets d’équipement communs, notamment dans les domaines des données de transport ou de la réalisation d’un modèle numérique tridimensionnel à maille très fine.**
+  7. **Renforcer les synergies entre l’IGN et les collectivités territoriales dans la réalisation de la couverture orthophotographique du territoire.**
+
+  ###2.3.3 Expérimenter la démarche dans le cadre de la préparation des Jeux olympiques et paralympiques
+
+  La coordination des acteurs autour de projets communs pourrait en outre et à court terme être testée dans le cadre de la couverture des besoins en information géolocalisée associés à la préparation et au déroulement des Jeux olympiques et paralympiques de Paris en 2024. Les enjeux d’un tel événement en termes de sécurité, de logistique, de transport… nécessitent que les nombreux acteurs qu’il mobilise (comité d’organisation, société de livraison des ouvrages, forces de l’ordre, collectivités, opérateurs de transports, gestionnaires de sites…) disposent d’une description fiable et partagée de l’ensemble des sites et réseaux concernés par la manifestation. Une telle information est, au-delà des organisateurs et des autorités, évidemment susceptible de présenter un intérêt évident pour le grand public.
+  Dans ce contexte, une collaboration pourrait se nouer afin d’organiser la collecte mutualisée des données pertinentes, leur authentification, leur mise en cohérence, leur partage et le développement de services à partir d’elles7. L’IGN a d’ores et déjà formulé des propositions auprès de la délégation interministérielle aux jeux olympiques et paralympiques, consistant à créer un groupe chargé de coordonner les besoins et la collecte en matière d’informations géolocalisées, à mettre en place une plateforme numérique collaborative ouverte en flux et en téléchargement à tous les acteurs impliqués dans l’organisation des Jeux8, à entreprendre la production ou la mise à niveau des données nécessaires (description haute précision des sites, intégration de données dynamiques…), ou encore à développer certains produits et services (cartes grand public ou dédiées à la préparation des événements ou à la maîtrise des lieux, service d’assistance à l’utilisateur en matière d’information géolocalisée…).
+
+  8. **Mettre en place une plateforme mutualisée d’information et de services géolocalisés pour la préparation et le déroulement des Jeux olympiques et paralympiques de Paris 2024.**
+s2.4: |
+  ##2.4 Réunir les conditions techniques et institutionnelles d’une coopération plus étroite
+  ###2.4.1 Constituer progressivement une géoplateforme nationale
+
+  A mesure que la production de données géographiques souveraines a été prise en charge par une pluralité d’acteurs, d’autres infrastructures d’hébergement et de diffusion en ligne de données sont apparues, tant au niveau national que local1. Ces différentes plateformes sont nécessaires aux communautés qui les créent et sont des lieux de convergences et de partage de la connaissance. Elles ne répondent toutefois que partiellement à l’enjeu de décloisonnement visé par la transformation numérique de la sphère publique. Comme on l’a indiqué ci-avant (cf. point 2.2.1), certains usagers se plaignent de ne plus savoir où ils peuvent s’approvisionner en données, ni qu’elle version des données ils doivent privilégier lorsque différentes versions sont disponibles en différents endroits. D’autres éprouvent des difficultés pour partager, « consommer » des données et déployer des services à l’échelle du territoire national compte tenu de la multiplication des interlocuteurs.
+  
+  La mission a donc été l’occasion de s’interroger sur les bénéfices que la puissance publique pourrait tirer de la création d’une géoplateforme nationale permettant une gestion optimisée des données géographiques souveraines (production, agrégation, entretien, sécurité, publicité, diffusion et mise en valeur, archivage...). Le succès d’une telle démarche dépend évidemment de son acceptabilité et de son appropriation par l’ensemble des acteurs de la donnée géographique souveraine.
+  
+  Outre ses fonctions directement liées aux données abritées ou relayées, la géoplateforme nationale a vocation à devenir un lieu d’échange et de concertation entre acteurs, vers lequel convergent les projets nationaux d’élaboration d’information géographique souveraine, où trouver les guides (standards, formations) pour aboutir à une donnée nationale et où s’opère la qualification et la certification nécessaires à l’obtention d’une donnée souveraine. Une fois les données agrégées au niveau national, la plateforme doit également permettre leur entretien collaboratif et faciliter des traitements homogènes sur l’ensemble du territoire ou multi-thèmes. Sa gouvernance doit enfin associer non seulement les acteurs (producteurs, développeurs des services…), mais également les usagers. 
+  A cet égard, il convient à nouveau d’insister sur l’importance que revêt un stockage maîtrisé des données géographiques souveraine, ce qui implique l’existence d’acteurs nationaux et européens de premier plan dans ce domaine. 
+  ***
+  ####Fédération de plateformes ou plateforme mutualisée ?
+  Renforcer les synergies entre producteurs de données géographiques souveraines peut consister à mettre en place un portail « chapeau » qui offrirait une vue unifiée des ressources accessibles à travers les diverses plateformes considérées (la géoplateforme ainsi entendue serait une sorte de plateforme fédérative ou de « méta-plateforme2 » virtuelle), soit à inviter les gestionnaires de données et de plateformes publiques à héberger leurs données au sein d’une infrastructure mutualisée, tout en préservant les prérogatives de chacun en matière d’administration des divers jeux de données ainsi que la possibilité d’y accéder au travers d’espaces dédiés tels que des portails thématiques ou territoriaux (cf. schéma).
+
+  Figure 1 : fédération de plateformes	Figure 2 : plateforme mutualisée
+
+  Des expériences passées ou en cours de plateformes fédératives ont montré combien il est difficile de mettre en œuvre et de maintenir à long terme les conditions d’une bonne interopérabilité avec les plateformes fédérées (modèle de donnée conceptuel et sémantique, qualité suffisamment homogène…). Par ailleurs si le simple accès aux données de provenances variées est « invisible » par l’utilisateur au travers des API3, il n’en va pas de même lorsqu’il s’agit « d’interagir » avec la donnée, par exemple pour l’entretenir dans le cadre d’un processus collaboratif.
+  
+  Le modèle de plateforme mutualisée offre un cadre physique plus sécurisé, préserve l’indépendance qu’exige la souveraineté et permet de partager une puissance de stockage et de calcul plus importante. Il offre en outre la possibilité d’organiser un processus efficient d’entretien collaboratif de ces données et facilite les traitements homogènes sur l’ensemble du territoire ou multi-thèmes. Il constitue enfin un environnement potentiellement plus attractif pour fédérer une communauté plus large, et notamment les acteurs de la recherche, afin de favoriser l’interaction entre les concepteurs de nouvelles technologies et les futurs utilisateurs et de fluidifier ainsi le passage des solutions innovantes de la recherche à la mise en œuvre opérationnelle. Néanmoins, pour préserver l’autonomie des communautés (collectivités, communautés thématiques…) quant aux données dont elles ont la charge, les fonctions d’administration de la géoplateforme mutualisée devront permettre aux diverses plateformes de continuer à gérer elles-mêmes la publication de leurs données, les droits de consultation… Il sera enfin nécessaire de prévoir des « ponts » (via des API) avec d’autres plateformes dont les données ou services présentent un intérêt pour un usage combiné avec les données géographiques4.
+  
+  Mandaté en ce sens par le ministre de la transition écologique et solidaire, l’IGN propose de faire évoluer l’actuel Géoportail5 en plateforme publique d’information géographique ouverte. L’objectif poursuivi par l’institut est de faire du Géoportail le support mutualisé de l’élaboration et de l’entretien des données géographiques souveraines en mode partagé avec les autres acteurs publics, mais aussi de permettre le développement de services applicatifs grâce à des interfaces de programmation (API) et l’agrégation de ressources d’autres plateformes de données souveraines. L’IGN, expert sur un grand nombre de données socle, peut apporter son expertise au service des données métiers (standard et agrégation, qualification, mise en place de productions collaboratives avec des tiers de confiance, valorisation…).
+  
+  L’IGN, expert sur un grand nombre de données socle dont il sera de fait à même de garantir la fiabilité et l’interopérabilité, peut également apporter son expertise au service des données métiers (standard et agrégation, qualification, mise en place de productions collaboratives avec des tiers de confiance, valorisation…). En ce qui concerne les données métiers, son action pourrait aller jusqu’à garantir, à la demande, la fiabilité et l’interopérabilité de certaines données confiées par les communautés métiers concernées.
+  
+  Les auditions ont clairement fait ressortir que l’IGN dispose, du fait de ses compétences en matière de standardisation, agrégation, qualification des données, de la capacité à favoriser et accompagner leur convergence vers la plateforme des données géographiques souveraines. Ce processus de convergence s’appuiera en outre sur la capacité de l’IGN à mobiliser une grande puissance de calcul et des forces de production de nature à assurer une couverture nationale homogène en données de qualité.
+
+  ***
+  ####Ménager un basculement progressif
+  Parce que l’adhésion des différents acteurs conditionne la réussite d’une telle mutualisation, il est préconisé d’organiser progressivement le basculement vers le modèle de géoplateforme nationale mutualisée. 	Dans un premier temps, et afin de ne pas ralentir la constitution de ce nouvel outil, les deux approches – fédérative et mutualisée – pourront coexister.
+  Pour promouvoir la logique de plateforme mutualisée, il est donc préconisé de commencer par développer, à l’occasion de nouveaux projets, des bases de données communes hébergées dans l’infrastructure mutualisée. Cette phase « expérimentale » permettrait de tester en conditions réelles les avantages de l’approche mutualisée et, le cas échéant, d’organiser dans un second temps la migration des bases existantes vers la géoplateforme nationale.
+  S’agissant plus particulièrement des plateformes régionales, cette expérimentation pourrait trouver sa place dans le cadre du programme de développement concerté de l’administration numérique territoriale (DCANT), qui constitue une mesure du volet transition écologique et numérique des territoires de la Conférence nationale des territoires du 17 juillet 2017. Les priorités de ce programme sont en effet de construire un socle commun d’applications, de briques numériques, de référentiels et de cadres partagés pour accélérer la transformation numérique, de garantir une gouvernance partagée entre l’État et les collectivités territoriales de la transformation numérique, de contribuer à une approche globale de la donnée au service des politiques d’intérêt général et de faciliter le passage à l’échelle de l'administration numérique.
+
+  9. **Créer une géoplateforme nationale des données géographiques souveraines conçue à terme comme une infrastructure mutualisée entre les différents producteurs.**
+  10. **Afin de favoriser l’adhésion des différents acteurs, expérimenter la constitution et l’exploitation de bases de données communes entre l’IGN et les producteurs « tiers » (collectivités notamment) à partir de l’infrastructure mutualisée.**
+  11. **Valoriser et encourager le développement d’acteurs français et européens du stockage et du calcul.**
+
+  ###2.4.2 Créer les conditions institutionnelles d’un dialogue effectif et permanent entre acteurs
+
+  La gouvernance de la production des données géographiques souveraines doit, aux termes de la lettre de mission, être éclairée par les usages et les besoins, à même de fixer des objectifs et de piloter l’organisation avec agilité. La préoccupation qui transparaît ici est de pouvoir infléchir la stratégie et l’action publique en matière de données géographiques souveraines à une fréquence compatible avec les évolutions très rapides du secteur numérique, et non à la seule faveur des révisions du contrat d’objectifs de l’IGN.
+  
+  Bien qu’auréolé d’une légitimité technique incontestable, l’IGN ne peut entretenir avec les autres producteurs de données géographiques souveraines une relation de donneur d’ordre à sous-traitant. Ses équipes l’ont d’ailleurs compris de longue date et se sont efforcées de développer un dialogue avec les partenaires de l’institut. Des comités régionaux et un comité national de programmation ont ainsi été mis en place en 2012, afin d’amorcer une concertation et de rechercher des accords de co-production de données. Bien que vertueuse dans son principe, la démarche ne semble pas avoir produit de résultats à la hauteur des attentes.
+  
+  En réalité, l’instance de gouvernance partenariale et agile que le Gouvernement appelle de ses vœux existe déjà « sur le papier ». Il s’agit du Conseil national de l’information géographique (CNIG), qui constitue la structure de coordination nationale prévue par la directive INSPIRE.
+  
+  Son décret de création précise que le CNIG « a pour mission d'éclairer le Gouvernement dans le domaine de l'information géographique, notamment pour ce qui concerne la coordination des contributions des acteurs concernés et l'amélioration des interfaces entre ces derniers. Il prend en compte les besoins exprimés et en particulier les besoins des utilisateurs. Il peut formuler des avis sur toute question relative à l'information géographique. Il peut être consulté par les ministres concernés sur les projets de textes législatifs et réglementaires ainsi que sur toute question relative à l'information géographique »6.
+  
+  La composition du CNIG en fait, en théorie, l’instance de dialogue idoine puisqu’il rassemble notamment des représentants des principaux ministères et opérateurs concernés par l’information géographique, des associations de collectivités territoriales, des professions réglementées et des associations spécialisées.
+  
+  Plusieurs personnalités auditionnées ont appelé de leurs vœux un dialogue plus nourri et une coordination plus volontariste dans le cadre du CNIG. Certaines ont estimé que le conseil n’avait pas, jusqu’ici, joué pleinement son rôle et imputé cet état de fait à une absence de moyens propres, à la relative indifférence dans laquelle le tenait l’IGN ou encore à une absence de vision stratégique d’ensemble, l’action du conseil se déployant de manière plutôt « pointilliste » au gré des groupes de travail thématiques prévus par l’article 5 du décret. De fait, il semble que l’animation réelle du réseau ait été portée par des structures associatives (l’Afigéo en particulier), dont il convient à ce titre de saluer l’engagement. 
+  
+  Plutôt que de suggérer la création d’une nouvelle structure, il est donc préconisé de faire jouer effectivement au CNIG le rôle qui lui est dévolu. La dimension interministérielle de la politique nationale d’information géographique pourrait plaider pour que le CNIG soit placé auprès du Premier ministre et non, comme actuellement, auprès du ministre chargé du développement durable. Outre un renforcement de son secrétariat permanent, qui pourrait au demeurant relever de la DINSIC, une révision de sa composition devrait être mise à l’étude. Le conseil pourrait par exemple accueillir plus largement certains opérateurs privés, tels que les opérateurs de réseaux, producteurs de données géographiques7. 
+  
+  Le CNIG pourrait en outre être formellement décliné en conseils régionaux qui constitueraient le pendant institutionnel des infrastructures techniques que constituent les plateformes régionales. Il s’agirait, en quelque sorte, d’une consécration par les textes de l’actuel « réseau des CRIGEs ». Il serait également souhaitable de s’acheminer dans toutes les régions vers une plateforme régionale d’information géographique unique et commune à l’Etat et aux collectivités, en contrepartie de quoi l’Etat maintiendrai les effectifs qu’il consacre à l’information géographique dans ses services déconcentrés.
+  
+  Dans ces conditions, le maintien des comités national et régionaux de programmation de l’IGN ne se justifierait plus8. Ainsi conçu, le réseau formé par le CNIG, les CRIG et les plateformes régionales constituerait un espace de dialogue entre les producteurs de données géographiques souveraines à même de proposer au Gouvernement les inflexions de la politique nationale d’information géographique rendues nécessaires par l’évolution des usages et des besoins, de concevoir en commun des coopérations sur des projets déterminés, voire de s’entendre sur la répartition de la production de certaines données géographiques souveraines entre les différents échelons.
+
+  12. **Faire jouer au Conseil national de l’information géographique un rôle effectif de coordination et d’animation des producteurs de données géographiques souveraines.**
+  13. **Placer le CNIG auprès du Premier ministre, faire assurer son secrétariat par la DINSIC et adapter sa composition.**
+  14. **Structurer un réseau homogène de conseils régionaux de l’information géographique.**
+  15. **Créer dans chaque région une plateforme unique d’information géographique, commune à la région et à l’Etat.**
+  16. **Préserver les moyens dédiés à l’information géographique dans les services déconcentrés de l’Etat.**
+s2.5: |
+  ##2.5 Repositionner l’IGN en conséquence
+  ###2.5.1 Standardiser, certifier, accompagner
+
+  Dans un environnement caractérisé par la multiplicité des producteurs publics de données géographiques souveraines, l’IGN a vocation à revoir le périmètre de ses propres productions et à se positionner comme expert et accompagnateur de l’écosystème. Par principe, en ce qui concerne la production de données, ne devraient relever de l’institut que la production des données souveraines « socle » (repères de géodésie et de nivellement, ortho-images, modèles numériques de terrain, données de l’inventaire forestier) et celle des grands référentiels mobilisés dans les politiques publiques à fort enjeux (RPCU pour la politique foncière et fiscale, BD Topage pour la politique de l’eau, RPG pour les aides de la PAC…).
+  
+  La réputation de l’institut auprès des autres producteurs de données géographiques souveraines, et notamment des collectivités territoriales, a pu pâtir par le passé d’une position quelque peu surplombante et d’une politique tarifaire que sa « clientèle » jugeait inadaptée. Il semble néanmoins que cette période soit révolue et les auditions conduites dans le cadre de la mission ont montré que la plupart des interlocuteurs de l’IGN lui reconnaissent une expertise incontestable, expertise dont ils souhaitent bénéficier plus largement.
+  
+  Plus précisément, l’émergence d’acteurs multiples dans la production des données géographiques souveraines s’accompagne d’une demande croissante de leur part en termes :
+
+  - de standardisation des données, en lien avec le CNIG et les instances européennes et internationales œuvrant dans ce domaine. Dans la perspective, notamment, de la création d’une géoplateforme nationale, il est en effet crucial que les données produites par l’écosystème soient interopérables et qu’elles obéissent à un certain nombre de spécifications minimales permettant de les assembler et de les croiser. Cette interopérabilité est par ailleurs imposée par le code de l’environnement (art. L. 127-3) pour les séries et services de données géographiques relevant de la directive « Inspire » ;
+
+  - de certification1 des données « socle » et de certaines données sensibles, notamment parce qu’elles servent de support à l’application de réglementations ou au versement d’aides. Dans cette perspective, l’IGN a vocation à conserver une capacité minimale de production de ces données. Par ailleurs, il ne s’agit pas de confier à l’IGN le monopole de la certification des données géographiques souveraines. Outre que cette tâche excèderait manifestement ses ressources, elle ne peut, s’agissant en particulier des données « métier », que relever des services responsables ou utilisateurs de ces données, lesquels sont les mieux placés pour comprendre dans quelles procédures elles sont mobilisées où à quelle étape de la chaîne de décision elles sont utiles ;
+
+  - d’accompagnement, sous forme de conseil et d’expertise, de formation ou d’assistance à maîtrise d’ouvrage. Cet accompagnement conditionnera la montée en compétence des producteurs de données « métier », dont il ne faut pas perdre de vue que la mission principale n’est pas de faire de la géographie. Cette absence de spécialisation dans le domaine géographique ou géomatique peut susciter des réticences, de la part de certaines administrations ou de certains opérateurs, à libérer des données « maison » dont ils jugeraient la qualité insuffisante. A ce titre, l’IGN et l’Ecole nationale des sciences géographiques (ENSG) pourraient s’engager dans une démarche de structuration d’une communauté des géomaticiens publics favorisant le partage d’expériences et de bonnes pratiques et développer avec eux une réflexion sur les compétences et savoir-faire spécifiques que requièrent la production et la diffusion des données géographiques souveraines.
+
+
+  17. **Repositionner l’IGN sur l’agrégation, la standardisation, la certification des données géographiques souveraines et l’accompagnement technique des producteurs.**
+  18. **Structurer et animer une communauté des géomaticiens publics favorisant le partage d’expériences et de bonnes pratiques et développer avec eux une réflexion sur les compétences et savoir-faire spécifiques que requièrent la production et la diffusion des données géographiques souveraines.**
+
+
+  ###2.5.2 Adapter la gouvernance de l’institut
+
+  Plusieurs personnalités auditionnées ont indiqué que le positionnement de l’IGN sous tutelle des ministres chargés du développement durable et de l’agriculture2 n’était pas compatible avec le rôle d’opérateur interministériel qu’il devrait idéalement jouer. Il a ainsi été suggéré de placer l’institut auprès des services du Premier ministre, et plus précisément de la DINSIC.
+  
+  De fait, en ce qui concerne la diffusion des données, l’IGN est aujourd’hui « tiraillé » entre les missions qu’il tient de son décret statutaire, et qui découlent notamment des exigences posées par la directive « Inspire », et celles qui résultent, dans un champ plus large, de la création du service public de la donnée de référence. En matière de production, on peut aussi supposer que l’IGN serait perçu comme un pilote plus légitime et plus impartial des projets d’équipement en données géographiques souveraines qu’il est suggéré de développer (cf. point 2.3.2). Il en va de même s’agissant de la gestion de la géoplateforme nationale.
+  
+  Une telle évolution n’est pas inenvisageable, mais les mêmes objectifs peuvent probablement être atteints par l’adaptation du conseil d’administration de l’institut. La DINSIC devrait y siéger ès-qualité et non, comme c’est le cas actuellement, en occupant un siège opportunément libéré de personnalité qualifiée. La représentation des collectivités territoriales devrait évoluer et faire une place particulière aux régions, dont il a été rappelé qu’elles constituent l’échelon territorial pertinent choisi par le législateur en matière d’information géographique.
+
+  19. **Adapter la composition du conseil d’administration de l’IGN en renforçant notamment la représentation des régions. Y faire siéger le DINSIC ès-qualité.**
+
+s3: |
+  #3. Propositions d’actions prioritaires
+
+  Les recommandations « de méthode » développées dans la deuxième partie peuvent être prioritairement mises en œuvre dans trois domaines que sont la mutualisation de la production des données parcellaires, la généralisation à l’ensemble des zonages réglementaires de la démarche initiée avec le Géoportail de l’urbanisme et le renforcement du pilotage national des projets de base adresse nationale et de plan de corps de rue simplifié.
+  
+  - 3.1. [Mutualiser la production des données parcellaires](?ypath=/s3.1)
+  - 3.2. [Généraliser la démarche « GPU »](?ypath=/s3.2)
+  - 3.3. [Piloter plus activement les coopérations déjà engagées](?ypath=/s3.3)
+s3.1: |
+  ##3.1. Mutualiser la production des données parcellaires
+
+  ###3.1.1. Une problématique identifiée de longue date
+
+  Certaines mutualisations ont été envisagées de longue date et semblent pouvoir être mises en œuvre rapidement. Il en va ainsi des missions topographiques assumées par la direction générale des finances publiques (DGFiP) au titre du cadastre et dans le cadre des missions qui incombent à cette direction en matière fiscale (calcul des bases des impositions foncières) et en matière foncière (attribution à chaque immeuble une référence cadastrale unique, description des propriétés, identification des propriétaires et de leurs droits sur les biens)1.
+  
+  Les relevés opérés par les géomètres du cadastre concernent à la fois le parcellaire et le bâti. A ce jour, la collaboration entre la DGFiP et l’IGN prend la forme d’une convention aux termes de laquelle le cadastre dispose gratuitement des photographies aériennes regroupées au sein de la BD Ortho et s’en sert pour mettre à jour le plan cadastral, après restitution photogrammétrique. Concrètement, les orthophotographies IGN sont croisées avec le plan cadastral informatisé (PCI) afin d’identifier les zones nécessitant une mise à jour sur le terrain par le géomètre cadastreur.
+  
+  La question de la convergence entre la carte et le cadastre remonte au début du 19ème siècle. L’ordonnance royale du 11 juin 1817 avait institué une commission interministérielle présidée par le comte de Laplace et chargée « d’examiner le projet d’une nouvelle carte topographique générale de la France, appropriée à tous les services publics, et combinée avec l’opération du cadastre général, ainsi que d’en poser les bases et le mode d’exécution ». Plus près de nous, le rapport Lengagne soulignait en 1999 que « les possibilités de synergie avec le cadastre sont encore largement inexploitées : non seulement elles permettraient des économies de moyens globalement bénéfiques pour ces deux organismes publics, mais elles faciliteraient l’éclosion d’une gamme de produits de grande précision géographique fortement rémunérateurs ».
+  ***
+  ####Le bâti
+  S’agissant du bâti, la situation actuelle est doublement insatisfaisante en ce que l’IGN produit une donnée en « quasi » 3D mais à échelle insuffisante pour les aires urbaines, alors que la DGFiP produit une donnée 2D au sol. La mise en commun des moyens permettrait de produire des données 3D à une échelle adaptée aux besoins, l’enjeu n’étant d’ailleurs pas tant sur les nouveaux bâtiments, pour lesquels les architectes fourniront des descriptions 3D, que sur la mise à niveau des 46 millions de bâtiments existants dans la BD Uni ou sur le plan cadastral. En toute logique, la production de cette information sur le bâti qui n’est pas motivée par le seul usage fiscal devrait être confiée à l’IGN, avec les moyens correspondants à évaluer.
+  
+  La DGFiP admet en outre que la cartographie du bâti n’implique pas de relevés de terrain. De fait, l’emprise au sol exacte des constructions n’a pas d’incidence directe sur l’actualisation des bases fiscales, lesquelles reposent sur une surface pondérée tenant compte de la superficie intérieure des pièces, du service qu’elles rendent ou encore de la présence d’équipements particuliers (baignoire, eau courante, chauffage central, ascenseur…)2. Dans ces conditions, il semble que l’identification des constructions nouvelles et des agrandissements pourrait se dispenser de relevés de terrain et se satisfaire de photographies aériennes, quand bien même ces dernières ne permettraient pas de corriger les écarts liés aux débords de toits. 
+  
+  On relève au demeurant que la DGFiP a amorcé fin 2017 un processus de suspension des travaux de lever du bâti (ou « suspension du bâti »), qui représentent 40 % de l’activité des géomètres cadastreurs. Cette initiative, outre qu’elle permet à la DGFiP de documenter une partie de son schéma d’emplois, vise principalement à redéployer les tâches des géomètres vers l’actualisation des bases fiscales, dont la fiabilité conditionne le produit des impôts directs locaux, et ce dans un contexte marqué par la stabilisation des dotations de l’Etat et la révision des valeurs locatives des locaux professionnels. A ce stade, la DGFiP n’envisage toutefois pas d’abandonner toute mise à jour du bâti et réfléchit à l’expérimentation de nouvelles technologies ou à la mise en place de partenariats (IGN, collectivités territoriales, ordre des géomètres-experts) pour optimiser les conditions de sa réalisation. Il est en particulier envisagé de mobiliser davantage les prises de vue aériennes de l’IGN.
+  
+  ***
+  ####Le parcellaire
+  A compter de 2011, l’IGN et les services du cadastre ont noué une coopération visant à élaborer une représentation parcellaire cadastrale unique (RPCU) en réconciliant le plan cadastral de la DGFiP et la BD Parcellaire de l’IGN. D’abord expérimentée dans plusieurs départements, cette coopération s’est heurtée à d’importantes difficultés techniques et la convergence des deux représentations a occasionné des déformations du plan cadastral que la DGFiP a jugées rédhibitoires, compte tenu de leur impact potentiel sur les bases fiscales3. Les travaux ont été interrompus en 2016, le temps notamment d’adapter les règles de traitement des raccords entre feuilles4. Ils ont repris courant 2017 avec l’objectif, non atteint à ce stade, de traiter une feuille5 en 30 minutes et d’achever la RPCU d’ici 7 à 8 ans.
+  
+  Nonobstant cette coopération, la DGFiP insiste sur le lien indissociable qui unit les travaux, la gestion du parcellaire ainsi que ses autres missions fiscales et de publicité foncière. Elle souligne en particulier que les travaux topographiques sont étroitement liés, en matière de publicité foncière, au contrôle des nouvelles parcelles avant intégration au plan et publication au fichier immobilier et que ce lien fait la force de la « chaîne foncière ». En remettant en question de fortes synergies internes développées (identité des agents, de locaux, formations, fonctions supports), les travaux topographiques et missions fiscales ne seraient pas moins intégrés, en matière notamment d’évaluation du non bâti, de détection du bâti non déclaré ou de collecte des adresses pour la taxation.  
+  
+  A ces considérations relatives aux conditions d’exercice de ses missions, la DGFiP ajoute que la conservation de ses missions topographiques est opportune du point de vue de ses usagers, entendus au sens large. La réunion des missions topographiques, de publicité foncière et fiscales permettrait ainsi d’offrir un guichet unique, complet, de meilleure qualité et serait conforme aux orientations prises en matière de renforcement des partenariats avec les collectivités locales, afin de fiabiliser leurs bases fiscales. Si cette attention portée aux autres utilisateurs du plan cadastral est louable, certains interlocuteurs rencontrés dans le cadre de la mission se sont pourtant plaints du caractère unilatéral de la décision de suspendre le relevé du bâti, sans consultation préalable des collectivités.
+
+  ###3.1.2. Transférer à l’IGN la mission topographique de la DGFiP
+
+  Les travaux de constitution de la RPCU, dont il ne faut pas mésestimer l’ampleur et la complexité en dépit de l’engagement réel des équipes de l’IGN et de la DGFiP, ont eu le mérite de rapprocher ces équipes autour d’un projet de coopération technique. 
+  
+  Plus fondamentalement, la réalisation à terme de la RPCU doit conduire à s’interroger sur l’opportunité de maintenir au sein de deux entités distinctes une mission identique, consistant à établir et à mettre à jour une représentation des parcelles et du bâti. La mission fiscale et foncière de la DGFiP rend pour elle crucial de détenir des informations fiables et actualisées lui permettant de mettre en correspondance l’identité d’un propriétaire, le numéro, la localisation et les caractéristiques d’une parcelle. Il en va de la sécurité juridique des transactions foncières ainsi que de l’établissement et du prélèvement de l’impôt. Cela n’emporte pas pour autant que la DGFiP doive produire elle-même la représentation sur laquelle elle s’appuie et rien dans l’absolu ne s’oppose à ce que cette production incombe à l’IGN, dont c’est la spécialité. 
+  
+  Les auditions ont mis en lumière la crainte que les gains de mutualisation tirés d’un éventuel transfert soient annulés par la désorganisation de la « chaîne foncière » et des missions fiscales, ou encore que l’information fournie à la DGFiP par l’IGN ne soit pas de qualité ou de précision suffisante6. Ces objections doivent être prises en considération et faire l’objet d’une expertise technique approfondie excédant l’objet des présents travaux. Il est donc préconisé de conduire rapidement une mission7 ayant pour objet de définir dans quelles conditions techniques, et selon quelles modalités de collaboration avec l’IGN, le transfert à l’institut des missions topographiques de la DGFiP s’opèrerait de la manière la plus neutre possible pour l’exercice, par celle-ci, de ses missions fiscales et foncières. Cette mission pourrait également préfigurer les modalités d’un éventuel transfert en matière de ressources humaines (transfert d’emplois budgétaires et, le cas échéant, d’effectifs physiques, de mesures d’accompagnement…) et en chiffrer la consistance. Elle devrait enfin donner lieu à une consultation des principaux utilisateurs de ces données – au premier rang desquels figurent les collectivités – afin de prendre en compte les impératifs liés à leurs usages. S’il apparaît que les gains tirés de la mutualisation excèdent les coûts transitoires liés au transfert, il est recommandé de réaliser ce dernier dans le cadre du projet de loi de finances pour 2020 et, en tout état de cause, avant la fin de la législature.
+
+  20. **Evaluer à échéance du 1er trimestre 2019 les impacts techniques, organisationnels, juridiques et financiers d’un transfert des missions topographiques de la DGFiP à l’IGN et procéder au transfert avant la fin de la législature.**
+s3.2: |
+  ##3.2. Généraliser la démarche « GPU »
+
+  Une piste significative de progrès consisterait à étendre à l’ensemble des zonages réglementaires la démarche entreprise autour du Géoportail de l’Urbanisme (GPU), consistant à rendre obligatoire la diffusion sur cette plateforme des documents d’urbanisme et à subordonner leur opposabilité aux tiers à cette diffusion. Outre que cet outil faciliterait la connaissance consolidée par les administrés des réglementations en question, les administrations en charge de leur élaboration et de leur respect seraient puissamment incitées à veiller à l’exactitude et à la fraîcheur des données ainsi répertoriées.
+  
+  Un principe de continuité devrait idéalement permettre de passer de la version « littérale » de chaque réglementation au zonage où elle est applicable et, inversement, de la cartographie des zonages aux textes qui s’y appliquent, via les technologies de « données liées » (linked open data). Un stockage des délimitations successives des zonages devrait permettre de consulter leur historique, tout comme il est possible de consulter sur Légifrance les versions successives d’un même texte. 
+  
+  Un groupe de travail comprenant des représentants de la direction de l’information légale et administrative (DILA), la DINSIC, la direction interministérielle de la transformation publique (DITP), l’IGN ainsi que quelques ministères pilotes pourrait être constitué afin d’évaluer les conditions de mise en place d’un tel outil, qui devrait en tout état de cause être déployé progressivement, en fonction des difficultés spécifiques présentées par chaque type de réglementation. Une attention particulière devrait en outre être apportée aux modalités de standardisation des données, afin de fiabiliser leur production et leur diffusion sur le portail par chaque service concerné par la mise en œuvre d’un zonage réglementaire.
+
+  21. **Étendre progressivement à l’ensemble des zonages réglementaires la démarche entreprise autour du Géoportail de l’Urbanisme.**
+s3.3: |
+  ##3.3. Piloter plus activement les coopérations déjà engagées 
+
+  Il y a lieu pour l’Etat d’animer plus activement certaines coopérations déjà engagées mais dont le déploiement se heurte à des difficultés. On veut ici parler de la base adresse nationale (BAN) et du plan de corps de rue simplifié (PCRS).
+
+  ###3.3.1. La base adresse nationale
+
+  Une adresse se compose d’une identification sémantique (l’adresse au sens usuel du terme, composée du numéro, de la voie, du code postal et de la localité) et d’une ou plusieurs identifications géographiques (plaque adresse, centre parcelle, centre bâtiment, entrées)1. Un adressage de qualité est crucial pour les communes. Pour ne prendre que quelques exemples, il permet d’assurer le respect d’obligations légales et fiscales, conditionne l’efficacité de l’action menée en matière de sûreté, de sécurité, d’urgences (incendie, accidents, sanitaire), garantit la bonne distribution des courriers et facilite le raccordement aux réseaux, et notamment au très haut débit. 
+  
+  Fin 2002, à l’initiative du CNIG, un rapport a préconisé la création d’une base adresse unique et la création d’un guichet associé. L’IGN a ainsi édité, en 2005, la BD Adresse, encore disponible aujourd’hui et comportant environ 25 millions d’adresses récupérées par consolidation des bases de la DGFiP et de La Poste, ainsi que par la collecte assurée par l’institut. En 2015, une convention quadripartite signée entre Etalab, l’association OpenStreetMap, La Poste et l’IGN, a prévu la création d’une base adresse nationale (BAN) diffusée sous double licence.
+  
+  Malgré ces efforts, les bases adresses ne permettent pas à ce jour d’atteindre tous les citoyens ni toutes les entreprises. Plusieurs raisons sont avancées à cela, qui tiennent à la fois aux difficultés techniques rencontrées dans l’assemblage des données des différents partenaires du projet BAN, à la lenteur que manifestent certains d’entre eux à mettre leurs données à disposition, ou encore à l’absence d’obligation réglementaire systématique en matière d’adressage. 
+  
+  Sur ce dernier point, deux dispositions coexistent. L’article L. 2213-28 du Code général des collectivités territoriales prévoit que : « Dans toutes les communes où l'opération est nécessaire, le numérotage des maisons est exécuté pour la première fois à la charge de la commune. L'entretien du numérotage est à la charge du propriétaire qui doit se conformer aux instructions ministérielles ». Il ne résulte donc de ces disposition aucune obligation systématique pour les autorités locales. Par ailleurs, le décret n° 94-1112 du 19 décembre 1994 relatif à la communication au centre des impôts fonciers ou au bureau du cadastre de la liste alphabétique des voies de la commune et du numérotage des immeubles, oblige indirectement les communes de plus de 2 000 habitants à numéroter les immeubles, la notification du numérotage constituant une formalité foncière.
+  
+  L’IGN estime qu’il serait opportun de systématiser l’obligation pour les maires d’établir un plan d’adressage (dénomination des voies et numérotage des bâtiments), plan qui serait en contrepartie opposable aux administrés, ce qui mettrait fin à certains conflits avec certains riverains estimant avoir autorité sur leur propre adresse. Cette orientation semble partagée par certains élus et services techniques communaux. Une telle obligation existe par exemple au Danemark, où le registre danois des adresses est régi par une loi spécifique qui confie aux conseils municipaux le soin d’assigner les adresses et de les enregistrer, aux propriétaires fonciers celui de mettre en place les plaques adresses, au ministère de l’énergie, des services publics et du climat d’opérer, maintenir et contrôler le registre. Elle existe également au Luxembourg, où la loi fait obligation aux administrations communales de communiquer les adresses officielles au registre national des localités et des rues géré par l’administration du cadastre et de la topographie.
+  
+  La systématisation de l’obligation d’adressage, assortie d’une opposabilité de l’adresse aux riverains, constitue une piste intéressante pour accélérer la constitution de la BAN et garantir à terme son exhaustivité. Elle doit toutefois faire l’objet d’une consultation préalable avec les principales associations représentatives des maires et faire l’objet d’une étude d’impact prenant en considération la problématique, évoquée par La Poste lors des entretiens conduits dans le cadre de la mission, de l’adresse augmentée ou de l’adresse « de demain ». Cette technique consiste  à assigner à chaque adresse un code renvoyant à une série complète de données comportant la géolocalisation du bâtiment, le nombre de boîtes aux lettres pour les immeubles collectifs, des photographies…
+
+  22. **Étudier, en concertation avec les associations représentatives des communes, l’opportunité de systématiser l’obligation de réaliser des plans d’adressage et de rendre l’adresse opposable.**
+
+  ###3.3.2. Le plan de corps de rue simplifié
+
+  Le décret n° 2011-1241 du 5 octobre 2011 relatif à l'exécution de travaux à proximité de certains ouvrages souterrains, aériens ou subaquatiques de transport ou de distribution, dit « décret anti endommagement », fixe les règles de déclaration préalable aux travaux à proximité des réseaux, applicables tant au maître d’ouvrage qu’à l’exécutant des travaux. Il s’agit de prévenir les risques d’endommagement des réseaux enterrés liés à une connaissance approximative de leur tracé. Ce décret prévoit notamment que les exploitants dressent une cartographie précise de tous les réseaux neufs et améliorent progressivement celle des réseaux existants2. Le PCRS constitue donc à la fois un support cartographique d’illustration permettant de positionner le réseau, et une référence pour établir des mesures, retrouver les réseaux sur le terrain et fiabiliser les échanges d’informations entre les acteurs concernés. 
+  
+  Les auditions conduites dans le cadre de la présente mission ont malheureusement révélé que ce déploiement était aussi poussif que le projet est ambitieux… Malgré la signature, en 2015, d’un protocole national entre les principaux acteurs concernés, la constitution du plan, qui relève des collectivités en leur qualité « d’autorités publiques locales compétentes » propriétaires des réseaux, s’opère lentement et de manière très hétérogène sur l’ensemble du territoire. Les solutions techniques retenues ne sont pas davantage harmonisées3. Selon les opérateurs de réseau entendus, le PCRS pâtit d’une absence de pilotage national effectif. L’un d’entre eux appelle de ses vœux un rôle « plus offensif » de l’IGN en la matière. De leur côté, les plateformes régionales d’information géographiques semblent désireuses de s’impliquer plus avant dans ce chantier.
+  
+  Il conviendrait donc que l’Etat mandate explicitement l’IGN pour jouer, en lien avec les opérateurs et les collectivités, un rôle plus actif en matière d’animation de la communauté des acteurs (formulation de recommandations, organisation de retours d’expérience, partage de bonnes pratiques), d’organisation de la production là où l’initiative locale ne suffit pas à impulser une dynamique et, in fine, de diffusion du PCRS via la future géoplateforme nationale (cf. point 2.5.1).
+  
+  Compte tenu des ressources déjà consacrées par l’IGN aux acquisitions aériennes et ortho-image ainsi que par les opérateurs de réseaux pour l’entretien de leur propre fond de plan, la mise en place d’un fonds de mutualisation associant également les collectivités et leurs groupements (syndicats d’énergie notamment) pourrait constituer une solution adaptée et de nature à minimiser la dépense globale aujourd’hui consentie en ordre dispersé4. Un financement mutualisé, outre qu’il devrait naturellement faire l’objet d’une consultation préalable des contributeurs potentiels, emporterait le partage entre acteurs des données produites et leur diffusion par l’entremise de la géoplateforme.
+  Alternativement, et compte tenu de l’intérêt majeur5 que présente le PCRS, le financement de son achèvement pourrait faire l’objet d’une enveloppe dédiée dans le cadre de la prochaine génération de contrats de projet Etat-régions.
+
+  23. **Mandater l’IGN pour jouer un rôle plus actif dans le pilotage du déploiement du PCRS et revoir les modalités de financement du projet, soit par la création d’un fonds de mutualisation, soit par l’identification d’une enveloppe dédiée dans le cadre de la prochaine génération de CPER.**
+
+s4: |
+  #4. Financer la donnée géographique souveraine
+
+  Le rapport Lengagne, dont il faut à nouveau saluer le caractère visionnaire, retenait qu’un financement public de la production d’information géographique resterait nécessaire car la disponibilité d’une information de qualité déterminée sur l’ensemble du territoire ne peut s’envisager sur la seule base des ressources commerciales. Ce constat, formulé à l’époque où les opérateurs de l’Etat étaient censés s’engager résolument dans le développement de recettes propres, s’impose avec d’autant plus d’évidence dans le cadre de la politique d’open data.
+  
+  - 4.1 [La production et l’entretien des données géographiques souveraines appellent un financement public](?ypath=/s4.1)
+  - 4.2 [Conséquences pour l’IGN](?ypath=/s4.2)
+s4.1: |
+  ##4.1 La production et l’entretien des données géographiques souveraines appellent un financement public
+
+  Les personnalités auditionnées dans le cadre de la mission ont à une très large majorité considéré que les données géographiques souveraines devaient, en tant qu’elles constituaient un bien public ou que leur production relevait d’une mission de service public, être financées par la subvention, par opposition à un financement obéissant à une logique « marchande ». Plusieurs arguments militent en effet pour qu’une telle approche soit retenue.
+
+  ###4.1.1 Le choix de l’open data 
+
+  Nous souscrivons aux conclusions de la mission récemment consacrée à l’IGN par le Conseil général de l’environnement et du développement durable et le Conseil général de l’alimentation, de l’agriculture et des espaces ruraux, selon lesquelles la production de données géographiques doit s’analyser comme un investissement stratégique qui conditionne la bonne mise en œuvre des politiques publiques et plus généralement l’exercice de la souveraineté nationale. L’administrateur général des données insiste sur cet élément lorsqu’il analyse les données, non seulement géographiques, comme une infrastructure essentielle au développement du pays, voire d’importance vitale, au sens que le Secrétariat général de la défense et de la sécurité nationale donne à ces termes1. Ces éléments militent dès lors pour un financement public des données géographiques souveraines.
+  
+  Les pouvoirs publics ont, par ailleurs, fait un choix très clair en faveur de l’ouverture des données publiques, dont il se déduit que les données géographiques souveraines ont, sauf exceptions spécialement justifiées, vocation à être diffusées et réutilisées gratuitement. Cette gratuité conditionne d’ailleurs la généralisation de l’usage des données géographiques produites par les autorités publiques et leur capacité à « faire » autorité ou à devenir des standards de fait. La loi n° 2015-1779 du 28 décembre 2015 relative à la gratuité et aux modalités de réutilisation des informations du secteur public2, dite « loi Valter », pose ainsi un principe de gratuité de la réutilisation de ces informations, assorti d’une dérogation permettant aux administrations de couvrir une part substantielle de leurs coûts liés à leur mission de service public par des recettes propres en instituant des redevances3. La loi n° 2016-1321 du 7 octobre 2016 pour une République numérique, dite « loi Lemaire », prévoit quant à elle que l’échange d’informations au sein du périmètre constitué par l’Etat et ses établissements publics administratifs, pour l’exercice de leurs missions de service public, ne peut donner lieu à redevance4. 
+  
+  La gratuité de la diffusion et de la réutilisation des données géographiques souveraines implique de faire financer leur production par la subvention, à défaut de pouvoir le faire par la vente de ces données. Si le modèle d’affaires de l’open data se vérifie empiriquement, un retour vers les caisses publiques s’effectuera par la fiscalisation des richesses supplémentaires créées grâce à la libération des données. Au Royaume-Uni, une étude fréquemment citée fait par exemple état d’une croissance du produit national brut comprise entre 13 et 28 millions de livres, dont 4 à 8 millions sous forme de taxes, liée à la mise à disposition gratuite de neuf produits de l’Ordnance Survey5. Enfin, la libération des données associée à une meilleure coordination dans leur production et à une montée en qualité doit permettre de diminuer les coûts liés à l’utilisation de données inexactes, à l’entretien de bases redondantes et aux doubles saisies ou encore aux coûts de transaction liés à la recherche, à l’acquisition et au traitement de ces données.
+  
+  En effet, l’économie de la donnée n’est pas régie pas les mêmes règles que l’économie réelle. On constate que la richesse de la donnée est établie à partir de l’utilisation qui en est faite et donc de l’accès qui  lui est  donné. Ainsi, « ce n’est pas la vente de données qui crée  de la valeur, mais sa circulation »6. La mise à disposition gratuite de ces données créera beaucoup de valeur, permettant par exemple à de petites entreprises innovantes ou aux citoyens impliqués de participer au débat et de proposer des solutions qui ne pourraient être à l’initiative d’acteurs publics uniquement.  
+
+
+  ###4.1.2 Le « réflexe tarifaire » a nui à la coopération entre acteurs 
+
+  Une dernière raison, d’opportunité, au financement par la subvention est qu’il permettrait à l’IGN de tourner le dos à une politique de tarification qui a nui à ses relations avec d’autres producteurs de données géographiques souveraines, et plus particulièrement avec les collectivités territoriales. Le principe du financement intégral par la subvention des données souveraines dont l’IGN assume la diffusion permettrait à l’institut de ne plus consacrer un temps et une énergie excessifs à la recherche de recettes, voire de se défaire d’un quasi-« réflexe tarifaire » entretenu par le souci permanent d’équilibrer un budget qui ne permet actuellement pas de couvrir les missions de service public par la subvention pour charges.
+  
+  Des constats similaires ont conduit le Conseil général de l'environnement et du développement durable (CGEDD) et le Conseil général de l'alimentation, de l'agriculture et des espaces ruraux (CGAAER) à préconiser la mise à disposition gratuite des référentiels de base de l’IGN (RGE, BAN, BD Carto…) utilisés par les collectivités territoriales pour les besoins de leurs missions de service public. Il s’agirait en quelque sorte d’une extension aux collectivités de la règle de gratuité posée par la loi Lemaire pour l’Etat et ses établissements publics. Une telle gratuité constituerait indéniablement un progrès et il y a lieu d’en étendre le principe à l’ensemble des données géographiques souveraines.
+
+  24. **Poser un principe de gratuité de la mise à disposition des données géographiques souveraines.**
+s4.2: |
+  ##4.2 Conséquences pour l’IGN
+
+  La trajectoire arbitrée pour l’IGN sur la période 2019-2022 prévoit une réduction annuelle moyenne de 1,5 % des crédits (soit environ 1,3 million d’euros par an) et de 2,2 % des emplois sous plafond (soit 32 ETPT). L’objet de la présente mission n’étant pas d’analyser la situation d’ensemble de l’institut, il n’y a ici lieu que de poser quelques principes auxquels le dimensionnement de ses moyens devrait obéir à l’avenir en ce qui concerne son activité liée aux données géographiques souveraines. 
+
+  ###4.2.1 Les dépenses liées aux données géographiques souveraines doivent être couvertes par la subvention pour charges de service public
+
+  Compte tenu de tout ce qui précède, il est recommandé de faire financer par la subvention pour charges de service public de l’IGN l’ensemble des dépenses exposées pour la production, l’entretien, la certification des données géographiques souveraines que l’IGN diffuse en propre, pour l’accompagnement technique des acteurs de l’écosystème et pour la gestion de la géoplateforme nationale. Ce choix ne fait pas obstacle à ce que l’IGN continue d’être rétribué, comme il l’est aujourd’hui par le ministère des armées ou le ministère de l’agriculture, pour la confection de données « à façon » pour le compte d’autres autorités publiques. Il semble que des pistes soient d’ores et déjà identifiées par l’institut, en matière de sécurité notamment. En tout état de cause, et sans préjudice des gains de productivité légitimement attendus de l’établissement, il est primordial que le calibrage de sa subvention pour charges de services publics soit, dans les années à venir, suffisant pour permettre à l’IGN d’opérer le repositionnement ambitieux rendu nécessaire par le contexte de mutations profondes qu’il connaît.
+  
+  Au-delà de l’IGN, et dans la mesure où la piste la plus prometteuse d’amélioration de la coordination entre acteurs réside dans la conduite de projets d’équipement communs, le financement des données géographiques souveraines pourrait relever de dispositifs dédiés, tels que les contrats de projet Etat-régions, des fonds de mutualisation ad hoc ou, pour les projets à forts enjeux en termes de recherche et d’innovation, par le programme d’investissements d’avenir. On songe, par exemple, à la démarche engagée par plusieurs partenaires, majoritairement publics7, pour mettre en place une infrastructure de données et de services d’imagerie satellitaire et la pérenniser sous la forme d’un « dispositif institutionnel national d’approvisionnement mutualisé en imagerie satellitaire » (DINAMIS).
+
+  25. **Faire couvrir par la subvention pour charges de services public les dépenses de fonctionnement et de personnel consacrées par l’IGN à la production, à l’entretien, à la certification des données géographiques souveraines, ainsi qu’à l’accompagnement technique des autres acteurs de l’écosystème et à la gestion de la géoplateforme nationale.**
+
+  ###4.2.2 Prévoir à moyen terme le recours exclusif à la licence ouverte
+
+  Les licences d’utilisation gratuite sont, sauf exceptions, les plus adaptées à la réutilisation des données géographiques souveraines. Le décret n° 2017-638 du 27 avril 2017, pris pour l’application de la loi Lemaire, prévoit deux types de licence : ouverte et ODbL (pour Open Database License). La licence ouverte est dite « permissive » en ce qu’elle n’impose au réutilisateur que de mentionner la source et le millésime de l’information publique. Celui-ci est donc totalement libre de créer une œuvre dérivée ou plus simplement de rediffuser, y compris à titre commercial, l’information. La licence ODbL impose notamment à l’utilisateur de repartager (« share alike ») à l’identique les bases de données dérivées de l’information publique. Cette remise à disposition du public s’effectue également sous licence ODbL ou compatible (effet dit « contaminant »). L’administration qui souhaite recourir à une autre licence que la licence ouverte ou la licence ODbL doit en solliciter l’homologation par la DINSIC. Cette homologation est prononcée par décision du Premier ministre (art. D. 323-2-1 du code des relations entre le public et l’administration).
+  
+  L’IGN a récemment exprimé le souhait d’utiliser, à l’instar du SHOM, une licence CC-BY-SA (Creative Commons BY Share Alike) prévoyant, comme l’ODbL, une clause de repartage à l’identique8, ainsi qu’une licence payante pour les opérateurs souhaitant s’affranchir de l’obligation de repartage. L’institut considère en effet qu’il n’y a pas lieu de faire obstacle à la volonté de certains grands comptes privés de s’affranchir en payant de l’obligation de repartage.
+  
+  ***
+  ####La licence ouverte est la plus adaptée aux données géographiques souveraines
+  Cette question renvoie plus largement à celle de la coexistence de plusieurs types de licences et à leur potentielle incompatibilité, qui peut constituer un frein à la circulation des données.
+  
+  Le problème se pose non seulement entre la licence ODbL et la licence CC-BY-SA (qui ne prévoient pas les mêmes obligations, tant en matière de données que d’œuvres produites à partir d’elles), mais également, selon l’IGN, entre la licence ouverte Etalab et la licence ODbL. En l’état actuel de la réglementation, un producteur de données publiques ayant fait le choix de diffuser ses données sous licence Etalab peut les mettre à disposition d’un autre producteur dont les données sont sous licence ODbL. Ce dernier, s’il pourra intégrer sans contrainte les données en question dans sa propre base, ne pourra en revanche pas fournir en retour ses enrichissements au producteur sous licence Etalab, sauf à obliger ce dernier à abandonner son choix au profit de la licence ODbL, compte tenu de l’effet de « contamination » de cette dernière. Il semble donc que ce soit la coexistence de la licence ouverte avec toute autre forme de licence plus contraignante – OdbL ou CC-BY-SA – qui constitue un frein à la diffusion des données.
+  
+  Le propre de la licence contaminante est en fait de susciter des communautés de production, avec la part d’exclusivité qu’elles comportent. Par exemple, si l’IGN souhaite intégrer dans le RGE des données d’adresse enrichies sous licence ODbL par la communauté OpenStreetMap, il doit obligatoirement et irrévocablement faire basculer le RGE sous ODbL. Dès lors, il ne pourra plus intégrer les données côtières du SHOM enrichies par ses utilisateurs sous licence CC-BY-SA…
+  
+  Il se déduit de tout cela que la doctrine de recours aux divers types de licences gagnerait à être clarifiée par la DINSIC, s’agissant en particulier de l’articulation d’une licence ouverte avec des licences contaminantes, quelles qu’elles soient. S’agissant plus spécifiquement des données géographiques souveraines, nous avons acquis la conviction que le seul choix de licence compatible avec l’objectif de mettre en place une très large collaboration au sein de la sphère publique est une licence ouverte de type Etalab.
+
+  26. **Clarifier l’articulation des licences ouvertes de type Etalab avec les licences dites « contaminantes ».**
+  27. **Diffuser à terme l’ensemble des données géographiques souveraines sous licence ouverte Etalab.**
+  
+  ***
+  
+  ####L’IGN ne doit pouvoir recourir que transitoirement aux licences payantes 
+  L’IGN a conçu un dispositif de licences spécifiques comprenant (1) une licence d’utilisation sous condition d’usage (mais sans obligation de repartage, ni contamination) qui permet aux acteurs publics d’utiliser gratuitement les données pour tous les usages ne présentant pas de caractère industriel ou commercial et (2) une licence de repartage non contaminante9 qui permet de proposer, pour les usages à caractère industriel ou commercial, soit une licence gratuite avec obligation de repartage, soit une licence payante sans obligation de repartage. Les deux licences gratuites ont été homologuées provisoirement et ont notamment permis de tester avec succès le mécanisme de double licence pour les données de la BAN.
+  
+  L’institut souhaite la prolongation de l’homologation des licences spécifiques et, plus généralement, que le recours aux licences payantes lui soit permis à titre dérogatoire et transitoire pour contribuer à l’équilibre de son budget dans la période de transformation qui s’amorce.
+  
+  Compte tenu des contraintes fortes qui pèsent par ailleurs sur l’établissement, un tel maintien n’est pas injustifié, mais l’objectif pour l’IGN doit demeurer de diffuser l’ensemble des données géographiques souveraines sous licence ouverte au plus tard d’ici à la fin de la législature.
+
+  28. **N’autoriser l’IGN à recourir à la licence payante qu’à titre transitoire et au plus tard jusqu’en 2022.**
+
+conclusion: |
+  #Conclusion
+
+  Dans son récent rapport consacré à l’Intelligence artificielle1, notre collègue Cédric Villani insiste à plusieurs reprises sur les enjeux de souveraineté qui s’attachent à la définition d’une politique nationale et européenne de la donnée. Une gouvernance globale de toutes les données de la sphère publique apparait comme nécessaire.  
+  
+  Cette gouvernance doit s’exercer prioritairement sur deux aspects, tout d’abord l’identification de projets d’intérêt national et ensuite la diffusion de toutes ces données par un seul et unique point d’accès géré par l’Etat. La production, quant à elle, notamment en matière de données géographiques, peut être réalisée dans le cadre de partenariats public-privé ou par collecte auprès de tiers de confiance.  
+  
+  L’efficacité collective de la puissance publique en matière de production de données géographiques souveraines ne s’améliorera ni par la norme, ni en imposant « par le haut » un cadre uniforme à l’ensemble des acteurs. Une telle approche n’est ni réaliste, compte tenu de l’infinie variété des acteurs et des objets qui forment l’écosystème de production des données géographiques, ni souhaitable alors que notre pays a tourné sa politique des données vers un objectif de qualité de leur diffusion, sans préjuger des conditions de leur production.
+  
+  Au sein du périmètre formé par l’Etat et ses établissements publics administratifs, des rationalisations et des mutualisations doivent pouvoir s’opérer. Ce rapport a esquissé plusieurs pistes de travail et de mutualisation qui ne sont qu’un premier pas. S’agissant des données dont la production mobilise les collectivités territoriales ou encore certaines personnes privées chargées d’une mission de service public, la piste de progrès la plus prometteuse consiste à construire des coopérations autour de grands projets d’équipement. 
+  
+  C’est au travers de l’animation des acteurs producteurs de données, qu’il s’agisse de collectivités ou de services déconcentrés de l’Etat que l’IGN pourra s’assurer de la qualité de la production. Dès lors, les données géographiques doivent pouvoir faire l’objet d’une standardisation, ce qui sera un gage fort de l’interopérabilité de celles-ci. La puissance publique doit prendre conscience que l’interopérabilité des données est essentielle à la souveraineté de sa décision. 
+  
+  Par ailleurs, par la diffusion et le partage des données avec d’autres acteurs, qu’ils soient publics ou privés, nationaux ou internationaux, l’Etat valorise de la matière première qui doit permettre in fine la création de valeur ajoutée. C’est dans ce cadre que la France pourra offrir à terme aux entrepreneurs la possibilité d’innover non seulement sur le territoire national mais également sur l’ensemble du territoire de l’Union Européenne. Des secteurs disruptifs tels que le véhicule autonome, la ville intelligente ou encore la livraison par drone ne seront français et européens qu’à condition de disposer d’une base de données géographiques en accès ouvert riche, qualitative et maitrisée par la puissance publique. 
+  
+  A l’issue de cette mission, il nous semble que l’IGN, de par son histoire et son expertise reconnue, a naturellement un rôle de premier plan à jouer dans ce cadre. Ses équipes ont témoigné d’une conscience aiguë des mutations de leur environnement et d’un attachement sincère à leur institution.
+remerciements: |
+  ##Remerciements
+
+  L’auteure remercie Guillaume Leforestier, Oriane Gauffre, Benoît David, Olivier Dissard ainsi que son équipe parlementaire, Sarah Jalade, Chrystèle Aguilar et Hugo Page, pour l’appui qu’ils lui ont apporté dans la préparation et la conduite des entretiens.
+  
+  Elle exprime plus généralement sa gratitude envers les équipes de l’IGN et de la direction de la recherche et de l’innovation du ministère de la transition écologique et solidaire dont l’expertise s’est révélée précieuse pour l’élaboration du présent rapport.
+
+annex2: |
+  #Annexe 2 – Liste des personnes entendues et des contributions reçues
+  ##Liste des personnes entendues
+  - Afigéo
+      - Christine ARCHIAS, vice présidente
+      - Elise LADURELLE-TIKRY, directrice
+      - Jean-Marie SEITE, président
+  - Agence française pour la biodiversité (AFB)
+      - François GAUTHIEZ, directeur de l’appui aux politiques publiques
+      - René LALLEMENT, adjoint au directeur de l’appui aux politiques publiques
+  - Bureau de recherches géologiques et minières (BRGM)
+      - Michèle ROUSSEAU, présidente-directrice générale
+      - Pierre LAGARDE, directeur-adjoint de la direction des infrastructures et des services numériques
+  - DREAL Hauts-de-France 
+      - Chantal ADJRIOU, cheffe de service information, développement durable et évaluation environnementale.
+  - Direction Départementale des Territoires des Yvelines 
+      - Bruno CINOTTI, directeur
+      - Catherine LANGLET, adjointe au chef de service de la planification, de l’aménagement et de la connaissance des territoires
+      - Laurent SAINTPIERRE,service environnement
+  - Commission animation du CNIG
+      - Olivier BANASZAK, Ville et Eurométropole de Strasbourg
+      - Daniel BELON, Fédération nationale des collectivités concédantes et régies (FNCCR)
+      - Jean-Luc SALLABERRY, FNCCR
+      - Carole LECOMTE, Direction régionale de l'environnement, de l'aménagement et du logement Normandie
+      - Pierre MACE, GIP Aménagement du Territoire et Gestion des Risques 
+      - Stéphane MEVEL-VIANNAY, Région Bretagne
+      - Bertrand de MONTHUBERT, Région Occitanie
+      - Christophe NICOLLE, Région Pays de la Loire
+      - Fabrice PHUNG, Direction régionale de l'environnement, de l'aménagement et du logement Bretagne
+      - François-Xavier RICHARD, région Normandie
+      - Joël TIGNON, Région Hauts de France
+      - Mickael VADIN, Région Grand Est
+  - ENEDIS
+      - François BLANQUET, directeur patrimoine et politique industrielle
+      - Jean-Pierre MOREAU, chargé de mission national cartographie
+  - GRDF
+      - Pierre NGUYEN TRONG, direction technique et industrielle
+  - Haut comité français pour la Défense civile
+      - Christian SOMMADE, délégué général
+  - Institut national de l’information géographique et forestière (IGN)
+      - Daniel BURSAUX, directeur général
+      - Sylvain LATARGET, directeur général adjoint
+      - Claude PENICAND, directeur de la stratégie
+      - Emmanuelle PRADA-BORDENAVE, Présidente du Conseil d’administration
+      - Michel SEGARD, directeur des programmes civils
+
+  - Institut national de la statistique et des études économiques (INSEE)
+      - Françoise MAUREL, directrice de la diffusion et de l’action régionale
+      - Patrick SILLARD, chef du département des méthodes statistiques
+      - Valérie DARRIAU, responsable de la division statistiques et analyses urbaines
+      - Vincent LOONIS, chef de la division des méthodes et des référentiels géographiques
+  - La Poste
+      - Laurent DABBAGH, directeur développement et partenariats, service national de l’adresse
+      - Smara LUNGU, déléguée aux affaires territoriales et parlementaires
+      - Christel PAPILLON VIOLLET, directrice du service national de l’adresse
+  - Métropole Grand Lyon
+      - Benoît GOURGAND, responsable de l’unité Données de référence et 3D
+  - Ministère de l’action et des comptes publics
+      - Direction générale des finances publiques
+          - Pascale BARANGER, en charge du plan cadastral
+          - Gradzig El KAROUI, sous-directeur GF3
+          - Audran LE BARON, chef du service de la gestion fiscale
+          - Sylviane ORTIZ, cheffe du bureau du cadastre
+      - Direction du budget
+          - Alban HAUTIER, chef du bureau du logement, de la ville et des territoires
+  - Ministère de l’agriculture et de l’alimentation 
+      - Conseil général de l'alimentation, de l'agriculture et des espaces ruraux (CGAAER)
+          - Roland RENOULT, membre permanent
+      - Direction générale de la performance économique et environnementale des entreprises (DGPE)
+          - Catherine GESLAIN-LANEELLE, directrice
+          - Jean-Philippe GRELOT, conseiller auprès de la directrice
+  - Ministère de l’Intérieur
+      - Jean-Bernard BOBIN, chef du service planification et gestion de crise
+      - Colonel Xavier GUIMARD, sous-directeur des applications de commandement
+      - Colonel Jean-Pierre VEDRINE, commandant de la gendarmerie de l’outre-mer
+      - Chef d’escadron Mathieu CERCIAT, centre de planification et de gestion de crise
+      - Pierre CHASTENET, responsable du pôle géomatique
+      - Jean de VILLENEUVE, chef de la section de l’information géographique opérationnelle
+
+  - Ministère de la transition écologique et solidaire
+      - Conseil général de l’environnement et du développement durable (CGEDD)
+          - Pascal DOUARD, membre permanent, Section transition énergétique, construction, et innovations
+          - Florence TORDJMAN, membre permanent, Section transition énergétique, construction, et innovations
+      - Direction générale de l’aménagement, du logement et de la nature (DGALN)
+          - Paul DELDUC, directeur général
+          - Pascal LORY, conseiller information géographique auprès du directeur
+      - Direction générale de l’énergie et du climat (DGEC)
+          - Laurent MICHEL, directeur général
+          - Romain CAILLETON, adjoint au chef de service du climat et de l'efficacité énergétique
+      - Direction générale des infrastructures de transport et de la mer (DGITM) 
+          - Isabelle ANDRIVON,  cheffe de service de l’administration générale et de la stratégie
+          - Xavier DELACHE, sous-directeur des études et de la prospective
+      - Direction générale de la prévention des risques (DGPR)
+          - Hervé VANLAER, directeur adjoint
+          - François DUQUESNE, directeur du Service central d'hydrométéorologie et d'appui à la prévention des inondations (SHAPI)
+          - Guillaume LESECQ, Chargé de mission information préventive, systèmes d'information et géomatique
+      - Commissariat général au développement durable, Direction de la recherche et de l’innovation
+          - Serge BOSSINI, directeur
+          - Claire SALLENAVE, sous-directrice de l’animation scientifique et technique
+      - Secrétariat général
+          - Régine ENGSTRÖM, secrétaire générale
+          - Patrice GUYOT, secrétaire général adjoint
+          - Samuel GOLDSZMIDT, transformateur numérique
+  - Ministère des Armées
+      - Colonel Philippe ARNAUD, représentant de l’Etat major des Armées
+      - François COTE, directeur technique
+      - Gwladys THEUILLON, responsable du métier environnement géophysique
+      - Laurent VIESTE, responsable de l’architecture des systèmes
+  - Office national des forêts (ONF)
+      - Albert MAILLET, directeur forêt et risques naturels
+  - Organisations syndicales
+      - IGN
+          - Christian CAZAUX, CFDT IGN
+          - Marie GOMBERT, CFDT IGN
+          - Rémi PAS, CFDT IGN
+          - Eric PEYROUSE, CFDT IGN
+          - Timothée ROYER, CFDT IGN
+          - Benjamin BRIANT, CGT IGN
+          - Olivier DELBEKE, CGT IGN
+          - Mathieu LEMASSON, CGT IGN
+          - Pierre THOMAS, CGT IGN
+          - Anne BENIGUEL, UNSA IGN
+          - Guy-Alain EYCHENNE, UNSA IGN
+          - Thierry TOUZET, UNSA IGN
+      - Direction générale des finances publiques
+          - Kentaro MARTIN, CFDT Finances publiques
+          - Paul CASALTA, CGT Finances publiques
+          - Thierry DUCASSE, CGT Finances publiques
+          - Olivier VADEBOUT, CGT Finances publiques
+          - Emmanuelle CATHELINAUD, Solidaires Finances publiques
+          - Anne GUYOT-WELKE, Solidaires Finances publiques 
+          - Damien ROBINET, Solidaires Finances publiques
+  - Secrétariat d’Etat chargé du numérique, Direction interministérielle des systèmes d'information et de communication de l'Etat (DINSIC)
+      - Henri VERDIER, directeur
+      - Alexis BOUDARD, responsable du programme de développement concerté de  l’administration numérique territoriale (DCANT)
+      - Jérôme DESBOEUFS, chargé de mission
+      - Nina FABRIZI-RACINE, chargée de mission DCANT
+      - Christian QUEST, chargé de mission
+      - Périca SUCEVIC, directeur d’Etalab
+  - Service hydrographique et océanographique de la Marine (SHOM)
+      - Bruno FRACHON, directeur
+  - Ville de Paris
+      - Richard MALACHEZ, responsable du bureau géomatique
+
+  ***
+  ##Contributions et réponses reçues
+  - Afigéo
+  - Agence française pour la biodiversité (AFB)
+  - CFDT Finances publiques
+  - CGT IGN
+  - Covea
+  - CycloMedia Technology B.V.
+  - Direction générale de l’aménagement, du logement et de la nature (DGALN)
+  - Direction générale de l’énergie et du climat (DGEC)
+  - Direction générale de la prévention des risques (DGPR)
+  - Direction générale des finances publiques (DGFIP)
+  - Dispositif Institutionnel National d’Approvisionnement Mutualisé en Imagerie Satellitaire (DINAMIS) 
+  - ENEDIS
+  - Fédération française des entreprises de génie électrique et énergétique
+  - Fédération Nationale des Collectivités Concédantes et Régies (FNCCR)
+  - GéoBretagne
+  - GFI
+  - GEOPAL, portail géographique de la Loire
+  - GIP Aménagement du territoire et gestion des risques (ATGERI)
+  - GRDF
+  - Haut Comité Français pour la Défense Civile
+  - Institut national de la statistique et des études économiques (INSEE)
+  - Métropole de Lyon
+  - Ministère des Armées
+  - Ministère de l'agriculture et de l'alimentation 
+  - Ministère de l’Intérieur
+  - Régions françaises coordonnées par Joël TIGNON
+  - Réseau du groupe de travail SIG et Topographie de l’AITF
+  - Réseau des Centres régionaux de l’information géographique (CRIGES)
+  - Service central d'hydrométéorologie et d'appui à la prévention des inondations (SHAPI)
+  - Service hydrographique et océanographique de la Marine (SHOM)
+  - Solidaires Finances publiques
+  - UNSA IGN
+  - Yves RIALLANT
+
+xx:

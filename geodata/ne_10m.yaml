@@ -18,7 +18,7 @@ licence:
   uri: http://www.naturalearthdata.com/about/terms-of-use/
   title: Public domain
 source: http://www.naturalearthdata.com/
-yamlClass: VectorDataset
+yamlClass: FeatureDataset
 # chemin d'accès principal pour le chargement
 dbpath: naturalearth/10m
 # J'arrondis les coordonnées à 3 décimales, 2 est insuffisant

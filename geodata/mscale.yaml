@@ -19,7 +19,7 @@ abstract: |
     - [description de coastline au zoom 19](/yamldoc/id.php/geodata/mscale/coastline?zoom=19)
     - [description de rivers_lake_centerlines au zoom 13](/yamldoc/id.php/geodata/mscale/rivers_lake_centerlines?zoom=13)
 
-yamlClass: VectorDataset
+yamlClass: FeatureDataset
 layers:
   coastline:
     title: coastline

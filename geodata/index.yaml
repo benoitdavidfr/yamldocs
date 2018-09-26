@@ -1,5 +1,7 @@
 title: Présentation de l'accès aux données géographiques avec YamlDoc
 journal:
+  '2018-09-23':
+    - renommage VectorDataset en FeatureDataset
   '2018-08-15':
     - nouvelle vesrion fusionnant dans VectorDataset ShapeDataset, WfsLayers et MultiScaleDataset
   '2018-08-10':
@@ -10,13 +12,13 @@ description: |
   ## Accès aux données géographiques
   YamlDoc définit des mécanismes d'accès aux données géographiques au travers de types de documents
   correspondant à des séries de données géographiques (SD),
-  en distinguant des [SD vecteur](?ypath=/vector), des [SD image](?ypath=/image)
-  et des [SD de consultation](?ypath=/view).
+  en distinguant des [SD d'objets vecteur](?ypath=/feature), des [SD image](?ypath=/image)
+  et des [SD de consultation](?doc=view).
   Ces mécanismes sont conçus afin que les SD puissent facilement être affichées
   avec la [bibliothèque Leaflet](https://leafletjs.com/) :
     
-    - les SD vecteur au moyen du plugin [uGeoJson](https://github.com/BenjaminVadant/leaflet-ugeojson),
-    - les SD en consultation au moyen de la classe [TileLayer](https://leafletjs.com/reference-1.3.2.html#tilelayer).
+    - les SD d'objets au moyen du plugin [uGeoJson](https://github.com/BenjaminVadant/leaflet-ugeojson),
+    - les SD de consultation au moyen de la classe [TileLayer](https://leafletjs.com/reference-1.3.2.html#tilelayer).
     
   De plus les couches sont utilisables avec des logiciels comme [umap](https://umap.openstreetmap.fr/fr/)
   qui respectent les mêmes standards d'interopérabilité.
@@ -27,15 +29,16 @@ description: |
       au travers de cartes Leaflet,
     - un [document bibliothèque de symboles](?doc=markerlib) gère une bibliothèque de symboles ponctuels
       utilisés dans les cartes.
-vector: |
-  ## SD vecteur
-  Une SD vecteur (VectorDataset) est composée de couches vecteur,
+feature: |
+  ## SD d'objets vecteur
+  Une SD d'objets vecteur (FeatureDataset) est composée de couches d'objets vecteur,
   chacune correspondant à une FeatureCollection [GeoJSON](https://tools.ietf.org/html/rfc7946) ;
   chaque couche est donc composée d'objets vecteur, les Feature GeoJSON,
   sur lesquels des critères de sélection peuvent être appliqués.
   
   ### Affichage multi-échelles
-  Les SD vecteur sont conçues pour permettre un [affichage multi-échelles](?doc=geodata/multi-echelles) des données.  
+  Les SD d'objets vecteur sont conçues pour permettre un [affichage multi-échelles](?doc=geodata/multi-echelles)
+  des données.  
   Le tableau ci-dessous indique les produits utilisés en fonction du zoom.
   
   | Niveaux || Echelles (dénom.)| Produit utilisé |
@@ -150,28 +153,19 @@ vector: |
       Un exemple d'une telle couche est
       la [couche coastline de la SD multi-échelles](id.php/geodata/mscale/coastline) en construction.
       
-  [Voir ici les spécs détaillées des documents VectorDataset](?action=version&doc=geodata&name=vectords.inc.php).
+  [Voir ici les spécs détaillées des documents FeatureDataset](?action=version&doc=geodata&name=featureds.inc.php).
   
   Par ailleurs, pour utiliser les serveurs WFS, un type de document WfsServer est défini.
   Le [serveur WFS du Géoportail IGN](?doc=geodata/igngpwfs) en est un exemple.
-  La classe VectorDataset hérite de la classe WfsServer.
       
 image: |
   Les SD image sont constituées de couches d'images. (A FAIRE)
-  
-view: |
-  Les SD de consultation sont constituées de couches d'affichage.
-  Chaque couche d'affichage correspond à un URI et interrogée avec un {x},{y},{z} renvoie une image PNG ou JPEG.
-  exemple: http://igngp.geoapi.fr/tile.php
-  
-  Les couches de http://igngp.geoapi.fr/tile.php peuvent être utilisées dans umap comme fond de carte personnalisé.
-  Par exemple `http://igngp.geoapi.fr/tile.php/cartes/{z}/{x}/{y}.jpg` comme URL pour obtenir les cartes IGN.
-  
+    
 map: |
  Un document carte décrit une carte Leaflet
  ([exemple de la carte de test](?doc=geodata/testmap)).
  
- De plus, chaque SD vecteur a la capacité de générer une carte standard
+ De plus, chaque SD d'objets vecteur a la capacité de générer une carte standard
  ([exemple de la carte standard de Route500](id.php/geodata/route500/map)).
 
  
