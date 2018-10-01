@@ -4,6 +4,41 @@ choisirgeoportail:
   url:
     - https://wxs.ign.fr/choisirgeoportail/geoportail/wmts
     - https://wxs.ign.fr/choisirgeoportail/geoportail/wfs
+  complement: |
+    Le 27/09/2018 07:40, > contact.geoservices a écrit :
+    > Bonjour,
+    > 
+    > Voici les éléments que nous pouvons vous soumettre.
+    > 
+    > La clé pratique a vocation à être utilisé sans aucune
+    > restrictions.
+    > La clé choisirgeoportail a vocation à être utilisé dans un cadre
+    > de projet web. Elle a donc une sécurisation de type wildcard en
+    > referer. 
+    > 
+    > Ce qui signifie que toutes requêtes envoyées vers les serveurs de
+    > l'IGN sont autorisées si un referer est présent dans le header de la
+    > requête.
+    > 
+    > Or dans votre cas pour les requêtes effectuées  ce n'est pas le cas,
+    > le header est vide.
+    > 
+    >  ----- Message d'origine -----  
+    > 
+    > J'ai cherché à utiliser la clé choisirgeoportail et j'ai rencontré
+    > une erreur en effectuant la requête dans un script Php au moyen de la 
+    > fonction file_get_contents(). La même requête avec la clé pratique 
+    > fonctionne correctement.
+    > 
+    > Le script http://georef.eu/yamldoc/divers/testgp.php illustre cette erreur.
+    > La première image provient de la clé pratique.
+    > L'erreur en dessous correspond à un appel identique avec la clé 
+    > choisirgeoportail
+    > L'erreur peut être affichée en cliquant sur le texte erreur.
+    > 
+    > Le code source du script Php est affiché en cliquant sur "Affichage
+    > du code source Php".
+    
 pratique:
   title: utiliser le Géoportail sans compte
   source: https://geoservices.ign.fr/blog/2017/06/28/geoportail_sans_compte.html

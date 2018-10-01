@@ -1,0 +1,16 @@
+title: Serveur WMS V du Géoportail
+abstract: |
+  Test WmsServer  
+  **URL de test**:
+    
+    - [doc en JSON](id.php/view/igngpwmsv/api)
+    - [api](id.php/view/igngpwmsv/api)
+    - [layers](id.php/view/igngpwmsv/layers)
+    - [BDCARTO-HYDROGRAPHIE](id.php/view/igngpwmsv/layers/BDCARTO-GEOPO-HYDROGRAPHIE_WLD_WGS84G)
+    - [BDCARTO-HYDROGRAPHIE/13/4057/2874.jpg
+    ](id.php/view/igngpwmsv/layers/BDCARTO-GEOPO-HYDROGRAPHIE_WLD_WGS84G/13/4057/2874.jpg)
+    - [map](id.php/view/igngpwmsv/map)
+    
+yamlClass: WmsServer
+url: http://wxs.ign.fr/49qcg7rckqrk3og45nm5i4s3/geoportail/v/wms
+referer: http://visu.gexplor.fr/viewer.php

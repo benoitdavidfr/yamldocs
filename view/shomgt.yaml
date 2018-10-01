@@ -1,0 +1,10 @@
+title: SD de consultation des cartes GéoTiff du Shom
+abstract: |  
+yamlClass: ViewDataset
+
+layersByGroup:
+  all:
+    gtpyr:
+      title: pyramide des cartes GéoTiff du Shom
+      server: view/shomgt_tile # serveur WMTS
+      name: gtpyr

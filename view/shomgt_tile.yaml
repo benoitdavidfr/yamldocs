@@ -1,0 +1,14 @@
+title: Serveur de tuiles des GéoTiff du Shom
+abstract: |
+  Test TileServer  
+  **URL de test**:
+    
+    - [doc en JSON](id.php/view/shomgt_tile)
+    - [api](id.php/view/shomgt_tile/api)
+    - [gtpyr](id.php/view/shomgt_tile/gtpyr)
+    - [gtpyr/2/1/1.png](id.php/view/shomgt_tile/gtpyr/2/1/1.png)
+    - [gtpyr/2/1/1](id.php/view/shomgt_tile/gtpyr/2/1/1)
+    - [map](id.php/view/shomgt_tile/map)
+    
+yamlClass: TileServer
+url: https://geoapi.fr/shomgt/tile.php
