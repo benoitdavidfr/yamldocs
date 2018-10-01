@@ -1,16 +1,36 @@
 title: consultation de données géographiques
 abstract: |
   Utilisation de services de consultation.  
-  Les séries de données (SD) de consultation sont constituées de couches d'affichage,
+  Une série de données (SD) de consultation est constituée d'un ensemble de couches d'affichage,
   chacune correspondant à un URI et interrogeable
   selon le [schéma XYZ](https://en.wikipedia.org/wiki/Tiled_web_map)
-  renvoyant pour un niveau de zoom, un x et un y une tuile PNG ou JPEG.
+  renvoyant pour un niveau de zoom, un x et un y une tuile PNG ou JPEG.  
+  L'URI de la SD renvoie un doc listant les couches.
+  
+  Les tuiles peuvent être issues de serveurs WMS ou WMTS.  
+  Le doc de la SD liste ses couches en indiquant notamment le serveur qui la fournit.
 
-  Les tuiles peuvent être issues de serveurs WMS ou WMTS.
+  Les YamlClass WmsServer et WmtsServer permettent d'interroger un serveur pour connaitre la liste de ses couches,
+  obtenir une description de chacune, et obtenir ses tuiles.
+  
+  La YamlClass ViewDataset permet de lister les couches de la SD et d'indiquer pour chaque couche:
+    
+    - son titre,
+    - son serveur et le nom de couche dans ce serveur,
+    - éventuellement un résumé (abstract) expliquant le contenu de la couche
+    - éventuellement un champ doc qui contient soit l'url d'une doc complémentaire, soit, si la doc dépend du zoom,
+      un array avec comme clé le niveau de zoom minimum et comme champs:
+        - max: le zoom maximum correspondant à cette doc
+        - title: le titre
+        - www: l'URL de la doc
+    - éventuellement le format d'images de la couche, pour forcer un format quand il n'est pas imposé (WMS)
+    - éventuellement zooms minimum et maximum pour lequel la couche est définie, pour forcer une valeur
+      quand elle n'est pas définie ou quand elle est incorrecte
   
   Exemples:
     
     - [SD de consultation du Géoportail](?doc=view/igngp)
+    - [SD de consultation des cartes GéoTiff du Shom](?doc=view/shomgt)
     - [serveur WMS R du Géoportail](?doc=view/igngpwmsr)
     - [serveur WMTS du Géoportail](?doc=view/igngpwmts)
     - [serveur WMTS pratique du Géoportail](?doc=view/pratique)

@@ -1,0 +1,44 @@
+title: retour support IGN sur WFS & QGis
+message: |
+  -------- Message transféré --------
+  Sujet :     #IGN-2018-54067 - utilisation WFS avec QGis API API API
+  Date :     Mon, 24 Sep 2018 11:02:53 +0200
+  De :     "> contact.geoservices (par Internet, dépôt
+  06c92a83.am8aabfvpcoaaaaaaaaaagmv13uaarpfapeaaaaaaadaxabbqkg5@bnc3.mailjet.com)"
+  <contact.geoservices@ign.fr>
+  Répondre à :     contact.geoservices <contact.geoservices@ign.fr>
+  Pour :     Benoit.David@developpement-durable.gouv.fr
+
+
+
+  Bonjour,
+
+  Nos experts nous ont apporté la réponse suivante concernant vos
+  problèmes d'affichage sous Qgis :
+
+  Si ceux sont des données 3D en flux WFS que vous utilisez (exemple de la
+  BD TOPO®), Il s'agit alors d'un problème spécifique à Qgis qui ne gère
+  pas les flux WFS 3D.
+
+  Nos experts ont fait remonter ce problème à la communauté en octobre
+  2016 avec proposition d'un correctif.
+  Ce correctif a été accepté par la communauté Qgis et a été implémenté
+  dès la version 3.0.0.
+  ce correctif a par ailleurs été "backporté" à partir de la version  2.18.12.
+
+  Toutefois, ce n'est qu' à partir de la version 2.18.14 qu'une nouvelle
+  version d'OGR a été mise en œuvre pour permettre l'affichage de plus de
+  1000 objets par démultiplication des requêtes WFS.
+
+  Nous vous invitons donc à utiliser une version plus récente de Qgis, la
+  2.18.24 étant la version long-term release.
+
+  Nous espérons que cette solution répondra à votre attente.
+
+  Cordialement,
+  _____________________________________________________________________________
+
+  Logo IGN Nouvelle adresse : contact.geoservices@ign.fr
+
+  L'équipe des Géoservices du Géoportail
+

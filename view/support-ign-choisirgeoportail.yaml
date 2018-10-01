@@ -1,4 +1,23 @@
 title: message envoyé au support IGN sur clé choisirgeoportail
+réponse: |
+  Le 27/09/2018 07:40, > contact.geoservices a écrit :
+  > Bonjour,
+  > 
+  > Voici les éléments que nous pouvons vous soumettre.
+  > 
+  > La clé pratique a vocation à être utilisé sans aucune
+  > restrictions.
+  > La clé choisirgeoportail a vocation à être utilisé dans un cadre
+  > de projet web. Elle a donc une sécurisation de type wildcard en
+  > referer. 
+  > 
+  > Ce qui signifie que toutes requêtes envoyées vers les serveurs de
+  > l'IGN sont autorisées si un referer est présent dans le header de la
+  > requête.
+  > 
+  > Or dans votre cas pour les requêtes effectuées  ce n'est pas le cas,
+  > le header est vide.
+  > 
 message: |
   Sujet : 	erreur avec la clé choisirgeoportail
   Date : 	Mon, 24 Sep 2018 09:21:53 +0200
