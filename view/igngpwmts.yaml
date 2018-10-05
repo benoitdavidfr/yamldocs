@@ -1,5 +1,7 @@
 title: Serveur WMTS du Géoportail
 abstract: |
+  Modif de la clé le 2/10/2018 pour y mettre ttes les ressources disponibles sur le GP.  
+  
   Test WmtsServer  
   **URL de test**:
     
