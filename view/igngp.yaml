@@ -1,8 +1,17 @@
 title: SD de consultation de données IGN diffusées par le Géoportail
 abstract: |
-  Cette SD expose différentes couches (layers) qui correspondent chacune à une couche d'un des serveurs WMS/WMTS IGN  
-  Les couches sont exposées sous la forme tuiles selon le protocole popularisé par OSM et Google Maps (appelé XYZ)  
-  C'est l'équivalent de http://igngp.geoapi.fr/
+  Cette SD correspond à une sélection et une restructuration des couches du Géoportail.  
+  Sont sélectionnées les couches socle IGN.  
+  Les couches sont présentées regroupées:
+    
+    - en premier les couches les plus utilisées
+    - puis les ortho-images aériennes (BDOrtho + OrthoLittoral)
+    - puis les ortho-images satellitaires
+    - puis les diféfrentes cartes IGN (il faudrait enlever la carte OACI)
+    - puis les produits issus de MNT
+    - puis OCS-GE
+    - puis diverses couches d'objets vecteur dans l'ordre logique d'affichage
+    
   
 yamlClass: ViewDataset
 
@@ -156,7 +165,7 @@ layersByGroup:
       abstract: |
         Collection d’images cartographiques numériques continues du littoral issue de la fusion intelligente des cartes marines du SHOM et du SCAN 25® de l'IGN. 
       doc: http://professionnels.ign.fr/scanlitto
-      format: png
+      format: image/png
       minZoom: 3
       maxZoom: 17
       attribution: &copy; <a href='http://www.ign.fr'>IGN</a>, &copy; <a href='http://data.shom.fr'>SHOM</a>
@@ -208,6 +217,9 @@ layersByGroup:
       name: ELEVATION.ELEVATIONGRIDCOVERAGE.SHADOW
       abstract: |
         Couche d'ombrage calculée à partir des données altimétriques de l'IGN permettant de mieux appréhender le relief. L'estompage proposé est réalisé à partir des données MNT BDAlti au pas de 25m avec deux soleils : un au nord-est de hauteur 45°, l'autre zénithal
+      format: image/jpeg
+      minZoom: 3
+      maxZoom: 17
   ocs-ge:
     ocsge-couverture:
       title: OCSGE - Couverture
