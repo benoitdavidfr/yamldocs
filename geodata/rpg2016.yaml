@@ -1,0 +1,31 @@
+title: RPG 2016
+abstract: |
+  Téléchargement des fichiers SHP et chargement dans MySQL
+  Notamment pour faire des statistiques
+yamlClass: FeatureDataset
+# chemins d'accès principal pour le chargement à partir du répertoire des données
+dbpath:  rpg2016/RPG_2-0__SHP_LAMB93_FR-2016_2016-01-01/RPG/1_DONNEES_LIVRAISON_2016/RPG_2-0_SHP_LAMB93_FR-2016
+# Je considère que la résolution du RPG est de 1 m
+# (360° = 40 000 km => 1 m = 360 / 40 000 000 * 1 = 0,00001 °)
+# J'arrondis donc au chargement dans MySQL les coordonnées à 6 décimales
+precision: 6
+minZoom: 14
+maxZoom: 18
+
+layers: 
+  parcelles:
+    title: parcelles
+    displayedByDefault: true
+    ogrPath: PARCELLES_GRAPHIQUES.shp
+    indexes:
+      ID_PARCEL: true
+  ilots:
+    title: ilots
+    displayedByDefault: true
+    ogrPath: ILOTS_ANONYMES.shp
+    indexes:
+      ID_ILOT: true
+
+mysql_database: # Nom de la base MySQL en fonction du serveur MySQL
+  '172.17.0.3': rpg # MySql docker
+  mysql-bdavid.alwaysdata.net: bdavid_rpg

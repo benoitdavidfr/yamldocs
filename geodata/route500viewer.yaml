@@ -1,0 +1,10 @@
+title: viewer de Route500
+abstract: |
+  **URL de test**:
+    
+    - [limite_administrative/7/62/44](id.php/geodata/route500viewer/layers/limite_administrative/7/62/44)
+    - [zone_occupation_sol 10 506 358](id.php/geodata/route500viewer/layers/zone_occupation_sol/10/506/358)
+    - [display map](id.php/geodata/route500viewer/map/display)
+    
+yamlClass: FeatureViewer
+featureDataset: geodata/route500

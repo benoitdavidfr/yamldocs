@@ -1,0 +1,29 @@
+title: cache de Route500
+abstract: |
+  **URL de test**:
+    
+    - [limite_administrative/7/62/44](id.php/geodata/route500vcache/layers/limite_administrative/7/62/44)
+    - [zone_occupation_sol 10 506 358](id.php/geodata/route500viewer/layers/zone_occupation_sol/10/506/358)
+    - [display map](id.php/geodata/route500viewer/map/display)
+    - php id.php pub /geodata/route500vcache/fill/zone_occupation_sol/8/124-134/85-95
+    - php id.php pub /geodata/route500vcache/fill/zone_occupation_sol/9/248-268/170-190
+    - php id.php pub /geodata/route500vcache/derive/zone_occupation_sol/7/62-67/42-47
+    
+yamlClass: TileCache
+tileServer: geodata/route500viewer
+layers:
+  zone_occupation_sol:
+     zoom: 10
+     minZoom: 6
+     xmin: 503
+     xmax: 506
+     ymin: 357
+     ymax: 360
+  limite_administrative:
+     zoom: 10
+     minZoom: 6
+     xmin: 503
+     xmax: 506
+     ymin: 357
+     ymax: 360
+     

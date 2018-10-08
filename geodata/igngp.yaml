@@ -13,6 +13,7 @@ doc: |
     - [BD Adresse](?doc=geodata/bdadresse)
     - [BD Parcellaire](?doc=geodata/bdparcellaire)
     - [AdminExpress](?doc=geodata/adminexpress)
+    - [RPG](?doc=geodata/rpg)
     - [Serveur WFS clé Gexplor](?doc=geodata/igngpwfs)
     - [SDV clé metadata](?doc=geodata/igngpmd)
     - [clefs d'accès sans compte au services du Géoportail](?doc=geodata/ignsanscle)
