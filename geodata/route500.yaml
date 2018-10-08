@@ -69,6 +69,18 @@ layers:
               default: return {color: 'chocolate', weight: 2};
           }
       }
+    styleMap:
+      nature:
+        'Limite côtière': {color: 'blue', weight: 1}
+        'Frontière internationale': {color: 'chocolate', weight: 2}
+        'Limite de région': {color: 'red', weight: 1}
+        'Limite de département': {color: 'orange', weight: 1}
+        "Limite d'arrondissement": {color: 'lightGrey', weight: 1}
+        'Limite de commune': {color: 'lightGrey', weight: 1}
+      featurecla:
+        Coastline: {color: 'blue', weight: 1}
+      default:
+        {color: 'chocolate', weight: 2}
     displayedByDefault: true
     ogrPath: ADMINISTRATIF/LIMITE_ADMINISTRATIVE.shp
     indexes:
@@ -215,9 +227,16 @@ layers:
           switch (feature.properties.nature) {
               case 'Eau': return { color: 'blue', weight: 0};
               case 'Forêt': return { color: 'lightGreen', weight: 0, opacity: 0.65};
-              case 'Bâti': return { color: 'orange', weight: 0, opacity: 0.65};
+              case 'Bâti': return { color: 'darkOrange', weight: 0, opacity: 0.65};
           }
       }
+    styleMap:
+      nature:
+        Eau: {color: 'blue', weight: 0}
+        Forêt: {color: 'lightGreen', weight: 0}
+        Bâti: {color: 'darkOrange', weight: 0}
+      default:
+        {color: 'chocolate', weight: 2}
     ogrPath: HABILLAGE/ZONE_OCCUPATION_SOL.shp
   zone_batie:
     title: zone_batie
