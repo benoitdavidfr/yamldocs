@@ -1,0 +1,27 @@
+title: cache de Route500
+abstract: |
+  **URL de test**:
+    
+    - [limite_administrative/7/62/44](id.php/geodata/route500vcache/layers/limite_administrative/7/62/44)
+    - [zone_occupation_sol 10 506 358](id.php/geodata/route500viewer/layers/zone_occupation_sol/10/506/358)
+    - [display map](id.php/geodata/route500viewer/map/display)
+    - php id.php pub /geodata/route500vcache/fill/zone_occupation_sol/8/124-134/85-95
+    - php id.php pub /geodata/route500vcache/fill/zone_occupation_sol/9/248-268/170-190
+    - php id.php pub /geodata/route500vcache/derive/zone_occupation_sol/7/62-67/42-47
+    
+yamlClass: TileCache
+tileServer: geodata/route500viewer
+layers:
+  zone_occupation_sol:
+                  # pour zoom < deriveMin renvoie erreur 404,
+    deriveMin: 0  # si deriveMin <= zoom < cacheMin alors derive, les tuiles du cache seront dérivées du zoom supérieur
+                  # Cette dérivation se fait en batch, si une tuile est absente alors erreur 404
+    cacheMin: 8   # si cacheMin <= $zoom <= cacheMax alors cache, tuiles demandées au tileServer et mise en cache
+    cacheMax: 8   # si cacheMax < $zoom <= transferMax alors transfert, tuiles demandées au tileServer et PAS mise en cache
+    transferMax: 18 # si zoom > transferMax alors renvoie erreur 404
+    
+  limite_administrative:
+    cacheMin: 0   # si cacheMin <= $zoom <= cacheMax alors cache, tuiles demandées au tileServer et mise en cache
+    cacheMax: 8   # si cacheMax < $zoom <= transferMax alors transfert, tuiles demandées au tileServer et PAS mise en cache
+    transferMax: 18 # si zoom > transferMax alors renvoie erreur 404
+     
