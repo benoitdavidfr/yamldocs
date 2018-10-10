@@ -1,7 +1,10 @@
-title: RPG 2016
+title: RPG 2016 pour chargement dans MySQL
 abstract: |
   Téléchargement des fichiers SHP et chargement dans MySQL
-  Notamment pour faire des statistiques
+  Notamment pour faire des statistiques  
+  La carte correspondante peut être
+  [générée ici pour St Léger les Vignes, zoom 14](id.php/geodata/rpg2016/map/display?latlon=47.135,-1.730&zoom=14).
+  
 yamlClass: FeatureDataset
 # chemins d'accès principal pour le chargement à partir du répertoire des données
 dbpath:  rpg2016/RPG_2-0__SHP_LAMB93_FR-2016_2016-01-01/RPG/1_DONNEES_LIVRAISON_2016/RPG_2-0_SHP_LAMB93_FR-2016

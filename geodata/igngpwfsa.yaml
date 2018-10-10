@@ -26,7 +26,7 @@ wfsOptions:
   referer: http://gexplor.fr/
 # la fonction de modification prend en paramètre un feature et le rend modifié
 featureModifier: |
-  return function (array $feature): array {
+  return function (string $typename, array $feature) use ($yaml): array {
     $feature['properties']['augmented'] = "augmented";
     return $feature;
   };

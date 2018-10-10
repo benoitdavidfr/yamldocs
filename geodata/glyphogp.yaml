@@ -1,0 +1,1925 @@
+title: SD sortie du glyphosate - flux de la carte GP
+abstract: |
+  
+  La [carte correspondante peut être générée ici](id.php/geodata/glyphogp/map/display?latlon=47.135,-1.730&zoom=14).
+  
+  URL de test:
+    
+    - [doc glyphogp](id.php/geodata/glyphogp)
+    - [description de parcelles](id.php/geodata/glyphogp/parcelles)
+    - [affichage de parcelles](id.php/geodata/glyphogp/parcelles?bbox=-1.78,47.11,-1.68,47.15&zoom=14)
+    
+
+licence: Licence ouverte Etalab 2.0
+yamlClass: FeatureDataset
+wfsUrl: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
+wfsOptions:
+  referer: http://gexplor.fr/
+minZoom: 14
+maxZoom: 18
+featureModifier: |
+  return function (string $typename, array $feature) use ($yaml): array {
+    if ($typename == 'RPG.2016:parcelles_graphiques') {
+      $feature['properties']['libelle_culture'] = $yaml['ftModContext']['nomenclatures']['cultures'][$feature['properties']['code_cultu']]['Libellé Culture'];
+      $id = $feature['properties']['id_parcel'];
+      if ($id % 10 <> 0) // 90% pas de sortie
+        $feature['properties']['sortie_glyphosate'] = '';
+      elseif ($id % 20 == 0) // 5 % sortie effective
+        $feature['properties']['sortie_glyphosate'] = 'effective';
+      else {
+        $feature['properties']['sortie_glyphosate'] = 'programmée';
+        $feature['properties']['date_sortie_glyphosate'] = ($id % 40 == 10) ? '2019' : '2020';
+      }
+    }
+    return $feature;
+  };
+
+layersByTheme:
+  RPG2016:
+    parcelles:
+      title: parcelles
+      style: |
+        function(feature) {
+            switch (feature.properties.sortie_glyphosate) {
+                case '': return {color: 'lightGrey', weight: 1};
+                case 'effective': return {color: 'green', weight: 1};
+                case 'programmée': return {color: 'yellow', weight: 1};
+                default: return {color: 'blue', weight: 2};
+            }
+        }
+      displayedByDefault: true
+      styleMap:
+        sortie_glyphosate:
+          '': {color: 'lightGrey', weight: 1}
+          'effective': {color: 'green', weight: 1}
+          'programmée': {color: 'yellow', weight: 1}
+        default:
+          {color: 'blue', weight: 2}
+      typename: RPG.2016:parcelles_graphiques
+    ilots:
+      title: ilots
+      style: { color: blue, weight: 1, opacity: 0.65 }
+      typename: RPG.2016:ilots_anonymes
+ftModContext:
+  nomenclatures:
+    cultures:
+      BTH:
+        'Code Culture': BTH
+        'Libellé Culture': 'Blé tendre d''hiver'
+        'Code Groupe Culture': '1'
+        'Libellé Groupe Culture': 'Blé tendre'
+        surfHa: 5105713.96
+      BTP:
+        'Code Culture': BTP
+        'Libellé Culture': 'Blé tendre de printemps'
+        'Code Groupe Culture': '1'
+        'Libellé Groupe Culture': 'Blé tendre'
+        surfHa: 11342.76
+      MID:
+        'Code Culture': MID
+        'Libellé Culture': 'Maïs doux'
+        'Code Groupe Culture': '2'
+        'Libellé Groupe Culture': 'Maïs grain et ensilage'
+        surfHa: 18800.94
+      MIE:
+        'Code Culture': MIE
+        'Libellé Culture': 'Maïs ensilage'
+        'Code Groupe Culture': '2'
+        'Libellé Groupe Culture': 'Maïs grain et ensilage'
+        surfHa: 1257014.32
+      MIS:
+        'Code Culture': MIS
+        'Libellé Culture': Maïs
+        'Code Groupe Culture': '2'
+        'Libellé Groupe Culture': 'Maïs grain et ensilage'
+        surfHa: 1580816.71
+      ORH:
+        'Code Culture': ORH
+        'Libellé Culture': 'Orge d''hiver'
+        'Code Groupe Culture': '3'
+        'Libellé Groupe Culture': Orge
+        surfHa: 1501728.57
+      ORP:
+        'Code Culture': ORP
+        'Libellé Culture': 'Orge de printemps'
+        'Code Groupe Culture': '3'
+        'Libellé Groupe Culture': Orge
+        surfHa: 404582.15
+      AVH:
+        'Code Culture': AVH
+        'Libellé Culture': 'Avoine d''hiver'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 50274.91
+      AVP:
+        'Code Culture': AVP
+        'Libellé Culture': 'Avoine de printemps'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 33240.74
+      BDH:
+        'Code Culture': BDH
+        'Libellé Culture': 'Blé dur d''hiver'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 391560.16
+      BDP:
+        'Code Culture': BDP
+        'Libellé Culture': 'Blé dur de printemps'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 9414.81
+      BDT:
+        'Code Culture': BDT
+        'Libellé Culture': 'Blé dur de printemps semé tardivement (après le 31/05)'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 83.4
+      CAG:
+        'Code Culture': CAG
+        'Libellé Culture': 'Autre céréale d''un autre genre'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 2766.89
+      CGF:
+        'Code Culture': CGF
+        'Libellé Culture': 'Autre céréale de genre Fagopyrum'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 4.14
+      CGH:
+        'Code Culture': CGH
+        'Libellé Culture': 'Autre céréale de genre Phalaris'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 41.14
+      CGO:
+        'Code Culture': CGO
+        'Libellé Culture': 'Autre céréale de genre Sorghum'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 311.78
+      CGP:
+        'Code Culture': CGP
+        'Libellé Culture': 'Autre céréale de genre Panicum'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 117.05
+      CGS:
+        'Code Culture': CGS
+        'Libellé Culture': 'Autre céréale de genre Setaria'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: !!float 0
+      CHA:
+        'Code Culture': CHA
+        'Libellé Culture': 'Autre céréale d''hiver de genre Avena'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 307.91
+      CHH:
+        'Code Culture': CHH
+        'Libellé Culture': 'Autre céréale d''hiver de genre Hordeum'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 330.72
+      CHS:
+        'Code Culture': CHS
+        'Libellé Culture': 'Autre céréale d''hiver de genre Secale'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 113.26
+      CHT:
+        'Code Culture': CHT
+        'Libellé Culture': 'Autre céréale d''hiver de genre Triticum'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 4819.49
+      CPA:
+        'Code Culture': CPA
+        'Libellé Culture': 'Autre céréale de printemps de genre Avena'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 197.97
+      CPH:
+        'Code Culture': CPH
+        'Libellé Culture': 'Autre céréale de printemps de genre Hordeum'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 37.6
+      CPS:
+        'Code Culture': CPS
+        'Libellé Culture': 'Autre céréale de printemps de genre Secale'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 13.5
+      CPT:
+        'Code Culture': CPT
+        'Libellé Culture': 'Autre céréale de printemps de genre Triticum'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 165.16
+      CPZ:
+        'Code Culture': CPZ
+        'Libellé Culture': 'Autre céréale de printemps de genre Zea'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 20.9
+      EPE:
+        'Code Culture': EPE
+        'Libellé Culture': Épeautre
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 15266.33
+      MCR:
+        'Code Culture': MCR
+        'Libellé Culture': 'Mélange de céréales'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: !!float 60411
+      MLT:
+        'Code Culture': MLT
+        'Libellé Culture': Millet
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 18679.78
+      SGH:
+        'Code Culture': SGH
+        'Libellé Culture': 'Seigle d''hiver'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 23991.86
+      SGP:
+        'Code Culture': SGP
+        'Libellé Culture': 'Seigle de printemps'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 305.39
+      SOG:
+        'Code Culture': SOG
+        'Libellé Culture': Sorgho
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 49033.37
+      SRS:
+        'Code Culture': SRS
+        'Libellé Culture': Sarrasin
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 31046.61
+      TTH:
+        'Code Culture': TTH
+        'Libellé Culture': 'Triticale d''hiver'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 325676.98
+      TTP:
+        'Code Culture': TTP
+        'Libellé Culture': 'Triticale de printemps'
+        'Code Groupe Culture': '4'
+        'Libellé Groupe Culture': 'Autres céréales'
+        surfHa: 1717.85
+      CZH:
+        'Code Culture': CZH
+        'Libellé Culture': 'Colza d''hiver'
+        'Code Groupe Culture': '5'
+        'Libellé Groupe Culture': Colza
+        surfHa: 1540333.36
+      CZP:
+        'Code Culture': CZP
+        'Libellé Culture': 'Colza de printemps'
+        'Code Groupe Culture': '5'
+        'Libellé Groupe Culture': Colza
+        surfHa: 1573.32
+      TRN:
+        'Code Culture': TRN
+        'Libellé Culture': Tournesol
+        'Code Groupe Culture': '6'
+        'Libellé Groupe Culture': Tournesol
+        surfHa: 532183.32
+      ARA:
+        'Code Culture': ARA
+        'Libellé Culture': 'Arachide '
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 8.57
+      LIH:
+        'Code Culture': LIH
+        'Libellé Culture': 'Lin non textile d''hiver'
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 17253.06
+      LIP:
+        'Code Culture': LIP
+        'Libellé Culture': 'Lin non textile de printemps'
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 7301.26
+      MOL:
+        'Code Culture': MOL
+        'Libellé Culture': 'Mélange d''oléagineux'
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 93.45
+      NVE:
+        'Code Culture': NVE
+        'Libellé Culture': 'Navette d''été'
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 37.09
+      NVH:
+        'Code Culture': NVH
+        'Libellé Culture': 'Navette d''hiver'
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 79.29
+      OAG:
+        'Code Culture': OAG
+        'Libellé Culture': 'Autre oléagineux d''un autre genre'
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 125.87
+      OEH:
+        'Code Culture': OEH
+        'Libellé Culture': 'Autre oléagineux d''espèce Helianthus'
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 17.2
+      OEI:
+        'Code Culture': OEI
+        'Libellé Culture': illette
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 5934.54
+      OHN:
+        'Code Culture': OHN
+        'Libellé Culture': 'Autre oléagineux d''hiver d''espèce Brassica napus'
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 79.98
+      OHR:
+        'Code Culture': OHR
+        'Libellé Culture': 'Autre oléagineux d''hiver d''espèce Brassica rapa'
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 76.7
+      OPN:
+        'Code Culture': OPN
+        'Libellé Culture': 'Autre oléagineux de printemps d''espèce Brassica napus'
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 28.27
+      OPR:
+        'Code Culture': OPR
+        'Libellé Culture': 'Autre oléagineux de printemps d''espèce Brassica rapa'
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 33.41
+      SOJ:
+        'Code Culture': SOJ
+        'Libellé Culture': Soja
+        'Code Groupe Culture': '7'
+        'Libellé Groupe Culture': 'Autres oléagineux'
+        surfHa: 133323.37
+      FEV:
+        'Code Culture': FEV
+        'Libellé Culture': Fève
+        'Code Groupe Culture': '8'
+        'Libellé Groupe Culture': Protéagineux
+        surfHa: 499.89
+      FVL:
+        'Code Culture': FVL
+        'Libellé Culture': 'Féverole semée avant le 31/05'
+        'Code Groupe Culture': '8'
+        'Libellé Groupe Culture': Protéagineux
+        surfHa: 75077.57
+      FVT:
+        'Code Culture': FVT
+        'Libellé Culture': 'Féverole semée tardivement (après le 31/05)'
+        'Code Groupe Culture': '8'
+        'Libellé Groupe Culture': Protéagineux
+        surfHa: !!float 0
+      LDH:
+        'Code Culture': LDH
+        'Libellé Culture': 'Lupin doux d''hiver'
+        'Code Groupe Culture': '8'
+        'Libellé Groupe Culture': Protéagineux
+        surfHa: 5524.41
+      LDP:
+        'Code Culture': LDP
+        'Libellé Culture': 'Lupin doux de printemps semé avant le 31/05'
+        'Code Groupe Culture': '8'
+        'Libellé Groupe Culture': Protéagineux
+        surfHa: 2031.23
+      LDT:
+        'Code Culture': LDT
+        'Libellé Culture': 'Lupin doux de printemps semé tardivement (après le 31/05)'
+        'Code Groupe Culture': '8'
+        'Libellé Groupe Culture': Protéagineux
+        surfHa: !!float 0
+      MPC:
+        'Code Culture': MPC
+        'Libellé Culture': 'Mélange de protéagineux (pois et/ou lupin et/ou féverole) prépondérants semés avant le 31/05 et de céréales'
+        'Code Groupe Culture': '8'
+        'Libellé Groupe Culture': Protéagineux
+        surfHa: 35693.31
+      MPT:
+        'Code Culture': MPT
+        'Libellé Culture': 'Mélange de protéagineux semés tardivement (après le 31/05)'
+        'Code Groupe Culture': '8'
+        'Libellé Groupe Culture': Protéagineux
+        surfHa: !!float 0
+      PAG:
+        'Code Culture': PAG
+        'Libellé Culture': 'Autre protéagineux d''un autre genre'
+        'Code Groupe Culture': '8'
+        'Libellé Groupe Culture': Protéagineux
+        surfHa: 238.06
+      PHI:
+        'Code Culture': PHI
+        'Libellé Culture': 'Pois d''hiver'
+        'Code Groupe Culture': '8'
+        'Libellé Groupe Culture': Protéagineux
+        surfHa: 55694.57
+      PPR:
+        'Code Culture': PPR
+        'Libellé Culture': 'Pois de printemps semé avant le 31/05'
+        'Code Groupe Culture': '8'
+        'Libellé Groupe Culture': Protéagineux
+        surfHa: 135195.97
+      PPT:
+        'Code Culture': PPT
+        'Libellé Culture': 'Pois de printemps semé tardivement (après le 31/05)'
+        'Code Groupe Culture': '8'
+        'Libellé Groupe Culture': Protéagineux
+        surfHa: !!float 0
+      CHV:
+        'Code Culture': CHV
+        'Libellé Culture': Chanvre
+        'Code Groupe Culture': '9'
+        'Libellé Groupe Culture': 'Plantes à fibres'
+        surfHa: 14598.71
+      LIF:
+        'Code Culture': LIF
+        'Libellé Culture': 'Lin fibres'
+        'Code Groupe Culture': '9'
+        'Libellé Groupe Culture': 'Plantes à fibres'
+        surfHa: 89282.97
+      J5M:
+        'Code Culture': J5M
+        'Libellé Culture': 'Jachère de 5 ans ou moins'
+        'Code Groupe Culture': '11'
+        'Libellé Groupe Culture': 'Gel (surfaces gelées sans production)'
+        surfHa: 164781.24
+      J6P:
+        'Code Culture': J6P
+        'Libellé Culture': 'Jachère de 6 ans ou plus'
+        'Code Groupe Culture': '11'
+        'Libellé Groupe Culture': 'Gel (surfaces gelées sans production)'
+        surfHa: 15700.25
+      J6S:
+        'Code Culture': J6S
+        'Libellé Culture': 'Jachère de 6 ans ou plus déclarée comme Surface d''intérêt écologique'
+        'Code Groupe Culture': '11'
+        'Libellé Groupe Culture': 'Gel (surfaces gelées sans production)'
+        surfHa: 245207.99
+      JNO:
+        'Code Culture': JNO
+        'Libellé Culture': 'Jachère noire'
+        'Code Groupe Culture': '11'
+        'Libellé Groupe Culture': 'Gel (surfaces gelées sans production)'
+        surfHa: 195.45
+      RIZ:
+        'Code Culture': RIZ
+        'Libellé Culture': Riz
+        'Code Groupe Culture': '14'
+        'Libellé Groupe Culture': Riz
+        surfHa: 15092.07
+      LEC:
+        'Code Culture': LEC
+        'Libellé Culture': 'Lentille cultivée (non fourragère)'
+        'Code Groupe Culture': '15'
+        'Libellé Groupe Culture': 'Légumineuses à grains'
+        surfHa: 20896.09
+      PCH:
+        'Code Culture': PCH
+        'Libellé Culture': 'Pois chiche'
+        'Code Groupe Culture': '15'
+        'Libellé Groupe Culture': 'Légumineuses à grains'
+        surfHa: 9527.13
+      BVF:
+        'Code Culture': BVF
+        'Libellé Culture': 'Betterave fourragère'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 12767.68
+      CAF:
+        'Code Culture': CAF
+        'Libellé Culture': 'Carotte fourragère'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 24.19
+      CHF:
+        'Code Culture': CHF
+        'Libellé Culture': 'Chou fourrager'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 569.53
+      CPL:
+        'Code Culture': CPL
+        'Libellé Culture': "Fourrage composé de céréales et/ou de protéagineux (en proportion <\_50%) et/ou de légumineuses fourragères (en proportion < 50%)"
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 10575.46
+      DTY:
+        'Code Culture': DTY
+        'Libellé Culture': 'Dactyle de 5 ans ou moins'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 17336.72
+      FAG:
+        'Code Culture': FAG
+        'Libellé Culture': 'Autre fourrage annuel d''un autre genre'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 18746.23
+      FET:
+        'Code Culture': FET
+        'Libellé Culture': 'Fétuque de 5 ans ou moins'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 19511.16
+      FF5:
+        'Code Culture': FF5
+        'Libellé Culture': 'Féverole fourragère implantée pour la récolte 2015'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 44.27
+      FF6:
+        'Code Culture': FF6
+        'Libellé Culture': 'Féverole fourragère implantée pour la récolte 2016'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 6099.53
+      FFO:
+        'Code Culture': FFO
+        'Libellé Culture': 'Autre féverole fourragère'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 240.42
+      FLO:
+        'Code Culture': FLO
+        'Libellé Culture': 'Fléole de 5 ans ou moins'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 154.79
+      FSG:
+        'Code Culture': FSG
+        'Libellé Culture': 'Autre plante fourragère sarclée d''un autre genre'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 1430.27
+      GAI:
+        'Code Culture': GAI
+        'Libellé Culture': Gaillet
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 0.09
+      GES:
+        'Code Culture': GES
+        'Libellé Culture': Gesse
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 111.9
+      GFP:
+        'Code Culture': GFP
+        'Libellé Culture': 'Autre graminée fourragère pure de 5 ans ou moins'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 3538.68
+      JO5:
+        'Code Culture': JO5
+        'Libellé Culture': 'Jarosse implantée pour la récolte 2015'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 18.6
+      JO6:
+        'Code Culture': JO6
+        'Libellé Culture': 'Jarosse implantée pour la récolte 2016'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 29.76
+      JOD:
+        'Code Culture': JOD
+        'Libellé Culture': 'Jarosse déshydratée'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: !!float 0
+      JOS:
+        'Code Culture': JOS
+        'Libellé Culture': 'Autre jarosse'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 5.64
+      LEF:
+        'Code Culture': LEF
+        'Libellé Culture': 'Lentille fourragère'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 155.35
+      LFH:
+        'Code Culture': LFH
+        'Libellé Culture': 'Autre lupin fourrager d''hiver'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 19.97
+      LFP:
+        'Code Culture': LFP
+        'Libellé Culture': 'Autre lupin fourrager de printemps'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 70.81
+      LH5:
+        'Code Culture': LH5
+        'Libellé Culture': 'Lupin fourrager d''hiver implanté pour la récolte 2015'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 58.2
+      LH6:
+        'Code Culture': LH6
+        'Libellé Culture': 'Lupin fourrager d''hiver implanté pour la récolte 2016'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 392.73
+      LOT:
+        'Code Culture': LOT
+        'Libellé Culture': Lotier
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 226.7
+      LP5:
+        'Code Culture': LP5
+        'Libellé Culture': 'Lupin fourrager de printemps implanté pour la récolte 2015'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 32.49
+      LP6:
+        'Code Culture': LP6
+        'Libellé Culture': 'Lupin fourrager de printemps implanté pour la récolte 2016'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 293.44
+      LU5:
+        'Code Culture': LU5
+        'Libellé Culture': 'Luzerne implantée pour la récolte 2015'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 62731.71
+      LU6:
+        'Code Culture': LU6
+        'Libellé Culture': 'Luzerne implantée pour la récolte 2016'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 74622.17
+      LUD:
+        'Code Culture': LUD
+        'Libellé Culture': 'Luzerne déshydratée'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 67035.68
+      LUZ:
+        'Code Culture': LUZ
+        'Libellé Culture': 'Autre luzerne'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 97716.4
+      MC5:
+        'Code Culture': MC5
+        'Libellé Culture': 'Mélange de légumineuses fourragères prépondérantes au semis implantées pour la récolte 2015 et de céréales'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 1220.53
+      MC6:
+        'Code Culture': MC6
+        'Libellé Culture': 'Mélange de légumineuses fourragères prépondérantes au semis implantées pour la récolte 2016 et de céréales'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 10541.2
+      ME5:
+        'Code Culture': ME5
+        'Libellé Culture': 'Mélilot implanté pour la récolte 2015'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 2.14
+      ME6:
+        'Code Culture': ME6
+        'Libellé Culture': 'Mélilot implanté pour la récolte 2016'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 36.86
+      MED:
+        'Code Culture': MED
+        'Libellé Culture': 'Mélilot déshydraté'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: !!float 0
+      MEL:
+        'Code Culture': MEL
+        'Libellé Culture': 'Autre mélilot'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 147.5
+      MH5:
+        'Code Culture': MH5
+        'Libellé Culture': 'Mélange de légumineuses fourragères prépondérantes au semis implantées pour la récolte 2015 et d''herbacées ou de graminées fourragères'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 50450.29
+      MH6:
+        'Code Culture': MH6
+        'Libellé Culture': 'Mélange de légumineuses fourragères prépondérantes au semis implantées pour la récolte 2016 et d''herbacées ou de graminées fourragères'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 94748.48
+      MIN:
+        'Code Culture': MIN
+        'Libellé Culture': Minette
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 18.67
+      ML5:
+        'Code Culture': ML5
+        'Libellé Culture': 'Mélange de légumineuses fourragères implantées pour la récolte 2015 (entre elles)'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 6121.41
+      ML6:
+        'Code Culture': ML6
+        'Libellé Culture': 'Mélange de légumineuses fourragères implantées pour la récolte 2016 (entre elles)'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 10892.43
+      MLD:
+        'Code Culture': MLD
+        'Libellé Culture': 'Mélange de légumineuses déshydratées (entre elles)'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 153.02
+      MLG:
+        'Code Culture': MLG
+        'Libellé Culture': 'Mélange de légumineuses prépondérantes au semis et de graminées fourragères de 5 ans ou moins'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 75434.64
+      MOH:
+        'Code Culture': MOH
+        'Libellé Culture': Moha
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 2917.7
+      NVF:
+        'Code Culture': NVF
+        'Libellé Culture': 'Navet fourrager'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 31.68
+      PAT:
+        'Code Culture': PAT
+        'Libellé Culture': 'Pâturin commun de 5 ans ou moins'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 148.55
+      PFH:
+        'Code Culture': PFH
+        'Libellé Culture': 'Autre pois fourrager d''hiver'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 1140.12
+      PFP:
+        'Code Culture': PFP
+        'Libellé Culture': 'Autre pois fourrager de printemps'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 1644.35
+      PH5:
+        'Code Culture': PH5
+        'Libellé Culture': 'Pois fourrager d''hiver implanté pour la récolte 2015'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 12.21
+      PH6:
+        'Code Culture': PH6
+        'Libellé Culture': 'Pois fourrager d''hiver implanté pour la récolte 2016'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 2463.08
+      PP5:
+        'Code Culture': PP5
+        'Libellé Culture': 'Pois fourrager de printemps implanté pour la récolte 2015'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 35.32
+      PP6:
+        'Code Culture': PP6
+        'Libellé Culture': 'Pois fourrager de printemps implanté pour la récolte 2016'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 4453.71
+      RDF:
+        'Code Culture': RDF
+        'Libellé Culture': 'Radis fourrager'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 220.57
+      SA5:
+        'Code Culture': SA5
+        'Libellé Culture': 'Sainfoin implanté pour la récolte 2015'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 3613.92
+      SA6:
+        'Code Culture': SA6
+        'Libellé Culture': 'Sainfoin implanté pour la récolte 2016'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 4129.77
+      SAD:
+        'Code Culture': SAD
+        'Libellé Culture': 'Sainfoin déshydraté'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 497.37
+      SAI:
+        'Code Culture': SAI
+        'Libellé Culture': 'Autre sainfoin'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 5563.09
+      SE5:
+        'Code Culture': SE5
+        'Libellé Culture': 'Serradelle implantée pour la récolte 2015'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: !!float 0
+      SE6:
+        'Code Culture': SE6
+        'Libellé Culture': 'Serradelle implantée pour la récolte 2016'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: !!float 0
+      SED:
+        'Code Culture': SED
+        'Libellé Culture': 'Serradelle déshydratée'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: !!float 0
+      SER:
+        'Code Culture': SER
+        'Libellé Culture': 'Autre serradelle'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 3.76
+      TR5:
+        'Code Culture': TR5
+        'Libellé Culture': 'Trèfle implanté pour la récolte 2015'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 10613.17
+      TR6:
+        'Code Culture': TR6
+        'Libellé Culture': 'Trèfle implanté pour la récolte 2016'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 20846.86
+      TRD:
+        'Code Culture': TRD
+        'Libellé Culture': 'Trèfle déshydraté'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 923.93
+      TRE:
+        'Code Culture': TRE
+        'Libellé Culture': 'Autre trèfle'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 13887.17
+      VE5:
+        'Code Culture': VE5
+        'Libellé Culture': 'Vesce implantée pour la récolte 2015'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 44.33
+      VE6:
+        'Code Culture': VE6
+        'Libellé Culture': 'Vesce implantée pour la récolte 2016'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 1526.57
+      VED:
+        'Code Culture': VED
+        'Libellé Culture': 'Vesce déshydratée'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 13.69
+      VES:
+        'Code Culture': VES
+        'Libellé Culture': 'Autre vesce'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 2566.96
+      XFE:
+        'Code Culture': XFE
+        'Libellé Culture': 'X-Felium de 5 ans ou moins'
+        'Code Groupe Culture': '16'
+        'Libellé Groupe Culture': Fourrage
+        surfHa: 85.34
+      BOP:
+        'Code Culture': BOP
+        'Libellé Culture': 'Bois pâturé'
+        'Code Groupe Culture': '17'
+        'Libellé Groupe Culture': 'Estives et landes'
+        surfHa: 303376.33
+      SPH:
+        'Code Culture': SPH
+        'Libellé Culture': 'Surface pastorale - herbe prédominante et ressources fourragères ligneuses présentes'
+        'Code Groupe Culture': '17'
+        'Libellé Groupe Culture': 'Estives et landes'
+        surfHa: 1261469.06
+      SPL:
+        'Code Culture': SPL
+        'Libellé Culture': 'Surface pastorale - ressources fourragères ligneuses prédominantes'
+        'Code Groupe Culture': '17'
+        'Libellé Groupe Culture': 'Estives et landes'
+        surfHa: 521920.86
+      PPH:
+        'Code Culture': PPH
+        'Libellé Culture': 'Prairie permanente - herbe prédominante (ressources fourragères ligneuses absentes ou peu présentes)'
+        'Code Groupe Culture': '18'
+        'Libellé Groupe Culture': 'Prairies permanentes'
+        surfHa: 6169649.59
+      PRL:
+        'Code Culture': PRL
+        'Libellé Culture': 'Prairie en rotation longue (6 ans ou plus)'
+        'Code Groupe Culture': '18'
+        'Libellé Groupe Culture': 'Prairies permanentes'
+        surfHa: 610961.95
+      PTR:
+        'Code Culture': PTR
+        'Libellé Culture': 'Autre prairie temporaire de 5 ans ou moins'
+        'Code Groupe Culture': '19'
+        'Libellé Groupe Culture': 'Prairies temporaires'
+        surfHa: 2112208.77
+      RGA:
+        'Code Culture': RGA
+        'Libellé Culture': 'Ray-grass de 5 ans ou moins'
+        'Code Groupe Culture': '19'
+        'Libellé Groupe Culture': 'Prairies temporaires'
+        surfHa: 273258.64
+      AGR:
+        'Code Culture': AGR
+        'Libellé Culture': Agrume
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: 1700.4
+      ANA:
+        'Code Culture': ANA
+        'Libellé Culture': Ananas
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: !!float 0
+      AVO:
+        'Code Culture': AVO
+        'Libellé Culture': Avocat
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: 8.52
+      BCA:
+        'Code Culture': BCA
+        'Libellé Culture': 'Banane créole (fruit et légume) - autre'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: !!float 0
+      BCF:
+        'Code Culture': BCF
+        'Libellé Culture': 'Banane créole (fruit et légume) - fermage'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: !!float 0
+      BCI:
+        'Code Culture': BCI
+        'Libellé Culture': 'Banane créole (fruit et légume) - indivision'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: !!float 0
+      BCP:
+        'Code Culture': BCP
+        'Libellé Culture': 'Banane créole (fruit et légume) - propriété ou faire valoir direct'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: !!float 0
+      BCR:
+        'Code Culture': BCR
+        'Libellé Culture': 'Banane créole (fruit et légume) - réforme foncière'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: !!float 0
+      BEA:
+        'Code Culture': BEA
+        'Libellé Culture': 'Banane export - autre'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: !!float 0
+      BEF:
+        'Code Culture': BEF
+        'Libellé Culture': 'Banane export - fermage'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: !!float 0
+      BEI:
+        'Code Culture': BEI
+        'Libellé Culture': 'Banane export - indivision'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: !!float 0
+      BEP:
+        'Code Culture': BEP
+        'Libellé Culture': 'Banane export - propriété ou faire valoir direct'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: !!float 0
+      BER:
+        'Code Culture': BER
+        'Libellé Culture': 'Banane export - réforme foncière'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: !!float 0
+      CAC:
+        'Code Culture': CAC
+        'Libellé Culture': 'Café / Cacao'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: !!float 0
+      CBT:
+        'Code Culture': CBT
+        'Libellé Culture': 'Cerise bigarreau pour transformation'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: 1067.94
+      PFR:
+        'Code Culture': PFR
+        'Libellé Culture': 'Petit fruit rouge'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: 2740.23
+      PRU:
+        'Code Culture': PRU
+        'Libellé Culture': 'Prune d''Ente pour transformation'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: 11993.67
+      PVT:
+        'Code Culture': PVT
+        'Libellé Culture': 'Pêche Pavie pour transformation'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: 253.74
+      PWT:
+        'Code Culture': PWT
+        'Libellé Culture': 'Poire Williams pour transformation'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: 711.51
+      VGD:
+        'Code Culture': VGD
+        'Libellé Culture': 'Verger (DOM)'
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: !!float 0
+      VRG:
+        'Code Culture': VRG
+        'Libellé Culture': Verger
+        'Code Groupe Culture': '20'
+        'Libellé Groupe Culture': Vergers
+        surfHa: 90948.49
+      RVI:
+        'Code Culture': RVI
+        'Libellé Culture': 'Restructuration du vignoble'
+        'Code Groupe Culture': '21'
+        'Libellé Groupe Culture': Vignes
+        surfHa: 9189.22
+      VRC:
+        'Code Culture': VRC
+        'Libellé Culture': 'Vigne : raisins de cuve'
+        'Code Groupe Culture': '21'
+        'Libellé Groupe Culture': Vignes
+        surfHa: 558156.72
+      VRT:
+        'Code Culture': VRT
+        'Libellé Culture': 'Vigne : raisins de table'
+        'Code Groupe Culture': '21'
+        'Libellé Groupe Culture': Vignes
+        surfHa: 4360.04
+      CAB:
+        'Code Culture': CAB
+        'Libellé Culture': Caroube
+        'Code Groupe Culture': '22'
+        'Libellé Groupe Culture': 'Fruits à coque'
+        surfHa: 4.47
+      CTG:
+        'Code Culture': CTG
+        'Libellé Culture': Châtaigne
+        'Code Groupe Culture': '22'
+        'Libellé Groupe Culture': 'Fruits à coque'
+        surfHa: 6870.38
+      NOS:
+        'Code Culture': NOS
+        'Libellé Culture': Noisette
+        'Code Groupe Culture': '22'
+        'Libellé Groupe Culture': 'Fruits à coque'
+        surfHa: 5775.89
+      NOX:
+        'Code Culture': NOX
+        'Libellé Culture': Noix
+        'Code Groupe Culture': '22'
+        'Libellé Groupe Culture': 'Fruits à coque'
+        surfHa: 24959.37
+      PIS:
+        'Code Culture': PIS
+        'Libellé Culture': 'Pistache '
+        'Code Groupe Culture': '22'
+        'Libellé Groupe Culture': 'Fruits à coque'
+        surfHa: 11.7
+      OLI:
+        'Code Culture': OLI
+        'Libellé Culture': 'Oliveraie '
+        'Code Groupe Culture': '23'
+        'Libellé Groupe Culture': Oliviers
+        surfHa: 12935.31
+      ANE:
+        'Code Culture': ANE
+        'Libellé Culture': Aneth
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 330.55
+      ANG:
+        'Code Culture': ANG
+        'Libellé Culture': Angélique
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 75.07
+      ANI:
+        'Code Culture': ANI
+        'Libellé Culture': Anis
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 11.94
+      BAR:
+        'Code Culture': BAR
+        'Libellé Culture': Bardane
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: !!float 12
+      BAS:
+        'Code Culture': BAS
+        'Libellé Culture': Basilic
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 153.16
+      BRH:
+        'Code Culture': BRH
+        'Libellé Culture': 'Bourrache de 5 ans ou moins'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 37.77
+      BTN:
+        'Code Culture': BTN
+        'Libellé Culture': 'Betterave non fourragère / Bette'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 413025.72
+      CAV:
+        'Code Culture': CAV
+        'Libellé Culture': Carvi
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 1.33
+      CHR:
+        'Code Culture': CHR
+        'Libellé Culture': 'Chardon Marie'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 191.41
+      CIB:
+        'Code Culture': CIB
+        'Libellé Culture': Ciboulette
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 214.99
+      CML:
+        'Code Culture': CML
+        'Libellé Culture': Cameline
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 565.75
+      CMM:
+        'Code Culture': CMM
+        'Libellé Culture': Camomille
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 383.55
+      CRD:
+        'Code Culture': CRD
+        'Libellé Culture': Coriandre
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 3156.02
+      CRF:
+        'Code Culture': CRF
+        'Libellé Culture': Cerfeuil
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 24.52
+      CUM:
+        'Code Culture': CUM
+        'Libellé Culture': Cumin
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: !!float 0
+      CUR:
+        'Code Culture': CUR
+        'Libellé Culture': Curcuma
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: !!float 0
+      EST:
+        'Code Culture': EST
+        'Libellé Culture': Estragon
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 188.33
+      FNO:
+        'Code Culture': FNO
+        'Libellé Culture': Fenouil
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 453.76
+      FNU:
+        'Code Culture': FNU
+        'Libellé Culture': Fenugrec
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 497.94
+      HBL:
+        'Code Culture': HBL
+        'Libellé Culture': Houblon
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 462.64
+      LAV:
+        'Code Culture': LAV
+        'Libellé Culture': 'Lavande / Lavandin'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 22219.47
+      MAV:
+        'Code Culture': MAV
+        'Libellé Culture': Mauve
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 13.06
+      MLI:
+        'Code Culture': MLI
+        'Libellé Culture': Mélisse
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 176.05
+      MLP:
+        'Code Culture': MLP
+        'Libellé Culture': Millepertuis
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 21.1
+      MOT:
+        'Code Culture': MOT
+        'Libellé Culture': Moutarde
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 7697.37
+      MRJ:
+        'Code Culture': MRJ
+        'Libellé Culture': 'Marjolaine / Origan'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 78.11
+      MTH:
+        'Code Culture': MTH
+        'Libellé Culture': Menthe
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 275.74
+      OSE:
+        'Code Culture': OSE
+        'Libellé Culture': Oseille
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 24.99
+      PAR:
+        'Code Culture': PAR
+        'Libellé Culture': 'Plante aromatique (autre que vanille)'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: !!float 0
+      PMD:
+        'Code Culture': PMD
+        'Libellé Culture': 'Plante médicinale'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: !!float 0
+      PPA:
+        'Code Culture': PPA
+        'Libellé Culture': 'Autre plante à parfum, aromatique et médicinale annuelle'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 8748.51
+      PPF:
+        'Code Culture': PPF
+        'Libellé Culture': 'Plante à parfum (autre que géranium et vétiver)'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: !!float 0
+      PPP:
+        'Code Culture': PPP
+        'Libellé Culture': 'Autre plante à parfum, aromatique et médicinale pérenne'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 7621.7
+      PSL:
+        'Code Culture': PSL
+        'Libellé Culture': Persil
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 1288.98
+      PSN:
+        'Code Culture': PSN
+        'Libellé Culture': 'Psyllium noir de Provence'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 196.49
+      PSY:
+        'Code Culture': PSY
+        'Libellé Culture': 'Plantain psyllium'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 19.51
+      ROM:
+        'Code Culture': ROM
+        'Libellé Culture': Romarin
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 101.68
+      SGE:
+        'Code Culture': SGE
+        'Libellé Culture': Sauge
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 2856.71
+      SRI:
+        'Code Culture': SRI
+        'Libellé Culture': Sarriette
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 87.73
+      TAB:
+        'Code Culture': TAB
+        'Libellé Culture': Tabac
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 3417.38
+      THY:
+        'Code Culture': THY
+        'Libellé Culture': Thym
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 445.01
+      TOT:
+        'Code Culture': TOT
+        'Libellé Culture': 'Tomate pour transformation'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 2554.36
+      VAL:
+        'Code Culture': VAL
+        'Libellé Culture': Valériane
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: 12.28
+      VNB:
+        'Code Culture': VNB
+        'Libellé Culture': 'Vanille sous bois'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: !!float 0
+      VNL:
+        'Code Culture': VNL
+        'Libellé Culture': Vanille
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: !!float 0
+      VNV:
+        'Code Culture': VNV
+        'Libellé Culture': 'Vanille verte'
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: !!float 0
+      YLA:
+        'Code Culture': YLA
+        'Libellé Culture': Ylang-ylang
+        'Code Groupe Culture': '24'
+        'Libellé Groupe Culture': 'Autres cultures industrielles'
+        surfHa: !!float 0
+      AIL:
+        'Code Culture': AIL
+        'Libellé Culture': Aïl
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 3147.15
+      ART:
+        'Code Culture': ART
+        'Libellé Culture': 'Artichaut '
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 5252.94
+      AUB:
+        'Code Culture': AUB
+        'Libellé Culture': Aubergine
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 83.42
+      BLT:
+        'Code Culture': BLT
+        'Libellé Culture': Bleuet
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 33.79
+      BUR:
+        'Code Culture': BUR
+        'Libellé Culture': 'Bugle rampante'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: !!float 0
+      CAR:
+        'Code Culture': CAR
+        'Libellé Culture': Carotte
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 13180.48
+      CCN:
+        'Code Culture': CCN
+        'Libellé Culture': 'Concombre / Cornichon'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 117.47
+      CCT:
+        'Code Culture': CCT
+        'Libellé Culture': 'Courgette / Citrouille'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 1755.09
+      CEL:
+        'Code Culture': CEL
+        'Libellé Culture': Céleri
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 1224.57
+      CES:
+        'Code Culture': CES
+        'Libellé Culture': 'Chicorée / Endive / Scarole'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 11510.72
+      CHU:
+        'Code Culture': CHU
+        'Libellé Culture': Chou
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 16604.48
+      CMB:
+        'Code Culture': CMB
+        'Libellé Culture': 'Courge musquée / Butternut'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 1859.06
+      CRA:
+        'Code Culture': CRA
+        'Libellé Culture': 'Cresson alénois de 5 ans ou moins'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 8.41
+      CRN:
+        'Code Culture': CRN
+        'Libellé Culture': Cornille
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: !!float 0
+      CRS:
+        'Code Culture': CRS
+        'Libellé Culture': Cresson
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 53.57
+      CSS:
+        'Code Culture': CSS
+        'Libellé Culture': 'Culture sous serre hors sol'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 309.61
+      DOL:
+        'Code Culture': DOL
+        'Libellé Culture': Dolique
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: !!float 0
+      EPI:
+        'Code Culture': EPI
+        'Libellé Culture': Épinard
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 1262.55
+      FLA:
+        'Code Culture': FLA
+        'Libellé Culture': 'Autre légume ou fruit annuel'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 20146.94
+      FLP:
+        'Code Culture': FLP
+        'Libellé Culture': 'Autre légume ou fruit pérenne'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 7264.91
+      FRA:
+        'Code Culture': FRA
+        'Libellé Culture': Fraise
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 2353.23
+      GER:
+        'Code Culture': GER
+        'Libellé Culture': Géranium
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: !!float 0
+      HAR:
+        'Code Culture': HAR
+        'Libellé Culture': 'Haricot / Flageolet'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 30275.77
+      HPC:
+        'Code Culture': HPC
+        'Libellé Culture': 'Horticulture ornementale de plein champ'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: !!float 0
+      HSA:
+        'Code Culture': HSA
+        'Libellé Culture': 'Horticulture ornementale sous abri'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: !!float 0
+      LBF:
+        'Code Culture': LBF
+        'Libellé Culture': 'Laitue / Batavia / Feuille de chêne'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 3980.83
+      LSA:
+        'Code Culture': LSA
+        'Libellé Culture': 'Légume sous abri'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: !!float 0
+      MAC:
+        'Code Culture': MAC
+        'Libellé Culture': Mâche
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 2138.45
+      MLO:
+        'Code Culture': MLO
+        'Libellé Culture': Melon
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 12393.19
+      MRG:
+        'Code Culture': MRG
+        'Libellé Culture': Marguerite
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 11.63
+      NVT:
+        'Code Culture': NVT
+        'Libellé Culture': Navet
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 698.81
+      OIG:
+        'Code Culture': OIG
+        'Libellé Culture': 'Oignon / Échalote'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 18385.18
+      PAN:
+        'Code Culture': PAN
+        'Libellé Culture': Panais
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 268.19
+      PAQ:
+        'Code Culture': PAQ
+        'Libellé Culture': Pâquerette
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 22.2
+      PAS:
+        'Code Culture': PAS
+        'Libellé Culture': Pastèque
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 73.04
+      PMV:
+        'Code Culture': PMV
+        'Libellé Culture': Primevère
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 9.48
+      POR:
+        'Code Culture': POR
+        'Libellé Culture': Poireau
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 3258.69
+      POT:
+        'Code Culture': POT
+        'Libellé Culture': 'Potiron / Potimarron'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 1277.5
+      PPO:
+        'Code Culture': PPO
+        'Libellé Culture': 'Petits pois'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 36668.64
+      PSE:
+        'Code Culture': PSE
+        'Libellé Culture': Pensée
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 3.11
+      PTC:
+        'Code Culture': PTC
+        'Libellé Culture': 'Pomme de terre de consommation'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 152967.17
+      PTF:
+        'Code Culture': PTF
+        'Libellé Culture': 'Pomme de terre féculière'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 23245.44
+      PVP:
+        'Code Culture': PVP
+        'Libellé Culture': 'Poivron / Piment'
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 291.33
+      RDI:
+        'Code Culture': RDI
+        'Libellé Culture': Radis
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 1291.29
+      ROQ:
+        'Code Culture': ROQ
+        'Libellé Culture': Roquette
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 215.58
+      RUT:
+        'Code Culture': RUT
+        'Libellé Culture': Rutabaga
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 94.22
+      SFI:
+        'Code Culture': SFI
+        'Libellé Culture': Salsifis
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 643.3
+      TOM:
+        'Code Culture': TOM
+        'Libellé Culture': Tomate
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 462.68
+      TOP:
+        'Code Culture': TOP
+        'Libellé Culture': Topinambour
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 206.81
+      VER:
+        'Code Culture': VER
+        'Libellé Culture': Véronique
+        'Code Groupe Culture': '25'
+        'Libellé Groupe Culture': 'Légumes ou fleurs'
+        surfHa: 0.55
+      CSA:
+        'Code Culture': CSA
+        'Libellé Culture': 'Canne à sucre - autre'
+        'Code Groupe Culture': '26'
+        'Libellé Groupe Culture': 'Canne à sucre'
+        surfHa: !!float 0
+      CSF:
+        'Code Culture': CSF
+        'Libellé Culture': 'Canne à sucre - fermage'
+        'Code Groupe Culture': '26'
+        'Libellé Groupe Culture': 'Canne à sucre'
+        surfHa: !!float 0
+      CSI:
+        'Code Culture': CSI
+        'Libellé Culture': 'Canne à sucre - indivision'
+        'Code Groupe Culture': '26'
+        'Libellé Groupe Culture': 'Canne à sucre'
+        surfHa: !!float 0
+      CSP:
+        'Code Culture': CSP
+        'Libellé Culture': 'Canne à sucre - propriété ou faire valoir direct'
+        'Code Groupe Culture': '26'
+        'Libellé Groupe Culture': 'Canne à sucre'
+        surfHa: !!float 0
+      CSR:
+        'Code Culture': CSR
+        'Libellé Culture': 'Canne à sucre - réforme foncière'
+        'Code Groupe Culture': '26'
+        'Libellé Groupe Culture': 'Canne à sucre'
+        surfHa: !!float 0
+      ACA:
+        'Code Culture': ACA
+        'Libellé Culture': 'Autre culture non précisée dans la liste (admissible)'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: !!float 0
+      BFP:
+        'Code Culture': BFP
+        'Libellé Culture': 'Bande admissible le long d''une forêt avec production'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 4361.62
+      BFS:
+        'Code Culture': BFS
+        'Libellé Culture': 'Bande admissible le long d''une forêt sans production'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 3377.05
+      BOR:
+        'Code Culture': BOR
+        'Libellé Culture': 'Bordure de champ'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 9359.97
+      BRO:
+        'Code Culture': BRO
+        'Libellé Culture': 'Brome de 5 ans ou moins'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: !!float 505
+      BTA:
+        'Code Culture': BTA
+        'Libellé Culture': 'Bande tampon'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 59055.79
+      CAE:
+        'Code Culture': CAE
+        'Libellé Culture': 'Châtaigneraie entretenue par des porcins ou des petits ruminants'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 11121.93
+      CEE:
+        'Code Culture': CEE
+        'Libellé Culture': 'Chênaie entretenue par des porcins ou des petits ruminants'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 28686.66
+      CID:
+        'Code Culture': CID
+        'Libellé Culture': "Cultures conduites en interrangs\_: 2 cultures représentant chacune plus de 25%"
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 796.28
+      CIT:
+        'Code Culture': CIT
+        'Libellé Culture': "Cultures conduites en interrangs\_: 3 cultures représentant chacune plus de 25%"
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 126.23
+      CUA:
+        'Code Culture': CUA
+        'Libellé Culture': 'Culture sous abattis'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: !!float 0
+      MCT:
+        'Code Culture': MCT
+        'Libellé Culture': Miscanthus
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 4535.1
+      MPA:
+        'Code Culture': MPA
+        'Libellé Culture': 'Autre mélange de plantes fixant l''azote'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 1518.77
+      MRS:
+        'Code Culture': MRS
+        'Libellé Culture': 'Marais salant'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 792.85
+      NYG:
+        'Code Culture': NYG
+        'Libellé Culture': Nyger
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 2.64
+      PCL:
+        'Code Culture': PCL
+        'Libellé Culture': 'Phacélie de 5 ans ou moins'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 606.3
+      PEP:
+        'Code Culture': PEP
+        'Libellé Culture': Pépinière
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 9963.46
+      ROS:
+        'Code Culture': ROS
+        'Libellé Culture': Roselière
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 2220.78
+      SBO:
+        'Code Culture': SBO
+        'Libellé Culture': 'Surface boisée sur une ancienne terre agricole'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 12356.99
+      SNA:
+        'Code Culture': SNA
+        'Libellé Culture': 'Surface non agricole non visible sur l''orthophotographie'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: !!float 0
+      SNE:
+        'Code Culture': SNE
+        'Libellé Culture': 'Surface agricole temporairement non exploitée'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 136054.89
+      TBT:
+        'Code Culture': TBT
+        'Libellé Culture': 'Tubercule tropical'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: !!float 0
+      TCR:
+        'Code Culture': TCR
+        'Libellé Culture': 'Taillis à courte rotation'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 3650.33
+      TRU:
+        'Code Culture': TRU
+        'Libellé Culture': 'Truffière (chênaie de plants mycorhizés)'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: 5075.89
+      VET:
+        'Code Culture': VET
+        'Libellé Culture': Vétiver
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: !!float 0
+      ZZZ:
+        'Code Culture': ZZZ
+        'Libellé Culture': 'Culture inconnue'
+        'Code Groupe Culture': '28'
+        'Libellé Groupe Culture': Divers
+        surfHa: !!float 0

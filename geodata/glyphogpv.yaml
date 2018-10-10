@@ -1,0 +1,12 @@
+title: viewer de glyphogp
+abstract: |
+  La [carte correspondante peut être générée ici](id.php/geodata/glyphogpv/map/display?latlon=47.135,-1.730&zoom=14).
+  
+  **URL de test**:
+    
+    - [doc](id.php/geodata/glyphogpv)
+    - [parcelles 14/8110/5753.png](id.php/geodata/glyphogpv/layers/parcelles/14/8110/5753.png)
+    - [display map](id.php/geodata/glyphogpv/map/display)
+    
+yamlClass: FeatureViewer
+featureDataset: geodata/glyphogp
