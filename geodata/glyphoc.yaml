@@ -1,15 +1,19 @@
-title: cache de glyphogv
+title: cache de glyphogpv
 abstract: |
-  La [carte correspondante peut être générée ici](id.php/geodata/glyphogpc/map/display?latlon=47.135,-1.730&zoom=14).
+  La [carte correspondante peut être générée ici](id.php/geodata/glyphoc/map/display?latlon=47.135,-1.730&zoom=14).
   
   **URL de test**:
     
-    - [doc](id.php/geodata/glyphogpv)
+    - [doc](id.php/geodata/glyphoc)
     - [parcelles 14/8110/5753.png](id.php/geodata/glyphoc/layers/parcelles/14/8110/5753.png)
+    - [parcelles/13/4036/2858.png](id.php/geodata/glyphoc/layers/parcelles/13/4036/2858.png)
+    - [parcelles/force/13/4036/2858.png](id.php/geodata/glyphoc/layers/parcelles/force/13/4036/2858.png)
     - [display map](id.php/geodata/glyphoc/map/display)
-    - php id.php pub /geodata/glyphoc/fill/parcelles/14/8000-8200/5650-5850
-    - php id.php pub /geodata/glyphoc/derive/zone_occupation_sol/13/4000-4100/2825-2925
-    
+    - [fill/parcelles/6/31-33/21-23](id.php/geodata/glyphoc/fill/parcelles/6/31-33/21-23)
+    - $ php id.php pub /geodata/glyphoc/fill/parcelles/8/126-126/89-89
+    - $ php id.php pub /geodata/glyphoc/fill/parcelles/8/127-127/89-89
+
+        
 yamlClass: TileCache
 tileServer: geodata/glyphogpv
 layers:
