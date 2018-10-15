@@ -434,7 +434,13 @@ layersByTheme:
     zone_vegetation:
       title: zone_vegetation
       typename: BDTOPO_BDD_WLD_WGS84G:zone_vegetation
-    
+    vignes:
+      title: Vignes
+      select: zone_vegetation / nature='Vigne'
+    vergers:
+      title: Vergers
+      select: zone_vegetation / nature='Verger'
+
   Thème_Orographie:
     ligne_orographique:
       title: ligne_orographique
