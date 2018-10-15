@@ -1,6 +1,9 @@
 title: cache de glyphogpv
 abstract: |
-  La [carte correspondante peut être générée ici](id.php/geodata/glyphoc/map/display?latlon=47.135,-1.730&zoom=14).
+  Cartes correspondantes:
+    
+    - [zoom 14](id.php/geodata/glyphoc/map/display?latlon=47.135,-1.730&zoom=14)
+    - [zoom 10](id.php/geodata/glyphoc/map/display?latlon=47.5,-1.730&zoom=10)
   
   **URL de test**:
     

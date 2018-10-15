@@ -15,7 +15,7 @@ yamlClass: FeatureDataset
 wfsUrl: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
 wfsOptions:
   referer: http://gexplor.fr/
-minZoom: 14
+minZoom: 6
 maxZoom: 18
 featureModifier: |
   return function (string $typename, array $feature) use ($yaml): array {
