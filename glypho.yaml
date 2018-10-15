@@ -1,0 +1,11 @@
+title: Sortie du glyphosate
+yamlClass: YamlCatalog
+contents:
+  geodata/glyphomap:
+    title: carte proto sortie du glyphosate
+  geodata/glyphoc:
+    title: cache glyphosate
+  geodata/glyphogpv:
+    title: viewer glyphosate
+  geodata/glyphogp:
+    title: flux vecteur glyphosate
