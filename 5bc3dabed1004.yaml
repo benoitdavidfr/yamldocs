@@ -1,0 +1,94 @@
+title: réflexion sur l'intégration de catalogues de données géographiques (GeoCat)
+examples: |
+  **Exemples** :
+    
+    - [SigLoire (Pays-de-la-Loire Etat)](?doc=geocats/sigloire)
+    - [exemple d'une SD issue de SigLoire](?doc=geocats/sigloire-pprt)
+    - [Sextant (Ifremer)](?doc=geocats/sextant)
+    - [Géo-IDE](?doc=geocats/geoide)
+    - [Sigena (Nouvelle Aquitaine Etat)](?doc=geocats/sigena)
+    
+GeoCat: |
+  Un catalogue de données géographiques (GeoCat) sait exécuter une requête
+  et en retourner un ensemble de GeoDatasets et de GeoServices.  
+  C'est la même notion que celle de service de recherche Inspire (Discovery service)
+  
+GeoDataset: |
+  Un GeoDataset contient des métadonnées (titre, résumé, ...) et sait, dans le contexte du GeoCat, s'exposer comme :
+    
+    - d'une part soit un ImageDataset, soit un FeatureDataset (c'est l'opération Download d'Inspire),
+      (on pourrait aussi imaginer des GeoDataset s'exposant sous les 2 formes, par exemple une OCS)
+    - d'autre part un ViewDataset (c'est l'opération consultation d'Inspire)
+  
+  Un GeoDataset correspond à l'identification d'une SD dans le contexte d'un GeoCat.
+  Un ImageDataset ou un FeatureDataset en sont une réalisation indépendante du contexte du GeoCat.
+  
+GeoService: |
+  Un GeoService contient des métadonnées (titre, résumé, ...) et sait exécuter des requêtes et en retourner des données.  
+  Je distingue 3 types de GeoService :
+    
+    - DiscoveryService qui peut être réalisé sous la forme d'un GeoCat
+    - ViewService qui retourne des images à afficher (service de consultation)
+    - DownloadService qui retourne soit un ensemble d'objets géographiques, soit un fragment d'image
+      (service de téléchargement Inspire) (Download)
+
+implem: |
+  Un GeoCat peut être implémenté par un répertoire YamlDoc contenant :
+    - un doc index.yaml décrivant le catalogue et sachant réaliser les opérations associées
+    - éventuellement un fichier par GeoDataset et par GeoService constituant un cache de l'enregistrement correspondant
+      le nom du fichier est constitué à partir du MD5 du fileIdentifier de la fiche,
+      permettant ainsi d'identifier assez facilement les duplica entre catalogues.
+  
+  J'ai constaté qu'un enjeu est de corriger certaines infos issues de fiches CSW, par exemple les mots-clés.
+  Je pourrais associer ces corrections au GeoCat.
+
+  Le GeoCat doit savoir :
+    - exécuter une requête (dont la forme est à définir) et en retourner un ensemble d'identifiants
+    - si un de ces identifiants correspond à un GeoDataset, l'interpréter comme FeatureDataset et/ou ImageDataset
+    - si un de ces identifiants correspond à un GeoService, réaliser les opérations définies pour ce type de service.
+
+api:
+  '{geocat}': renvoie les métadonnées du géocat
+  '{geocat}/spec': renvoie les specs OAI de la classe géocat
+  '{geocat}/csw?params': exécute la requête CSW
+  '{geocat}/search': |
+    exécute une recherche dans le catalogue et retourne une liste d'URI de la forme {geocat}/items/{resid}
+    Ce retour est paginé
+  '{geocat}/items/{resid}': |
+    renvoie au moins les MD de la ressource  
+      + si la ressource est une SD alors un GeoDataset est retourné,  
+        il contient l'information sur les différents services proposés download et view  
+      + si la ressource est un service WFS alors un WfsService est retourné  
+      + si la ressource est un service WMS alors un WmsService est retourné  
+      + si la ressource est un service Atom alors un AtomService est retourné  
+  '{geocat}/items/{vdsid}/download': |
+    Si la ressource est une SDV alors un FeatureDataset est retourné
+    Si plusieurs services de téléchargement sont proposés, celui par défaut est choisi (un WFS plutot qu'un Atom)
+    La liste des couches exposées par ce service est générée
+    Pour forcer l'utilisation du service WFS le mot-clé download est remplacé par wfs
+    Pour forcer l'utilisation du service Atom le mot-clé download est remplacé par atom
+    Dans ce dernier cas, une version de la SD est effectivement téléchargée
+    et stockée dans le répertoire {geocat}/{resid}
+    Prévoir dans FeatureDataset l'utilisation directe de fichiers OGR sans passer par MySql
+  '{geocat}/items/{vdsid}/download/{lyrname}?bbox={bbox}&zoom={zoom}': 
+    pour une SDV renvoie la FeatureCollection correspondant au bbox et au zoom
+  '{geocat}/items/{vdsid}/download/map/display': |
+    pour une SDV affiche la carte Leaflet correspondante avec les couches vecteur
+  '{geocat}/items/{vdsid}/view': |
+    Si la ressource est une SDV alors un ViewDataset est retourné contenant notamment la liste des couches de consultation.
+  '{geocat}/items/{vdsid}/view/{lyrname}': |
+    Si la ressource est une SDV alors une info sur la couche est retournée.
+  '{geocat}/items/{vdsid}/view/{lyrname}/{z}/{x}/{y}.{fmt}': |
+    Si la ressource est une SDV alors l'image correspondante est retournée.
+  '{geocat}/items/{vdsid}/view/map/display': |
+    pour une SDV affiche la carte Leaflet de consultation correspondante
+  '{geocat}/items/{resid}/wfs?params': 
+    pour un service WFS exécute la requête WFS
+  '{geocat}/items/{resid}/wms?params': 
+    pour un service WMS exécute la requête WMS
+
+search: |
+  - sélectionner un ou plusieurs mots-clé
+    subject={subject}
+  - recherche plein texte
+    text={text}
