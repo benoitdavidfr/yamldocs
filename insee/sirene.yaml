@@ -1,0 +1,29 @@
+title: SIRENE
+doc: |
+  Test d'utilisation du web-service SIRENE de l'INSEE.  
+  La base SIRENE contient des unités légales (siren) et des établissements (siret).
+  
+  **URI de test**:
+    
+    - [api](id.php/insee/sirene/api)
+    - [requête /siren/005520135](id.php/insee/sirene/siren/005520135)
+    - [requête /siret?q=codeCommuneEtablissement:92046](id.php/sirene/sirene/siret?q=codeCommuneEtablissement:92046)
+    - [requête /siret?q=categorieJuridiqueUniteLegale:7120](id.php/insee/sirene/siret?q=categorieJuridiqueUniteLegale:7120)
+    - [Société civile d'intérêt collectif agricole (SICA) ](id.php/insee/sirene/siret?q=categorieJuridiqueUniteLegale:6532)
+  
+  **URL de test**:
+    
+    - [requête /siren/005520135](?ypath=/siren/005520135)
+    - [requête /siret?q=codeCommuneEtablissement:92046](?ypath=/siret/q=codeCommuneEtablissement:92046)
+    - [Service central d'un ministère](?ypath=/siret/q=categorieJuridiqueUniteLegale:7120)
+    - [Société civile d'intérêt collectif agricole (SICA) ](?ypath=/siret/q=categorieJuridiqueUniteLegale:6532)
+    
+  
+yamlClass: SireneApi
+#siret: { codeCommuneEtablissement: 92046 }
+#siret: { categorieJuridiqueUniteLegale: 6532 } # Société civile d'intérêt collectif agricole (SICA)
+#siret: '03879504300017'
+#siret: { categorieJuridiqueUniteLegale: 7120 } # Service central d'un ministère 
+#siren: '130005721' #  COMMISSARIAT GENERAL AU DEVELOPPEMENT DURABLE 
+#siret: 13000572100068 #  COMMISSARIAT GENERAL AU DEVELOPPEMENT DURABLE 
+#siret: { categorieJuridiqueUniteLegale: 6535 } # Groupement agricole foncier

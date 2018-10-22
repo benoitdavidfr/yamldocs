@@ -1,0 +1,33 @@
+title: IRIS-GE
+abstract: |
+  
+  La [carte correspondante peut être générée ici](id.php/geodata/irisge/map/display?latlon=47.135,-1.730&zoom=11).
+  
+  L'appel WFS semble ne fonctionner qu'en Lambert93 !
+  
+  URL de test:
+    
+    - [doc IRIS-GE](id.php/geodata/irisge)
+    - [requete en WGS84 renvoyant un résultat vide
+    ](http://localhost/yamldoc/id.php/geodata/igngpwfs/query?VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=STATISTICALUNITS.IRISGE.FXX:iris_ge&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&COUNT=10&STARTINDEX=0&BBOX=46.9,-2.1,47.2,-1.3)
+    - [requete en Lambert93 ok
+     ](http://localhost/yamldoc/id.php/geodata/igngpwfs/query?VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=STATISTICALUNITS.IRISGE.FXX:iris_ge&OUTPUTFORMAT=application/json&SRSNAME=EPSG:2154&COUNT=10&STARTINDEX=0&BBOX=338000,6678300,346000,6683000)
+    - [requete BDTOPO_BDD_WLD_WGS84G:zone_vegetation en WGS84 ok
+    ](http://localhost/yamldoc/id.php/geodata/igngpwfs/query?VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=BDTOPO_BDD_WLD_WGS84G:zone_vegetation&OUTPUTFORMAT=application/json&SRSNAME=EPSG:4326&COUNT=10&STARTINDEX=0&BBOX=46.9,-2.1,47.2,-1.8)
+    - [requete BDTOPO_BDD_WLD_WGS84G:zone_vegetation en Lambert93 vide
+     ](http://localhost/yamldoc/id.php/geodata/igngpwfs/query?VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=BDTOPO_BDD_WLD_WGS84G:zone_vegetation&OUTPUTFORMAT=application/json&SRSNAME=EPSG:2154&COUNT=10&STARTINDEX=0&BBOX=338000,6678300,346000,6683000)
+
+
+identifier: http://professionnels.ign.fr/irisge
+yamlClass: FeatureDataset
+wfsUrl: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
+wfsOptions:
+  referer: http://gexplor.fr/
+minZoom: 10
+maxZoom: 18
+
+layers:
+  iris_ge_fxx:
+    title: IRIS GE métropole
+    style: { color: green, weight: 1, opacity: 0.65 }
+    typename: STATISTICALUNITS.IRISGE.FXX:iris_ge

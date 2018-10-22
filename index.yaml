@@ -17,6 +17,8 @@ contents:
     title: Consultation de données géographiques
   geocats:
     title: Consultation de catalogues de données géographiques (GeoCat)
+  insee:
+    title: Utilisation des API de l'INSEE
   dgs:
     title: Données géographiques souveraines
   geohisto:

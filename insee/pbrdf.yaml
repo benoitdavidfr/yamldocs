@@ -1,0 +1,18 @@
+title: problème de l'utilisation de RDF par l'INSEE
+doc: |
+  L'INSEE évoque dans différentes pages son utilisation de RDF pour diffuser certaines données
+  mais il n'est pas clair:
+    
+    - sur l'actualisation des données, il semble que seul le COG 2016 ait été publié
+    - sur son engagement à maintenir cette diffusion
+    
+exempleMaj2018: |
+  Création au 1/1/2018 de la commune : Val-de-Bonnieure – 16300
+  à la place de:
+    
+    - Saint-Amant-de-Bonnieure
+    - Saint-Angeau
+    - Sainte-Colombe
+    
+  est bien pris en compte dans le web-service et le RDF.
+  
