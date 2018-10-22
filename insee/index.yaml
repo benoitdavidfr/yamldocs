@@ -1,0 +1,9 @@
+title: Utilisation des API INSEE
+yamlClass: YamlCatalog
+contents:
+  sirene:
+    title: Utilisation de la base SIRENE
+  nomapi:
+    title: Utilisation du web-service nomenclatures de l'INSEE
+  pbrdf:
+    title: Utilisation RDF par l'INSEE

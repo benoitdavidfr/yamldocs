@@ -1,0 +1,16 @@
+title: Nomenclatures INSEE
+doc: |
+  Test d'utilisation du web-service Nomenclatures de l'INSEE.  
+  
+  **URI de test**:
+    
+    - [api](id.php/insee/nomapi/api)
+    - [requête /geo/commune/55323](id.php/insee/nomapi/geo/commune/55323)
+  
+  **URL de test**:
+    
+    - [requête /geo/commune/55323](?ypath=/geo/commune/55323)
+    - [requête /codes/cj/n3/7120](?ypath=/codes/cj/n3/7120)
+    
+  
+yamlClass: InseeNomApi
