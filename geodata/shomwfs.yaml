@@ -1,40 +1,20 @@
-title: Serveur WFS du SHOM
+title: Serveur WFS Inspire du Shom
 creator: Shom
 abstract: |
   Le serveur WFS du Shom expose différentes couches.
-
+    
   URL de test:
-  
+    
     - [getCapabilities](id.php/geodata/shomwfs/getCapabilities),
       [capabilities](id.php/geodata/shomwfs/capabilities)
     - [query](id.php/geodata/shomwfs/query?request=GetCapabilities)
     - [liste des couches](id.php/geodata/shomwfs/ft)
-    - [description de la couche DELMAR_BDD_WFS:au_baseline](id.php/geodata/shomwfs/ft/DELMAR_BDD_WFS:au_baseline)
-    - [nom du champ géométrique de la couche DELMAR_BDD_WFS:au_baseline
-      ](id.php/geodata/shomwfs/ft/DELMAR_BDD_WFS:au_baseline/geomPropertyName)
-    - [numberMatched pour DELMAR_BDD_WFS:au_baseline ss bbox
-      ](id.php/geodata/shomwfs/ft/DELMAR_BDD_WFS:au_baseline/numberMatched)
-    - [numberMatched pour DELMAR_BDD_WFS:au_maritimeboundary_economicexclusivezone ss bbox
-      ](id.php/geodata/shomwfs/ft/DELMAR_BDD_WFS:au_maritimeboundary_economicexclusivezone/numberMatched)
-    - [numberMatched pour DELMAR_BDD_WFS:au_baseline et bbox=-12.2,45.0,3.7,52
-      ](id.php/geodata/shomwfs/ft/DELMAR_BDD_WFS:au_baseline/numberMatched?bbox=-112.2,-45.0,113.7,52)
-    - [getFeature pour DELMAR_BDD_WFS:au_baseline ss bbox
-      ](id.php/geodata/shomwfs/ft/DELMAR_BDD_WFS:au_baseline/getFeature)
-    - [getFeature pour DELMAR_BDD_WFS:au_maritimeboundary_economicexclusivezone ss bbox
-      ](id.php/geodata/shomwfs/ft/DELMAR_BDD_WFS:au_maritimeboundary_economicexclusivezone/getFeature)
-    - [getFeature pour DELMAR_BDD_WFS:au_baseline et bbox=-12.2,45.0,3.7,52
-      ](id.php/geodata/shomwfs/ft/DELMAR_BDD_WFS:au_baseline/getFeature?bbox=2.2,48.0,3.7,48.6)
-    - [getAllFeatures pour DELMAR_BDD_WFS:au_baseline et bbox=2.2,48.0,3.7,48.6
-      ](id.php/geodata/shomwfs/ft/DELMAR_BDD_WFS:au_baseline/getAllFeatures?bbox=2.2,48.0,3.7,48.6)
-    - [getFeature pour DELMAR_BDD_WFS:au_baseline sans bbox et sans where
-      ](id.php/geodata/shomwfs/ft/DELMAR_BDD_WFS:au_baseline/getFeature)
-
-bugs:
-  bug20180904: |
-    L'URL: http://services.data.shom.fr/INSPIRE/wfs?SERVICE=WFS&VERSION=2.0.0&REQUEST=GetFeature&TYPENAMES=DELMAR_BDD_WFS:au_baseline&OUTPUTFORMAT=application/json&SRSNAME=CRS:84&COUNT=100&STARTINDEX=0
-    génère l'erreur:
-      java.lang.RuntimeException: java.io.IOException
-      java.io.IOExceptionCannot do natural order without a primary key, please add it or specify a manual sort over existing attributes
-    
+    - [description de la couche DAM_CLASS_ZONES_MAR_WFS:classed_polygone_3857
+      ](id.php/geodata/shomwfs/ft/DAM_CLASS_ZONES_MAR_WFS:classed_polygone_3857)
+    - [nom du champ géométrique de la couche DAM_CLASS_ZONES_MAR_WFS:classed_polygone_3857
+      ](id.php/geodata/shomwfs/ft/DAM_CLASS_ZONES_MAR_WFS:classed_polygone_3857/geomPropertyName)
+    - [getFeature pour DAM_CLASS_ZONES_MAR_WFS:classed_polygone_3857 et bbox=-10,48.0,3.7,48.6
+      ](id.php/geodata/shomwfs/ft/DAM_CLASS_ZONES_MAR_WFS:classed_polygone_3857/getFeature?bbox=-10,48.0,3.7,48.6)
+  
 yamlClass: WfsServerJson
 wfsUrl: http://services.data.shom.fr/INSPIRE/wfs

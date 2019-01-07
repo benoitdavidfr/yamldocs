@@ -1,0 +1,5 @@
+title: Serveur DumbTileServer de test
+abstract: |
+  Modif de la clé le 2/10/2018 pour y mettre ttes les ressources disponibles sur le GP.  
+      
+yamlClass: DumbTileServer

@@ -1,0 +1,66 @@
+title: Données vecteur du Shom
+creator: Shom
+abstract: |
+  Affichage des données vecteurs du Shom exposées par le service WFS.
+  
+  La carte correspondante peut être
+  [générée ici pour St Léger les Vignes, zoom 14](id.php/geodata/shomds/map/display?latlon=47.135,-1.730&zoom=14).  
+  
+identifier: http://www.shom.fr/les-services-en-ligne/portail-datashomfr/
+journal: |
+  3/11/2018:
+    - création
+yamlClass: FeatureDataset
+wfsUrl: http://services.data.shom.fr/INSPIRE/wfs
+wfsOptions:
+minZoom: 1
+maxZoom: 21
+
+layersByTheme:
+  Thème_Règlementation_DAM:
+    zones_maritimes_c:
+      title: Classes c des zones maritimes (polygones)
+      typename: DAM_CLASS_ZONES_MAR_WFS:classec_polygone_3857
+    zones_maritimes_d:
+      title: Classes d des zones maritimes (polygones)
+      typename: DAM_CLASS_ZONES_MAR_WFS:classed_polygone_3857
+    zones_maritimes_l:
+      title: Classes des zones maritimes (lignes)
+      typename: DAM_CLASS_ZONES_MAR_WFS:classeb_lines_3857
+  Thème_Cartes_GéoTiff:
+    geotiff30:
+      title: Cartes GéoTiff échelles > 1/30K
+      typename: CARTES_MARINES_GRILLE:grille_geotiff_30
+    geotiff30_300:
+      title: Cartes GéoTiff échelles entre 1/30K et 1/300K
+      typename: CARTES_MARINES_GRILLE:grille_geotiff_30_300
+    geotiff300_800:
+      title: Cartes GéoTiff échelles entre 1/300K et 1/800K
+      typename: CARTES_MARINES_GRILLE:grille_geotiff_300_800
+    geotiff800:
+      title: Cartes GéoTiff échelles < 1/800K
+      typename: CARTES_MARINES_GRILLE:grille_geotiff_800
+  Thème_Délimitations_maritimes:
+    baseline:
+      title: baseline
+      typename: DELMAR_BDD_WFS:au_baseline
+    agreedMaritimeBoundary:
+      title: agreed maritime boundary
+      typename: DELMAR_BDD_WFS:au_maritimeboundary_agreedmaritimeboundary
+    nonAgreedMaritimeBoundary:
+      title: non agreed maritime boundary
+      typename: DELMAR_BDD_WFS:au_maritimeboundary_nonagreedmaritimeboundary
+    territorialSea:
+      title: territorial sea
+      typename: DELMAR_BDD_WFS:au_maritimeboundary_territorialsea
+    contiguousZone:
+      title: contiguous zone
+      typename: DELMAR_BDD_WFS:au_maritimeboundary_contiguouszone
+    continentalShelf:
+      title: continental shelf
+      typename: DELMAR_BDD_WFS:au_maritimeboundary_continentalshelf
+    economicExclusiveZone:
+      title: economic exclusive zone
+      typename: DELMAR_BDD_WFS:au_maritimeboundary_economicexclusivezone
+
+

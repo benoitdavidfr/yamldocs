@@ -1,0 +1,175 @@
+title: RDF, RDFS and XSD vocabularies
+language: en
+source:
+  - https://www.w3.org/TR/rdf-schema/
+yamlClass: YData
+tables:
+  classes:
+    title: RDF(S) classes
+    elementURI:
+      rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+      rdfs: http://www.w3.org/2000/01/rdf-schema#
+    jSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema des classes RDF et RDFS
+      type: object
+      patternProperties: # la propriété est l'identifiant de l'élément
+        '^[\:a-zA-Z]+$':
+          type: object
+          required: [ comment ]
+          properties:
+            comment:
+              type: string
+            instanceOf:
+              type: string
+            subclassOf:
+              type: string
+    data:
+      rdfs:Resource:
+        comment: The class resource, everything. All other classes are subclasses of this class.
+        instanceOf: rdfs:Class
+      rdfs:Literal:
+        comment: The class of literal values, e.g. textual strings and integers.
+      rdf:langString:
+        comment: The class of language-tagged string literal values.
+        instanceOf: rdfs:Datatype
+        subclassOf: rdfs:Literal
+      rdf:HTML:
+        comment: The class of HTML literal values.
+        instanceOf: rdfs:Datatype
+        subclassOf: rdfs:Literal
+      rdf:XMLLiteral:
+        comment: The class of XML literal values.
+        instanceOf: rdfs:Datatype
+        subclassOf: rdfs:Literal
+      rdfs:Class:
+        comment: The class of resources that are RDF classes.
+        instanceOf: rdfs:Class
+      rdf:Property:
+        comment: The class of RDF properties.
+        instanceOf: rdfs:Class
+      rdfs:Datatype:
+        comment: The class of RDF datatypes. Each instance of rdfs:Datatype is a subclass of rdfs:Literal.
+        instanceOf: rdfs:Class
+        subclassOf: rdfs:Class
+      rdf:Statement:
+        comment: The class of RDF statements.
+      rdfs:Container:
+        comment: a super-class of the RDF Container classes, i.e. rdf:Bag, rdf:Seq, rdf:Alt.
+      rdf:Bag:
+        comment: |
+          The class of unordered containers.  
+          Whilst formally it is no different from an rdf:Seq or an rdf:Alt, the rdf:Bag class is used conventionally
+          to indicate to a human reader that the container is intended to be unordered.
+        subclassOf: rdfs:Container
+      rdf:Seq:
+        comment: |
+          The class of ordered containers.  
+          Whilst formally it is no different from an rdf:Bag or an rdf:Alt, the rdf:Seq class is used conventionally
+          to indicate to a human reader that the numerical ordering of the container membership properties 
+          of the container is intended to be significant.
+        subclassOf: rdfs:Container
+      rdf:Alt:
+        comment: |
+          the class of RDF 'Alternative' containers.  
+          Whilst formally it is no different from an rdf:Seq or an rdf:Bag, the rdf:Alt class is used conventionally
+          to indicate to a human reader that typical processing will be to select one of the members of the container.
+          The first member of the container, i.e. the value of the rdf:_1 property, is the default choice.
+      rdfs:ContainerMembershipProperty:
+        comment: |
+          The class of container membership properties, rdf:_1, rdf:_2, ..., all of which are sub-properties of 'member'.
+          Each instance of rdfs:ContainerMembershipProperty is an rdfs:subPropertyOf the rdfs:member property.
+        subclassOf: rdf:Property
+      rdf:List:
+        comment: The class of RDF Lists.
+  properties:
+    title: RDF(S) properties
+    jSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema des propriétés RDF et RDFS
+      type: object
+      patternProperties: # la propriété est l'identifiant de l'élément
+        '^[:a-zA-Z]+$':
+          type: object
+          required: [ comment, domain, range ]
+          properties:
+            comment:
+              type: string
+            domain:
+              type: string
+            range:
+              type: string
+    data:
+      rdf:type:
+        comment: The subject is an instance of a class.
+        domain: rdfs:Resource
+        range: rdfs:Class
+      rdfs:subClassOf:
+        comment: used to state that all the instances of one class are instances of another.
+        domain: rdfs:Class
+        range: rdfs:Class
+      rdfs:subPropertyOf:
+        comment: used to state that all resources related by one property are also related by another.
+        domain: rdf:Property
+        range: rdf:Property
+      rdfs:domain:
+        comment: used to state that any resource that has a given property is an instance of one or more classes.
+        domain: rdf:Property
+        range: rdfs:Class
+      rdfs:range:
+        comment: used to state that the values of a property are instances of one or more classes.
+        domain: rdf:Property
+        range: rdfs:Class
+      rdfs:label:
+        comment: used to provide a human-readable name of a resource.
+        domain: rdfs:Resource
+        range: rdfs:Literal
+      rdfs:comment:
+        comment: used to provide a human-readable description of a resource.
+        domain: rdfs:Resource
+        range: rdfs:Literal
+      rdfs:member:
+        comment: A member of the subject resource.
+        domain: rdfs:Resource
+        range: rdfs:Resource
+      rdf:first:
+        comment: The first item in the subject RDF list
+        domain: rdf:List
+        range: rdfs:Resource
+      rdf:rest:
+        comment: The rest of the subject RDF list after the first item.
+        domain: rdf:List
+        range: rdf:List
+      rdfs:seeAlso:
+        comment: used to indicate a resource that might provide additional information about the subject resource.
+        domain: rdfs:Resource
+        range: rdfs:Resource
+      rdfs:isDefinedBy:
+        comment: >
+          used to indicate a resource defining the subject resource.
+          This property may be used to indicate an RDF vocabulary in which a resource is described.
+        domain: rdfs:Resource
+        range: rdfs:Resource
+      rdf:value:
+        comment: Idiomatic property used for structured values.
+        domain: rdfs:Resource
+        range: rdfs:Resource
+      rdf:subject:
+        comment: The subject of the subject RDF statement
+        domain: rdf:Statement
+        range: rdfs:Resource
+      rdf:predicate:
+        comment: The predicate of the subject RDF statement.
+        domain: rdf:Statement
+        range: rdfs:Resource
+      rdf:object:
+        comment: The object of the subject RDF statement.
+        domain: rdf:Statement
+        range: rdfs:Resource
+
+  xsd:
+    title: XSD vocabulary
+    elementURI:
+      xsd: http://www.w3.org/2001/XMLSchema#
+    data:
+

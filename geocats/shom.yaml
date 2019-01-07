@@ -1,0 +1,16 @@
+title: catalogue Shom
+abstract: |
+  test de la classe Geocat  
+  **URL de test html**:
+    
+    - [affichage des mots-clés](?ypath=/listSubjects)
+    
+  **URL de test JSON**:
+    
+    - [affichage du doc](id.php/geocats/shom)
+    - [build](id.php/geocats/shom/build)
+    - [listSubjects](id.php/geocats/shom/listSubjects)
+    - [MD des GéoTIFF](id.php/geocats/shom/items/792b9499826260f642511b196b2d1347)
+    
+yamlClass: Geocat
+cswUrl: https://services.data.shom.fr/geonetwork/srv/fre/csw-produits

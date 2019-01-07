@@ -2,23 +2,24 @@ title: éléments de MD du Dublin Core
 description: |
   Le **Dublin Core** est un schéma de métadonnées générique permettant de décrire des ressources numériques ou physiques
   et d’établir des relations entre ressources.
-  Il comprend les [15 éléments de métadonnées, appelés "Dublin Core Metadata Element Set (DCMES)", listés ici en français et en anglais](?ypath=/tables/dcmes/data/KEY,name,definition,comment).
+  Il comprend les [15 éléments de métadonnées, appelés "Dublin Core Metadata Element Set (DCMES)", listés ici en français](?ypath=/dcmes/*/_id,name.fr,definition.fr,description.fr).
   La signification de certains éléments peut être précisée à l'aide de raffinements
   qui restreignent la signification d'un élément, mais sans la changer fondamentalement ;
-  [certains raffinements intéressants sont listés ici](?ypath=/tables/dcmes/data/KEY,name,refinements).
+  [certains raffinements intéressants sont listés ici](?ypath=/dcmes/*/_id,name.fr,refinements).
   Lorsque ces raffinements sont utilisés, on parle de **Dublin Core qualifié**. 
   
   Le DCMI (Dublin Core Metadata Initiative), un forum ouvert pour le développement d'un standard de métadonnées ouvert,   a poursuivi ces travaux et a notamment défini :
     
     - des éléments supplémentaires,
-      [sont listés ici ceux mentionnés par la BNF](?ypath=/tables/extension/data) ;
-    - une [liste de vocabulaires contrôlés recommandés](?ypath=/tables/cvoc/data)
-      dont un [vocabulaire de types de ressources](?ypath=/tables/DCMIType/data) ;
-    - une [liste de syntaxes de codage définie ici](?ypath=/tables/encoding/data).
+      [sont listés ici ceux mentionnés par la BNF](?ypath=/extension/*) ;
+    - une [liste de vocabulaires contrôlés recommandés](?ypath=/cvoc/*)
+      dont un [vocabulaire de types de ressources](?ypath=/DCMIType/*) ;
+    - une [liste de syntaxes de codage définie ici](?ypath=/encoding/*).
   
+  Défintion le 5/1/2019 des schéma JSON de chaque table
 publisher: https://github.com/benoitdavidfr
 created: 2018-06-05
-modified: 2018-06-17
+modified: 2019-01-05
 source:
   - https://fr.wikipedia.org/wiki/Dublin_Core
   - http://www.dublincore.org/documents/dces/
@@ -29,45 +30,73 @@ source:
 language: [fr, en]
 relation:
 rights: https://www.etalab.gouv.fr/licence-ouverte-open-licence
-yamlClass: YamlData
+yamlClass: YData
 tables:
   dcmes:
     title: liste des 15 éléments de métadonnées d'origine, appelé "Dublin Core Metadata Element Set (DCMES)" + raffinements de ces éléments
     elementURI:
-      - chaque élément d'origine est identifié par un URI de la forme http://purl.org/dc/elements/1.1/{KEY}
-      - chaque raffinement est identifié par un URI de la forme http://purl.org/dc/terms/{KEY}
-    yamlSchema:
-      KEYS:
-        ROOT:
-          data:
-            - id // identifiant de l'élément
-          data/name:
-            - language // langue du nom
-          data/definition:
-            - language // langue de la définition
-          data/comment:
-            - language // langue du commentaire
-          data/refinements:
-            - id // identifiant de l'élément de raffinement
-          data/refinements/name:
-            - language // langue du nom de l'élément de raffinement
-          data/refinements/definition:
-            - language // langue de la définition de l'élément de raffinement
-      ROOT:
-        data:
-          KEY: # identifiant de l'élément
+      - chaque élément d'origine est identifié par un URI de la forme http://purl.org/dc/elements/1.1/{_id}
+      - chaque raffinement est identifié par un URI de la forme http://purl.org/dc/terms/{_id}
+    jSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema des éléments DCMES
+      description: Les éléments DCMES ont comme clé leur identifiant officiel
+      type: object
+      patternProperties: # la propriété est l'identifiant de l'élément
+        '^[a-zA-Z]+$':
+          description: description de chaque élément
+          type: object
+          required: [ name ]
+          properties:
             name:
-              KEY: STRING // nom dans la langue définie par la clé
-            definition?:
-              KEY: STRING // définition dans la langue définie par la clé
-            comment?:
-              KEY: STRING // commentaire dans la langue définie par la clé
-            refinements?: # raffinements
-              KEY: # identifiant de l'élément
-                name:
-                  KEY: STRING // nom du raffinement dans la langue définie par la clé
-                definition?:
-                  KEY: STRING // définition dans la langue définie par la clé
+              description: le nom officiel de l'élément dans différentes langues
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: nom officiel dans la langue définie par la propriété correspondant à son code ISO 639-1
+            definition:
+              description: la définition de l'élément dans différentes langues
+              anyOf:
+                - type: 'null'
+                - type: object
+                  patternProperties:
+                    '^..$':
+                      type: string
+                      description: définition dans la langue définie par la propriété correspondant à son code ISO 639-1
+            description:
+              description: un commentaire sur l'élément dans différentes langues
+              anyOf:
+                - type: 'null'
+                - type: object
+                  patternProperties:
+                    '^..$':
+                      type: string
+                      description: commentaire dans la langue définie par la propriété correspondant à son code ISO 639-1
+            refinements:
+              description: des raffinements éventuels avec comme clé l'identifiant du raffinement
+              type: object
+              patternProperties: # la propriété est l'identifiant du raffinement
+                '^[a-zA-Z]+$':
+                  description: description de chaque raffinement
+                  type: object
+                  required: [ name ]
+                  properties:
+                    name:
+                      description: le nom du raffinement dans différentes langues
+                      type: object
+                      patternProperties:
+                        '^..$':
+                          type: string
+                          description: nom officiel dans la langue définie par la propriété
+                    definition:
+                      description: la définition du raffinement dans différentes langues
+                      type: object
+                      patternProperties:
+                        '^..$':
+                          type: string
+                          description: définition dans la langue définie par la propriété
+
     data:
       title:
         name:
@@ -75,6 +104,7 @@ tables:
           en: Title
         definition:
           fr: Titre principal du document
+        description:
         refinements:
           alternative:
             name:
@@ -90,15 +120,19 @@ tables:
         name:
           fr: Sujet
           en: Subject
-        comment:
-          fr: Le sujet sera typiquement représenté à l'aide de mots-clés, de phrases-clés ou de codes de classification. La pratique exemplaire recommandée est d'employer un vocabulaire contrôlé. Pour décrire la nature spatiale ou temporelle de la ressource, utilisez l'élément coverage.
+        definition:
+          fr: Le sujet sera typiquement représenté à l'aide de mots-clés, de phrases-clés ou de codes de classification.
+        description:
+          fr: >
+            La pratique exemplaire recommandée est d'employer un vocabulaire contrôlé.
+            Pour décrire la nature spatiale ou temporelle de la ressource, utilisez l'élément coverage.
       description:
         name:
           fr: Description
           en: Description
         definition:
           fr: Une explication de la ressource.
-        comment:
+        description:
           fr: Résumé, table des matières, ou texte libre.
         refinements:
           tableOfContents:
@@ -162,7 +196,7 @@ tables:
         name:
           fr: Type de ressource
           en: Type
-        comment:
+        description:
           fr: >
             La pratique exemplaire recommandée est d'employer un vocabulaire contrôlé
             tel que le [vocabulaire de types DCMI](?ypath=/tables/DCMIType/data).
@@ -178,7 +212,7 @@ tables:
           en: Format
         definition:
           fr: Le format de fichier, le support physique ou les dimensions de la ressource.
-        comment:
+        description:
           fr: >
             Comme exemples de dimensions, la taille et la durée. La pratique exemplaire recommandée est d'employer un
             vocabulaire contrôlé
@@ -203,7 +237,7 @@ tables:
           en: Identifier
         definition:
           fr: Une référence univoque vers la ressource dans un contexte donné.
-        comment:
+        description:
           fr: >
             Identificateur non ambigu ; il est recommandé d'utiliser un système de référencement précis,
             afin que l'identifiant soit unique au sein du site, par exemple les URI ou les numéros ISBN.
@@ -217,14 +251,16 @@ tables:
           en: Source
         definition:
           fr: Une ressource liée de laquelle dérive la ressource décrite.
-        comment:
+        description:
           fr: >
             La ressource décrite peut dériver de la ressource liée entièrement ou en partie. La pratique exemplaire recommandée est d'identifier la ressource liée au moyen d'une chaîne conforme à un système d'identification formel.
       language:
         name:
           fr: Langue
           en: Language
-        comment:
+        definition:
+          fr: La langue dans laquelle la ressource est définie.
+        description:
           fr: >
             La pratique exemplaire recommandée est d'employer un vocabulaire contrôlé
             tel que [RFC 4646](?ypath=/tables/encoding/data/RFC4646).
@@ -237,7 +273,7 @@ tables:
           en: Relation
         definition:
           fr: Lien avec d'autres ressources.
-        comment:
+        description:
           fr: De nombreux raffinements permettent d'établir des liens précis, par exemple de version, de chapitres, de standard, etc.
         refinements:
           isVersionOf:
@@ -267,7 +303,7 @@ tables:
           isRequiredBy:
             name:
               fr: Est exigé par
-            definiton:
+            definition:
               fr: Une ressource liée qui exige de la ressource décrite qu'elle soutienne sa fonction, sa distribution ou sa cohérence.
               en: A related resource that requires the described resource to support its function, delivery, or coherence.
           requires:
@@ -339,7 +375,7 @@ tables:
           en: Rights
         definition:
           fr: Une information à propos des droits détenus dans et sur la ressource.
-        comment:
+        description:
           fr: Les droits comprennent typiquement une déclaration à propos des divers droits de propriété associés à la ressource, y compris les droits de propriété intellectuelle.
         refinements:
           accessRights:
@@ -356,31 +392,48 @@ tables:
   extension:
     title: éléments supplémentaires mentionnés par la BNF
     elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{name}
-    yamlSchema:
-      KEYS:
-        ROOT:
-          data:
-            - name // identifiant de l'élément
-          data/label:
-            - language // langue de l'étiquette
-          data/definition:
-            - language // langue de la définition
-          data/guidelinesForContentCreation:
-            - language // langue des directives
-          data/examples:
-            - language // langue des exemples
-      ROOT:
-        data:
-          KEY: # identifiant de l'élément
+    jSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema des éléments supplémentaires
+      description: Les éléments supplémentaires ont comme clé leur identifiant officiel
+      type: object
+      patternProperties: # la propriété est l'identifiant de l'élément
+        '^[a-zA-Z]+$':
+          description: description de chaque élément
+          type: object
+          required: [ name ]
+          properties:
             name:
-              KEY: STRING // étiquette dans la langue définie par la clé
-            definition?:
-              KEY: STRING // définition dans la langue définie par la clé
-            guidelinesForContentCreation?:
-              KEY: STRING // directives pour la création de contenu dans la langue définie par la clé
+              description: le nom officiel de l'élément dans différentes langues
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: nom officiel dans la langue définie par la propriété correspondant à son code ISO 639-1
+            definition:
+              description: la définition de l'élément dans différentes langues
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: définition dans la langue définie par la propriété correspondant à son code ISO 639-1
+            guidelinesForContentCreation:
+              description: instructions pour la création de contenu dans différentes langues
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: instructions dans la langue définie par la propriété correspondant à son code ISO 639-1
             examples:
-              KEY:
-                - STRING // exemples dans la langue définie par la clé
+              description: exemples dans différentes langues
+              type: object
+              patternProperties:
+                '^..$':
+                  description: exemples dans la langue définie par la propriété correspondant à son code ISO 639-1
+                  type: array
+                  items:
+                    type: string
+                    description: chaque exemple
     data:
       audience:
         name:
@@ -419,26 +472,40 @@ tables:
 
   cvoc:
     title:
-      fr: Schémas de codage de vocabulaire
+      fr: Schémas de codage de vocabulaire, c'est à dire vocabulaires contrôlés recommandés
       en: Vocabulary Encoding Schemes
-    elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{KEY}
-    yamlSchema:
-      KEYS:
-        ROOT:
-          data:
-            - name // identifiant de l'élément
-          data/label:
-            - language // langue de l'étiquette de l'élément
-          data/definition:
-            - language // langue de la définition de l'élément
-      ROOT:
-        data:
-          KEY:
+    elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{_id}
+    jSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schéma de la description des vocabulaires contrôlés
+      description: Les vocabulaires ont comme clé leur identifiant officiel
+      type: object
+      patternProperties: # la propriété est l'identifiant du vocabulaire
+        '^[a-zA-Z]+$':
+          description: description de chaque vocabulaire contrôlé
+          type: object
+          required: [ name, definition, availableAt ]
+          properties:
             name:
-              KEY: STRING // étiquette dans la langue définie par la clé
+              description: le nom officiel du vocabulaire dans différentes langues
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: nom officiel dans la langue définie par la propriété correspondant à son code ISO 639-1
             definition:
-              KEY: STRING // définition dans la langue définie par la clé
-            see: STRING // référence vers plus d'informations
+              description: la définition du vocabulaire dans différentes langues
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: définition dans la langue définie par la propriété correspondant à son code ISO 639-1
+            content:
+              description: texte Markdown avec lien interne détaillant le vocabulaire
+              type: string
+            availableAt:
+              description: URL vers un document définissant le vocabulaire
+              type: string
     data:
       DCMIType:
         name:
@@ -449,63 +516,63 @@ tables:
         content: |
           [contenu](?ypath=/tables/DCMIType/data)
             
-        see: http://dublincore.org/documents/dcmi-type-vocabulary/
+        availableAt: http://dublincore.org/documents/dcmi-type-vocabulary/
       DDC:
         name:
           fr: classification décimale de Dewey
           en: Dewey Decimal Classification
         definition:
           fr: L'ensemble des ressources conceptuelles spécifiées par la classification décimale de Dewey (Dewey Decimal Classification).
-        see: http://www.oclc.org/dewey/
+        availableAt: http://www.oclc.org/dewey/
       IMT:
         name:
           fr: types de média spécifiés par l'IANA
           en: Internet Media Types
         definition:
           fr: L'ensemble des types de média spécifiés par l'IANA (Internet Assigned Numbers Authority).
-        see: http://www.iana.org/assignments/media-types/
+        availableAt: http://www.iana.org/assignments/media-types/
       LCC:
         name:
           fr: classification de la Bibliothèque du Congrès
           en: Library of Congress Classification
         definition:
           fr: L'ensemble des ressources conceptuelles spécifiées par la classification de la Bibliothèque du Congrès (Library of Congress Classification).
-        see: http://lcweb.loc.gov/catdir/cpso/lcco/lcco.html
+        availableAt: http://lcweb.loc.gov/catdir/cpso/lcco/lcco.html
       LCSH:
         name:
           fr: vedettes-matière de la bibiothèque du congrès américain
           en: Library of Congress Subject Headings
         definition:
           fr: L'ensemble des concepts étiquetés spécifiés par les rubriques LCSH (Library of Congress Subject Headings).
-        see: http://id.loc.gov/authorities/subjects.html
+        availableAt: http://id.loc.gov/authorities/subjects.html
       MESH:
         name:
           fr: vedettes-matière de la bibiothèque nationale de médecine des Etats-Unis (MeSH)
           en: Medical Subject Headings
         definition:
           fr: L'ensemble des concepts étiquetés spécifiés par les rubriques MeSH (Medical Subject Headings).
-        see: http://www.nlm.nih.gov/mesh/meshhome.html
+        availableAt: http://www.nlm.nih.gov/mesh/meshhome.html
       NLM:
         name:
           fr: classification de la Bibliothèque nationale de médecine des Etats-Unis (NLM)
           en: National Library of Medicine Classification (NLM)
         definition:
           fr: L'ensemble des ressources conceptuelles spécifiées par la classification de la Bibliothèque nationale de médecine (National Library of Medicine).
-        see: http://wwwcf.nlm.nih.gov/class/
+        availableAt: http://wwwcf.nlm.nih.gov/class/
       TGN:
         name:
           fr: thésaurus Getty des noms géographiques (TGN)
           en: Getty Thesaurus of Geographic Names (TGN)
         definition:
           fr: L'ensemble des lieux spécifiés par le thésaurus Getty des noms géographiques (Getty Thesaurus of Geographic Names).
-        see: http://www.getty.edu/research/tools/vocabulary/tgn/index.html
+        availableAt: http://www.getty.edu/research/tools/vocabulary/tgn/index.html
       UDC:
         name:
           fr: classification décimale universelle
           en: Universal Decimal Classification
         definition:
           fr: L'ensemble des ressources conceptuelles spécifiées par la classification décimale universelle (Universal Decimal Classification).
-        see: http://www.udcc.org/index.php/site/page?view=about
+        availableAt: http://www.udcc.org/index.php/site/page?view=about
     
   DCMIType:
     title: DCMI Type Vocabulary
@@ -514,82 +581,108 @@ tables:
     publisher: http://purl.org/dc/aboutdcmi#DCMI
     source: http://purl.org/dc/dcmitype/
     description: structuration in YamlData of the source document
-    yamlClass: YamlData
+    elementURI: each type is identified by an URI following the following model http://purl.org/dc/dcmitype/{_id}
+    jSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema of DCMI Types
+      description: The key of each DCMI type is the official identifier
+      type: object
+      patternProperties: # the property is the identifier of the type
+        '^[a-zA-Z]+$':
+          description: description of each type
+          type: object
+          required: [ name, uri, definition ]
+          properties:
+            name:
+              description: the name du type
+              type: string
+            uri:
+              description: the URI of the type
+              type: string
+            definition:
+              description: the definition of the type
+              type: string
+            description:
+              description: a comment on the type
+              type: string
+            examples:
+              description: examples of resources of the type
+              type: string
     data:
       Collection:
-        label: Collection
+        name: Collection
         uri: http://purl.org/dc/dcmitype/Collection
-        comment: An aggregation of resources.
+        definition: An aggregation of resources.
         description: A collection is described as a group; its parts may also be separately described.
       Dataset:
-        label: Dataset
+        name: Dataset
         uri: http://purl.org/dc/dcmitype/Dataset
-        comment: Data encoded in a defined structure.
+        definition: Data encoded in a defined structure.
         description: A dataset may be useful for direct machine processing.
-        example: lists, tables, and databases.
+        examples: lists, tables, and databases.
       Event:
-        label: Event
+        name: Event
         uri: http://purl.org/dc/dcmitype/Event
-        comment: A non-persistent, time-based occurrence.
+        definition: A non-persistent, time-based occurrence.
         description: Metadata for an event provides descriptive information that is the basis for discovery of the purpose, location, duration, and responsible agents associated with an event.
-        example: an exhibition, webcast, conference, workshop, open day, performance, battle, trial, wedding, tea party, conflagration.
+        examples: an exhibition, webcast, conference, workshop, open day, performance, battle, trial, wedding, tea party, conflagration.
       Image:
-        label: Image
+        name: Image
         uri: http://purl.org/dc/dcmitype/Image
-        comment: A visual representation other than text.
+        definition: A visual representation other than text.
         description: Image may include both electronic and physical representations.
-        example: >
+        examples: >
           images and photographs of physical objects, paintings, prints, drawings, other images and graphics, animations
           and moving pictures, film, diagrams, maps, musical notation.
       InteractiveResource:
-        label: Interactive Resource
+        name: Interactive Resource
         uri: http://purl.org/dc/dcmitype/InteractiveResource
-        comment: A resource requiring interaction from the user to be understood, executed, or experienced.
-        example: forms on Web pages, applets, multimedia learning objects, chat services, or virtual reality environments.
+        definition: A resource requiring interaction from the user to be understood, executed, or experienced.
+        examples: forms on Web pages, applets, multimedia learning objects, chat services, or virtual reality environments.
       MovingImage:
-        label: Moving Image
+        name: Moving Image
         uri: http://purl.org/dc/dcmitype/MovingImage
-        comment: A series of visual representations imparting an impression of motion when shown in succession.
+        definition: A series of visual representations imparting an impression of motion when shown in succession.
         description: Instances of the type Moving Image must also be describable as instances of the broader type Image.
-        example: animations, movies, television programs, videos, zoetropes, or visual output from a simulation.
+        examples: animations, movies, television programs, videos, zoetropes, or visual output from a simulation.
       PhysicalObject:
-        label: Physical Object
+        name: Physical Object
         uri: http://purl.org/dc/dcmitype/PhysicalObject
-        comment: An inanimate, three-dimensional object or substance.
+        definition: An inanimate, three-dimensional object or substance.
         description: Note that digital representations of, or surrogates for, these objects should use Image, Text or one of the other types.
       Service:
-        label: Service
+        name: Service
         uri: http://purl.org/dc/dcmitype/Service
-        comment: A system that provides one or more functions.
-        example: a photocopying service, a banking service, an authentication service, interlibrary loans, a Z39.50 or Web server.
+        definition: A system that provides one or more functions.
+        examples: a photocopying service, a banking service, an authentication service, interlibrary loans, a Z39.50 or Web server.
       Software:
-        label: Software
+        name: Software
         uri: http://purl.org/dc/dcmitype/Software
-        comment: A computer program in source or compiled form.
-        example: a C source file, MS-Windows .exe executable, or Perl script.
+        definition: A computer program in source or compiled form.
+        examples: a C source file, MS-Windows .exe executable, or Perl script.
       Sound:
-        label: Sound
+        name: Sound
         uri: http://purl.org/dc/dcmitype/Sound
-        comment: A resource primarily intended to be heard.
-        example: a music playback file format, an audio compact disc, and recorded speech or sounds.
+        definition: A resource primarily intended to be heard.
+        examples: a music playback file format, an audio compact disc, and recorded speech or sounds.
       StillImage:
-        label: StillImage
+        name: Still Image
         uri: http://purl.org/dc/dcmitype/StillImage
-        comment: A static visual representation.
+        definition: A static visual representation.
         description: Instances of the type Still Image must also be describable as instances of the broader type Image.
-        example: paintings, drawings, graphic designs, plans and maps. Recommended best practice is to assign the type Text to images of textual materials.
+        examples: paintings, drawings, graphic designs, plans and maps. Recommended best practice is to assign the type Text to images of textual materials.
       Text:
-        label: Text
+        name: Text
         uri: http://purl.org/dc/dcmitype/Text
-        comment: A resource consisting primarily of words for reading.
+        definition: A resource consisting primarily of words for reading.
         description: Note that facsimiles or images of texts are still of the genre Text.
-        example: books, letters, dissertations, poems, newspapers, articles, archives of mailing lists. 
+        examples: books, letters, dissertations, poems, newspapers, articles, archives of mailing lists. 
         
   encoding:
     title:
       fr: Schémas de codage de syntaxe
       en: Syntax Encoding Schemes
-    elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{KEY}
+    elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{_id}
     yamlSchema:
       KEYS:
         ROOT:
@@ -606,23 +699,69 @@ tables:
             see?: STRING // référence vers plus d'informations
             comment?:
               KEY: STRING // commentaire dans la langue définie par la clé
+    jSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema of the Syntax Encoding Schemes
+      description: The key of each scheme is its official identifier
+      type: object
+      patternProperties: # the property is the identifier of the scheme
+        '^[a-zA-Z][-a-zA-Z0-9]*$':
+          description: description of each scheme
+          type: object
+          required: [ name, isAvailableAt ]
+          properties:
+            name:
+              description: the official name in different languages
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: official name in the language defined by the property corresponding to ISO 639-1 code
+            definition:
+              description: the definition of the type in different languages
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: official name in the language defined by the property corresponding to ISO 639-1 code
+            examples:
+              description: examples of resources of the type
+              type: [array, object]
+            isAvailableAt:
+              description: the URI of the type
+              type: string
+            description:
+              description: a comment on the type
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: comment in the language defined by the property corresponding to ISO 639-1 code
+            isReplacedBy:
+              description: link with label in Markdown
+              type: string
+            replaces:
+              description: link with label in Markdown
+              type: string
     data:
       W3CDTF:
         name:
           fr: spécification des formats de dates et d'heures du W3C
           en: W3C Date and Time Formats Specification
-        example:
-          - {title: Year, format: YYYY, eg: '1997'}
-          - {title: Year and month, format: YYYY-MM, eg: '1997-07'}
-          - {title: Complete date, format: YYYY-MM-DD, eg: '1997-07-16'}
-          - {title: Complete date plus hours and minutes, format: YYYY-MM-DDThh:mmTZD, eg: '1997-07-16T19:20+01:00'}
+        definition:
+          en: defines a restricted range of formats, all of which are valid ISO 8601 dates and times
+        examples:
+          - {title: Year, format: YYYY, example: '1997'}
+          - {title: Year and month, format: YYYY-MM, example: '1997-07'}
+          - {title: Complete date, format: YYYY-MM-DD, example: '1997-07-16'}
+          - {title: Complete date plus hours and minutes, format: YYYY-MM-DDThh:mmTZD, example: '1997-07-16T19:20+01:00'}
           - title: Complete date plus hours, minutes and seconds
             format: YYYY-MM-DDThh:mm:ssTZD
-            eg: '1997-07-16T19:20:30+01:00'
+            example: '1997-07-16T19:20:30+01:00'
           - title: Complete date plus hours, minutes, seconds and a decimal fraction of a second
             format: YYYY-MM-DDThh:mm:ss.sTZD
-            eg: '1997-07-16T19:20:30.45+01:00'
-        see: http://www.w3.org/TR/NOTE-datetime
+            example: '1997-07-16T19:20:30.45+01:00'
+        isAvailableAt: http://www.w3.org/TR/NOTE-datetime
       Period:
         name:
           fr: schéma de codage DCMI Period
@@ -630,11 +769,11 @@ tables:
         definition:
           fr: Schéma de codage utilisé pour définir des intervalles de temps par leurs limites.
           en: Encoding Scheme used to define time intervals by their limits.
-        example:
+        examples:
           - name=The Great Depression; start=1929; end=1939;
           - name=Perth International Arts Festival, 2000; start=2000-01-26; end=2000-02-20;
           - start=1999-09-25T14:20+10:00; end=1999-09-25T16:40+10:00; scheme=W3C-DTF;
-        see: http://dublincore.org/documents/dcmi-period/
+        isAvailableAt: http://dublincore.org/documents/dcmi-period/
       Point:
         name:
           fr: schéma de codage DCMI Point
@@ -642,11 +781,11 @@ tables:
         definition:
           fr: Schéma de codage utilisé pour définir des points dans l'espace par leurs coordonnées géographiques.
           en: Encoding Scheme used to define points in space  by their geographic coordinates.
-        example:
+        examples:
           - name=Perth, W.A.; east=115.85717; north=-31.95301
           - name=Bridgnorth, Shropshire, U.K.; east=372000; north=293000; units=m; projection=U.K. National Grid
           - east=148.26218; north=-36.45746; elevation=2228; name=Mt. Kosciusko
-        see: http://dublincore.org/documents/dcmi-point/
+        isAvailableAt: http://dublincore.org/documents/dcmi-point/
       Box:
         name:
           en: DCMI Box Encoding Scheme
@@ -654,7 +793,7 @@ tables:
         definition:
           fr: Schéma de codage utilisé pour définir les régions dans l'espace par leurs coordonnées géographiques.
           en: Ecoding scheme used to define regions in space by their geographic coordinates.
-        example:
+        examples:
           - title: Western Australia
             code: name=Western Australia; northlimit=-13.5; southlimit=-35.5; westlimit=112.5; eastlimit=129
           - title: Lake Jindabyne
@@ -665,12 +804,12 @@ tables:
             code: northlimit=23.5; southlimit=-23.5
           - title: A mine, illustrating the use of 3-D coordinates
             code: northlimit=-21.3; southlimit=-21.4; westlimit=139.8; eastlimit=139.9; uplimit=400; downlimit=-100; name=Duchess copper mine
-        see: http://dublincore.org/documents/dcmi-box/
+        isAvailableAt: http://dublincore.org/documents/dcmi-box/
       ISO3166:
         name:
           fr: codes listés dans la norme ISO 3166-1 pour la représentation des noms de pays
           en: codes listed in ISO 3166-1 for the representation of names of countries
-        example:
+        examples:
           FR: France
           GB: Royaume-Uni de Grande-Bretagne et d'Irlande du Nord
           DE: Allemagne
@@ -688,55 +827,69 @@ tables:
           TF: Terres australes et antarctiques françaises
           WF: Wallis-et-Futuna
           CP: Ile de Clipperton
-        see: http://www.iso.org/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html
+        isAvailableAt: http://www.iso.org/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html
       ISO639-2:
         name:
           fr: codes alphabétiques de trois lettres listés dans la norme ISO 639-2 pour la représentation des noms des langues
           en: three-letter alphabetic codes listed in ISO639-2 for the representation of names of languages
-        example:
+        examples:
           fre: français (code bibliographique)
           fra: français (code terminologique)
           eng: anglais
           deu: allemand
-        see: http://lcweb.loc.gov/standards/iso639-2/langhome.html
-        comment: |
-          La coexistence pour certaines langues d'un code bibliographique et d'un code terminologique est due a des
-          raisons historiques. Il existait 2 codifications et il était impossible de supprimer un des codages.
-          Les 2 codes doivent être considérés comme synonymes.
-          (source: https://www.loc.gov/standards/iso639-2/faq.html#3)
+        isAvailableAt: http://lcweb.loc.gov/standards/iso639-2/langhome.html
+        description:
+          fr: |
+            La coexistence pour certaines langues d'un code bibliographique et d'un code terminologique est due a des
+            raisons historiques. Il existait 2 codifications et il était impossible de supprimer un des codages.
+            Les 2 codes doivent être considérés comme synonymes.
+            (source: https://www.loc.gov/standards/iso639-2/faq.html#3)
       ISO639-3:
         name:
           fr: codes de trois lettres listés dans la norme ISO 639-3 pour la représentation des noms des langues
           en: three-letter alphabetic codes listed in ISO639-3 for the representation of names of languages
-        comment: semble peu utilisé
-        see: http://www.sil.org/iso639-3/
+        description:
+          fr: semble peu utilisé
+        isAvailableAt: http://www.sil.org/iso639-3/
       RFC1766:
         name:
           fr: Etiquettes pour l'identification des langues (RFC 1766)
           en: Tags for the Identification of Languages (RFC 1766)
-        see: http://www.ietf.org/rfc/rfc1766.txt
+        examples:
+          en: anglais
+          en-US: anglais américain
+          no-nynorsk: nouveau norvégien
+          en-cockney: cockney
+          i-cherokee: langue cherokee absente de l'ISO 639-1
+          az-arabic: écriture azéri avec l'alphabet arabe
+          az-cyrillic: écriture azéri avec l'alphabet cyrillique
+        description:
+          fr: extension compatible de l'ISO 639-1 (alpha-2), remplacé par RFC 3066, 3282   
+        isAvailableAt: http://www.ietf.org/rfc/rfc1766.txt
+        isReplacedBy: '[RFC3066](?ypath=/tables/encoding/data/RFC3066)'
       RFC3066:
         name:
           fr: Etiquettes pour l'identification des langues (RFC 3066) (remplacé by RFC 4646)
           en: Tags for the Identification of Languages (RFC 3066) (obsoleted by RFC 4646)
-        comment:
+        description:
           en: RFC 3066 has been obsoleted by RFC 4646.
         isReplacedBy: '[RFC4646](?ypath=/tables/encoding/data/RFC4646)'
-        see: http://www.ietf.org/rfc/rfc3066.txt
+        replaces: '[RFC1766](?ypath=/tables/encoding/data/RFC1766)'
+        isAvailableAt: http://www.ietf.org/rfc/rfc3066.txt
       RFC4646:
         name:
           fr: Etiquettes pour l'identification des langues (RFC 4646) (remplacé by RFC 5646)
           en: Tags for the Identification of Languages (RFC 4646) (obsoleted by RFC 5646)
-        comment:
+        description:
           en: RFC 4646 obsoletes RFC 3066 and has been obsoleted by RFC 5646.
         replaces: '[RFC3066](?ypath=/tables/encoding/data/RFC3066)'
         isReplacedBy: '[RFC5646](?ypath=/tables/encoding/data/RFC5646)'
-        see: http://www.ietf.org/rfc/rfc4646.txt
+        isAvailableAt: http://www.ietf.org/rfc/rfc4646.txt
       RFC5646:
         name:
           fr: Etiquettes pour l'identification des langues (RFC 5646)
           en: Tags for the Identification of Languages (RFC 5646)
-        example:
+        examples:
           de: allemand
           fr: français
           ja: japonais
@@ -744,15 +897,15 @@ tables:
           zh-Hant: chinois écrit utilisant l'écriture chinoise traditionnelle
           zh-Hans: chinois écrit utilisant l'écriture chinoise simplifiée
           sr-Cyrl: serbe utilisant l'écriture cyrillique
-        comment:
+        description:
           en: RFC 5646 obsoletes RFC 4646.
         replaces: '[RFC4646](?ypath=/tables/encoding/data/RFC4646)'
-        see: http://www.ietf.org/rfc/rfc5646.txt
+        isAvailableAt: http://www.ietf.org/rfc/rfc5646.txt
       URI:
         name:
           fr: syntaxe générique des identificateurs de ressource uniformes
           en: generic syntax for Uniform Resource Identifiers
-        example:
+        examples:
           - ftp://ftp.is.co.za/rfc/rfc1808.txt
           - http://www.ietf.org/rfc/rfc2396.txt
           - ldap://[2001:db8::7]/c=GB?objectClass?one
@@ -761,4 +914,4 @@ tables:
           - tel:+1-816-555-1212
           - telnet://192.0.2.16:80/
           - urn:oasis:names:specification:docbook:dtd:xml:4.1.2
-        see: http://www.ietf.org/rfc/rfc3986.txt
+        isAvailableAt: http://www.ietf.org/rfc/rfc3986.txt

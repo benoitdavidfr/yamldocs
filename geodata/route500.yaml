@@ -79,8 +79,7 @@ layers:
         'Limite de commune': {color: 'lightGrey', weight: 1}
       featurecla:
         Coastline: {color: 'blue', weight: 1}
-      default:
-        {color: 'chocolate', weight: 2}
+      default: {color: 'chocolate', weight: 2}
     displayedByDefault: true
     ogrPath: ADMINISTRATIF/LIMITE_ADMINISTRATIVE.shp
     indexes:
@@ -247,7 +246,7 @@ layers:
   badSelect: { title: badSelect,  select: limite administrative / nature='Frontière internationale' }
   badOnZoomGeo:
     title: badOnZoomGeo
-    onZoomGeo: [ 0: /geodata/ne_110m/admin_0_boundary_lines_land, 7: nature='Limite côtière', 11: all ]
+    onZoomGeox: [ 0: /geodata/ne_110m/admin_0_boundary_lines_land, 7: nature='Limite côtière', 11: all ]
 
 
 mysql_database: # Nom de la base MySQL en fonction du serveur MySQL

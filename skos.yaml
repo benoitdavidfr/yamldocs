@@ -1,65 +1,208 @@
-title: Vocabulaire SKOS de base (fr)
-description: |
-  Principaux éléments SKOS avec étiquette et définition en français.
-source: https://www.w3.org/TR/swbp-skos-core-spec/fr
-language: [fr]
-yamlClass: YamlData
-elementPrefix: http://www.w3.org/2004/02/skos/core#
+title: Vocabulaire SKOS de base (fr + en)
+abstract: |
+  Principaux éléments SKOS avec étiquette et définition en français et en anglais.  
+  [synthèse en français](?ypath=/*/_id,label.fr,definition.fr,narrower.*.label.fr),
+  [synthèse en anglais](?ypath=/*/_id,label.en,definition.en,narrower.*.label.en)
+source:
+  - https://www.w3.org/TR/swbp-skos-core-spec/
+  - https://www.w3.org/TR/swbp-skos-core-spec/fr
+language: [fr, en]
+yamlClass: YData
+elementURI: http://www.w3.org/2004/02/skos/core#
+jSchema:
+  $schema: http://json-schema.org/draft-07/schema#
+  title: Schema des éléments SKOS
+  definitions:
+    multiLingualString:
+      description: une chaine dans différentes langues
+      type: object
+      patternProperties:
+        '^..$':
+          type: string
+          description: chaine dans la langue définie par la propriété correspondant à son code ISO 639-1
+    skosElement:
+      description: description de chaque élément
+      type: object
+      required: [ type, label, definition ]
+      properties:
+        type:
+          description: type de l'élément
+          type: string
+          enum: [Class, Property]
+        label:
+          description: étiquette de l'élément dans différentes langues
+          $ref: '#/definitions/multiLingualString'
+        definition:
+          description: définition de l'élément dans différentes langues
+          $ref: '#/definitions/multiLingualString'
+        comment:
+          description: commentaire sur l'élément dans différentes langues
+          $ref: '#/definitions/multiLingualString'
+        narrower:
+          description: définition d'éléments spécifiques
+          type: object
+          patternProperties:
+            '^[a-zA-Z]+$':
+              $ref: '#/definitions/skosElement'
+  description: Table des éléments avec chacun son identifiant officiel comme clé
+  type: object
+  patternProperties: # la propriété est l'identifiant de l'élément
+    '^[a-zA-Z]+$':
+      $ref: '#/definitions/skosElement'
+
 data:
   Concept:
-    label: Concept
-    definition: Une idée ou notion abstraite.
+    type: Class
+    label: {fr: Concept, en: Concept}
+    definition:
+      fr: Une idée ou notion abstraite.
+      en: An abstract idea or notion; a unit of thought.
   ConceptScheme:
-    label: Schéma de concepts
-    definition: Un ensemble de concepts, incluant éventuellement la déclaration de relations sémantiques entre ces concepts.
+    type: Class
+    label: {fr: Schéma de concepts, en: Concept Scheme}
+    definition:
+      fr: Un ensemble de concepts, incluant éventuellement la déclaration de relations sémantiques entre ces concepts.
+      en: A set of concepts, optionally including statements about semantic relationships between those concepts.
+    comment:
+      en: >
+        Thesauri, classification schemes, subject heading lists, taxonomies, 'folksonomies', and other types of
+        controlled vocabulary are all examples of concept schemes.
+        Concept schemes are also embedded in glossaries and terminologies.
   inScheme:
-    label: élément du schéma
-    definition: Un schéma de concepts auquel le concept courant appartient.
-    comment: Un concept peut appartenir à plus d'un schéma de concepts.
+    type: Property
+    label: {fr: élément du schéma, en: in scheme}
+    definition:
+      fr: Un schéma de concepts auquel le concept courant appartient.
+      en: A concept scheme in which the concept is included.
+    comment:
+      fr: Un concept peut appartenir à plus d'un schéma de concepts.
+      en: A concept may be a member of more than one concept scheme.
   hasTopConcept:
-    label: a pour concept de niveau 1
-    definition: Indique un concept de niveau 1 dans un schéma de concepts.
+    type: Property
+    label: {fr: a pour concept de niveau 1, en: has top concept}
+    definition:
+      fr: Indique un concept de niveau 1 dans un schéma de concepts.
+      en: A top level concept in the concept scheme.
   topConceptOf:
-    label: est concept de niveau 1 de
-    definition: Indique un schéma dont le concept est de niveau 1.
+    type: Property
+    label: {fr: est concept de niveau 1 de}
+    definition:
+      fr: Indique un schéma dont le concept est de niveau 1.
   prefLabel:
-    label: forme lexicale préférentielle
-    definition: La forme lexicale préférentielle utilisée pour désigner un concept dans une langue donnée.
-    comment: >
-      Le terme préférentiel identifie le concept de façon unique dans le cadre d'un schéma. Dans un même schéma de concepts, deux concepts distincts doivent avoir des valeurs distinctes de skos:prefLabel.
+    type: Property
+    label: {fr: forme lexicale préférentielle, en: preferred label}
+    definition:
+      fr: La forme lexicale préférentielle utilisée pour désigner un concept dans une langue donnée.
+      en: The preferred lexical label for a resource, in a given language.
+    comment:
+      fr: >
+        Le terme préférentiel identifie le concept de façon unique dans le cadre d'un schéma.
+        Dans un même schéma de concepts, deux concepts distincts doivent avoir des valeurs distinctes de skos:prefLabel.
+      en: No two concepts in the same concept scheme may have the same value for skos:prefLabel in a given language.
   altLabel:
-    label: forme lexicale alternative
-    definition: Une forme lexicale alternative pour désigner un concept.
+    type: Property
+    label: {fr: forme lexicale alternative, en: alternative label}
+    definition:
+      fr: Une forme lexicale alternative pour désigner un concept.
+      en: An alternative lexical label for a resource.
+    comment:
+      en: >
+        Acronyms, abbreviations, spelling variants, and irregular plural/singular forms may be included among the
+        alternative labels for a concept. Mis-spelled terms are normally included as hidden labels (see skos:hiddenLabel).
   hiddenLabel:
-    label: forme cachée
-    definition: Une forme lexicale pour un concept, qui devrait être cachée dans une interface de visualisation, mais demeurer disponible pour les recherches plein texte.
+    type: Property
+    label: {fr: forme cachée, en: hidden label}
+    definition:
+      fr: >
+        Une forme lexicale pour un concept, qui devrait être cachée dans une interface de visualisation,
+        mais demeurer disponible pour les recherches plein texte.
+      en: >
+        A lexical label for a resource that should be hidden when generating visual displays of the resource,
+        but should still be accessible to free text search operations.
+  symbol:
+    type: Property
+    label: {en: symbolic label}
+    definition:
+      en: An image that is a symbolic label for the resource.
+    comment:
+      en: >
+        This property is roughly analagous to rdfs:label, but for labelling resources with images
+        that have retrievable representations, rather than RDF literals.
+    narrower:
+      prefSymbol:
+        type: Property
+        label: {en: preferred symbolic label}
+        definition:
+          en: The preferred symbolic label for a resource.
+        comment:
+          en: No two concepts in the same concept scheme may have the same value for skos:prefSymbol.
+      altSymbol:
+        type: Property
+        label: {en: alternative symbolic label}
+        definition:
+          en: An alternative symbolic label for a resource.
   definition:
-    label: définition
-    definition: Explication formelle de la signification d'un concept.
+    type: Property
+    label: {fr: définition, en: definition}
+    definition:
+      fr: Explication formelle de la signification d'un concept.
+      en: A statement or formal explanation of the meaning of a concept.
   note:
-    label: note
-    definition: Une note générale, d'utilisation quelconque
-  scopeNote:
-    label: note d'application
-    definition: Une note destinée à clarifier l'utilisation d'un concept.
-  editorialNote:
-    label: note éditoriale
-    definition: Une note destinée aux éditeurs, traducteurs et autres gestionnaires du vocabulaire.
-  changeNote:
-    label: note de modification
-    definition: Une note concernant une modification du concept.
-  historyNote:
-    label: note historique
-    definition: Une note concernant une signification ou utilisation passée du concept.
+    type: Property
+    label: {fr: note, en: note}
+    definition:
+      fr: Une note générale, d'utilisation quelconque
+      en: A general note, for any purpose.
+    comment:
+      en: This property may be used directly, or as a super-property for more specific note types.
+    narrower:
+      scopeNote:
+        type: Property
+        label: {fr: note d'application, en: scope note}
+        definition:
+          fr: Une note destinée à clarifier l'utilisation d'un concept.
+          en: A note that helps to clarify the meaning of a concept.
+      editorialNote:
+        type: Property
+        label: {fr: note éditoriale, en: editorial note}
+        definition:
+          fr: Une note destinée aux éditeurs, traducteurs et autres gestionnaires du vocabulaire.
+          en: A note for an editor, translator or maintainer of the vocabulary.
+      changeNote:
+        type: Property
+        label: {fr: note de modification, en: change note}
+        definition:
+          fr: Une note concernant une modification du concept.
+          en: A note about a modification to a concept.
+      historyNote:
+        type: Property
+        label: {fr: note historique, en: history note}
+        definition:
+          fr: Une note concernant une signification ou utilisation passée du concept.
+          en: A note about the past state/use/meaning of a concept.
   example:
-    label: exemple
-    definition: Un exemple.
+    type: Property
+    label: {fr: exemple, en: example}
+    definition:
+      fr: Un exemple.
+      en: An example of the use of a concept.
   broader:
-    label: concept générique
-    definition: Un concept de signification plus générique.
+    type: Property
+    label: {fr: a pour concept générique, en: has broader}
+    definition:
+      fr: Un concept de signification plus générique.
+      en: A concept that is more general in meaning.
   narrower:
-    label: concept spécifique
-    definition: Un concept de signification plus spécifique.
+    type: Property
+    label: {fr: a pour concept spécifique, en: has narrower}
+    definition:
+      fr: Un concept de signification plus spécifique.
+      en: A concept that is more specific in meaning.
+    comment:
+      en: Narrower concepts are typically rendered as children in a concept hierarchy (tree).
   related:
-    label: concept associé
-    definition: Un concept avec lequel existe une relation d'association sémantique.
+    type: Property
+    label: {fr: concept associé, en: related to}
+    definition:
+      fr: Un concept avec lequel existe une relation d'association sémantique.
+      en: A concept with which there is an associative semantic relationship.

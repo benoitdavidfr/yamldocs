@@ -17,5 +17,5 @@ abstract: |
     - [affichage de la carte](id.php/view/igngpwmts/map/display)
     
 yamlClass: WmtsServer
-url: http://wxs.ign.fr/49qcg7rckqrk3og45nm5i4s3/wmts
+url: http://wxs.ign.fr/2hl0xk4s8pz482s81o4nrilt/wmts
 referer: http://visu.gexplor.fr/viewer.php

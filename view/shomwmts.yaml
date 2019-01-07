@@ -1,0 +1,14 @@
+title: Serveur WMTS du Shom
+abstract: |
+  Test WmtsServer  
+  **URL de test**:
+    
+    - [doc en JSON](id.php/view/shomwmts/api)
+    - [api](id.php/view/shomwmts/api)
+    - [layers](id.php/view/shomwmts/layers)
+    - [DAM_LIMIT_CAT_NAVIGATION_WMTS](id.php/view/shomwmts/layers/DAM_LIMIT_CAT_NAVIGATION_WMTS)
+    - [map](id.php/view/shomwmts/map)
+    - [affichage de la carte](id.php/view/shomwmts/map/display)
+    
+yamlClass: WmtsServer
+url: https://services.data.shom.fr/INSPIRE/wmts

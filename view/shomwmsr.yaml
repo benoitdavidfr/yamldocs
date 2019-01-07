@@ -1,0 +1,13 @@
+title: Serveur WMS R du Shom
+abstract: |
+  Test WmsServer  
+  **URL de test**:
+    
+    - [doc en JSON](id.php/view/shomwmsr/api)
+    - [api](id.php/view/shomwmsr/api)
+    - [layers](id.php/view/shomwmsr/layers)
+    - [map](id.php/view/shomwmsr/map)
+    - [map/display](id.php/view/shomwmsr/map/display)
+    
+yamlClass: WmsServer
+url: https://services.data.shom.fr/INSPIRE/wms/r

@@ -1,0 +1,45 @@
+title: Ubérisons l'Etat avant que d'autres ne s'en chargent
+creator:
+  - Clément Bertholet
+  - Laura Létourneau
+publisher: Armand Colin
+partie1:
+  title: L'Etat bientôt ubérisé - la menace fantôme
+  abstract: |
+    Définition de la notion d'ubérisation.
+    Il existe un risque que l'Etat se fasse ubériser.
+  notes: |
+    proposition de définition de l'ubérisation
+    Disruption rapide de modèles économiques existants par des plateformes numériques de confiance sans infrastructures
+    physiques ni opérateurs et centrées sur le client.
+  exemples:
+    exemples d'ubérisation de l'Etat
+    Safety Check de Facebook rempalce le numéro vert du ministère de l'intérieur en cas d'attentats
+    LinkedIn mieux placé que le ministère de l'éducation pour estimer la qualité des universités
+    Google Maps fournit les informations sur les itinéraires routiers
+    Amazon qui livre à la place de La Poste
+    Facebook Connect utilisé en GB pour payer ses impots
+    WeChat en Chine qui optimise le parcours de soin
+partie2:
+  title: L'Etat contre-attaque
+  abstract: |
+    Au travers des start-up d'Etat et des EIG, l'Etat met en place une nouvelle démarche
+    Nécessité que l'Etat se transforme en méta-plateforme
+  doc:
+    - start-up d'Etat
+    - labonneboite, labonneformation, mes-aides
+    - notion de méta-plateforme, centre d'un ensemble de PF satellites
+    - finamatic, start-up privée, visant à clarifier les aides publiques aux entreprises
+    - remise en cause du modèle Webérien de l'Etat
+chap7:
+  title: Vers un renouveau démocratique ?
+  doc: |
+    - 7 familles:
+        - les citoyens autonomes
+        - les révolutionnaires (Nuit Debout, Laprimaire.org, MaVoix)
+        - les formateurs (Voxe)
+        - les transformateurs (Etalab, La 27ème région, ...)
+        - les partisans de l démocratie participative traditionnelle (conseils de quartier, commission nationale du débat public)
+        - les civic tech (Change.org, Fluicity, La Fabrique de la loi, DemocracyOS)
+        - les fédérateurs
+      - Audrey Tang, Taiwan, vTaiwan

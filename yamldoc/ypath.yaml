@@ -1,0 +1,39 @@
+title: spec ypath
+yData:
+  title: yPath sur yData correspondant à une liste de tables
+  doc: |
+    - métadonnée du document,
+      [ex](?doc=dublincoreyd&ypath=/title)
+    - une table, renvoie la table y compris ses MD,
+      [ex](?doc=dublincoreyd&ypath=/dcmes)
+    - métadonnée d'une table dont le nom de MD ne correspond pas à un identifiant de tuple,
+      [ex](?doc=dublincoreyd&ypath=/dcmes/elementURI)
+    - métadonnée d'une table dont le nom de MD correspond à un identifiant de tuple,
+      [ex](?doc=dublincoreyd&ypath=/dcmes/_title)
+    - un tuple d'une table identifié par sa clé,
+      [ex](?doc=dublincoreyd&ypath=/dcmes/subject)
+    - valeur d'un champ d'un tuple d'une table, tuple identifié par sa clé,
+      [ex](?doc=dublincoreyd&ypath=/dcmes/subject/definition)
+    - valeur d'un sous-champ d'un tuple d'une table, tuple identifié par sa clé,
+      [ex](?doc=dublincoreyd&ypath=/dcmes/subject/definition/fr),
+      [ex](?doc=dublincoreyd&ypath=/dcmes/description/refinements/tableOfContents/definition/fr)
+    - valeur d'un champ d'un tuple d'une table, tuple identifié par une valeur qqc,
+      [ex](?doc=dublincoreyd&ypath=/dcmes/name.fr=Sujet/definition)
+    - valeur d'un champ des tuples d'une table,
+      [ex](?doc=dublincoreyd&ypath=/dcmes/*/definition)
+    - valeurs de champs des tuples d'une table,
+      [ex](?doc=dublincoreyd&ypath=/dcmes/*/name,definition),
+      [ex](?doc=dublincoreyd&ypath=/dcmes/*/name.fr,definition.fr),
+      [ex](?doc=dublincoreyd&ypath=/dcmes/*/name.fr,definition.fr,refinements.*.name.fr)
+      [ex](?doc=dublincoreyd&ypath=/dcmes/*/_id,name.fr,definition.fr,refinements.*.name.fr,refinements.*._id)
+    
+    /xxx descend dans le document au travers de xxx  
+    
+    x,y,z.zz projete le document sur les champs ou sous-champs  
+    
+    /* descend en gardant tous les enregistrements de ce niveau
+    
+    .*
+    
+    
+    

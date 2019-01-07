@@ -14,5 +14,5 @@ abstract: |
     - [map](id.php/view/igngpwmsr/map)
     
 yamlClass: WmsServer
-url: http://wxs.ign.fr/49qcg7rckqrk3og45nm5i4s3/geoportail/r/wms
+url: http://wxs.ign.fr/2hl0xk4s8pz482s81o4nrilt/geoportail/r/wms
 referer: http://visu.gexplor.fr/viewer.php
