@@ -42,6 +42,7 @@ tables:
       title: Schema des éléments DCMES
       description: Les éléments DCMES ont comme clé leur identifiant officiel
       type: object
+      additionalProperties: false
       patternProperties: # la propriété est l'identifiant de l'élément
         '^[a-zA-Z]+$':
           description: description de chaque élément
