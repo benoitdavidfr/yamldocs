@@ -200,12 +200,12 @@ tables:
         description:
           fr: >
             La pratique exemplaire recommandée est d'employer un vocabulaire contrôlé
-            tel que le [vocabulaire de types DCMI](?ypath=/tables/DCMIType/data).
+            tel que le [vocabulaire de types DCMI](?ypath=/DCMIType/*).
             Pour décrire le format de fichier, le support physique ou la dimension de la ressource,
             utilisez l'élément format.
           en: >
             Recommended best practice is to use a controlled vocabulary such as the
-            [DCMI Type Vocabulary](?ypath=/tables/DCMIType/data).  
+            [DCMI Type Vocabulary](?ypath=/DCMIType/*).  
             To describe the file format, physical medium, or dimensions of the resource, use the Format element.
       format:
         name:
@@ -264,10 +264,10 @@ tables:
         description:
           fr: >
             La pratique exemplaire recommandée est d'employer un vocabulaire contrôlé
-            tel que [RFC 4646](?ypath=/tables/encoding/data/RFC4646).
+            tel que [RFC 4646](?ypath=/encoding/RFC4646).
           en: >
             Recommended best practice is to use a controlled vocabulary
-            such as [RFC 4646](?ypath=/tables/encoding/data/RFC4646).
+            such as [RFC 4646](?ypath=/encoding/RFC4646).
       relation:
         name:
           fr: Relation
@@ -515,7 +515,7 @@ tables:
         definition:
           fr: L'ensemble des classes spécifiées par le vocabulaire de types DCMI, qui sert à catégoriser la nature ou le type de la ressource.
         content: |
-          [contenu](?ypath=/tables/DCMIType/data)
+          [contenu](?ypath=/DCMIType/*)
             
         availableAt: http://dublincore.org/documents/dcmi-type-vocabulary/
       DDC:
@@ -867,15 +867,15 @@ tables:
         description:
           fr: extension compatible de l'ISO 639-1 (alpha-2), remplacé par RFC 3066, 3282   
         isAvailableAt: http://www.ietf.org/rfc/rfc1766.txt
-        isReplacedBy: '[RFC3066](?ypath=/tables/encoding/data/RFC3066)'
+        isReplacedBy: '[RFC3066](?ypath=/encoding/RFC3066)'
       RFC3066:
         name:
           fr: Etiquettes pour l'identification des langues (RFC 3066) (remplacé by RFC 4646)
           en: Tags for the Identification of Languages (RFC 3066) (obsoleted by RFC 4646)
         description:
           en: RFC 3066 has been obsoleted by RFC 4646.
-        isReplacedBy: '[RFC4646](?ypath=/tables/encoding/data/RFC4646)'
-        replaces: '[RFC1766](?ypath=/tables/encoding/data/RFC1766)'
+        isReplacedBy: '[RFC4646](?ypath=/encoding/RFC4646)'
+        replaces: '[RFC1766](?ypath=/encoding/RFC1766)'
         isAvailableAt: http://www.ietf.org/rfc/rfc3066.txt
       RFC4646:
         name:
@@ -883,8 +883,8 @@ tables:
           en: Tags for the Identification of Languages (RFC 4646) (obsoleted by RFC 5646)
         description:
           en: RFC 4646 obsoletes RFC 3066 and has been obsoleted by RFC 5646.
-        replaces: '[RFC3066](?ypath=/tables/encoding/data/RFC3066)'
-        isReplacedBy: '[RFC5646](?ypath=/tables/encoding/data/RFC5646)'
+        replaces: '[RFC3066](?ypath=/encoding/RFC3066)'
+        isReplacedBy: '[RFC5646](?ypath=/encoding/RFC5646)'
         isAvailableAt: http://www.ietf.org/rfc/rfc4646.txt
       RFC5646:
         name:
@@ -900,7 +900,7 @@ tables:
           sr-Cyrl: serbe utilisant l'écriture cyrillique
         description:
           en: RFC 5646 obsoletes RFC 4646.
-        replaces: '[RFC4646](?ypath=/tables/encoding/data/RFC4646)'
+        replaces: '[RFC4646](?ypath=/encoding/RFC4646)'
         isAvailableAt: http://www.ietf.org/rfc/rfc5646.txt
       URI:
         name:
