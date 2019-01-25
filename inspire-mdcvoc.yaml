@@ -16,7 +16,7 @@ description: |
     - la taxonomie des services géographiques de la norme EN ISO 19119,
     - les différents rôles des parties par rapport aux ressources.
     
-yamlClass: YamlSkos
+$schema: http://yamldoc.georef.eu/ydclasses/YamlSkos
 source:
   - http://data.europa.eu/eli/dir/2007/2/oj
   - https://data.europa.eu/eli/reg/2008/1205/oj

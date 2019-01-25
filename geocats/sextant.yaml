@@ -38,6 +38,6 @@ abstract: |
     - [buildOperatedBy](id.php/geocats/sigloire/buildOperatedBy)
     - [download d'une SD](id.php/geocats/sigloire/items/f62c888d1bc7d7d0e612c42a31de2d7d/download)
     
-yamlClass: Geocat
+$schema: http://yamldoc.georef.eu/ydclasses/Geocat
 cswUrl: http://sextant.ifremer.fr/geonetwork/srv/eng/csw
 www: http://sextant.ifremer.fr/

@@ -8,5 +8,5 @@ abstract: |
     - [parcelles 14/8110/5753.png](id.php/geodata/glyphogpv/layers/parcelles/14/8110/5753.png)
     - [display map](id.php/geodata/glyphogpv/map/display)
     
-yamlClass: FeatureViewer
+$schema: http://yamldoc.georef.eu/ydclasses/FeatureViewer
 featureDataset: geodata/glyphogp

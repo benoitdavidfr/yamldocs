@@ -10,5 +10,5 @@ abstract: |
     - [map](id.php/view/shomwmts/map)
     - [affichage de la carte](id.php/view/shomwmts/map/display)
     
-yamlClass: WmtsServer
+$schema: http://yamldoc.georef.eu/ydclasses/WmtsServer
 url: https://services.data.shom.fr/INSPIRE/wmts

@@ -4,7 +4,7 @@ creator: https://github.com/benoitdavidfr
 description: |
   La table mdelements liste des éléments de métadonnées Inspire + éléments ISO 191115/19119/19139 les plus fréquents.  
   La table mapDC fournit un mapping possible entre les éléments de MD Inspire et les éléments Dublin Core.  
-yamlClass: YamlData
+$schema: http://yamldoc.georef.eu/ydclasses/YamlData
 modified: 2018-07-24
 source: http://data.europa.eu/eli/reg/2008/1205/oj
 tables:

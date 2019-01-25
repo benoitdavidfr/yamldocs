@@ -1,5 +1,5 @@
 title: Données géographiques souveraines MTES-MCT
-yamlClass: YData
+$schema: http://yamldoc.georef.eu/ydclasses/YData
 tables:
   dgs:
     title: liste des types de données géographiques souveraines

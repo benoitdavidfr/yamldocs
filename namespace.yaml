@@ -4,7 +4,7 @@ abstract: |
   Ce document a pour objectif de les recenser.  
   La table namespace liste les espaces de noms avec leur identifiant bien connu et leur prefix.  
   La table elements liste les champs les plus couramment utilisés de ces espaces.  
-yamlClass: YamlData
+$schema: http://yamldoc.georef.eu/ydclasses/YamlData
 tables:
   namespace:
     title: espaces de noms

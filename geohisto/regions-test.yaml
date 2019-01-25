@@ -1,7 +1,7 @@
 title: historique des régions françaises - doc de test
 doc: |
   tester ypath=/data/name,(json-ld/sameAs),wikipedia
-yamlClass: YamlData
+$schema: http://yamldoc.georef.eu/ydclasses/YamlData
 yamlSchema:
   KEYS:
     ROOT:

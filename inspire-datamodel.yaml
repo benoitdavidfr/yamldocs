@@ -17,7 +17,7 @@ description: |
   Ce document contient les infos des versions françaises et anglaises du règlement.  
   Il correspond à la version 1.0 du 9/7/2018.
 language: [fr,en]
-yamlClass: DataModel
+$schema: http://yamldoc.georef.eu/ydclasses/DataModel
 domainScheme:
   prefLabel:
     fr: Sommaire

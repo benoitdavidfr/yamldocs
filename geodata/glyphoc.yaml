@@ -17,7 +17,7 @@ abstract: |
     - $ php id.php pub /geodata/glyphoc/fill/parcelles/8/127-127/89-89
 
         
-yamlClass: TileCache
+$schema: http://yamldoc.georef.eu/ydclasses/TileCache
 tileServer: geodata/glyphogpv
 layers:
   parcelles:

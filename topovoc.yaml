@@ -1,5 +1,5 @@
 title: Lexique topographique de l'Association Française de Topographie (partiel)
-yamlClass: YamlSkos
+$schema: http://yamldoc.georef.eu/ydclasses/YamlSkos
 date:
   - 2000
   - 2018-06-28

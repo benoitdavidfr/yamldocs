@@ -5,7 +5,7 @@ alternative:
 description: |
   description
 language: [fr,en]
-yamlClass: LegalDoc
+$schema: http://yamldoc.georef.eu/ydclasses/LegalDoc
 visa: |
   visa
 recitals:

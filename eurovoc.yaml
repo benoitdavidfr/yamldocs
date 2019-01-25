@@ -5,7 +5,7 @@ language: [fr, en]
 description:
   fr: Le thésaurus a été importé et structuré en YamlSkos
 source: http://eurovoc.europa.eu/drupal/?q=fr
-yamlClass: YamlSkos
+$schema: http://yamldoc.georef.eu/ydclasses/YamlSkos
 sameAsPrefix: http://eurovoc.europa.eu/
 domainScheme:
   prefLabel:

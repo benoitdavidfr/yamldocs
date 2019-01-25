@@ -7,7 +7,7 @@ source:
   - https://www.w3.org/TR/swbp-skos-core-spec/
   - https://www.w3.org/TR/swbp-skos-core-spec/fr
 language: [fr, en]
-yamlClass: YData
+$schema: http://yamldoc.georef.eu/ydclasses/YData
 elementURI: http://www.w3.org/2004/02/skos/core#
 jSchema:
   $schema: http://json-schema.org/draft-07/schema#

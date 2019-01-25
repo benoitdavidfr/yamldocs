@@ -15,5 +15,5 @@ abstract: |
     - [map](id.php/view/pratique/map)
     - [affichage de la carte](id.php/view/pratique/map/display)
     
-yamlClass: WmtsServer
+$schema: http://yamldoc.georef.eu/ydclasses/WmtsServer
 url: http://wxs.ign.fr/pratique/wmts

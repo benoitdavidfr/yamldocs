@@ -25,6 +25,6 @@ abstract: |
     - [buildOperatedBy](id.php/geocats/sigloire/buildOperatedBy)
     - [download d'une SD](id.php/geocats/sigloire/items/f62c888d1bc7d7d0e612c42a31de2d7d/download)
     
-yamlClass: Geocat
+$schema: http://yamldoc.georef.eu/ydclasses/Geocat
 cswUrl: https://www.sigena.fr/geonetwork/srv/fre/csw
 www: https://www.sigena.fr/accueil/credits/liens

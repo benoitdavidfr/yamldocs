@@ -18,7 +18,7 @@ abstract: |
     - [au_baseline](id.php/geodata/shomvdata/au_baseline?bbox=-50,16,57,60&zoom=4)
     
 
-yamlClass: FeatureDataset
+$schema: http://yamldoc.georef.eu/ydclasses/FeatureDataset
 wfsUrl: http://services.data.shom.fr/INSPIRE/wfs
 minZoom: 1
 maxZoom: 18

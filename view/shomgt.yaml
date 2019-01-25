@@ -1,6 +1,6 @@
 title: SD de consultation des cartes GéoTiff du Shom
 abstract: |  
-yamlClass: ViewDataset
+$schema: http://yamldoc.georef.eu/ydclasses/ViewDataset
 
 layersByGroup:
   all:

@@ -1,5 +1,5 @@
 title: Accueil de l'espace public de YamlDoc
-yamlClass: YamlCatalog
+$schema: http://yamldoc.georef.eu/ydclasses/YamlCatalog
 contents:
   yamldoc:
     title: Présentation de YamlDoc

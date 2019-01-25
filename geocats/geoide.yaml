@@ -46,7 +46,7 @@ abstract: |
       ]( id.php/geocats/geoide/db/items/fr-120066022-jdd-63b3096d-a73a-469e-9f52-fb11e1d5d0c5/wfs/Carte_Geologique_homogeneisee_Aquitaine?bbox=-1.9,43.5,3.2,46.0&zoom=8)
 
     
-yamlClass: Geocat
+$schema: http://yamldoc.georef.eu/ydclasses/Geocat
 cswUrl: http://catalogue.geo-ide.developpement-durable.gouv.fr/catalogue/srv/eng/csw-moissonnable-ds-2
 www: http://catalogue.geo-ide.developpement-durable.gouv.fr/
 wfsOptions:

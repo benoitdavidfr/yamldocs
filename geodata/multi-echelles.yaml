@@ -1,6 +1,6 @@
 title: représentation multi-échelles de base vecteurs
 alternative: réflexion sur une base vecteur multi-échelles
-yamlClass: YamlData
+$schema: http://yamldoc.georef.eu/ydclasses/YamlData
 tables:
   products:
     title: Echelles officielles de quelques produits
