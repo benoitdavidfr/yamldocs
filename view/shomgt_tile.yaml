@@ -10,5 +10,5 @@ abstract: |
     - [gtpyr/2/1/1](id.php/view/shomgt_tile/gtpyr/2/1/1)
     - [map](id.php/view/shomgt_tile/map)
     
-$schema: http://yamldoc.georef.eu/ydclasses/TileServer
+$schema: http://ydclasses.georef.eu/TileServer
 url: https://geoapi.fr/shomgt/tile.php

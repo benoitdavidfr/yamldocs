@@ -9,7 +9,7 @@ abstract: |
     - php id.php pub /geodata/route500vcache/fill/zone_occupation_sol/9/248-268/170-190
     - php id.php pub /geodata/route500vcache/derive/zone_occupation_sol/7/62-67/42-47
     
-$schema: http://yamldoc.georef.eu/ydclasses/TileCache
+$schema: http://ydclasses.georef.eu/TileCache
 tileServer: geodata/route500viewer
 layers:
   zone_occupation_sol:

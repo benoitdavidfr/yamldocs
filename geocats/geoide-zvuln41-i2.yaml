@@ -4,7 +4,7 @@ abstract: |
     
     - [carte](id.php/geocats/geoide-zvuln41-i2/map)
     
-$schema: http://yamldoc.georef.eu/ydclasses/FeatureDataset
+$schema: http://ydclasses.georef.eu/FeatureDataset
 wfsUrl: http://ogc.geo-ide.application.i2/wxs?map=%2Fopt%2Fdata%2Fcarto%2Fgeoide-catalogue%2F1.4%2Forg_38024%2Ff19f7c24-c605-43f5-b4a0-74676524d00a.internet.map
 wfsOptions:
   Gml4326: true

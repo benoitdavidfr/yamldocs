@@ -1,5 +1,5 @@
 title: geohisto
-$schema: http://yamldoc.georef.eu/ydclasses/YamlCatalog
+$schema: http://ydclasses.georef.eu/YamlCatalog
 authorizedWriters:
     - benoit
 url: https://github.com/etalab/geohisto

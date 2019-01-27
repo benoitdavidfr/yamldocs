@@ -5,7 +5,7 @@ abstract: |
   La carte correspondante peut être
   [générée ici pour St Léger les Vignes, zoom 14](id.php/geodata/rpg2016/map/display?latlon=47.135,-1.730&zoom=14).
   
-$schema: http://yamldoc.georef.eu/ydclasses/FeatureDataset
+$schema: http://ydclasses.georef.eu/FeatureDataset
 # chemins d'accès principal pour le chargement à partir du répertoire des données
 dbpath:  rpg2016/RPG_2-0__SHP_LAMB93_FR-2016_2016-01-01/RPG/1_DONNEES_LIVRAISON_2016/RPG_2-0_SHP_LAMB93_FR-2016
 # Je considère que la résolution du RPG est de 1 m

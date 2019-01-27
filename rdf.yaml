@@ -2,7 +2,7 @@ title: RDF, RDFS and XSD vocabularies
 language: en
 source:
   - https://www.w3.org/TR/rdf-schema/
-$schema: http://yamldoc.georef.eu/ydclasses/YData
+$schema: http://ydclasses.georef.eu/YData
 tables:
   classes:
     title: RDF(S) classes

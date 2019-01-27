@@ -1,7 +1,7 @@
 title: GéoCatalogue basique
 astract: |
    GéoCatalogue des SD décrites dans geodata
-$schema: http://yamldoc.georef.eu/ydclasses/GeoCat
+$schema: http://ydclasses.georef.eu/GeoCat
 metadata:
   geodata/ne_110m:
     title: Natural Earth 110M

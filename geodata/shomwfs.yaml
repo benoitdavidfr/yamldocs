@@ -16,5 +16,5 @@ abstract: |
     - [getFeature pour DAM_CLASS_ZONES_MAR_WFS:classed_polygone_3857 et bbox=-10,48.0,3.7,48.6
       ](id.php/geodata/shomwfs/ft/DAM_CLASS_ZONES_MAR_WFS:classed_polygone_3857/getFeature?bbox=-10,48.0,3.7,48.6)
   
-$schema: http://yamldoc.georef.eu/ydclasses/WfsServerJson
+$schema: http://ydclasses.georef.eu/WfsServerJson
 wfsUrl: http://services.data.shom.fr/INSPIRE/wfs

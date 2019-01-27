@@ -13,7 +13,7 @@ abstract: |
     - puis diverses couches d'objets vecteur dans l'ordre logique d'affichage
     
   
-$schema: http://yamldoc.georef.eu/ydclasses/ViewDataset
+$schema: http://ydclasses.georef.eu/ViewDataset
 
 layersByGroup:
   usuels:

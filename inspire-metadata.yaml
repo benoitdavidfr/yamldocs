@@ -1,11 +1,14 @@
 title: éléments de métadonnées Inspire et ISO plus réflexion d'utilisation du Dublin Core pour les métadonnées Inspire
 isReplacedBy: http://georef.eu/yamldoc/?doc=inspire-metadata3
 creator: https://github.com/benoitdavidfr
-description: |
-  La table mdelements liste des éléments de métadonnées Inspire + éléments ISO 191115/19119/19139 les plus fréquents.  
-  La table mapDC fournit un mapping possible entre les éléments de MD Inspire et les éléments Dublin Core.  
-$schema: http://yamldoc.georef.eu/ydclasses/YamlData
-modified: 2018-07-24
+tableOfContents: |
+  - La [table mdelements](?ypath=/mdelements) liste des éléments de métadonnées Inspire + éléments ISO 191115/19119/19139 les plus fréquents.  
+  - La [table mapDC](?ypath=/mapDC) fournit un mapping possible entre les éléments de MD Inspire et les éléments Dublin Core.  
+lineage:
+  '2018-07-24': création
+  '2019-01-26': transformation du document en YData en définissant le schéma de chaque table
+$schema: http://ydclasses.georef.eu/YData
+modified: '2019-01-26'
 source: http://data.europa.eu/eli/reg/2008/1205/oj
 tables:
   mdelements:
@@ -13,52 +16,109 @@ tables:
     description: |
       Eléments de métadonnées fréquemment utilisés pour décrire les données géographiques.
       On y trouve tous les éléments Inspire plus quelques éléments ISO hors Inspire.  
-      La clé des éléments est originale et n'est définie dans aucun autre document.  
-      Le champ numInspire est le numéro de l'élément dans le règlement métadonnées Inspire ;
-      son absence signifie que l'élément n'est pas un élément Inspire.
-      Les champs labelFr et labelEn correspondent aux formes lexicales françaises et anglaises,
-      pour les éléments Inspire, ce sont celles définies respectivement dans les versions françaises et anglaises
-      du règlement ;
-      le champ multiplicity définit, respectivement pour les données et les services,
-      si l'élément peut être répété (1..* ou 0..* ) ou non (1 ou 0..1),
-      et s'il est obligatoire (1 ou 1..* ) ou facultatif (0..1 ou 0..* ) ;
-      pour les éléments Inspire c'est celui défini dans le règlement métadonnées Inspire.
-      Le champ optionnel valueDomain référence la liste des valeurs possibles dans les
-      [vocabulaires contrôlés utilisés pour les métadonnées](?doc=inspire-mdcvoc).  
-      Les champs xpath et subelts correspondent à l'implémentation XML utilisant les normes ISO 191115/19119/19139.  
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema des éléments de MD
+      description: Les éléments de MD sont identifiés si possible par le même id que celui utilisé pour le Dublin Core
+      type: object
+      additionalProperties: false
+      patternProperties: # la propriété est l'identifiant de l'élément
+        '^[a-zA-Z]+$':
+          description: description de chaque élément de MD
+          type: object
+          required: [ name, multiplicity, xpath ]
+          properties:
+            numInspire:
+              description: >
+                numéro de l'élément dans le règlement métadonnées Inspire,
+                son absence signifie que l'élément n'est pas un élément Inspire.
+              type: string
+              pattern: ^\d+\.(\d\.)?$
+            name:
+              description: >
+                nom de l'élément en français et en anglais, pour les éléments Inspire,
+                ce sont ceux définis respectivement dans les versions françaises et anglaises du règlement
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: nom officiel dans la langue définie par la propriété correspondant à son code ISO 639-1
+            multiplicity:
+              description: >
+                définit, respectivement pour les données et les services,
+                si l'élément peut être répété (1..* ou 0..* ) ou non (1 ou 0..1),
+                et s'il est obligatoire (1 ou 1..* ) ou facultatif (0..1 ou 0..* ) ;
+                pour les éléments Inspire c'est celui défini dans le règlement métadonnées Inspire.
+              type: object
+              patternProperties:
+                ^(data|service)$:
+                  enum: [1, 0..1, 0..*, 1..* ]
+            valueDomain:
+              description: |
+                référence la liste des valeurs possibles dans les
+                [vocabulaires contrôlés utilisés pour les métadonnées](?doc=inspire-mdcvoc)
+              type: string
+            xpath:
+              description: implémentation XML utilisant les normes ISO 191115/19119/19139
+              type: string
+            subelts:
+              type: object
+              patternProperties:
+                '^[a-zA-Z]+$':
+                  type: object
+                  properties:
+                    numInspire:
+                      type: string
+                      pattern: ^\d+\.(\d\.)?$
+                    name:
+                      description: >
+                        nom du sous-élément en français et en anglais, pour les éléments Inspire,
+                        ce sont ceux définis respectivement dans les versions françaises et anglaises du règlement
+                      type: object
+                      patternProperties:
+                        '^..$':
+                          type: string
+                          description: nom officiel dans la langue définie par la propriété
+                    xpath:
+                      type: string
     data:
       title:
         numInspire: 1.1.
-        labelFr: Intitulé de la ressource
-        labelEn: Resource title
+        name:
+          fr: Intitulé de la ressource
+          en: Resource title
         multiplicity:
           data: 1
           service: 1
         xpath: '//gmd:identificationInfo/*/gmd:citation/*/gmd:title/gco:CharacterString'
       alternative:
-        labelFr: Intitulé alternatif de la ressource
-        labelEn: Alternate resource title
+        name:
+          fr: Intitulé alternatif de la ressource
+          en: Alternate resource title
         multiplicity:
           data: 0..*
           service: 0..*
         xpath: '//gmd:identificationInfo/*/gmd:citation/*/gmd:alternateTitle/gco:CharacterString'
       fileIdentifier:
-        labelFr: Identificateur du fichier
-        labelEn: File identifier
+        name:
+          fr: Identificateur du fichier
+          en: File identifier
         multiplicity:
           data: 1
           service: 1
         xpath: '//gmd:MD_Metadata/gmd:fileIdentifier/*'
       parentIdentifier:
-        labelFr: Identificateur d'un parent
-        labelEn: Parent identifier
+        name:
+          fr: Identificateur d'un parent
+          en: Parent identifier
         multiplicity:
           data: 0..*
           service: 0..*
         xpath: '//gmd:MD_Metadata/gmd:parentIdentifier/*'
       aggregationInfo:
-        labelFr: métadonnées agrégées
-        labelEn: aggregated metadata
+        name:
+          fr: métadonnées agrégées
+          en: aggregated metadata
         multiplicity:
           data: 0..*
         xpath: //gmd:identificationInfo/*/gmd:aggregationInfo
@@ -71,16 +131,18 @@ tables:
             xpath: '//gmd:initiativeType/*'
       abstract:
         numInspire: 1.2.
-        labelFr: Résumé de la ressource
-        labelEn: Resource abstract
+        name:
+          fr: Résumé de la ressource
+          en: Resource abstract
         multiplicity:
           data: 1
           service: 1
         xpath: '//gmd:identificationInfo/*/gmd:abstract/gco:CharacterString'
       type:
         numInspire: 1.3.
-        labelFr: Type de la ressource
-        labelEn: Resource type
+        name:
+          fr: Type de la ressource
+          en: Resource type
         multiplicity:
           data: 1
           service: 1
@@ -88,8 +150,9 @@ tables:
         xpath: '//gmd:MD_Metadata/gmd:hierarchyLevel/gmd:MD_ScopeCode/@codeListValue'
       relation:
         numInspire: 1.4.
-        labelFr: Localisateur de la ressource
-        labelEn: Resource locator
+        name:
+          fr: Localisateur de la ressource
+          en: Resource locator
         multiplicity:
           data: 0..*
           service: 0..*
@@ -103,8 +166,9 @@ tables:
             xpath: '//gmd:onLine/*/gmd:name/gco:CharacterString'
       identifier:
         numInspire: 1.5.
-        labelFr: Identificateur de la ressource unique
-        labelEn: Unique resource identifier
+        name:
+          fr: Identificateur de la ressource unique
+          en: Unique resource identifier
         multiplicity:
           data: 1..*
         xpath: '//gmd:identificationInfo/*/gmd:citation/*/gmd:identifier'
@@ -115,8 +179,9 @@ tables:
             xpath: '//gmd:identifier/*/gmd:codeSpace/gco:CharacterString'
       operatesOn:
         numInspire: 1.6.
-        labelFr: Ressource Couplée
-        labelEn: Coupled resource
+        name:
+          fr: Ressource Couplée
+          en: Coupled resource
         multiplicity:
           service: 0..*
         xpath: '//gmd:identificationInfo/*/srv:operatesOn'
@@ -127,14 +192,16 @@ tables:
             xpath: '//srv:operatesOn/@xlink:href'
       language:
         numInspire: 1.7.
-        labelFr: Langue de la ressource
-        labelEn: Resource language
+        name:
+          fr: Langue de la ressource
+          en: Resource language
         multiplicity:
           data: 0..*
         xpath: '//gmd:identificationInfo/*/gmd:language/gmd:LanguageCode'
       distributionFormat:
-        labelFr: Encodage
-        labelEn: Distribution format
+        name:
+          fr: Encodage
+          en: Distribution format
         multiplicity:
           data: 0..*
         xpath: '//gmd:distributionInfo/*/gmd:distributionFormat'
@@ -144,39 +211,44 @@ tables:
           version:
             xpath: '//gmd:distributionFormat/*/gmd:version/gco:CharacterString'
       characterSet:
-        labelFr: Encodage des caractères
-        labelEn: Character set
+        name:
+          fr: Encodage des caractères
+          en: Character set
         multiplicity:
           data: 0..1
         xpath: '//gmd:identificationInfo/*/gmd:characterSet/gmd:MD_CharacterSetCode/@codeListValue'
       spatialRepresentationType:
-        labelFr: Type de représentation géographique
-        labelEn: Spatial representation type
+        name:
+          fr: Type de représentation géographique
+          en: Spatial representation type
         multiplicity:
           data: 1..*
         xpath: '//gmd:identificationInfo/*/gmd:spatialRepresentationType/gmd:MD_SpatialRepresentationTypeCode/@codeListValue'
       # 2. CLASSIFICATION DES DONNÉES ET SERVICES GÉOGRAPHIQUES
       topicCategory:
         numInspire: 2.1.
-        labelFr: Catégorie thématique
-        labelEn: Topic category
+        name:
+          fr: Catégorie thématique
+          en: Topic category
         multiplicity:
           data: 1..*
         xpath: '//gmd:identificationInfo/*/gmd:topicCategory/gmd:MD_TopicCategoryCode'
         valueDomain: http://georef.eu/yamldoc/?doc=inspire-mdcvoc&ypath=/schemes/topicCategories
       serviceType:
         numInspire: 2.2.
-        labelFr: Type de service de données géographiques
-        labelEn: Spatial data service type
+        name:
+          fr: Type de service de données géographiques
+          en: Spatial data service type
         xpath: '//gmd:identificationInfo/*/srv:serviceType/gco:LocalName'
         multiplicity:
           service: 1
         valueDomain: http://georef.eu/yamldoc/?doc=inspire-mdcvoc&ypath=/schemes/sdsTypes
       # 3. MOT CLÉ - KEYWORD
       subject:
-        numInspire: 3.
-        labelFr: Mot clé
-        labelEn: Keyword
+        numInspire: '3.'
+        name:
+          fr: Mot clé
+          en: Keyword
         multiplicity:
           data: 1..*
           service: 1..*
@@ -184,19 +256,22 @@ tables:
         subelts:
           value:
             numInspire: 3.1.
-            labelFr: Valeur du mot clé
-            labelEn: Keyword value
+            name:
+              fr: Valeur du mot clé
+              en: Keyword value
             xpath: '//gmd:descriptiveKeywords/*/gmd:keyword/gco:CharacterString'
           cvoc:
             numInspire: 3.2.
-            labelFr: Vocabulaire contrôlé d’origine
-            labelEn: Originating controlled vocabulary
+            name:
+              fr: Vocabulaire contrôlé d’origine
+              en: Originating controlled vocabulary
             xpath: '//gmd:descriptiveKeywords/*/gmd:thesaurusName/*/gmd:title/gco:CharacterString'
       # 4. SITUATION GÉOGRAPHIQUE - 4. GEOGRAPHIC LOCATION
       spatial:
         numInspire: 4.1.
-        labelFr: Rectangle de délimitation géographique
-        labelEn: Geographic bounding box
+        name:
+          fr: Rectangle de délimitation géographique
+          en: Geographic bounding box
         multiplicity:
           data: 1..*
           service: 1..*
@@ -212,32 +287,36 @@ tables:
           northBoundLatitude:
             xpath: '//gmd:EX_GeographicBoundingBox/gmd:northBoundLatitude/gco:Decimal'
       # 5. RÉFÉRENCE TEMPORELLE
-      valid:
+      temporal:
         numInspire: 5.1.
-        labelFr: Étendue temporelle
-        labelEn: Temporal extent
+        name:
+          fr: Étendue temporelle
+          en: Temporal extent
         multiplicity:
           data: 0..*
           service: 0..*
         xpath: '//gmd:identificationInfo/*/gmd:extent/*/gmd:temporalElement'
       issued:
         numInspire: 5.2.
-        labelFr: Date de publication
-        labelEn: Date of publication
+        name:
+          fr: Date de publication
+          en: Date of publication
         multiplicity:
           data: 0..*
           service: 0..*
         xpath: "//gmd:identificationInfo/*/gmd:citation/*/gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='publication']/gmd:CI_Date/gmd:date/gco:Date"
       modified:
         numInspire: 5.3.
-        labelFr: Date de dernière révision
-        labelEn: Date of last revision
-        multiplicity: [ data: 0..*, service: 0..* ]
+        name:
+          fr: Date de dernière révision
+          en: Date of last revision
+        multiplicity: { data: 0..*, service: 0..* }
         xpath: "//gmd:identificationInfo/*/gmd:citation/*/gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='revision']/gmd:CI_Date/gmd:date/gco:Date"
       created:
         numInspire: 5.4.
-        labelFr: Date de création
-        labelEn: Date of creation
+        name:
+          fr: Date de création
+          en: Date of creation
         xpath: "//gmd:identificationInfo/*/gmd:citation/*/gmd:date[./gmd:CI_Date/gmd:dateType/*/@codeListValue='creation']/gmd:CI_Date/gmd:date/gco:Date"
         multiplicity:
           data: 0..*
@@ -245,23 +324,26 @@ tables:
       # 6. QUALITÉ ET VALIDITÉ - 6. QUALITY AND VALIDITY
       lineage:
         numInspire: 6.1.
-        labelFr: Généalogie
-        labelEn: Lineage
+        name:
+          fr: Généalogie
+          en: Lineage
         xpath: '//gmd:dataQualityInfo/*/gmd:lineage/*/gmd:statement/gco:CharacterString'
         multiplicity:
           data: 1
       spatialResolutionScaleDenominator:
         numInspire: 6.2.
-        labelFr:  Résolution spatiale - dénominateur de l'échelle
-        labelEn: Spatial resolution - scale denominator
+        name:
+          fr:  Résolution spatiale - dénominateur de l'échelle
+          en: Spatial resolution - scale denominator
         xpath: '//gmd:identificationInfo/*/gmd:spatialResolution/*/gmd:equivalentScale/*/gmd:denominator/gco:Integer'
         multiplicity:
           data: 0..*
           service: 0..*
       spatialResolutionDistance:
         numInspire: 6.2.
-        labelFr:  Résolution spatiale - distance
-        labelEn: Spatial resolution - distance
+        name:
+          fr:  Résolution spatiale - distance
+          en: Spatial resolution - distance
         xpath: '//gmd:identificationInfo/*/gmd:spatialResolution/*/gmd:distance'
         subelts:
           unit:
@@ -273,9 +355,10 @@ tables:
           service: 0..*
       # 7. CONFORMITÉ - 7. CONFORMITY
       conformsTo:
-        numInspire: 7.
-        labelFr:  Spécification + Degré
-        labelEn: Specification + Degree
+        numInspire: '7.'
+        name:
+          fr:  Spécification + Degré
+          en: Specification + Degree
         xpath: '//gmd:dataQualityInfo/*/gmd:report/*/gmd:result'
         subelts:
           specificationDate:
@@ -290,16 +373,18 @@ tables:
       # 8. CONTRAINTES EN MATIÈRE D’ACCÈS ET D’UTILISATION - 8. CONSTRAINT RELATED TO ACCESS AND USE
       conditionsToAccessAndUse:
         numInspire: 8.1.
-        labelFr: Conditions d'utilisation
-        labelEn: Use conditions
+        name:
+          fr: Conditions d'utilisation
+          en: Use conditions
         xpath: '//gmd:identificationInfo/*/gmd:resourceConstraints/*/gmd:useLimitation/gco:CharacterString'
         multiplicity:
           data: 1..*
           service: 1..*
       limitationsOnPublicAccess:
         numInspire: 8.2.
-        labelFr: Restrictions concernant l’accès public
-        labelEn: Limitations on public access
+        name:
+          fr: Restrictions concernant l’accès public
+          en: Limitations on public access
         xpath: '//gmd:identificationInfo/*/gmd:resourceConstraints/gmd:MD_LegalConstraints'
         subelts:
           code:
@@ -310,8 +395,9 @@ tables:
           data: 1..*
           service: 1..*
       classification:
-        labelFr: Contrainte de sécurité intéressant la Défense nationale
-        labelEn: Classification
+        name:
+          fr: Contrainte de sécurité intéressant la Défense nationale
+          en: Classification
         xpath: '//gmd:identificationInfo/*/gmd:resourceConstraints/*/gmd:classification/gmd:MD_ClassificationCode/@codeListValue'
         multiplicity:
           data: 0..*
@@ -320,8 +406,9 @@ tables:
       # 9. ORGANISATIONS RESPONSIBLE FOR THE ESTABLISHMENT, MANAGEMENT, MAINTENANCE AND DISTRIBUTION OF SPATIAL DATA SETS AND SERVICE
       responsibleParty:
         numInspire: 9.1.
-        labelFr: Partie responsable
-        labelEn: Responsible party
+        name:
+          fr: Partie responsable
+          en: Responsible party
         xpath: '//gmd:identificationInfo/*/gmd:pointOfContact'
         subelts:
           name:
@@ -336,24 +423,27 @@ tables:
       # 10. Métadonnées concernant les métadonnées - METADATA ON METADATA
       mdContact:
         numInspire: 10.1.
-        labelFr: Point de contact des métadonnées
-        labelEn: Metadata point of contact
+        name:
+          fr: Point de contact des métadonnées
+          en: Metadata point of contact
         xpath: '//gmd:contact/*/gmd:organisationName/gco:CharacterString'
         multiplicity:
           data: 1..*
           service: 1..*
       mdDate:
         numInspire: 10.2.
-        labelFr: Date des métadonnées
-        labelEn: Metadata date
+        name:
+          fr: Date des métadonnées
+          en: Metadata date
         xpath: '//gmd:dateStamp/gco:DateTime'
         multiplicity:
           data: 1
           service: 1
       mdLanguage:
         numInspire: 10.3.
-        labelFr: Langue des métadonnées
-        labelEn: Metadata language
+        name:
+          fr: Langue des métadonnées
+          en: Metadata language
         xpath: '//gmd:language/gmd:LanguageCode'
         multiplicity:
           data: 1
@@ -362,6 +452,25 @@ tables:
     title: mapping DublinCore
     description: |
       La présente table fournit un mapping possible en DublinCore des éléments de métadonnées de la table mdelements.
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema du mapping
+      description: dans ce mapping, la clé est celle d'un élément de la table mdelements
+      type: object
+      additionalProperties: false
+      patternProperties: # la propriété est l'identifiant de l'élément
+        '^[-a-zA-Z]+$':
+          description: description de chaque mapping
+          type: object
+          required: [ dublinCore ]
+          additionalProperties: false
+          properties:
+            dublinCore:
+              description: nom de l'élément DublinCore
+              type: string
+            comment:
+              description: commentaire
+              type: string
     data:
       title:
         dublinCore: title
@@ -383,16 +492,16 @@ tables:
         dublinCore: language
       topicCategory:
         dublinCore: subject
-        comment: mettre en mot-clé
+        comment: mettre en mot-clé d'un vocabulaire contrôlé spécifique
       serviceType:
         dublinCore: subject
-        comment: mettre en mot-clé
+        comment: mettre en mot-clé d'un vocabulaire contrôlé spécifique
       subject:
         dublinCore: subject
       spatial:
         dublinCore: spatial
-      valid:
-        dublinCore: valid
+      temporal:
+        dublinCore: temporal
       issued:
         dublinCore: issued
       modified:
@@ -401,12 +510,16 @@ tables:
         dublinCore: created
       lineage:
         dublinCore: peut être dans description
+        comment: il est utile d'ajouter un champ spécifique
       spatialResolutionScaleDenominator:
         dublinCore: peut être dans description
+        comment: il est utile d'ajouter un champ spécifique
       spatialResolutionDistance:
         dublinCore: peut être dans description
+        comment: il est utile d'ajouter un champ spécifique
       conformsTo:
         dublinCore: conformsTo
+        comment: le champ Inspire est plus complexe que le champ DublinCore
       conditionsToAccessAndUse:
         dublinCore: licence
       limitationsOnPublicAccess:

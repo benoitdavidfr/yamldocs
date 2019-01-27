@@ -33,7 +33,7 @@ licence:
   title: licence ouverte Etalab.
 doc_url: http://professionels.ign.fr/route500
 metadata: http://professionels.ign.fr/sites/default/files/IGNF_ROUTE500r_2-1.xml
-$schema: http://yamldoc.georef.eu/ydclasses/FeatureDataset
+$schema: http://ydclasses.georef.eu/FeatureDataset
 # chemins d'accès principal pour le chargement à partir du répertoire des données
 dbpath:  route500/ROUTE500_2-1__SHP_LAMB93_FXX_2018-04-09/ROUTE500/1_DONNEES_LIVRAISON_2018-04-00189/R500_2-1_SHP_LAMB93_FXX-ED181
 # Je considère que la résolution de Route 500 est de 40 m

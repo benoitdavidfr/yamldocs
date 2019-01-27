@@ -22,7 +22,7 @@ coverage:
   spatial: iso:code:3166:FR (métropole + DOM)
   temporal: { start: 1970-01-09, end: 2017-01-01 }
 rights: https://www.etalab.gouv.fr/licence-ouverte-open-licence
-$schema: http://yamldoc.georef.eu/ydclasses/YamlData
+$schema: http://ydclasses.georef.eu/YamlData
 yamlSchema:
   KEYS:
     ROOT:

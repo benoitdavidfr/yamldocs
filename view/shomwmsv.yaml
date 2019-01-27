@@ -9,5 +9,5 @@ abstract: |
     - [map](id.php/view/shomwmsv/map)
     - [map/display](id.php/view/shomwmsv/map/display)
     
-$schema: http://yamldoc.georef.eu/ydclasses/WmsServer
+$schema: http://ydclasses.georef.eu/WmsServer
 url: https://services.data.shom.fr/INSPIRE/wms/v

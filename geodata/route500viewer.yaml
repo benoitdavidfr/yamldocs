@@ -6,5 +6,5 @@ abstract: |
     - [zone_occupation_sol 10 506 358](id.php/geodata/route500viewer/layers/zone_occupation_sol/10/506/358)
     - [display map](id.php/geodata/route500viewer/map/display)
     
-$schema: http://yamldoc.georef.eu/ydclasses/FeatureViewer
+$schema: http://ydclasses.georef.eu/FeatureViewer
 featureDataset: geodata/route500

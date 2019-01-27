@@ -1,5 +1,5 @@
 title: 'catalogue d''accueil de benoit'
-$schema: http://yamldoc.georef.eu/ydclasses/YamlHomeCatalog
+$schema: http://ydclasses.georef.eu/YamlHomeCatalog
 yamlPassword: $2y$10$olNSpf7c0U4zN5K3ETnA4e32QmEXVgYtk4m5OjxxJ1/ixkhrowlly
 contents:
     index:

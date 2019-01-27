@@ -6,7 +6,7 @@ abstract: |
     - [MDD](id.php/geocats/geoide/items/fr-120066022-jdd-5196df94-0e95-4943-afbd-39d2ad3b0397)
     -  [requete](http://localhost/yamldoc/id.php/geocats/geoide/db/items/fr-120066022-jdd-5196df94-0e95-4943-afbd-39d2ad3b0397/wfs/L_MUSEE_CHATEAU_041?bbox=-7.294921875000001,42.09822241118974,13.3154296875,51.49506473014368&zoom=6)
     
-$schema: http://yamldoc.georef.eu/ydclasses/FeatureDataset
+$schema: http://ydclasses.georef.eu/FeatureDataset
 wfsUrl: http://ogc.geo-ide.developpement-durable.gouv.fr/wxs?map=/opt/data/carto/geoide-catalogue/1.4/org_38024/f31dbfdd-1038-451b-a539-668ac27b6526.intranet.map
 wfsOptions:
   gml: true

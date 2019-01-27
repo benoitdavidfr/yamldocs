@@ -1,0 +1,104 @@
+title: gestion des classes de documents YamlDoc (ydclasses)
+abstract: |
+  ### Définition de classes de documents
+  Une classe de documents correspond à:
+    
+    - un schéma défini par un [schéma JSON](https://json-schema.org/),
+    - une classe Php implémentant:
+      - des méthodes de consultation interactive du document,
+      - une API de consultation en machine to machine,
+      - une API Php d'utilisation du document en interne à YamlDoc.
+  
+spec: |
+  A une classe {yamlClass} correspond:
+    
+    - un fichier ~/html/yamldoc/ydclasses/{yamlClass}.schema.yaml contenant le schéma JSON
+    - une classe Php {yamlClass} définie dans un fichier {yamlClassInt}.inc.php
+      où {yamlClassInt} est un nom interne utilisé pour le fichier Php
+    
+  Le fichier {yamlClassInt}.inc.php est inclus dans différent script, notamment le viewer, il doit:
+    
+    - définir une entrée de la variable globale `$phpDocs` pour la valeur {yamlClassInt}.inc.php qui doit comprendre :
+      - une entrée `file` fournissant une documentation texte sur le fichier Php
+      - une entrée `classes` avec une entrée par classe définie fournissant une documentation texte sur la classe Php
+  
+  La classe Php {yamlClass}:
+    
+    - doit hériter de la classe YamlDoc, sauf les classes OdtDoc et PdfDoc qui héritent de la classe Doc.  
+
+uriUrl: |
+  ### Définition des URI et URL
+    - **http://ydclasses.georef.eu/{yamlClass}** est l'URI d'une classe de documents YamlDoc,  
+      exemple: http://ydclasses.georef.eu/YData,  
+      cet URI est utilisé dans le champ `$schema` d'un document pour définir sa classe
+    - la résolution de l'URI d'une classe fournit:
+      - comme doc HTML une documentation de la classe
+      - sinon la description de l'API REST en OAI Yaml
+    - les URL suivantes sont déduites de l'URI d'une classe:
+      - http://ydclasses.georef.eu/{yamlClass}/schema fournit le schéma de la classe par défaut en JSON
+      - http://ydclasses.georef.eu/{yamlClass}/schema.json fournit le schéma de la classe en JSON
+      - http://ydclasses.georef.eu/{yamlClass}/schema.yaml fournit le schéma de la classe en Yaml
+      - http://ydclasses.georef.eu/{yamlClass}/api décrit l'API REST de la classe en OAI et en Yaml
+    - ces résolutions sont mises en oeuvre par un résolveur exposé sur ~/html/yamldoc/ydclasses.php
+    
+liste: |
+  Les classes générales définies sont les suivantes:
+    
+    - [BasicYamlDoc](?action=version&doc=yamldoc&name=basicyamldoc.inc.php) - document simple,
+      comme par exemple le présent document ;
+    - [YamlCatalog](?action=version&doc=yamldoc&name=catalog.inc.php) - catalogue de documents,
+      comme par exemple le [document d'accueil](?doc=index) de cet espace ;
+    - [YamlData](?action=version&doc=yamldoc&name=yamldata.inc.php) - gestion des données,
+      comme par exemple la [liste des régions historisées](?doc=geohisto/regions) ;
+    - [MultiData](?action=version&doc=yamldoc&name=multidata.inc.php) pour décomposer une grande table
+      en sous-tables stockées chacune dans un sous-document ;
+    - [YData](?action=version&doc=yamldoc&name=ydata.inc.php) pour la gestion des données (EN CONSTRUCTION),
+      illustré par la [synthèse des principaux champs Dublin Core](?doc=dublincore) ;
+    - [YamlSkos](?action=version&doc=yamldoc&name=yamlskos.inc.php) - gestion d'un thésaurus Skos
+      organisé en micro-thésaurus,
+      comme par exemples le [thésaurus EuroVoc](?doc=eurovoc) ou le [lexique topographique](?doc=topovoc) de l'AFT ;
+    - [DataModel](?action=version&doc=yamldoc&name=datamodel.inc.php) - gestion d'un modèle de données
+      UML comme extension d'un YamlSkos,
+      comme par exemple le [modèle de données Inspire déduit du règlement interopérabilité](?doc=inspire-datamodel) ;
+    - [LegalDoc]((?action=version&doc=yamldoc&name=legaldoc.inc.php)) - gestion d'un texte juridique,
+      comme par exemple la [directive Inspire](?doc=inspire-directive) ;
+    - [OdtDoc](?action=version&doc=yamldoc&name=odtdoc.inc.php) - affichage de fichiers ODT
+    - [PdfDoc](?action=version&doc=yamldoc&name=pdfdoc.inc.php) - affichage de fichiers PDF
+    - [inseeapi](?action=version&doc=yamldoc&name=inseeapi.inc.php)
+    - [sireneapi](?action=version&doc=yamldoc&name=sireneapi.inc.php)
+    - [inseenomapi](?action=version&doc=yamldoc&name=inseenomapi.inc.php)
+      
+  Les classes spécifiques à la gestion de l'information géographique sont les suivantes:
+    
+    - [Map](?action=version&doc=yamldoc&name=map.inc.php) - description et affichage d'une carte Leaflet,
+      illustré par [la carte des vignes et vergers](?doc=maps/vignes) ;
+    - [MarkerLib](?action=version&doc=yamldoc&name=markerlib.inc.php) - gestion d'une bibliothèque de symboles
+      ponctuels utilisés dans les cartes,
+      illustrée par cette [bibliothèque](?doc=markerlib) ;
+    - [FeatureDataset](?action=version&doc=yamldoc&name=featureds.inc.php) - document définissant une série de données
+      géographiques d'objets vecteur,
+      illustré par [Route500](?doc=geodata/route500) ou la [BDTopo](?doc=geodata/bdtopo) de l'IGN.
+    - [WfsServer](?action=version&doc=yamldoc&name=wfsserver.inc.php) - gestion de requêtes à un serveur WFS,
+      illustré par le [serveur WFS du Géoportail IGN](?doc=geodata/igngpwfs) ;
+    - [Geocat](?action=version&doc=yamldoc&name=geocat.inc.php) - accès au contenu d'un géocatalogue,
+      illustré par [le catalogue de Sextant](?doc=geocats/sextant)
+    - [CswServer](?action=version&doc=yamldoc&name=cswserver.inc.php) - gestion de requêtes à un serveur CSW,
+      illustré par le [serveur SigLoire](?doc=geocats/sigloirecsw) ;
+    - [MetadataDb](?action=version&doc=yamldoc&name=mddb.inc.php) - base de données de Metadata utilisée par Geocat,
+      illustrée par [la base des MD de Sextant](?doc=geocats/sextant/db) ;
+    - [SubjectList](?action=version&doc=yamldoc&name=gcsubjlist.inc.php) - gestion des mots-clés d'un géocatalogue,
+      utilisée par Geocat, illustrée par [les mots-clés des MD de Sextant](?doc=geocats/sextant/subjects) ;
+    - [iTileServer](?action=version&doc=yamldoc&name=itileserver.inc.php) n'est pas une classe mais une interface
+      qui définit l'interface des serveurs WMS, WMTS, TileServer et FeatureViewer utilisés par ViewDataset.
+    - [WmsServer](?action=version&doc=yamldoc&name=wmsserver.inc.php) - utilisation d'un serveur WMS,
+      illustré par [le serveur WMS-R du Géoportail](?doc=view/igngpwmsr) ;
+    - [WmtsServer](?action=version&doc=yamldoc&name=wmtsserver.inc.php) - utilisation d'un serveur WMTS,
+      illustré par [le serveur WMTS du Géoportail](?doc=view/igngpwmts) ;
+    - [TileServer](?action=version&doc=yamldoc&name=tileserver.inc.php) - utilisation d'un serveur de tuiles
+      utilisant [le protocole XYZ popularisé par OSM](https://en.wikipedia.org/wiki/Tiled_web_map),
+      illustré par [le serveur ShomGt](?doc=view/shomgt_tile) ;
+    - [FeatureViewer](?action=version&doc=yamldoc&name=featureviewer.inc.php) - dessin des objets d'un FeatureDataset
+      illustrée par [la visualisation des objets de Route500](?doc=geodata/route500viewer) ;
+    - [tilecache](?action=version&doc=yamldoc&name=tilecache.inc.php)
+    - [viewds](?action=version&doc=yamldoc&name=viewds.inc.php)
+  

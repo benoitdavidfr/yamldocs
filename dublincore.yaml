@@ -1,8 +1,10 @@
 title: éléments de MD du Dublin Core
-description: |
+abstract: |
   Le **Dublin Core** est un schéma de métadonnées générique permettant de décrire des ressources numériques ou physiques
   et d’établir des relations entre ressources.
-  Il comprend les [15 éléments de métadonnées, appelés "Dublin Core Metadata Element Set (DCMES)", listés ici en français](?ypath=/dcmes/*/_id,name.fr,definition.fr,description.fr).
+  Il comprend les [15 éléments de métadonnées, appelés "Dublin Core Metadata Element Set (DCMES)",
+  listés ici en français](?ypath=/dcmes/*/_id,name.fr,definition.fr,description.fr),
+  ou [en anglais](?ypath=/dcmes/*/_id,name.en,definition.en,description.en).
   La signification de certains éléments peut être précisée à l'aide de raffinements
   qui restreignent la signification d'un élément, mais sans la changer fondamentalement ;
   [certains raffinements intéressants sont listés ici](?ypath=/dcmes/*/_id,name.fr,refinements).
@@ -15,11 +17,11 @@ description: |
     - une [liste de vocabulaires contrôlés recommandés](?ypath=/cvoc/*)
       dont un [vocabulaire de types de ressources](?ypath=/DCMIType/*) ;
     - une [liste de syntaxes de codage définie ici](?ypath=/encoding/*).
-  
-  Défintion le 5/1/2019 des schéma JSON de chaque table
+lineage:
+  '2019-01-05': Définition des schéma JSON de chaque table
 publisher: https://github.com/benoitdavidfr
-created: 2018-06-05
-modified: 2019-01-05
+created: '2018-06-05'
+modified: '2019-01-26'
 source:
   - https://fr.wikipedia.org/wiki/Dublin_Core
   - http://www.dublincore.org/documents/dces/
@@ -29,15 +31,15 @@ source:
   - http://www.yoyodesign.org/doc/dcmi/dcmi-terms/
 language: [fr, en]
 relation:
-rights: https://www.etalab.gouv.fr/licence-ouverte-open-licence
-$schema: http://yamldoc.georef.eu/ydclasses/YData
+licence: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+$schema: http://ydclasses.georef.eu/YData
 tables:
   dcmes:
     title: liste des 15 éléments de métadonnées d'origine, appelé "Dublin Core Metadata Element Set (DCMES)" + raffinements de ces éléments
     elementURI:
       - chaque élément d'origine est identifié par un URI de la forme http://purl.org/dc/elements/1.1/{_id}
       - chaque raffinement est identifié par un URI de la forme http://purl.org/dc/terms/{_id}
-    jSchema:
+    dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       title: Schema des éléments DCMES
       description: Les éléments DCMES ont comme clé leur identifiant officiel
@@ -393,7 +395,7 @@ tables:
   extension:
     title: éléments supplémentaires mentionnés par la BNF
     elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{name}
-    jSchema:
+    dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       title: Schema des éléments supplémentaires
       description: Les éléments supplémentaires ont comme clé leur identifiant officiel
@@ -476,7 +478,7 @@ tables:
       fr: Schémas de codage de vocabulaire, c'est à dire vocabulaires contrôlés recommandés
       en: Vocabulary Encoding Schemes
     elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{_id}
-    jSchema:
+    dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       title: Schéma de la description des vocabulaires contrôlés
       description: Les vocabulaires ont comme clé leur identifiant officiel
@@ -583,7 +585,7 @@ tables:
     source: http://purl.org/dc/dcmitype/
     description: structuration in YamlData of the source document
     elementURI: each type is identified by an URI following the following model http://purl.org/dc/dcmitype/{_id}
-    jSchema:
+    dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       title: Schema of DCMI Types
       description: The key of each DCMI type is the official identifier
@@ -700,7 +702,7 @@ tables:
             see?: STRING // référence vers plus d'informations
             comment?:
               KEY: STRING // commentaire dans la langue définie par la clé
-    jSchema:
+    dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       title: Schema of the Syntax Encoding Schemes
       description: The key of each scheme is its official identifier

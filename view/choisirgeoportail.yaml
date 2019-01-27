@@ -18,6 +18,6 @@ abstract: |
     - [map](id.php/view/choisirgeoportail/map)
     - [affichage de la carte](id.php/view/choisirgeoportail/map/display)
     
-$schema: http://yamldoc.georef.eu/ydclasses/WmtsServer
+$schema: http://ydclasses.georef.eu/WmtsServer
 url: http://wxs.ign.fr/choisirgeoportail/wmts
 referer: http://visu.gexplor.fr/viewer.php

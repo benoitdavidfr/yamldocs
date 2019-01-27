@@ -3,7 +3,7 @@ abstract: |
   Cette SD expose différentes couches (layers) qui correspondent chacune à une couche d'un des serveurs WMS/WMTS IGN  
   Les couches sont exposées sous la forme tuiles selon le protocole popularisé par OSM et Google Maps (appelé XYZ)  
   
-$schema: http://yamldoc.georef.eu/ydclasses/ViewDataset
+$schema: http://ydclasses.georef.eu/ViewDataset
 
 layersByGroup:
   forets:

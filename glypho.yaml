@@ -1,5 +1,5 @@
 title: Sortie du glyphosate
-$schema: http://yamldoc.georef.eu/ydclasses/YamlCatalog
+$schema: http://ydclasses.georef.eu/YamlCatalog
 contents:
   geodata/glyphomap:
     title: carte proto sortie du glyphosate

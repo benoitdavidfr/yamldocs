@@ -19,7 +19,7 @@ doc: |
     - [Société civile d'intérêt collectif agricole (SICA) ](?ypath=/siret/q=categorieJuridiqueUniteLegale:6532)
     
   
-$schema: http://yamldoc.georef.eu/ydclasses/SireneApi
+$schema: http://ydclasses.georef.eu/SireneApi
 #siret: { codeCommuneEtablissement: 92046 }
 #siret: { categorieJuridiqueUniteLegale: 6532 } # Société civile d'intérêt collectif agricole (SICA)
 #siret: '03879504300017'

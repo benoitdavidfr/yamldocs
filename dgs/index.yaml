@@ -1,5 +1,5 @@
 title: Données géographiques souveraines
-$schema: http://yamldoc.georef.eu/ydclasses/YamlCatalog
+$schema: http://ydclasses.georef.eu/YamlCatalog
 contents:
   rapportvfm:
     title: Rapport De Mme Valéria Faure-Muntian au Gouvernement, juillet 2018

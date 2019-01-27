@@ -6,7 +6,7 @@ abstract: |
   
 identifier: http://professionnels.ign.fr/bdparcellaire
 coverage: "iso:code:3166:FR (métropole + DOM)"
-$schema: http://yamldoc.georef.eu/ydclasses/FeatureDataset
+$schema: http://ydclasses.georef.eu/FeatureDataset
 wfsUrl: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
 wfsOptions:
   referer: http://gexplor.fr/
