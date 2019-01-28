@@ -1,15 +1,17 @@
 title: Lexique topographique de l'Association Française de Topographie (partiel)
+#$schema: http://ydclasses.georef.eu/YamlSkosMonolingue
 $schema: http://ydclasses.georef.eu/YamlSkos
 date:
   - 2000
   - 2018-06-28
 language: fr
-source: https://www.aftopo.org/FR/lexique-7.html
+source:
+  - https://www.aftopo.org/FR/lexique-7.html
 description: |
   Restructuration en YamlSkos d'une partie du lexique topographique de l'Association Française de Topographie (AFT).  
   Le lexique de l'AFT date de 2000. La restructuration a été effectuée en juin 2018.
   Les modifications sémantiques suivantes ont été apportées:
-    
+  
     - les synonymes sont indiqués comme altLabel et n'apparaissent pas dans le lexique,
       par exemple "CADASTRE NAPOLÉONIEN (l.m.)"  est indiqué comme altLabel de "ANCIEN CADASTRE (l.m.)"
     - divers termes sont définis comme narrower d'autres termes,
@@ -18,7 +20,7 @@ description: |
     - le terme "îlot de propriété" est utilisé dans 2 sens distincts, au sens cadastral et au sens foncier.
       J'utilise comme termes "parcelle cadastrale" et "parcelle foncière" avec en altLabel "îlot de propriété",
     - les termes "SERVITUDES ADMINISTRATIVES" et "SERVITUDES LÉGALES D'UTILITÉ PUBLIQUE" sont définis au singulier.
-      
+    
   Le champ hasTopConcept des schemes est déduit du champ topConceptOf des concepts.  
   Le champ narrower des concepts est déduit du champ broader des concepts.  
 
@@ -420,7 +422,7 @@ concepts:
       caractérisées, chacune, par l'unicité de nature de culture.
     related:
       - parcelle_fonciere
-    editorNote: |
+    editorialNote: |
       Dans le lexique de l'AFT, le terme "îlot de propriété" est utilisé dans 2 sens distincts,
       au sens cadastral et au sens foncier.
       Dans cette version du lexique, j'utilise respectivement comme prefLabel les termes "parcelle cadastrale"
@@ -966,12 +968,11 @@ concepts:
       A différencier de ÎLOT DE PROPRIÉTÉ (au sens cadastral).
     related:
       - parcelle_cadatrale
-    editorNote:
-      editorNote: |
-        Dans le lexique de l'AFT, le terme "îlot de propriété" est utilisé dans 2 sens distincts,
-        au sens cadastral et au sens foncier.
-        Dans cette version du lexique, j'utilise respectivement comme prefLabel les termes "parcelle cadastrale"
-        et "parcelle foncière" avec en altLabel "îlot de propriété".
+    editorialNote:
+      Dans le lexique de l'AFT, le terme "îlot de propriété" est utilisé dans 2 sens distincts,
+      au sens cadastral et au sens foncier.
+      Dans cette version du lexique, j'utilise respectivement comme prefLabel les termes "parcelle cadastrale"
+      et "parcelle foncière" avec en altLabel "îlot de propriété".
   plan_dalignement:
     prefLabel: PLAN D'ALIGNEMENT (l.m.)
     inScheme: [ lexiquetravauxfonciers ]
