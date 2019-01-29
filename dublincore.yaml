@@ -14,7 +14,7 @@ abstract: |
     
     - des éléments supplémentaires,
       [sont listés ici ceux mentionnés par la BNF](?ypath=/extension/*) ;
-    - une [liste de vocabulaires contrôlés recommandés](?ypath=/cvoc/*)
+    - une [liste de vocabulaires contrôlés recommandés](?ypath=/cvoc/*/_id,name.fr,definition.fr,content,isAvailableAt)
       dont un [vocabulaire de types de ressources](?ypath=/DCMIType/*) ;
     - une [liste de syntaxes de codage définie ici](?ypath=/encoding/*).
 lineage:
@@ -487,7 +487,7 @@ tables:
         '^[a-zA-Z]+$':
           description: description de chaque vocabulaire contrôlé
           type: object
-          required: [ name, definition, availableAt ]
+          required: [ name, definition, isAvailableAt ]
           properties:
             name:
               description: le nom officiel du vocabulaire dans différentes langues
@@ -506,7 +506,7 @@ tables:
             content:
               description: texte Markdown avec lien interne détaillant le vocabulaire
               type: string
-            availableAt:
+            isAvailableAt:
               description: URL vers un document définissant le vocabulaire
               type: string
     data:
@@ -519,63 +519,63 @@ tables:
         content: |
           [contenu](?ypath=/DCMIType/*)
             
-        availableAt: http://dublincore.org/documents/dcmi-type-vocabulary/
+        isAvailableAt: http://dublincore.org/documents/dcmi-type-vocabulary/
       DDC:
         name:
           fr: classification décimale de Dewey
           en: Dewey Decimal Classification
         definition:
           fr: L'ensemble des ressources conceptuelles spécifiées par la classification décimale de Dewey (Dewey Decimal Classification).
-        availableAt: http://www.oclc.org/dewey/
+        isAvailableAt: http://www.oclc.org/dewey/
       IMT:
         name:
           fr: types de média spécifiés par l'IANA
           en: Internet Media Types
         definition:
           fr: L'ensemble des types de média spécifiés par l'IANA (Internet Assigned Numbers Authority).
-        availableAt: http://www.iana.org/assignments/media-types/
+        isAvailableAt: http://www.iana.org/assignments/media-types/
       LCC:
         name:
           fr: classification de la Bibliothèque du Congrès
           en: Library of Congress Classification
         definition:
           fr: L'ensemble des ressources conceptuelles spécifiées par la classification de la Bibliothèque du Congrès (Library of Congress Classification).
-        availableAt: http://lcweb.loc.gov/catdir/cpso/lcco/lcco.html
+        isAvailableAt: http://lcweb.loc.gov/catdir/cpso/lcco/lcco.html
       LCSH:
         name:
           fr: vedettes-matière de la bibiothèque du congrès américain
           en: Library of Congress Subject Headings
         definition:
           fr: L'ensemble des concepts étiquetés spécifiés par les rubriques LCSH (Library of Congress Subject Headings).
-        availableAt: http://id.loc.gov/authorities/subjects.html
+        isAvailableAt: http://id.loc.gov/authorities/subjects.html
       MESH:
         name:
           fr: vedettes-matière de la bibiothèque nationale de médecine des Etats-Unis (MeSH)
           en: Medical Subject Headings
         definition:
           fr: L'ensemble des concepts étiquetés spécifiés par les rubriques MeSH (Medical Subject Headings).
-        availableAt: http://www.nlm.nih.gov/mesh/meshhome.html
+        isAvailableAt: http://www.nlm.nih.gov/mesh/meshhome.html
       NLM:
         name:
           fr: classification de la Bibliothèque nationale de médecine des Etats-Unis (NLM)
           en: National Library of Medicine Classification (NLM)
         definition:
           fr: L'ensemble des ressources conceptuelles spécifiées par la classification de la Bibliothèque nationale de médecine (National Library of Medicine).
-        availableAt: http://wwwcf.nlm.nih.gov/class/
+        isAvailableAt: http://wwwcf.nlm.nih.gov/class/
       TGN:
         name:
           fr: thésaurus Getty des noms géographiques (TGN)
           en: Getty Thesaurus of Geographic Names (TGN)
         definition:
           fr: L'ensemble des lieux spécifiés par le thésaurus Getty des noms géographiques (Getty Thesaurus of Geographic Names).
-        availableAt: http://www.getty.edu/research/tools/vocabulary/tgn/index.html
+        isAvailableAt: http://www.getty.edu/research/tools/vocabulary/tgn/index.html
       UDC:
         name:
           fr: classification décimale universelle
           en: Universal Decimal Classification
         definition:
           fr: L'ensemble des ressources conceptuelles spécifiées par la classification décimale universelle (Universal Decimal Classification).
-        availableAt: http://www.udcc.org/index.php/site/page?view=about
+        isAvailableAt: http://www.udcc.org/index.php/site/page?view=about
     
   DCMIType:
     title: DCMI Type Vocabulary
