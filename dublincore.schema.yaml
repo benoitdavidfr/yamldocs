@@ -127,7 +127,7 @@ definitions:
               - [FR-50129@2000]
               - [FR-76351,FR-50129@2000]
               - [Mer du Nord]
-          - description: schéma de codage DCMI Point (http://dublincore.org/documents/dcmi-point/) restreint au WGS84
+          - description: [schéma de codage DCMI Point](http://dublincore.org/documents/dcmi-point/) restreint au WGS84
             type: object
             required: [east, north]
             properties:
@@ -150,7 +150,7 @@ definitions:
             examples:
               - { name: 'Perth, W.A.', east: 115.85717, north: -31.95301 }
               - { name: Mt. Kosciusko, east: 148.26218; north: -36.45746, elevation: 2228 }
-          - description: schéma de codage DCMI Box (http://dublincore.org/documents/dcmi-box/) restreint au WGS84
+          - description: [schéma de codage DCMI Box](http://dublincore.org/documents/dcmi-box/) restreint au WGS84
             type: object
             properties:
               name:

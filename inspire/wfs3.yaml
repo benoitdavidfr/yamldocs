@@ -1,0 +1,12 @@
+title: synthèse WFS3
+source: https://github.com/opengeospatial/WFS_FES
+api:
+  GET:
+    /collections:
+      liste les collections qui sont chacune une FeatureCollection
+    /collections/{name}:
+      identifie une collection, renvoie les MDD de la collection
+    /collections/{name}/items?bbox=160.6,-55.95,-170,-25.89:
+      requête une collection et renvoit un GeoJSON FeatureCollection
+    /collections/{name}/items/{id}:
+      identifie 

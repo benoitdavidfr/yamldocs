@@ -34,6 +34,7 @@ GeoService: |
 
 implem: |
   Un GeoCat peut être implémenté par un répertoire YamlDoc contenant :
+    
     - un doc index.yaml décrivant le catalogue et sachant réaliser les opérations associées
     - éventuellement un fichier par GeoDataset et par GeoService constituant un cache de l'enregistrement correspondant
       le nom du fichier est constitué à partir du MD5 du fileIdentifier de la fiche,
@@ -43,6 +44,7 @@ implem: |
   Je pourrais associer ces corrections au GeoCat.
 
   Le GeoCat doit savoir :
+    
     - exécuter une requête (dont la forme est à définir) et en retourner un ensemble d'identifiants
     - si un de ces identifiants correspond à un GeoDataset, l'interpréter comme FeatureDataset et/ou ImageDataset
     - si un de ces identifiants correspond à un GeoService, réaliser les opérations définies pour ce type de service.

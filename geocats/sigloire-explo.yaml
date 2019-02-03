@@ -1,0 +1,35 @@
+title: Exploration de SigLoire
+doc: |
+
+  url: http://localhost/yamldoc/id.php/geocats/sigloire/db/data
+  comment: liste des données
+
+  url: http://localhost/yamldoc/id.php/geocats/sigloire/db/services
+  comment: liste des services
+  
+service:
+  url: http://localhost/yamldoc/id.php/geocats/sigloire/db/items/40e2a842-3792-41ae-bed0-c7710dfcf4c0
+  content:
+    title: PPRI de Chailland – Mayenne (service WFS)
+    relation.0.url:
+      https://datacarto.sigloire.fr/WFS/40e2a842-3792-41ae-bed0-c7710dfcf4c0?service=WFS&request=GetCapabilities
+      GetCapabilities:
+        FeatureTypes:
+          Name: ms:n_orig_risq_pprn_20070009_l_053_01
+          title: PPRI de Chailland – Mayenne
+    operatesOn:
+      - uuidref: 5bcb321b-bae9-493a-92f4-4b1faa4bdcc8
+        href: https://catalogue.sigloire.fr/geonetwork//srv/5bcb321b-bae9-493a-92f4-4b1faa4bdcc8
+          
+data:
+  url: http://localhost/yamldoc/id.php/geocats/sigloire/db/items/5bcb321b-bae9-493a-92f4-4b1faa4bdcc8
+  content:
+    title: PPRI de Chailland – Mayenne
+    comment: |
+      contient dans relation l'URL https://carto.sigloire.fr/cgi-bin/mapserv? avec la liste des FeatureTypes
+      Cette URL semble périmée
+    id: https://catalogue.sigloire.fr/rss/atomfeed/atomdataset/5bcb321b-bae9-493a-92f4-4b1faa4bdcc8
+    relation:
+      - https://carto.sigloire.fr/cgi-bin/mapservwfs?service=WFS&request=GetCapabilities
+    
+  

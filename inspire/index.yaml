@@ -1,0 +1,328 @@
+title : mise en oeuvre d'Inspire avec YamlDoc
+replaces: Une [version précédente du document existe ici](?ypath=/previousVersion).
+logique: |
+  ##Principes
+  - Les données sont organisées en séries de données (SD), chacune décrite par une fiche de méta-données (fMD).
+  - Une SD est une compilation identifiable de données géographiques (définition de la directive Inspire).
+  - Une SD correspond à un regroupement de données ayant un sens pour un utilisateurs, par ex un PPRI, un PLU, ...
+  - Une SD correspond à une spécification et une structuration de la donnée,
+    typiquement pour les objets vecteur en collections homogènes d'objets, cad respectant un schéma commun.
+  - Possibilité de décrire des versions successives d'une SD, par exemple la BDTopo au 1/3/2018, puis au 1/9/2018, ...,
+    en mutualisant les champs communs de MD.
+  - Possibilité aussi de décrire une série de données mise à jour au fur et à mesure,
+    dans ce cas, la date de mise à jour doit être intégrée dans les données et non dans la fMD.
+  - Possibilité de décrire un découpage en lots de données correspondant à un mécanisme de livraison,
+    par exemple, découpage de la BD Topo en départements.
+    
+  ##Accès aux données vecteur
+  - il y a, a priori, 3 protocoles d'accès à une série de donnée:
+    - en flux d'accès WFS, a priori WFS3
+    - en flux de consultation EOTF ou WMS
+    - en téléchargement par exemple d'un ensemble de fichiers shape zippés
+  - une SD est identifiée par un URI noté {uri}
+  - l'accès à cet {uri} fournit la fMD de la SD structurée en Yaml (ou JSON) conformément à un schéma prédéfini
+  - {uri}/wfs est l'URL d'accès au flux WFS des différentes collections correspondant à la SD,
+  - {uri}/tile est l'URL d'accès au flux [EOTP](?ypath=/eotp) des différentes couches représentant la SD,
+  - {uri}/wms est l'URL d'accès au flux WMS des différentes couches représentant la SD,
+  - {uri}/atom est l'URL d'accès au flux [Atom](?ypath=/atom) diffusant:
+     - les versions successives de la SD,
+     - les différents lots de données dans lesquels la SD est découpée
+     - les différents formats de fourniture
+  
+  ##Définition d'un service de recherche
+  - Un service de recherche permet à un utilisateur de découvrir les SD répondant à son besoin.
+  - YamlDoc dispose d'un mécanimse général de recherche qui peut être utilisé pour effectuer ces recherches
+  - Ainsi tous les docs ou sous-docs des classes concernées pourront être traités
+
+eotp: |
+  ##Format EOTP
+  Le format appelé ici EOTP (Extended Osm Tile Protocol) est une extension
+  du [standard de facto d'OSM](https://en.wikipedia.org/wiki/Tiled_web_map)
+  largement utilisé par exemple par Leaflet (classe TileLayer de Leaflet).  
+  L'URL de premier niveau {baseUrl} fournit les MD du service avec notamment la liste des couches exposées.  
+  Chaque couche correspond à une URL {baseUrl}/layers/{lyrName}  
+  L'appel de cet URL fournit les MD détaillées sur la couche, notamment le(s) format(s) autorisé(s)
+  et la couverture spatiale du service.  
+  Les tuiles sont exposées selon l'URL {baseUrl}/layers/{lyrName}(/style/{stylName})?/{z}/{x}/{y}.{fmt} où:
+
+    - {baseUrl} est l'URL de base du service
+    - {stylName} est le nom d'un éventuel style de représentation de la couche
+    - {lyrName} est le nom de la couche
+    - {z} est le niveau de zoom
+    - {x} et {y} sont les numéros de colonne et de ligne de l'image
+    - {fmt} est le format demandé qui doit valoir jpg ou png
+    
+  Les tuiles sont en projection Web Mercator.  
+  Ce format est compatible avec le [standard de facto d'OSM](https://en.wikipedia.org/wiki/Tiled_web_map)
+  puisqu'à chaque couche correspond une URL founissant un flux conforme à ce standard.  
+  Il ajoute:
+    - la possibilité de regrouper différentes couches dans un même service,
+    - la possibilité de décrire le service chaque couche par des métadonnées.
+
+atom: |
+  Description de l'utilisation du flux Atom
+  
+interfaces: |
+  La fiche de MD:
+    
+    - décrit les mécanismes d'accès aux données,
+    - expose l'interface d'utilisation
+    
+  La fiche de MD décrit des protocoles d'accès utilisables par YamlDoc
+  Le document procure éventuellement d'autres protocoles d'accès, notamment:
+    - l'accès par tuiles à la OSM (EOTP)
+    - l'accès FeatureDataset
+    
+example1:
+  title: PPRI de Chailland – Mayenne
+  abstract: |
+    Plan de prévention des risques naturels inondation (PPRNI) de Chailland approuvé par arrêté préfectoral
+    du 1er août 2006.  
+    Il contient les données:
+      - Origine du risque
+      - Périmètre
+      - Zones d'aléa
+      - Zonage réglementaire
+  identifier: https://catalogue.sigloire.fr/5bcb321b-bae9-493a-92f4-4b1faa4bdcc8
+  type: http://inspire.ec.europa.eu/metadata-codelist/ResourceType/dataset
+  subject:
+    - label: Zones de gestion, de restriction ou de réglementation et unités de déclaration
+      uri: http://inspire.ec.europa.eu/theme/am
+    - prévention
+    - risques naturels
+    - périmètre
+    - aménagement
+    - urbanisme
+    - prescription
+    - servitude
+    - usage des sols
+    - label: GRAND PUBLIC
+      uri: https://catalogue.sigloire.fr/geonetwork.thesaurus.external.theme.prodige/GRAND_PUBLIC
+    - label: DDT53
+      uri: https://catalogue.sigloire.fr/geonetwork.thesaurus.external.theme.prodige/DDT53
+    - label: RISQUES NATURELS
+      uri: https://catalogue.sigloire.fr/geonetwork.thesaurus.external.theme.prodige/RISQUES_NATURELS
+    - label: MAYENNE
+      uri: https://catalogue.sigloire.fr/geonetwork.thesaurus.external.place.DepartementFR/MAYENNE
+    - label: CHAILLAND (53048)
+      uri: https://catalogue.sigloire.fr/geonetwork.thesaurus.external.place.CommunesFR/CHAILLAND_(53048)
+    - label: Environnement
+      uri: http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/environment
+  language: fr
+  spatial: {westlimit: -0.9036, eastlimit: -0.8356, southlimit: 48.2088, northlimit: 48.2416}
+  created: 2017-08-17T14:35:00
+  lineage: |
+    Donnée mise au format COVADIS en agrégeant les objets de la table du zonage réglementaire fournie par la DDT 53.
+  scaleDenominator: 5000
+  conformsTo:
+    - title: Géostandard Plan de prévention des risques (PPR) v1.0
+      issued: 2012-10-31
+      identifier: http://www.geoinformations.developpement-durable.gouv.fr/geostandard-plan-de-prevention-des-risques-ppr-v1
+  licence:
+    identifier: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+    label: Licence ouverte de réutilisation d'informations publiques françaises (LO) 2.0, 2017.
+  accessRights: http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations
+  responsibleParty:
+    - label: DDT 53 (Direction Départementale des Territoires de la Mayenne)
+      email: ddt-mt-geo@mayenne.gouv.fr
+      role: http://inspire.ec.europa.eu/metadata-codelist/ResponsiblePartyRole/custodian
+  metadataContact:
+    - label: DDT 53 (Direction Départementale des Territoires de la Mayenne)
+      email: ddt-mt-geo@mayenne.gouv.fr
+  metadataCreated: 2018-04-10T17:21:31
+  metadataLanguage: fr
+  view:
+    - url: https://carto.sigloire.fr/cgi-bin/mapserv?service=WMS&request=GetCapabilities
+      protocol: https://www.opengeospatial.org/standards/wms
+      layers:
+        n_orig_risq_pprn_20070009_l_053:
+          title: Origine du risque
+        n_perimetre_20070009_s_053:
+          title: Périmètre
+        n_zone_alea_pprn_20070009_s_053:
+          title: Zones d'aléa
+        n_zone_reg_pprn_20070009_s_053:
+          title: Zonage réglementaire
+    - url: https://tile.sigloire.fr/
+      layers:
+        n_orig_risq_pprn_20070009_l_053:
+          title: Origine du risque
+        n_perimetre_20070009_s_053:
+          title: Périmètre
+        n_zone_alea_pprn_20070009_s_053:
+          title: Zones d'aléa
+        n_zone_reg_pprn_20070009_s_053:
+          title: Zonage réglementaire
+  download:
+    - url: https://carto.sigloire.fr/cgi-bin/mapservwfs?service=WFS&request=GetCapabilities
+      protocol: https://www.opengeospatial.org/standards/wfs
+      collections:
+        n_orig_risq_pprn_20070009_l_053:
+          title: Origine du risque
+        n_perimetre_20070009_s_053:
+          title: Périmètre
+        n_zone_alea_pprn_20070009_s_053:
+          title: Zones d'aléa
+        n_zone_reg_pprn_20070009_s_053:
+          title: Zonage réglementaire
+    - url: https://catalogue.sigloire.fr/rss/atomfeed/atomdataset/5bcb321b-bae9-493a-92f4-4b1faa4bdcc8
+      protocol: application/atom+xml
+previousVersion:
+  tableOfContents: |
+    L'infra Inspire est principalement définie par 3 types de service:
+    
+      - ceux de recherche (ou catalogue)
+      - ceux de consultation
+      - ceux de téléchargement
+
+  dicovery: |
+    ## Service de recherche
+  
+    Un catalogue contient des fiches de MD de données et de services
+    et propose un mécanisme de requête pour en sélectionner certaines.  
+
+    Chaque fiche de MD de données représente une série de données
+    et permet d'activer sa consultation ou son téléchargement.  
+    Les fiches de MDD sont dupliquées entre catalogues pour faciliter leur exploitation dans chaque catalogue.  
+    A chaque SD correspond une fiche de référence qui est la version de référence de la fiche.
+    Cette fiche de référence est définie par l'URI contenue dans le champ identifier.
+    Les fiches contenues dans les différents catalogues sont des copies de la fiche de référence.
+    Il appartient au catalogue de s'assurer que la fiche qu'il stocke est à jour de la fiche de référence.
+    La fiche de référence peut soit être stockée dans un catalogue si elle ne contient que des MD
+    soit faire l'objet d'un document particulier si elle contient d'autres infos.  
+    La distinction s'effectue au travers de l'identifiant de la SD.
+    dans le premiers cas, l'identifiant est constitué de cxelui du catalogue
+    concaténé avec celui de afiche dans el caatlogue,
+    dan le second cas, l'identifiant est celui d'un document.
+  
+    Un service peut renvoyer ses MD de service qui constituent la fiche de référence.
+    Un catalogue recopie les fiches de MD de certains services pour en faciliter l'exploitation.
+  
+    Tout service de recherche met en oeuvre le protocole du service de téléchargement
+    avec les collections prédéfinies suivantes:
+    
+      - data pour les MD de données
+      - services des MD de service
+      - maps des MD de cartes
+      - nonGeographicDataset des MD de SD non géographiques
+    
+    Il expose en outre les paramètres de requête:
+    
+      - text={text} pour une recherche plein texte
+      - subject={subject} pour une sélection sur un mot-clé
+      
+  view: |
+    ## Service de consultation
+  
+    Tout service de consultation expose un ensemble de couches, il met en oeuvre le protocole suivant
+    (inspiré de ViewDataset):
+    
+      - le service est identifié par un URI noté {uri}, ex http://id.georef.eu/view/igngp
+      - l'appel de {uri} renvoie les métadonnées du service,
+      - l'appel de {uri}/layers renvoie la liste des couches exposées par le service,
+        chacune portant par un nom noté {lyrName} et identifiée par l'uri {uri}/layers/{lyrName}
+      - l'appel de {uri}/layers/{lyrName} renvoie les métadonnées de la couche
+        qui référence notamment les MDD de la SD que la couche contribue à représenter graphiquement,
+      - l'appel de {uri}/layers/{lyrName}(/style/{style})?/{zoom}/{x}/{y}(.{fmt})? renvoie une tuile
+        où:
+          - {style} est un éventuel style de représentation
+          - {zoom} est le niveau de zoom tel que défini
+            par [https://wiki.openstreetmap.org/wiki/Zoom_levels](https://wiki.openstreetmap.org/wiki/Zoom_levels)
+          - {x} et {y} sont respectivement les numéros de colonne et de ligne de la tuile,  
+            conformément à [https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames](https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames)
+          - {fmt} vaut soit 'png', soit 'jpg' si un des 2 formats est demandé.
+    
+    
+  download: |
+    ## Service de téléchargement
+  
+    La définition du service de téléchargement vecteur est inspirée de la définition de **WFS3** produisant du GeoJSON.  
+    Un service de téléchargement expose un ensemble de FeatureCollection, il met en oeuvre le protocole suivant
+    (inspiré de FeatureDataset):
+  
+      - le service est identifié par un URI noté {uri}, ex http://id.georef.eu/geodata/ne_10m
+      - l'appel de {uri} renvoie les MD du service,
+      - l'appel de {uri}/collections liste les collections, chacune caractérisée par un nom noté {collName}
+        et identifiée par l'uri {uri}/collections/{collName}
+      - l'appel de {uri}/collections/{collName} renvoie les MD de la collection, qui référencent notamment les MD de la SD,
+        certains champs de MD peuvant être définis au niveau de la couche et non de la SD,
+        comme par exemple la date de mise à jour,
+      - l'appel de {uri}/collections/{collName}/items?{params} effectue une requête dans la collection
+        définie par les paramètres et renvoie une sélection de la collection structurée comme FeatureCollection GeoJSON
+      - les différents paramètres sont:
+        - bbox={lngMin},{latMin},{lngMax},{latMax} - sélection des objets intersectant la boite,
+        - zoom={zoom} - simplification des objets pour correspondre au niveau de zoom,
+        - where={critères} - sélection des objets correspondant aux critères,
+      - {uri}/collections/{collName}/items/{id} identifie un objet, l'appel renvoie cet objet comme Feature GeoJSON
+  
+  
+  link: |
+    ## Liens entre MDD et services
+  
+    Une série de données vecteur correspond généralement à plusieurs FeatureCollection.
+    Par exemple un PPR ou un PLU est une série de données, il se décompose en différents types d'objets.  
+    Le lien entre la MDD et les collections correspondantes est effectué en indiquant :
+    
+      - d'une part, dans la fiche de MDD, en indiquant l'URI du service de téléchargement dans lequel la SD est exposée,
+      - d'autre part, dans les MD de collection du service de téléchargement, en indiquant la SD à laquelle
+        la collection appartient.
+  
+    De même, le lien entre MDD et les couches correspondantes est effectué en indiquant:
+    
+      - d'une part, dans la fiche de MDD, en indiquant l'URI du service de consultation dans lequel la SD est consultable,
+      - d'autre part, dans les MD de couche du service de consultation, la définition de la SD dont la couche est issue.
+
+    Il est possible de simplifier ces liens en définissant un service de téléchargement et/ou un service de consultation
+    par série de données.
+  
+    **Puis-je imposer cette simplification ???**
+
+  YamlDoc:
+    FeatureDataset: |
+      FeatureDataset est une classe de documents de YamlDoc.  
+      Une SD d'objets (FeatureDataset) est composée de couches d'objets,
+      chacune correspondant à une FeatureCollection GeoJSON ;
+      chaque couche est composée d'objets vecteur, cad des Feature GeoJSON.
+  
+      Le document FeatureDataset décrit les différentes collections le composant.
+      Il fait le lien avec le mécanisme de stockage MySQL ou WFS.  
+      On peut donc:
+        - considérer qu'un FeatureDataset correspond à une série de données Inspire,
+        - on peut aussi considérer qu'il correspond à un service de téléchargement.
+  
+    ViewDataset: |
+      La classe YamlDoc ViewDataset définit une série de données (SD) de consultation constituée de couches de consultation provenant de serveurs WMS/WMTS/... conformes à l'interface iTileServer.
+      Les objectifs sont:
+      
+        1) exposer les couches indépendamment des types de serveur sous-jacents (WMS, WMTS)
+        2) définir une liste de couches en:
+          a) simplifiant les noms de couche
+          b) définissant un ordre plus pratique, notamment avec:
+            i) les couches les plus utilisées en premier
+            ii) un regroupement des couches similaires
+          c) mieux documenter les couches 3) corriger des paramètres posant problème 4) fournir une API XYZ
+
+  examples:
+    ne_10m: |
+      Série de données Natural Earth 1/10M
+    route500:
+      Série de données Route 500
+    bdtopo:
+      Série de données BD Topo
+    bdortho:
+      Série de données BD Ortho
+
+  questions: |
+    - quand faut-il dupliquer fiche de MD dans catalogue et document ?  
+      **réponse**:
+        - si la fiche ne contient que des MD alors le catalogue suffit
+        - sa la fiche contient plus d'infos alors un doc est préférable et le catalogue copie les MD du doc et pointe dessus
+    - la fiche de référence est-elle celle du catalogue ?  
+      **réponse**:
+        - s'il existe un doc alors c'est le doc qui est la référnce
+    - comment fusionner les fiches de MDD et de MDS pour le service de télchargement de la SD ?
+    - comment définir un proxy pour les catalogues existants ? Prodige ? GéoBretagne ? Géo-IDE ? IGN ? Shom ? Ifremer ?
+    - cet objectif de proxy a t'il une incidence sur la structuration ?
+  
+  prodige: |
+

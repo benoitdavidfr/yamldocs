@@ -1,0 +1,90 @@
+title: Carte des vignes et vergers
+abstract: |
+  http://localhost/yamldoc/id.php/geodata/bdtopo/map/display?latlon=,&zoom=14
+view:
+  latlon:
+    - 47.135
+    - -1.730
+  zoom: 14
+bases:
+  cartes:
+    title: 'Cartes IGN'
+    type: TileLayer
+    url: 'http://igngp.geoapi.fr/tile.php/cartes/{z}/{x}/{y}.jpg'
+    options:
+      format: image/jpeg
+      minZoom: 0
+      maxZoom: 18
+      attribution: '&copy; <a href=''http://www.ign.fr''>IGN</a>'
+  orthos:
+    title: Ortho-images
+    type: TileLayer
+    url: 'http://igngp.geoapi.fr/tile.php/orthos/{z}/{x}/{y}.jpg'
+    options:
+      format: image/jpeg
+      minZoom: 0
+      maxZoom: 18
+      attribution: '&copy; <a href=''http://www.ign.fr''>IGN</a>'
+  whiteimg:
+    title: 'Fond blanc'
+    type: TileLayer
+    url: 'http://visu.gexplor.fr/utilityserver.php/whiteimg/{z}/{x}/{y}.png'
+    options:
+      format: image/png
+      minZoom: 0
+      maxZoom: 21
+defaultLayers:
+  - whiteimg
+  - limite_administrative
+  - route
+  - troncon_cours_eau
+overlays:
+  bdtopo-vignes:
+    title: Vignes BD Topo
+    type: UGeoJSONLayer
+    endpoint: 'http://localhost/yamldoc/id.php/geodata/bdtopo/vignes'
+    minZoom: 13
+    maxZoom: 21
+  bdtopo-vergers:
+    title: Vergers BD Topo
+    type: UGeoJSONLayer
+    endpoint: 'http://localhost/yamldoc/id.php/geodata/bdtopo/vergers'
+    minZoom: 13
+    maxZoom: 21
+  rpg-vignes:
+    title: Vignes RPG
+    type: UGeoJSONLayer
+    endpoint: 'http://localhost/yamldoc/id.php/geodata/rpg/vignes'
+    minZoom: 13
+    maxZoom: 21
+    style: { color: blue, weight: 2, opacity: 0.65 }
+  rpg-vergers:
+    title: Vergers RPG
+    type: UGeoJSONLayer
+    endpoint: 'http://localhost/yamldoc/id.php/geodata/rpg/vergers'
+    minZoom: 13
+    maxZoom: 21
+    style: { color: blue, weight: 2, opacity: 0.65 }
+  clc2012-vignoblesFr:
+    title: Vignobles CLC 2012 (métropole)
+    type: UGeoJSONLayer
+    endpoint: 'http://localhost/yamldoc/id.php/geodata/clc2012/vignoblesFr'
+    minZoom: 13
+    maxZoom: 21
+    style: { color: blue, weight: 2, opacity: 0.65 }
+$schema: http://ydclasses.georef.eu/Map
+stylesheets:
+  - 'http://visu.gexplor.fr/viewer.css'
+  - 'https://unpkg.com/leaflet@1.3/dist/leaflet.css'
+plugins:
+  - 'http://visu.gexplor.fr/lib/leaflet.uGeoJSON.js'
+  - 'http://visu.gexplor.fr/lib/leaflet.edgebuffer.js'
+mapStyle:
+  height: 100%
+  width: 100%
+scaleControl:
+  position: bottomleft
+  metric: true
+  imperial: false
+attributions:
+  ign: '&copy; <a href=''http://www.ign.fr''>IGN</a>'

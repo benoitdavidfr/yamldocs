@@ -10,7 +10,8 @@ abstract: |
   [certains raffinements intéressants sont listés ici](?ypath=/dcmes/*/_id,name.fr,refinements).
   Lorsque ces raffinements sont utilisés, on parle de **Dublin Core qualifié**. 
   
-  Le DCMI (Dublin Core Metadata Initiative), un forum ouvert pour le développement d'un standard de métadonnées ouvert,   a poursuivi ces travaux et a notamment défini :
+  Le DCMI (Dublin Core Metadata Initiative), un forum ouvert pour le développement d'un standard de métadonnées ouvert,
+  a poursuivi ces travaux et a notamment défini :
     
     - des éléments supplémentaires,
       [sont listés ici ceux mentionnés par la BNF](?ypath=/extension/*) ;
@@ -368,10 +369,16 @@ tables:
             name:
               fr: Couverture spatiale
               en: Spatial Coverage
+            description:
+              fr: Utiliser le [schéma de codage DCMI Box](?ypath=/encoding/Box)
+              en: Use [DCMI Box Encoding Scheme](?ypath=/encoding/Box)
           temporal:
             name:
               fr: Couverture temporelle
               en: Temporal Coverage
+            description:
+              fr: Utiliser le [schéma de codage DCMI Period](?ypath=/encoding/Period)
+              en: Use [DCMI Period Encoding Scheme](?ypath=/encoding/Period)
       rights:
         name:
           fr: Droits
