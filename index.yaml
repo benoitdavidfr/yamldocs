@@ -23,16 +23,8 @@ contents:
     title: Données géographiques souveraines
   geohisto:
     title: Référentiel géographique administratif historisé
-  inspire-metadata:
-    title: Eléments de métadonnées Inspire, ISO et Dublin Core
-  inspire-mdcvoc:
-    title: Thèmes Inspire et vocabulaires contrôlés utilisés pour les métadonnées
-  inspire-datamodel:
-    title: Modèle de données Inspire déduit du règlement interopérabilité
-  inspire-metadata2:
-    title: Test d'un modèle de données des métadonnées Inspire
-  inspire-directive:
-    title: Test de structuration de la directive Inspire
+  inspire:
+    title: Réflexions sur la mise en oeuvre de la directive Inspire
   iso:
     title: Qqs normes ISO d'intérêt pour l'information géographique
   iso639:

@@ -1,5 +1,5 @@
 title: Modèle de données pour les métadonnées Inspire (périmé)
-isReplacedBy: http://georef.eu/yamldoc/?doc=inspire-metadata3
+isReplacedBy: "[schema JSON des métadonnées Inspire](?doc=inspire/schema)"
 description: |
   **TRAVAIL EN COURS**  
   Ce document décrit le modèle de données d'un jeu de métadonnées Inspire.  

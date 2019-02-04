@@ -1,5 +1,6 @@
 title: schema JSON des métadonnées Inspire
 modified: 2018-08-24
+isReplacedBy: "[schéma JSON Inspire](?doc=inspire/schema)"
 abstract: |
   Revisite du schema de métadonnées Inspire s'appuyant dans la mesure du possible sur JSON-Schema
     reprise de la version OAI,

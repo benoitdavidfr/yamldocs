@@ -1,10 +1,12 @@
-title: schéma JSON des méta-données Inspire
+title: schéma JSON d'une série de données Inspire
 $schema: http://json-schema.org/draft-07/schema#
 $id: http://id.georef.eu/inspire/schema
+modified: 2019-02-04
 description: |
-  Ce schéma JSON décrit les métadonnées Inspire et s'applique donc à un document contenant ces métadonnées.  
+  Ce schéma JSON décrit les métadonnées s'appliquant à une série de données Inspire ;
+  il décrit donc un document défisissant une série de données Inspire.  
   Ce schéma est conforme sur le fond au [réglement métadonnées Inspire](http://data.europa.eu/eli/reg/2008/1205/oj).  
-  Il résulte des principaux choix suivants de mise en oeuvre:
+  Il résulte des principaux choix de mise en oeuvre suivants:
     
     - les éléments Dublin Core, ainsi que certains schémas d'encodage, sont utilisés le plus possible afin notamment
       qu'un document Inspire soit aussi compris comme un document Dublin Core.
@@ -18,17 +20,17 @@ description: |
         spécifications ou la licence d'utilisation, ... utilisent des URI alors que le règlement ne le prévoit pas,
       - en réutilisant la définition de [Organization](https://schema.org/Organization)
         de [Schema.org](https://schema.org/) pour décrire les organismes,
-    - les langues sont codées en alpha-2 (ISO 639-1) et non en alpha-3 (ISO 639-2) comme demandé par le règlement car:
+    - les langues sont codées en alpha-2 (ISO 639-1), et non en alpha-3 (ISO 639-2) comme demandé par le règlement, car:
       - les codes alpha-2 sont beaucoup plus utilisés dans le web sémantique que les codes alpha-3,
-      - ce choix ne crée aucune ambiguité et la reconstruction des codes alpha-3 est simple.
-    - les principes de couplage entre métadonnées de données (MDD) et de service sont repensées car ils ont prouvés
+      - ce choix ne crée aucune ambiguité et il est facile de reconstruire les codes alpha-3.
+    - les principes de couplage entre métadonnées de données (MDD) et de service (MDS) sont repensées car ils ont prouvés
       leur inefficacité. Ainsi, une fiche de MDD contient des informations suffisantes pour activer les services
-      de consultation et de téléchargement correspondants. Les MD de service deviennent inutiles mais peuvent être
-      reconstituées si nécessaire à partir des MDD.
+      de consultation et de téléchargement correspondants sans utiliser ni les MDS, ni les capacités de services.
+      Les MDS deviennent donc inutiles mais peuvent être reconstituées si nécessaire à partir des MDD.
   
 definitions:
   W3CDTF:
-    description: W3C Date and Time Formats Specification (http://www.w3.org/TR/NOTE-datetime)
+    description: "[W3C Date and Time Formats Specification](http://www.w3.org/TR/NOTE-datetime)"
     type: [string, number]
     pattern: ^\d\d\d\d(-\d\d(-\d\d(T\d\d:\d\d(:\d\d(\.\d+)?)?[-+]\d\d:\d\d)?)?)?
     examples:
@@ -39,7 +41,7 @@ definitions:
       - 1997-07-16T19:20:30+01:00
       - 1997-07-16T19:20:30.45+01:00
   dcmi-period:
-    description: DCMI Period Encoding Scheme (http://dublincore.org/documents/dcmi-period/)
+    description: "[DCMI Period Encoding Scheme](http://dublincore.org/documents/dcmi-period/)"
     type: object
     required: [start, end]
     properties:
@@ -53,16 +55,16 @@ definitions:
       - {start: 1999-09-25T14:20+10:00, end: 1999-09-25T16:40+10:00, scheme: W3C-DTF}
   dcmi-box:
     description: >
-      simplified DCMI Box Encoding Scheme (http://dublincore.org/documents/dcmi-box/)
+      simplified [DCMI Box Encoding Scheme](http://dublincore.org/documents/dcmi-box/)
       using geographical coordinates in decimal degree
     type: object
     required: [northlimit, southlimit, westlimit, eastlimit]
     properties:
       name: { type: string }
-      northlimit: { type: number }
-      southlimit: { type: number }
-      westlimit: { type: number }
-      eastlimit: { type: number }
+      northlimit: { type: number, minimum: -90, maximum: 90 }
+      southlimit: { type: number, minimum: -90, maximum: 90 }
+      westlimit: { type: number, minimum: -180, maximum: 180 }
+      eastlimit: { type: number, minimum: -180, maximum: 180 }
     examples:
       - {name: Western Australia, northlimit: -13.5, southlimit: -35.5, westlimit: 112.5, eastlimit: 129 }
   Iso639-1:
@@ -73,7 +75,7 @@ definitions:
       - fr
       - en
   Organization:
-    description: see http://schema.org/Organization
+    description: "[An organization as defined by Schema.org](http://schema.org/Organization)"
     type: object
     required: [name]
     properties:
@@ -127,10 +129,10 @@ properties:
           description: either the URL of the capabilities of a WMS/WMTS service or a parametered URL of a tile service
           type: string
         referer:
-          description: optionaly a refer to be sent with a query to the server
+          description: optionaly a referer to be sent with a query to the server
           type: string
         layers:
-          description: list of layers using the name as key
+          description: list of layers using the layerName as key
           type: object
           additionalProperties:
             type: object
@@ -164,7 +166,7 @@ properties:
                 description: title of the layer that can be shown to a human
                 type: string
               criterion:
-                description: a criterion to be appleid to the query
+                description: a criterion to be applied to the query
                 type: string
   isAvailableAt:
     description: Resource locator (1.4) (part) - Links either to an Atom download feed or to a file to be downloaded - URL
@@ -184,7 +186,7 @@ properties:
           $ref: '#/definitions/Iso639-1'
   subject:
     description: |
-      KEYWORD (3.) + Topic category (2.1.)
+      KEYWORD (3.) + Topic category (2.1.)  
       If the keyword doesn't originate from a controlled vocabulary, it is given as a string.
       Otherwise it is given either by its URI or as an object.  
       Topic category is given as one of the element of http://inspire.ec.europa.eu/metadata-codelist/TopicCategory  
@@ -198,9 +200,9 @@ properties:
             from a controlled vocabulary
           type: string
         - description: |
-            keyword originating from a controlled vocabulary for which the label is given 
-            If a URI is defined for the keyword, the vocabulary don't have to be described  
-            Otherwise, if an URI exists for the vocabulary, then title and reference date don't have to be given
+            keyword originating from a controlled vocabulary for which the label is given.  
+            If a URI is defined for the keyword, then the vocabulary doesn't have to be described.  
+            Otherwise, if an URI exists for the vocabulary, then title and reference date don't have to be given.  
             If neither URI exist, the vocabulary is defined by its title and one of the 3 kind of reference date
           type: object
           required: [label]
@@ -346,19 +348,23 @@ properties:
     description: |
       Conditions applying to access and use (8.1)  
       Use the title and identifier of a licence or one of the following title/URI:
+        
         - title: conditions inconnues
           identifier: http://inspire.ec.europa.eu/metadata-codelist/ConditionsApplyingToAccessAndUse/conditionsUnknown
         - title: aucune condition ne s’applique
           identifier: http://inspire.ec.europa.eu/metadata-codelist/ConditionsApplyingToAccessAndUse/noConditionsApply
-      For the French government open licence, use:
-        - title: Licence ouverte de réutilisation d'informations publiques françaises (LO) 2.0, 2017.
-          identifier: https://www.etalab.gouv.fr/licence-ouverte-open-licence
-      For the ODBL licence, use:
-        - title: Open Database License (ODbL)
-          identifier: https://en.wikipedia.org/wiki/Open_Database_License
-      For IGN non open data, use:
-        - title: Barème et conditions générales des licences d'exploitation IGN
-          identifier: http://professionnels.ign.fr/tarifs-conditions
+      
+      Use:
+        
+        - for the French government open licence:
+          - title: Licence ouverte de réutilisation d'informations publiques françaises (LO) 2.0, 2017.  
+            identifier: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+        - for the ODBL licence:
+          - title: Open Database License (ODbL)  
+            identifier: https://en.wikipedia.org/wiki/Open_Database_License
+        - for IGN non open data:
+          - title: Barème et conditions générales des licences d'exploitation IGN  
+            identifier: http://professionnels.ign.fr/tarifs-conditions
     oneOf:
       - description: just the URI of the licence
         type: string
@@ -395,8 +401,8 @@ properties:
     description: |
       Responsible party (9.1)  
       The description of the organisation responsible for the establishment, management, maintenance and
-      distribution of the resource.
-      The role defined by Inspire is used as the element name.
+      distribution of the resource.  
+      The role defined by Inspire is used as the element name.  
       resourceProvider: Party that supplies the resource
     $ref: '#/definitions/Organization-s'
   custodian:
@@ -440,7 +446,7 @@ properties:
     description: Metadata date (10.2) - The date which specifies when the metadata record was created or updated.  
     $ref: '#/definitions/W3CDTF'
   mdLanguage:
-    description: Metadata language (10.3) - This is the language in which the metadata elements are expressed.  
+    description: Metadata language (10.3) - The language in which the metadata elements are expressed.  
     oneOf:
       - $ref: '#/definitions/Iso639-1'
       - type: array
