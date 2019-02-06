@@ -6,8 +6,8 @@ title: jointure geohisto/regions X geohisto/departements suivie d'un nest
 if (isset($ydcheckWriteAccessForPhpCode))
   return ['benoit'];
 
-require_once __DIR__.'/../yd.inc.php';
-require_once __DIR__.'/../ydclasses.inc.php';
+require_once __DIR__.'/../inc.php';
+//require_once __DIR__.'/../ydclasses.inc.php';
 
 // initialisation du résultat
 $result = [];
@@ -36,11 +36,9 @@ foreach ($regions->extract('/data') as $region) {
     }
   }
 }
-// restructuration pour regrouper les départements par région et renommer les champs de région
-$result = YamlDoc::nest($result, ['rcode'=>'insee_code','rname'=>'name'], 'depts');
 // Renvoi du résultat en y ajoutant le titre du document
-$doc = [
+return [
   'title'=> "jointure geohisto/regions X geohisto/departements suivie d'un regroupement des départements par région",
-  'data'=> $result,
+  // restructuration pour regrouper les départements par région et renommer les champs de région
+  'data'=> YamlDoc::nest($result, ['rcode'=>'insee_code','rname'=>'name'], 'depts'),
 ];
-return new BasicYamlDoc($doc);

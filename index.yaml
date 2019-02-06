@@ -24,7 +24,7 @@ contents:
   geohisto:
     title: Référentiel géographique administratif historisé
   inspire:
-    title: Réflexions sur la mise en oeuvre de la directive Inspire
+    title: Réflexions sur la mise en oeuvre de la directive Inspire avec YamlDoc 
   iso:
     title: Qqs normes ISO d'intérêt pour l'information géographique
   iso639:

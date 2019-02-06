@@ -1,0 +1,520 @@
+title: Natural Earth 1/10M (as a GeoDataset)
+abstract: |
+  Natural Earth is a public domain map dataset available at 1:10m, 1:50m, and 1:110 million scales.
+  Featuring tightly integrated vector and raster data, with Natural Earth you can make a variety of visually pleasing,
+  well-crafted maps with cartography or GIS software.  
+  The 1:10 million scale is the most detailed. Suitable for making zoomed-in maps of countries and regions.
+  Show the world on a large wall poster.
+  
+  Displays mainly between zooms 4 and 8.  
+  Complete display at zoom 8.
+  
+  **Corresponding maps**:
+    
+    - [zoom 6 centered on France metropolitan area](id.php/geodata/ne_10m/map/display?latlon=46.5,3&zoom=6)
+    - [zoom 10 centered on Guadeloupe](id.php/geodata/ne_10m/map/display?latlon=16.2,-61.4&zoom=10)
+    
+licence:
+  uri: http://www.naturalearthdata.com/about/terms-of-use/
+  title: Public domain
+source: http://www.naturalearthdata.com/
+$schema: http://ydclasses.georef.eu/GeoDataset
+# chemin d'accès principal pour le chargement
+dbpath: naturalearth/10m
+# J'arrondis les coordonnées à 3 décimales, 2 est insuffisant
+precision: 3
+minZoom: 0
+maxZoom: 18
+# Liste des couches avec chemin et index à créer
+layers:
+  #
+  # Physical
+  #
+  coastAdminBoundaryLines:
+    title: Coast and land boundaries
+    abstract: |
+      Concaténation des couches coastline et admin_0_boundary_lines_land en excluant les champs non communs
+    onZoomGeo:
+      0: /geodata/ne_110m/coastAdminBoundaryLines
+      3: all
+    style: |
+      function(feature) {
+          if (feature.properties.featurecla == 'Coastline') {
+              return {color: 'blue', weight: 1};
+          } else {
+              return {color: 'chocolate', weight: 1};
+          }
+      }
+    displayedByDefault: true
+    ogrPath:
+      - ne_10m_admin_0_boundary_lines_land.shp
+      - ne_10m_coastline.shp
+    excludedFields:
+      - name
+      - comment
+      - adm0_usa
+      - adm0_left
+      - adm0_right
+      - adm0_a3_l
+      - adm0_a3_r
+      - sov_a3_l
+      - sov_a3_r
+      - type
+      - labelrank
+      - min_label
+      - note
+      - adm0_abr_l
+      - adm0_abr_r
+  coastline:
+    title: coastline
+    abstract: Includes major islands.
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-coastline/
+      description: |
+        Ocean coastline, including major islands. Coastline is matched to land and water polygons.
+        The Caspian Sea, which is technically a lake, is included.
+        The ocean coastline, the foundation for building all of NEV, primarily derives from World Data Bank 2
+        with modest generalization applied via line simplification in Adobe Illustrator.
+        The Antarctica coast derives from NASA Mosaic of Antarctica.
+    ogrPath: ne_10m_coastline.shp
+  # fusion des 2 fichiers en une seule table avec style distinguant les 2
+  land_scale_rank:
+    title: Land
+    abstract: Land polygons including major islands.
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-land/
+      description: |
+        Derived from 10m coastline. Continental polygons broken into smaller, contiguous pieces to avoid having too many
+        points in any one polygon, facilitating faster data processing in certain software applications.  
+      issues: |
+        Coastline accuracy is suspect for northern Russia and southern Chile.  
+        Some rank 5 land should be reclassified as rank 6.
+      note: |
+        Il existe aussi une couche land. La seule différence entre land et land_rank semble être que land_rank est
+        découpé en polygones ayant moins de points. Par ex l'Afrique continentale est découpée en 5 morceaux.
+    onZoomGeo:
+      2: scalerank = 0
+      3: scalerank <= 1
+      4: scalerank <= 2
+      5: scalerank <= 3
+      6: scalerank <= 4
+      7: scalerank <= 5
+      8: all
+    style: { color: sandyBrown, weight: 0, opacity: 0.65 }
+    ogrPath: ne_10m_land_scale_rank.shp
+  minor_islands:
+    title: Minor Islands
+    abstract: Islands that are 2 sq. km or less in size.
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-minor-islands/
+      description: |
+        Additional small ocean islands ranked to two levels of relative importance.
+        Derived from 1:250,000 World Vector Shoreline.
+        Relatively few minor islands shown in polar areas with selective edits elsewhere.
+        Minor islands contain more relative detail than do the islands included with the main 10m ocean coastline data.
+        Ocean bathymetry and ocean polygon are not punched out for minor islands, nor are they included
+        in land polygon or any country or state (admin-0 and admin-1) polygons.
+      issues: Great barrier reef off Australia could use better definition.
+    onZoomGeo:
+      6: scalerank <= 6
+      7: scalerank <= 7
+      8: all 
+    style: { color: sandyBrown, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_minor_islands.shp
+  minor_islands_coastline:
+    title: minor_islands_coastline
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_minor_islands_coastline.shp
+  minor_islands_label_points:
+    title: minor_islands_label_points
+    ogrPath: ne_10m_minor_islands_label_points.shp
+  reefs:
+    title: Reefs
+    abstract: Coral reefs and atolls.
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-reefs/
+      description: |
+        Major coral reefs from WDB2.
+      issues: |
+        Great barrier reef off Australia and reefs elsewhere could use better definition.
+        Should replace entire dataset with VMAP0 reefs, which will require considerable generalization
+        and fitting to coastlines and atolls.
+    onZoomGeo:
+      6: scalerank <= 6
+      7: scalerank <= 7
+      8: all 
+    style: { color: darkCyan, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_reefs.shp
+  ocean_scale_rank:
+    title: Ocean
+    abstract: Ocean polygon split into contiguous pieces.
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-ocean/
+      description: |
+        Derives from 10m ocean coastlines. Ocean polygon is the same as Bathymetry 0 (sea level).
+        Looking for labeled oceans, seas, bays, and more? Try our marine labels, attributed 50m scale ocean polygons.
+      issues: Caspian’s Garabogaz Aylagy and other “lagoons” might better belong in the lake theme than oceans.
+    style: { color: blue, weight: 0, opacity: 0.65 }
+    ogrPath: ne_10m_ocean_scale_rank.shp
+  rivers_lake_centerlines_scale_rank:
+    title: Rivers + lake centerlines
+    abstract: |
+      Single-line drainages including optional lake centerlines and supplementary data for North America and Europe.
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-rivers-lake-centerlines/
+      description: |
+        Rivers primarily derive from World Data Bank 2.
+        Double line rivers in WDB2 were digitized to created single line drainages.
+        All rivers received manual smoothing and position adjustments to fit shaded relief generated
+        from SRTM Plus elevation data, which is more recent and (presumably) more accurate.
+
+        Lake centerlines obtained by manually drawing connecting segments in reservoirs.
+        When available, Admin 0 and 1 political boundaries in reservoirs serve as the lake centerlines.
+
+        Ranked by relative importance. Includes name and line width attributes for creating tapered drainages.
+    onZoomGeo:
+      2: scalerank <= 4
+      3: scalerank <= 5
+      4: scalerank <= 6
+      5: scalerank <= 7
+      6: scalerank <= 8
+      7: scalerank <= 9
+      8: all
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    displayedByDefault: true
+    ogrPath: ne_10m_rivers_lake_centerlines_scale_rank.shp
+  rivers_europe:
+    title: Rivers - Suppl. Europe
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_rivers_europe.shp
+  lakes:
+    title: Lakes
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_lakes.shp
+  lakes_historic:
+    title: Historic lakes
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_lakes_historic.shp
+  lakes_pluvial:
+    title: Pluvial lakes
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_lakes_pluvial.shp
+  lakes_europe:
+    title: Lakes - Suppl. Europe
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_lakes_europe.shp
+  playas:
+    title: playas
+    abstract: a desert basin with no outlet which periodically fills with water to form a temporary lake
+    ogrPath: ne_10m_playas.shp
+  land_ocean_label_points:
+    title: land_ocean_label_points
+    ogrPath: ne_10m_land_ocean_label_points.shp
+  # geométries erronées
+  #land_ocean_seams:
+    #title: land_ocean_seams
+    #ogrPath: ne_10m_land_ocean_seams.shp
+  bathymetry:
+    title: bathymetry
+    style: { color: blue, weight: 1, opacity: 0.10 }
+    ogrPath:
+      - ne_10m_bathymetry_L_0.shp
+      - ne_10m_bathymetry_K_200.shp
+      - ne_10m_bathymetry_J_1000.shp
+      - ne_10m_bathymetry_I_2000.shp
+      - ne_10m_bathymetry_H_3000.shp
+      - ne_10m_bathymetry_G_4000.shp
+      - ne_10m_bathymetry_F_5000.shp
+      - ne_10m_bathymetry_E_6000.shp
+      - ne_10m_bathymetry_D_7000.shp
+      - ne_10m_bathymetry_C_8000.shp
+      - ne_10m_bathymetry_B_9000.shp
+      - ne_10m_bathymetry_A_10000.shp
+  wgs84_bounding_box:
+    title: wgs84_bounding_box
+    ogrPath: ne_10m_wgs84_bounding_box.shp
+  #
+  # Cultural
+  #
+  admin_0_countries:
+    title: Countries
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/
+      note: Plusieurs attributs supprimés pour faciliter l'affichage.
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_countries.shp
+    excludedFields:
+      - SOVEREIGNT
+      - SOV_A3
+      - GEOU_DIF
+      - GEOUNIT
+      - GU_A3
+      - BRK_DIFF
+      - BRK_A3
+      - BRK_NAME
+      - BRK_GROUP
+      - NAME_CIAWF
+      - NOTE_BRK
+      - MAPCOLOR7
+      - MAPCOLOR8
+      - MAPCOLOR9
+      - MAPCOLOR13
+      - ECONOMY
+      - INCOME_GRP
+      - WIKIPEDIA
+      - FIPS_10_
+      - ISO_A3_EH
+      - ISO_N3
+      - UN_A3
+      - WB_A2
+      - WB_A3
+      - WOE_ID
+      - WOE_ID_EH
+      - WOE_NOTE
+      - ADM0_A3_IS
+      - ADM0_A3_US
+      - ADM0_A3_UN
+      - ADM0_A3_WB
+      - REGION_WB
+      - NAME_LEN
+      - LONG_LEN
+      - ABBREV_LEN
+      - TINY
+      - HOMEPART
+      - MIN_ZOOM
+      - MIN_LABEL
+      - MAX_LABEL
+      - NE_ID
+      - WIKIDATAID
+      - NAME_AR
+      - NAME_BN
+      - NAME_DE
+      - NAME_ES
+      - NAME_EL
+      - NAME_HI
+      - NAME_HU
+      - NAME_ID
+      - NAME_IT
+      - NAME_JA
+      - NAME_KO
+      - NAME_NL
+      - NAME_PL
+      - NAME_PT
+      - NAME_RU
+      - NAME_SV
+      - NAME_TR
+      - NAME_VI
+      - NAME_ZH
+  admin_0_countries_full:
+    title: Countries (tous champs)
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/
+      note: Tous attributs disponibles.
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_countries.shp
+  admin_0_boundary_lines_land:
+    title: admin_0_boundary_lines_land
+    style: { color: sandyBrown, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_admin_0_boundary_lines_land.shp
+  admin_0_boundary_lines_maritime_indicator:
+    title: Maritime indicators
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_admin_0_boundary_lines_maritime_indicator.shp
+  admin_0_pacific_groupings:
+    title: admin_0_pacific_groupings
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_admin_0_pacific_groupings.shp
+  # je ne comprends pas ce que c'est
+  # admin_0_seams: { title: admin_0_seams, ogrPath: ne_10m_admin_0_seams.shp }
+  # populated_places comporte trop de champs
+  # populated_places: { title: populated_places, ogrPath: ne_10m_populated_places.shp }
+  populated_places_simple:
+    title: City and town points
+    minZoom: 2
+    onZoomGeo:
+      2: scalerank = 0
+      3: scalerank <= 1
+      4: scalerank <= 2
+      5: scalerank <= 3
+      6: scalerank <= 6
+      7: scalerank <= 7
+      8: all
+    pointToLayer: |
+      function(feature, latlng) {
+        var label = feature.properties.name;
+        var myIcon = L.icon({
+            iconUrl: '/yamldoc/label.php?color=DarkSlateGray&font=3&label='+label,
+            iconSize: [label.length*7, 13],
+            iconAnchor: [label.length*7/2, 6],
+            popupAnchor: [label.length*7/2, 6]
+        });
+        return L.marker(latlng, {icon: myIcon});
+      }
+    displayedByDefault: true
+    ogrPath: ne_10m_populated_places_simple.shp
+  roads:
+    title: roads
+    conformsTo:
+      properties:
+        scalerank:
+          abstract: compris entre 3 et 10
+    minZoom: 3
+    onZoomGeo:
+      3: scalerank <= 3
+      4: scalerank <= 4
+      5: scalerank <= 5
+      6: scalerank <= 7
+      7: scalerank <= 9
+      8: all
+    style: |
+      function(feature) {
+          switch (feature.properties.scalerank) {
+              case '3': return { color: 'violet', weight: 2, opacity: 0.9 };
+              case '4': return { color: 'violet', weight: 2, opacity: 0.9 };
+              case '5': return { color: 'red', weight: 1, opacity: 0.9};
+              case '6': return { color: 'red', weight: 1, opacity: 0.9};
+              case '7': return { color: 'orange', weight: 1, opacity: 0.9};
+              case '8': return { color: 'orange', weight: 1, opacity: 0.9};
+              case '9': return { color: 'orange', weight: 1, opacity: 0.9};
+              case '10': return { color: 'yellow', weight: 1, opacity: 0.9};
+          }
+      }
+    displayedByDefault: true
+    ogrPath: ne_10m_roads.shp
+  railroads:
+    title: railroads
+    minZoom: 3
+    onZoomGeo:
+      3: scalerank <= 3
+      4: scalerank <= 4
+      5: scalerank <= 5
+      6: scalerank <= 7
+      7: scalerank <= 9
+      8: all
+    style: { color: darkGrey, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_railroads.shp
+  airports:
+    title: airports
+    ogrPath: ne_10m_airports.shp
+    excludedFields:
+      - name_ar
+      - name_bn
+      - name_de
+      - name_es
+      - name_el
+      - name_hi
+      - name_hu
+      - name_id
+      - name_it
+      - name_ja
+      - name_ko
+      - name_nl
+      - name_pl
+      - name_pt
+      - name_ru
+      - name_sv
+      - name_tr
+      - name_vi
+      - name_zh
+  ports:
+    title: ports
+    ogrPath: ne_10m_ports.shp
+  urban_areas:
+    title: urban_areas
+    style: { color: orange, weight: 0, opacity: 0.65 }
+    ogrPath: ne_10m_urban_areas.shp
+  urban_areas_landscan:
+    title: urban_areas_landscan
+    style: { color: orange, weight: 0, opacity: 0.65 }
+    ogrPath: ne_10m_urban_areas_landscan.shp
+    # correction du type erroné decimal(19,11) pour Beijing (137_121_250) et NewDelhi (224_908_923)
+    fieldtypes:
+      max_pop_31: decimal(19,5)
+
+  # moins intéressant
+  countryFrance:
+    title: France (as admin_0_countries)
+    select: admin_0_countries / name_en='France'
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+  rivers_north_america:
+    title: Rivers - Suppl. North America
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_rivers_north_america.shp
+  lakes_north_america:
+    title: Lakes - Suppl. North America
+    style: { color: blue, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_lakes_north_america.shp
+  admin_0_sovereignty:
+    title: États souverains
+    abstract: There are 197 sovereign states in the world.
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_sovereignty.shp
+  admin_0_boundary_lines_map_units:
+    title: Lim. de parties d'États souverains
+    style: { color: sandyBrown, weight: 1, opacity: 0.65 }
+    ogrPath: ne_10m_admin_0_boundary_lines_map_units.shp
+  admin_0_map_units:
+    title: Parties d'États souverains
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_map_units.shp
+  admin_0_map_subunits:
+    title: Sous-parties d'États souverains
+    conformsTo:
+      source: https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-details/
+    style: { color: sandyBrown, weight: 1, opacity: 0.10 }
+    ogrPath: ne_10m_admin_0_map_subunits.shp
+  
+# Fichiers shp non pris en compte comme layer
+shpfiles: |
+  ne_10m_admin_0_antarctic_claim_limit_lines.shp
+  ne_10m_admin_0_antarctic_claims.shp
+  ne_10m_admin_0_boundary_lines_disputed_areas.shp
+  ne_10m_admin_0_countries_lakes.shp
+  ne_10m_admin_0_disputed_areas.shp
+  ne_10m_admin_0_disputed_areas_scale_rank_minor_islands.shp
+  ne_10m_admin_0_label_points.shp
+  ne_10m_admin_0_scale_rank.shp
+  ne_10m_admin_0_scale_rank_minor_islands.shp
+  ne_10m_admin_0_seams.shp
+  ne_10m_admin_1_label_points.shp
+  ne_10m_admin_1_label_points_details.shp
+  ne_10m_admin_1_seams.shp
+  ne_10m_admin_1_states_provinces.shp
+  ne_10m_admin_1_states_provinces_lakes.shp
+  ne_10m_admin_1_states_provinces_lines.shp
+  ne_10m_admin_1_states_provinces_scale_rank.shp
+  ne_10m_admin_1_states_provinces_scale_rank_minor_islands.shp
+  ne_10m_antarctic_ice_shelves_lines.shp
+  ne_10m_antarctic_ice_shelves_polys.shp
+  ne_10m_geographic_lines.shp
+  ne_10m_geography_marine_polys.shp
+  ne_10m_geography_regions_elevation_points.shp
+  ne_10m_geography_regions_points.shp
+  ne_10m_geography_regions_polys.shp
+  ne_10m_glaciated_areas.shp
+  ne_10m_graticules_1.shp
+  ne_10m_graticules_10.shp
+  ne_10m_graticules_15.shp
+  ne_10m_graticules_20.shp
+  ne_10m_graticules_30.shp
+  ne_10m_graticules_5.shp
+  ne_10m_land.shp - utiliser land_scale_rank
+  ne_10m_ocean.shp - utiliser ocean_scale_rank
+  ne_10m_parks_and_protected_lands_area.shp - uniq. US
+  ne_10m_parks_and_protected_lands_line.shp - uniq. US
+  ne_10m_parks_and_protected_lands_point.shp - uniq. US
+  ne_10m_parks_and_protected_lands_scale_rank.shp - uniq. US
+  ne_10m_railroads_north_america.shp - uniq. US
+  ne_10m_rivers_lake_centerlines.shp - utiliser rivers_lake_centerlines_scale_rank
+  ne_10m_roads_north_america.shp - uniq. US
+  ne_10m_time_zones.shp
+
+# Nom de la base MySQL en fonction du serveur MySQL
+mysql_database:
+  '172.17.0.3': ne_10m
+  mysql-bdavid.alwaysdata.net: bdavid_ne_10m

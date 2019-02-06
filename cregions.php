@@ -5,13 +5,13 @@ title: sélection des geohisto/regions non périmées
 if (isset($ydcheckWriteAccessForPhpCode))
   return ['benoit'];
 
-require_once __DIR__.'/../yd.inc.php';
+require_once __DIR__.'/../inc.php';
 
 $result = [
   'title'=> "sélection dans geohisto/regions des régions courantes",
   'data'=> [],
 ];
-if (!($regions = new_yamlDoc($store, 'geohisto/regions')))
+if (!($regions = new_doc('geohisto/regions')))
   die("Erreur d'ouverture de regions");
 foreach ($regions->extract('/data') as $region) {
   //echo "<pre>region="; print_r($region); echo "</pre>\n";
@@ -24,4 +24,4 @@ foreach ($regions->extract('/data') as $region) {
   $region['chef_lieu'] = $region['chef_lieu'][count($region['chef_lieu'])-1];
   $result['data'][] = $region;
 }
-return new YamlDoc($result);
+return $result;

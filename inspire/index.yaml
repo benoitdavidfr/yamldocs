@@ -70,3 +70,12 @@ eotp: |
 
 atom: |
   Description de l'utilisation du flux Atom
+  
+implem: |
+  ##Implémentation
+  La logique décrite ici est assez proche des principes mis en oeuvre pour les classes
+  [FeatureDataset](http://ydclasses.georef.eu/FeatureDataset) et [ViewDataset](http://ydclasses.georef.eu/ViewDataset).  
+  Il conviendrait de définir une nouvelle classe GeoDataset qui:
+    
+    - s'appuie sur le schéma JSON d'une série de données Inspire et
+    - réunisse les fonctionnalités de ces 2 classes.

@@ -187,3 +187,6 @@ query: |
       sélectionne la liste des départements de la région ayant 32 comme insee_code.
     - autre exemple, le document [cregions](?doc=cregions) sélectionne les régions actuelles
       ([consulter le code source Php de la requête](?action=showPhpSrc&amp;doc=cregions)).
+      
+  Du point de vue implémentation, un document requête est un script Php qui renvoie un array Php 
+  à partir duquel sera créé un objet Yamldoc par exemple pour afficher le résultat de la requête.

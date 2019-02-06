@@ -17,7 +17,7 @@ if (isset($ydcheckWriteAccessForPhpCode))
   return ['benoit'];
 else {
   // initialisation du résultat
-  $text = <<<EOT
+  $text = <<<'EOT'
 title: Codifications des langues selon la norme ISO 639
 language: [fr, en]
 description: |
@@ -28,6 +28,7 @@ description: |
   Dans ce cas l'indication (ISO 639-2/T) est ajoutée derrière le nom de la langue du code terminologique.  
   Ces thésaurus sont produits à partir du document cité en source.
 source: https://www.loc.gov/standards/iso639-2/php/English_list.php
+$schema: http://ydclasses.georef.eu/YamlSkos
 domainScheme:
   prefLabel:
     fr: Codifications des langues selon la norme ISO 639
@@ -95,5 +96,5 @@ EOT;
 
   $yaml['concepts'] = $concepts;
   //echo '<pre>',Yaml::dump($yaml, 999, 2),"</pre>\n";
-  return new YamlSkos($yaml, 'iso639');
+  return $yaml;
 }
