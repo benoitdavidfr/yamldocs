@@ -459,7 +459,7 @@ layersByTheme:
         description: |
           xxx
         geometryType: Point2D
-        properties:
+        propertiesEx:
           id: SURFCOMM0000000029998996,
           prec_plani: 30,
           nom: Saint-Léger-les-Vignes,
@@ -825,7 +825,7 @@ layersByTheme:
   
   Thème_Extension:
     # je ne comprends pas: Pas de géométrie
-    # extension_nom_usuel:
-    #  title: extension_nom_usuel
-    #  typename: BDTOPO.EXTENSION.NOM_USUEL:extension_nom_usuel
+    extension_nom_usuel:
+      title: extension_nom_usuel
+      typename: BDTOPO.EXTENSION.NOM_USUEL:extension_nom_usuel
     

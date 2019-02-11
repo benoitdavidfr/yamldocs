@@ -1,7 +1,47 @@
 $schema: http://json-schema.org/draft-07/schema#
 $id: http://id.georef.eu/dublincore.schema
 title: schéma JSON pour un document Dublin Core
+description: |
+  Ce schéma correspond à une fiche de MD mono-lingue mais comporte des annotations pour en dériver
+  le schéma d'une fiche multi-lingue qui est très proche.
+  Ces annotations correspondent à des commentaires contenant la chaine '#MultiLingual '.
+  Pour dériver le schéma multi-lingue, il convient de remplacer la chaine avant la chaine '#MultiLingual '
+  par celle qui se trouve après en conservant toutefois les blancs en début de ligne.
+  Cette transformation est effectuée dans le [document dublincore-mul.schema](?doc=dublincore-mul.schema).
 definitions:
+  FreeText:
+    description: |
+      Définition utilisée dans le schéma pour définir un texte libre. Par défaut ce texte libre correspond au type string.
+      Dans le cas d'un schéma multi-lingue, un texte libre correspond à FreeTextMul
+    type: string #MultiLingual $ref: '#/definitions/FreeTextMul'
+  FreeTextMul:
+    description: texte libre multi-lingue, dictionnaire de string indexé par le code ISO 639-1 de la langue
+    type: object
+    additionalProperties: false
+    patternProperties:
+      '^[a-z][a-z]$':
+        type: string
+    examples:
+      - {fr: Union européenne, en: European Union}
+  FreeTextOrArray:
+    description: FreeText ou liste de FreeText
+    oneOf:
+      - $ref: '#/definitions/FreeText'
+      - type: array
+        items: {$ref: '#/definitions/FreeText'}
+  FreeTextOrStringOrArray:
+    description: Un nom identique quelle que soit la langue, ou un nom multi-lingue, ou une liste d'un ou l'autre
+    oneOf:
+      - description: un nom multi-lingue
+        $ref: '#/definitions/FreeText'
+      - description: un nom identique quelle que soit la langue
+        type: string
+      - description: plusieurs noms, certains identiques quelle que soit la langue, d'autres non
+        type: array
+        items:
+          oneOf:
+            - type: string
+            - $ref: '#/definitions/FreeText'
   W3CDTF:
     description: spécification des formats de dates et d'heures du W3C (http://www.w3.org/TR/NOTE-datetime)
     type: [string, number]
@@ -26,317 +66,213 @@ definitions:
       - {name: The Great Depression, start: 1929, end: 1939}
       - {name: "Perth International Arts Festival, 2000", start: 2000-01-26, end: 2000-02-20}
       - {start: 1999-09-25T14:20+10:00, end: 1999-09-25T16:40+10:00, scheme: W3C-DTF}
-  mulString:
-    description: chaine multi-lingue, dictionnaire de string indexé par le code ISO 639-1 de la langue
-    type: object
-    additionalProperties: false
-    patternProperties:
-      '^[a-z][a-z]$':
-        type: string
+  langIso639-1:
+    description: Language coded using ISO 639-1 (alpha-2)
+    type: string
+    pattern: ^[a-z][a-z]$
     examples:
-      - {fr: Banque Mondiale, en: World Bank}
-  stringOrMulString:
-    description: chaine ou chaine multi-lingue
-    oneOf:
-      - type: string
-      - $ref: '#/definitions/mulString'
-    examples:
-      - {fr: Banque Mondiale, en: World Bank}
-      - Banque Mondiale
-  arrayOfStrings:
-    description: liste de chaines, utilisée pour un champ multivalué
+      - fr
+      - en
+  arrayOfLangIso639-1:
+    description: Array of languages coded using ISO 639-1 (alpha-2)
     type: array
-    items:
-      type: string
-  stringOrArrayOfStrings:
-    description: chaine ou liste de chaines
-    oneOf:
-      - type: string
-      - $ref: '#/definitions/arrayOfStrings'
-      - type: 'null'
-  mulStringOrArrayOfMulString:
-    description: chaine multi-lingue ou liste de telles chaines
-    oneOf:
-      - $ref: '#/definitions/mulString'
-      - type: array
-        items:
-          $ref: '#/definitions/mulString'
-  stringOrArrayOfStringsOrMulString:
-    description: une chaine ou une liste soit de chaine soit de chaine multi-lingue (certains noms d'organisation doivent être traduits)
-    oneOf:
-      - type: string
-      - type: array
-        items:
-          $ref: '#/definitions/stringOrMulString'
+    items: { $ref: '#/definitions/langIso639-1' }
     examples:
-      - Jone Doe
-      - [Jone Doe, Marie Blanc]
-      - [Jone Doe, {fr: Banque Mondiale, en: World Bank}]
+      - [fr, en]
   cvocConcept:
-    description: concept d'un vocabulaire contrôlé défini par un uri associé à une chaine monolingue
+    description: concept d'un vocabulaire contrôlé défini par un uri associé à un FreText
     type: object
     required: [uri, label]
     properties:
       uri: {type: string}
-      label: {type: string}
+      label: {$ref: '#/definitions/FreeText'}
     examples:
       - uri: http://id.georef.eu/eurovoc/concepts/3457
         label: réserve naturelle
-  mulCvocConcept:
-    description: concept d'un vocabulaire contrôlé défini par un uri associé à une chaine multilingue
-    type: object
-    required: [uri, label]
-    properties:
-      uri:
-        type: string
-      label:
-        $ref: '#/definitions/mulString'
-    examples:
-      - uri: http://id.georef.eu/eurovoc/concepts/3457
-        label:
-          fr: réserve naturelle
-          en: nature reserve
-  commonDcProperties:
-    description: propriétés Dublin Core communes aux objets mono-lingue et multi-lingue
-    type: object
-    properties:
-      language:
-        description: la ou les langues de la ressource ISO 639-1 (alpha 2)
-        oneOf:
-          - type: string
-            pattern: ^[a-z][a-z]$
-          - type: array
-            items:
-              type: string
-              pattern: ^[a-z][a-z]$
-      spatial:
-        description: Couverture spatiale, 4 codages sont possibles, voir le document dc-spatial
-        anyOf:
-          - description: liste de zones géographiques prédéfinies notament par ISO 3166-1 ou 3166-2 ou la liste des océans et des mers définie par l'OHI
-            type: array
-            items: { type: string }
-            examples:
-              - [FX,GP,GF,MQ,YT,RE]
-              - [FX,GP,GF,MQ,YT,RE,BL,MF,PM]
-              - [FR-75, FR-92, FR-93, FR-94]
-              - [FR-OCC]
-              - [FR-29]
-              - [FR-29,FR-56]
-              - [FR-76351]
-              - [FR-2B033]
-              - [FR-50129@2000]
-              - [FR-76351,FR-50129@2000]
-              - [Mer du Nord]
-          - description: "[schéma de codage DCMI Point](http://dublincore.org/documents/dcmi-point/) restreint au WGS84"
-            type: object
-            required: [east, north]
-            properties:
-              name:
-                description: une chaine associée à la localisation spatiale
-                type: string
-              east:
-                description: longitude WGS84 en degrés décimaux
-                type: number
-                minimum: -180
-                maximum: 180
-              north:
-                description: latitude WGS84 en degrés décimaux
-                type: number
-                minimum: -90
-                maximum: 90
-              elevation:
-                description: altitude au dessus du niveau de la mer en mètres
-                type: number
-            examples:
-              - { name: 'Perth, W.A.', east: 115.85717, north: -31.95301 }
-              - { name: Mt. Kosciusko, east: 148.26218; north: -36.45746, elevation: 2228 }
-          - description: "[schéma de codage DCMI Box](http://dublincore.org/documents/dcmi-box/) restreint au WGS84"
-            type: object
-            properties:
-              name:
-                description: une chaine associée à la localisation spatiale
-                type: string
-              westlimit:
-                description: longitude minimum WGS84 en degrés décimaux
-                type: number
-                minimum: -180
-                maximum: 180
-              eastlimit:
-                description: longitude maximum WGS84 en degrés décimaux
-                type: number
-                minimum: -180
-                maximum: 180
-              southlimit:
-                description: latitude minimum WGS84 en degrés décimaux
-                type: number
-                minimum: -90
-                maximum: 90
-              northlimit:
-                description: latitude maximum WGS84 en degrés décimaux
-                type: number
-                minimum: -90
-                maximum: 90
-              downlimit:
-                description: altitude minimum au dessus du niveau de la mer en mètres
-                type: number
-              uplimit:
-                description: altitude mximum au dessus du niveau de la mer en mètres
-                type: number
-            examples:
-              - { name: Western Australia, northlimit: -13.5, southlimit: -35.5, westlimit: 112.5, eastlimit: 129 }
-              - { name: The Western Hemisphere, westlimit: -180, eastlimit: 0 }
-              - { name: The Tropics, northlimit: 23.5, southlimit: -23.5 }
-              - name: Duchess copper mine
-                northlimit: -21.3
-                southlimit: -21.4
-                westlimit: 139.8
-                eastlimit: 139.9
-                uplimit: 400
-                downlimit: -100 
-          - description: un texte libre
-            type: string
-            examples:
-              - France métropolitaine et 5 DROM
-              - Paris et la petite couronne
-      temporal:
-        description: Couverture temporelle
-      created:
-        decription: Date de création
-        $ref: '#/definitions/W3CDTF'
-      valid:
-        decription: La date (souvent un intervalle) de validité d'une ressource.
-        oneOf:
-          - $ref: '#/definitions/W3CDTF'
-          - $ref: '#/definitions/dcmi-period'
-      available:
-        description: La date (souvent une période) à laquelle la ressource a été disponible ou le deviendra. 
-        oneOf:
-          - $ref: '#/definitions/W3CDTF'
-          - $ref: '#/definitions/dcmi-period'
-      issued:
-        description: La date de parution formelle (par exemple, la publication) de la ressource.
-        $ref: '#/definitions/W3CDTF'
-      modified:
-        description: Date de modification
-        $ref: '#/definitions/W3CDTF'
-      type:
-        description: Type de ressource, utilisant le vocabulaire de types DCMI (http://purl.org/dc/dcmitype/).
-        type: string
-        enum:
-          - http://purl.org/dc/dcmitype/Collection
-          - http://purl.org/dc/dcmitype/Dataset
-          - http://purl.org/dc/dcmitype/Event
-          - http://purl.org/dc/dcmitype/Image
-          - http://purl.org/dc/dcmitype/InteractiveResource
-          - http://purl.org/dc/dcmitype/MovingImage
-          - http://purl.org/dc/dcmitype/PhysicalObject
-          - http://purl.org/dc/dcmitype/Service
-          - http://purl.org/dc/dcmitype/Software
-          - http://purl.org/dc/dcmitype/Sound
-          - http://purl.org/dc/dcmitype/StillImage
-          - http://purl.org/dc/dcmitype/Text
-      format:
-        description: Le format de fichier, le support physique ou les dimensions de la ressource. Utilisation 
-        type: string
-      identifier:
-        description: Une référence univoque vers la ressource dans un contexte donné.
-        type: string
-      source:
-        description: Une ressource liée de laquelle dérive la ressource décrite.
-        $ref: '#/definitions/stringOrArrayOfStrings'
-      conformsTo: true
-      isReferencedBy: true
-      references: true
-description: >
-  un objet DublinCore peut être soit mono-lingue soit multi-lingue, dans les 2 cas il comprend les prop. commmunes
-allOf:
-  - $ref: '#/definitions/commonDcProperties'
-  - oneOf:
-      - description: métadonnées DublinCore mono-lingue
+type: object
+required: [title]
+properties:
+  title:
+    description: Titre principal du document
+    $ref: '#/definitions/FreeText'
+  alternative:
+    description: Titre alternatif
+    $ref: '#/definitions/FreeTextOrArray'
+  creator:
+    description: Nom de la personne, de l'organisation ou du service à l'origine de la rédaction du document
+    $ref: '#/definitions/FreeTextOrArray'
+  subject:
+    description: |
+      Le sujet sera typiquement représenté à l'aide de mots-clés, de phrases-clés ou de codes de classification.
+    type: array
+    items:
+      oneOf:
+        - description: Mot-clé contrôlé
+          $ref: '#/definitions/cvocConcept'
+        - description: Mot-clé libre défini par une étiquette
+          $ref: '#/definitions/FreeText'
+  description:
+    description: Une explication de la ressource.
+    $ref: '#/definitions/FreeText'
+  tableOfContents:
+    description: Table des matières
+    $ref: '#/definitions/FreeText'
+  abstract:
+    description: Résumé
+    $ref: '#/definitions/FreeText'
+  publisher:
+    description: Une entité responsable de la mise à disposition de la ressource.
+    $ref: '#/definitions/FreeTextOrStringOrArray'
+  contributor:
+    description: >
+      Nom d'une personne, d'une organisation ou d'un service qui contribue ou a contribué à l'élaboration du document.
+    $ref: '#/definitions/FreeTextOrStringOrArray'
+  created:
+    decription: Date de création
+    $ref: '#/definitions/W3CDTF'
+  valid:
+    decription: La date (souvent un intervalle) de validité d'une ressource.
+    oneOf:
+      - $ref: '#/definitions/W3CDTF'
+      - $ref: '#/definitions/dcmi-period'
+  available:
+    description: La date (souvent une période) à laquelle la ressource a été disponible ou le deviendra. 
+    oneOf:
+      - $ref: '#/definitions/W3CDTF'
+      - $ref: '#/definitions/dcmi-period'
+  issued:
+    description: La date de parution formelle (par exemple, la publication) de la ressource.
+    $ref: '#/definitions/W3CDTF'
+  modified:
+    description: Date de modification
+    $ref: '#/definitions/W3CDTF'
+  type:
+    description: Type de ressource, utilisant le vocabulaire de types DCMI (http://purl.org/dc/dcmitype/).
+    type: string
+    enum:
+      - http://purl.org/dc/dcmitype/Collection
+      - http://purl.org/dc/dcmitype/Dataset
+      - http://purl.org/dc/dcmitype/Event
+      - http://purl.org/dc/dcmitype/Image
+      - http://purl.org/dc/dcmitype/InteractiveResource
+      - http://purl.org/dc/dcmitype/MovingImage
+      - http://purl.org/dc/dcmitype/PhysicalObject
+      - http://purl.org/dc/dcmitype/Service
+      - http://purl.org/dc/dcmitype/Software
+      - http://purl.org/dc/dcmitype/Sound
+      - http://purl.org/dc/dcmitype/StillImage
+      - http://purl.org/dc/dcmitype/Text
+  format:
+    description: Le format de fichier, le support physique ou les dimensions de la ressource. Utilisation 
+    type: string
+  identifier:
+    description: Une référence univoque vers la ressource dans un contexte donné.
+    type: string
+  source:
+    description: Une ressource liée de laquelle dérive la ressource décrite.
+    $ref: '#/definitions/stringOrArrayOfStrings'
+  language:
+    description: la ou les langues de la ressource ISO 639-1 (alpha 2)
+    oneOf:
+      - $ref: '#/definitions/langIso639-1'
+      - $ref: '#/definitions/arrayOfLangIso639-1'
+  conformsTo: true
+  isReferencedBy: true
+  references: true
+  spatial:
+    description: Couverture spatiale, 4 codages sont possibles, voir le document dc-spatial
+    anyOf:
+      - description: liste de zones géographiques prédéfinies notament par ISO 3166-1 ou 3166-2 ou la liste des océans et des mers définie par l'OHI
+        type: array
+        items: { type: string }
+        examples:
+          - [FX,GP,GF,MQ,YT,RE]
+          - [FX,GP,GF,MQ,YT,RE,BL,MF,PM]
+          - [FR-75, FR-92, FR-93, FR-94]
+          - [FR-OCC]
+          - [FR-29]
+          - [FR-29,FR-56]
+          - [FR-76351]
+          - [FR-2B033]
+          - [FR-50129@2000]
+          - [FR-76351,FR-50129@2000]
+          - [Mer du Nord]
+      - description: "[schéma de codage DCMI Point](http://dublincore.org/documents/dcmi-point/) restreint au WGS84"
         type: object
-        required: [title]
+        required: [east, north]
         properties:
-          title:
-            description: Titre principal du document
+          name:
+            description: une chaine associée à la localisation spatiale
             type: string
-          alternative:
-            description: Titre alternatif
-            $ref: '#/definitions/stringOrArrayOfStrings'
-          creator:
-            description: Nom de la personne, de l'organisation ou du service à l'origine de la rédaction du document
-            $ref: '#/definitions/stringOrArrayOfStrings'
-          subject:
-            description: Le sujet sera typiquement représenté à l'aide de mots-clés, de phrases-clés ou de codes de classification.
-            type: array
-            items:
-              oneOf:
-                - description: Mot-clé contrôlé avec étiquette mono-lingue
-                  $ref: '#/definitions/cvocConcept'
-                - description: Mot-clé contrôlé avec étiquette multi-lingue
-                  $ref: '#/definitions/mulCvocConcept'
-                - description: Mot-clé libre défini par une étiquette mono-lingue
-                  type: string
-                - description: Mot-clé libre défini par une étiquette multi-lingue
-                  $ref: '#/definitions/mulString'
-          description:
-            description: Une explication de la ressource.
-            type: string
-          tableOfContents:
-            description: Table des matières
-            type: string
-          abstract:
-            description: Résumé
-            type: string
-          publisher:
-            description: Une entité responsable de la mise à disposition de la ressource.
-            type: string
-          contributor:
-            description: >
-              Nom d'une personne, d'une organisation ou d'un service qui contribue ou a contribué à l'élaboration du document.
-            $ref: '#/definitions/stringOrArrayOfStrings'
-          accessRights: true
-          licence: true
-      - description: métadonnées DublinCore multi-lingue
+          east:
+            description: longitude WGS84 en degrés décimaux
+            type: number
+            minimum: -180
+            maximum: 180
+          north:
+            description: latitude WGS84 en degrés décimaux
+            type: number
+            minimum: -90
+            maximum: 90
+          elevation:
+            description: altitude au dessus du niveau de la mer en mètres
+            type: number
+        examples:
+          - { name: 'Perth, W.A.', east: 115.85717, north: -31.95301 }
+          - { name: Mt. Kosciusko, east: 148.26218; north: -36.45746, elevation: 2228 }
+      - description: "[schéma de codage DCMI Box](http://dublincore.org/documents/dcmi-box/) restreint au WGS84"
         type: object
-        required: [title]
         properties:
-          title:
-            description: Titre principal du document
-            $ref: '#/definitions/mulString'
-          alternative:
-            description: Titre alternatif
-            $ref: '#/definitions/mulStringOrArrayOfMulString'
-          creator:
-            description: Nom de la personne, de l'organisation ou du service à l'origine de la rédaction du document
-            $ref: '#/definitions/stringOrArrayOfStringsOrMulString'
-          subject:
-            description: Le sujet sera typiquement représenté à l'aide de mots-clés, de phrases-clés ou de codes de classification.
-            type: array
-            items:
-              oneOf:
-                - description: Mot-clé contrôlé avec étiquette multi-lingue
-                  $ref: '#/definitions/mulCvocConcept'
-                - description: Mot-clé libre défini par une étiquette multi-lingue
-                  $ref: '#/definitions/mulString'
-          description:
-            description: Une explication de la ressource.
-            $ref: '#/definitions/mulString'
-          tableOfContents:
-            description: Table des matières
-            $ref: '#/definitions/mulString'
-          abstract:
-            description: Résumé
-            $ref: '#/definitions/mulString'
-          publisher:
-            description: Une entité responsable de la mise à disposition de la ressource.
-            $ref: '#/definitions/mulString'
-          contributor:
-            description: >
-              Nom d'une personne, d'une organisation ou d'un service qui contribue ou a contribué à l'élaboration du document.
-            $ref: '#/definitions/stringOrArrayOfStringsOrMulString'
-          accessRights: true
-          licence: true
-examples:
+          name:
+            description: une chaine associée à la localisation spatiale
+            type: string
+          westlimit:
+            description: longitude minimum WGS84 en degrés décimaux
+            type: number
+            minimum: -180
+            maximum: 180
+          eastlimit:
+            description: longitude maximum WGS84 en degrés décimaux
+            type: number
+            minimum: -180
+            maximum: 180
+          southlimit:
+            description: latitude minimum WGS84 en degrés décimaux
+            type: number
+            minimum: -90
+            maximum: 90
+          northlimit:
+            description: latitude maximum WGS84 en degrés décimaux
+            type: number
+            minimum: -90
+            maximum: 90
+          downlimit:
+            description: altitude minimum au dessus du niveau de la mer en mètres
+            type: number
+          uplimit:
+            description: altitude mximum au dessus du niveau de la mer en mètres
+            type: number
+        examples:
+          - { name: Western Australia, northlimit: -13.5, southlimit: -35.5, westlimit: 112.5, eastlimit: 129 }
+          - { name: The Western Hemisphere, westlimit: -180, eastlimit: 0 }
+          - { name: The Tropics, northlimit: 23.5, southlimit: -23.5 }
+          - name: Duchess copper mine
+            northlimit: -21.3
+            southlimit: -21.4
+            westlimit: 139.8
+            eastlimit: 139.9
+            uplimit: 400
+            downlimit: -100 
+      - description: un texte libre
+        type: string
+        examples:
+          - France métropolitaine et 5 DROM
+          - Paris et la petite couronne
+  temporal:
+    description: Couverture temporelle
+  accessRights: true
+  licence: true
+examples: #MultiLingual monoLingualExamples: # Mono lingual examples
   - title: un exemple simple monolingue
     abstract: résumé
     language: fr
@@ -345,9 +281,10 @@ examples:
       - un mot-clé libre
     contributor:
       - Jone Doe
-      - Banque Mondiale
+      - Ministère de la transition écologique
     issued: 2018-07-14
     valid: {start: 2018-10-01, end: 2018-11-01}
+multiLingualExamples: #MultiLingual examples: # Multi lingual examples
   - title: {fr: un exemple multilingue, en: a multilingual example}
     abstract:
       fr: le résumé en français
@@ -357,7 +294,7 @@ examples:
       - fr: un mot-clé libre en français
     contributor:
       - Jone Doe
-      - {fr: Banque Mondiale, en: World Bank}
+      - {fr: Union européenne, en: European Union}
 counterexamples:
   - title: {fr: un contre-exemple partiellement mono-lingue et partiellement multi-lingue}
     abstract: résumé

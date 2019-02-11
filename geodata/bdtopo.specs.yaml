@@ -1,0 +1,608 @@
+title: Specs de la BD TOPO v2.2
+creator: IGN
+abstract: |
+  La BD TOPO® est une description vectorielle 3D (structurée en objets) des éléments du territoire et
+  de ses infrastructures, de précision métrique, exploitable à des échelles allant du 1/5 000 au 1/50 000.
+
+  Elle couvre de manière cohérente l’ensemble des entités géographiques et administratives du territoire national.
+  Elle permet la visualisation, le positionnement, la simulation au service de l’analyse et de la gestion 
+  opérationnelle du territoire.
+  La description des objets géographiques en 3D permet de représenter de façon réaliste les analyses spatiales
+  utiles aux processus de décision dans le cadre d’études diverses.
+  
+identifier: http://professionnels.ign.fr/doc/DC_BDTOPO_2-2.pdf
+source: http://professionnels.ign.fr/doc/DC_BDTOPO_2-2.pdf
+
+coverage: "iso:code:3166:FR (métropole + DOM)"
+lineage: |
+  9/2/2019:
+    - Fork de FeatureDataset
+$schema: http://ydclasses.georef.eu/FDsSpecs
+
+featureCollections:
+  Thème_Réseau_routier:
+    route:
+      title: route
+      description: |
+        Portion de voie de communication destinée aux automobiles, aux piétons, aux cycles ou aux animaux, 
+        homogène pour l'ensemble des attributs et des relations qui la concerne.
+        Le tronçon de route peut être revêtu ou non revêtu (pas de revêtement de surface ou revêtement de surface
+        fortement dégradé).
+        Dans le cas d’un tronçon de route revêtu, on représente uniquement la chaussée, délimitée par les bas-côtés
+        ou les trottoirs.
+      geometryType: LineString3D
+      properties:
+        id:
+          description: Identifiant du tronçon
+        prec_plani:
+          description: Précision planimétrique
+        prec_alti:
+          description: Précision altimétrique
+        nature:
+          description: Nature de la voie
+          enum:
+            'Autoroute':
+              description: |
+                Routes sans croisement, accessibles seulement en des points aménagés à cet effet et réservées aux
+                véhicules à propulsion mécanique.
+                Le classement dans la catégorie des autoroutes est prononcé par décret en conseil d’état, pris après
+                enquête publique.
+            'Quasi-autoroute':
+              description: |
+                Routes de même définition que l’autoroute mais non classées officiellement dans cette catégorie.
+                Ce sont des routes à chaussées séparées par un terre-plein central, qui ne possèdent pas de
+                croisement à niveau avec le reste du réseau routier.
+            'Bretelle':
+              description: |
+                Bretelles de liaison (ou d’échangeur) ou voies d’accès à une Aire de Service ou de Repos.
+            'Route à 2 chaussées':
+              description: |
+                Routes comportant 2 chaussées séparées par un obstacle physique éventuellement ouvert aux carrefours.
+                Elles possèdent donc des croisements à niveau, ce qui leur interdit d'être classées dans la catégorie 
+                Autoroute ou Quasi-autoroute.
+            'Route à 1 chaussée':
+              description: |
+                Routes comportant 1 chaussée.
+                Se retrouvent dans cette classe toutes les routes goudronnées qui ne sont pas classées en
+                Autoroute, Quasi-autoroute ou Route à 2 chaussées.
+            'Route empierrée':
+              description: |
+                Routes sommairement revêtues (pas de revêtement de surface ou revêtement très dégradé), mais
+                permettant la circulation de véhicules automobiles de tourisme par tout temps.
+                Toutes les routes empierrées sont incluses.
+            'Chemin':
+              description: |
+                Les chemins sont prévus pour la circulation de véhicules ou d’engins d’exploitation.
+                Ils ne sont pas forcément carrossables pour tous les véhicules et par tout temps.
+            'Bac auto':
+              description: |
+                Trajets  du  bateau  servant  à  passer  des  véhicules  d’une  rive  à l’autre d’un cours d’eau
+                ou d’un bras de mer.
+            'Bac piéton':
+              description: |
+                Trajets du bateau servant à passer des piétons d’une rive à l’autre d’un cours d’eau
+                ou d’un bras de mer.
+            'Piste cyclable':
+              description: |
+                Tronçons de chaussée en site propre, réservés aux cycles.
+                La  longueur  doit  être  supérieure  à  200m.  Les  bandes cyclables sont exclues.
+            'Sentier':
+              description: |
+                Chemins étroits ne permettant pas le passage de véhicules.
+                Seuls les principaux sentiers sont inclus.
+                Passerelles  supportant une allée, directement reliées au réseau routier.
+                Les passerelles ont une position par rapport au sol supérieure à 0.
+            'Escalier':
+              description: |
+                Escaliers directement reliés au réseau routier, assurant la jonction entre deux voies de communication
+                ou entre le réseau routier et un élément adressable.
+                Sur rue, les escaliers visibles sur les photographies aériennes sont distingués quelle que soit
+                leur longueur.
+        numero:
+          description: Numéro de la voie (D50, N106...)
+        nom_voie_g:
+          description: Nom du côté gauche de la voie
+        nom_voie_d:
+          description: Nom du côté droit de la voie 
+        importance:
+          description: |
+            Cet attribut matérialise une hiérarchisation du réseau routier fondée, non pas sur un critère
+            administratif, mais sur l'importance des tronçons de route pour le trafic routier.
+            Ainsi, les valeurs 1, 2, 3, 4 et 5 permettent un maillage de plus en plus dense du territoire.
+            Le graphe des éléments appartenant à un degré (autre que le plus bas) et aux niveaux supérieurs est connexe.
+          enum:
+            '1':
+              description: |
+                Le réseau 1 assure les liaisons entre métropoles et compose l’essentiel du réseau européen.
+                Il est composé en général d’autoroutes et quasi-autoroutes, parfois de nationales.
+            '2':
+              description: |
+                Liaisons entre départements.
+                Cette valeur représente une densification du maillage routier défini par les tronçons d’importance 1. 
+                Les liaisons d’importance 2 ont fonction :
+                  - d’assurer les liaisons à fort trafic à caractère prioritaire entre agglomérations importantes ;
+                  - d’assurer les liaisons des agglomérations importantes au réseau d’importance 1 ;
+                  - d’offrir une alternative à une autoroute si celle-ci est payante ;
+                  - de proposer des itinéraires de contournement des agglomérations ;
+                  - d’assurer la continuité, en agglomération, des liaisons interurbaines à fort trafic quand il 
+                    n’y a pas de contournement possible.
+            '3':
+              description: |
+                Liaisons ville à ville à l’intérieur d’un département.
+                Ce niveau est majoritairement représenté par des routes départementales, toutefois certaines 
+                départementales peuvent avoir une importance 4 ou 5.
+                Cette valeur représente une densification du maillage routier défini par les tronçons d’importance 2. 
+                Les liaisons d’importance 3 ont fonction :
+                  - de relier les communes de moindre importance entre elles
+                    (les chefs-lieux de canton en particulier) ;
+                  - de desservir les localités et sites touristiques importants ;
+                  - de desservir les points de passage des obstacles naturels quand ils sont peu nombreux
+                    (cols routiers, ponts) ;
+                  - de desservir les agglomérations d'où partent des liaisons maritimes ;
+                  - de structurer la circulation en agglomération
+            '4':
+              description: |
+                Voies  permettant de se  déplacer rapidement à l’intérieur d’une commune et, dans les zones rurales,
+                de relier le bourg aux hameaux proches.
+                Cette valeur représente une densification du maillage routier défini par les tronçons d’importance 3. 
+                Les liaisons d’importance 4 ont fonction : 
+                  - de structurer la circulation en agglomération ;
+                  - de relier le bourg aux hameaux proches.
+            '5':
+              description: |
+                Voies permettant de desservir l’intérieur d’une commune.
+                Valeur prise par exclusion des autres valeurs de l'attribut.
+            NC:
+              description: Non concerné par cet attribut.
+            NR:
+              description: Non renseigné.
+        cl_admin:
+          description: |
+            Classement administratif
+            Attribut précisant le statut administratif d’une route numérotée ou nommée.
+          enum:
+            Autoroute:
+              description: |
+                Les autoroutes sont des routes sans croisement, accessibles seulement en des points aménagés
+                à cet effet et réservées aux véhicules à propulsion mécanique (Article L122-1 du code de la 
+                voirie routière).
+            Nationale:
+              description: |
+                Route nationale (voies du domaine public routier national autres que les autoroutes précédemment
+                définies).
+            Départementale:
+              description: Voie qui fait partie du domaine public routier départemental.
+            Autre:
+              description: Toute autre voie non classée dans les catégories administratives précédentes.
+        gestion:
+          description: Gestionnaire de la voie
+        mise_serv:
+          description: Date de mise en service
+        it_vert:
+          description: Appartenance à un itinéraire vert
+        it_europ:
+          description: Numéro de l’itinéraire européen
+        fictif:
+          description: Indique la nature fictive ou réelle du tronçon
+        franchisst:
+          description: Nature du franchissement
+        largeur:
+          description: Largeur de la chaussée
+        nom_iti:
+          description: Nom d’itinéraire
+        nb_voies:
+          description: Nombre de voies
+        pos_sol:
+          description: Position par rapport au sol
+        sens:
+          description: Sens de circulation de la voie
+        alias_g:
+          description: Ancien ou autre nom utilisé côté gauche de la voie
+        alias_d:
+          description: Ancien ou autre nom utilisé côté droit de la voie
+        inseecom_g:
+          description: Code INSEE de la commune à gauche de la voie
+        inseecom_d:
+          description: Code INSEE de la commune à droite de la voie
+        codevoie_g:
+          description: Identifiant du côté gauche de la voie
+        codevoie_d:
+          description: Identifiant du côté droit de la voie
+        codepost_g:
+          description: Code postal du côté gauche de la voie
+        codepost_d:
+          description: Code postal du côté droit de la voie
+        typ_adres:
+          description: Type d’adressage de la voie
+        bornedeb_g:
+          description: Borne gauche de début de voie
+        bornedeb_d:
+          description: Borne droite de début de voie
+        bornefin_g:
+          description: Borne gauche de fin de voie
+        bornefin_d:
+          description: Borne droite de fin de voie
+        etat:
+          description: Indique si le tronçon est en construction
+        z_ini:
+          description: Altitude du sommet initial du tronçon
+        z_fin:
+          description: Altitude du sommet final du tronçon
+    route_nommee:
+      title: route_nommee
+    route_primaire:
+      title: route_primaire
+    route_secondaire:
+      title: route_secondaire
+    surface_route:
+      title: surface_route
+    toponyme_communication:
+      title: toponyme_communication
+    chemin:
+      title: chemin
+  
+  Thème_Voies_ferrées:
+    troncon_voie_ferree:
+      title: troncon_voie_ferree
+    gare:
+      title: gare
+    aire_triage:
+      title: aire_triage
+    transport_cable:
+      title: transport_cable
+    toponyme_ferre:
+      title: toponyme_ferre
+  
+  Thème_Transport_d'énergie:
+    ligne_electrique:
+      title: ligne_electrique
+    conduite:
+      title: conduite
+    poste_transformation:
+      title: poste_transformation
+    pylone:
+      title: pylone
+    
+  Thème_Hydrographie:
+    troncon_cours_eau:
+      title: Cours d'eau
+    troncon_laisse:
+      title: tronçon de laisse
+    coastline:
+      title: Laisse des plus hautes eaux
+      select: troncon_laisse / nature='Hautes mers'
+    canalisation_eau:
+      title: canalisation_eau
+    hydronyme:
+      title: hydronyme
+    point_eau:
+      title: point_eau
+    surface_eauv:
+      title: surface_eau
+    reservoir_eau:
+      title: reservoir_eau
+  
+  Thème_Bati:
+    bati_indifferencie:
+      title: bati_indifferencie
+    bati_industriel:
+      title: bati_industriel
+    bati_remarquable:
+      title: bati_remarquable
+    cimetiere:
+      title: cimetiere
+    construction_legere:
+      title: construction_legere
+    construction_lineaire:
+      title: construction_lineaire
+    construction_ponctuelle:
+      title: construction_ponctuelle
+    construction_surfacique:
+      title: construction_surfacique
+    piste_aerodrome:
+      title: piste_aerodrome
+    reservoir:
+      title: reservoir
+    terrain_sport:
+      title: terrain_sport
+  
+  Thème_Végétation:
+    zone_vegetation:
+      title: zone_vegetation
+    vignes:
+      title: Vignes
+      select: zone_vegetation / nature='Vigne'
+    vergers:
+      title: Vergers
+      select: zone_vegetation / nature='Verger'
+
+  Thème_Orographie:
+    ligne_orographique:
+      title: ligne_orographique
+    oronyme:
+      title: oronyme
+    
+  Thème_Administratif:
+    arrondissement:
+      title: arrondissement
+    commune:
+      title: commune
+      description: |
+        xxx
+      geometryType: Point2D
+      propertiesEx:
+        id: SURFCOMM0000000029998996,
+        prec_plani: 30,
+        nom: Saint-Léger-les-Vignes,
+        code_insee: 44171,
+        statut: Commune simple,
+        arrondisst: NANTES,
+        depart: LOIRE-ATLANTIQUE,
+        region: PAYS DE LA LOIRE,
+        popul: 1640
+      
+    chef_lieu:
+      title: Chef-lieu de commune
+      source: http://professionnels.ign.fr/doc/DC_BDTOPO_2-2.pdf#%5B%7B%22num%22%3A355%2C%22gen%22%3A0%7D%2C%7B%22name%22%3A%22XYZ%22%7D%2C69%2C785%2C0%5D
+      description: |
+        Centre de la zone d’habitat dans laquelle se trouve la mairie de la commune.  
+        Dans certains cas, le chef-lieu n’est pas dans la commune.
+      geometryType: Point2D
+      properties:
+        id:
+          description: Identifiant du chef-lieu de commune
+        id_com:
+          description: Identifiant de la commune à laquelle se rapporte le chef-lieu
+        origin_nom:
+          description: Origine du toponyme
+        nature:
+          description: Nature du chef-lieu
+          enum:
+            - Capitale d’état
+            - Préfecture de région
+            - Préfecture
+            - Sous-préfecture
+            - Commune
+        nom:
+          description: Nom du chef-lieu
+        importance:
+          description: Importance
+          enum:
+            '1':
+              description: Lieu habité de plus de 100 000 habitants
+            '2':
+              description: Lieu habité de 25 000 à 100 000 habitants
+            '3':
+              description: Lieu habité de 5 000 à 25 000 habitants
+            '4':
+              description: Lieu habité de 1 000 à 5 000 habitants
+            '5':
+              description: Lieu habité de 200 à 1 000 habitants
+            '6':
+              description: Lieu habité de moins de 200 habitants, quartier de ville
+            '7':
+              description: Groupe d'habitations (2 à 10 feux, 4 à 20 bâtiments, petit quartier de ville)
+            '8':
+              description: Constructions isolées (1 feu, 1 à 3 bâtiments)
+            NC:
+              description: Non concerné.
+            NR:
+              description: Non renseigné.
+
+  Thème_Zones_d'activité:
+    # Les points d'activité ou d'intérêt (PAI)
+    pai_administratif_militaire:
+      title: pai_administratif_militaire
+    pai_culture_loisirs:
+      title: pai_culture_loisirs
+    pai_espace_naturel:
+      title: pai_espace_naturel
+    pai_gestion_eaux:
+      title: pai_gestion_eaux
+    pai_hydrographie:
+      title: pai_hydrographie
+    pai_industriel_commercial:
+      title: pai_industriel_commercial
+    pai_orographie:
+      title: pai_orographie
+    pai_religieux:
+      title: pai_religieux
+      conformsTo:
+        description: Désignation d’un bâtiment réservé à la pratique d’une religion
+        geometryType: Point2D
+        properties:
+          id:
+            description: Identifiant du PAI
+          origine:
+            description: Origine du PAI
+          nature:
+            description: Nature du PAI.
+            enum:
+              Croix:
+                description: "Monument religieux : croix, calvaire, vierge, statue religieuse."
+              'Culte catholique ou orthodoxe':
+                description: |
+                  Bâtiment réservé à l’exercice du culte catholique ou orthodoxe :
+                  église, cathédrale, basilique, chapelle, abbaye, oratoire.
+              'Culte protestant':
+                description: |
+                  Bâtiment réservé à l’exercice du culte protestant : temple (protestant), église réformée.
+              'Culte israélite':
+                description: "Bâtiment réservé à l’exercice du culte israélite : synagogue."
+              'Culte islamique':
+                description: "Bâtiment réservé à l’exercice du culte islamique : mosquée."
+              'Culte divers':
+                description: |
+                  Bâtiment réservé à l’exercice d’un culte religieux autre que chrétien, islamique ou israélite :
+                  temple bouddhiste, temple hindouiste.
+              'Tombeau':
+                description: "Cimetière, tombe ou tombeau nommé : cimetière, tombe, tombeau, ossuaire."
+              NR:
+                description: Non renseignée, l’information est manquante dans la base.
+          toponyme:
+            description: Nom
+          importance:
+            description: Importance du toponyme dans son environnement.
+            enum:
+              '1':
+                description: plus important
+              '2':
+                description: intermédiaire
+              '3':
+                description: intermédiaire
+              '4':
+                description: intermédiaire
+              '5':
+                description: intermédiaire
+              '6':
+                description: intermédiaire
+              '7':
+                description: intermédiaire
+              '8':
+                description: moins important
+              NC:
+                description: Non concerné par cet attribut.
+              NR:
+                description: Non renseigné.
+      # le champ importance ne semble pas réellement rempli
+      #onZoomGeo:
+      #  13: importance in ('1','2')
+      #  14: importance in ('1','2','3','4')
+      #  15: importance in ('1','2','3','4','5','6')
+      #  16: all
+      minZoom: 4
+    pai_sante:
+      title: pai_sante
+    pai_science_enseignement:
+      title: pai_science_enseignement
+    pai_sport:
+      title: pai_sport
+    pai_transport:
+      title: pai_transport
+    pai_zone_habitation:
+      title: pai_zone_habitation
+      description: Désignation d’un lieu-dit habité
+      geometryType: Point2D
+      properties:
+        id:
+          description: Identifiant du PAI
+        origine:
+          description: Origine du PAI
+        nature:
+          description: Nature du PAI.
+          enum:
+            Château:
+              description: |
+                Château ou tour. Le lieu-dit, toujours nommé, peut ne pas être habité  ou  ne  plus  être  habité  
+                mais  n’est  pas  totalement  en  ruines.
+            Grange:
+              description: |
+                Construction   légère :   abri,   baraquement,   cabane,   grange, hangar.
+                Voir également la classe CONSTRUCTION_LEGERE.
+            'Lieu-dit habité':
+              description: |
+                Groupe d’habitations nommé situé en dehors du chef-lieu de commune :
+                hameau, habitation isolée, ancien chef-lieu de commune.
+            Moulin:
+              description: Moulin ou ancien moulin à eau.
+            Quartier:
+              description: "Quartier nommé : cité, faubourg, lotissement."
+            Ruines:
+              description: Bâtiment ou construction en ruines.
+            NR:
+              description: Non renseignée, l’information est manquante dans la base.
+        toponyme:
+          description: Nom
+        importance:
+          description: Importance du toponyme dans son environnement.
+          enum:
+            '1':
+              description: plus important
+            '2':
+              description: intermédiaire
+            '3':
+              description: intermédiaire
+            '4':
+              description: intermédiaire
+            '5':
+              description: intermédiaire
+            '6':
+              description: intermédiaire
+            '7':
+              description: intermédiaire
+            '8':
+              description: moins important
+            NC:
+              description: Non concerné par cet attribut.
+            NR:
+              description: Non renseigné.
+    surface_activite:
+      title: surface_activite
+    
+  Thème_Toponymes:
+    lieu_dit_habite:
+      title: lieu_dit_habite
+      description: Lieu-dit habité
+      geometryType: Point2D
+      properties:
+        id:
+          description: Identifiant du lieu-dit
+        origin_nom:
+          description: Origine du toponyme
+        nom:
+          description: Nom du lieu-dit habité
+        importance:
+          description: Importance du lieu-dit.
+          enum:
+            '1':
+              description: Lieu habité de plus de 100 000 habitants
+            '2':
+              description: Lieu habité de 25 000 à 100 000 habitants
+            '3':
+              description: Lieu habité de 5 000 à 25 000 habitants
+            '4':
+              description: Lieu habité de 1 000 à 5 000 habitants
+            '5':
+              description: Lieu habité de 200 à 1 000 habitants
+            '6':
+              description: Lieu habité de moins de 200 habitants, quartier de ville
+            '7':
+              description: Groupe d'habitations (2 à 10 feux, 4 à 20 bâtiments, petit quartier de ville)
+            '8':
+              description: Constructions isolées (1 feu, 1 à 3 bâtiments)
+            NC:
+              description: Non concerné.
+            NR:
+              description: Non renseigné.
+        nature:
+          description: Nature du lieu-dit.
+          enum:
+            Château:
+              description: |
+                Château ou tour. Le lieu-dit, toujours nommé, peut ne pas être habité  ou  ne  plus  être  habité  
+                mais  n’est  pas  totalement  en  ruines.
+            Grange:
+              description: |
+                Construction   légère :   abri,   baraquement,   cabane,   grange, hangar.
+            'Lieu-dit habité':
+              description: |
+                Groupe d’habitations nommé situé en dehors du chef-lieu de commune :
+                hameau, habitation isolée, ancien chef-lieu de commune.
+            Moulin:
+              description: Moulin ou ancien moulin à eau.
+            Quartier:
+              description: "Quartier nommé : cité, faubourg, lotissement."
+            Refuge:
+              description: Refuge, refuge gardé, abri de montagne nommé.
+            Ruines:
+              description: Bâtiment ou construction en ruines.
+    lieu_dit_non_habite:
+      title: lieu_dit_non_habite
+    toponyme_divers:
+      title: toponyme_divers
+  
+  Thème_Extension:
+    # je ne comprends pas: Pas de géométrie
+    extension_nom_usuel:
+      title: extension_nom_usuel
+    

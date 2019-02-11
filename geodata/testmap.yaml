@@ -23,23 +23,23 @@ bases:
     title: Fond blanc
     type: TileLayer
     url: http://visu.gexplor.fr/utilityserver.php/whiteimg/{z}/{x}/{y}.jpg
-    options: { format: image/jpeg, minZoom: 0, maxZoom: 21, detectRetina: true }
+    options: { minZoom: 0, maxZoom: 21, detectRetina: true }
   cartes:
     title: Cartes IGN
     type: TileLayer
     url: http://igngp.geoapi.fr/tile.php/cartes/{z}/{x}/{y}.jpg
-    options: { format: image/jpeg, minZoom: 0, maxZoom: 18, detectRetina: true, attribution: ign }
+    options: { minZoom: 0, maxZoom: 18, detectRetina: true, attribution: ign }
   orthos:
     title: Ortho-images
     type: TileLayer
     url: http://igngp.geoapi.fr/tile.php/orthos/{z}/{x}/{y}.jpg
-    options: { format: image/jpeg, minZoom: 0, maxZoom: 20, detectRetina: true, attribution: ign }
+    options: { minZoom: 0, maxZoom: 20, detectRetina: true, attribution: ign }
 overlays:
   routes:
     title: routes
     type: TileLayer
     url: http://igngp.geoapi.fr/tile.php/routes/{z}/{x}/{y}.png
-    options: { format: image/png, minZoom: 6, maxZoom: 18, detectRetina: true, attribution: ign }
+    options: { minZoom: 6, maxZoom: 18, detectRetina: true, attribution: ign }
   r500-commune:
     title: r500-commune
     type: UGeoJSONLayer

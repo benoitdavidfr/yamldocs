@@ -1,7 +1,7 @@
 title: schéma JSON d'une série de données Inspire
 $schema: http://json-schema.org/draft-07/schema#
 $id: http://id.georef.eu/inspire/schema
-modified: 2019-02-04
+modified: 2019-02-07
 description: |
   Ce schéma JSON décrit les métadonnées s'appliquant à une série de données Inspire ;
   il décrit donc un document définissant une série de données Inspire.  
@@ -27,8 +27,30 @@ description: |
       leur inefficacité. Ainsi, une fiche de MDD contient des informations suffisantes pour activer les services
       de consultation et de téléchargement correspondants sans utiliser ni les MDS, ni les capacités de services.
       Les MDS deviennent donc inutiles mais peuvent être reconstituées si nécessaire à partir des MDD.
+    - le présent schéma correspond à une fiche de MD mono-lingue mais comporte des annotations pour en dériver
+      le schéma pour une fiche multi-lingue qui est très proche. Ces annotations correspondent à des commentaires
+      contenant la chaine '#MultiLingual '. Pour dériver le schéma multi-lingue il convient de remplacer la chaine
+      avant la chaine '#MultiLingual ' par celle qui se trouve après en conservant toutefois les blancs en début de ligne
   
+parameters:
+  MultiLingual:
+    title: MultiLingual document
 definitions:
+  FreeText:
+    description: |
+      Définition utilisée dans le schéma pour définir un texte libre.
+      Par défaut ce texte libre correspond au type string.
+      Dans le cas d'un schéma multi-lingue, un texte libre correspond à FreeTextMul
+    type: string #MultiLingual $ref: '#/definitions/FreeTextMul'
+  FreeTextMul:
+    description: texte libre multi-lingue, dictionnaire de string indexé par le code ISO 639-1 de la langue
+    type: object
+    additionalProperties: false
+    patternProperties:
+      '^[a-z][a-z]$':
+        type: string
+    examples:
+      - {fr: Union européenne, en: European Union}
   W3CDTF:
     description: "[W3C Date and Time Formats Specification](http://www.w3.org/TR/NOTE-datetime)"
     type: [string, number]
@@ -67,13 +89,19 @@ definitions:
       eastlimit: { type: number, minimum: -180, maximum: 180 }
     examples:
       - {name: Western Australia, northlimit: -13.5, southlimit: -35.5, westlimit: 112.5, eastlimit: 129 }
-  Iso639-1:
+  langIso639-1:
     description: Language coded using ISO 639-1 (alpha-2)
     type: string
     pattern: ^[a-z][a-z]$
     examples:
       - fr
       - en
+  arrayOfLangIso639-1:
+    description: Array of languages coded using ISO 639-1 (alpha-2)
+    type: array
+    items: { $ref: '#/definitions/langIso639-1' }
+    examples:
+      - [fr, en]
   Organization:
     description: "[An organization as defined by Schema.org](http://schema.org/Organization)"
     type: object
@@ -81,7 +109,7 @@ definitions:
     properties:
       name:
         description: The name of the organization.
-        type: string
+        $ref: '#/definitions/FreeText'
       email:
         description: Email address.
         type: string
@@ -98,13 +126,13 @@ properties:
   title:
     description: |
       Resource title (1.1) - A characteristic, and often unique, name by which the resource is known. - Free text
-    type: string
+    $ref: '#/definitions/FreeText'
   alternative:
     description: Resource alternative title
-    type: string
+    $ref: '#/definitions/FreeText'
   abstract:
     description: Resource abstract (1.2) - A brief narrative summary of the content of the resource. - Free text
-    type: string
+    $ref: '#/definitions/FreeText'
   type:
     description: Resource type (1.3) - The type of resource described by the metadata.  
     enum:
@@ -128,9 +156,11 @@ properties:
         url:
           description: either the URL of the capabilities of a WMS/WMTS service or a parametered URL of a tile service
           type: string
+          pattern: '^(http|https)://'
         referer:
           description: optionaly a referer to be sent with a query to the server
           type: string
+          pattern: '^(http|https)://'
         layers:
           description: list of layers using the layerName as key
           type: object
@@ -139,7 +169,7 @@ properties:
             properties:
               title:
                 description: title of the layer that can be shown to a human
-                type: string
+                $ref: '#/definitions/FreeText'
   download:
     description: Resource locator (1.4) (part) - Links to direct download services
     type: array
@@ -153,9 +183,11 @@ properties:
             either the URL of the capabilities of a WFS1/2 service, or a parametered URL of a WFS3 service,
             or the URI of a MySQL or Postgres server
           type: string
+          pattern: '^(http|https|mysql|postgres)://'
         referer:
           description: optionaly a refer to be sent with a query to the server
           type: string
+          pattern: '^(http|https)://'
         collections:
           description: list of collections or tables using the name as key
           type: object
@@ -164,13 +196,14 @@ properties:
             properties:
               title:
                 description: title of the layer that can be shown to a human
-                type: string
+                $ref: '#/definitions/FreeText'
               criterion:
                 description: a criterion to be applied to the query
                 type: string
   isAvailableAt:
     description: Resource locator (1.4) (part) - Links either to an Atom download feed or to a file to be downloaded - URL
     type: string
+    pattern: '^(http|https|ftp)://'
   identifier:
     description: Unique resource identifier (1.5) - A value uniquely identifying the resource. URI
     type: array
@@ -180,10 +213,8 @@ properties:
   language:
     description: Resource language (1.7) - The language(s) used within the resource using ISO 639-1. - 0..*
     oneOf:
-      - $ref: '#/definitions/Iso639-1'
-      - type: array
-        items:
-          $ref: '#/definitions/Iso639-1'
+      - $ref: '#/definitions/langIso639-1'
+      - $ref: '#/definitions/arrayOfLangIso639-1'
   subject:
     description: |
       KEYWORD (3.) + Topic category (2.1.)  
@@ -195,10 +226,11 @@ properties:
     minItems: 1
     items:
       oneOf:
-        - description: >
-            either a keyword not originating from a controlled vocabulary, or the URI of a keyword originating
-            from a controlled vocabulary
+        - description: the URI of a keyword originating from a controlled vocabulary
           type: string
+          format: uri
+        - description: the label of a keyword not originating from a controlled vocabulary
+          $ref: '#/definitions/FreeText'
         - description: |
             keyword originating from a controlled vocabulary for which the label is given.  
             If a URI is defined for the keyword, then the vocabulary doesn't have to be described.  
@@ -209,7 +241,7 @@ properties:
           properties:
             label:
               description: Keyword value (3.1.)
-              type: string
+              $ref: '#/definitions/FreeText'
             identifier:
               description: the URI of the keyword if it exists
               type: string
@@ -222,7 +254,7 @@ properties:
                   type: string
                 title:
                   description: if none of the URI exist, the title of the controlled vocabulary
-                  type: string
+                  $ref: '#/definitions/FreeText'
                 issued:
                   description: date of publication of the controlled vocabulary
                   type: string
@@ -284,7 +316,7 @@ properties:
       it may include a statement whether the data set has been validated or quality assured, whether it is the
       official version (if multiple versions exist), and whether it has legal validity.  
       The value domain of this metadata element is free text.
-    type: string
+    $ref: '#/definitions/FreeText'
   scaleDenominator:
     description: |
       Spatial resolution given as the scale denominator of an equivalent scale (6.2)
@@ -327,7 +359,7 @@ properties:
               type: string
             title:
               description: the title of the specification
-              type: string
+              $ref: '#/definitions/FreeText'
             issued:
               description: date of publication of the specification
               type: string
@@ -368,11 +400,12 @@ properties:
     oneOf:
       - description: just the URI of the licence
         type: string
+        format: uri
       - description: title and URI of the licence
         type: object
         required: [title, identifier]
         properties:
-          title: { type: string }
+          title: { $ref: '#/definitions/FreeText' }
           identifier: { type: string }
       - description: if several licences apply
         type: array
@@ -380,7 +413,7 @@ properties:
           type: object
           required: [title, identifier]
           properties:
-            title: { type: string }
+            title: { $ref: '#/definitions/FreeText' }
             identifier: { type: string }
   accessRights:
     description: |
@@ -447,12 +480,9 @@ properties:
     $ref: '#/definitions/W3CDTF'
   mdLanguage:
     description: Metadata language (10.3) - The language in which the metadata elements are expressed.  
-    oneOf:
-      - $ref: '#/definitions/Iso639-1'
-      - type: array
-        items: { $ref: '#/definitions/Iso639-1' }
-  
-examples:
+    $ref: '#/definitions/langIso639-1' #MultiLingual $ref: '#/definitions/arrayOfLangIso639-1'
+
+examples: #MultiLingual monoLingualExamples: # Mono lingual examples
   - title: PPRI de Chailland – Mayenne
     abstract: |
       Plan de prévention des risques naturels inondation (PPRNI) de Chailland approuvé par arrêté préfectoral
@@ -556,4 +586,61 @@ examples:
           n_zone_reg_pprn_s:
             title: Zonage réglementaire
             criterion: gaspar='20070009' and zone='053'
+    isAvailableAt: https://catalogue.sigloire.fr/rss/atomfeed/atomdataset/5bcb321b-bae9-493a-92f4-4b1faa4bdcc8
+
+multiLingualExamples: #MultiLingual examples: # Multi lingual examples
+  - title: {fr: PPRI de Chailland – Mayenne (Multi-lingue)}
+    abstract:
+      fr: |
+        Plan de prévention des risques naturels inondation (PPRNI) de Chailland approuvé par arrêté préfectoral
+        du 1er août 2006.  
+        Il contient les données:
+          - Origine du risque
+          - Périmètre
+          - Zones d'aléa
+          - Zonage réglementaire
+    type: http://inspire.ec.europa.eu/metadata-codelist/ResourceType/dataset
+    identifier:
+      - https://catalogue.sigloire.fr/5bcb321b-bae9-493a-92f4-4b1faa4bdcc8
+    subject:
+      - label: {fr: "Zones de gestion, de restriction ou de réglementation et unités de déclaration"}
+        identifier: http://inspire.ec.europa.eu/theme/am
+      - {fr: prévention}
+      - label: {fr: GRAND PUBLIC}
+        identifier: https://catalogue.sigloire.fr/geonetwork.thesaurus.external.theme.prodige/GRAND_PUBLIC
+      - label: {fr: DDT53}
+        identifier: https://catalogue.sigloire.fr/geonetwork.thesaurus.external.theme.prodige/DDT53
+    language: fr
+    spatial: {westlimit: -0.9036, eastlimit: -0.8356, southlimit: 48.2088, northlimit: 48.2416}
+    created: 2017-08-17T14:35:00
+    lineage:
+      fr: |
+        Donnée mise au format COVADIS en agrégeant les objets de la table du zonage réglementaire fournie par la DDT 53.
+    scaleDenominator: 5000
+    conformsTo:
+      - title: {fr: Géostandard Plan de prévention des risques (PPR) v1.0}
+        issued: '2012-10-31'
+        identifier: http://id.georef.eu/geostandards/ppr-v1
+    licence:
+      identifier: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+      title: { fr: "Licence ouverte de réutilisation d'informations publiques françaises (LO) 2.0, 2017." }
+    accessRights: http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations
+    custodian:
+      - name: {fr: DDT 53 (Direction Départementale des Territoires de la Mayenne)}
+        email: ddt-mt-geo@mayenne.gouv.fr
+    mdPointOfContact:
+      - name: {fr: DDT 53 (Direction Départementale des Territoires de la Mayenne)}
+        email: ddt-mt-geo@mayenne.gouv.fr
+    mdModified: 2018-04-10T17:21:31
+    mdLanguage: [fr]
+    view:
+      - url: https://carto.sigloire.fr/cgi-bin/mapserv?service=WMS&request=GetCapabilities
+        layers:
+          n_orig_risq_pprn_20070009_l_053:
+            title: {fr: Origine du risque}
+    download:
+      - url: https://carto.sigloire.fr/cgi-bin/mapservwfs?service=WFS&request=GetCapabilities
+        collections:
+          n_orig_risq_pprn_20070009_l_053:
+            title: {fr: Origine du risque}
     isAvailableAt: https://catalogue.sigloire.fr/rss/atomfeed/atomdataset/5bcb321b-bae9-493a-92f4-4b1faa4bdcc8

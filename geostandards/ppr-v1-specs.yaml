@@ -1,0 +1,1674 @@
+title: 'Plan de prévention des risques PPRN PPRT, version 1'
+creator:
+  - 'Ministère de la Transition écologique (MTES)'
+  - 'Ministère de la Cohésion des territoites et des Relations avec les collectivités territoriales (MCTRCT)'
+  - 'Centre d’études et d’expertise sur les risques, l’environnement, la mobilité et l’aménagement (Cerema)'
+issued: '2014-02-10'
+identifier: http://id.georef.eu/geostandards/ppr-v1.specs
+$schema: 'http://ydclasses.georef.eu/FDsSpecs'
+codeLists:
+  PPR_PERIMETRE_TYPE:
+    title: PPR_PERIMETRE_TYPE
+    description: 'Aire ou limite de zone dans laquelle s''appliquent les effets d''une décision administrative ou d''une réglementation relative à un PPR.'
+    codeLength: 2
+    items:
+      '01':
+        label: 'Périmètre prescrit'
+        definition: 'Périmètre figurant dans l''arrêté préfectoral de prescription du PPR.'
+      '02':
+        label: 'Périmètre d''exposition aux risques'
+        definition: 'Périmètre correspondant à l''enveloppe constituée de l''ensemble des zones réglementées par le PPR.'
+      '03':
+        label: 'Périmètre d''étude'
+        definition: 'Périmètre sur lequel les études préliminaires ont étudié le ou les aléas pour l''élaboration du PPR.'
+  PPR_CARTE_ALEA_TYPE:
+    title: PPR_CARTE_ALEA_TYPE
+    description: 'Type de carte représentant l''aléa de référence pris en compte pour établir les principes de réglementation de chaque secteur de la zone d''étude du PPR.'
+    codeLength: 2
+    items:
+      '01':
+        label: 'Carte mono-aléa'
+        definition: 'Carte produite lors de l''élaboration du plan de prévention des risques, représentant la répartition des différents niveaux de chaque aléa sur la zone étudiée.'
+      '02':
+        label: 'Carte d''effet'
+        definition: 'Carte produite lors de l''élaboration du plan de prévention des risques technologiques, représentant les différents niveaux d''un type d''effet sur la zone étudiée. Par exemple : carte des zones susceptibles d''être impactées par un nuage toxique, par une explosion...'
+      '03':
+        label: 'Carte de synthèse des aléas'
+        definition: 'Carte produite lors de l''élaboration du plan de prévention des risques, représentant la synthèse des différents niveaux de tous les aléas sur la zone étudiée. Ce type de carte regroupe les cartes multi-aléas des PPRN multirisques ou les cartes de synthèse des aléas des PPRT.'
+  PPR_NIVEAU_ALEA_SPECIFIC_TYPE:
+    title: PPR_NIVEAU_ALEA_SPECIFIC_TYPE
+    description: 'Dénomination des niveaux d''aléa définis par l''étude des aléas et représentés sur la carte des aléas. Peut être ajoutée à cette liste toute valeur décrivant d''autres niveaux qui a pu être spécifiquement définie pour le PPR traité.'
+    codeLength: 5
+    items:
+      TF+:
+        label: 'Très fort plus'
+        definition: 'Ces valeurs graduées sont fournies à titre indicatif. Seules les valeurs les plus fréquemment utilisées dans les PPR sont ici représentées. La graduation et le nombre de classes d''intensité de l''aléa varient en pratique d''un PPR à l''autre. Certaines valeurs peuvent venir s''ajouter à la liste.'
+      TF:
+        label: 'Très fort'
+        definition: 'Ces valeurs graduées sont fournies à titre indicatif. Seules les valeurs les plus fréquemment utilisées dans les PPR sont ici représentées. La graduation et le nombre de classes d''intensité de l''aléa varient en pratique d''un PPR à l''autre. Certaines valeurs peuvent venir s''ajouter à la liste.'
+      F+:
+        label: 'Fort plus'
+        definition: 'Ces valeurs graduées sont fournies à titre indicatif. Seules les valeurs les plus fréquemment utilisées dans les PPR sont ici représentées. La graduation et le nombre de classes d''intensité de l''aléa varient en pratique d''un PPR à l''autre. Certaines valeurs peuvent venir s''ajouter à la liste.'
+      F:
+        label: Fort
+        definition: 'Ces valeurs graduées sont fournies à titre indicatif. Seules les valeurs les plus fréquemment utilisées dans les PPR sont ici représentées. La graduation et le nombre de classes d''intensité de l''aléa varient en pratique d''un PPR à l''autre. Certaines valeurs peuvent venir s''ajouter à la liste.'
+      M+:
+        label: 'Moyen plus'
+        definition: 'Ces valeurs graduées sont fournies à titre indicatif. Seules les valeurs les plus fréquemment utilisées dans les PPR sont ici représentées. La graduation et le nombre de classes d''intensité de l''aléa varient en pratique d''un PPR à l''autre. Certaines valeurs peuvent venir s''ajouter à la liste.'
+      M:
+        label: Moyen
+        definition: 'Ces valeurs graduées sont fournies à titre indicatif. Seules les valeurs les plus fréquemment utilisées dans les PPR sont ici représentées. La graduation et le nombre de classes d''intensité de l''aléa varient en pratique d''un PPR à l''autre. Certaines valeurs peuvent venir s''ajouter à la liste.'
+      Fai:
+        label: Faible
+        definition: 'Ces valeurs graduées sont fournies à titre indicatif. Seules les valeurs les plus fréquemment utilisées dans les PPR sont ici représentées. La graduation et le nombre de classes d''intensité de l''aléa varient en pratique d''un PPR à l''autre. Certaines valeurs peuvent venir s''ajouter à la liste.'
+  PPR_SOURCE_GEOMETRIE_TYPE:
+    title: PPR_SOURCE_GEOMETRIE_TYPE
+    description: ''
+    codeLength: 50
+    items:
+      'SCAN 25':
+        label: 'SCAN 25'
+        definition: 'SCAN 25'
+      'Carte IGN au 1:25 000':
+        label: 'Carte IGN au 1:25 000'
+        definition: 'Carte IGN au 1:25 000'
+      'Carte IGN au 1:25 000 agrandi au 1:10 000':
+        label: 'Carte IGN au 1:25 000 agrandi au 1:10 000'
+        definition: 'Carte IGN au 1:25 000 agrandi au 1:10 000'
+      'BD Ortho':
+        label: 'BD Ortho'
+        definition: 'BD Ortho'
+      'Plan cadastral informatisé assemblé au 1:5 000':
+        label: 'Plan cadastral informatisé assemblé au 1:5 000'
+        definition: 'Plan cadastral informatisé assemblé au 1:5 000'
+      'BD Parcellaire':
+        label: 'BD Parcellaire'
+        definition: 'BD Parcellaire'
+      'BD Topo':
+        label: 'BD Topo'
+        definition: 'BD Topo'
+      'Autre :':
+        label: 'Autre :'
+        definition: Autre
+  CLASSE_PRECISION_TYPE:
+    title: CLASSE_PRECISION_TYPE
+    description: 'Classe de caractérisation de la précision de positionnement estimée de la géométrie d''un objet.'
+    codeLength: 2
+    items:
+      M:
+        label: Métrique
+        definition: 'L''ordre de grandeur de la précision de positionnement estimée de l''objet géométrique est métrique. Cette précision est comprise entre 1 et 5 mètres.'
+      DC:
+        label: Décamétrique
+        definition: 'L''ordre de grandeur de la précision de positionnement estimée de l''objet géométrique est décamétrique. Cette précision est comprise entre 10 et 20 mètres.'
+      HM:
+        label: Hectométrique
+        definition: 'L''ordre de grandeur de la précision de positionnement estimée de l''objet géométrique est hectométrique. Cette précision est comprise entre 50 et 200 mètres.'
+      KM:
+        label: Kilométrique
+        definition: 'L''ordre de grandeur de la précision de positionnement estimée de l''objet géométrique est kilométrique. Cette précision est supérieure à 500 mètres.'
+      NE:
+        label: 'Non estimée'
+        definition: 'La précision de positionnement de l''objet géométrique n''a pas pu être estimée.'
+  PPR_ETAT_DOCUMENT_TYPE:
+    title: PPR_ETAT_DOCUMENT_TYPE
+    description: 'Type désignant les principaux états juridiques d''un document PPR en fonction de l''avancement des procédures administratives qui le font évoluer.'
+    codeLength: 2
+    items:
+      '01':
+        label: Prescrit
+        definition: 'Le PPR est prescrit, il est dans sa phase d''élaboration.'
+      '02':
+        label: Approuvé
+        definition: 'Le PPR est approuvé.'
+      '03':
+        label: Abrogé
+        definition: 'Le PPR est abrogé.'
+      '04':
+        label: 'Appliqué par anticipation'
+        definition: 'Le PPR prescrit est appliqué par anticipation.'
+  PPR_REGLEMENT_ZONE_TYPE:
+    title: PPR_REGLEMENT_ZONE_TYPE
+    description: 'Type standardisé précisant la nature de la réglementation prévalant sur une zone réglementée par un PPR. Les valeurs de cette énumération exhaustive correspondent à celles de la doctrine nationale.'
+    codeLength: 2
+    items:
+      '01':
+        label: 'Precriptions hors zone d''aléa'
+        definition: 'Réglementation appliquant des prescriptions à une zone non directement exposée à l''aléa pour ne pas aggraver le risque sur d''autres secteurs ou créer de nouveaux risques. Ce type de réglementation n''existe pas dans les PPRT.'
+      '02':
+        label: Prescriptions
+        definition: 'Réglementation faisant prévaloir le principe d''autorisation assorti de l''obligation de respect de prescriptions.'
+      '03':
+        label: Interdiction
+        definition: 'Réglementation faisant prévaloir le principe d''interdiction mais où certaines constructions peuvent être autorisées sous réserve du respect de prescriptions strictes.'
+      '04':
+        label: 'Interdiction stricte'
+        definition: 'Réglementation imposant une interdiction stricte.'
+      '05':
+        label: 'Délaissement possible'
+        definition: 'Réglementation autorisant le maire à prendre un arrêté instaurant la possibilité de délaissement.'
+      '06':
+        label: 'Expropriation possible'
+        definition: 'Réglementation autorisant le maire ou le préfet à initier une procédure d''expropriation pour cause d''utilité publique.'
+  PPR_ENJEU_TYPE:
+    title: PPR_ENJEU_TYPE
+    description: 'Classification des enjeux (biens exposés à un aléa) hiérarchisée en catégories principales en fonction de leur rôle dans la vie sociale ou de leur usage. Les règles de sécurité à respecter diffèrent d''un type d''enjeu à l''autre (règlement incendie, règles d''occupation, règles de prévention...).'
+    codeLength: 5
+    items:
+      '01':
+        label: 'Espace urbanisé'
+        definition: 'Espace urbanisé'
+      '02':
+        label: 'Etablissement recevant du public'
+        definition: 'Etablissement recevant du public'
+      '03':
+        label: 'Espace economique'
+        definition: 'Espace économique'
+      '04':
+        label: 'Espace ouvert recevant du public'
+        definition: 'Espace ouvert recevant du public'
+      '05':
+        label: 'Infrastructure de transport'
+        definition: 'Infrastructure de transport'
+      '06':
+        label: 'Ouvrage ou équipement d''intérêt général'
+        definition: 'Ouvrage ou équipement d''intérêt général'
+      '07':
+        label: 'Enjeu environnemental ou patrimonial'
+        definition: 'Enjeu environnemental ou patrimonial'
+      99:
+        label: 'Enjeu d''une autre nature'
+        definition: 'Enjeu d''une autre nature'
+  PPR_NIVEAU_ALEA_STANDARD_TYPE:
+    title: PPR_NIVEAU_ALEA_STANDARD_TYPE
+    description: 'Graduation standardisée du niveau d''intensité des aléas. Cette énumération (non extensible) a notamment pour objectif de standardiser la représentation cartographique des aléas.'
+    codeLength: 2
+    items:
+      '07':
+        label: 'Très fort plus'
+        definition: 'Les valeurs de cette liste standardisée sont définies dans les guides méthodologiques d''élaboration des PPRN et PPRT. Pour les zones d''aléa dont le niveau indiqué sur la carte d''aléas ne correspond à aucune de ces valeurs, un effort d''interprétation est nécessaire afin de trouver la classe d''intensité standardisée qui correspond le mieux. Ce travail d''interprétation doit se baser sur l''étude des aléas menée dans le cadre du PPR et sur le guide méthodologique national adéquat. Les valeurs en gras ne sont utilisées que pour les PPRT.'
+      '06':
+        label: 'Très fort'
+        definition: 'Les valeurs de cette liste standardisée sont définies dans les guides méthodologiques d''élaboration des PPRN et PPRT. Pour les zones d''aléa dont le niveau indiqué sur la carte d''aléas ne correspond à aucune de ces valeurs, un effort d''interprétation est nécessaire afin de trouver la classe d''intensité standardisée qui correspond le mieux. Ce travail d''interprétation doit se baser sur l''étude des aléas menée dans le cadre du PPR et sur le guide méthodologique national adéquat. Les valeurs en gras ne sont utilisées que pour les PPRT.'
+      '05':
+        label: 'Fort plus'
+        definition: 'Les valeurs de cette liste standardisée sont définies dans les guides méthodologiques d''élaboration des PPRN et PPRT. Pour les zones d''aléa dont le niveau indiqué sur la carte d''aléas ne correspond à aucune de ces valeurs, un effort d''interprétation est nécessaire afin de trouver la classe d''intensité standardisée qui correspond le mieux. Ce travail d''interprétation doit se baser sur l''étude des aléas menée dans le cadre du PPR et sur le guide méthodologique national adéquat. Les valeurs en gras ne sont utilisées que pour les PPRT.'
+      '04':
+        label: Fort
+        definition: 'Les valeurs de cette liste standardisée sont définies dans les guides méthodologiques d''élaboration des PPRN et PPRT. Pour les zones d''aléa dont le niveau indiqué sur la carte d''aléas ne correspond à aucune de ces valeurs, un effort d''interprétation est nécessaire afin de trouver la classe d''intensité standardisée qui correspond le mieux. Ce travail d''interprétation doit se baser sur l''étude des aléas menée dans le cadre du PPR et sur le guide méthodologique national adéquat. Les valeurs en gras ne sont utilisées que pour les PPRT.'
+      '03':
+        label: 'Moyen plus'
+        definition: 'Les valeurs de cette liste standardisée sont définies dans les guides méthodologiques d''élaboration des PPRN et PPRT. Pour les zones d''aléa dont le niveau indiqué sur la carte d''aléas ne correspond à aucune de ces valeurs, un effort d''interprétation est nécessaire afin de trouver la classe d''intensité standardisée qui correspond le mieux. Ce travail d''interprétation doit se baser sur l''étude des aléas menée dans le cadre du PPR et sur le guide méthodologique national adéquat. Les valeurs en gras ne sont utilisées que pour les PPRT.'
+      '02':
+        label: Moyen
+        definition: 'Les valeurs de cette liste standardisée sont définies dans les guides méthodologiques d''élaboration des PPRN et PPRT. Pour les zones d''aléa dont le niveau indiqué sur la carte d''aléas ne correspond à aucune de ces valeurs, un effort d''interprétation est nécessaire afin de trouver la classe d''intensité standardisée qui correspond le mieux. Ce travail d''interprétation doit se baser sur l''étude des aléas menée dans le cadre du PPR et sur le guide méthodologique national adéquat. Les valeurs en gras ne sont utilisées que pour les PPRT.'
+      '01':
+        label: Faible
+        definition: 'Les valeurs de cette liste standardisée sont définies dans les guides méthodologiques d''élaboration des PPRN et PPRT. Pour les zones d''aléa dont le niveau indiqué sur la carte d''aléas ne correspond à aucune de ces valeurs, un effort d''interprétation est nécessaire afin de trouver la classe d''intensité standardisée qui correspond le mieux. Ce travail d''interprétation doit se baser sur l''étude des aléas menée dans le cadre du PPR et sur le guide méthodologique national adéquat. Les valeurs en gras ne sont utilisées que pour les PPRT.'
+  GASPAR_NOMENCLATURE_RISQUE:
+    title: GASPAR_NOMENCLATURE_RISQUE
+    description: 'Classification des types de risque définie et utilisée dans l''application GASPAR.'
+    codeLength: 7
+    items:
+      1120000:
+        label: 'Inondation - Par une crue à débordement lent de cours d’eau'
+        definition: ''
+      1130000:
+        label: 'Inondation - Par une crue torrentielle ou à montée rapide de cours d’eau'
+        definition: ''
+      1140000:
+        label: 'Inondation - Par ruissellement et coulée de boue'
+        definition: ''
+      1150000:
+        label: 'Inondation - Par lave torrentielle (torrent et talweg)'
+        definition: ''
+      1160000:
+        label: 'Inondation - Par remontées de nappes naturelles'
+        definition: ''
+      1170000:
+        label: 'Inondation - Par submersion marine'
+        definition: ''
+      1210000:
+        label: 'Mouvement de terrain - Affaissements et effondrements liés aux cavités souterraines (hors mines)'
+        definition: ''
+      1230000:
+        label: 'Mouvement de terrain - Éboulement, chutes de pierres et de blocs'
+        definition: ''
+      1240000:
+        label: 'Mouvement de terrain - Glissement de terrain'
+        definition: ''
+      1250000:
+        label: 'Mouvement de terrain - Avancée dunaire'
+        definition: ''
+      1260000:
+        label: 'Mouvement de terrain - Recul du trait de côte et de falaises'
+        definition: ''
+      1270000:
+        label: 'Mouvement de terrain - Tassements différentiels'
+        definition: ''
+      1300000:
+        label: Séisme
+        definition: ''
+      1400000:
+        label: Avalanche
+        definition: ''
+      1600000:
+        label: 'Feu de forêt'
+        definition: ''
+      1710000:
+        label: 'Phénomènes météorologiques - Cyclone/ouragan (vent)'
+        definition: ''
+      1720000:
+        label: 'Phénomènes météorologiques - Tempête et grains (vent)'
+        definition: ''
+      1740000:
+        label: 'Phénomènes météorologiques - Foudre'
+        definition: ''
+      1750000:
+        label: 'Phénomènes météorologiques - Grêle'
+        definition: ''
+      1760000:
+        label: 'Phénomènes météorologiques - Neige et pluies verglaçantes'
+        definition: ''
+      1800000:
+        label: Radon
+        definition: ''
+      2110000:
+        label: 'Risque industriel - Effet thermique'
+        definition: ''
+      2120000:
+        label: 'Risque industriel - Effet de surpression'
+        definition: ''
+      2130000:
+        label: 'Risque industriel - Effet toxique'
+        definition: ''
+      2200000:
+        label: Nucléaire
+        definition: ''
+      2300000:
+        label: 'Rupture de barrage'
+        definition: ''
+      2400000:
+        label: 'Transport de marchandises dangereuses'
+        definition: ''
+      2500000:
+        label: 'Engins de guerre'
+        definition: ''
+      3000000:
+        label: 'Risques miniers'
+        definition: ''
+      3100000:
+        label: 'Mouvements de terrains miniers'
+        definition: ''
+      3110000:
+        label: 'Mouvements de terrains miniers - Effondrements généralisés'
+        definition: ''
+      3120000:
+        label: 'Mouvements de terrains miniers - Effondrements localisés'
+        definition: ''
+      3130000:
+        label: 'Mouvements de terrains miniers - Affaissements progressifs'
+        definition: ''
+      3140000:
+        label: 'Mouvements de terrains miniers - Tassements'
+        definition: ''
+      3150000:
+        label: 'Mouvements de terrains miniers - Glissements ou mouvements de pente'
+        definition: ''
+      3160000:
+        label: 'Mouvements de terrains miniers - Coulées'
+        definition: ''
+      3170000:
+        label: 'Mouvements de terrains miniers - Écroulements rocheux'
+        definition: ''
+      3200000:
+        label: 'Inondations de terrain minier'
+        definition: ''
+      3210000:
+        label: 'Inondations de terrain minier - Pollution des eaux souterraines et de surface'
+        definition: ''
+      3220000:
+        label: 'Inondations de terrain minier - Pollution des sédiments et des sols'
+        definition: ''
+      3300000:
+        label: 'Émissions en surface de gaz de mine'
+        definition: ''
+featureCollections:
+  RISQUE:
+    N_ZONAGES_RISQUE_NATUREL:
+      N_DOCUMENT_PPRN_S:
+        title: N_DOCUMENT_PPRN_S
+        description: 'Table contenant la liste des PPR. Cette table est rendue géométrique en utilisant le périmètre IAL (périmètre de prescription si le PPR est à l''état prescrit et périmètre réglementé si le PPR est à l''état approuvé).'
+        geometryType: MultiPolygon
+        mandatory: false
+        classification: RISQUE/N_ZONAGES_RISQUE_NATUREL
+        regexName: 'N_DOCUMENT_PPRN_S_([0-9]{3}|R[0-9]{2})'
+        properties:
+          ID_MAP:
+            description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+            required: false
+            type: integer
+          ID_GASPAR:
+            description: 'Identifiant du PPR dans l''application GASPAR. Clé primaire.'
+            required: true
+            type: string
+            length: 18
+          NOM:
+            description: 'Nom du PPR.'
+            required: true
+            type: string
+            length: 100
+          ETAT:
+            description: 'État du document PPR qualifié par rapport à la dernière étape connue de la procédure en cours.'
+            required: true
+            type: string
+            length: 2
+            enum: PPR_ETAT_DOCUMENT_TYPE
+          DATEAPPRO:
+            description: 'Date d''approbation du document PPR (vide si le document est à l''état prescrit ou appliqué par anticipation).'
+            required: false
+            type: date
+          DATEFINVAL:
+            description: 'Date de fin de validité du document PPR (renseigné si le document est à l''état abrogé).'
+            required: false
+            type: date
+          MULTI_RISQ:
+            description: 'Précise si le PPR traite d''un ou de plusieurs types de risque.'
+            required: true
+            type: string
+            length: 3
+          CODERISQUE:
+            description: 'Code risque conformément à la nomenclature GASPAR. Les valeurs sont issues de GASPAR_NOMENCLATURE_RISQUE.'
+            required: true
+            type: string
+            length: 7
+          NOMRISQUE:
+            description: 'Nom du risque conformément à la nomenclature GASPAR. Les valeurs sont issues de GASPAR_NOMENCLATURE_RISQUE.'
+            required: true
+            type: string
+            length: 150
+          SITE_WEB:
+            description: 'Adresse internet du service d''accès au document. Il s''agit de l''adresse du site web mettant en ligne l''intégralité du document PPR approuvé.'
+            required: false
+            type: string
+            length: 254
+          URI_GASPAR:
+            description: 'Référence de type URI permettant l''accès aux caractéristiques de la procédure PPR associée qui sont gérées dans l''application GASPAR..'
+            required: false
+            type: string
+            length: 254
+      N_PPRN_MULTIRISQUE:
+        title: N_PPRN_MULTIRISQUE
+        description: 'Table non géométrique à utiliser dans le cas des PPR multirisques pour renseigner les types de risque traités dans le PPR.'
+        geometryType: None
+        mandatory: false
+        classification: RISQUE/N_ZONAGES_RISQUE_NATUREL
+        regexName: 'N_PPRN_MULTIRISQUE_([0-9]{3}|R[0-9]{2})'
+        properties:
+          ID_GASPAR:
+            description: 'Identifiant du document PPR. Clé étrangère.'
+            required: true
+            type: string
+            length: 18
+          CODERISQUE:
+            description: 'Code risque conformément à la nomenclature GASPAR. Les valeurs sont issues de la table GASPAR_NOMENCLATURE_RISQUE.'
+            required: true
+            type: string
+            length: 7
+          NOMRISQUE:
+            description: 'Nom du risque conformément à la nomenclature GASPAR. Les valeurs sont issues de la table GASPAR_NOMENCLATURE_RISQUE.'
+            required: true
+            type: string
+            length: 150
+      AAAANNNN:
+        N_ORIG_RISQ_PPRN_AAAANNNN_S:
+          title: N_ORIG_RISQ_PPRN_AAAANNNN_S
+          description: 'Table des objets à l''origine du risque étudié et traité dans le cadre du PPR. Il s''agit d''entités identifiables et localisables.'
+          geometryType: MultiPolygon
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_NATUREL/AAAANNNN
+          regexName: 'N_ORIG_RISQ_PPRN_(1|2)[0-9]{7}_S_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR (auquel se rapporte l''enjeu) dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            NOM:
+              description: 'Nom usuel de l''objet à l''origine du risque.'
+              required: false
+              type: string
+              length: 100
+            NOM_SI_EXT:
+              description: 'Nom du système informatique externe (s''il existe) recensant cet objet.'
+              required: false
+              type: string
+              length: 50
+            ID_SI_EXT:
+              description: 'Identifiant de l''objet dans le système d''information externe (s''il existe).'
+              required: false
+              type: string
+              length: 50
+        N_ORIG_RISQ_PPRN_AAAANNNN_L:
+          title: N_ORIG_RISQ_PPRN_AAAANNNN_L
+          description: 'Table des objets à l''origine du risque étudié et traité dans le cadre du PPR. Il s''agit d''entités identifiables et localisables.'
+          geometryType: MultiLineString
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_NATUREL/AAAANNNN
+          regexName: 'N_ORIG_RISQ_PPRN_(1|2)[0-9]{7}_L_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR (auquel se rapporte l''enjeu) dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            NOM:
+              description: 'Nom usuel de l''objet à l''origine du risque.'
+              required: false
+              type: string
+              length: 100
+            NOM_SI_EXT:
+              description: 'Nom du système informatique externe (s''il existe) recensant cet objet.'
+              required: false
+              type: string
+              length: 50
+            ID_SI_EXT:
+              description: 'Identifiant de l''objet dans le système d''information externe (s''il existe).'
+              required: false
+              type: string
+              length: 50
+        N_ORIG_RISQ_PPRN_AAAANNNN_P:
+          title: N_ORIG_RISQ_PPRN_AAAANNNN_P
+          description: 'Table des objets à l''origine du risque étudié et traité dans le cadre du PPR. Il s''agit d''entités identifiables et localisables.'
+          geometryType: MultiPoint
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_NATUREL/AAAANNNN
+          regexName: 'N_ORIG_RISQ_PPRN_(1|2)[0-9]{7}_P_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR (auquel se rapporte l''enjeu) dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            NOM:
+              description: 'Nom usuel de l''objet à l''origine du risque.'
+              required: false
+              type: string
+              length: 100
+            NOM_SI_EXT:
+              description: 'Nom du système informatique externe (s''il existe) recensant cet objet.'
+              required: false
+              type: string
+              length: 50
+            ID_SI_EXT:
+              description: 'Identifiant de l''objet dans le système d''information externe (s''il existe).'
+              required: false
+              type: string
+              length: 50
+        N_ENJEU_PPRN_AAAANNNN_S:
+          title: N_ENJEU_PPRN_AAAANNNN_S
+          description: 'Table des enjeux ponctuels identifiés et pris en compte lors de l''instruction du PPR.'
+          geometryType: MultiPolygon
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_NATUREL/AAAANNNN
+          regexName: 'N_ENJEU_PPRN_(1|2)[0-9]{7}_S_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR (auquel se rapporte l''enjeu) dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            DESCRIPT:
+              description: 'Dénomination ou description sommaire de l''enjeu.'
+              required: true
+              type: string
+              length: 100
+            CATEGORIE:
+              description: 'Catégorie principale de l''enjeu identifié choisie parmi la classification EnjeuPPRType (7 catégories).'
+              required: true
+              type: string
+              length: 5
+              enum: PPR_ENJEU_TYPE
+            IDENTANNEE:
+              description: 'Année de l''identification de l''enjeu. Cette information indique qu''à cette date l''objet a été identifié comme un enjeu sur une des sources d''information utilisées.'
+              required: true
+              type: string
+              length: 4
+        N_ENJEU_PPRN_AAAANNNN_L:
+          title: N_ENJEU_PPRN_AAAANNNN_L
+          description: 'Table des enjeux ponctuels identifiés et pris en compte lors de l''instruction du PPR.'
+          geometryType: MultiLineString
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_NATUREL/AAAANNNN
+          regexName: 'N_ENJEU_PPRN_(1|2)[0-9]{7}_L_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR (auquel se rapporte l''enjeu) dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            DESCRIPT:
+              description: 'Dénomination ou description sommaire de l''enjeu.'
+              required: true
+              type: string
+              length: 100
+            CATEGORIE:
+              description: 'Catégorie principale de l''enjeu identifié choisie parmi la classification EnjeuPPRType (7 catégories).'
+              required: true
+              type: string
+              length: 5
+              enum: PPR_ENJEU_TYPE
+            IDENTANNEE:
+              description: 'Année de l''identification de l''enjeu. Cette information indique qu''à cette date l''objet a été identifié comme un enjeu sur une des sources d''information utilisées.'
+              required: true
+              type: string
+              length: 4
+        N_ENJEU_PPRN_AAAANNNN_P:
+          title: N_ENJEU_PPRN_AAAANNNN_P
+          description: 'Table des enjeux ponctuels identifiés et pris en compte lors de l''instruction du PPR.'
+          geometryType: MultiPoint
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_NATUREL/AAAANNNN
+          regexName: 'N_ENJEU_PPRN_(1|2)[0-9]{7}_P_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR (auquel se rapporte l''enjeu) dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            DESCRIPT:
+              description: 'Dénomination ou description sommaire de l''enjeu.'
+              required: true
+              type: string
+              length: 100
+            CATEGORIE:
+              description: 'Catégorie principale de l''enjeu identifié choisie parmi la classification EnjeuPPRType (7 catégories).'
+              required: true
+              type: string
+              length: 5
+              enum: PPR_ENJEU_TYPE
+            IDENTANNEE:
+              description: 'Année de l''identification de l''enjeu. Cette information indique qu''à cette date l''objet a été identifié comme un enjeu sur une des sources d''information utilisées.'
+              required: true
+              type: string
+              length: 4
+        N_PERIMETRE_PPRN_AAAANNNN_S:
+          title: N_PERIMETRE_PPRN_AAAANNNN_S
+          description: 'Table des périmètres identifiés lors de l''étude d''un PPR. Cette table contient au minimum les périmètres prescrits pour les PPR à l''état prescrit et les périmètres prescrits et d''exposition aux risques pour les PPR approuvés.'
+          geometryType: MultiPolygon
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_NATUREL/AAAANNNN
+          regexName: 'N_PERIMETRE_PPRN_(1|2)[0-9]{7}_S_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            LIBELLE:
+              description: 'Libellé du périmètre utilisé dans la décision administrative l''instituant.'
+              required: true
+              type: string
+              length: 100
+            TYPE:
+              description: 'Type du périmètre suivant la codification ouverte  PerimetrePPRType '
+              required: true
+              type: string
+              length: 2
+              enum: PPR_PERIMETRE_TYPE
+            DATEVALID:
+              description: 'Date à partir de laquelle le périmètre est officiellement défini ou applicable.'
+              required: true
+              type: date
+            DATEFINVAL:
+              description: 'Date à partir de laquelle le périmètre n''est plus applicable (ne produit plus ses effets).'
+              required: false
+              type: date
+            SRCE_GEOM:
+              description: 'Type de carte ou de référentiel utilisé comme source de la géométrie décrit en se basant sur la liste fournie en B.4.2 du géostandard.'
+              required: false
+              type: string
+              length: 100
+              enum: PPR_SOURCE_GEOMETRIE_TYPE
+            SRCE_ANNEE:
+              description: 'Année de mise à jour ou millésime de la carte ou du référentiel de saisie ayant servi de source géométrique.'
+              required: false
+              type: string
+              length: 4
+        N_ZONE_ALEA_PPRN_AAAANNNN_S:
+          title: N_ZONE_ALEA_PPRN_AAAANNNN_S
+          description: 'Table des zones exposées à un ou plusieurs aléas, représentées sur la carte des aléas du PPR.'
+          geometryType: MultiPolygon
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_NATUREL/AAAANNNN
+          regexName: 'N_ZONE_ALEA_PPRN_(1|2)[0-9]{7}_S_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_ZONE:
+              description: 'Identifiant de la zone d''aléa. Clé primaire.'
+              required: true
+              type: string
+              length: 15
+            ID_GASPAR:
+              description: 'Identifiant du PPR dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            DESCRIPT:
+              description: 'Description de l''aléa.'
+              required: true
+              type: string
+              length: 100
+            CODERISQUE:
+              description: 'Code risque conformément à la nomenclature GASPAR. Les valeurs sont issues de GASPAR_NOMENCLATURE_RISQUE.'
+              required: true
+              type: string
+              length: 7
+            NOMRISQUE:
+              description: 'Nom du risque conformément à la nomenclature GASPAR. Les valeurs sont issues de GASPAR_NOMENCLATURE_RISQUE.'
+              required: true
+              type: string
+              length: 150
+            MULTI_ALEA:
+              description: 'Précise si la zone est concernée par un ou plusieurs types d''aléa.'
+              required: false
+              type: string
+              length: 3
+            NIVALEA:
+              description: 'Niveau d''aléa tel qu''il est exprimé sur la carte des aléas (codification ouverte  NiveauAleaSpecificType ). La longueur du champ est choisie pour accueillir des codes spécifiques au niveau local.'
+              required: true
+              type: string
+              length: 5
+            NIVALEA_STD:
+              description: 'Niveau d''aléa standardisé (codification fermée  NiveauAleaStandardType ).'
+              required: true
+              type: string
+              length: 2
+              enum: PPR_NIVEAU_ALEA_STANDARD_TYPE
+            SRCE_GEOM:
+              description: 'Type de carte ou de référentiel utilisé comme source de la géométrie décrit en se basant sur la liste fournie en B.4.2 du géostandard.'
+              required: false
+              type: string
+              length: 100
+              enum: PPR_SOURCE_GEOMETRIE_TYPE
+            SRCE_ANNEE:
+              description: 'Année de mise à jour ou millésime de la carte ou du référentiel de saisie ayant servi de source géométrique.'
+              required: false
+              type: string
+              length: 4
+            PRECISION:
+              description: 'Ordre de grandeur de la précision relative de la saisie estimé en fonction du processus de saisie et du support de géoréférencement utilisés (exprimé suivant la liste  ClassePrecisionType ).'
+              required: false
+              type: string
+              length: 2
+              enum: CLASSE_PRECISION_TYPE
+            TITRECARTE:
+              description: 'Nom de la carte d''aléas source.'
+              required: true
+              type: string
+              length: 100
+            DATECARTE:
+              description: 'Date de production de la carte d''aléas source.'
+              required: true
+              type: date
+            TYPECARTE:
+              description: 'Type de la carte d''aléas source suivant la codification ouverte  CarteAleaType .'
+              required: false
+              type: string
+              length: 3
+              enum: PPR_CARTE_ALEA_TYPE
+            NOMFIC:
+              description: 'Nom du fichier contenant la carte d''aléas source.'
+              required: false
+              type: string
+              length: 80
+            URLFIC:
+              description: 'Adresse de type URL permettant d''accéder depuis le web au fichier de la carte d''aléas.'
+              required: false
+              type: string
+              length: 254
+        N_MULTIALEA_PPRN_AAAANNNN:
+          title: N_MULTIALEA_PPRN_AAAANNNN
+          description: 'Table non géométrique à utiliser pour décrire les zones multi-aléas dans les cas de PPRN multirisques et PPRT. Cette table complémentaire permet de renseigner toutes les informations relatives à une zone multi-aléas : renseigner tous les types d''aléa auxquels elle est exposée, renseigner le niveau à chaque aléa (les zones exposées à plusieurs aléas comportent autant de niveaux que de types d''aléa recensés).'
+          geometryType: None
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_NATUREL/AAAANNNN
+          regexName: 'N_MULTIALEA_PPRN_(1|2)[0-9]{7}_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_ZONE:
+              description: 'Identifiant de la zone. Clé étrangère.'
+              required: false
+              type: string
+              length: 15
+            CODERISQUE:
+              description: 'Code risque conformément à la nomenclature GASPAR. Les valeurs sont issues de GASPAR_NOMENCLATURE_RISQUE.'
+              required: true
+              type: string
+              length: 7
+            NOMRISQUE:
+              description: 'Nom du risque conformément à la nomenclature GASPAR. Les valeurs sont issues de GASPAR_NOMENCLATURE_RISQUE.'
+              required: true
+              type: string
+              length: 150
+            NIVALEA:
+              description: 'Niveau d''aléa tel qu''il est exprimé sur la carte des aléas (codification ouverte  NiveauAleaSpecificType ).'
+              required: true
+              type: string
+              length: 5
+              enum: PPR_NIVEAU_ALEA_SPECIFIC_TYPE
+            NIVALEA_STD:
+              description: 'Niveau d''aléa standardisé (codification fermée  NiveauAleaStandardType ).'
+              required: true
+              type: string
+              length: 2
+              enum: PPR_NIVEAU_ALEA_STANDARD_TYPE
+        N_ZONE_REG_PPRN_AAAANNNN_S:
+          title: N_ZONE_REG_PPRN_AAAANNNN_S
+          description: 'Table contenant l''ensemble des zones réglementées d''un PPRN ou d''un PPRT.'
+          geometryType: MultiPolygon
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_NATUREL/AAAANNNN
+          regexName: 'N_ZONE_REG_PPRN_(1|2)[0-9]{7}_S_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: true
+              type: integer
+            ID_ZONE:
+              description: 'Identifiant de la zone PPR. Clé primaire'
+              required: true
+              type: string
+              length: 15
+            ID_GASPAR:
+              description: 'Identifiant du PPR dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            NOM:
+              description: 'Nom de la zone (intitulé exact figurant dans le règlement du PPR).'
+              required: true
+              type: string
+              length: 254
+            CODEZONE:
+              description: 'Code de la zone (intitulé exact figurant dans le règlement du PPR).'
+              required: true
+              type: string
+              length: 50
+            TYPEREG:
+              description: 'Type standardisé caractérisant la nature de la réglementation prévalant sur la zone.'
+              required: true
+              type: string
+              length: 2
+              enum: PPR_REGLEMENT_ZONE_TYPE
+            SOUMISALEA:
+              description: 'Précise si la zone réglementée est soumise à un aléa déterminé par l''étude des aléas.'
+              required: true
+              type: string
+              length: 3
+            NOMFIC:
+              description: 'Nom (optionnel) du fichier contenant le règlement de la zone. La valeur vide signifie que le règlement de la zone fait partie du règlement PPR.'
+              required: false
+              type: string
+              length: 80
+            URLFIC:
+              description: 'Adresse (optionnelle) de type URL permettant d''accéder depuis le web au fichier contenant le règlement de la zone.'
+              required: false
+              type: string
+              length: 254
+            SRCE_GEOM:
+              description: 'Type de carte ou de référentiel utilisé comme source de la géométrie décrit en se basant sur la liste fournie en B.4.2 du géostandard.'
+              required: false
+              type: string
+              length: 100
+              enum: PPR_SOURCE_GEOMETRIE_TYPE
+            SRCE_ANNEE:
+              description: 'Année de mise à jour ou millésime de la carte ou du référentiel de saisie ayant servi de source géométrique.'
+              required: false
+              type: string
+              length: 4
+            PRECISION:
+              description: 'Ordre de grandeur de la précision de positionnement estimée de l''objet géographique.'
+              required: false
+              type: string
+              length: 2
+              enum: CLASSE_PRECISION_TYPE
+        N_ZONE_REG_PPRN_AAAANNNN_L:
+          title: N_ZONE_REG_PPRN_AAAANNNN_L
+          description: 'Table contenant l''ensemble des zones réglementées d''un PPRN ou d''un PPRT.'
+          geometryType: MultiLineString
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_NATUREL/AAAANNNN
+          regexName: 'N_ZONE_REG_PPRN_(1|2)[0-9]{7}_L_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: true
+              type: integer
+            ID_ZONE:
+              description: 'Identifiant de la zone PPR. Clé primaire'
+              required: true
+              type: string
+              length: 15
+            ID_GASPAR:
+              description: 'Identifiant du PPR dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            NOM:
+              description: 'Nom de la zone (intitulé exact figurant dans le règlement du PPR).'
+              required: true
+              type: string
+              length: 254
+            CODEZONE:
+              description: 'Code de la zone (intitulé exact figurant dans le règlement du PPR).'
+              required: true
+              type: string
+              length: 50
+            TYPEREG:
+              description: 'Type standardisé caractérisant la nature de la réglementation prévalant sur la zone.'
+              required: true
+              type: string
+              length: 2
+              enum: PPR_REGLEMENT_ZONE_TYPE
+            SOUMISALEA:
+              description: 'Précise si la zone réglementée est soumise à un aléa déterminé par l''étude des aléas.'
+              required: true
+              type: string
+              length: 3
+            NOMFIC:
+              description: 'Nom (optionnel) du fichier contenant le règlement de la zone. La valeur vide signifie que le règlement de la zone fait partie du règlement PPR.'
+              required: false
+              type: string
+              length: 80
+            URLFIC:
+              description: 'Adresse (optionnelle) de type URL permettant d''accéder depuis le web au fichier contenant le règlement de la zone.'
+              required: false
+              type: string
+              length: 254
+            SRCE_GEOM:
+              description: 'Type de carte ou de référentiel utilisé comme source de la géométrie décrit en se basant sur la liste fournie en B.4.2 du géostandard.'
+              required: false
+              type: string
+              length: 100
+              enum: PPR_SOURCE_GEOMETRIE_TYPE
+            SRCE_ANNEE:
+              description: 'Année de mise à jour ou millésime de la carte ou du référentiel de saisie ayant servi de source géométrique.'
+              required: false
+              type: string
+              length: 4
+            PRECISION:
+              description: 'Ordre de grandeur de la précision de positionnement estimée de l''objet géographique.'
+              required: false
+              type: string
+              length: 2
+              enum: CLASSE_PRECISION_TYPE
+        N_ZONE_REG_PPRN_AAAANNNN_P:
+          title: N_ZONE_REG_PPRN_AAAANNNN_P
+          description: 'Table contenant l''ensemble des zones réglementées d''un PPRN ou d''un PPRT.'
+          geometryType: MultiPoint
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_NATUREL/AAAANNNN
+          regexName: 'N_ZONE_REG_PPRN_(1|2)[0-9]{7}_P_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: true
+              type: integer
+            ID_ZONE:
+              description: 'Identifiant de la zone PPR. Clé primaire'
+              required: true
+              type: string
+              length: 15
+            ID_GASPAR:
+              description: 'Identifiant du PPR dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            NOM:
+              description: 'Nom de la zone (intitulé exact figurant dans le règlement du PPR).'
+              required: true
+              type: string
+              length: 254
+            CODEZONE:
+              description: 'Code de la zone (intitulé exact figurant dans le règlement du PPR).'
+              required: true
+              type: string
+              length: 50
+            TYPEREG:
+              description: 'Type standardisé caractérisant la nature de la réglementation prévalant sur la zone.'
+              required: true
+              type: string
+              length: 2
+              enum: PPR_REGLEMENT_ZONE_TYPE
+            SOUMISALEA:
+              description: 'Précise si la zone réglementée est soumise à un aléa déterminé par l''étude des aléas.'
+              required: true
+              type: string
+              length: 3
+            NOMFIC:
+              description: 'Nom (optionnel) du fichier contenant le règlement de la zone. La valeur vide signifie que le règlement de la zone fait partie du règlement PPR.'
+              required: false
+              type: string
+              length: 80
+            URLFIC:
+              description: 'Adresse (optionnelle) de type URL permettant d''accéder depuis le web au fichier contenant le règlement de la zone.'
+              required: false
+              type: string
+              length: 254
+            SRCE_GEOM:
+              description: 'Type de carte ou de référentiel utilisé comme source de la géométrie décrit en se basant sur la liste fournie en B.4.2 du géostandard.'
+              required: false
+              type: string
+              length: 100
+              enum: PPR_SOURCE_GEOMETRIE_TYPE
+            SRCE_ANNEE:
+              description: 'Année de mise à jour ou millésime de la carte ou du référentiel de saisie ayant servi de source géométrique.'
+              required: false
+              type: string
+              length: 4
+            PRECISION:
+              description: 'Ordre de grandeur de la précision de positionnement estimée de l''objet géographique.'
+              required: false
+              type: string
+              length: 2
+              enum: CLASSE_PRECISION_TYPE
+    N_ZONAGES_RISQUE_TECHNOLOGIQUE:
+      N_DOCUMENT_PPRT_S:
+        title: N_DOCUMENT_PPRT_S
+        description: 'Table contenant la liste des PPR. Cette table est rendue géométrique en utilisant le périmètre IAL (périmètre de prescription si le PPR est à l''état prescrit et périmètre réglementé si le PPR est à l''état approuvé).'
+        geometryType: MultiPolygon
+        mandatory: false
+        classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE
+        regexName: 'N_DOCUMENT_PPRT_S_([0-9]{3}|R[0-9]{2})'
+        properties:
+          ID_MAP:
+            description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+            required: false
+            type: integer
+          ID_GASPAR:
+            description: 'Identifiant du PPR dans l''application GASPAR. Clé primaire.'
+            required: true
+            type: string
+            length: 18
+          NOM:
+            description: 'Nom du PPR.'
+            required: true
+            type: string
+            length: 100
+          ETAT:
+            description: 'État du document PPR qualifié par rapport à la dernière étape connue de la procédure en cours.'
+            required: true
+            type: string
+            length: 2
+            enum: PPR_ETAT_DOCUMENT_TYPE
+          DATEAPPRO:
+            description: 'Date d''approbation du document PPR (vide si le document est à l''état prescrit ou appliqué par anticipation).'
+            required: false
+            type: date
+          DATEFINVAL:
+            description: 'Date de fin de validité du document PPR (renseigné si le document est à l''état abrogé).'
+            required: false
+            type: date
+          MULTI_RISQ:
+            description: 'Précise si le PPR traite d''un ou de plusieurs types de risque.'
+            required: true
+            type: string
+            length: 3
+          CODERISQUE:
+            description: 'Code risque conformément à la nomenclature GASPAR. Les valeurs sont issues de GASPAR_NOMENCLATURE_RISQUE.'
+            required: true
+            type: string
+            length: 7
+          NOMRISQUE:
+            description: 'Nom du risque conformément à la nomenclature GASPAR. Les valeurs sont issues de GASPAR_NOMENCLATURE_RISQUE.'
+            required: true
+            type: string
+            length: 150
+          SITE_WEB:
+            description: 'Adresse internet du service d''accès au document. Il s''agit de l''adresse du site web mettant en ligne l''intégralité du document PPR approuvé.'
+            required: false
+            type: string
+            length: 254
+          URI_GASPAR:
+            description: 'Référence de type URI permettant l''accès aux caractéristiques de la procédure PPR associée qui sont gérées dans l''application GASPAR..'
+            required: false
+            type: string
+            length: 254
+      N_PPRT_MULTIRISQUE:
+        title: N_PPRT_MULTIRISQUE
+        description: 'Table non géométrique à utiliser dans le cas des PPR multirisques pour renseigner les types de risque traités dans le PPR.'
+        geometryType: None
+        mandatory: false
+        classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE
+        regexName: 'N_PPRT_MULTIRISQUE_([0-9]{3}|R[0-9]{2})'
+        properties:
+          ID_GASPAR:
+            description: 'Identifiant du document PPR. Clé étrangère.'
+            required: true
+            type: string
+            length: 18
+          CODERISQUE:
+            description: 'Code risque conformément à la nomenclature GASPAR. Les valeurs sont issues de la table GASPAR_NOMENCLATURE_RISQUE.'
+            required: true
+            type: string
+            length: 7
+          NOMRISQUE:
+            description: 'Nom du risque conformément à la nomenclature GASPAR. Les valeurs sont issues de la table GASPAR_NOMENCLATURE_RISQUE.'
+            required: true
+            type: string
+            length: 150
+      AAAANNNN:
+        N_ORIG_RISQ_PPRT_AAAANNNN_S:
+          title: N_ORIG_RISQ_PPRT_AAAANNNN_S
+          description: 'Table des objets à l''origine du risque étudié et traité dans le cadre du PPR. Il s''agit d''entités identifiables et localisables.'
+          geometryType: MultiPolygon
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE/AAAANNNN
+          regexName: 'N_ORIG_RISQ_PPRT_(1|2)[0-9]{7}_S_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR (auquel se rapporte l''enjeu) dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            NOM:
+              description: 'Nom usuel de l''objet à l''origine du risque.'
+              required: false
+              type: string
+              length: 100
+            NOM_SI_EXT:
+              description: 'Nom du système informatique externe (s''il existe) recensant cet objet.'
+              required: false
+              type: string
+              length: 50
+            ID_SI_EXT:
+              description: 'Identifiant de l''objet dans le système d''information externe (s''il existe).'
+              required: false
+              type: string
+              length: 50
+        N_ORIG_RISQ_PPRT_AAAANNNN_L:
+          title: N_ORIG_RISQ_PPRT_AAAANNNN_L
+          description: 'Table des objets à l''origine du risque étudié et traité dans le cadre du PPR. Il s''agit d''entités identifiables et localisables.'
+          geometryType: MultiLineString
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE/AAAANNNN
+          regexName: 'N_ORIG_RISQ_PPRT_(1|2)[0-9]{7}_L_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR (auquel se rapporte l''enjeu) dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            NOM:
+              description: 'Nom usuel de l''objet à l''origine du risque.'
+              required: false
+              type: string
+              length: 100
+            NOM_SI_EXT:
+              description: 'Nom du système informatique externe (s''il existe) recensant cet objet.'
+              required: false
+              type: string
+              length: 50
+            ID_SI_EXT:
+              description: 'Identifiant de l''objet dans le système d''information externe (s''il existe).'
+              required: false
+              type: string
+              length: 50
+        N_ORIG_RISQ_PPRT_AAAANNNN_P:
+          title: N_ORIG_RISQ_PPRT_AAAANNNN_P
+          description: 'Table des objets à l''origine du risque étudié et traité dans le cadre du PPR. Il s''agit d''entités identifiables et localisables.'
+          geometryType: MultiPoint
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE/AAAANNNN
+          regexName: 'N_ORIG_RISQ_PPRT_(1|2)[0-9]{7}_P_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR (auquel se rapporte l''enjeu) dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            NOM:
+              description: 'Nom usuel de l''objet à l''origine du risque.'
+              required: false
+              type: string
+              length: 100
+            NOM_SI_EXT:
+              description: 'Nom du système informatique externe (s''il existe) recensant cet objet.'
+              required: false
+              type: string
+              length: 50
+            ID_SI_EXT:
+              description: 'Identifiant de l''objet dans le système d''information externe (s''il existe).'
+              required: false
+              type: string
+              length: 50
+        N_ENJEU_PPRT_AAAANNNN_S:
+          title: N_ENJEU_PPRT_AAAANNNN_S
+          description: 'Table des enjeux ponctuels identifiés et pris en compte lors de l''instruction du PPR.'
+          geometryType: MultiPolygon
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE/AAAANNNN
+          regexName: 'N_ENJEU_PPRT_(1|2)[0-9]{7}_S_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR (auquel se rapporte l''enjeu) dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            DESCRIPT:
+              description: 'Dénomination ou description sommaire de l''enjeu.'
+              required: true
+              type: string
+              length: 100
+            CATEGORIE:
+              description: 'Catégorie principale de l''enjeu identifié choisie parmi la classification EnjeuPPRType (7 catégories).'
+              required: true
+              type: string
+              length: 5
+              enum: PPR_ENJEU_TYPE
+            IDENTANNEE:
+              description: 'Année de l''identification de l''enjeu. Cette information indique qu''à cette date l''objet a été identifié comme un enjeu sur une des sources d''information utilisées.'
+              required: true
+              type: string
+              length: 4
+        N_ENJEU_PPRT_AAAANNNN_L:
+          title: N_ENJEU_PPRT_AAAANNNN_L
+          description: 'Table des enjeux ponctuels identifiés et pris en compte lors de l''instruction du PPR.'
+          geometryType: MultiLineString
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE/AAAANNNN
+          regexName: 'N_ENJEU_PPRT_(1|2)[0-9]{7}_L_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR (auquel se rapporte l''enjeu) dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            DESCRIPT:
+              description: 'Dénomination ou description sommaire de l''enjeu.'
+              required: true
+              type: string
+              length: 100
+            CATEGORIE:
+              description: 'Catégorie principale de l''enjeu identifié choisie parmi la classification EnjeuPPRType (7 catégories).'
+              required: true
+              type: string
+              length: 5
+              enum: PPR_ENJEU_TYPE
+            IDENTANNEE:
+              description: 'Année de l''identification de l''enjeu. Cette information indique qu''à cette date l''objet a été identifié comme un enjeu sur une des sources d''information utilisées.'
+              required: true
+              type: string
+              length: 4
+        N_ENJEU_PPRT_AAAANNNN_P:
+          title: N_ENJEU_PPRT_AAAANNNN_P
+          description: 'Table des enjeux ponctuels identifiés et pris en compte lors de l''instruction du PPR.'
+          geometryType: MultiPoint
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE/AAAANNNN
+          regexName: 'N_ENJEU_PPRT_(1|2)[0-9]{7}_P_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR (auquel se rapporte l''enjeu) dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            DESCRIPT:
+              description: 'Dénomination ou description sommaire de l''enjeu.'
+              required: true
+              type: string
+              length: 100
+            CATEGORIE:
+              description: 'Catégorie principale de l''enjeu identifié choisie parmi la classification EnjeuPPRType (7 catégories).'
+              required: true
+              type: string
+              length: 5
+              enum: PPR_ENJEU_TYPE
+            IDENTANNEE:
+              description: 'Année de l''identification de l''enjeu. Cette information indique qu''à cette date l''objet a été identifié comme un enjeu sur une des sources d''information utilisées.'
+              required: true
+              type: string
+              length: 4
+        N_PERIMETRE_PPRT_AAAANNNN_S:
+          title: N_PERIMETRE_PPRT_AAAANNNN_S
+          description: 'Table des périmètres identifiés lors de l''étude d''un PPR. Cette table contient au minimum les périmètres prescrits pour les PPR à l''état prescrit et les périmètres prescrits et d''exposition aux risques pour les PPR approuvés.'
+          geometryType: MultiPolygon
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE/AAAANNNN
+          regexName: 'N_PERIMETRE_PPRT_(1|2)[0-9]{7}_S_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_GASPAR:
+              description: 'Identifiant du PPR dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            LIBELLE:
+              description: 'Libellé du périmètre utilisé dans la décision administrative l''instituant.'
+              required: true
+              type: string
+              length: 100
+            TYPE:
+              description: 'Type du périmètre suivant la codification ouverte  PerimetrePPRType '
+              required: true
+              type: string
+              length: 2
+              enum: PPR_PERIMETRE_TYPE
+            DATEVALID:
+              description: 'Date à partir de laquelle le périmètre est officiellement défini ou applicable.'
+              required: true
+              type: date
+            DATEFINVAL:
+              description: 'Date à partir de laquelle le périmètre n''est plus applicable (ne produit plus ses effets).'
+              required: false
+              type: date
+            SRCE_GEOM:
+              description: 'Type de carte ou de référentiel utilisé comme source de la géométrie décrit en se basant sur la liste fournie en B.4.2 du géostandard.'
+              required: false
+              type: string
+              length: 100
+              enum: PPR_SOURCE_GEOMETRIE_TYPE
+            SRCE_ANNEE:
+              description: 'Année de mise à jour ou millésime de la carte ou du référentiel de saisie ayant servi de source géométrique.'
+              required: false
+              type: string
+              length: 4
+        N_ZONE_ALEA_PPRT_AAAANNNN_S:
+          title: N_ZONE_ALEA_PPRT_AAAANNNN_S
+          description: 'Table des zones exposées à un ou plusieurs aléas, représentées sur la carte des aléas du PPR.'
+          geometryType: MultiPolygon
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE/AAAANNNN
+          regexName: 'N_ZONE_ALEA_PPRT_(1|2)[0-9]{7}_S_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: false
+              type: integer
+            ID_ZONE:
+              description: 'Identifiant de la zone d''aléa. Clé primaire.'
+              required: true
+              type: string
+              length: 15
+            ID_GASPAR:
+              description: 'Identifiant du PPR dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            DESCRIPT:
+              description: 'Description de l''aléa.'
+              required: true
+              type: string
+              length: 100
+            CODERISQUE:
+              description: 'Code risque conformément à la nomenclature GASPAR. Les valeurs sont issues de GASPAR_NOMENCLATURE_RISQUE.'
+              required: true
+              type: string
+              length: 7
+            NOMRISQUE:
+              description: 'Nom du risque conformément à la nomenclature GASPAR. Les valeurs sont issues de GASPAR_NOMENCLATURE_RISQUE.'
+              required: true
+              type: string
+              length: 150
+            MULTI_ALEA:
+              description: 'Précise si la zone est concernée par un ou plusieurs types d''aléa.'
+              required: false
+              type: string
+              length: 3
+            NIVALEA:
+              description: 'Niveau d''aléa tel qu''il est exprimé sur la carte des aléas (codification ouverte  NiveauAleaSpecificType ). La longueur du champ est choisie pour accueillir des codes spécifiques au niveau local.'
+              required: true
+              type: string
+              length: 5
+            NIVALEA_STD:
+              description: 'Niveau d''aléa standardisé (codification fermée  NiveauAleaStandardType ).'
+              required: true
+              type: string
+              length: 2
+              enum: PPR_NIVEAU_ALEA_STANDARD_TYPE
+            SRCE_GEOM:
+              description: 'Type de carte ou de référentiel utilisé comme source de la géométrie décrit en se basant sur la liste fournie en B.4.2 du géostandard.'
+              required: false
+              type: string
+              length: 100
+              enum: PPR_SOURCE_GEOMETRIE_TYPE
+            SRCE_ANNEE:
+              description: 'Année de mise à jour ou millésime de la carte ou du référentiel de saisie ayant servi de source géométrique.'
+              required: false
+              type: string
+              length: 4
+            PRECISION:
+              description: 'Ordre de grandeur de la précision relative de la saisie estimé en fonction du processus de saisie et du support de géoréférencement utilisés (exprimé suivant la liste  ClassePrecisionType ).'
+              required: false
+              type: string
+              length: 2
+              enum: CLASSE_PRECISION_TYPE
+            TITRECARTE:
+              description: 'Nom de la carte d''aléas source.'
+              required: true
+              type: string
+              length: 100
+            DATECARTE:
+              description: 'Date de production de la carte d''aléas source.'
+              required: true
+              type: date
+            TYPECARTE:
+              description: 'Type de la carte d''aléas source suivant la codification ouverte  CarteAleaType .'
+              required: false
+              type: string
+              length: 3
+              enum: PPR_CARTE_ALEA_TYPE
+            NOMFIC:
+              description: 'Nom du fichier contenant la carte d''aléas source.'
+              required: false
+              type: string
+              length: 80
+            URLFIC:
+              description: 'Adresse de type URL permettant d''accéder depuis le web au fichier de la carte d''aléas.'
+              required: false
+              type: string
+              length: 254
+        N_MULTIALEA_PPRT_AAAANNNN:
+          title: N_MULTIALEA_PPRT_AAAANNNN
+          description: 'Table non géométrique à utiliser pour décrire les zones multi-aléas dans les cas de PPRN multirisques et PPRT. Cette table complémentaire permet de renseigner toutes les informations relatives à une zone multi-aléas : renseigner tous les types d''aléa auxquels elle est exposée, renseigner le niveau à chaque aléa (les zones exposées à plusieurs aléas comportent autant de niveaux que de types d''aléa recensés).'
+          geometryType: None
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE/AAAANNNN
+          regexName: 'N_MULTIALEA_PPRT_(1|2)[0-9]{7}_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_ZONE:
+              description: 'Identifiant de la zone. Clé étrangère.'
+              required: false
+              type: string
+              length: 15
+            CODERISQUE:
+              description: 'Code risque conformément à la nomenclature GASPAR. Les valeurs sont issues de GASPAR_NOMENCLATURE_RISQUE.'
+              required: true
+              type: string
+              length: 7
+            NOMRISQUE:
+              description: 'Nom du risque conformément à la nomenclature GASPAR. Les valeurs sont issues de GASPAR_NOMENCLATURE_RISQUE.'
+              required: true
+              type: string
+              length: 150
+            NIVALEA:
+              description: 'Niveau d''aléa tel qu''il est exprimé sur la carte des aléas (codification ouverte  NiveauAleaSpecificType ).'
+              required: true
+              type: string
+              length: 5
+              enum: PPR_NIVEAU_ALEA_SPECIFIC_TYPE
+            NIVALEA_STD:
+              description: 'Niveau d''aléa standardisé (codification fermée  NiveauAleaStandardType ).'
+              required: true
+              type: string
+              length: 2
+              enum: PPR_NIVEAU_ALEA_STANDARD_TYPE
+        N_ZONE_REG_PPRT_AAAANNNN_S:
+          title: N_ZONE_REG_PPRT_AAAANNNN_S
+          description: 'Table contenant l''ensemble des zones réglementées d''un PPRN ou d''un PPRT.'
+          geometryType: MultiPolygon
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE/AAAANNNN
+          regexName: 'N_ZONE_REG_PPRT_(1|2)[0-9]{7}_S_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: true
+              type: integer
+            ID_ZONE:
+              description: 'Identifiant de la zone PPR. Clé primaire'
+              required: true
+              type: string
+              length: 15
+            ID_GASPAR:
+              description: 'Identifiant du PPR dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            NOM:
+              description: 'Nom de la zone (intitulé exact figurant dans le règlement du PPR).'
+              required: true
+              type: string
+              length: 254
+            CODEZONE:
+              description: 'Code de la zone (intitulé exact figurant dans le règlement du PPR).'
+              required: true
+              type: string
+              length: 50
+            TYPEREG:
+              description: 'Type standardisé caractérisant la nature de la réglementation prévalant sur la zone.'
+              required: true
+              type: string
+              length: 2
+              enum: PPR_REGLEMENT_ZONE_TYPE
+            SOUMISALEA:
+              description: 'Précise si la zone réglementée est soumise à un aléa déterminé par l''étude des aléas.'
+              required: true
+              type: string
+              length: 3
+            NOMFIC:
+              description: 'Nom (optionnel) du fichier contenant le règlement de la zone. La valeur vide signifie que le règlement de la zone fait partie du règlement PPR.'
+              required: false
+              type: string
+              length: 80
+            URLFIC:
+              description: 'Adresse (optionnelle) de type URL permettant d''accéder depuis le web au fichier contenant le règlement de la zone.'
+              required: false
+              type: string
+              length: 254
+            SRCE_GEOM:
+              description: 'Type de carte ou de référentiel utilisé comme source de la géométrie décrit en se basant sur la liste fournie en B.4.2 du géostandard.'
+              required: false
+              type: string
+              length: 100
+              enum: PPR_SOURCE_GEOMETRIE_TYPE
+            SRCE_ANNEE:
+              description: 'Année de mise à jour ou millésime de la carte ou du référentiel de saisie ayant servi de source géométrique.'
+              required: false
+              type: string
+              length: 4
+            PRECISION:
+              description: 'Ordre de grandeur de la précision de positionnement estimée de l''objet géographique.'
+              required: false
+              type: string
+              length: 2
+              enum: CLASSE_PRECISION_TYPE
+        N_ZONE_REG_PPRT_AAAANNNN_L:
+          title: N_ZONE_REG_PPRT_AAAANNNN_L
+          description: 'Table contenant l''ensemble des zones réglementées d''un PPRN ou d''un PPRT.'
+          geometryType: MultiLineString
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE/AAAANNNN
+          regexName: 'N_ZONE_REG_PPRT_(1|2)[0-9]{7}_L_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: true
+              type: integer
+            ID_ZONE:
+              description: 'Identifiant de la zone PPR. Clé primaire'
+              required: true
+              type: string
+              length: 15
+            ID_GASPAR:
+              description: 'Identifiant du PPR dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            NOM:
+              description: 'Nom de la zone (intitulé exact figurant dans le règlement du PPR).'
+              required: true
+              type: string
+              length: 254
+            CODEZONE:
+              description: 'Code de la zone (intitulé exact figurant dans le règlement du PPR).'
+              required: true
+              type: string
+              length: 50
+            TYPEREG:
+              description: 'Type standardisé caractérisant la nature de la réglementation prévalant sur la zone.'
+              required: true
+              type: string
+              length: 2
+              enum: PPR_REGLEMENT_ZONE_TYPE
+            SOUMISALEA:
+              description: 'Précise si la zone réglementée est soumise à un aléa déterminé par l''étude des aléas.'
+              required: true
+              type: string
+              length: 3
+            NOMFIC:
+              description: 'Nom (optionnel) du fichier contenant le règlement de la zone. La valeur vide signifie que le règlement de la zone fait partie du règlement PPR.'
+              required: false
+              type: string
+              length: 80
+            URLFIC:
+              description: 'Adresse (optionnelle) de type URL permettant d''accéder depuis le web au fichier contenant le règlement de la zone.'
+              required: false
+              type: string
+              length: 254
+            SRCE_GEOM:
+              description: 'Type de carte ou de référentiel utilisé comme source de la géométrie décrit en se basant sur la liste fournie en B.4.2 du géostandard.'
+              required: false
+              type: string
+              length: 100
+              enum: PPR_SOURCE_GEOMETRIE_TYPE
+            SRCE_ANNEE:
+              description: 'Année de mise à jour ou millésime de la carte ou du référentiel de saisie ayant servi de source géométrique.'
+              required: false
+              type: string
+              length: 4
+            PRECISION:
+              description: 'Ordre de grandeur de la précision de positionnement estimée de l''objet géographique.'
+              required: false
+              type: string
+              length: 2
+              enum: CLASSE_PRECISION_TYPE
+        N_ZONE_REG_PPRT_AAAANNNN_P:
+          title: N_ZONE_REG_PPRT_AAAANNNN_P
+          description: 'Table contenant l''ensemble des zones réglementées d''un PPRN ou d''un PPRT.'
+          geometryType: MultiPoint
+          mandatory: false
+          classification: RISQUE/N_ZONAGES_RISQUE_TECHNOLOGIQUE/AAAANNNN
+          regexName: 'N_ZONE_REG_PPRT_(1|2)[0-9]{7}_P_([0-9]{3}|R[0-9]{2})'
+          properties:
+            ID_MAP:
+              description: 'Identifiant technique à rajouter pour un stockage de la table en GéoBASE.'
+              required: true
+              type: integer
+            ID_ZONE:
+              description: 'Identifiant de la zone PPR. Clé primaire'
+              required: true
+              type: string
+              length: 15
+            ID_GASPAR:
+              description: 'Identifiant du PPR dans l''application GASPAR. Clé étrangère.'
+              required: true
+              type: string
+              length: 18
+            NOM:
+              description: 'Nom de la zone (intitulé exact figurant dans le règlement du PPR).'
+              required: true
+              type: string
+              length: 254
+            CODEZONE:
+              description: 'Code de la zone (intitulé exact figurant dans le règlement du PPR).'
+              required: true
+              type: string
+              length: 50
+            TYPEREG:
+              description: 'Type standardisé caractérisant la nature de la réglementation prévalant sur la zone.'
+              required: true
+              type: string
+              length: 2
+              enum: PPR_REGLEMENT_ZONE_TYPE
+            SOUMISALEA:
+              description: 'Précise si la zone réglementée est soumise à un aléa déterminé par l''étude des aléas.'
+              required: true
+              type: string
+              length: 3
+            NOMFIC:
+              description: 'Nom (optionnel) du fichier contenant le règlement de la zone. La valeur vide signifie que le règlement de la zone fait partie du règlement PPR.'
+              required: false
+              type: string
+              length: 80
+            URLFIC:
+              description: 'Adresse (optionnelle) de type URL permettant d''accéder depuis le web au fichier contenant le règlement de la zone.'
+              required: false
+              type: string
+              length: 254
+            SRCE_GEOM:
+              description: 'Type de carte ou de référentiel utilisé comme source de la géométrie décrit en se basant sur la liste fournie en B.4.2 du géostandard.'
+              required: false
+              type: string
+              length: 100
+              enum: PPR_SOURCE_GEOMETRIE_TYPE
+            SRCE_ANNEE:
+              description: 'Année de mise à jour ou millésime de la carte ou du référentiel de saisie ayant servi de source géométrique.'
+              required: false
+              type: string
+              length: 4
+            PRECISION:
+              description: 'Ordre de grandeur de la précision de positionnement estimée de l''objet géographique.'
+              required: false
+              type: string
+              length: 2
+              enum: CLASSE_PRECISION_TYPE
+
