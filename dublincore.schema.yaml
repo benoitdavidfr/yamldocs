@@ -1,8 +1,9 @@
 $schema: http://json-schema.org/draft-07/schema#
 $id: http://id.georef.eu/dublincore.schema
 title: schéma JSON pour un document Dublin Core
+modified: 2019-02-13
 description: |
-  Ce schéma correspond à une fiche de MD mono-lingue mais comporte des annotations pour en dériver
+  Ce schéma correspond à une fiche de MD mono-lingue et comporte des annotations pour en dériver
   le schéma d'une fiche multi-lingue qui est très proche.
   Ces annotations correspondent à des commentaires contenant la chaine '#MultiLingual '.
   Pour dériver le schéma multi-lingue, il convient de remplacer la chaine avant la chaine '#MultiLingual '
@@ -11,8 +12,8 @@ description: |
 definitions:
   FreeText:
     description: |
-      Définition utilisée dans le schéma pour définir un texte libre. Par défaut ce texte libre correspond au type string.
-      Dans le cas d'un schéma multi-lingue, un texte libre correspond à FreeTextMul
+      Définition d'un texte libre correspondant par défaut au type string.
+      Dans le schéma multi-lingue, un texte libre correspond à FreeTextMul
     type: string #MultiLingual $ref: '#/definitions/FreeTextMul'
   FreeTextMul:
     description: texte libre multi-lingue, dictionnaire de string indexé par le code ISO 639-1 de la langue
@@ -30,13 +31,14 @@ definitions:
       - type: array
         items: {$ref: '#/definitions/FreeText'}
   FreeTextOrStringOrArray:
-    description: Un nom identique quelle que soit la langue, ou un nom multi-lingue, ou une liste d'un ou l'autre
+    description: >
+      Une chaine identique quelle que soit la langue, ou une chaine multi-lingue, ou une liste de l'un ou de l'autre
     oneOf:
-      - description: un nom multi-lingue
+      - description: une chaine multi-lingue
         $ref: '#/definitions/FreeText'
-      - description: un nom identique quelle que soit la langue
+      - description: une chaine identique quelle que soit la langue
         type: string
-      - description: plusieurs noms, certains identiques quelle que soit la langue, d'autres non
+      - description: plusieurs chaines, certaines identiques quelle que soit la langue, d'autres non
         type: array
         items:
           oneOf:
@@ -66,6 +68,78 @@ definitions:
       - {name: The Great Depression, start: 1929, end: 1939}
       - {name: "Perth International Arts Festival, 2000", start: 2000-01-26, end: 2000-02-20}
       - {start: 1999-09-25T14:20+10:00, end: 1999-09-25T16:40+10:00, scheme: W3C-DTF}
+  dcmi-box:
+    description: >
+      simplified [DCMI Box Encoding Scheme](http://dublincore.org/documents/dcmi-box/)
+      using geographical coordinates in WGS84 and decimal degree
+    type: object
+    properties:
+      name:
+        description: a label associated to the spatial localisation
+        type: string
+      westlimit:
+        description: minimum WGS84 longitude in decimal degrees
+        type: number
+        minimum: -180
+        maximum: 180
+      eastlimit:
+        description: maximum WGS84 longitude in decimal degrees
+        type: number
+        minimum: -180
+        maximum: 180
+      southlimit:
+        description: minimum WGS84 latitude in decimal degrees
+        type: number
+        minimum: -90
+        maximum: 90
+      northlimit:
+        description: maximum WGS84 latitude in decimal degrees
+        type: number
+        minimum: -90
+        maximum: 90
+      downlimit:
+        description: minimum altitude above sea level in meters
+        type: number
+      uplimit:
+        description: maximum altitude above sea level in meters
+        type: number
+    examples:
+      - { name: Western Australia, northlimit: -13.5, southlimit: -35.5, westlimit: 112.5, eastlimit: 129 }
+      - { name: The Western Hemisphere, westlimit: -180, eastlimit: 0 }
+      - { name: The Tropics, northlimit: 23.5, southlimit: -23.5 }
+      - name: Duchess copper mine
+        northlimit: -21.3
+        southlimit: -21.4
+        westlimit: 139.8
+        eastlimit: 139.9
+        uplimit: 400
+        downlimit: -100 
+  dcmi-point:
+    description: >
+      simplified [DCMI Point Encoding Scheme](http://dublincore.org/documents/dcmi-point/)
+      using WGS84 geographical coordinates in decimal degree
+    type: object
+    required: [east, north]
+    properties:
+      name:
+        description: a label associated to the spatial localisation
+        type: string
+      east:
+        description: WGS84 longitude in decimal degrees
+        type: number
+        minimum: -180
+        maximum: 180
+      north:
+        description: WGS84 latitude in decimal degrees
+        type: number
+        minimum: -90
+        maximum: 90
+      elevation:
+        description: altitude au dessus du niveau de la mer en mètres
+        type: number
+    examples:
+      - { name: 'Perth, W.A.', east: 115.85717, north: -31.95301 }
+      - { name: Mt. Kosciusko, east: 148.26218, north: -36.45746, elevation: 2228 }
   langIso639-1:
     description: Language coded using ISO 639-1 (alpha-2)
     type: string
@@ -180,94 +254,39 @@ properties:
   isReferencedBy: true
   references: true
   spatial:
-    description: Couverture spatiale, 4 codages sont possibles, voir le document dc-spatial
+    description: Couverture spatiale, 6 codages sont possibles
     anyOf:
-      - description: liste de zones géographiques prédéfinies notament par ISO 3166-1 ou 3166-2 ou la liste des océans et des mers définie par l'OHI
+      - description: URI défini dans http://id.georef.eu/dc-spatial référencant une liste de zones géo. prédéfinies
+        type: string
+        pattern: '^http://id.georef.eu/dc-spatial/'
+        examples:
+          - http://id.georef.eu/dc-spatial/FX,GP,GF,MQ,YT,RE
+          - http://id.georef.eu/dc-spatial/FX,GP,GF,MQ,YT,RE,BL,MF,PM
+          - http://id.georef.eu/dc-spatial/FR-OCC
+          - http://id.georef.eu/dc-spatial/FR-29
+          - http://id.georef.eu/dc-spatial/FR/75,92,93,94
+          - http://id.georef.eu/dc-spatial/FR-76351
+          - http://id.georef.eu/dc-spatial/FR-2B033
+          - http://id.georef.eu/dc-spatial/FR-50129@2000
+          - http://id.georef.eu/dc-spatial/FR/76351,50129@2000
+          - http://id.georef.eu/dc-spatial/Mer%20du%20Nord
+      - description: simplified DCMI Point Encoding Scheme using WGS84 geographical coordinates in decimal degree
+        $ref: '#/definitions/dcmi-point'
+      - description: array of Points using the above encoding scheme
         type: array
-        items: { type: string }
-        examples:
-          - [FX,GP,GF,MQ,YT,RE]
-          - [FX,GP,GF,MQ,YT,RE,BL,MF,PM]
-          - [FR-75, FR-92, FR-93, FR-94]
-          - [FR-OCC]
-          - [FR-29]
-          - [FR-29,FR-56]
-          - [FR-76351]
-          - [FR-2B033]
-          - [FR-50129@2000]
-          - [FR-76351,FR-50129@2000]
-          - [Mer du Nord]
-      - description: "[schéma de codage DCMI Point](http://dublincore.org/documents/dcmi-point/) restreint au WGS84"
-        type: object
-        required: [east, north]
-        properties:
-          name:
-            description: une chaine associée à la localisation spatiale
-            type: string
-          east:
-            description: longitude WGS84 en degrés décimaux
-            type: number
-            minimum: -180
-            maximum: 180
-          north:
-            description: latitude WGS84 en degrés décimaux
-            type: number
-            minimum: -90
-            maximum: 90
-          elevation:
-            description: altitude au dessus du niveau de la mer en mètres
-            type: number
-        examples:
-          - { name: 'Perth, W.A.', east: 115.85717, north: -31.95301 }
-          - { name: Mt. Kosciusko, east: 148.26218; north: -36.45746, elevation: 2228 }
-      - description: "[schéma de codage DCMI Box](http://dublincore.org/documents/dcmi-box/) restreint au WGS84"
-        type: object
-        properties:
-          name:
-            description: une chaine associée à la localisation spatiale
-            type: string
-          westlimit:
-            description: longitude minimum WGS84 en degrés décimaux
-            type: number
-            minimum: -180
-            maximum: 180
-          eastlimit:
-            description: longitude maximum WGS84 en degrés décimaux
-            type: number
-            minimum: -180
-            maximum: 180
-          southlimit:
-            description: latitude minimum WGS84 en degrés décimaux
-            type: number
-            minimum: -90
-            maximum: 90
-          northlimit:
-            description: latitude maximum WGS84 en degrés décimaux
-            type: number
-            minimum: -90
-            maximum: 90
-          downlimit:
-            description: altitude minimum au dessus du niveau de la mer en mètres
-            type: number
-          uplimit:
-            description: altitude mximum au dessus du niveau de la mer en mètres
-            type: number
-        examples:
-          - { name: Western Australia, northlimit: -13.5, southlimit: -35.5, westlimit: 112.5, eastlimit: 129 }
-          - { name: The Western Hemisphere, westlimit: -180, eastlimit: 0 }
-          - { name: The Tropics, northlimit: 23.5, southlimit: -23.5 }
-          - name: Duchess copper mine
-            northlimit: -21.3
-            southlimit: -21.4
-            westlimit: 139.8
-            eastlimit: 139.9
-            uplimit: 400
-            downlimit: -100 
+        items:
+          $ref: '#/definitions/dcmi-point'
+      - description: simplified DCMI Box Encoding Scheme using WGS84 geographical coordinates in decimal degree
+        $ref: '#/definitions/dcmi-box'
+      - description: aray of boxes using the above encoding scheme
+        type: array
+        items:
+          $ref: '#/definitions/dcmi-box'
       - description: un texte libre
         type: string
         examples:
           - France métropolitaine et 5 DROM
-          - Paris et la petite couronne
+          - Paris et sa petite couronne
   temporal:
     description: Couverture temporelle
   accessRights: true

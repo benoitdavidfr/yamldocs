@@ -1,0 +1,40 @@
+title: série de données géographiques (GeoDataset)
+doc: |
+  Un document de la classe GeoDataset correspond à une série de données géographiques ;
+  il contient des métadonnées conformes au [schéma Inspire](?doc=inspire/schema)
+  ainsi qu'une description des services de consultation et de téléchargement direct et simple.  
+  Les données d'un GeoDataset peuvent soit être exposées par des services distants,
+  comme par exemple la BDTopo exposée sur le Géoportail,
+  soit être exposée par YamlDoc, comme par exemple la base Natural Earth 1/10M.
+  
+  La classe GeoDataset réutilise certains concepts de FeatureDataset et de ViewDataset.
+  
+  Ainsi l'idée générale est:
+    
+    - les spécifications d'un GeoDataset vecteur peuvent être définies (par conformsTo) par un document FDsSpecs
+      qui décrit un dictionnaire de FeatureCollection,
+      certaines pouvant être définies par une requête sur d'autres collections de la même série,
+      la définition d'une collection peut aussi être paramétrée par le niveau de zoom,
+      par exemple, pour effectuer une sélection sur les objets,
+    - le service de téléchargement exposé par un GeoDataset vecteur est décrit par un document FeatureDataset,
+      dont le rôle est principalement de mettre en oeuvre les mécanismes d'accès aux objets,
+    - la représentation graphique des features d'un FeatureDataset est définie dans un document FeatureStyle,
+    - le service de consultation exposé par un GeoDataset est décrit par un document ViewDataset,
+    - un affichage cartographique (Map) est défini par une listes de couches de fond et une autre de calques,
+      chaque couche d'affichage est définie soit par une couche d'un ViewDataset,
+      soit par une collection d'objets (FeatureCollection) associée à un stylage des objets défini par un FeatureStyle ;
+      une couche d'affichage d'une Map peut être paramétrée en fonction du niveau de zoom et de la zone géographique.
+      Par exemple, une carte peut définir la couche coastline de Natural Earth 1/110 M pour les zoom 0 à 3,
+      la couche coastline de Natural Earth 1/10 M pour les zoom 4 à 8,
+      la couche coastline de la BDCarto pour les zoom 9 à 13
+      et la couche coastline de la BDTopo pour les zoom 14 à 18.
+      Les couches de la BDCarto étant définies uniquement sur la métropole et celles de la BD Topo uniquement
+      sur la métropole et les DOM.
+  
+  Mise en oeuvre pour la visualisation des objets de la BDTopo:
+  
+    - la BDTopo est définie par le document GeoDataset gds/bdtopo
+    - ses spécifications 2.2 sont décrites dans le document geodata/bdtopo22.specs,
+    - la représentation cartographique de la BDTopo est définie dans le document FeatureStyle geodata/bdtopo.style
+    - une carte permettant de visualiser NE, BDC et BDT est définie dans geodata/ignbdct
+      

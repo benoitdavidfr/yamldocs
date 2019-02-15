@@ -1,4 +1,4 @@
-title: Specs de la BD TOPO v2.2
+title: Specifications de la BD TOPO v2.2
 creator: IGN
 abstract: |
   La BD TOPO® est une description vectorielle 3D (structurée en objets) des éléments du territoire et
@@ -10,13 +10,15 @@ abstract: |
   La description des objets géographiques en 3D permet de représenter de façon réaliste les analyses spatiales
   utiles aux processus de décision dans le cadre d’études diverses.
   
-identifier: http://professionnels.ign.fr/doc/DC_BDTOPO_2-2.pdf
+identifier:
+  - http://professionnels.ign.fr/doc/DC_BDTOPO_2-2.pdf
+  - http://georef.eu/geodata/bdtopo22.specs
 source: http://professionnels.ign.fr/doc/DC_BDTOPO_2-2.pdf
 
 coverage: "iso:code:3166:FR (métropole + DOM)"
 lineage: |
   9/2/2019:
-    - Fork de FeatureDataset
+    - Fork de http://georef.eu/geodata/bdtopo
 $schema: http://ydclasses.georef.eu/FDsSpecs
 
 featureCollections:

@@ -1,7 +1,7 @@
-title: BD TOPO
+title: BD TOPO (GeoDataset)
 creator: IGN
 abstract: |
-  La BD TOPO® est une description vectorielle 3D (structurée en objets) des éléments du territoire et de ses infrastructures, de précision métrique, exploitable à des échelles allant du 1 : 5 000 au 1 : 50 000.
+  La BD TOPO est une description vectorielle 3D (structurée en objets) des éléments du territoire et de ses infrastructures, de précision métrique, exploitable à des échelles allant du 1 : 5 000 au 1 : 50 000.
 
   Elle couvre de manière cohérente l’ensemble des entités géographiques et administratives du territoire national.
   Elle permet la visualisation, le positionnement, la simulation au service de l’analyse et de la gestion 
@@ -13,11 +13,14 @@ abstract: |
   [générée ici pour St Léger les Vignes, zoom 14](id.php/geodata/bdtopo/map/display?latlon=47.135,-1.730&zoom=14).
   
 identifier: http://professionnels.ign.fr/bdtopo
-coverage: "iso:code:3166:FR (métropole + DOM)"
-conformsTo: http://id.georef.eu/geodata/bdtopo22.specs
+coverage: http://id.georef.eu/coverage/FX,
+"iso:code:3166:FR (métropole + DOM)"
+conformsTo: http://id.georef.eu/gds/bdtopo22.specs
 lineage: |
-  20/8/2018:
-    - transfert des sepcs dans geodata/bdtopo22.specs
+  12/2/2019:
+    - transformation en GeoDataset
+  10/2/2019:
+    - transfert des sepcs dans gds/bdtopo22.specs
   20/8/2018:
     - ajout de symboles pour les pai_religieux
 $schema: http://ydclasses.georef.eu/FeatureDataset
