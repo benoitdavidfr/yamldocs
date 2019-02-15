@@ -1,21 +1,53 @@
 title: Rectangles englobants de différentes entités administratives
+abstract: |
+  Définition des rectangles englobants des entités administratives ISO 3166-1 alpha-2 françaises et de leur ZEE.
+  Parmi ces entités administratives je distingue FR et FR.ZEE définies comme composées d'autres entités élémentaires.
+  Chaque entité élémentaire correspond soit à un rectangle englobant soit à plusieurs.
+source:
+  - https://fr.wikipedia.org/wiki/ISO_3166-1
+  - https://fr.wikipedia.org/wiki/ISO_3166-2:FR
 $schema: http://ydclasses.georef.eu/YData
 tables:
-  zones:
-    title: Rectangles englobants des zones définis en DCMI Box
+  elements:
+    title: Entités élémentaires ISO 3166-1 et leur(s) rectangle(s) englobant(s) défini(s) comme DCMI Box
     dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema des rectangles englobants des zones
+      type: object
+      additionalProperties:
+        oneOf:
+          - type: object
+            required: [westlimit, southlimit, eastlimit, northlimit]
+            properties:
+              name: { type: string }
+              westlimit: { type: number }
+              southlimit: { type: number }
+              eastlimit: { type: number }
+              northlimit: { type: number }
+          - type: array
+            items:
+              type: object
+              required: [westlimit, southlimit, eastlimit, northlimit]
+              properties:
+                name: { type: string }
+                westlimit: { type: number }
+                southlimit: { type: number }
+                eastlimit: { type: number }
+                northlimit: { type: number }
+    xdataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       title: Schema des rectangles englobants des zones
       oneOf:
         - description: à une zone est associé un rectangle
-          $ref: http://id.georef.eu/dublincore.schema#/definitions/dcmi-box
+          $ref: 'http://id.georef.eu/dublincore.schema#/definitions/dcmi-box'
         - description: à une zone est associé une liste de rectangles
           type: array
-          items: {http://id.georef.eu/dublincore.schema#/definitions/dcmi-box}
+          items:
+            $ref: 'http://id.georef.eu/dublincore.schema#/definitions/dcmi-box'
     data:
       World: { westlimit: -180, southlimit: -90, eastlimit: 180, northlimit: 90 }
       FX: { name: France métropolitaine, westlimit: -5.16, southlimit: 41.33, eastlimit: 9.57, northlimit: 51.09 }
-      FX.ZEE: { name: France métropolitaine (ZEE), westlimit: -9.93, southlimit: 41.24, eastlimit: 10.22, northlimit: 51.56} 
+      FX.ZEE: { name: France métropolitaine (ZEE), westlimit: -10.10, southlimit: 41.24, eastlimit: 10.22, northlimit: 51.56} 
       GP: { name: Guadeloupe, westlimit: -61.81, southlimit: 15.83, eastlimit: -61.00, northlimit: 16.52 }
       GP.ZEE: { name: Guadeloupe (ZEE), westlimit: -62.82, southlimit: 15.06, eastlimit: -57.53, northlimit: 18.57 }
       MQ: { name: Martinique, westlimit: -61.24, southlimit: 14.38, eastlimit: -60.80, northlimit: 14.89 }
@@ -27,26 +59,188 @@ tables:
       YT: { name: Mayotte, westlimit: 44.95, southlimit: -13.08, eastlimit: 45.31, northlimit: -12.58 }
       YT.ZEE: { name: Mayotte (ZEE), westlimit: 43.48, southlimit: -14.53, eastlimit: 46.69, northlimit: -11.13 }
       PM: { name: Saint-Pierre-et-Miquelon, westlimit: -56.52, southlimit: 46.74, eastlimit: -56.11, northlimit: 47.15 }
-      PM.ZEE: { name: Saint-Pierre-et-Miquelon (ZEE), westlimit: -57.10, southlimit: 43.41, eastlimit: -56.10, northlimit: 47.37 }
+      PM.ZEE: { name: Saint-Pierre-et-Miquelon (ZEE), westlimit: -57.10, southlimit: 43.41, eastlimit: -55.90, northlimit: 47.37 }
       BL: { name: Saint-Barthélémy, westlimit: -62.96, southlimit: 17.87, eastlimit: -62.78, northlimit: 17.93 }
       BL.ZEE: { name: Saint-Barthélémy (ZEE), westlimit: -63.11, southlimit: 17.64, eastlimit: -62.22, northlimit: 18.32 }
       MF: { name: Saint-Martin, westlimit: -63.16, southlimit: 18.04, eastlimit: -62.97, northlimit: 18.13 }
       MF.ZEE: { name: Saint-Martin (ZEE), westlimit: -63.64, southlimit: 17.87, eastlimit: -62.73, northlimit: 18.19 }
       TF:
-        - { name: Îles Saint-Paul et Nouvelle-Amsterdam, westlimit: 77.50, southlimit: -38.74, eastlimit: 77.60, northlimit: -37.79 }
+        - { name: Île Saint-Paul, westlimit: 77.50, southlimit: -38.74, eastlimit: 77.56, northlimit: -38.70 }
+        - { name: Île Nouvelle-Amsterdam, westlimit: 77.51, southlimit: -37.89, eastlimit: 77.60, northlimit: -37.79 }
         - { name: Archipel Crozet, westlimit: 50.15, southlimit: -46.48, eastlimit: 52.33, northlimit: -45.95 }
         - { name: Îles Kerguelen, westlimit: 68.42, southlimit: -50.02, eastlimit: 70.56, northlimit: -48.45 }
-        - { name: Atoll Bassas da India, westlimit: -, southlimit: , eastlimit: -, northlimit:  }
-        - { name: Île Europa, westlimit: -, southlimit: , eastlimit: -, northlimit:  }
-        - { name: Îles Glorieuses, westlimit: -, southlimit: , eastlimit: -, northlimit:  }
-        - { name: Île Juan de Nova, westlimit: -, southlimit: , eastlimit: -, northlimit:  }
-        - { name: Île Tromelin, westlimit: -, southlimit: , eastlimit: -, northlimit:  }
+        - { name: Atoll Bassas da India, westlimit: 39.62, southlimit: -21.53, eastlimit: 39.75, northlimit: -21.43 }
+        - { name: Île Europa, westlimit: 40.32, southlimit: -22.41, eastlimit: 40.41, northlimit: -22.32 }
+        - { name: Îles Glorieuses, westlimit: 47.27, southlimit: -11.60, eastlimit: 47.42, northlimit: -11.50 }
+        - { name: Île Juan de Nova, westlimit: 42.67, southlimit: -17.09, eastlimit: 42.79, northlimit: -17.02 }
+        - { name: Île Tromelin, westlimit: 54.51, southlimit: -15.90, eastlimit: 54.53, northlimit: -15.88 }
       TF.ZEE:
         - { name: Îles Saint-Paul et Nouvelle-Amsterdam (ZEE), westlimit: 73.22, southlimit: -42.08, eastlimit: 81.81, northlimit: -34.44 }
         - { name: Archipel Crozet (ZEE), westlimit: 45.35, southlimit: -49.82, eastlimit: 57.16, northlimit: -42.59 }
         - { name: Îles Kerguelen (ZEE), westlimit: 63.28, southlimit: -53.17, eastlimit: 75.64, northlimit: -45.10 }
-      PF: { name: Polynésie française, westlimit: -152, southlimit: -18, eastlimit: -149, northlimit: -15 }
-      WF: { name: Wallis-et-Futuna, westlimit: -178.5, southlimit: -14.5, eastlimit: -175.5, northlimit: -13.17 }
-      NC: { name: Nouvelle-Calédonie, westlimit: 163.5, southlimit: -23, eastlimit: 168.25, northlimit: -19.36 }
-      CP: { name: Île Clipperton, } # ???
-  
+        - { name: Atoll Bassas da India et île Europa (ZEE), westlimit: 37.47, southlimit: -25.75, eastlimit: 41.82, northlimit: -19.01 }
+        - { name: Îles Glorieuses (ZEE), westlimit: 45.74, southlimit: -12.83, eastlimit: 48.49, northlimit: -10.63 }
+        - { name: Île Juan de Nova (ZEE), westlimit: 40.87, southlimit: -19.13, eastlimit: 43.43, northlimit: -15.39 }
+        - { name: Île Tromelin (ZEE), westlimit: 52.38, southlimit: -18.78, eastlimit: 57.23, northlimit: -12.54 }
+      PF: { name: Polynésie française, westlimit: -154.73, southlimit: -27.66, eastlimit: -134.44, northlimit: -7.86 }
+      PF.ZEE: { name: Polynésie française (ZEE), westlimit: -158.15, southlimit: -31.24, eastlimit: -131.99, northlimit: -4.52 }
+      WF:
+        - { name: Îles Futuna et Alofi, westlimit: -178.19, southlimit: -14.37, eastlimit: -178.00, northlimit: -14.23 }
+        - { name: Île Wallis, westlimit: -176.28, southlimit: -13.40, eastlimit: -176.12, northlimit: -13.17 }
+      WF.ZEE:
+        - { name: Wallis-et-Futuna (ZEE), westlimit: -180.00, southlimit: -15.93, eastlimit: -174.28, northlimit: -9.81 }
+        - { name: Wallis-et-Futuna (ZEE), westlimit: 179.50, southlimit: -13.92, eastlimit: 180.00, northlimit: -12.93 }
+      NC: { name: Nouvelle-Calédonie, westlimit: 158.18, southlimit: -23.03, eastlimit: 168.96, northlimit: -17.90 }
+      NC.ZEE: { name: Nouvelle-Calédonie (ZEE), westlimit: 156.20, southlimit: -26.45, eastlimit: 170.55, northlimit: -14.78 }
+      CP: { name: Île Clipperton, westlimit: -109.24, southlimit: 10.28, eastlimit: -109.20, northlimit: 10.32 }
+      CP.ZEE: { name: Île Clipperton (ZEE), westlimit: -112.62, southlimit: 6.92, eastlimit: -105.81, northlimit: 13.67 }
+  composition:
+    title: Entités définies par un ensemble d'entités élémentaires
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema des définitions d'entités composées d'un ensemble de zones élémentaires
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+          pattern: ^[A-Z][A-Z](\.ZEE)?$
+    data:
+      FR: [FX, GP, MQ, GF, RE, YT, PM, BL, MF, TF, PF, WF, NC, CP]
+      FR.ZEE: [FX.ZEE, GP.ZEE, MQ.ZEE, GF.ZEE, RE.ZEE, YT.ZEE, PM.ZEE, BL.ZEE, MF.ZEE, TF.ZEE, PF.ZEE, WF.ZEE, NC.ZEE, CP.ZEE]
+  codesIso3166-1:
+    title: Extrait restructuré des codes ISO 3166-1 et INSEE
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      type: object
+      patternProperties:
+        ^[A-Z][A-Z]$:
+          type: object
+          properties:
+            name: { type: string }
+            alpha3: { type: string }
+            insee: { type: integer }
+    data:
+      FR:
+        name: France
+        alpha3: FRA
+      FX:
+        name: France métropolitaine
+      GP:
+        name: Guadeloupe
+        alpha3: GLP
+        insee: 971
+      GF:
+        name: Guyane
+        alpha3: GUF
+        insee: 973
+      MQ:
+        name: Martinique
+        alpha3: MTQ
+        insee: 972
+      YT:
+        name: Mayotte
+        alpha3: MYT
+        insee: 976
+      RE:
+        name: La Réunion
+        alpha3: REU
+        insee: 974
+      PM:
+        name: Saint-Pierre-et-Miquelon
+        alpha3: SPM
+        insee: 975
+      BL:
+        name: Saint-Barthélémy
+        alpha3: BLM
+        insee: 977
+      MF:
+        name: Saint-Martin
+        alpha3: MAF
+        insee: 978
+      TF:
+        name: Terres australes et antarctiques françaises
+        alpha3: ATF
+        insee: 984
+      PF:
+        name: Polynésie française
+        alpha3: PYF
+        insee: 987
+      WF:
+        name: Wallis-et-Futuna
+        alpha3: WLF
+        insee: 986
+      NC:
+        name: Nouvelle-Calédonie
+        alpha3: NCL
+        insee: 988
+      CP:
+        name: Île Clipperton
+        insee: 989
+      EU:
+        name: Union européenne
+  codesIso3166-2régions:
+    title: Codes ISO 3166-2 des régions métropolitaines
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      type: object
+      patternProperties:
+        ^[A-Z][A-Z][A-Z]$:
+          type: object
+          properties:
+            name: { type: string }
+    data:
+      ARA:
+        name: Auvergne-Rhône-Alpes
+      BFC:
+        name: Bourgogne-Franche-Comté
+      BRE:
+        name: Bretagne
+      CVL:
+        name: Centre-Val de Loire
+      COR:
+        name: Corse
+      GES:
+        name: Grand Est
+      HDF:
+        name: Hauts-de-France
+      IDF:
+        name: Île-de-France
+      NOR:
+        name: Normandie
+      NAQ:
+        name: Nouvelle-Aquitaine
+      OCC:
+        name: Occitanie
+      PDL:
+        name: Pays de la Loire
+      PAC:
+        name: Provence-Alpes-Côte d'Azur
+  codesIso3166-2drom:
+    title: Codes ISO 3166-2 et correspondance ISO 3166-1 des DROM
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      type: object
+      patternProperties:
+        ^[A-Z][A-Z][A-Z]$:
+          type: object
+          properties:
+            name: { type: string }
+            codeDept: { type: string }
+    data:
+      GUA:
+        name: Guadeloupe
+        codeDept: GP
+      GUF:
+        name: Guyane
+        codeDept: GF
+      MTQ:
+        name: Martinique
+        codeDept: MQ
+      LRE:
+        name: La Réunion
+        codeDept: RE
+      MAY:
+        name: Mayotte
+        codeDept: YT
+    

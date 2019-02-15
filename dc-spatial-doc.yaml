@@ -1,5 +1,5 @@
 $schema: http://json-schema.org/draft-07/schema#
-$id: http://id.georef.eu/dc-spatial-admin
+$id: http://id.georef.eu/dc-spatial-doc
 title: schema de codage du champ spatial DublinCore utilisant les entités administratives
 abstract: |
   Le Dublin Core préconise d'utiliser pour le champ spatial le schéma de codage DCMI Box.  
@@ -14,7 +14,7 @@ abstract: |
   Par ailleurs, l'ISO 3166-2 définit des codes pour les subdivisions.
   
   Enfin, il existe de plus une [liste des océans et des mers définie par l'OHI
-](https://fr.wikipedia.org/wiki/Liste_des_oc%C3%A9ans_et_mers_du_monde_selon_l%27Organisation_hydrographique_internationale).
+  ](https://fr.wikipedia.org/wiki/Liste_des_ocans_et_mers_du_monde_selon_l%27Organisation_hydrographique_internationale).
   
   Le présent document spécifie une zone géographique en utilisant un URI commencant par http://id.georef.eu/dc-spatial/
   et suivi par une liste de codes séparés par une virgule.
@@ -65,98 +65,6 @@ counterexamples:
     spatial: France
   - title: par contre si l'encodage est annoncé alors il doit être respecté
     spatial: http://id.georef.eu/dc-spatial/France
-source:
-  - https://fr.wikipedia.org/wiki/ISO_3166-1
-  - https://fr.wikipedia.org/wiki/ISO_3166-2:FR
-codes:
-  FR:
-    name: France
-    alpha3: FRA
-    régions:
-      ARA: Auvergne-Rhône-Alpes
-      BFC: Bourgogne-Franche-Comté
-      BRE: Bretagne
-      CVL: Centre-Val de Loire
-      GES: Grand Est
-      HDF: Hauts-de-France
-      IDF: Île-de-France
-      NOR: Normandie
-      NAQ: Nouvelle-Aquitaine
-      OCC: Occitanie
-      PDL: Pays de la Loire
-      PAC: Provence-Alpes-Côte d'Azur
-    drom:
-      GUA:
-        name: Guadeloupe
-        codeDept: GP
-      GUF:
-        name: Guyane
-        codeDept: GF
-      MTQ:
-        name: Martinique
-        codeDept: MQ
-      LRE:
-        name: La Réunion
-        codeDept: RE
-      MAY:
-        name: Mayotte
-        codeDept: YT
-      
-  FX:
-    name: France métropolitaine
-  GP:
-    name: Guadeloupe
-    alpha3: GLP
-    insee: 971
-  GF:
-    name: Guyane
-    alpha3: GUF
-    insee: 973
-  MQ:
-    name: Martinique
-    alpha3: MTQ
-    insee: 972
-  YT:
-    name: Mayotte
-    alpha3: MYT
-    insee: 976
-  RE:
-    name: La Réunion
-    alpha3: REU
-    insee: 974
-  PM:
-    name: Saint-Pierre-et-Miquelon
-    alpha3: SPM
-    insee: 975
-  BL:
-    name: Saint-Barthélémy
-    alpha3: BLM
-    insee: 977
-  MF:
-    name: Saint-Martin
-    alpha3: MAF
-    insee: 978
-  TF:
-    name: Terres australes et antarctiques françaises
-    alpha3: ATF
-    insee: 984
-  PF:
-    name: Polynésie française
-    alpha3: PYF
-    insee: 987
-  WF:
-    name: Wallis-et-Futuna
-    alpha3: WLF
-    insee: 986
-  NC:
-    name: Nouvelle-Calédonie
-    alpha3: NCL
-    insee: 988
-  CP:
-    name: Île Clipperton
-    insee: 989
-  EU:
-    name: Union européenne
 type: object
 properties:
   title: { type: string }
