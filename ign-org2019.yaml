@@ -6,7 +6,7 @@ abstract: |
   ainsi que des [compléments divers](?ypath=/compléments).
 modified: 2019-02-23
 $schema:
-  $id: http://bdavid.alwaysdata.net/yamldoc/id.php/ign-organigramme2019/schema
+  $id: http://georef.eu/ign-org2019/$schema
   $schema: http://json-schema.org/draft-07/schema#
   definitions:
     organigramme:
@@ -15,6 +15,7 @@ $schema:
       additionalProperties:
         description: description de chaque chaque unité
         type: object
+        required: [t]
         properties:
           t:
             description: nom de l'unité
@@ -24,12 +25,22 @@ $schema:
             type: array
             items:
               type: object
+              required: [name]
               properties:
-                intitulé:
+                name:
+                  description: nom de la personne
+                  type: string
+                jobTitle:
                   description: intitulé du poste
                   type: string
-                nom:
-                  description: nom de la personne
+                email:
+                  description: adresse électronique
+                  type: string
+                telephone:
+                  description: no de téléphone
+                  type: string
+                brand:
+                  description: projet particulier
                   type: string
           services:
             description: sous-unités indexées par leur sigle
@@ -78,99 +89,124 @@ organigramme:
   DG:
     t: Direction générale
     personnes:
-      - intitulé:  Délégué à la protection des données personnelles et à la responsabilité sociétale, officier de sécurité adjoint
-        nom: M-C. COMBES MIAKINEN
+      - name: M-C. COMBES MIAKINEN
+        jobTitle: Délégué à la protection des données personnelles et à la responsabilité sociétale, officier de sécurité adjoint
+        
   DP:
     t: direction des programmes et de l’appui aux politiques publiques (DP)
     personnes:
-      - intitulé:  Directrice
-        nom: Magali STOLL
-      - intitulé:  Directeur adjoint, délégué à la stratégie
-        nom: C. PENICAND
-      - intitulé:  Directeur adjoint opérationnel
-        nom: N. ELTCHANINOFF
-      - intitulé:  Coordinateur transformation
-        nom: F. CANTAT
-      - intitulé:  Pilote du programme Gouvernance ouverte
-        nom: F. CHIRIE
-      - intitulé:  Pilote du programme Innovation
-        nom: Raphaële HENO
-      - intitulé:  Pilote du programme Géoplateforme
-        nom: Jonathan RENAULT
+      - name: Magali STOLL
+        jobTitle:  Directrice
+      - name: Claude PENICAND
+        jobTitle:  Directeur adjoint, délégué à la stratégie
+      - name: Nathalie ELTCHANINOFF
+        jobTitle:  Directeur adjoint opérationnel
+      - name: Frédéric CANTAT
+        jobTitle:  Coordinateur transformation
+      - name: François CHIRIE
+        jobTitle:  Pilote du programme Gouvernance ouverte
+      - name: Raphaële HENO
+        jobTitle:  Pilote du programme Innovation
+      - name: Jonathan RENAULT
+        jobTitle:  Pilote du programme Géoplateforme
     services:
       PEPS:
         t: service du pilotage économique, de la planification et du support (PEPS)
         personnes:
-          - intitulé:  Chef du service PEPS
-            nom: N. LESAGE
-          - intitulé:  Chef adjoint du service PEPS
-            nom: P. BOURON
-          - intitulé:  Chef du département programmation et appui
-            nom: Ophélie AVIGNON
-          - intitulé:  Chef du département de gestion
-            nom: Yannick CEZARD
+          - name: N. LESAGE
+            jobTitle:  Chef du service PEPS
+          - jobTitle:  Chef adjoint du service PEPS
+            name: P. BOURON
+          - jobTitle:  Chef du département programmation et appui
+            name: Ophélie AVIGNON
+          - jobTitle:  Chef du département de gestion
+            name: Yannick CEZARD
       SPRI:
         t: service des partenariats et des relations institutionnelles (SPRI)
         personnes:
-          - intitulé:  Chef du service SPRI
-            nom: N. LAMBERT
-          - intitulé:  Chef adjoint du service SPRI
-            nom: D. PERLBARG
-          - intitulé:  Chef du département Défense et sécurité
-            nom: Jean-Christophe BARRA
-          - intitulé:  Chef du département Gestion des territoires
-            nom: Sophie REYNARD
-          - intitulé:  Chef du département Secteurs économiques et sociaux
-            nom: Francis GUYOT
-          - intitulé:  Chef du département Europe, espace, numérique et innovation
-            nom: David DI MARCO
+          - name: N. LAMBERT
+            jobTitle:  Chef du service SPRI
+          - name: D. PERLBARG
+            jobTitle:  Chef adjoint du service SPRI
+        services:
+          DéfenseEtSécurité:
+            t: département Défense et sécurité
+            personnes:
+              - name: Jean-Christophe BARRA
+                jobTitle:  Chef du département Défense et sécurité
+          GestionDesTerritoires:
+            t: département Gestion des territoires
+            personnes:
+              - name: Sophie REYNARD
+                jobTitle:  Chef du département Gestion des territoires
+                email: Sophie.Reynard@ign.fr
+              - name: Alain GILLOT
+                email: Alain.Gillot@ign.fr
+                brand: GéoMCE
+          SecteursEconomiquesEtSociaux:
+            t: département Secteurs économiques et sociaux
+            personnes:
+              - name: Francis GUYOT
+                jobTitle:  Chef du département Secteurs économiques et sociaux
+          EuropeEspaceNumériqueInnovation:
+            t: département Europe, espace, numérique et innovation
+            personnes:
+              - name: David DI MARCO
+                jobTitle:  Chef du département Europe, espace, numérique et innovation
       SPP:
         t: service des projets et des prestations (SPP)
         personnes:
-          - intitulé:  Chef du service SPP
-            nom: V. PEREIRA
-          - intitulé:  Chef adjoint du service SPP
-            nom: S. PELLE
-          - intitulé:  Chef du département Conseil et AMOA
-            nom: Perrine ROUFFIAC
-          - intitulé:  Chef du département Etudes et pilotage des projets
-            nom: Neil GUION
-          - intitulé:  Chef du département Recettes techniques et expérimentations
-            nom: Camille SALOU
+          - name: V. PEREIRA
+            jobTitle:  Chef du service SPP
+          - name: S. PELLE
+            jobTitle:  Chef adjoint du service SPP
+          - name: Perrine ROUFFIAC
+            jobTitle:  Chef du département Conseil et AMOA
+          - name: Neil GUION
+            jobTitle:  Chef du département Etudes et pilotage des projets
+          - name: Camille SALOU
+            jobTitle:  Chef du département Recettes techniques et expérimentations
       SPDU:
         t: service des données, produits et usages (SDPU).
         personnes:
-          - intitulé:  Chef du service SDPU
-            nom: F. BERTHIER
-          - intitulé:  Chef adjoint du service SDPU
-            nom: T. DUQUESNOY
-          - intitulé:  Chef du département données et produits
-            nom: Matthieu LE MASSON
-          - intitulé:  Chef du département Diffusion et services numériques
-            nom: Guillaume REMAUD
-          - intitulé:  Chef du département Communautés d’usages grand public
-            nom: Etienne TRICOIRE
+          - name: F. BERTHIER
+            jobTitle:  Chef du service SDPU
+          - name: T. DUQUESNOY
+            jobTitle:  Chef adjoint du service SDPU
+          - name: Matthieu LE MASSON
+            jobTitle:  Chef du département données et produits
+          - name: Guillaume REMAUD
+            jobTitle:  Chef du département Diffusion et services numériques
+          - name: Etienne TRICOIRE
+            jobTitle:  Chef du département Communautés d’usages grand public
+      xx:
+        t: affectation précise inconnue
+        personnes:
+          - name: Yolène Jahard
+            jobTitle: Chargée de mission « collaboratif »
+            telephone:  T + 33(0)1 43 98 84 45, Mob +33(0)6 87 54 13 95
+
   DSTI:
     t: direction des sciences et technologies de l’information (DSTI)
     personnes:
-      - intitulé:  Directrice
-        nom: Blandine MARCHAND
-      - intitulé:  Directeur adjoint chargé du SI et de la Géoplateforme
-        nom: J-L. COUSIN
+      - name: Blandine MARCHAND
+        jobTitle:  Directrice
+      - name: J-L. COUSIN
+        jobTitle:  Directeur adjoint chargé du SI et de la Géoplateforme
     services:
       ENSG:
         t: École nationale des sciences géographiques (ENSG Géomatique)
         personnes:
-          - intitulé:  Directeur
-            nom: Nicolas PAPARODITIS
+          - name: Nicolas PAPARODITIS
+            jobTitle:  Directeur
         services:
           SE:
             t: service des enseignements
           SMG:
             t: service des moyens généraux
             personnes:
-              - intitulé:  Chef du service des moyens généraux
-                nom: P. KERMAIDIC
+              - jobTitle:  Chef du service des moyens généraux
+                name: P. KERMAIDIC
           CCGMD:
             t: centre de compétence en géodésie et métrologie dimensionnelle
           CCIF:
@@ -186,27 +222,27 @@ organigramme:
       SOI:
         t: service socle informatique (SOI)
         personnes:
-          - intitulé:  Chef du service SOI
-            nom: R. AURUS
+          - name: R. AURUS
+            jobTitle:  Chef du service SOI
       SDM:
         t: service des développements métier (SDM)
         personnes:
-          - intitulé:  Chef adjoint du service SDM
-            nom: B. BORDIN
+          - name: B. BORDIN
+            jobTitle:  Chef adjoint du service SDM
       SIMV:
         t: service innovation, maturation et valorisation (SIMV) ;
         personnes:
-          - intitulé:  Chef du service SIMV
-            nom: F. BECIRSPAHIC
+          - name: F. BECIRSPAHIC
+            jobTitle:  Chef du service SIMV
   DOT:
     t: direction des opérations et des territoires (DOT)
     personnes:
-      - intitulé:  Directeur
-        nom: Philippe GERBE
-      - intitulé:  Directeur adjoint chargé des processus
-        nom: D. MOISSET
-      - intitulé:  Directeur adjoint chargé de l'action territoriale
-        nom: M-L. ZAMBON
+      - jobTitle:  Directeur
+        name: Philippe GERBE
+      - jobTitle:  Directeur adjoint chargé des processus
+        name: D. MOISSET
+      - jobTitle:  Directeur adjoint chargé de l'action territoriale
+        name: M-L. ZAMBON
     services:
       SISFE:
         t: service de l’information statistique forestière et environnementale
@@ -219,19 +255,19 @@ organigramme:
       SV3D:
         t: service vecteur et 3D
         personnes:
-          - intitulé:  Chef du service SV3D
-            nom: S. MOTET
-          - intitulé:  Chef adjoint du service SV3D
-            nom: S.CHARDONNEL
+          - jobTitle:  Chef du service SV3D
+            name: S. MOTET
+          - jobTitle:  Chef adjoint du service SV3D
+            name: S.CHARDONNEL
       SVRP:
         t: service de la valorisation des référentiels et du patrimoine
         personnes:
-          - intitulé:  Chef du service SVRP
-            nom: F. LANTOINE
-          - intitulé:  Chef adjoint du service chargé des fonctions économiques
-            nom: P. LOIL
-          - intitulé:  Chef adjoint du service chargé de la production
-            nom: D. BLAQUIERE
+          - jobTitle:  Chef du service SVRP
+            name: F. LANTOINE
+          - jobTitle:  Chef adjoint du service chargé des fonctions économiques
+            name: P. LOIL
+          - jobTitle:  Chef adjoint du service chargé de la production
+            name: D. BLAQUIERE
       DT-CE:
         t: direction territoriale Centre-Est
       DT-GO:
@@ -250,21 +286,20 @@ organigramme:
         t: département des contrôles qualité
       MAP:
         t: mission d’appui au pilotage
-      
   SG:
     t: Secrétariat Général (SG)
     personnes:
-      - nom: Emmanuel ROUSSELOT
+      - name: Emmanuel ROUSSELOT
   AC:
     t: Agence comptable
   DRH:
     t: direction des ressources humaines (DRH)
     personnes:
-      - nom: Anne HARLE
+      - name: Anne HARLE
   DIRCOM:
     t: Direction de la communication (DIRCOM)
     personnes:
-      - nom: Dominique JEANDOT
+      - name: Dominique JEANDOT
 
 missions:
   DP: |
@@ -322,6 +357,13 @@ missions:
     en particulier pour intégrer, qualifier et gérer des données partagées, et de contribuer à promouvoir
     et à accompagner l’utilisation des données souveraines et le développement de services.
 compléments:
+  GéoMCE: |
+    interlocuteurs IGN GéoMCE en plus de ceux listés dans l'organigramme
+      - Gregory Pain <Gregory.Pain@ign.fr>
+      - Isabelle Clery <Isabelle.Clery@ign.fr>
+      - David Jacquet <David.Jacquet@ign.fr>
+      - Fionn Halleman <Fionn.Halleman@ign.fr>
+      - Florent Belleuf <Florent.Belleuf@ign.fr>
   déléguésRégionaux: |
     Le 05/02/2019 à 16:49, DISSARD Olivier (Chargé de mission) - CGDD/DRI/SDI/MIG a écrit :
     > Bonjour Yolène,
@@ -357,3 +399,4 @@ compléments:
     >> Direction des programmes et de l’appui aux politiques publiques
     >> T + 33(0)1 43 98 84 45 ● Mob +33(0)6 87 54 13 95
     >>
+
