@@ -102,13 +102,24 @@ if (!function_exists('mapOfDcSpatial')) {
     ];
     $request_scheme = isset($_SERVER['REQUEST_SCHEME']) ? $_SERVER['REQUEST_SCHEME']
       : ((isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on')) ? 'https' : 'http');
-    $overlay = [
-      'title'=> 'dc-spatial',
-      'type'=> 'UGeoJSONLayer',
-      'endpoint'=> "$request_scheme://$_SERVER[SERVER_NAME]$_SERVER[SCRIPT_NAME]/$docuri/$zoneids/geojson",
+    $map['overlays'] = [
+      'dc-spatial'=> [
+        'title'=> 'dc-spatial',
+        'type'=> 'UGeoJSONLayer',
+        'endpoint'=> "$request_scheme://$_SERVER[SERVER_NAME]$_SERVER[SCRIPT_NAME]/$docuri/$zoneids/geojson",
+      ],
+      'eez'=> [
+        'title'=> 'ZEE',
+        'type'=> 'TileLayerWMS',
+        'url'=> 'http://geo.vliz.be/geoserver/MarineRegions/wms?',
+        'options'=> [
+          'layers'=>'eez', 'format'=>'image/png', 'transparent'=>true,
+          'minZoom'=>0, 'maxZoom'=>18,
+          'detectRetina'=>true, 'attribution'=>'vliz'
+        ],
+      ],
     ];
-    $map['overlays'] = ['dc-spatial'=> $overlay];
-    $map['defaultLayers'] = ['cartesIGN', 'dc-spatial'];
+    $map['defaultLayers'] = ['cartesShom', 'dc-spatial'];
     return new Map($map, "$docuri/map");
   }
 }
@@ -126,6 +137,8 @@ if (preg_match('!^([^/]*)$!', $param, $matches)) {
 }
 elseif (preg_match('!^([^/]*)/geojson$!', $param, $matches)) {
   $zoneids = $matches[1];
+  $zoom = isset($_GET['zoom']) ? $_GET['zoom'] : (isset($_POST['zoom']) ? $_POST['zoom'] : -1);
+  $threshold = ($zoom <> -1) ? (2 ** -$zoom) * 5 : 0; // seuil de 5° au zoom 0
   $result = rectsOfZones($zones, $compositions, explode(',', $zoneids));
   //echo "<pre>result="; print_r($result);
   if (isset($result['unknowns']))
@@ -135,20 +148,41 @@ elseif (preg_match('!^([^/]*)/geojson$!', $param, $matches)) {
   else {
     $features = [];
     foreach ($result as $rect) {
-      $features[] = [
-        'type'=> 'Feature',
-        'properties'=> ['name'=> $rect['name']],
-        'geometry'=> [
-          'type'=> 'Polygon',
-          'coordinates'=> [[
-            [$rect['westlimit'], $rect['southlimit']],
-            [$rect['westlimit'], $rect['northlimit']],
-            [$rect['eastlimit'], $rect['northlimit']],
-            [$rect['eastlimit'], $rect['southlimit']],
-            [$rect['westlimit'], $rect['southlimit']],
-          ]],
-        ],
-      ];
+      $size = min( 
+          ($rect['eastlimit']-$rect['westlimit']) * cos(($rect['southlimit']+$rect['northlimit'])/2/180*pi()),
+          ($rect['northlimit']-$rect['southlimit'])
+      );
+      $long = ($rect['westlimit'] + $rect['eastlimit']) / 2;
+      foreach ([-360, 0, 360] as $delta) { // j'élargis à < -180 et > 180 jusqu'à 240
+        if ((abs($long + $delta)) > 240)
+          continue;
+        if ($size < $threshold) // si la taille est inférieure au seuil alors simplification par un point
+          $geometry = [
+            'type'=> 'Point',
+            'coordinates'=> [ $long + $delta, ($rect['southlimit']+$rect['northlimit'])/2 ],
+          ];
+        else // sinon représentation par un rectangle
+          $geometry = [
+            'type'=> 'Polygon',
+            'coordinates'=> [[
+              [$rect['westlimit'] + $delta, $rect['southlimit']],
+              [$rect['westlimit'] + $delta, $rect['northlimit']],
+              [$rect['eastlimit'] + $delta, $rect['northlimit']],
+              [$rect['eastlimit'] + $delta, $rect['southlimit']],
+              [$rect['westlimit'] + $delta, $rect['southlimit']],
+            ]],
+          ];
+        $features[] = [
+          'type'=> 'Feature',
+          'properties'=> [
+            'name'=> $rect['name'],
+            //'size'=> $size,
+            //'zoom'=> $zoom,
+            //'$threshold'=> $threshold,
+          ],
+          'geometry'=> $geometry,
+        ];
+      }
     }
     return [ $zoneids => [ 'geojson' => [
       'type'=> 'FeatureCollection',

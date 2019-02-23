@@ -1,0 +1,215 @@
+title: questions
+modified: 2019-02-16 21:08
+questions: |
+  Plusieurs questions:
+  
+    - par rapport à FeatureDataset, comment séparer la data de sa représentation carto ?
+      - notamment pour pouvoir associer différentes représentation à la même data
+    - pourquoi ne pas mettre avec la data :
+      - une représentation par défaut
+      - une carte par défaut
+    - faut-il intégrer dans YData une extension de gestion de données géographiques en considérant un champ geometry ?
+    - faut-il que YData sache générer une carte de visualisation de ses données géographiques ?
+    - représentation carto par défaut ?
+    - carte par défaut ?
+réponses: |
+  - distinguer :
+    - la série de données, avec
+        - ses métadonnées et
+        - une triple logique:
+            - de téléchargement direct (WFS, UGeoJson, MySQL, ...)
+            - de téléchargementn simple (Shp, Atom)
+            - de consultation (Tile, WMS, WMTS)
+    - la data elle-même, stockée en local ou à distance (WFS, MySQL, ...),
+        - comprenant un mécanisme de généralisation en fonction du niveau de zoom,
+    - la carte avec :
+        - la liste des couches,
+        - la définition de l'interactivité
+        - le point de vue de départ
+        - la représentation carto de la data, la feuille de styles:
+            - couleur, style de trait, de remplissage
+            - symbole pour un ponctuel
+    - les bibliothèques de symboles
+  - la data existe par elle-même,
+    - normalement désignée au travers d'une série de données
+  - l'accès à la data s'effectue au travers d'une carte qui référence:
+    - des couches de consultation, chacune définie par :
+        - soit un TileLayer, WMS, WMTS
+          ex:
+            title: Cartes IGN
+            type: TileLayer
+            url: https://igngp.geoapi.fr/tile.php/cartes/{z}/{x}/{y}.jpg
+            options: { minZoom: 0, maxZoom: 18, attribution: ign }
+        - soit le service consultation d'une série de données
+          ex:
+            http://id.georef.eu/gds/bdtopo/view/route_primaire
+    - des collections de features, chacune :
+        - définie par :
+            - soit un WFS, un endpoint UGeoJSON, une connexion MySQL,
+              ex:
+                title: regions
+                type: UGeoJSONLayer
+                endpoint: https://id.georef.eu/geodata/regions/geojson
+            - soit le service de téléchargement direct d'une série de données,
+              ex:
+                - http://id.georef.eu/gds/bdtopo/download/route_primaire
+                
+        - associée à :
+            - une représentation carto qui peut dépendre du schéma des objets de la collection
+            - éventuellement une bibliothèque de symboles
+mapExamples:
+  - title: carte des régions
+    view: { latlon: [46.5, 3], zoom: 6 }
+    bases:
+      cartesIGN:
+        title: Cartes IGN
+        type: TileLayer
+        url: https://igngp.geoapi.fr/tile.php/cartes/{z}/{x}/{y}.jpg
+        options: { minZoom: 0, maxZoom: 18, attribution: ign }
+      OSM:
+        title: OSM
+        type: TileLayer
+        url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        options: { minZoom: 0, maxZoom: 18, attribution: osm }
+      orthos:
+        title: Ortho-images
+        type: TileLayer
+        url: 'https://igngp.geoapi.fr/tile.php/orthos/{z}/{x}/{y}.jpg'
+        options: { minZoom: 0, maxZoom: 18, attribution: ign }
+      whiteimg:
+        title: 'Fond blanc'
+        type: TileLayer
+        url: 'https://visu.gexplor.fr/utilityserver.php/whiteimg/{z}/{x}/{y}.jpg'
+        options: { minZoom: 0, maxZoom: 21 }
+    overlays:
+      regions:
+        title: regions
+        type: UGeoJSONLayer
+        endpoint: $request_scheme://$_SERVER[SERVER_NAME]$_SERVER[SCRIPT_NAME]/$docuri/geojson
+    defaultLayers: [cartesIGN, regions]
+  - title: carte par défaut
+    yamlClass: Map
+    stylesheets:
+      - https://visu.gexplor.fr/viewer.css
+      - https://unpkg.com/leaflet@1.3/dist/leaflet.css
+      - https://visu.gexplor.fr/lib/control.coordinates.css
+    plugins:
+      - https://visu.gexplor.fr/lib/leaflet.uGeoJSON.js
+      - https://visu.gexplor.fr/lib/leaflet.edgebuffer.js
+      - https://visu.gexplor.fr/lib/control.coordinates.js
+    mapStyle: { height: 100%, width: 100%}
+    view:
+      latlon: [48, 3]
+      zoom: 8
+    scaleControl: { position: bottomleft, metric: true, imperial: false }
+    attributions:
+      ign: "&copy; <a href='http://www.ign.fr'>IGN</a>"
+      shom: "&copy; <a href='http://www.shom.fr'>SHOM</a>"
+      osm: "Map data &copy; <a href='http://openstreetmap.org'>OpenStreetMap</a> contributors"
+      vliz: "&copy; <a href='http://www.vliz.be/en/'>VLIZ</a>"
+    bases:
+      whiteimg:
+        title: Fond blanc
+        type: TileLayer
+        url: http://visu.gexplor.fr/utilityserver.php/whiteimg/{z}/{x}/{y}.jpg
+        options: { format: image/jpeg, minZoom: 0, maxZoom: 21, detectRetina: true }
+      cartesIGN:
+        title: Cartes IGN
+        type: TileLayer
+        url: http://igngp.geoapi.fr/tile.php/cartes/{z}/{x}/{y}.jpg
+        options: { format: image/jpeg, minZoom: 0, maxZoom: 18, detectRetina: true, attribution: ign }
+      orthos:
+        title: Ortho-images
+        type: TileLayer
+        url: http://igngp.geoapi.fr/tile.php/orthos/{z}/{x}/{y}.jpg
+        options: { format: image/jpeg, minZoom: 0, maxZoom: 20, detectRetina: true, attribution: ign }
+    overlays:
+    defaultLayers:
+      - cartesIGN
+  - title: carte des régions
+    view: { latlon: [46.5, 3], zoom: 6 }
+    bases:
+      cartesIGN: https://igngp.geoapi.fr/tile.php/cartes
+      OSM: http://tile.openstreetmap.org/
+      orthos: # je peux redéfinir certains champs, ici le titre
+        title: orthos
+        uri: https://igngp.geoapi.fr/tile.php/orthos
+      whiteimg: https://visu.gexplor.fr/utilityserver.php/whiteimg
+    overlays:
+      regions: https://id.georef.eu/gds/regionsmet/regionsmet
+    defaultLayers: [cartesIGN, regions]
+Map:
+  schema:
+    type: object
+    properties:
+      
+  api:
+    /: contenu de la carte
+    /display: code HTML d'affichage de la carte
+ViewDs:
+  title: série de données géographiques sous la forme de couches de représentation cartographique
+  abstract: ensemble de couches exposées conformément au protocole TileLayer
+  api:
+    /: MD de la série
+    /title: titre
+    /layers: liste des couches
+    /layers/{lyrId}: MD de la couche
+    /layers/{lyrId}/{z}/{x}/{y}.{fmt}: renvoie la tuile désignée (protocole TileLayer)
+    /wms: flux WMS
+    /wmts: flux WMTS
+    /map: carte par défaut de toutes les couches de la série
+FeatureDs:
+  title: série de données géographiques sous la forme d'objets organisés en collections
+  abstract: |
+    La SD correspond à un ensemble de collections, chacune :
+      
+      - identifiée par un identifiant {collId}
+      - contenant un ensemble d'objets (GeoJSON Feature) ayant un même schéma
+      - exposée selon le protocole UGeoJson fournissant un GeoJSON FeatureCollection
+      - exposée par un service de consultation fournissant des tuiles
+  api:
+    /:
+      title: MD de la série
+      countains:
+        - MD Inspire
+        - référence aux spécifications (conformsTo)
+        - existence ou non de services WFS, WMS et WMTS
+    /title: titre
+    /collections: liste des collections
+    /collections/{collId}:
+      title: MD de la collection
+      contains:
+        - existence ou non d'un flux Atom
+    /collections/{collId}/schema: schema des objets de la collection
+    /collections/{collId}?bbox={bbox}&zoom={zoom}: extrait sous la forme d'une FeatureCollection GeoJSON (UGeoJson)
+    /collections/{collId}/items/{id}: feature {id} de la collection sous la forme d'un Feature GeoJSON
+    /wfs: flux WFS ou erreur 404
+    /collections/{collId}/{z}/{x}/{y}.{fmt}: renvoie la tuile désignée de consultation de la collection (TileLayer)
+    /collections/{collId}/atom: renvoie un document Atom listant les fichiers téléchargeables
+    /wms: flux WMS (utile pour QGis)
+    /wmts: flux WMTS (utile pour QGis)
+    /map: carte par défaut de toutes les couches de la série
+FDsSpecs:
+  title: document de spécification d'un FeatureDs
+  abstract: |
+    - définit la liste des collections et pour chacune
+      - un identifiant utilisé dans FeatureDs
+      - un titre
+      - la liste des propriétés des objets de la collection
+      - le type de géométrie
+      - pour les types énumérés, la signification de chaque valeur
+      - les contraintes référentielles
+ImageDs:
+  api:
+    /: MD de la série
+    /title: titre
+    /layers: liste des couches d'images
+    /layers/{lyrId}: MD de la couche d'image
+    /layers/{lyrId}/{z}/{x}/{y}.{fmt}:
+      title: renvoie la tuile désignée (TileLayer)
+      parameters:
+        {fmt}: format de visualisation (png/jpg) ou d'images (tif)
+    /wcs: flux WCS ou erreur 404
+    /wms: flux WMS
+    /wmts: flux WMTS
+    /map: carte par défaut de toutes les couches de la série

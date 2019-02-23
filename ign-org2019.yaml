@@ -1,0 +1,359 @@
+title: Organigramme IGN au 1/1/2019
+abstract: |
+  Extrait de l'[organigramme IGN au 1/1/2019](?ypath=/organigramme) structuré selon le schéma JSON défini par le champ
+  schema.  
+  Contient aussi les [missions de chaque direction](?ypath=/missions)
+  ainsi que des [compléments divers](?ypath=/compléments).
+modified: 2019-02-23
+$schema:
+  $id: http://bdavid.alwaysdata.net/yamldoc/id.php/ign-organigramme2019/schema
+  $schema: http://json-schema.org/draft-07/schema#
+  definitions:
+    organigramme:
+      description: organisation hiérarchique en unités indexées par leur sigle, définition récursive
+      type: object
+      additionalProperties:
+        description: description de chaque chaque unité
+        type: object
+        properties:
+          t:
+            description: nom de l'unité
+            type: string
+          personnes:
+            description: liste des personnes rattachées à l'unité avec l'intitulé de leur poste
+            type: array
+            items:
+              type: object
+              properties:
+                intitulé:
+                  description: intitulé du poste
+                  type: string
+                nom:
+                  description: nom de la personne
+                  type: string
+          services:
+            description: sous-unités indexées par leur sigle
+            $ref: '#/definitions/organigramme'
+  type: object
+  properties:
+    title:
+      description: titre du document
+      type: string
+    abstract:
+      description: résumé du document avec liens internes vers des sous-documents
+      type: string
+    authRd:
+      description: liste des lecteurs YamlDoc autorisés
+      type: array
+      items:
+        type: string
+    modified:
+      description: date de dernière modification de ce document
+      type: string
+    $schema:
+      description: schema JSON du document
+      $ref: http://json-schema.org/draft-07/schema#
+    source:
+      description: sources utilisées
+      type: array
+      items:
+        type: string
+    organigramme:
+      description: organigramme des directions
+      $ref: '#/definitions/organigramme'
+    missions:
+      description: mission de chaque direction
+      type: object
+      additionalProperties:
+        type: string
+    compléments:
+      description: compléments divers
+      type: object
+      additionalProperties:
+        type: string
+source:
+  - organigramme - décision n°2018-633 du 24/10/2018 fixant l'organisation générale de l'IGN
+  - noms - infos DRH des 22/10/2018 et xx
+organigramme:
+  DG:
+    t: Direction générale
+    personnes:
+      - intitulé:  Délégué à la protection des données personnelles et à la responsabilité sociétale, officier de sécurité adjoint
+        nom: M-C. COMBES MIAKINEN
+  DP:
+    t: direction des programmes et de l’appui aux politiques publiques (DP)
+    personnes:
+      - intitulé:  Directrice
+        nom: Magali STOLL
+      - intitulé:  Directeur adjoint, délégué à la stratégie
+        nom: C. PENICAND
+      - intitulé:  Directeur adjoint opérationnel
+        nom: N. ELTCHANINOFF
+      - intitulé:  Coordinateur transformation
+        nom: F. CANTAT
+      - intitulé:  Pilote du programme Gouvernance ouverte
+        nom: F. CHIRIE
+      - intitulé:  Pilote du programme Innovation
+        nom: Raphaële HENO
+      - intitulé:  Pilote du programme Géoplateforme
+        nom: Jonathan RENAULT
+    services:
+      PEPS:
+        t: service du pilotage économique, de la planification et du support (PEPS)
+        personnes:
+          - intitulé:  Chef du service PEPS
+            nom: N. LESAGE
+          - intitulé:  Chef adjoint du service PEPS
+            nom: P. BOURON
+          - intitulé:  Chef du département programmation et appui
+            nom: Ophélie AVIGNON
+          - intitulé:  Chef du département de gestion
+            nom: Yannick CEZARD
+      SPRI:
+        t: service des partenariats et des relations institutionnelles (SPRI)
+        personnes:
+          - intitulé:  Chef du service SPRI
+            nom: N. LAMBERT
+          - intitulé:  Chef adjoint du service SPRI
+            nom: D. PERLBARG
+          - intitulé:  Chef du département Défense et sécurité
+            nom: Jean-Christophe BARRA
+          - intitulé:  Chef du département Gestion des territoires
+            nom: Sophie REYNARD
+          - intitulé:  Chef du département Secteurs économiques et sociaux
+            nom: Francis GUYOT
+          - intitulé:  Chef du département Europe, espace, numérique et innovation
+            nom: David DI MARCO
+      SPP:
+        t: service des projets et des prestations (SPP)
+        personnes:
+          - intitulé:  Chef du service SPP
+            nom: V. PEREIRA
+          - intitulé:  Chef adjoint du service SPP
+            nom: S. PELLE
+          - intitulé:  Chef du département Conseil et AMOA
+            nom: Perrine ROUFFIAC
+          - intitulé:  Chef du département Etudes et pilotage des projets
+            nom: Neil GUION
+          - intitulé:  Chef du département Recettes techniques et expérimentations
+            nom: Camille SALOU
+      SPDU:
+        t: service des données, produits et usages (SDPU).
+        personnes:
+          - intitulé:  Chef du service SDPU
+            nom: F. BERTHIER
+          - intitulé:  Chef adjoint du service SDPU
+            nom: T. DUQUESNOY
+          - intitulé:  Chef du département données et produits
+            nom: Matthieu LE MASSON
+          - intitulé:  Chef du département Diffusion et services numériques
+            nom: Guillaume REMAUD
+          - intitulé:  Chef du département Communautés d’usages grand public
+            nom: Etienne TRICOIRE
+  DSTI:
+    t: direction des sciences et technologies de l’information (DSTI)
+    personnes:
+      - intitulé:  Directrice
+        nom: Blandine MARCHAND
+      - intitulé:  Directeur adjoint chargé du SI et de la Géoplateforme
+        nom: J-L. COUSIN
+    services:
+      ENSG:
+        t: École nationale des sciences géographiques (ENSG Géomatique)
+        personnes:
+          - intitulé:  Directeur
+            nom: Nicolas PAPARODITIS
+        services:
+          SE:
+            t: service des enseignements
+          SMG:
+            t: service des moyens généraux
+            personnes:
+              - intitulé:  Chef du service des moyens généraux
+                nom: P. KERMAIDIC
+          CCGMD:
+            t: centre de compétence en géodésie et métrologie dimensionnelle
+          CCIF:
+            t: centre de compétence en information forestière
+          CCIMI:
+            t: centre de compétence en instrumentation métrologique innovante
+          CCSIG:
+            t: centre de compétence en SIG, cartographie et analyse spatiale
+          CCTSI:
+            t: centre de compétence en technologies des systèmes d’information
+          CCTPVO:
+            t: centre de compétence en télédétection, photogrammétrie et vision par ordinateur
+      SOI:
+        t: service socle informatique (SOI)
+        personnes:
+          - intitulé:  Chef du service SOI
+            nom: R. AURUS
+      SDM:
+        t: service des développements métier (SDM)
+        personnes:
+          - intitulé:  Chef adjoint du service SDM
+            nom: B. BORDIN
+      SIMV:
+        t: service innovation, maturation et valorisation (SIMV) ;
+        personnes:
+          - intitulé:  Chef du service SIMV
+            nom: F. BECIRSPAHIC
+  DOT:
+    t: direction des opérations et des territoires (DOT)
+    personnes:
+      - intitulé:  Directeur
+        nom: Philippe GERBE
+      - intitulé:  Directeur adjoint chargé des processus
+        nom: D. MOISSET
+      - intitulé:  Directeur adjoint chargé de l'action territoriale
+        nom: M-L. ZAMBON
+    services:
+      SISFE:
+        t: service de l’information statistique forestière et environnementale
+      SGM:
+        t: service de géodésie et de métrologie
+      SIS:
+        t: service de l’imagerie spatiale
+      SIA:
+        t: service de l’imagerie et de l’aéronautique
+      SV3D:
+        t: service vecteur et 3D
+        personnes:
+          - intitulé:  Chef du service SV3D
+            nom: S. MOTET
+          - intitulé:  Chef adjoint du service SV3D
+            nom: S.CHARDONNEL
+      SVRP:
+        t: service de la valorisation des référentiels et du patrimoine
+        personnes:
+          - intitulé:  Chef du service SVRP
+            nom: F. LANTOINE
+          - intitulé:  Chef adjoint du service chargé des fonctions économiques
+            nom: P. LOIL
+          - intitulé:  Chef adjoint du service chargé de la production
+            nom: D. BLAQUIERE
+      DT-CE:
+        t: direction territoriale Centre-Est
+      DT-GO:
+        t: direction territoriale Grand Ouest
+      DT-NE:
+        t: direction territoriale Nord-Est
+      DT-SE:
+        t: direction territoriale Sud-Est
+      DT-SO:
+        t: direction territoriale Sud-Ouest
+      DT-NOOM:
+        t: département territorial Nord-Ouest et Outre-mer
+      DSGM:
+        t: département de soutien à la géographie militaire
+      DCQ:
+        t: département des contrôles qualité
+      MAP:
+        t: mission d’appui au pilotage
+      
+  SG:
+    t: Secrétariat Général (SG)
+    personnes:
+      - nom: Emmanuel ROUSSELOT
+  AC:
+    t: Agence comptable
+  DRH:
+    t: direction des ressources humaines (DRH)
+    personnes:
+      - nom: Anne HARLE
+  DIRCOM:
+    t: Direction de la communication (DIRCOM)
+    personnes:
+      - nom: Dominique JEANDOT
+
+missions:
+  DP: |
+    La direction des programmes et de l’appui aux politiques publiques assure le pilotage et la
+    programmation des activités opérationnelles de l’établissement, notamment en appui aux politiques
+    publiques. Elle est responsable, dans le cadre du budget, de la contribution des activités métiers à
+    l’équilibre économique de l’IGN.
+    Elle est chargée d’assurer les relations institutionnelles nationales et internationales avec les
+    organismes publics et privés, d’identifier et de structurer les besoins en données géographiques
+    souveraines, et de faciliter l’usage de ces données. Elle programme et pilote la réponse de l’IGN
+    aux demandes, en veillant à répondre en priorité à celles de la défense et de la sécurité nationale,
+    ainsi que l’évolution des capacités techniques mises en oeuvre par l’institut ou proposées aux partenaires.
+    Elle promeut l’utilisation des infrastructures de données et services d’information géographique
+    auxquels l’IGN contribue et anime des communautés d’utilisateurs.
+    La direction des programmes et de l’appui aux politiques publiques est chargée d’élaborer la
+    stratégie de l’IGN selon les orientations de la direction générale, de décliner cette stratégie en
+    objectifs, et d’en suivre la réalisation. Elle assure les relations avec les tutelles pour la préparation
+    et le suivi des contrats d’objectifs et de performance et coordonne la mise en oeuvre des projets
+    structurants. Elle propose, avec l’appui des directions concernées, le cadrage des politiques de
+    l’IGN, dont les partenariats, le recours à la sous-traitance, la veille, la valorisation de la recherche,
+    l’innovation.
+
+  DSTI: |
+    La direction des sciences et technologies de l’information est chargée de faire évoluer les capacités
+    permettant d’améliorer l’observation du territoire, d’automatiser les processus et technologies de
+    collecte de données ou d’extraction d’information à partir de différentes sources, d’améliorer la
+    qualité des données souveraines et d’en faciliter l’accès. Elle fournit le système d’information de
+    l’IGN en mettant à disposition les ressources permettant de stocker, traiter et distribuer de l’information
+    pour l’ensemble des activités métiers et supports de l’IGN. Pour ce faire, elle propose et fixe
+    les méthodes et cadres en matière de système d’information, en concertation avec les directions
+    concernées. Elle conçoit, met en oeuvre, maintient en conditions opérationnelles et fait évoluer
+    le système d’information de l’IGN (dont l’écosystème partagé reposant sur l’infrastructure du
+    Géoportail) tout en assurant sa qualité, sa sécurité et son efficacité. Elle assure les relations avec
+    les directions des systèmes d’informations des ministères de tutelle et des partenaires.
+    Elle est responsable du pilotage de la recherche et développement et, dans le respect du cadrage
+    de la direction des programmes et de l’appui aux politiques publiques, de la réalisation des actions
+    de développement. Elle assure une veille scientifique, technique et technologique. Elle porte l’innovation
+    technologique en assurant notamment la montée en maturité des technologies et prototypes
+    et contribue à leur valorisation.
+    La direction des sciences et technologies de l’information comprend l’École nationale des sciences
+    géographiques (ENSG Géomatique), chargée de satisfaire les besoins en formation de l’IGN et
+    d’offrir des formations de haut niveau pour la sphère de l’information géographique et forestière,
+    d’élaborer le schéma directeur de la recherche et des technologies de l’IGN et d’en piloter la mise
+    en oeuvre, d’élaborer le schéma directeur de la formation et d’en piloter la mise en oeuvre, de
+    conduire les recherches finalisées dans les domaines de compétences de l’IGN et de contribuer, sur
+    ces domaines, à l’animation de la recherche au niveau national et international. Elle assure la participation
+    de l’établissement aux travaux des instances d’évaluation et de coordination de l’enseignement
+    supérieur et de la recherche.
+  DOT: |
+    La direction des opérations et des territoires est chargée d’élaborer et d’entretenir, de façon
+    mutualisée avec les acteurs publics, des données souveraines de qualité maîtrisée, d’en faire des
+    dérivations et des représentations appropriées, de stocker, d’archiver et de mettre à disposition les
+    produits diffusés et les données, photographies et cartes patrimoniales, de mettre en oeuvre des
+    prestations à façon, d’adapter en continu les processus de production et les compétences métiers
+    en particulier pour intégrer, qualifier et gérer des données partagées, et de contribuer à promouvoir
+    et à accompagner l’utilisation des données souveraines et le développement de services.
+compléments:
+  déléguésRégionaux: |
+    Le 05/02/2019 à 16:49, DISSARD Olivier (Chargé de mission) - CGDD/DRI/SDI/MIG a écrit :
+    > Bonjour Yolène,
+    >
+    > Merci pour ces précisions. Y a t il un pilotage national de ces délégués qui sont rattachés à leur directeur territorial dans l'organigramme ?
+    >
+    > Si oui, cet "animateur national" devient pour moi un correspondant, en relation avec l'activité d'animation du réseau IG des DREAL du ministère (MIG).
+    >
+    > Le 04/02/2019 à 16:50, > Yolene Jahard (par Internet) a écrit :
+    >>
+    >> Sophie m’a transmis ta question concernant « les missions des délégués régionaux, en particulier en relation avec les DDT et les DREAL » car je travaille actuellement sur l’articulation entre la maîtrise d’ouvrage et les directions territoriales pour le pilotage de leurs activités. 
+    >>
+    >> Voici donc le descriptif qui figure dans la fiche de poste des délégués régionaux :
+    >>
+    >> Le délégué régional assure les relations institutionnelles auprès des autorités publiques de la région et la mise en œuvre des orientations définies par la Direction des programmes et de l’appui aux politiques publiques (DP). Il est le point de contact IGN des utilisateurs situés dans la région, et anime la communauté d’acteurs pour développer les partenariats et mettre le collaboratif au cœur du système d’élaboration et de mise à jour des données.
+    >>
+    >> Et voici quelques précisions (contribution de Nicolas Lambert) :
+    >>
+    >> Les délégués régionaux seront amenés à développer des relations avec les DDT et les DREAL de leur zone géographique dans le cadre de l’animation de la communauté régionale des utilisateurs des données et services IGN. Ils pourront dans ce rôle porter la parole de l’IGN et décliner la stratégie IGN dans leur région, et, à l’inverse, faire remonter à Saint-Mandé les besoins des DDT et des DREAL qui nécessitent un traitement national.
+    >>
+    >> Selon les sujets, les DDT et les DREAL seront également en relation avec divers services de la Direction des programmes et de l’appui aux politiques publiques de l’IGN :
+    >>
+    >> - Le Service des partenariats et des relations institutionnelles chargé notamment d’assurer la relation institutionnelle et de proposer des solutions en réponse aux besoins de ses interlocuteurs, au premier rang desquels les tutelles de l’IGN 
+    >>
+    >> - Le Service des projets et des prestations chargé notamment du pilotage de la mise en œuvre des projets : pour les projets concernant les DDT et les DREAL, ce service pourrait être en contact avec elles ;
+    >>
+    >> - Le Service des données, produits et usages a notamment comme rôle d’animer les communautés d’utilisateurs qui peuvent concerner les DDT et les DREAL
+    >>
+    >> J’espère que ces informations répondent à tes attentes et n’hésite pas à revenir vers moi si tu as besoin d’autres précisions.
+    >>
+    >> Yolène Jahard
+    >> Chargée de mission « collaboratif »
+    >> Direction des programmes et de l’appui aux politiques publiques
+    >> T + 33(0)1 43 98 84 45 ● Mob +33(0)6 87 54 13 95
+    >>

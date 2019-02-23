@@ -409,63 +409,62 @@ featureCollections:
       title: pai_orographie
     pai_religieux:
       title: pai_religieux
-      conformsTo:
-        description: Désignation d’un bâtiment réservé à la pratique d’une religion
-        geometryType: Point2D
-        properties:
-          id:
-            description: Identifiant du PAI
-          origine:
-            description: Origine du PAI
-          nature:
-            description: Nature du PAI.
-            enum:
-              Croix:
-                description: "Monument religieux : croix, calvaire, vierge, statue religieuse."
-              'Culte catholique ou orthodoxe':
-                description: |
-                  Bâtiment réservé à l’exercice du culte catholique ou orthodoxe :
-                  église, cathédrale, basilique, chapelle, abbaye, oratoire.
-              'Culte protestant':
-                description: |
-                  Bâtiment réservé à l’exercice du culte protestant : temple (protestant), église réformée.
-              'Culte israélite':
-                description: "Bâtiment réservé à l’exercice du culte israélite : synagogue."
-              'Culte islamique':
-                description: "Bâtiment réservé à l’exercice du culte islamique : mosquée."
-              'Culte divers':
-                description: |
-                  Bâtiment réservé à l’exercice d’un culte religieux autre que chrétien, islamique ou israélite :
-                  temple bouddhiste, temple hindouiste.
-              'Tombeau':
-                description: "Cimetière, tombe ou tombeau nommé : cimetière, tombe, tombeau, ossuaire."
-              NR:
-                description: Non renseignée, l’information est manquante dans la base.
-          toponyme:
-            description: Nom
-          importance:
-            description: Importance du toponyme dans son environnement.
-            enum:
-              '1':
-                description: plus important
-              '2':
-                description: intermédiaire
-              '3':
-                description: intermédiaire
-              '4':
-                description: intermédiaire
-              '5':
-                description: intermédiaire
-              '6':
-                description: intermédiaire
-              '7':
-                description: intermédiaire
-              '8':
-                description: moins important
-              NC:
-                description: Non concerné par cet attribut.
-              NR:
-                description: Non renseigné.
+      description: Désignation d’un bâtiment réservé à la pratique d’une religion
+      geometryType: Point2D
+      properties:
+        id:
+          description: Identifiant du PAI
+        origine:
+          description: Origine du PAI
+        nature:
+          description: Nature du PAI.
+          enum:
+            Croix:
+              description: "Monument religieux : croix, calvaire, vierge, statue religieuse."
+            'Culte catholique ou orthodoxe':
+              description: |
+                Bâtiment réservé à l’exercice du culte catholique ou orthodoxe :
+                église, cathédrale, basilique, chapelle, abbaye, oratoire.
+            'Culte protestant':
+              description: |
+                Bâtiment réservé à l’exercice du culte protestant : temple (protestant), église réformée.
+            'Culte israélite':
+              description: "Bâtiment réservé à l’exercice du culte israélite : synagogue."
+            'Culte islamique':
+              description: "Bâtiment réservé à l’exercice du culte islamique : mosquée."
+            'Culte divers':
+              description: |
+                Bâtiment réservé à l’exercice d’un culte religieux autre que chrétien, islamique ou israélite :
+                temple bouddhiste, temple hindouiste.
+            'Tombeau':
+              description: "Cimetière, tombe ou tombeau nommé : cimetière, tombe, tombeau, ossuaire."
+            NR:
+              description: Non renseignée, l’information est manquante dans la base.
+        toponyme:
+          description: Nom
+        importance:
+          description: Importance du toponyme dans son environnement.
+          enum:
+            '1':
+              description: plus important
+            '2':
+              description: intermédiaire
+            '3':
+              description: intermédiaire
+            '4':
+              description: intermédiaire
+            '5':
+              description: intermédiaire
+            '6':
+              description: intermédiaire
+            '7':
+              description: intermédiaire
+            '8':
+              description: moins important
+            NC:
+              description: Non concerné par cet attribut.
+            NR:
+              description: Non renseigné.
       # le champ importance ne semble pas réellement rempli
       #onZoomGeo:
       #  13: importance in ('1','2')

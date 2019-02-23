@@ -13,8 +13,7 @@ abstract: |
   [générée ici pour St Léger les Vignes, zoom 14](id.php/geodata/bdtopo/map/display?latlon=47.135,-1.730&zoom=14).
   
 identifier: http://professionnels.ign.fr/bdtopo
-coverage: http://id.georef.eu/coverage/FX,
-"iso:code:3166:FR (métropole + DOM)"
+spatial: http://id.georef.eu/dc-spatial/FX,GP,MQ,GF,RE,YT,PM,BL,MF
 conformsTo: http://id.georef.eu/gds/bdtopo22.specs
 lineage: |
   12/2/2019:
@@ -23,42 +22,15 @@ lineage: |
     - transfert des sepcs dans gds/bdtopo22.specs
   20/8/2018:
     - ajout de symboles pour les pai_religieux
-$schema: http://ydclasses.georef.eu/FeatureDataset
-wfsUrl: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
-wfsOptions:
-  referer: http://gexplor.fr/
+$schema: http://ydclasses.georef.eu/GeoDataset
+download:
+  wfsUrl: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
+  wfsOptions:
+    referer: http://gexplor.fr/
 minZoom: 13
 maxZoom: 21
 
 layersByTheme:
-  Thème_limite_administrative_BDCarto:
-    limite_administrative:
-      title: <i>Limite administrative</i>
-      abstract: en l'absence de limites administratives dans la BD Topo, utilisation de celles de BDCarto, ...
-      minZoom: 0
-      onZoomGeo:
-        0: /geodata/ne_110m/coastAdminBoundaryLines
-        4: /geodata/ne_10m/coastAdminBoundaryLines
-        9: /geodata/route500/limite_administrative
-        12: /geodata/bdcarto/limite_administrative
-      style: |
-        function(feature) {
-            switch (feature.properties.nature) {
-                case 'Limite côtière': return {color: 'blue', weight: 1};
-                case 'Frontière internationale': return {color: 'chocolate'};
-                case 'Limite de région': return {color: 'red', weight: 1};
-                case 'Limite de département': return {color: 'orange', weight: 1};
-                case 'Limite d\'arrondissement':   return {color: 'lightGrey', weight: 1};
-                case 'Limite de commune':   return {color: 'lightGrey', weight: 1};
-            }
-            // /geodata/ne_110m/coastAdminBoundaryLines + /geodata/ne_10m/coastAdminBoundaryLines
-            switch (feature.properties.featurecla) {
-                case 'Coastline': return {color: 'blue', weight: 1};
-                default: return {color: 'chocolate', weight: 2};
-            }
-        }
-      displayedByDefault: true
-    
   Thème_Réseau_routier:
     route:
       title: route

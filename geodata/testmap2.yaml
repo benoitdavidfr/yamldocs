@@ -1,0 +1,6 @@
+title: carte test 2
+abstract: |
+  Carte de test de la classe Map.  
+  La carte Leaflet correspondante peut être [générée ici](id.php/geodata/testmap/display).
+
+$schema: http://ydclasses.georef.eu/Map

@@ -1,0 +1,65 @@
+title: Flanders Marine Institute (VLIZ) data
+creator: Flanders Marine Institute (VLIZ)
+source: http://www.vliz.be/en/
+abstract: |
+  Accès au serveur WFS de VLIZ.  
+   
+  
+  **URL** :
+    
+    - http://localhost/yamldoc/id.php/geodata/vliz/coasts
+    - [Carte affichant les données](id.php/geodata/vliz/map/display) 
+    - [Requête test](/yamldoc/id.php/geodata/vliz/coasts?bbox=-10,41,16,51&zoom=6)
+    - [capabilities](id.php/geodata/vliz/wfs/capabilities)
+
+$schema: http://ydclasses.georef.eu/FeatureDataset
+wfsUrl: http://geo.vliz.be/geoserver/MarineRegions/wfs
+wfsOptions:
+  gml: true
+layers:
+  internal_waters:
+    title: Internal Waters (V2)
+    typename: MarineRegions:eez_internal_waters
+    abstract: |
+      Version 2 of the Internal Waters from the VLIZ Maritime Boundaries Geodatabase. Internal Waters are the waters on the
+      landward side of the baseline of a nation's territorial waters, except in archipelagic states.
+      It includes waterways such as rivers and canals, and sometimes the water within small bays.
+  coasts:
+    title: World Countries Coasts
+    abstract: Coastlines extracted from ESRI Countries 2015.
+    typename: MarineRegions:world_countries_coasts
+  territorial_seas:
+    title: Territorial Seas (12 NM) V2
+    abstract: |
+      Version 2 of the Territorial Seas from the VLIZ Maritime Boundaries Geodatabase.
+      Territorial seas are a belt of coastal waters extending at most 12 nautical miles (22.2 km; 13.8 mi) from the baseline
+      (usually the mean low-water mark) of a coastal state.
+    typename: MarineRegions:eez_12nm
+  contiguous_zones:
+    title: Contiguous Zones (24 NM) V2
+    abstract: |
+      Version 2 of the Contiguous Zones from the VLIZ Maritime Boundaries Geodatabase.
+      The Contiguous Zone is a band of water extending from the outer edge of the territorial sea to up to 24 nautical miles
+      (44.4 km; 27.6 mi) from the baseline.
+    typename: MarineRegions:eez_24nm
+  eez:
+    title: Exclusive Economic Zones (200 NM)
+    typename: MarineRegions:eez
+  eez_boundaries:
+    title: Maritime boundaries V10
+    abstract: |
+      Version 10 of the Maritime Boundaries from the VLIZ Maritime Boundaries Geodatabase.
+      Boundaries have been built using information about treaties between coastal countries.
+      When treaties are not available, median lines have been calculated.
+      This dataset also contains delimitation of disputed boundaries and joint regimes.
+    typename: MarineRegions:eez_boundaries
+  eez_land:
+    title: Marine and land zones
+    abstract: the union of world country boundaries and EEZ's"
+    typename: MarineRegions:eez_land
+  iho:
+    title: IHO Sea Areas (v3)
+    typename: MarineRegions:iho
+    abstract: |
+      World seas represents the boundaries for the major oceans and seas of the world. The source for the boundaries
+      is the publication 'Limits of Oceans & Seas, Special Publication No. 23' published by the IHO in 1953.
