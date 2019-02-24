@@ -10,5 +10,5 @@ abstract: |
     - [query](id.php/geodata/choisirgeoportail/query?request=GetCapabilities)
     - [liste des couches](id.php/geodata/choisirgeoportail/ft)
   
-$schema: http://ydclasses.georef.eu/WfsServerJson
+$schema: http://ydclasses.georef.eu/WfsServerJson/schema
 wfsUrl: https://wxs.ign.fr/choisirgeoportail/geoportail/wfs

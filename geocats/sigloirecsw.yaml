@@ -11,5 +11,5 @@ abstract: |
     - [harvest](id.php/geocats/sigloirecsw/harvest)
     - [tests de la classe IsoMetadata](isometadata.inc.php/geocats/sigloirecsw)
     - [visualisation des MD](isometadata.inc.php/geocats/sigloirecsw?action=std)
-$schema: http://ydclasses.georef.eu/CswServer
+$schema: http://ydclasses.georef.eu/CswServer/schema
 cswUrl: https://catalogue.sigloire.fr/geonetwork/srv/fre/csw

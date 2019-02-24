@@ -2,7 +2,7 @@ title: Contours simplifiés des régions de métropole
 source: https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/regions-version-simplifiee.geojson
 abstract: |
   Régions de métropole structurées en un document YData avec une géométrie simplifiée provenant de france-geojson
-$schema: http://ydclasses.georef.eu/YData
+$schema: http://ydclasses.georef.eu/YData/schema
 tables:
   regions:
     title: régions indexées sur leur code ISO sans FR- 

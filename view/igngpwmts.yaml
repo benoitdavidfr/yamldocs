@@ -16,6 +16,6 @@ abstract: |
     - [map](id.php/view/igngpwmts/map)
     - [affichage de la carte](id.php/view/igngpwmts/map/display)
     
-$schema: http://ydclasses.georef.eu/WmtsServer
+$schema: http://ydclasses.georef.eu/WmtsServer/schema
 url: http://wxs.ign.fr/2hl0xk4s8pz482s81o4nrilt/wmts
 referer: http://visu.gexplor.fr/viewer.php

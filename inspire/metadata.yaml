@@ -7,7 +7,7 @@ tableOfContents: |
 lineage:
   '2018-07-24': création
   '2019-01-26': transformation du document en YData en définissant le schéma de chaque table
-$schema: http://ydclasses.georef.eu/YData
+$schema: http://ydclasses.georef.eu/YData/schema
 modified: '2019-01-26'
 source: http://data.europa.eu/eli/reg/2008/1205/oj
 tables:

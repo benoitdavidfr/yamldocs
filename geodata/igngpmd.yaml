@@ -30,7 +30,7 @@ abstract: |
     - [query](id.php/geodata/igngpmd/wfs/query?request=GetCapabilities)
     - [liste des couches](id.php/geodata/igngpmd/wfs/ft)
   
-$schema: http://ydclasses.georef.eu/FeatureDataset
+$schema: http://ydclasses.georef.eu/FeatureDataset/schema
 wfsUrl: https://wxs.ign.fr/metadata/geoportail/wfs
 layers:
   ortho:

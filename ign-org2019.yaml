@@ -357,13 +357,15 @@ missions:
     en particulier pour intégrer, qualifier et gérer des données partagées, et de contribuer à promouvoir
     et à accompagner l’utilisation des données souveraines et le développement de services.
 compléments:
-  GéoMCE: |
-    interlocuteurs IGN GéoMCE en plus de ceux listés dans l'organigramme
-      - Gregory Pain <Gregory.Pain@ign.fr>
-      - Isabelle Clery <Isabelle.Clery@ign.fr>
-      - David Jacquet <David.Jacquet@ign.fr>
-      - Fionn Halleman <Fionn.Halleman@ign.fr>
-      - Florent Belleuf <Florent.Belleuf@ign.fr>
+  projets:
+    GéoMCE: |
+      interlocuteurs IGN GéoMCE en plus de ceux listés dans l'organigramme:
+        
+        - Gregory Pain <Gregory.Pain@ign.fr>
+        - Isabelle Clery <Isabelle.Clery@ign.fr>
+        - David Jacquet <David.Jacquet@ign.fr>
+        - Fionn Halleman <Fionn.Halleman@ign.fr>
+        - Florent Belleuf <Florent.Belleuf@ign.fr>
   déléguésRégionaux: |
     Le 05/02/2019 à 16:49, DISSARD Olivier (Chargé de mission) - CGDD/DRI/SDI/MIG a écrit :
     > Bonjour Yolène,

@@ -1,5 +1,5 @@
 title: Données géographiques souveraines MTES-MCT
-$schema: http://ydclasses.georef.eu/YData
+$schema: http://ydclasses.georef.eu/YData/schema
 tables:
   dgs:
     title: liste des types de données géographiques souveraines

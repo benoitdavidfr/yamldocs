@@ -19,7 +19,7 @@ coverage: "iso:code:3166:FR (métropole + DOM)"
 lineage: |
   9/2/2019:
     - Fork de http://georef.eu/geodata/bdtopo
-$schema: http://ydclasses.georef.eu/FDsSpecs
+$schema: http://ydclasses.georef.eu/FDsSpecs/schema
 
 featureCollections:
   Thème_Réseau_routier:

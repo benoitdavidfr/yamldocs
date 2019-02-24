@@ -33,7 +33,7 @@ source:
 language: [fr, en]
 relation:
 licence: https://www.etalab.gouv.fr/licence-ouverte-open-licence
-$schema: http://ydclasses.georef.eu/YData
+$schema: http://ydclasses.georef.eu/YData/schema
 tables:
   dcmes:
     title: liste des 15 éléments de métadonnées d'origine, appelé "Dublin Core Metadata Element Set (DCMES)" + raffinements de ces éléments

@@ -12,7 +12,7 @@ abstract: |
     - [Requête test](/yamldoc/id.php/geodata/vliz/coasts?bbox=-10,41,16,51&zoom=6)
     - [capabilities](id.php/geodata/vliz/wfs/capabilities)
 
-$schema: http://ydclasses.georef.eu/FeatureDataset
+$schema: http://ydclasses.georef.eu/FeatureDataset/schema
 wfsUrl: http://geo.vliz.be/geoserver/MarineRegions/wfs
 wfsOptions:
   gml: true

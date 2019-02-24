@@ -12,7 +12,7 @@ abstract: |
 spec: |
   A une classe {yamlClass} correspond:
     
-    - un fichier ~/html/yamldoc/ydclasses/{yamlClass}.schema.yaml contenant le schéma JSON
+    - un éventuel fichier ~/html/yamldoc/ydclasses/{yamlClass}.sch.yaml définissant le schéma JSON
     - une classe Php {yamlClass} définie dans un fichier {yamlClassInt}.inc.php
       où {yamlClassInt} est un nom interne utilisé pour le fichier Php
     

@@ -30,7 +30,7 @@ description: |
     - la liste de LegalPart de body et annexes est lue en séquence ; si la clé d'un LegalPart n'a pas été repéré
       comme partie d'un précédent LegalPart alors il est au niveau 1.
 language: [fr,en]
-$schema: http://ydclasses.georef.eu/LegalDoc
+$schema: http://ydclasses.georef.eu/LegalDoc/schema
 visa: |
   LE PARLEMENT EUROPÉEN ET LE CONSEIL DE L'UNION EUROPÉENNE,
 

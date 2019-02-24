@@ -12,6 +12,6 @@ abstract: |
     - [map](id.php/view/igngpwmsv/map)
     - [map/display](id.php/view/igngpwmsv/map/display)
     
-$schema: http://ydclasses.georef.eu/WmsServer
+$schema: http://ydclasses.georef.eu/WmsServer/schema
 url: http://wxs.ign.fr/2hl0xk4s8pz482s81o4nrilt/geoportail/v/wms
 referer: http://visu.gexplor.fr/viewer.php

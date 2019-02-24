@@ -1,5 +1,5 @@
 title: Utilisation des API INSEE
-$schema: http://ydclasses.georef.eu/YamlCatalog
+$schema: http://ydclasses.georef.eu/YamlCatalog/schema
 contents:
   sirene:
     title: Utilisation de la base SIRENE

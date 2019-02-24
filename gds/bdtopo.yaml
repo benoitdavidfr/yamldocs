@@ -22,7 +22,7 @@ lineage: |
     - transfert des sepcs dans gds/bdtopo22.specs
   20/8/2018:
     - ajout de symboles pour les pai_religieux
-$schema: http://ydclasses.georef.eu/GeoDataset
+$schema: http://ydclasses.georef.eu/GeoDataset/schema
 download:
   wfsUrl: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
   wfsOptions:

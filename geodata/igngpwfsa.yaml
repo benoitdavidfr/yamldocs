@@ -20,7 +20,7 @@ abstract: |
       ](id.php/geodata/igngpwfsa/ft/BDCARTO_BDD_WLD_WGS84G:transport_cable/getFeature)
     - [getFeature pour BDCARTO_BDD_WLD_WGS84G:transport_cable sans bbox pour nature='Téléphérique, télécabine'](id.php/geodata/igngpwfsa/ft/BDCARTO_BDD_WLD_WGS84G:transport_cable/getFeature?where=nature%3D%27T%C3%A9l%C3%A9ph%C3%A9rique%2C+t%C3%A9l%C3%A9cabine%27)
   
-$schema: http://ydclasses.georef.eu/WfsServerJsonAugmented
+$schema: http://ydclasses.georef.eu/WfsServerJsonAugmented/schema
 wfsUrl: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
 wfsOptions:
   referer: http://gexplor.fr/

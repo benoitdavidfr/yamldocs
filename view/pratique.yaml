@@ -15,5 +15,5 @@ abstract: |
     - [map](id.php/view/pratique/map)
     - [affichage de la carte](id.php/view/pratique/map/display)
     
-$schema: http://ydclasses.georef.eu/WmtsServer
+$schema: http://ydclasses.georef.eu/WmtsServer/schema
 url: http://wxs.ign.fr/pratique/wmts

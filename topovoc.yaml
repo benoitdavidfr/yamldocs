@@ -1,6 +1,6 @@
 title: Lexique topographique de l'Association Française de Topographie (partiel)
-#$schema: http://ydclasses.georef.eu/YamlSkosMonolingue
-$schema: http://ydclasses.georef.eu/YamlSkos
+#$schema: http://ydclasses.georef.eu/YamlSkosMonolingue/schema
+$schema: http://ydclasses.georef.eu/YamlSkos/schema
 date:
   - 2000
   - 2018-06-28

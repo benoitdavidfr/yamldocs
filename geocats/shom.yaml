@@ -12,5 +12,5 @@ abstract: |
     - [listSubjects](id.php/geocats/shom/listSubjects)
     - [MD des GéoTIFF](id.php/geocats/shom/items/792b9499826260f642511b196b2d1347)
     
-$schema: http://ydclasses.georef.eu/Geocat
+$schema: http://ydclasses.georef.eu/Geocat/schema
 cswUrl: https://services.data.shom.fr/geonetwork/srv/fre/csw-produits

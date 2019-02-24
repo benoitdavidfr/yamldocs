@@ -3,7 +3,7 @@ abstract: |
   Carte de test de la classe Map.  
   La carte Leaflet correspondante peut être [générée ici](id.php/geodata/testmap/display).
 
-$schema: http://ydclasses.georef.eu/Map
+$schema: http://ydclasses.georef.eu/Map/schema
 stylesheets:
   - http://visu.gexplor.fr/viewer.css
   - https://unpkg.com/leaflet@1.3/dist/leaflet.css

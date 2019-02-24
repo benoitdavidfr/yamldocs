@@ -14,7 +14,7 @@ licence:
   uri: http://www.naturalearthdata.com/about/terms-of-use/
   title: Public domain
 doc_url: http://www.naturalearthdata.com/
-$schema: http://ydclasses.georef.eu/FeatureDataset
+$schema: http://ydclasses.georef.eu/FeatureDataset/schema
 # chemins d'accès principal pour le chargement
 dbpath: naturalearth/110m
 # J'arrondis les coordonnées à 3 décimales, 2 est insuffisant

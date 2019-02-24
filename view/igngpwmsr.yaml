@@ -13,6 +13,6 @@ abstract: |
     - [CADASTRALPARCELS.PARCELS](id.php/view/igngpwmsr/layers/CADASTRALPARCELS.PARCELS)
     - [map](id.php/view/igngpwmsr/map)
     
-$schema: http://ydclasses.georef.eu/WmsServer
+$schema: http://ydclasses.georef.eu/WmsServer/schema
 url: http://wxs.ign.fr/2hl0xk4s8pz482s81o4nrilt/geoportail/r/wms
 referer: http://visu.gexplor.fr/viewer.php

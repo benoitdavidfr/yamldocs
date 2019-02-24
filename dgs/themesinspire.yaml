@@ -1,0 +1,126 @@
+title: définition du socle de données géographiques à partir des thèmes Inspire des annexes I & II
+abstract: |
+  Le socle est un ensemble de données géographiques fondamentales sur lesquelles les données, dites thématiques ou métier,
+  seront définies.  
+  Par exemples:
+    
+    - la définition des zones des PLU, qui sont une donnée métier, s'appuient fréquemment sur les parcelles cadastrales,
+      qui sont une donnée socle ;
+    - de nombreux textes réglementaires, par exemple la désignation des zones vulnérables aux pollutions par les nitrates
+      d’origine agricole (donées métier), s'appuient sur la définition des communes (données socle). 
+  
+  Ce socle a été défini, il y a plus d'une dizaine d'années,
+  par les thèmes des annexes [I](?ypath=/annex1Themes/*) & [II](?ypath=/annex2Themes/*) de la directive Inspire.  
+  Les exceptions sont expliciétes dans les tableaux des annexes [I](?ypath=/annex1Themes/*) & [II](?ypath=/annex2Themes/*).
+  
+$schema: http://ydclasses.georef.eu/YData/schema
+tables:
+  socle:
+    title: données socle
+    data:
+      rs:
+        prefLabel: Référentiels de coordonnées
+        definition: |
+          Systèmes de référencement unique des informations géographiques dans l'espace sous forme d'une série de coordonnées
+          (x, y, z) et/ou la latitude et la longitude et l'altitude, en se fondant sur un point géodésique horizontal
+          et vertical.
+      gg:
+        prefLabel: Systèmes de maillage géographique
+        definition: |
+          Grille multi-résolution harmonisée avec un point d'origine commun et une localisation ainsi qu'une taille des cellules
+          harmonisées.
+      gn:
+        prefLabel: Dénominations géographiques
+        definition: |
+          Noms de zones, de régions, de localités, de grandes villes, de banlieues, de villes moyennes ou d'implantations,
+          ou tout autre élément géographique ou topographique d'intérêt public ou historique.
+      au:
+        prefLabel: Unités administratives
+        definition: |
+          Unités d'administration séparées par des limites administratives et délimitant les zones dans lesquelles les États
+          membres détiennent et/ou exercent leurs compétences, aux fins de l'administration locale, régionale et nationale.
+      ad:
+        prefLabel: Adresses
+        definition: |
+          Localisation des propriétés fondée sur les identifiants des adresses, habituellement le nom de la rue, le numéro de
+          la maison et le code postal.
+      cp:
+        prefLabel: Parcelles cadastrales
+        definition: Zones définies par les registres cadastraux ou équivalents.
+      tn:
+        prefLabel: Réseaux de transport
+        definition: Réseaux routier, ferroviaire, aérien et navigable ainsi que les infrastructures associées. Sont également incluses les correspondances entre les différents réseaux, ainsi que le réseau transeuropéen de transport tel que défini dans la décision no 1692/96/CE du Parlement européen et du Conseil du 23 juillet 1996 sur les orientations communautaires pour le développement du réseau transeuropéen de transport [1] et les révisions futures de cette décision.
+      hy:
+        prefLabel: Hydrographie
+        definition: Éléments hydrographiques, y compris les zones maritimes ainsi que toutes les autres masses d'eau et les éléments qui y sont liés, y compris les bassins et sous-bassins hydrographiques. Conformes, le cas échéant, aux définitions établies par la directive 2000/60/CE du Parlement européen et du Conseil du 23 octobre 2000 établissant un cadre pour une politique communautaire dans le domaine de l'eau [2] et sous forme de réseaux.
+      el:
+        prefLabel: Altitude
+        definition: Modèles numériques pour l'altitude des surfaces terrestres, glaciaires et océaniques. Comprend l'altitude terrestre, la bathymétrie et la ligne de rivage.
+      lc:
+        prefLabel: Occupation des terres
+        definition: Couverture physique et biologique de la surface terrestre, y compris les surfaces artificielles, les zones agricoles, les forêts, les zones (semi-)naturelles, les zones humides et les masses d'eau.
+      oi:
+        prefLabel: Ortho-imagerie
+        definition: Images géoréférencées de la surface terrestre, provenant de satellites ou de capteurs aéroportés.
+  annex1Themes:
+    title: thèmes de l'annexe I
+    data:
+      rs:
+        prefLabel: Référentiels de coordonnées
+        definition: |
+          Systèmes de référencement unique des informations géographiques dans l'espace sous forme d'une série de coordonnées
+          (x, y, z) et/ou la latitude et la longitude et l'altitude, en se fondant sur un point géodésique horizontal
+          et vertical.
+        comment: |
+          thème particulier, il s'agit de la définition des référentiels de coordonnées et non de séries de données
+          géographiques.
+      gg:
+        prefLabel: Systèmes de maillage géographique
+        definition: |
+          Grille multi-résolution harmonisée avec un point d'origine commun et une localisation ainsi qu'une taille des cellules
+          harmonisées.
+      gn:
+        prefLabel: Dénominations géographiques
+        definition: Noms de zones, de régions, de localités, de grandes villes, de banlieues, de villes moyennes ou d'implantations, ou tout autre élément géographique ou topographique d'intérêt public ou historique.
+      au:
+        prefLabel: Unités administratives
+        definition: Unités d'administration séparées par des limites administratives et délimitant les zones dans lesquelles les États membres détiennent et/ou exercent leurs compétences, aux fins de l'administration locale, régionale et nationale.
+      ad:
+        prefLabel: Adresses
+        definition: Localisation des propriétés fondée sur les identifiants des adresses, habituellement le nom de la rue, le numéro de la maison et le code postal.
+      cp:
+        prefLabel: Parcelles cadastrales
+        definition: Zones définies par les registres cadastraux ou équivalents.
+      tn:
+        prefLabel: Réseaux de transport
+        definition: Réseaux routier, ferroviaire, aérien et navigable ainsi que les infrastructures associées. Sont également incluses les correspondances entre les différents réseaux, ainsi que le réseau transeuropéen de transport tel que défini dans la décision no 1692/96/CE du Parlement européen et du Conseil du 23 juillet 1996 sur les orientations communautaires pour le développement du réseau transeuropéen de transport [1] et les révisions futures de cette décision.
+      hy:
+        prefLabel: Hydrographie
+        definition: Éléments hydrographiques, y compris les zones maritimes ainsi que toutes les autres masses d'eau et les éléments qui y sont liés, y compris les bassins et sous-bassins hydrographiques. Conformes, le cas échéant, aux définitions établies par la directive 2000/60/CE du Parlement européen et du Conseil du 23 octobre 2000 établissant un cadre pour une politique communautaire dans le domaine de l'eau [2] et sous forme de réseaux.
+        comment: |
+          ce thème est en partie dans le socle et en partie métier.
+          La géométrie des cours d'eau, des lacs, des zones maritimes fait partie du socle.
+          Par contre les découpages liés à la directive DCE
+        
+      ps:
+        prefLabel: Sites protégés
+        definition: |
+          Zone désignée ou gérée dans un cadre législatif international, communautaire ou national en vue d'atteindre
+          des objectifs spécifiques de conservation.
+        comment: ce thème est clairement hors socle, c'est un thème métier.
+  annex2Themes:
+    title: thèmes de l'annexe II
+    data:
+      el:
+        prefLabel: Altitude
+        definition: Modèles numériques pour l'altitude des surfaces terrestres, glaciaires et océaniques. Comprend l'altitude terrestre, la bathymétrie et la ligne de rivage.
+      lc:
+        prefLabel: Occupation des terres
+        definition: Couverture physique et biologique de la surface terrestre, y compris les surfaces artificielles, les zones agricoles, les forêts, les zones (semi-)naturelles, les zones humides et les masses d'eau.
+      oi:
+        prefLabel: Ortho-imagerie
+        definition: Images géoréférencées de la surface terrestre, provenant de satellites ou de capteurs aéroportés.
+      ge:
+        prefLabel: Géologie
+        definition: Géologie caractérisée en fonction de la composition et de la structure. Englobe le substratum rocheux, les aquifères et la géomorphologie.
+        comment: ce thème est clairement hors socle, c'est un thème métier.

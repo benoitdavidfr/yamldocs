@@ -2,7 +2,7 @@ title: Contours simplifiés des DROM
 source: https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/regions-avec-outre-mer.geojson
 abstract: |
   DROM structurées en un document YData avec une géométrie simplifiée provenant de france-geojson
-$schema: http://ydclasses.georef.eu/YData
+$schema: http://ydclasses.georef.eu/YData/schema
 tables:
   drom:
     title: DROM indexées sur leur code ISO 3166-2 sans FR- 

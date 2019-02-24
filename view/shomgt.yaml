@@ -1,6 +1,6 @@
 title: SD de consultation des cartes GéoTiff du Shom
 abstract: |  
-$schema: http://ydclasses.georef.eu/ViewDataset
+$schema: http://ydclasses.georef.eu/ViewDataset/schema
 
 layersByGroup:
   all:

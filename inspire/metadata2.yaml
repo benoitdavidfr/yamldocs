@@ -27,7 +27,7 @@ source:
   - "[regitre des listes de codes pour les métadonnées](http://inspire.ec.europa.eu/metadata-codelist)"
 language: [fr, en]
 date: 2018-07-24
-$schema: http://ydclasses.georef.eu/DataModel
+$schema: http://ydclasses.georef.eu/DataModel/schema
 domainScheme:
   prefLabel:
     fr: Sommaire du vocabulaire

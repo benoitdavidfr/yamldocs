@@ -79,7 +79,7 @@ operatedBy:
     - 9f6ed796913e62b7ce9c702761b6479f
   view:
     - 55cf7a2e917ee978a767b8a0c3820b00
-$schema: http://ydclasses.georef.eu/FeatureDataset
+$schema: http://ydclasses.georef.eu/FeatureDataset/schema
 wfsUrl: 'https://datacarto.sigloire.fr/WFS/340124a8-0c4e-4c1f-88a7-57333f2d8cfe'
 layers:
   'ms:n_zone_reg_pprt_20090002_s_072':

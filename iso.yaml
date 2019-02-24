@@ -5,7 +5,7 @@ description: |
   Dans la mesure du possible sont indiqués la codification CEN et AFNOR.
   Les normes annulées sont indiquées par le champ replacedBy qui indique la norme remplaçante.
 language: [fr,en]
-$schema: http://ydclasses.georef.eu/YamlData
+$schema: http://ydclasses.georef.eu/YamlData/schema
 data:
   ISO_3166:
     title: Codes pour la représentation des noms de pays et de leurs subdivisions

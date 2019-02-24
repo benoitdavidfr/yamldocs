@@ -1,5 +1,5 @@
 title: Présentation résumée de YamlDoc
-modified: '2019-01-26'
+modified: 2019-02-23
 abstract: |
   YamlDoc
   -------
@@ -12,7 +12,7 @@ abstract: |
       du [Web des données](https://fr.wikipedia.org/wiki/Web_des_donn%C3%A9es),
     - la définition de [classes de documents](?ypath=/ydclass) permettant,
       d'une part, de spécifier le contenu des documents par un [schéma JSON](https://json-schema.org/)
-      et, d'autre part, de leur associer un comportement par une classe Php.
+      et, d'autre part, d'associer à un document un comportement défini par une classe Php.
     - la possibilité de formatter les textes contenus dans un champ du fichier Yaml
       en utilisant le **[langage Markdown](?ypath=/markdown)**,
     - l'utilisation d'un [visualiseur Web](?ypath=/viewer) de documents extensible grâce aux classes de documents,
@@ -21,12 +21,14 @@ abstract: |
     - l'[organisation d'espaces documentaires partagés chacun sous la forme d'une archive Git](?ypath=/git),
       pouvant ainsi utiliser soit [Github](https://github.com/benoitdavidfr/yamldocs),
       soit une archive Git privée,
-    - la définition en Php de [requêtes sur les documents](?ypath=/query),
+    - la définition de [requêtes sur les documents](?ypath=/query) en Php,
       
   YamlDoc est notamment étendu pour permettre :
     
-    - [l' accès aux données géographiques et la définition de cartes](?doc=geodata),
-    - [l'exploitation de catalogue de données géographiques](?doc=geocats).
+    - l'[accès aux données géographiques et la définition de cartes Leaflet](?doc=geodata),
+    - l'[exploitation de catalogue de données géographiques](?doc=geocats),
+    - l'utilisation de thésaurus Skos comme [EuroVoc](?doc=eurovoc),
+    - l'[utilisation d'API de l'INSEE](?doc=insee).
     
 yaml: |
   ### Fondé sur le format Yaml
@@ -89,6 +91,7 @@ markdown: |
 viewer: |
   ### Visualiseur
   Un visualiseur en mode web permet de visualiser les documents et de naviguer entre eux.
+  Il permet de vérifier qu'un document est conforme à son schéma.
   Il offre aussi une fonctionnalité limitée de modification.  
   Un mode de visualisation par défaut est défini mais le visualisateur peut être étendu pour s'adapter aux
   différentes structures de document. Par exemples:

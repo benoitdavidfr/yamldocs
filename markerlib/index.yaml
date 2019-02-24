@@ -17,7 +17,7 @@ abstract: |
       - Partial cloverleaf interchange parclo
     - search Partial cloverleaf interchange parclo marker icon
     
-$schema: http://ydclasses.georef.eu/MarkerLib
+$schema: http://ydclasses.georef.eu/MarkerLib/schema
 javaScriptVarName: markerLib
 markers:
   # https://mapicons.mapsmarker.com/category/markers/tourism/cult-religion/

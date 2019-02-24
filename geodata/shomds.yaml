@@ -10,7 +10,7 @@ identifier: http://www.shom.fr/les-services-en-ligne/portail-datashomfr/
 journal: |
   3/11/2018:
     - création
-$schema: http://ydclasses.georef.eu/FeatureDataset
+$schema: http://ydclasses.georef.eu/FeatureDataset/schema
 wfsUrl: http://services.data.shom.fr/INSPIRE/wfs
 wfsOptions:
 minZoom: 1

@@ -13,5 +13,5 @@ abstract: |
     - [CADASTRALPARCELS.PARCELS](id.php/view/igngpwmsr/layers/CADASTRALPARCELS.PARCELS)
     - [map](id.php/view/igngpwmsr/map)
     
-$schema: http://ydclasses.georef.eu/WmsServer
+$schema: http://ydclasses.georef.eu/WmsServer/schema
 url: http://www.ifremer.fr/services/wms/dcsmm

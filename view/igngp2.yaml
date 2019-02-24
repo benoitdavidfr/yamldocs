@@ -4,7 +4,7 @@ abstract: |
   Les couches sont exposées sous la forme tuiles selon le protocole popularisé par OSM et Google Maps (appelé XYZ)  
   C'est l'équivalent de http://igngp.geoapi.fr/
   
-$schema: http://ydclasses.georef.eu/ViewDataset
+$schema: http://ydclasses.georef.eu/ViewDataset/schema
 
 layersByGroup:
   usuels:
