@@ -1,0 +1,6 @@
+title: Analyse du caractère souverain des classes de la BD TOPO v2.2
+doc: |
+  Sur la BD TOPO, laq uestion est de savoir si les données sont effectivement utilisée pour prendre des décisions.  
+  Par exemple quelle administration utilise le thème Voies ferrées pour prendre des décisions ?  
+  Pour le thème Hydrographie, le partenariat avec l'AFB permet de considérer que des administrations utilisent bien
+  les données de ce thème et que c'est bien une DGS.

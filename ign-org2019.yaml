@@ -6,7 +6,7 @@ abstract: |
   ainsi que des [compléments divers](?ypath=/compléments).
 modified: 2019-02-23
 $schema:
-  $id: http://georef.eu/ign-org2019/$schema
+  $id: http://id.georef.eu/ign-org2019/$schema
   $schema: http://json-schema.org/draft-07/schema#
   definitions:
     organigramme:

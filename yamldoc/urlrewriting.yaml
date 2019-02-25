@@ -1,0 +1,36 @@
+title: réécriture d'URL
+doc: |
+  Les URL sont utilisées notamment pour faire des liens:
+  
+    - entre documents
+    - entre schémas
+    - entre documents et schémas et vice-versa
+    
+  Par convention, les motifs URI suivants sont définis:
+    
+    - http://(id|docs).georef.eu/{docid} pour le document {docid}
+    - http://(id|docs).georef.eu/{docid}{ypath} pour le fragment {ypath} du document {docid}
+    - http://ydclasses.georef.eu/{ydClass} pour la classe de documents {ydClass}
+    - http://ydclasses.georef.eu/{YdClass}/schema pour le schéma associé à la classe de documents {ydClass}
+    - http://json-schema.org/schema#
+    - http://json-schema.org/draft-07/schema#
+    - http://geojson.org/schema/FeatureCollection.json
+    - http://schema.georef.eu/{path}
+    
+  De plus les liens suivants :
+    
+    - http://georef.eu/yamldoc/?doc={docid}&ypath={ypath}
+    
+  Dans la mesure du possible ces URL/URI doivent être réécrites par le code YamlDoc et schema
+  afin de rester en local.
+  
+  C'est le cas:
+    
+    - http://id.georef.eu/{docid} -> http://localhost/yamldoc/id.php/{docid}
+    - http://id.georef.eu/{docid}{ypath} -> http://localhost/yamldoc/id.php/{docid}{ypath}
+    - http://ydclasses.georef.eu/{ydClass} -> http://localhost/yamldoc/ydclasses.php/{ydClass}
+    - http://ydclasses.georef.eu/{YdClass}/schema -> http://localhost/yamldoc/ydclasses.php/{ydClass}/schema
+    - http://json-schema.org/schema# -> http://localhost/schema/json-schema.schema.yaml
+    - http://json-schema.org/draft-07/schema# -> http://localhost/schema/json-schema.schema.yaml
+    - http://geojson.org/schema/FeatureCollection.json -> http://localhost/schema/geojson/featurecollection.schema.json
+    - http://schema.georef.eu/ -> http://localhost/schema/

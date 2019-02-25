@@ -1,6 +1,6 @@
+title: schéma JSON pour un document Dublin Core
 $schema: http://json-schema.org/draft-07/schema#
 $id: http://id.georef.eu/dublincore.schema
-title: schéma JSON pour un document Dublin Core
 modified: 2019-02-13
 description: |
   Ce schéma correspond à une fiche de MD mono-lingue et comporte des annotations pour en dériver
@@ -33,7 +33,7 @@ definitions:
   FreeTextOrStringOrArray:
     description: >
       Une chaine identique quelle que soit la langue, ou une chaine multi-lingue, ou une liste de l'un ou de l'autre
-    oneOf:
+    anyOf:
       - description: une chaine multi-lingue
         $ref: '#/definitions/FreeText'
       - description: une chaine identique quelle que soit la langue
@@ -44,6 +44,12 @@ definitions:
           oneOf:
             - type: string
             - $ref: '#/definitions/FreeText'
+  stringOrArrayOfStrings:
+    oneOf:
+      - type: string
+      - type: array
+        items:
+          type: string
   W3CDTF:
     description: spécification des formats de dates et d'heures du W3C (http://www.w3.org/TR/NOTE-datetime)
     type: [string, number]
