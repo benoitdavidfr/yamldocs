@@ -1,0 +1,59 @@
+title: Carte GéoMCE
+abstract: |
+  [display](id.php/maps/geomce/display)
+$schema: http://ydclasses.georef.eu/Map/schema
+view:
+  latlon: [47.135, -1.730]
+  zoom: 8
+stylesheets:
+  - 'http://visu.gexplor.fr/viewer.css'
+  - 'https://unpkg.com/leaflet@1.3/dist/leaflet.css'
+plugins:
+  - 'http://visu.gexplor.fr/lib/leaflet.uGeoJSON.js'
+  - 'http://visu.gexplor.fr/lib/leaflet.edgebuffer.js'
+mapStyle:
+  height: 100%
+  width: 100%
+scaleControl:
+  position: bottomleft
+  metric: true
+  imperial: false
+attributions:
+  ign: '&copy; <a href=''http://www.ign.fr''>IGN</a>'
+bases:
+  cartes:
+    title: 'Cartes IGN'
+    type: TileLayer
+    url: 'http://igngp.geoapi.fr/tile.php/cartes/{z}/{x}/{y}.jpg'
+    options:
+      format: image/jpeg
+      minZoom: 0
+      maxZoom: 18
+      attribution: ign
+  orthos:
+    title: Ortho-images
+    type: TileLayer
+    url: 'http://igngp.geoapi.fr/tile.php/orthos/{z}/{x}/{y}.jpg'
+    options:
+      format: image/jpeg
+      minZoom: 0
+      maxZoom: 18
+      attribution: ign
+  whiteimg:
+    title: 'Fond blanc'
+    type: TileLayer
+    url: 'http://visu.gexplor.fr/utilityserver.php/whiteimg/{z}/{x}/{y}.png'
+    options:
+      format: image/png
+      minZoom: 0
+      maxZoom: 21
+defaultLayers:
+  - whiteimg
+  - geomce
+overlays:
+  geomce:
+    title: GéoMCE mesure_emprise
+    type: UGeoJSONLayer
+    endpoint: http://bdavid.alwaysdata.net/geomce/geojson.php/mesure_emprise
+    minZoom: 0
+    maxZoom: 21
