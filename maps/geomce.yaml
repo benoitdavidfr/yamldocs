@@ -54,6 +54,6 @@ overlays:
   geomce:
     title: GéoMCE mesure_emprise
     type: UGeoJSONLayer
-    endpoint: http://bdavid.alwaysdata.net/geomce/geojson.php/mesure_emprise
+    endpoint: https://bdavid.alwaysdata.net/geomce/geojson.php/mesure_emprise
     minZoom: 0
     maxZoom: 21
