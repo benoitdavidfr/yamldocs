@@ -1,0 +1,42 @@
+title: remarques sur GéoMCE
+$schema: http://ydclasses.georef.eu/YData/schema
+tables:
+  donnees:
+    title: remarques sur les données
+    data:
+      heterogeneite:
+        title: hétérogénéité des objets, exemples du TGV
+        doc: |
+          Les mesures compensatoires peuvent être gérées de manière très hétérogène.  
+          Par exemple, pour la LGV Sud-Europe-Atlantique, il semble y avoir 2 mesures:
+            
+            - [Dérogation espèces](http://gexplor.fr/geomce/export.php/mesure_emprise/a86b5e06647de3fc14d414dcf002584f)
+            - [IOTA – Autorisation](http://gexplor.fr/geomce/export.php/mesure_emprise/884eab34fcb7c368b5d9a3232937f985)
+
+          Chacun de ces 2 mesures couvre un territoire important.
+          
+          Par contre, pour la ligne Bretagne Pays de la Loire, de nombreuses mesures ont été définies.
+          En chechant "ligne à grande vitesse Bretagne Pays de la Loire" dans
+          [mesure_emprise](http://gexplor.fr/geomce/export.php/mesure_emprise)
+          on trouve plus de 1000 occurences.
+  export:
+    title: remarques sur l'export du 26/2/2019
+    data:
+      proj:
+        title: Les mesures de La Réunion ne sont pas en place
+        doc: |
+          L'ensemble de la base a été mis en WGS84 à partir du Lambert 93 alors que les mesures de la réunion étaient
+          dans une autre projection. La correction a été faite dans http://gexplor.fr/geomce/map.php
+      si_metier:
+        title: erreur de jointure sur si_metier et numero_dossier
+        doc: |
+          Les champs si_metier et numero_dossier prennent souvent des valeurs NULL, ce qui provient probablement d'une erreur
+          de jointure à l'export.  
+          [exemple](https://gexplor.fr/geomce/export.php/mesure_emprise/baa4ff13317b6d6009662817505e3a0c)
+      id:
+        title: l'export ne contient pas d'identifiant de mesure
+      commune:
+        title: les communes sont définies par leur nom; il est nécessaire d'avoir aussi leur code INSEE
+
+
+          

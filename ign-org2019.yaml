@@ -140,7 +140,7 @@ organigramme:
               - name: Sophie REYNARD
                 jobTitle:  Chef du département Gestion des territoires
                 email: Sophie.Reynard@ign.fr
-              - name: Alain GILLOT
+              - name: Alain Gillot
                 email: Alain.Gillot@ign.fr
                 jobTitle: Chargé des relations partenariales
                 téléphone: 01 43 98 81 88
@@ -155,6 +155,12 @@ organigramme:
             personnes:
               - name: David DI MARCO
                 jobTitle:  Chef du département Europe, espace, numérique et innovation
+          xx:
+            t: affectation précise inconnue
+            personnes:
+              - name: Aurélie Poyet
+                note: suit le dossier « client DGFiP »
+                brand: DGFiP
       SPP:
         t: service des projets et des prestations (SPP)
         personnes:

@@ -48,10 +48,10 @@ bases:
       minZoom: 0
       maxZoom: 21
 defaultLayers:
-  - whiteimg
-  - geomce
+  - cartes
+  - mesure_emprise
 overlays:
-  geomce:
+  mesure_emprise:
     title: GéoMCE mesure_emprise
     type: UGeoJSONLayer
     endpoint: https://bdavid.alwaysdata.net/geomce/geojson.php/mesure_emprise
