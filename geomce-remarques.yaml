@@ -13,10 +13,11 @@ tables:
             - [Dérogation espèces](http://gexplor.fr/geomce/export.php/mesure_emprise/a86b5e06647de3fc14d414dcf002584f)
             - [IOTA – Autorisation](http://gexplor.fr/geomce/export.php/mesure_emprise/884eab34fcb7c368b5d9a3232937f985)
 
-          Chacun de ces 2 mesures couvre un territoire important.
+          La première de ces 2 mesures s'étale de Tours à Bordeaux.
+          [visu sur geojson.io](http://geojson.io/#data=data:text/x-url,http%3A%2F%2Fgexplor.fr%2Fgeomce%2Fgeojson.php%2Fmesure_emprise%2Fa86b5e06647de3fc14d414dcf002584f)
           
           Par contre, pour la ligne Bretagne Pays de la Loire, de nombreuses mesures ont été définies.
-          En chechant "ligne à grande vitesse Bretagne Pays de la Loire" dans
+          En cherchant "ligne à grande vitesse Bretagne Pays de la Loire" dans
           [mesure_emprise](http://gexplor.fr/geomce/export.php/mesure_emprise)
           on trouve plus de 1000 occurences.
   export:
