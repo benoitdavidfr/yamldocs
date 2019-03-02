@@ -13,8 +13,7 @@ tables:
             - [Dérogation espèces](http://gexplor.fr/geomce/export.php/mesure_emprise/a86b5e06647de3fc14d414dcf002584f)
             - [IOTA – Autorisation](http://gexplor.fr/geomce/export.php/mesure_emprise/884eab34fcb7c368b5d9a3232937f985)
 
-          La première de ces 2 mesures s'étale de Tours à Bordeaux.
-          [visu sur geojson.io](http://geojson.io/#data=data:text/x-url,http%3A%2F%2Fgexplor.fr%2Fgeomce%2Fgeojson.php%2Fmesure_emprise%2Fa86b5e06647de3fc14d414dcf002584f)
+          [La première de ces 2 mesures s'étale de Tours à Bordeaux](http://gexplor.fr/geomce/map.php?table=mesure_emprise&mid=a86b5e06647de3fc14d414dcf002584f&lon=-0.016531&lat=45.857592&zoom=7).
           
           Par contre, pour la ligne Bretagne Pays de la Loire, de nombreuses mesures ont été définies.
           En cherchant "ligne à grande vitesse Bretagne Pays de la Loire" dans
@@ -38,6 +37,11 @@ tables:
         title: l'export ne contient pas d'identifiant de mesure
       commune:
         title: les communes sont définies par leur nom; il est nécessaire d'avoir aussi leur code INSEE
+      doublons:
+        title: doublons dans mesure_commune
+        doc: |
+          Certains n-uplets de mesure_commune sont doublonnés,  
+          [exemple](http://gexplor.fr/geomce/export.php/mesure_commune/b0a44449404498b1d3e1f6b16284ea5f)
 
 
           
