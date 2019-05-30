@@ -1,5 +1,7 @@
 title: Carte des vignes et vergers
 abstract: |
+  [display](id.php/maps/vignes/display)
+  
   http://localhost/yamldoc/id.php/geodata/bdtopo/map/display?latlon=,&zoom=14
 view:
   latlon:

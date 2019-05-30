@@ -514,7 +514,9 @@ shpfiles: |
   ne_10m_roads_north_america.shp - uniq. US
   ne_10m_time_zones.shp
 
-# Nom de la base MySQL en fonction du serveur MySQL
-mysql_database:
+# Nom de la base SQL en fonction du serveur SQL
+sql_database:
   '172.17.0.3': ne_10m
+  '172.17.0.4': ne_10m
   mysql-bdavid.alwaysdata.net: bdavid_ne_10m
+  postgresql-bdavid.alwaysdata.net: ne_10m

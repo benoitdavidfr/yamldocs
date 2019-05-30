@@ -13,7 +13,7 @@ abstract: |
 licence:
   uri: http://www.naturalearthdata.com/about/terms-of-use/
   title: Public domain
-doc_url: http://www.naturalearthdata.com/
+doc_url: https://www.naturalearthdata.com/features/
 $schema: http://ydclasses.georef.eu/FeatureDataset/schema
 # chemins d'accès principal pour le chargement
 dbpath: naturalearth/110m
@@ -392,7 +392,9 @@ shpfiles:
   - ne_110m_graticules_30.shp
   - ne_110m_graticules_5.shp
 
-# Nom de la base MySQL en fonction du serveur MySQL
-mysql_database:
+# Nom de la base SQL en fonction du serveur SQL
+sql_database:
   '172.17.0.3': ne_110m # MySql docker
+  '172.17.0.4': ne_110m # PgSql docker
   mysql-bdavid.alwaysdata.net: bdavid_ne_110m
+  postgresql-bdavid.alwaysdata.net: ne_110m
