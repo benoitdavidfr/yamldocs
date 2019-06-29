@@ -1,10 +1,41 @@
 title: synthèse WFS3
 source: https://github.com/opengeospatial/WFS_FES
+identifier: http://www.opengis.net/spec/wfs-1/3.0
+simpleApiDef:
+  href: http://localhost/yamldoc/?doc=inspire/wfs3-apidef
+  title: copy of annex B of the doc
 reference:
   - https://rawcdn.githack.com/opengeospatial/WFS_FES/3.0.0-draft.1/docs/17-069.html
-  - [WFS3 implem for Leaflet](https://opengeogroep.github.io/wfs3-experiment/client/leafletjsdemo/)
+  - "[WFS3 implem for Leaflet](https://opengeogroep.github.io/wfs3-experiment/client/leafletjsdemo/)"
+classes:
+  core:
+    path:
+      /:
+        title: landingPage, provides link to
+        links:
+          /api: APIDefinition
+          /conformance: Conformance statements
+          /collections: DatasetDistribution, returns DatasetDistributionResponse with a link to each collection
+      /collections/{collection-name}/items:
+        title: features in the collection -> CollectionResponse
+        parameters:
+          bbox:
+          time:
+          limit: request only a subset of the selected features and indicate that the client wants to page through the selected features of the collection
+        CollectionResponse: The CollectionResponse may include metadata about the number of selected and returned features (numberMatched and numberReturned) as well as links to simplify paging (next and prev).
+    /collections/{collection-name}/items/{feature-id}:
+      title: request a single feature
+  HTML:
+  GeoJSON:
+  GML-SF0:
+  GML-SF2:
+
+
 api:
   GET:
+    /:
+    /api:
+    /conformance:
     /collections:
       liste les collections qui sont chacune une FeatureCollection
     /collections/{name}:
