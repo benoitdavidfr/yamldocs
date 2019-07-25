@@ -1,0 +1,896 @@
+title: mapping des éléments de métadonnées Inspire vers DCATv2
+creator: https://github.com/benoitdavidfr
+lineage:
+  '2019-07-18': création
+$schema: http://ydclasses.georef.eu/YData/schema
+modified: '2019-07-18'
+source:
+  - http://data.europa.eu/eli/reg/2008/1205/oj
+  - https://www.w3.org/TR/vocab-dcat-2/
+tables:
+  inspireMdElts:
+    title: Eléments de MD Inspire
+    description: |
+      Eléments de métadonnées Inspire utilisés pour décrire les données géographiques.
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema des éléments de MD
+      description: Les éléments de MD sont identifiés si possible par le même id que celui utilisé pour le Dublin Core
+      type: object
+      additionalProperties: false
+      patternProperties: # la propriété est l'identifiant de l'élément
+        '^[a-zA-Z]+$':
+          description: description de chaque élément de MD
+          type: object
+          required: [ name, multiplicity, xpath ]
+          properties:
+            numInspire:
+              description: >
+                numéro de l'élément dans le règlement métadonnées Inspire,
+                son absence signifie que l'élément n'est pas un élément Inspire.
+              type: string
+              pattern: ^\d+\.(\d\.)?$
+            name:
+              description: >
+                nom de l'élément en français et en anglais, pour les éléments Inspire,
+                ce sont ceux définis respectivement dans les versions françaises et anglaises du règlement
+              type: object
+              patternProperties:
+                '^..$':
+                  description: nom officiel dans la langue définie par la propriété correspondant à son code ISO 639-1
+                  type: string
+            definition:
+              description: >
+                définition de l'élément en français et en anglais, pour les éléments Inspire,
+                tels que fournie respectivement dans les versions françaises et anglaises du règlement
+              type: object
+              patternProperties:
+                '^..$':
+                  description: définition dans la langue définie par la propriété correspondant à son code ISO 639-1
+                  type: string
+            comment:
+              type: string
+            multiplicity:
+              description: >
+                définit, respectivement pour les données et les services,
+                si l'élément peut être répété (1..* ou 0..* ) ou non (1 ou 0..1),
+                et s'il est obligatoire (1 ou 1..* ) ou facultatif (0..1 ou 0..* ) ;
+                pour les éléments Inspire c'est celui défini dans le règlement métadonnées Inspire.
+              type: object
+              patternProperties:
+                ^(data|service)$:
+                  enum: [1, 0..1, 0..*, 1..* ]
+            valueDomain:
+              description: |
+                référence la liste des valeurs possibles dans les
+                [vocabulaires contrôlés utilisés pour les métadonnées](?doc=inspire-mdcvoc)
+              type: string
+            xpath:
+              description: implémentation XML utilisant les normes ISO 191115/19119/19139
+              type: string
+            subelts:
+              type: object
+              patternProperties:
+                '^[a-zA-Z]+$':
+                  type: object
+                  properties:
+                    numInspire:
+                      type: string
+                      pattern: ^\d+\.(\d\.)?$
+                    name:
+                      description: >
+                        nom du sous-élément en français et en anglais, pour les éléments Inspire,
+                        ce sont ceux définis respectivement dans les versions françaises et anglaises du règlement
+                      type: object
+                      patternProperties:
+                        '^..$':
+                          type: string
+                          description: nom officiel dans la langue définie par la propriété
+                    xpath:
+                      type: string
+    data:
+      title:
+        numInspire: 1.1.
+        name:
+          fr: Intitulé de la ressource
+          en: Resource title
+        multiplicity:
+          data: 1
+          service: 1
+        valueDomain: free text
+      abstract:
+        numInspire: 1.2.
+        name:
+          fr: Résumé de la ressource
+          en: Resource abstract
+        multiplicity:
+          data: 1
+          service: 1
+        valueDomain: free text
+      type:
+        numInspire: 1.3.
+        name:
+          fr: Type de la ressource
+          en: Resource type
+        multiplicity:
+          data: 1
+          service: 1
+        valueDomain: http://georef.eu/yamldoc/?doc=inspire/metadata-codelist&ypath=/schemes/resourceTypes
+      relation:
+        numInspire: 1.4.
+        name:
+          fr: Localisateur de la ressource
+          en: Resource locator
+        definition:
+          fr: |
+            Le localisateur de la ressource définit le ou les liens avec la ressource et/ou le lien avec les informations supplémentaires concernant la ressource.  
+            Le domaine de valeur de cet élément de métadonnées est une chaîne de caractères couramment exprimée sous forme de localisateur de ressource uniforme (Uniform Resource Locator, URL).
+        comment: |
+          La définition de ce champ par Inspire soulève une difficulté pour identifier le lien avec la ressource ; ce qui est une faiblesse majeure des MD Inspire.
+        multiplicity:
+          data: 0..*
+          service: 0..*
+        valueDomain: chaîne de caractères couramment exprimée sous forme de localisateur de ressource uniforme (Uniform Resource Locator, URL).
+      identifier:
+        numInspire: 1.5.
+        name:
+          fr: Identificateur de la ressource unique
+          en: Unique resource identifier
+        multiplicity:
+          data: 1..*
+        valueDomain: un code obligatoire sous forme de chaîne de caractères, généralement attribué par le propriétaire des données, et un espace de noms sous forme de chaîne de caractères qui identifie de manière unique le contexte du code d’identification (par exemple le propriétaire des données).
+      operatesOn:
+        numInspire: 1.6.
+        name:
+          fr: Ressource Couplée
+          en: Coupled resource
+        multiplicity:
+          service: 0..*
+        valueDomain: URI
+      language:
+        numInspire: 1.7.
+        name:
+          fr: Langue de la ressource
+          en: Resource language
+        multiplicity:
+          data: 0..*
+        valueDomain: langues définies dans la norme ISO 639-2
+      # 2. CLASSIFICATION DES DONNÉES ET SERVICES GÉOGRAPHIQUES
+      topicCategory:
+        numInspire: 2.1.
+        name:
+          fr: Catégorie thématique
+          en: Topic category
+        multiplicity:
+          data: 1..*
+        valueDomain: http://georef.eu/yamldoc/?doc=inspire/metadata-codelist&ypath=/schemes/topicCategories
+      serviceType:
+        numInspire: 2.2.
+        name:
+          fr: Type de service de données géographiques
+          en: Spatial data service type
+        multiplicity:
+          service: 1
+        valueDomain: http://georef.eu/yamldoc/?doc=inspire/metadata-codelist&ypath=/schemes/sdsTypes
+      # 3. MOT CLÉ - KEYWORD
+      subject:
+        numInspire: '3.'
+        name:
+          fr: Mot clé
+          en: Keyword
+        multiplicity:
+          data: 1..*
+          service: 1..*
+        subelts:
+          value:
+            numInspire: 3.1.
+            name:
+              fr: Valeur du mot clé
+              en: Keyword value
+            valueDomain: texte libre
+          cvoc:
+            numInspire: 3.2.
+            name:
+              fr: Vocabulaire contrôlé d’origine
+              en: Originating controlled vocabulary
+            valueDomain: inclut au moins le titre et une date de référence (date de publication, date de dernière révision ou de création) du vocabulaire contrôlé.
+      # 4. SITUATION GÉOGRAPHIQUE - 4. GEOGRAPHIC LOCATION
+      spatial:
+        numInspire: 4.1.
+        name:
+          fr: Rectangle de délimitation géographique
+          en: Geographic bounding box
+        multiplicity:
+          data: 1..*
+          service: 1..*
+        # revoir le path pour les services
+        subelts:
+          westBoundLongitude:
+            valueDomain: degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
+          eastBoundLongitude:
+            valueDomain: degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
+          southBoundLatitude:
+            valueDomain: degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
+          northBoundLatitude:
+            valueDomain: degrés décimaux, avec une précision d’au moins deux chiffres après la virgule.
+      # 5. RÉFÉRENCE TEMPORELLE
+      temporal:
+        numInspire: 5.1.
+        name:
+          fr: Étendue temporelle
+          en: Temporal extent
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      issued:
+        numInspire: 5.2.
+        name:
+          fr: Date de publication
+          en: Date of publication
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      modified:
+        numInspire: 5.3.
+        name:
+          fr: Date de dernière révision
+          en: Date of last revision
+        multiplicity: { data: 0..*, service: 0..* }
+      created:
+        numInspire: 5.4.
+        name:
+          fr: Date de création
+          en: Date of creation
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      # 6. QUALITÉ ET VALIDITÉ - 6. QUALITY AND VALIDITY
+      lineage:
+        numInspire: 6.1.
+        name:
+          fr: Généalogie
+          en: Lineage
+        multiplicity:
+          data: 1
+        valueDomain: texte libre
+      scaleDenominator:
+        numInspire: 6.2.
+        name:
+          fr:  Résolution spatiale - dénominateur de l'échelle
+          en: Spatial resolution - scale denominator
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      spatialResolution:
+        numInspire: 6.2.
+        name:
+          fr:  Résolution spatiale - distance
+          en: Spatial resolution - distance
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      # 7. CONFORMITÉ - 7. CONFORMITY
+      conformsTo:
+        numInspire: '7.'
+        name:
+          fr:  Spécification + Degré
+          en: Specification + Degree
+        subelts:
+          specification:
+            name:
+              fr: Spécification
+            valueDomain: inclut au moins le titre et une date de référence (date de publication, date de dernière révision ou de création)
+          degree:
+            name:
+              fr: Degré
+            valueDomain: http://georef.eu/yamldoc/?doc=inspire/metadata-codelist&ypath=/schemes/degreeOfConformity
+        multiplicity:
+          data: 1..*
+          service: 1..*
+      # 8. CONTRAINTES EN MATIÈRE D’ACCÈS ET D’UTILISATION - 8. CONSTRAINT RELATED TO ACCESS AND USE
+      conditionsToAccessAndUse:
+        numInspire: 8.1.
+        name:
+          fr: Conditions d'utilisation
+          en: Use conditions
+        multiplicity:
+          data: 1..*
+          service: 1..*
+      limitationsOnPublicAccess:
+        numInspire: 8.2.
+        name:
+          fr: Restrictions concernant l’accès public
+          en: Limitations on public access
+        comment: Il s'agit des raisons pour lesquelles l'accès au public est refusé, elles sont décrites par l'article 13 de la directive
+        multiplicity:
+          data: 1..*
+          service: 1..*
+      # 9. ORGANISATIONS RESPONSABLES DE L’ÉTABLISSEMENT, DE LA GESTION, DE LA MAINTENANCE ET DE LA DIFFUSION DES SÉRIES ET DES SERVICES DE DONNÉES GÉOGRAPHIQUES
+      # 9. ORGANISATIONS RESPONSIBLE FOR THE ESTABLISHMENT, MANAGEMENT, MAINTENANCE AND DISTRIBUTION OF SPATIAL DATA SETS AND SERVICE
+      responsibleParty:
+        numInspire: 9.1.
+        name:
+          fr: Partie responsable
+          en: Responsible party
+        xpath: '//gmd:identificationInfo/*/gmd:pointOfContact'
+        subelts:
+          name:
+          role:
+        multiplicity:
+          data: 1..*
+          service: 1..*
+        valueDomain: http://georef.eu/yamldoc/?doc=inspire-mdcvoc&ypath=/schemes/responsiblePartyRole
+      # 10. Métadonnées concernant les métadonnées - METADATA ON METADATA
+      # 10. Métadonnées concernant les métadonnées - METADATA ON METADATA
+      mdContact:
+        numInspire: 10.1.
+        name:
+          fr: Point de contact des métadonnées
+          en: Metadata point of contact
+        xpath: '//gmd:contact/*/gmd:organisationName/gco:CharacterString'
+        multiplicity:
+          data: 1..*
+          service: 1..*
+      mdCreated:
+        numInspire: 10.2.
+        name:
+          fr: Date des métadonnées
+          en: Metadata date
+        xpath: '//gmd:dateStamp/gco:DateTime'
+        multiplicity:
+          data: 1
+          service: 1
+      mdLanguage:
+        numInspire: 10.3.
+        name:
+          fr: Langue des métadonnées
+          en: Metadata language
+        xpath: '//gmd:language/gmd:LanguageCode'
+        multiplicity:
+          data: 1
+          service: 1
+  mapDC:
+    title: mapping MD Inspire / DublinCore
+    description: |
+      La présente table fournit un mapping possible en DublinCore des éléments de métadonnées de la table mdelements.
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema du mapping
+      description: dans ce mapping, la clé est celle d'un élément de la table mdelements
+      type: object
+      additionalProperties: false
+      patternProperties: # la propriété est l'identifiant de l'élément
+        '^[-a-zA-Z]+$':
+          description: description de chaque mapping
+          type: object
+          required: [ dublinCore ]
+          additionalProperties: false
+          properties:
+            dublinCore:
+              description: nom de l'élément DublinCore
+              type: string
+            comment:
+              description: commentaire
+              type: string
+    data:
+      title:
+        dublinCore: title
+      alternative:
+        dublinCore: alternative
+        comment: champ hors Inspire
+      isPartOf:
+        dublinCore: isPartOf
+      hasPart:
+        dublinCore: hasPart
+      abstract:
+        dublinCore: abstract
+      type:
+        dublinCore: type
+        comment: utiliser des URI différentes pour identifier les valeurs Inspire
+      relation:
+        comment: l'élément Inspire est scindé en plusieurs
+        elements:
+          relation:
+            dublinCore: relation
+            description: liens avec les informations supplémentaires concernant la ressource.
+          view:
+            dublinCore: none
+            description: description des services de consultation (WMS, WMTS, tile)
+          download:
+            dublinCore: none
+            description: description des services de téléchargement direct (WFS, mysql:, postgres:, flux GeoJSON)
+          isAvailableAt:
+            dublinCore: isAvailableAt
+            description: lien vers un flux Atom ou un fichier téléchargeable (Shape zippé)
+      identifier:
+        dublinCore: identifier
+      operatesOn:
+        dublinCore: isFormatOf
+        comment: un service est un format particulier d'une série de données
+      language:
+        dublinCore: language
+      topicCategory:
+        dublinCore: subject
+        comment: mot-clé du vocabulaire contrôlé http://inspire.ec.europa.eu/metadata-codelist/TopicCategory
+      serviceType:
+        dublinCore: subject
+        comment: mot-clé du vocabulaire contrôlé http://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType
+      subject:
+        dublinCore: subject
+        schema:
+          type: array
+          items:
+            oneOf:
+              - description: soit l'étiquette du mot-clé soit l'URI du mot-clé contrôlé
+                type: string
+              - description: soit un objet contenant l'étiquette et l'URI
+                type: object
+                properties:
+                  label:
+                    description: l'étiquette du mot-clé
+                    type: string
+                  identifier:
+                    description: l'URI du mot-clé
+                    type: string
+      spatial:
+        dublinCore: spatial
+        schema:
+          oneOf:
+            - description: objet respectant le schéma de codage DCMI Box avec des coordonnées géographiques
+              type: object
+              properties:
+                northlimit: {type: numeric}
+                southlimit: {type: numeric}
+                westlimit: {type: numeric}
+                eastlimit: {type: numeric}
+            - description: ensemble de rectangles englobants respectant le schéma de codage DCMI Box avec des coord. géo.
+              type: array
+              items:
+                type: object
+                properties:
+                  northlimit: {type: numeric}
+                  southlimit: {type: numeric}
+                  westlimit: {type: numeric}
+                  eastlimit: {type: numeric}
+      temporal:
+        dublinCore: temporal
+      issued:
+        dublinCore: issued
+      modified:
+        dublinCore: modified
+      created:
+        dublinCore: created
+      lineage:
+        dublinCore: peut être dans description
+        comment: il est utile d'ajouter un champ spécifique
+      scaleDenominator:
+        dublinCore: pas d'équivalent
+        comment: il est utile d'ajouter un champ spécifique
+      spatialResolution:
+        dublinCore: pas d'équivalent
+        comment: il est utile d'ajouter un champ spécifique
+      conformsTo:
+        dublinCore: conformsTo
+        comment: description DublinCore de la spécification avec un champ 
+      conditionsToAccessAndUse:
+        dublinCore: licence
+      limitationsOnPublicAccess:
+        dublinCore: accessRights
+      responsibleParty-resourceProvider:
+        dublinCore: '???'
+      responsibleParty-custodian:
+        dublinCore: '???'
+      responsibleParty-owner:
+        dublinCore: '???'
+      responsibleParty-user:
+        dublinCore: '???'
+      responsibleParty-distributor:
+        dublinCore: '???'
+      responsibleParty-originator:
+        dublinCore: '???'
+      responsibleParty-pointOfContact:
+        dublinCore: '???'
+      responsibleParty-principalInvestigator:
+        dublinCore: '???'
+      responsibleParty-processor:
+        dublinCore: '???'
+      responsibleParty-publisher:
+        dublinCore: publisher
+      responsibleParty-author:
+        dublinCore: creator
+      mdContact:
+        dublinCore: '???'
+      mdCreated:
+        dublinCore: '???'
+        comment: utilisation de l'en-tête http Last-Modified
+      mdLanguage:
+        dublinCore: '???'
+        comment: utilisation de l'en-tête http Content-Language
+  profil:
+    title: profil des MD Inspire en JSON/Yaml
+    example:
+      title: PPRI de Chailland – Mayenne
+      abstract: |
+        Plan de prévention des risques naturels inondation (PPRNI) de Chailland approuvé par arrêté préfectoral
+        du 1er août 2006.  
+        Il contient les données:
+          - Origine du risque
+          - Périmètre
+          - Zones d'aléa
+          - Zonage réglementaire
+      identifier: https://catalogue.sigloire.fr/5bcb321b-bae9-493a-92f4-4b1faa4bdcc8
+      type: http://inspire.ec.europa.eu/metadata-codelist/ResourceType/dataset
+      subject:
+        - label: Zones de gestion, de restriction ou de réglementation et unités de déclaration
+          uri: http://inspire.ec.europa.eu/theme/am
+        - prévention
+        - risques naturels
+        - périmètre
+        - aménagement
+        - urbanisme
+        - prescription
+        - servitude
+        - usage des sols
+        - label: GRAND PUBLIC
+          uri: https://catalogue.sigloire.fr/geonetwork.thesaurus.external.theme.prodige/GRAND_PUBLIC
+        - label: DDT53
+          uri: https://catalogue.sigloire.fr/geonetwork.thesaurus.external.theme.prodige/DDT53
+        - label: RISQUES NATURELS
+          uri: https://catalogue.sigloire.fr/geonetwork.thesaurus.external.theme.prodige/RISQUES_NATURELS
+        - label: MAYENNE
+          uri: https://catalogue.sigloire.fr/geonetwork.thesaurus.external.place.DepartementFR/MAYENNE
+        - label: CHAILLAND (53048)
+          uri: https://catalogue.sigloire.fr/geonetwork.thesaurus.external.place.CommunesFR/CHAILLAND_(53048)
+        - label: Environnement
+          uri: http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/environment
+      language: fr
+      spatial: {westlimit: -0.9036, eastlimit: -0.8356, southlimit: 48.2088, northlimit: 48.2416}
+      created: 2017-08-17T14:35:00
+      lineage: |
+        Donnée mise au format COVADIS en agrégeant les objets de la table du zonage réglementaire fournie par la DDT 53.
+      scaleDenominator: 5000
+      conformsTo:
+        - title: Géostandard Plan de prévention des risques (PPR) v1.0
+          issued: 2012-10-31
+          identifier: http://www.geoinformations.developpement-durable.gouv.fr/geostandard-plan-de-prevention-des-risques-ppr-v1
+      licence:
+        identifier: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+        label: Licence ouverte de réutilisation d'informations publiques françaises (LO) 2.0, 2017.
+      accessRights: http://inspire.ec.europa.eu/metadata-codelist/LimitationsOnPublicAccess/noLimitations
+      responsibleParty:
+        - label: DDT 53 (Direction Départementale des Territoires de la Mayenne)
+          email: ddt-mt-geo@mayenne.gouv.fr
+          role: http://inspire.ec.europa.eu/metadata-codelist/ResponsiblePartyRole/custodian
+      mdContact:
+        - label: DDT 53 (Direction Départementale des Territoires de la Mayenne)
+          email: ddt-mt-geo@mayenne.gouv.fr
+      mdCreated: 2018-04-10T17:21:31
+      mdLanguage: fr
+      view:
+        - url: https://carto.sigloire.fr/cgi-bin/mapserv?service=WMS&request=GetCapabilities
+          layers:
+            n_orig_risq_pprn_20070009_l_053:
+              title: Origine du risque
+            n_perimetre_20070009_s_053:
+              title: Périmètre
+            n_zone_alea_pprn_20070009_s_053:
+              title: Zones d'aléa
+            n_zone_reg_pprn_20070009_s_053:
+              title: Zonage réglementaire
+        - url: https://tile.sigloire.fr/
+          layers:
+            n_orig_risq_pprn_20070009_l_053:
+              title: Origine du risque
+            n_perimetre_20070009_s_053:
+              title: Périmètre
+            n_zone_alea_pprn_20070009_s_053:
+              title: Zones d'aléa
+            n_zone_reg_pprn_20070009_s_053:
+              title: Zonage réglementaire
+      download:
+        - url: https://carto.sigloire.fr/cgi-bin/mapservwfs?service=WFS&request=GetCapabilities
+          collections:
+            n_orig_risq_pprn_20070009_l_053:
+              title: Origine du risque
+            n_perimetre_20070009_s_053:
+              title: Périmètre
+            n_zone_alea_pprn_20070009_s_053:
+              title: Zones d'aléa
+            n_zone_reg_pprn_20070009_s_053:
+              title: Zonage réglementaire
+        - url: mysql://bdavid_public:public@mysql-bdavid.alwaysdata.net/bdavid_geodata
+          tables:
+            n_orig_risq_pprn_l:
+              title: Origine du risque
+              where: gaspar='20070009' and zone='053'
+            n_perimetre_s:
+              title: Périmètre
+              where: gaspar='20070009' and zone='053'
+            n_zone_alea_pprn_s:
+              title: Zones d'aléa
+              where: gaspar='20070009' and zone='053'
+            n_zone_reg_pprn_s:
+              title: Zonage réglementaire
+              where: gaspar='20070009' and zone='053'
+            
+      isAvailableAt: https://catalogue.sigloire.fr/rss/atomfeed/atomdataset/5bcb321b-bae9-493a-92f4-4b1faa4bdcc8
+    data:
+      title:
+        numInspire: 1.1.
+        name:
+          fr: Intitulé de la ressource
+          en: Resource title
+        multiplicity:
+          data: 1
+          service: 1
+      alternative:
+        name:
+          fr: Intitulé alternatif de la ressource
+          en: Alternate resource title
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      abstract:
+        numInspire: 1.2.
+        name:
+          fr: Résumé de la ressource
+          en: Resource abstract
+        multiplicity:
+          data: 1
+          service: 1
+      relation:
+        numInspire: 1.4.
+        name:
+          fr: Localisateur de la ressource
+          en: Resource locator
+        definition:
+          fr: |
+            Le localisateur de la ressource définit le ou les liens avec la ressource et/ou le lien avec les informations supplémentaires concernant la ressource.  
+            Le domaine de valeur de cet élément de métadonnées est une chaîne de caractères couramment exprimée sous forme de localisateur de ressource uniforme (Uniform Resource Locator, URL).
+        comment: |
+          La définition de ce champ par Inspire soulève une difficulté car il rend difficile l'identification du lien avec la ressource ; ce qui est une faiblesse majeure des MD Inspire.
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      identifier:
+        numInspire: 1.5.
+        name:
+          fr: Identificateur de la ressource unique
+          en: Unique resource identifier
+        multiplicity:
+          data: 1..*
+      type:
+        numInspire: 1.3.
+        name:
+          fr: Type de la ressource
+          en: Resource type
+        multiplicity:
+          data: 1
+          service: 1
+        valueDomain: http://id.georef.eu/inspire-mdcvoc/schemes/resourceTypes
+      subject:
+      operatesOn:
+        numInspire: 1.6.
+        name:
+          fr: Ressource Couplée
+          en: Coupled resource
+        multiplicity:
+          service: 0..*
+      language:
+        numInspire: 1.7.
+        name:
+          fr: Langue de la ressource
+          en: Resource language
+        multiplicity:
+          data: 0..*
+      # 2. CLASSIFICATION DES DONNÉES ET SERVICES GÉOGRAPHIQUES
+      topicCategory:
+        numInspire: 2.1.
+        name:
+          fr: Catégorie thématique
+          en: Topic category
+        multiplicity:
+          data: 1..*
+        valueDomain: http://id.georef.eu/yamldoc/inspire-mdcvoc/schemes/topicCategories
+      serviceType:
+        numInspire: 2.2.
+        name:
+          fr: Type de service de données géographiques
+          en: Spatial data service type
+        multiplicity:
+          service: 1
+        valueDomain: http://id.georef.eu/inspire-mdcvoc/schemes/sdsTypes
+      # 3. MOT CLÉ - KEYWORD
+      subject:
+        numInspire: '3.'
+        name:
+          fr: Mot clé
+          en: Keyword
+        multiplicity:
+          data: 1..*
+          service: 1..*
+      # 4. SITUATION GÉOGRAPHIQUE - 4. GEOGRAPHIC LOCATION
+      spatial:
+        numInspire: 4.1.
+        name:
+          fr: Rectangle de délimitation géographique
+          en: Geographic bounding box
+        multiplicity:
+          data: 1..*
+          service: 1..*
+      # 5. RÉFÉRENCE TEMPORELLE
+      temporal:
+        numInspire: 5.1.
+        name:
+          fr: Étendue temporelle
+          en: Temporal extent
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      issued:
+        numInspire: 5.2.
+        name:
+          fr: Date de publication
+          en: Date of publication
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      modified:
+        numInspire: 5.3.
+        name:
+          fr: Date de dernière révision
+          en: Date of last revision
+        multiplicity: { data: 0..*, service: 0..* }
+      created:
+        numInspire: 5.4.
+        name:
+          fr: Date de création
+          en: Date of creation
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      # 6. QUALITÉ ET VALIDITÉ - 6. QUALITY AND VALIDITY
+      lineage:
+        numInspire: 6.1.
+        name:
+          fr: Généalogie
+          en: Lineage
+        multiplicity:
+          data: 1
+      scaleDenominator:
+        numInspire: 6.2.
+        name:
+          fr:  Résolution spatiale - dénominateur de l'échelle
+          en: Spatial resolution - scale denominator
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      spatialResolution:
+        numInspire: 6.2.
+        name:
+          fr:  Résolution spatiale - distance
+          en: Spatial resolution - distance
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      # 7. CONFORMITÉ - 7. CONFORMITY
+      conformsTo:
+        numInspire: '7.'
+        name:
+          fr:  Spécification + Degré
+          en: Specification + Degree
+        multiplicity:
+          data: 1..*
+          service: 1..*
+      # 8. CONTRAINTES EN MATIÈRE D’ACCÈS ET D’UTILISATION - 8. CONSTRAINT RELATED TO ACCESS AND USE
+      conditionsToAccessAndUse:
+        numInspire: 8.1.
+        name:
+          fr: Conditions d'utilisation
+          en: Use conditions
+        xpath: '//gmd:identificationInfo/*/gmd:resourceConstraints/*/gmd:useLimitation/gco:CharacterString'
+        multiplicity:
+          data: 1..*
+          service: 1..*
+      limitationsOnPublicAccess:
+        numInspire: 8.2.
+        name:
+          fr: Restrictions concernant l’accès public
+          en: Limitations on public access
+        multiplicity:
+          data: 1..*
+          service: 1..*
+      classification:
+        name:
+          fr: Contrainte de sécurité intéressant la Défense nationale
+          en: Classification
+        multiplicity:
+          data: 0..*
+          service: 0..*
+      # 9. ORGANISATIONS RESPONSABLES DE L’ÉTABLISSEMENT, DE LA GESTION, DE LA MAINTENANCE ET DE LA DIFFUSION DES SÉRIES ET DES SERVICES DE DONNÉES GÉOGRAPHIQUES
+      # 9. ORGANISATIONS RESPONSIBLE FOR THE ESTABLISHMENT, MANAGEMENT, MAINTENANCE AND DISTRIBUTION OF SPATIAL DATA SETS AND SERVICE
+      responsibleParty:
+        numInspire: 9.1.
+        name:
+          fr: Partie responsable
+          en: Responsible party
+        multiplicity:
+          data: 1..*
+          service: 1..*
+        valueDomain: http://georef.eu/yamldoc/?doc=inspire-mdcvoc&ypath=/schemes/responsiblePartyRole
+      # 10. Métadonnées concernant les métadonnées - METADATA ON METADATA
+      # 10. Métadonnées concernant les métadonnées - METADATA ON METADATA
+      mdContact:
+        numInspire: 10.1.
+        name:
+          fr: Point de contact des métadonnées
+          en: Metadata point of contact
+        xpath: '//gmd:contact/*/gmd:organisationName/gco:CharacterString'
+        multiplicity:
+          data: 1..*
+          service: 1..*
+      mdDate:
+        numInspire: 10.2.
+        name:
+          fr: Date des métadonnées
+          en: Metadata date
+        xpath: '//gmd:dateStamp/gco:DateTime'
+        multiplicity:
+          data: 1
+          service: 1
+      mdLanguage:
+        numInspire: 10.3.
+        name:
+          fr: Langue des métadonnées
+          en: Metadata language
+        xpath: '//gmd:language/gmd:LanguageCode'
+        multiplicity:
+          data: 1
+          service: 1
+  mapDCAT:
+    title: mapping MD Inspire / DCATv2
+    description: |
+      L'utilisation d'un objet Distribution met en oeuvre le téléchargement simple en remplacement du téléchargement Atom.
+      La conformité à un CRS est prévue dans DCAT, voir https://www.w3.org/TR/vocab-dcat-2/#quality-conformance
+      et https://www.w3.org/TR/sdw-bp/#bp-crs
+      Un service WFS, WMS ou Tile peut être décrit comme un DataService.
+    data:
+      title: {dcatv2: dct:title}
+      abstract: {dcatv2: dct:description}
+      type: {dcatv2: dct:type}
+      relation: {dcatv2: dct:references }
+      identifier: {dcatv2: dct:identifier }
+      operatesOn: {dcatv2: dcat:servesDataset }
+      language: {dcatv2: dct:language }
+      topicCategory: {dcatv2: dcat:theme }
+      serviceType: {dcatv2: dct:type }
+      subject:
+        dcatv2:
+          - dct:subject pour un voc contrôlé
+          - dcat:keyword pour un mot-clé libre
+      spatial: {dcatv2: dct:spatial }
+      temporal: {dcatv2: dct:temporal }
+      issued: {dcatv2: dct:issued }
+      modified: {dcatv2: dct:modified }
+      created: {dcatv2: dct:created }
+      lineage: {dcatv2: dct:provenance }
+      scaleDenominator: {dcatv2: '???' }
+      spatialResolution: {dcatv2: dcat:spatialResolutionInMeters }
+      conformsTo: {dcatv2: dct:conformsTo }
+      conditionsToAccessAndUse:
+        dcatv2:
+          - dct:license si une licence est définie
+          - dct:rights sinon
+      limitationsOnPublicAccess: {dcatv2: dct:accessRights}
+      responsibleParty:
+        dcatv2: 
+          - dct:creator si c'est le créateur
+          - dct:publisher si c'est le publieur
+          - dcat:contactPoint sinon
+      mdContact: {dcatv2: dcat:contactPoint@dcat:CatalogRecord }
+      mdCreated:
+        dcatv2: 
+        - dct:issued@dcat:CatalogRecord pour la date de publication
+        - dct:modified@dcat:CatalogRecord pour la date de modification
+      mdLanguage: {dcatv2: en RDF la langue est définie dans le document}
+xx:

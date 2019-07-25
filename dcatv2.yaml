@@ -1,0 +1,42 @@
+title: projet de standard W3C DCAT v2
+source:
+  - https://www.w3.org/TR/vocab-dcat-2/
+$schema: http://ydclasses.georef.eu/YData/schema
+tables:
+  classes:
+    title: liste des classes
+    data:
+      dcat:Catalog:
+        definition: A curated collection of metadata about datasets and data services
+      dcat:Resource:
+        definition: Resource published or curated by a single agent.
+      dcat:CatalogRecord:
+        definition: A record in a catalog, describing the registration of a single dcat:Resource.
+      dcat:Dataset:
+        definition: A collection of data, published or curated by a single agent, and available for access or download in one or more representations.
+      dcat:Distribution:
+        definition: A specific representation of a dataset. A dataset might be available in multiple serializations that may differ in various ways, including natural language, media-type or format, schematic organization, temporal and spatial resolution, level of detail or profiles (which might specify any or all of the above). 
+      dcat:DataService:
+        definition: A collection of operations that provides access to one or more datasets or data processing functions.
+      skos:ConceptScheme:
+        definition: A knowledge organization system (KOS) used to represent themes/categories of datasets in the catalog.
+      skos:Concept:
+        definition: A category or a theme used to describe datasets in the catalog.
+      foaf:Person:
+        definition: a person
+      foaf:Organization:
+        definition: An organization
+      dcat:Relationship:
+        definition: An association class for attaching additional information to a relationship between DCAT Resources
+      dcat:Role:
+        definition: A role is the function of a resource or agent with respect to another resource, in the context of resource attribution or resource relationships.
+      dct:PeriodOfTime:
+        definition: An interval of time that is named or defined by its start and end.
+      dct:Location:
+        definition: A spatial region or named place.
+  dcat:Resource:
+    title: Resource published or curated by a single agent
+    data:
+      dct:accessRights:
+        definition: A rights statement that concerns how the resource is accessed.
+        

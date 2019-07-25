@@ -1,0 +1,24 @@
+title: BD TOPO v3
+creator: IGN
+abstract: |
+  
+  La carte correspondante peut être
+  [générée ici pour St Léger les Vignes, zoom 14](id.php/geodata/bdtopo3/map/display?latlon=47.135,-1.730&zoom=14).
+  
+  [erp](http://localhost/geoapi/gprie/wfs.php?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAMES=BDTOPO_V3_BETA:erp&OUTPUTFORMAT=application/json&SRSNAME=CRS:84&COUNT=100&STARTINDEX=0)
+  [cours_d_eau](http://localhost/geoapi/gprie/wfs.php?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAMES=BDTOPO_V3_BETA:cours_d_eau&OUTPUTFORMAT=application/json&SRSNAME=CRS:84&COUNT=100&STARTINDEX=0)
+  [cours_d_eau2](http://localhost/geoapi/gprie/wfs.php?SERVICE=WFS&REQUEST=GetFeature&VERSION=2.0.0&TYPENAMES=BDTOPO_V3_BETA:cours_d_eau&STARTINDEX=0&COUNT=100)
+    
+  
+$schema: http://ydclasses.georef.eu/FeatureDataset/schema
+wfsUrl: https://wxs.ign.fr/3j980d2491vfvr7pigjqdwqw/geoportail/wfs
+wfsOptions:
+  referer: http://gexplor.fr/
+minZoom: 13
+maxZoom: 21
+
+layersByTheme:
+  Thème_Services_et_activités:
+    erp:
+      title: ERP
+      typename: BDTOPO_V3_BETA:erp
