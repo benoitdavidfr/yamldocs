@@ -1,0 +1,240 @@
+name: essai d'un catalogue de données des ministères de l'environnement et des territoires
+abstract: |
+  Ce catalogue de données est structuré conformément principalement à schema.org.
+  Il est sérialisé en Yaml en utilisant les principes généraux dans le schéma http://ydclasses.georef.eu/YamlRdf/schema
+$schema: http://ydclasses.georef.eu/YamlRdf/schema
+namespaces:
+  dc: http://purl.org/dc/elements/1.1/
+  dcat: http://www.w3.org/ns/dcat#
+  dct: http://purl.org/dc/terms/
+  dctype: http://purl.org/dc/dcmitype/
+  foaf: http://xmlns.com/foaf/0.1/
+  geosparql: http://www.opengis.net/ont/geosparql#
+  owl: http://www.w3.org/2002/07/owl#
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  sdo: https://schema.org/
+  skos: http://www.w3.org/2004/02/skos/core#
+  vcard: http://www.w3.org/2006/vcard/ns#
+  w3cgeo: http://www.w3.org/2003/01/geo/wgs84_pos#
+  xsd: http://www.w3.org/2001/XMLSchema#
+classes:
+  - sdo:DataCatalog
+  - sdo:Dataset
+  - sdo:DataDownload
+properties:
+  a: rdf:type
+  name: sdo:name
+  creator:
+    id: sdo:creator
+    type: '@id'
+  description: sdo:description
+  theme:
+    id: dcat:theme
+    type: '@id'
+  keywords: sdo:keywords
+  spatial:
+    id: dct:spatial
+    type: '@id'
+  landingPage:
+    id: dcat:landingPage
+    type: '@id'
+  accessUrl:
+    id: dcat:accessUrl
+    type: '@id'
+  license:
+    id: sdo:license
+    type: '@id'
+  accessRights: dct:accessRights
+  dataset: sdo:dataset
+  distribution: sdo:distribution
+rootId: catalog
+
+a: sdo:DataCatalog
+
+dataset:
+  DonneesAQST:
+    a: sdo:Dataset
+    name: Données AQST
+    creator: http://id.georef.eu/organization/CGEDD/AQST
+    description: |
+      Des indicateurs statistiques de régularité et ponctualité, des causes de retard, etc. dans les modes de transports
+      aérien, ferroviaire, urbain, etc.
+      
+      La base est cumulative au sens où à chaque période temporelle régulière viennent s’ajouter de nouveaux éléments et
+      révisable au sens où de nouveaux indicateurs sont ajoutés au fur et à mesure de l’extension de la compétence de
+      l’AQST.
+      
+      Cela concerne la période : septembre 2011 à aujourd'hui.
+      
+      Des données mensuelles d’une liaison précise : nombre d’annulés, de retardés, de ponctuels, taux et durée moyenne
+      des retards au départ et à l’arrivée, etc. Des données agrégées sur l’ensemble des liaisons.
+      
+      Les données sont fournies par les transporteurs ou par l’administration comme dans le secteur aérien où c’est la DGAC
+      qui les transmet à l’AQST. La procédure de collecte et de diffusion des données se fonde sur une convention
+      bilatérale entre le fournisseur et l’AQST.
+      
+      La transparence de diffusion est la garantie du site de l’AQST.
+    theme: http://eurovoc.europa.eu/2494
+    keywords:
+      - régularité
+      - transport
+      - retard
+      - aérien
+      - ferroviaire
+    landingPage: http://www.qualitetransports.gouv.fr/les-chiffres-de-la-ponctualite-r2.html
+    license: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+    distribution:
+      siteInternet:
+        a: sdo:DataDownload
+        accessUrl: http://www.qualitetransports.gouv.fr/les-chiffres-de-la-ponctualite-r2.html
+  ASUR:
+    a: sdo:Dataset
+    name: Suivi des réclamations passagers (vols au départ ou arrivée en France) (ASUR)
+    creator: http://id.georef.eu/organization/DGAC
+    theme: http://eurovoc.europa.eu/4408
+    keywords:
+      - réclamation
+      - passager
+      - vol
+    accessRights: |
+      Données non communicables - données à caractère personnel et soumises au secret de procédures contentieuses
+  CALIPSO:
+    a: sdo:Dataset
+    name: CALIPSO
+    creator: http://id.georef.eu/organization/DGAC
+    description: |
+      Classification des avions légers selon indice de performance sonore à partir des informations transmises
+      par les propriétaires ou les aéroclubs
+    theme: http://eurovoc.europa.eu/4408
+    keywords:
+      - avion léger
+      - bruit
+    accessRights: Données non communicables - données à caractère personnel
+  ENPA:
+    a: sdo:Dataset
+    name: ENPA
+    creator: http://id.georef.eu/organization/DGAC
+    theme: http://eurovoc.europa.eu/4408
+    description: |
+      Enquête nationale auprès des passagers : détails vol (trajet, prix…) et voyage.
+      Il s'agit d'une enquête réalisée sur 15 aéroports français différents à chaque enquête.
+    accessRights: Données non communicables - données à caractère personnel
+  TARMAAC:
+    a: sdo:Dataset
+    name: Consommation carburant et émissions dans atmosphère du trafic aérien (TARMAAC)
+    creator: http://id.georef.eu/organization/DGAC
+    description: Ces données sont collectées auprès des aéroports français et éditeurs privés (modèles aéronefs).
+    theme: http://eurovoc.europa.eu/4408
+    keywords:
+      - consommation carburant
+    accessRights: Données sous secret commercial - diffusion de données agrégées
+  TRAFIC(DGAC):
+    a: sdo:Dataset
+    name: Données du trafic aérien commercial (trajet, transporteur, passagers, fret, …) collectées auprès des aéroports français (base TRAFIC)
+    creator: http://id.georef.eu/organization/DGAC
+    theme: http://eurovoc.europa.eu/4408
+    keywords:
+      - trafic aérien commercial
+      - fret
+      - passager
+    accessRights: Données sous secret commercial
+  PRIX(DGAC):
+    a: sdo:Dataset
+    name: Relevés tarifaires d'itinéraires AR au départ de la France (base PRIX)
+    creator: http://id.georef.eu/organization/DGAC
+    theme: http://eurovoc.europa.eu/4408
+    description: |
+      Cette base de données sur les prix est construite à partir de relevés tarifaires (tarif pour plus de 300 itinéraires AR au départ de France) automatisés sur le système de réservation Travelport et sur les sites internet des transporteurs.
+  TransporteursFR(DGAC):
+    a: sdo:Dataset
+    name: Liste des transporteurs aériens français (avec données sur entreprise) (base Transporteurs FR)
+    description: |
+      Cette liste est produite en interne DGAC (DSAC Inter Régionales)
+      Elle décrit environ 90 entreprises
+    creator: http://id.georef.eu/organization/DGAC
+    theme: http://eurovoc.europa.eu/4408
+    distribution:
+      interne:
+        name: base interne non diffusable
+        accessRights: données sous secret commercial
+      siteInternet:
+        a: sdo:DataDownload
+        name: version épurée publique diffusée sur Internet
+        license: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+  IMMAT:
+    a: sdo:Dataset
+    name: Immatriculation des aéronefs (données administratives et aéronef) - base IMMAT
+    creator: http://id.georef.eu/organization/DGAC
+    theme: http://eurovoc.europa.eu/4438
+    description: |
+      Ces données sont collectées auprès des propriétaires et OSAC (données techniques).
+      volumétrie: 16 000 aéronefs « vivants », 18 000 aéronefs radiés
+    keywords:
+      - immatriculation
+      - aéronef
+    accessRights: Confidentiel (données personnelles et commerciales)
+  CASCADE:
+    a: sdo:Dataset
+    name: Instruction des dossiers « Installations, ouvrages, travaux et aménagements soumis à la loi sur l’eau » (IOTA) - base CASCADE
+    creator: http://id.georef.eu/organization/DGALN/DEB
+    theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    keywords:
+      - eau
+      - installation
+      - ouvrage
+      - instruction
+      - travaux
+    accessRights: Confidentiel (données personnelles et commerciales)
+    spatial: https://www.geonames.org/3017382 - France
+  PROPLUVIA:
+    a: sdo:Dataset
+    name: Saisie et Publication des arrêtés de restriction d’eau (base PROPLUVIA)
+    creator: http://id.georef.eu/organization/DGALN/DEB
+    theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    keywords:
+      - arrêté
+      - eau
+      - retriction
+    distribution:
+      siteInternet:
+        a: sdo:DataDownload
+        name: version épurée publique diffusée sur Internet
+        license: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+        accessUrl: http://propluvia.developpement-durable.gouv.fr/
+  ROSEAU:
+    a: sdo:Dataset
+    name: Réseau organisé de la surveillance des eaux de l'assainissement urbain (ROSEAU)
+    creator: http://id.georef.eu/organization/DGALN/DEB
+    theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    keywords:
+      - eau
+      - surveillance
+      - assainissement
+      - urbain
+    accessRights: Réservée aux autorités françaises
+    spatial: https://www.geonames.org/3017382 - France
+  OSPC:
+    a: sdo:Dataset
+    name: outil suivi des plans de contrôle (OSPC)
+    creator: http://id.georef.eu/organization/DGALN/DEB
+    description: Planification des plans de contrôle annuels par département et saisie des contrôles réalisés
+    theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    keywords:
+      - plan de contrôle
+      - contrôle
+    accessRights: Réservée aux autorités françaises
+    spatial: https://www.geonames.org/3017382 - France
+  SILLAGE:
+    a: sdo:Dataset
+    name: Plans et campagnes d’épandages des boues issues du traitement des eaux usées (SILLAGE)
+    creator: http://id.georef.eu/organization/DGALN/DEB
+    description: Obligatoire depuis 01/01/2016
+    theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    keywords:
+      - épandage
+      - boue
+      - traitement
+      - eau usée
+    accessRights: Réservée aux autorités françaises et aux exploitants non agricoles
+    spatial: https://www.geonames.org/3017382 - France

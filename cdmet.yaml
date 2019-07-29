@@ -1,12 +1,7 @@
 title: essai d'un catalogue de données des ministères de l'environnement et des territoires
 abstract: |
   Ce catalogue de données est structuré conformément au standard DCAT v2 (https://www.w3.org/TR/vocab-dcat-2/).
-  Il est sérialisé en Yaml en utilisant les principes généraux suivants:
-    - namespaces contient la liste des espaces de noms avec pour chacun le prefix associé comme clé.
-    - classes contient un dictionnaire des classes utilisées (à voir)
-    - properties contient un dictionnaire des propriétés utilisées donnant la propriété complète
-    - resources contient un dictionnaire des ressources RDF.
-  
+  Il est sérialisé en Yaml en utilisant les principes généraux dans le schéma http://ydclasses.georef.eu/YamlRdf/schema
 $schema: http://ydclasses.georef.eu/YamlRdf/schema
 namespaces:
   dc: http://purl.org/dc/elements/1.1/
