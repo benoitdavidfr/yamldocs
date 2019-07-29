@@ -38,7 +38,9 @@ properties:
     id: dcat:theme
     type: '@id'
   keyword: dcat:keyword
-  spatial: dct:spatial
+  spatial:
+    id: dct:spatial
+    type: '@id'
   landingPage:
     id: dcat:landingPage
     type: '@id'
