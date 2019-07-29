@@ -1,4 +1,4 @@
-title: essai d'un catalogue de données du MTES
+title: essai d'un catalogue de données des ministères de l'environnement et des territoires
 abstract: |
   Ce catalogue de données est structuré conformément au standard DCAT v2 (https://www.w3.org/TR/vocab-dcat-2/).
   Il est sérialisé en Yaml en utilisant les principes généraux suivants:
@@ -28,9 +28,11 @@ classes:
   - dcat:Dataset
   - dcat:Distribution
 properties:
-  a: a
+  a: rdf:type
   title: dct:title
-  creator: dct:creator
+  creator:
+    '@id': dct:creator
+    '@type': '@id'
   description: dct:description
   theme: dcat:theme
   keyword: dcat:keyword
