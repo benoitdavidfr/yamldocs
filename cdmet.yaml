@@ -34,12 +34,20 @@ properties:
     id: dct:creator
     type: '@id'
   description: dct:description
-  theme: dcat:theme
+  theme:
+    id: dcat:theme
+    type: '@id'
   keyword: dcat:keyword
   spatial: dct:spatial
-  landingPage: dcat:landingPage
-  accessUrl: dcat:accessUrl
-  licence: dct:licence
+  landingPage:
+    id: dcat:landingPage
+    type: '@id'
+  accessUrl:
+    id: dcat:accessUrl
+    type: '@id'
+  licence:
+    id: dct:licence
+    type: '@id'
   accessRights: dct:accessRights
   dataset: dcat:dataset
   distribution: dcat:distribution
