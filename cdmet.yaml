@@ -25,6 +25,7 @@ classes:
   - dcat:Catalog
   - dcat:Dataset
   - dcat:Distribution
+  - dcat:DataService
 properties:
   a: rdf:type
   title: dct:title
@@ -48,12 +49,16 @@ properties:
   accessUrl:
     id: dcat:accessUrl
     type: '@id'
+  format: dct:format
   licence:
     id: dct:licence
     type: '@id'
   accessRights: dct:accessRights
   dataset: dcat:dataset
   distribution: dcat:distribution
+  accessService: dcat:accessService
+  endpointURL: dcat:endpointURL
+  
 rootId: catalog
 
 a: dcat:Catalog
@@ -236,301 +241,159 @@ dataset:
     a: dcat:Dataset
     title: Réseau organisé de la surveillance des eaux de l'assainissement urbain (ROSEAU)
     creator: http://id.georef.eu/organization/DGALN/DEB
-    theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    theme: http://eurovoc.europa.eu/2877 - assainissement
+    spatial: https://www.geonames.org/3017382 - France
     keyword:
       - eau
       - surveillance
       - assainissement
       - urbain
     accessRights: Réservée aux autorités françaises
-    spatial: https://www.geonames.org/3017382 - France
   OSPC:
     a: dcat:Dataset
     title: outil suivi des plans de contrôle (OSPC)
     creator: http://id.georef.eu/organization/DGALN/DEB
     description: Planification des plans de contrôle annuels par département et saisie des contrôles réalisés
     theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    spatial: https://www.geonames.org/3017382 - France
     keyword:
       - plan de contrôle
       - contrôle
     accessRights: Réservée aux autorités françaises
-    spatial: https://www.geonames.org/3017382 - France
   SILLAGE:
     a: dcat:Dataset
     title: Plans et campagnes d’épandages des boues issues du traitement des eaux usées (SILLAGE)
     creator: http://id.georef.eu/organization/DGALN/DEB
     description: Obligatoire depuis 01/01/2016
     theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    spatial: https://www.geonames.org/3017382 - France
     keyword:
       - épandage
       - boue
       - traitement
       - eau usée
     accessRights: Réservée aux autorités françaises et aux exploitants non agricoles
+  TELE-SILLAGE:
+    a: dcat:Dataset
+    title: "Déclarations flux d’azote pour les exploitants des régions ou départements suivants : Normandie, Bretagne, Poitou Charentes (TELE-SILLAGE)"
+    creator: http://id.georef.eu/organization/DGALN/DEB
+    description: |
+      Il s'agit des déclarations flux d’azote pour les exploitants des régions ou départements suivants :
+      Normandie, Bretagne, Poitou Charentes.
+    theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    spatial:
+      - https://www.geonames.org/11071621 - Normandie
+      - https://www.geonames.org/3030293 - Bretagne
+      - https://www.geonames.org/2986492 - Poitou-Charentes
+    keyword:
+      - azote
+      - exploitant
+    accessRights: Réservée exploitants non agricoles
+  OSMOSEv1:
+    a: dcat:Dataset
+    title: Référentiel commun pour définir les actions découlant des programmes de mesures (PDM) (base OSMOSE v1)
+    creator: http://id.georef.eu/organization/DGALN/DEB
+    theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
     spatial: https://www.geonames.org/3017382 - France
+    description: |
+      - rapportage européen et OK KO bon état masses d’eau
+      - synthèse différentes échelles géographiques
+      - PAOT
+    keyword:
+      - programme de mesure
+    accessRights: Réservée autorités françaises et européennes
+  portailAssainissementCommunal:
+    title: Portail d’information sur l’assainissement communal - Suivi des conformités des ouvrages d’assainissement
+    creator: http://id.georef.eu/organization/DGALN/DEB
+    theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    spatial: https://www.geonames.org/3017382 - France
+    description: |
+      Ce site met à disposition les dernières données collectées dans le cadre du suivi des mises en conformité des ouvrages
+      d'assainissement.
+      Notamment :
+        - les informations détaillées des stations de traitement des eaux usées des agglomérations d'assainissement du
+          territoire métropolitain et des départements d'outre-mer, ainsi que leurs niveaux de conformité au regard de la
+          directive «Eaux Résiduaires Urbaines» ;
+        - les informations et références documentaires relatives à la gestion des eaux pluviales urbaines ;
+        - le recueil des textes réglementaires de l'assainissement communal (collectif, pluvial, non-collectif) ;
+        - les services proposés par le portail (export de toutes les données, documents "types", suite logicielle ...).
+    keyword:
+      - conformité
+      - ouvrage
+      - assainissement
+    landingPage: http://assainissement.developpement-durable.gouv.fr/
+    licence: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+    distribution:
+      siteInternet:
+        a: dcat:Distribution
+        accessUrl: http://assainissement.developpement-durable.gouv.fr/
+        format:
+          - text/csv
+          - application/vnd.oasis.opendocument.spreadsheet
+          - https://www.opengeospatial.org/standards/wms
+          - https://www.opengeospatial.org/standards/wfs
+        accessService:
+          serviceWms:
+            a:
+              - dcat:DataService
+              - https://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/view
+            title: service WMS de consultation
+            endpointURL: http://services.sandre.eaufrance.fr/geo/odp_FRA?REQUEST=GetCapabilities&SERVICE=WMS
+          serviceWfs:
+            a:
+              - dcat:DataService
+              - https://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/download
+            title: service WFS
+            endpointURL: http://services.sandre.eaufrance.fr/geo/odp_FRA?REQUEST=GetCapabilities&SERVICE=WFS
+  www.deb.developpement-durable.gouv.fr/sig/geocoucou.php:
+    title: Portail des catalogues d’informations géographiques sur l’eau et la biodiversité (GéoCoucou)
+    creator: http://id.georef.eu/organization/DGALN/DEB
+    theme:
+      - http://eurovoc.europa.eu/2825 - protection de l'environnement
+      - http://eurovoc.europa.eu/c_98d1408a - politique de l'eau
+    spatial: https://www.geonames.org/3017382 - France
+    licence: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+    landingPage: http://www.deb.developpement-durable.gouv.fr/sig/geocoucou.php
+    distribution:
+      siteInternet:
+        a: dcat:Distribution
+        title: Catalogue sous la forme d'un site internet
+        accessUrl: http://www.deb.developpement-durable.gouv.fr/sig/geocoucou.php
+  ONAGRE:
+    title: Gestion de la procédure de demande dérogation à la réglementation espèce protégée (base ONAGRE)
+    creator: http://id.georef.eu/organization/DGALN/DEB
+    theme: http://eurovoc.europa.eu/865 - espèce protégée
+    spatial: https://www.geonames.org/3017382 - France
+    keyword:
+      - dérogation
+      - réglement
+      - espèce protégée
+    accessRights: Réservée aux autorités françaises
+  SINatura2000:
+    title: Gestion administrative des zones classées Natura2000
+    creator: http://id.georef.eu/organization/DGALN/DEB
+    theme: http://eurovoc.europa.eu/4801 - zone protégée
+    spatial: https://www.geonames.org/3017382 - France
+    keyword:
+      - zone classée
+      - Natura2000
+    accessRights: Réservée aux autorités françaises
+  ADOCWEB:
+    title: Suivi dossiers de gestion du domaine public maritime (base ADOCWEB)
+    creator: http://id.georef.eu/organization/DGALN/DEB
+    theme:
+      - http://eurovoc.europa.eu/2812 - propriété publique
+      - http://eurovoc.europa.eu/3992 - espace maritime
+    spatial: https://www.geonames.org/3017382 - France
+    keyword:
+      - domaine public maritime
+      - https://fr.wikipedia.org/wiki/Domaine_public_maritime_français
+    accessRights: Réservée aux autorités françaises
 
-
-
-
+    
 
 
 source: |
-  {
-    "TYPE_ENTITE": "Administration centrale",
-    "NOM_ENTITE": "DGALN / DEB",
-    "NOM_BASE": "TELE-SILLAGE",
-    "DESCRIPTIF_COURT": "Déclarations flux d’azote pour les exploitants des régions ou départements suivants : Normandie, Bretagne, Poitou Charentes",
-    "DESCRIPTIF_LONG": "Il s'agit des déclarations flux d’azote pour les exploitants des régions ou départements suivants : Normandie, Bretagne, Poitou Charentes.",
-    "POLPUBLIQUE": "",
-    "STATUT": "Non vérifié",
-    "MOTS_CLEFS": "azote ; exploitant",
-    "ORIGINE": "",
-    "EXTENSION": "",
-    "COUV_GEO": "Interrégional",
-    "PROD_TEMPS": "",
-    "VOLUMETRIE": "",
-    "SOCLE_TECH": "Accès via internet",
-    "MOE": "",
-    "EFFORT_EXPORT": "",
-    "CONFIDENTIALITE": "Réservée exploitants non agricoles",
-    "SENSIBILITE": "",
-    "DIFFUSION_ACTUELLE": "Aucune",
-    "PERSP_OPENDATA": "",
-    "EFFORT_REUSE": "",
-    "URL_DATA": "",
-    "LICENCE": "",
-    "FORMATS": "",
-    "PERIODICITE": "",
-    "NOMBRE": "",
-    "OBS": "",
-    "QUALITE": 41,
-    "QUALITE_OPENDATA": 1,
-    "DATEMAJ": "27/02/2017"
-  },
-  {
-    "TYPE_ENTITE": "Administration centrale",
-    "NOM_ENTITE": "DGALN / DEB",
-    "NOM_BASE": "OSMOSE v1",
-    "DESCRIPTIF_COURT": "Référentiel commun pour définir les actions découlant des programmes de mesures (PDM)",
-    "DESCRIPTIF_LONG": "- rapportage européen et OK KO bon état masses d’eau\n- synthèse différentes échelles géographiques\n- PAOT",
-    "POLPUBLIQUE": "",
-    "STATUT": "Non vérifié",
-    "MOTS_CLEFS": "programme de mesure",
-    "ORIGINE": "",
-    "EXTENSION": "",
-    "COUV_GEO": "France entière",
-    "PROD_TEMPS": "",
-    "VOLUMETRIE": "",
-    "SOCLE_TECH": "Accès via internet",
-    "MOE": "",
-    "EFFORT_EXPORT": "",
-    "CONFIDENTIALITE": "Réservée autorités françaises et européennes",
-    "SENSIBILITE": "",
-    "DIFFUSION_ACTUELLE": "Aucune",
-    "PERSP_OPENDATA": "",
-    "EFFORT_REUSE": "",
-    "URL_DATA": "",
-    "LICENCE": "",
-    "FORMATS": "",
-    "PERIODICITE": "",
-    "NOMBRE": "",
-    "OBS": "",
-    "QUALITE": 41,
-    "QUALITE_OPENDATA": 1,
-    "DATEMAJ": "27/02/2017"
-  },
-  {
-    "TYPE_ENTITE": "Administration centrale",
-    "NOM_ENTITE": "DGALN / DEB",
-    "NOM_BASE": "Portail d’information sur l’assainissement communal",
-    "DESCRIPTIF_COURT": "Suivi des conformités des ouvrages d’assainissement",
-    "DESCRIPTIF_LONG": "Ce site met à disposition les dernières données collectées dans le cadre du suivi des mises en conformité des ouvrages d'assainissement. \nNotamment :\n- les informations détaillées des stations de traitement des eaux usées des agglomérations d'assainissement du territoire métropolitain et des départements d'outre-mer, ainsi que leurs niveaux de conformité au regard de la directive «Eaux Résiduaires Urbaines» ;\n- les informations et références documentaires relatives à la gestion des eaux pluviales urbaines ;\n- le recueil des textes réglementaires de l'assainissement communal (collectif, pluvial, non-collectif) ;\n- les services proposés par le portail (export de toutes les données, documents \"types\", suite logicielle ...).",
-    "POLPUBLIQUE": "Eau",
-    "STATUT": "Vérifié",
-    "MOTS_CLEFS": "conformité ; ouvrage ; assainissement",
-    "ORIGINE": "",
-    "EXTENSION": "",
-    "COUV_GEO": "France entière",
-    "PROD_TEMPS": "2009 à 2015",
-    "VOLUMETRIE": "",
-    "SOCLE_TECH": "Accès via internet",
-    "MOE": "",
-    "EFFORT_EXPORT": "",
-    "CONFIDENTIALITE": "Accès libre Utilisation grand public",
-    "SENSIBILITE": "Données publiques",
-    "DIFFUSION_ACTUELLE": "Données détaillées",
-    "PERSP_OPENDATA": "",
-    "EFFORT_REUSE": "Moyen",
-    "URL_DATA": "http://assainissement.developpement-durable.gouv.fr",
-    "LICENCE": "Licence ouverte / Open Data Commons Open Database License (ODbL)",
-    "FORMATS": "CSV ; ODS ; WMS ; WFS",
-    "PERIODICITE": "",
-    "NOMBRE": "",
-    "OBS": "",
-    "QUALITE": 67,
-    "QUALITE_OPENDATA": 3,
-    "DATEMAJ": "27/02/2017"
-  },
-  {
-    "TYPE_ENTITE": "Administration centrale",
-    "NOM_ENTITE": "DGALN / DEB",
-    "NOM_BASE": "Géocoucou (hors sujet idem données ROSEAU)",
-    "DESCRIPTIF_COURT": "Portail des catalogues d’informations géographiques sur l’eau et la biodiversité",
-    "DESCRIPTIF_LONG": "",
-    "POLPUBLIQUE": "",
-    "STATUT": "Non vérifié",
-    "MOTS_CLEFS": "eau ; biodiversité",
-    "ORIGINE": "",
-    "EXTENSION": "",
-    "COUV_GEO": "France métropolitaine",
-    "PROD_TEMPS": "",
-    "VOLUMETRIE": "",
-    "SOCLE_TECH": "Accès via internet",
-    "MOE": "",
-    "EFFORT_EXPORT": "",
-    "CONFIDENTIALITE": "Accès libre Utilisation grand public",
-    "SENSIBILITE": "Données publiques",
-    "DIFFUSION_ACTUELLE": "Oui à préciser",
-    "PERSP_OPENDATA": "",
-    "EFFORT_REUSE": "",
-    "URL_DATA": "",
-    "LICENCE": "",
-    "FORMATS": "",
-    "PERIODICITE": "",
-    "NOMBRE": "",
-    "OBS": "",
-    "QUALITE": 41,
-    "QUALITE_OPENDATA": 1,
-    "DATEMAJ": "27/02/2017"
-  },
-  {
-    "TYPE_ENTITE": "Administration centrale",
-    "NOM_ENTITE": "DGALN / DEB",
-    "NOM_BASE": "I-CITES",
-    "DESCRIPTIF_COURT": "Instruction, délivrance, suivi des permis et certificats règlement CITES",
-    "DESCRIPTIF_LONG": "",
-    "POLPUBLIQUE": "",
-    "STATUT": "Non vérifié",
-    "MOTS_CLEFS": "permis ; certificat ; CITES",
-    "ORIGINE": "",
-    "EXTENSION": "",
-    "COUV_GEO": "France métropolitaine",
-    "PROD_TEMPS": "",
-    "VOLUMETRIE": "",
-    "SOCLE_TECH": "Accès via internet",
-    "MOE": "",
-    "EFFORT_EXPORT": "",
-    "CONFIDENTIALITE": "",
-    "SENSIBILITE": "Données publiques",
-    "DIFFUSION_ACTUELLE": "Oui à préciser",
-    "PERSP_OPENDATA": "",
-    "EFFORT_REUSE": "Difficile",
-    "URL_DATA": "https://cites.application.developpement-durable.gouv.fr/accueilInternaute.do",
-    "LICENCE": "",
-    "FORMATS": "HTML",
-    "PERIODICITE": "",
-    "NOMBRE": "",
-    "OBS": "",
-    "QUALITE": 48,
-    "QUALITE_OPENDATA": 1,
-    "DATEMAJ": "27/02/2017"
-  },
-  {
-    "TYPE_ENTITE": "Administration centrale",
-    "NOM_ENTITE": "DGALN / DEB",
-    "NOM_BASE": "ONAGRE",
-    "DESCRIPTIF_COURT": "Gestion de la procédure de demande dérogation à la réglementation espèce protégée-",
-    "DESCRIPTIF_LONG": "",
-    "POLPUBLIQUE": "",
-    "STATUT": "Non vérifié",
-    "MOTS_CLEFS": "dérogation ; réglement ; espèce protégée",
-    "ORIGINE": "",
-    "EXTENSION": "",
-    "COUV_GEO": "France entière",
-    "PROD_TEMPS": "",
-    "VOLUMETRIE": "",
-    "SOCLE_TECH": "Accès limité au réseau interministériel",
-    "MOE": "",
-    "EFFORT_EXPORT": "",
-    "CONFIDENTIALITE": "Réservée autorités françaises",
-    "SENSIBILITE": "",
-    "DIFFUSION_ACTUELLE": "Aucune",
-    "PERSP_OPENDATA": "",
-    "EFFORT_REUSE": "",
-    "URL_DATA": "",
-    "LICENCE": "",
-    "FORMATS": "",
-    "PERIODICITE": "",
-    "NOMBRE": "",
-    "OBS": "",
-    "QUALITE": 37,
-    "QUALITE_OPENDATA": 1,
-    "DATEMAJ": "27/02/2017"
-  },
-  {
-    "TYPE_ENTITE": "Administration centrale",
-    "NOM_ENTITE": "DGALN / DEB",
-    "NOM_BASE": "SIN2",
-    "DESCRIPTIF_COURT": "Gestion administrative des zones classées Natura2000",
-    "DESCRIPTIF_LONG": "",
-    "POLPUBLIQUE": "",
-    "STATUT": "Non vérifié",
-    "MOTS_CLEFS": "zone classée ; Natura2000",
-    "ORIGINE": "",
-    "EXTENSION": "",
-    "COUV_GEO": "France métropolitaine",
-    "PROD_TEMPS": "",
-    "VOLUMETRIE": "",
-    "SOCLE_TECH": "Accès via internet",
-    "MOE": "",
-    "EFFORT_EXPORT": "",
-    "CONFIDENTIALITE": "Réservée autorités françaises",
-    "SENSIBILITE": "",
-    "DIFFUSION_ACTUELLE": "Aucune",
-    "PERSP_OPENDATA": "",
-    "EFFORT_REUSE": "",
-    "URL_DATA": "",
-    "LICENCE": "",
-    "FORMATS": "",
-    "PERIODICITE": "",
-    "NOMBRE": "",
-    "OBS": "",
-    "QUALITE": 37,
-    "QUALITE_OPENDATA": 1,
-    "DATEMAJ": "27/02/2017"
-  },
-  {
-    "TYPE_ENTITE": "Administration centrale",
-    "NOM_ENTITE": "DGALN / DEB",
-    "NOM_BASE": "ADOCWEB",
-    "DESCRIPTIF_COURT": "Suivi dossiers de gestion du domaine public maritime-",
-    "DESCRIPTIF_LONG": "",
-    "POLPUBLIQUE": "",
-    "STATUT": "Non vérifié",
-    "MOTS_CLEFS": "",
-    "ORIGINE": "",
-    "EXTENSION": "",
-    "COUV_GEO": "France entière",
-    "PROD_TEMPS": "",
-    "VOLUMETRIE": "",
-    "SOCLE_TECH": "intranet",
-    "MOE": "",
-    "EFFORT_EXPORT": "",
-    "CONFIDENTIALITE": "Réservée autorités françaises",
-    "SENSIBILITE": "",
-    "DIFFUSION_ACTUELLE": "Aucune",
-    "PERSP_OPENDATA": "",
-    "EFFORT_REUSE": "",
-    "URL_DATA": "",
-    "LICENCE": "",
-    "FORMATS": "",
-    "PERIODICITE": "",
-    "NOMBRE": "",
-    "OBS": "",
-    "QUALITE": 33,
-    "QUALITE_OPENDATA": 1,
-    "DATEMAJ": "27/02/2017"
-  },
   {
     "TYPE_ENTITE": "Administration centrale",
     "NOM_ENTITE": "DGALN / DEB",
