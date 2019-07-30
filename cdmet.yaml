@@ -321,6 +321,7 @@ dataset:
       - programme de mesure
     accessRights: Réservée autorités françaises et européennes
   portailAssainissementCommunal:
+    a: dcat:Dataset
     title: Portail d’information sur l’assainissement communal - Suivi des conformités des ouvrages d’assainissement
     language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
@@ -365,6 +366,7 @@ dataset:
             title: service WFS
             endpointURL: http://services.sandre.eaufrance.fr/geo/odp_FRA?REQUEST=GetCapabilities&SERVICE=WFS
   www.deb.developpement-durable.gouv.fr-sig-geocoucou:
+    a: dcat:Dataset
     title: Portail des catalogues d’informations géographiques sur l’eau et la biodiversité (GéoCoucou)
     language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
@@ -380,6 +382,7 @@ dataset:
         title: Catalogue sous la forme d'un site internet
         accessUrl: http://www.deb.developpement-durable.gouv.fr/sig/geocoucou.php
   ONAGRE:
+    a: dcat:Dataset
     title: Gestion de la procédure de demande dérogation à la réglementation espèce protégée (base ONAGRE)
     language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
@@ -391,6 +394,7 @@ dataset:
       - espèce protégée
     accessRights: Réservée aux autorités françaises
   SINatura2000:
+    a: dcat:Dataset
     title: Gestion administrative des zones classées Natura2000
     language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
@@ -401,6 +405,7 @@ dataset:
       - Natura2000
     accessRights: Réservée aux autorités françaises
   ADOCWEB:
+    a: dcat:Dataset
     title: Suivi dossiers de gestion du domaine public maritime (base ADOCWEB)
     language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
@@ -412,139 +417,58 @@ dataset:
       - domaine public maritime
       - https://fr.wikipedia.org/wiki/Domaine_public_maritime_français
     accessRights: Réservée aux autorités françaises
-
-    
+  QUADRIGE2:
+    a: dcat:Dataset
+    title: Qualité de l’environnement du milieu marin littoral (base QUADRIGE2)
+    language: fr
+    description: |
+      saisie, bancarisation de données brutes (bio, chimique) pour les réseaux de surveillance des eaux côtières et transition
+    creator: http://id.georef.eu/organization/Ifremer
+    theme: http://eurovoc.europa.eu/6404 - écosystème marin
+    landingPage: http://quadrige.eaufrance.fr/
+  SEXTANT:
+    a: dcat:Dataset
+    title: Outil cartographique des données thématiques (SEXTANT)
+    language: fr
+    description: |
+      Cette base concerne les thèmes suivants :
+        - Environnement
+        - Aquaculture
+        - Halieutique
+        - Géosciences
+        - Physique de l’océan
+    creator: http://id.georef.eu/organization/Ifremer
+    theme: http://eurovoc.europa.eu/6404 - écosystème marin
+    landingPage: https://sextant.ifremer.fr/
+  SURVAL:
+    a: dcat:Dataset
+    title: Outil cartographique des données thématiques (SURVAL)
+    language: fr
+    description: |
+      Cette base concerne les thèmes suivants :
+        - Environnement
+        - Aquaculture
+        - Halieutique
+        - Géosciences
+        - Physique de l’océan
+    creator: http://id.georef.eu/organization/Ifremer
+    theme: http://eurovoc.europa.eu/6404 - écosystème marin
+    landingPage: https://wwz.ifremer.fr/surval/
+  GEOLITTORAL:
+    a: dcat:Dataset
+    title: Géolittoral - portail des données sur la mer et le littoral du Ministère en charge de l’environnement et de la mer
+    language: fr
+    description: |
+      Géolittoral diffuse notamment les données géographiques produites dans le cadre de l’accomplissement des politiques
+      publiques portées par le Ministère et a vocation à couvrir la totalité des espaces maritimes et littoraux français.
+      Il met également à disposition des informations et des documents de nature à expliciter ces politiques et leur mise
+      en œuvre.
+    creator: http://id.georef.eu/organization/Cerema
+    theme: http://eurovoc.europa.eu/3142 - protection du littoral
+    landingPage: http://www.geolittoral.developpement-durable.gouv.fr/
 
 
 source: |
-  {
-    "TYPE_ENTITE": "Administration centrale",
-    "NOM_ENTITE": "DGALN / DEB",
-    "NOM_BASE": "QUADRIGE2",
-    "DESCRIPTIF_COURT": "Qualité de l’environnement du milieu marin littoral- saisie, bancarisation de données brutes (bio, chimique) pour les réseaux de surveillance des eaux côtières et transition-)",
-    "DESCRIPTIF_LONG": "",
-    "POLPUBLIQUE": "",
-    "STATUT": "Non vérifié",
-    "MOTS_CLEFS": "",
-    "ORIGINE": "",
-    "EXTENSION": "",
-    "COUV_GEO": "",
-    "PROD_TEMPS": "",
-    "VOLUMETRIE": "",
-    "SOCLE_TECH": "",
-    "MOE": "Voir IFREMER",
-    "EFFORT_EXPORT": "",
-    "CONFIDENTIALITE": "",
-    "SENSIBILITE": "Données publiques",
-    "DIFFUSION_ACTUELLE": "Oui à préciser",
-    "PERSP_OPENDATA": "",
-    "EFFORT_REUSE": "",
-    "URL_DATA": "",
-    "LICENCE": "",
-    "FORMATS": "",
-    "PERIODICITE": "",
-    "NOMBRE": "",
-    "OBS": "la maîtrise d’ouvrage opérationnelle est assurée par un établissement public",
-    "QUALITE": 33,
-    "QUALITE_OPENDATA": 1,
-    "DATEMAJ": "27/02/2017"
-  },
-  {
-    "TYPE_ENTITE": "Administration centrale",
-    "NOM_ENTITE": "DGALN / DEB",
-    "NOM_BASE": "SEXTANT",
-    "DESCRIPTIF_COURT": "Outil cartographique des données thématiques",
-    "DESCRIPTIF_LONG": "Cette base concerne les thèmes suivants :\n- Environnement\n- Aquaculture\n- Halieutique\n- Géosciences\n- Physique de l’océan",
-    "POLPUBLIQUE": "",
-    "STATUT": "A vérifiier par Mohssine",
-    "MOTS_CLEFS": "",
-    "ORIGINE": "",
-    "EXTENSION": "",
-    "COUV_GEO": "",
-    "PROD_TEMPS": "",
-    "VOLUMETRIE": "",
-    "SOCLE_TECH": "",
-    "MOE": "Voir IFREMER",
-    "EFFORT_EXPORT": "",
-    "CONFIDENTIALITE": "",
-    "SENSIBILITE": "Données publiques",
-    "DIFFUSION_ACTUELLE": "Oui à préciser",
-    "PERSP_OPENDATA": "",
-    "EFFORT_REUSE": "",
-    "URL_DATA": "",
-    "LICENCE": "",
-    "FORMATS": "",
-    "PERIODICITE": "",
-    "NOMBRE": "",
-    "OBS": "la maîtrise d’ouvrage opérationnelle est assurée par un établissement public",
-    "QUALITE": 37,
-    "QUALITE_OPENDATA": 1,
-    "DATEMAJ": "27/02/2017"
-  },
-  {
-    "TYPE_ENTITE": "Administration centrale",
-    "NOM_ENTITE": "DGALN / DEB",
-    "NOM_BASE": "SURVAL",
-    "DESCRIPTIF_COURT": "Outil cartographique des données thématiques",
-    "DESCRIPTIF_LONG": "Cette base concerne les thèmes suivants :\n- Environnement\n- Aquaculture\n- Halieutique\n- Géosciences\n- Physique de l’océan",
-    "POLPUBLIQUE": "",
-    "STATUT": "A vérifiier par Mohssine",
-    "MOTS_CLEFS": "",
-    "ORIGINE": "",
-    "EXTENSION": "",
-    "COUV_GEO": "",
-    "PROD_TEMPS": "",
-    "VOLUMETRIE": "",
-    "SOCLE_TECH": "",
-    "MOE": "Voir IFREMER",
-    "EFFORT_EXPORT": "",
-    "CONFIDENTIALITE": "",
-    "SENSIBILITE": "Données publiques",
-    "DIFFUSION_ACTUELLE": "Oui à préciser",
-    "PERSP_OPENDATA": "",
-    "EFFORT_REUSE": "",
-    "URL_DATA": "",
-    "LICENCE": "",
-    "FORMATS": "",
-    "PERIODICITE": "",
-    "NOMBRE": "",
-    "OBS": "la maîtrise d’ouvrage opérationnelle est assurée par un établissement public",
-    "QUALITE": 37,
-    "QUALITE_OPENDATA": 1,
-    "DATEMAJ": "27/02/2017"
-  },
-  {
-    "TYPE_ENTITE": "Administration centrale",
-    "NOM_ENTITE": "DGALN / DEB",
-    "NOM_BASE": "GEOLITTORAL",
-    "DESCRIPTIF_COURT": "SIG littoral ortho-photo",
-    "DESCRIPTIF_LONG": "SIG littoral ortho-photo -- images raster/images (ortho-littorales)-- vecteur (EMR, érosion cotière et dynamique et évolution du littoral, occupation du sol, sentier du littoral, vulnérabilité aux risques littoraux)",
-    "POLPUBLIQUE": "",
-    "STATUT": "Non vérifié",
-    "MOTS_CLEFS": "",
-    "ORIGINE": "",
-    "EXTENSION": "",
-    "COUV_GEO": "",
-    "PROD_TEMPS": "",
-    "VOLUMETRIE": "",
-    "SOCLE_TECH": "",
-    "MOE": "Voir ONEMA",
-    "EFFORT_EXPORT": "",
-    "CONFIDENTIALITE": "",
-    "SENSIBILITE": "Données publiques",
-    "DIFFUSION_ACTUELLE": "Oui à préciser",
-    "PERSP_OPENDATA": "",
-    "EFFORT_REUSE": "",
-    "URL_DATA": "",
-    "LICENCE": "",
-    "FORMATS": "",
-    "PERIODICITE": "",
-    "NOMBRE": "",
-    "OBS": "la maîtrise d’ouvrage opérationnelle est assurée par un établissement public",
-    "QUALITE": 37,
-    "QUALITE_OPENDATA": 1,
-    "DATEMAJ": "27/02/2017"
-  },
   {
     "TYPE_ENTITE": "Administration centrale",
     "NOM_ENTITE": "DGALN / DEB",
