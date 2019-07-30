@@ -1,8 +1,8 @@
 title: essai d'un catalogue de données des ministères de l'environnement et des territoires
 description: |
-  Essai d'un catalogue de données structuré conformément au standard DCAT v2 (https://www.w3.org/TR/vocab-dcat-2/).
-  Il reprend les données décrites https://mtes-mct.github.io/dataroom/ et les structure en utilisant DCAT.
-  Il utilise le thésaurus EuroVoc (https://eur-lex.europa.eu/browse/eurovoc.html?locale=fr)
+  Essai d'un catalogue de données structuré conformément au standard DCAT v2 (https://www.w3.org/TR/vocab-dcat-2/)
+  reprenant les données décrites dans https://mtes-mct.github.io/dataroom/ et les structurant en utilisant DCAT,
+  le thésaurus EuroVoc (https://eur-lex.europa.eu/browse/eurovoc.html?locale=fr)
   et Geonames (https://www.geonames.org/) pour l'indexation spatiale.
   Il est exposé en JSON-LD.
 $schema: http://ydclasses.georef.eu/YamlRdf/schema
@@ -29,6 +29,7 @@ classes:
 properties:
   a: rdf:type
   title: dct:title
+  language: dct:language
   creator:
     id: dct:creator
     type: '@id'
@@ -62,6 +63,7 @@ properties:
 rootId: catalog
 
 a: dcat:Catalog
+language: fr
 themeTaxonomy: http://eurovoc.europa.eu/100141 - EuroVoc
 theme:
   - http://eurovoc.europa.eu/2470 - politique de l'environnement
@@ -77,6 +79,7 @@ dataset:
   DonneesAQST:
     a: dcat:Dataset
     title: Données AQST
+    language: fr
     creator: http://id.georef.eu/organization/CGEDD/AQST
     description: |
       Des indicateurs statistiques de régularité et ponctualité, des causes de retard, etc. dans les modes de transports
@@ -113,6 +116,7 @@ dataset:
   ASUR:
     a: dcat:Dataset
     title: Suivi des réclamations passagers (vols au départ ou arrivée en France) (ASUR)
+    language: fr
     creator: http://id.georef.eu/organization/DGAC
     theme: http://eurovoc.europa.eu/4408 - aviation civile
     spatial: https://www.geonames.org/3017382 - France
@@ -125,6 +129,7 @@ dataset:
   CALIPSO:
     a: dcat:Dataset
     title: CALIPSO
+    language: fr
     creator: http://id.georef.eu/organization/DGAC
     description: |
       Classification des avions légers selon indice de performance sonore à partir des informations transmises
@@ -140,6 +145,7 @@ dataset:
   ENPA:
     a: dcat:Dataset
     title: Enquête nationale auprès des passagers (base ENPA)
+    language: fr
     creator: http://id.georef.eu/organization/DGAC
     theme: http://eurovoc.europa.eu/4408 - aviation civile
     spatial: https://www.geonames.org/3017382 - France
@@ -150,6 +156,7 @@ dataset:
   TARMAAC:
     a: dcat:Dataset
     title: Consommation carburant et émissions dans atmosphère du trafic aérien (TARMAAC)
+    language: fr
     creator: http://id.georef.eu/organization/DGAC
     description: Ces données sont collectées auprès des aéroports français et éditeurs privés (modèles aéronefs).
     theme: http://eurovoc.europa.eu/4408 - aviation civile
@@ -159,6 +166,7 @@ dataset:
   TRAFIC(DGAC):
     a: dcat:Dataset
     title: Données du trafic aérien commercial (base TRAFIC)
+    language: fr
     description: |
       Données du trafic aérien commercial (trajet, transporteur, passagers, fret, …) collectées auprès des aéroports français
     creator: http://id.georef.eu/organization/DGAC
@@ -172,6 +180,7 @@ dataset:
   PRIX(DGAC):
     a: dcat:Dataset
     title: Relevés tarifaires d'itinéraires AR au départ de la France (base PRIX)
+    language: fr
     creator: http://id.georef.eu/organization/DGAC
     theme: http://eurovoc.europa.eu/4408 - aviation civile
     spatial: https://www.geonames.org/3017382 - France
@@ -181,6 +190,7 @@ dataset:
   TransporteursFR(DGAC):
     a: dcat:Dataset
     title: Liste des transporteurs aériens français (avec données sur entreprise) (base Transporteurs FR)
+    language: fr
     description: |
       Cette liste est produite en interne DGAC (DSAC Inter Régionales)
       Elle décrit environ 90 entreprises
@@ -199,6 +209,7 @@ dataset:
   IMMAT:
     a: dcat:Dataset
     title: Immatriculation des aéronefs (données administratives et aéronef) - base IMMAT
+    language: fr
     creator: http://id.georef.eu/organization/DGAC
     theme: http://eurovoc.europa.eu/4438 - avion
     description: |
@@ -211,6 +222,7 @@ dataset:
   CASCADE:
     a: dcat:Dataset
     title: Instruction des dossiers « Installations, ouvrages, travaux et aménagements soumis à la loi sur l’eau » (IOTA) - base CASCADE
+    language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
     theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
     spatial: https://www.geonames.org/3017382 - France
@@ -224,6 +236,7 @@ dataset:
   PROPLUVIA:
     a: dcat:Dataset
     title: Saisie et Publication des arrêtés de restriction d’eau (base PROPLUVIA)
+    language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
     theme: http://eurovoc.europa.eu/3535 - ressource en eau
     spatial: https://www.geonames.org/3017382 - France
@@ -240,6 +253,7 @@ dataset:
   ROSEAU:
     a: dcat:Dataset
     title: Réseau organisé de la surveillance des eaux de l'assainissement urbain (ROSEAU)
+    language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
     theme: http://eurovoc.europa.eu/2877 - assainissement
     spatial: https://www.geonames.org/3017382 - France
@@ -252,6 +266,7 @@ dataset:
   OSPC:
     a: dcat:Dataset
     title: outil suivi des plans de contrôle (OSPC)
+    language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
     description: Planification des plans de contrôle annuels par département et saisie des contrôles réalisés
     theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
@@ -263,6 +278,7 @@ dataset:
   SILLAGE:
     a: dcat:Dataset
     title: Plans et campagnes d’épandages des boues issues du traitement des eaux usées (SILLAGE)
+    language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
     description: Obligatoire depuis 01/01/2016
     theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
@@ -276,6 +292,7 @@ dataset:
   TELE-SILLAGE:
     a: dcat:Dataset
     title: "Déclarations flux d’azote pour les exploitants des régions ou départements suivants : Normandie, Bretagne, Poitou Charentes (TELE-SILLAGE)"
+    language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
     description: |
       Il s'agit des déclarations flux d’azote pour les exploitants des régions ou départements suivants :
@@ -292,6 +309,7 @@ dataset:
   OSMOSEv1:
     a: dcat:Dataset
     title: Référentiel commun pour définir les actions découlant des programmes de mesures (PDM) (base OSMOSE v1)
+    language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
     theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
     spatial: https://www.geonames.org/3017382 - France
@@ -304,6 +322,7 @@ dataset:
     accessRights: Réservée autorités françaises et européennes
   portailAssainissementCommunal:
     title: Portail d’information sur l’assainissement communal - Suivi des conformités des ouvrages d’assainissement
+    language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
     theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
     spatial: https://www.geonames.org/3017382 - France
@@ -345,8 +364,9 @@ dataset:
               - https://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/download
             title: service WFS
             endpointURL: http://services.sandre.eaufrance.fr/geo/odp_FRA?REQUEST=GetCapabilities&SERVICE=WFS
-  www.deb.developpement-durable.gouv.fr/sig/geocoucou.php:
+  www.deb.developpement-durable.gouv.fr-sig-geocoucou:
     title: Portail des catalogues d’informations géographiques sur l’eau et la biodiversité (GéoCoucou)
+    language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
     theme:
       - http://eurovoc.europa.eu/2825 - protection de l'environnement
@@ -361,6 +381,7 @@ dataset:
         accessUrl: http://www.deb.developpement-durable.gouv.fr/sig/geocoucou.php
   ONAGRE:
     title: Gestion de la procédure de demande dérogation à la réglementation espèce protégée (base ONAGRE)
+    language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
     theme: http://eurovoc.europa.eu/865 - espèce protégée
     spatial: https://www.geonames.org/3017382 - France
@@ -371,6 +392,7 @@ dataset:
     accessRights: Réservée aux autorités françaises
   SINatura2000:
     title: Gestion administrative des zones classées Natura2000
+    language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
     theme: http://eurovoc.europa.eu/4801 - zone protégée
     spatial: https://www.geonames.org/3017382 - France
@@ -380,6 +402,7 @@ dataset:
     accessRights: Réservée aux autorités françaises
   ADOCWEB:
     title: Suivi dossiers de gestion du domaine public maritime (base ADOCWEB)
+    language: fr
     creator: http://id.georef.eu/organization/DGALN/DEB
     theme:
       - http://eurovoc.europa.eu/2812 - propriété publique
