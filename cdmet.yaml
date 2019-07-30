@@ -1,7 +1,10 @@
 title: essai d'un catalogue de données des ministères de l'environnement et des territoires
-abstract: |
-  Ce catalogue de données est structuré conformément au standard DCAT v2 (https://www.w3.org/TR/vocab-dcat-2/).
-  Il est sérialisé en Yaml en utilisant les principes généraux dans le schéma http://ydclasses.georef.eu/YamlRdf/schema
+description: |
+  Essai d'un catalogue de données structuré conformément au standard DCAT v2 (https://www.w3.org/TR/vocab-dcat-2/).
+  Il reprend les données décrites https://mtes-mct.github.io/dataroom/ et les structure en utilisant DCAT.
+  Il utilise le thésaurus EuroVoc (https://eur-lex.europa.eu/browse/eurovoc.html?locale=fr)
+  et Geonames (https://www.geonames.org/) pour l'indexation spatiale.
+  Il est exposé en JSON-LD.
 $schema: http://ydclasses.georef.eu/YamlRdf/schema
 namespaces:
   dc: http://purl.org/dc/elements/1.1/
@@ -29,6 +32,9 @@ properties:
     id: dct:creator
     type: '@id'
   description: dct:description
+  themeTaxonomy:
+    id: dcat:themeTaxonomy
+    type: '@id'
   theme:
     id: dcat:theme
     type: '@id'
@@ -51,6 +57,16 @@ properties:
 rootId: catalog
 
 a: dcat:Catalog
+themeTaxonomy: http://eurovoc.europa.eu/100141 - EuroVoc
+theme:
+  - http://eurovoc.europa.eu/2470 - politique de l'environnement
+  - http://eurovoc.europa.eu/4074 - prévention des risques pour l'environnement
+  - http://eurovoc.europa.eu/2494 - politique des transports
+  - http://eurovoc.europa.eu/2498 - politique énergétique
+  - http://eurovoc.europa.eu/2496 - politique du logement
+  - http://eurovoc.europa.eu/4619 - urbanisme
+  - http://eurovoc.europa.eu/2475 - politique de la construction
+spatial: https://www.geonames.org/3017382 - France
 
 dataset:
   DonneesAQST:
@@ -75,7 +91,8 @@ dataset:
       bilatérale entre le fournisseur et l’AQST.
       
       La transparence de diffusion est la garantie du site de l’AQST.
-    theme: http://eurovoc.europa.eu/2494
+    theme: http://eurovoc.europa.eu/2494 - politique des transports
+    spatial: https://www.geonames.org/3017382 - France
     keyword:
       - régularité
       - transport
@@ -92,13 +109,14 @@ dataset:
     a: dcat:Dataset
     title: Suivi des réclamations passagers (vols au départ ou arrivée en France) (ASUR)
     creator: http://id.georef.eu/organization/DGAC
-    theme: http://eurovoc.europa.eu/4408
+    theme: http://eurovoc.europa.eu/4408 - aviation civile
+    spatial: https://www.geonames.org/3017382 - France
     keyword:
       - réclamation
       - passager
       - vol
     accessRights: |
-      Données non communicables - données à caractère personnel et soumises au secret de procédures contentieuses
+      Données non communicables - données à caractère personnel et soumises au secret des procédures contentieuses
   CALIPSO:
     a: dcat:Dataset
     title: CALIPSO
@@ -106,16 +124,20 @@ dataset:
     description: |
       Classification des avions légers selon indice de performance sonore à partir des informations transmises
       par les propriétaires ou les aéroclubs
-    theme: http://eurovoc.europa.eu/4408
+    theme:
+      - http://eurovoc.europa.eu/4438 - avion
+      - http://eurovoc.europa.eu/5048 - bruit
+    spatial: https://www.geonames.org/3017382 - France
     keyword:
       - avion léger
       - bruit
     accessRights: Données non communicables - données à caractère personnel
   ENPA:
     a: dcat:Dataset
-    title: ENPA
+    title: Enquête nationale auprès des passagers (base ENPA)
     creator: http://id.georef.eu/organization/DGAC
-    theme: http://eurovoc.europa.eu/4408
+    theme: http://eurovoc.europa.eu/4408 - aviation civile
+    spatial: https://www.geonames.org/3017382 - France
     description: |
       Enquête nationale auprès des passagers : détails vol (trajet, prix…) et voyage.
       Il s'agit d'une enquête réalisée sur 15 aéroports français différents à chaque enquête.
@@ -125,15 +147,18 @@ dataset:
     title: Consommation carburant et émissions dans atmosphère du trafic aérien (TARMAAC)
     creator: http://id.georef.eu/organization/DGAC
     description: Ces données sont collectées auprès des aéroports français et éditeurs privés (modèles aéronefs).
-    theme: http://eurovoc.europa.eu/4408
+    theme: http://eurovoc.europa.eu/4408 - aviation civile
     keyword:
       - consommation carburant
     accessRights: Données sous secret commercial - diffusion de données agrégées
   TRAFIC(DGAC):
     a: dcat:Dataset
-    title: Données du trafic aérien commercial (trajet, transporteur, passagers, fret, …) collectées auprès des aéroports français (base TRAFIC)
+    title: Données du trafic aérien commercial (base TRAFIC)
+    description: |
+      Données du trafic aérien commercial (trajet, transporteur, passagers, fret, …) collectées auprès des aéroports français
     creator: http://id.georef.eu/organization/DGAC
-    theme: http://eurovoc.europa.eu/4408
+    theme: http://eurovoc.europa.eu/4408 - aviation civile
+    spatial: https://www.geonames.org/3017382 - France
     keyword:
       - trafic aérien commercial
       - fret
@@ -143,9 +168,11 @@ dataset:
     a: dcat:Dataset
     title: Relevés tarifaires d'itinéraires AR au départ de la France (base PRIX)
     creator: http://id.georef.eu/organization/DGAC
-    theme: http://eurovoc.europa.eu/4408
+    theme: http://eurovoc.europa.eu/4408 - aviation civile
+    spatial: https://www.geonames.org/3017382 - France
     description: |
-      Cette base de données sur les prix est construite à partir de relevés tarifaires (tarif pour plus de 300 itinéraires AR au départ de France) automatisés sur le système de réservation Travelport et sur les sites internet des transporteurs.
+      Cette base de données sur les prix est construite à partir de relevés tarifaires (tarif pour plus de 300 itinéraires AR
+      au départ de France) automatisés sur le système de réservation Travelport et sur les sites internet des transporteurs.
   TransporteursFR(DGAC):
     a: dcat:Dataset
     title: Liste des transporteurs aériens français (avec données sur entreprise) (base Transporteurs FR)
@@ -153,7 +180,8 @@ dataset:
       Cette liste est produite en interne DGAC (DSAC Inter Régionales)
       Elle décrit environ 90 entreprises
     creator: http://id.georef.eu/organization/DGAC
-    theme: http://eurovoc.europa.eu/4408
+    theme: http://eurovoc.europa.eu/4408 - aviation civile
+    spatial: https://www.geonames.org/3017382 - France
     distribution:
       interne:
         title: base interne non diffusable
@@ -162,11 +190,12 @@ dataset:
         a: dcat:Distribution
         title: version épurée publique diffusée sur Internet
         licence: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+        accessUrl: https://www.ecologique-solidaire.gouv.fr/transport-public-ou-prive
   IMMAT:
     a: dcat:Dataset
     title: Immatriculation des aéronefs (données administratives et aéronef) - base IMMAT
     creator: http://id.georef.eu/organization/DGAC
-    theme: http://eurovoc.europa.eu/4438
+    theme: http://eurovoc.europa.eu/4438 - avion
     description: |
       Ces données sont collectées auprès des propriétaires et OSAC (données techniques).
       volumétrie: 16 000 aéronefs « vivants », 18 000 aéronefs radiés
@@ -179,6 +208,7 @@ dataset:
     title: Instruction des dossiers « Installations, ouvrages, travaux et aménagements soumis à la loi sur l’eau » (IOTA) - base CASCADE
     creator: http://id.georef.eu/organization/DGALN/DEB
     theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    spatial: https://www.geonames.org/3017382 - France
     keyword:
       - eau
       - installation
@@ -186,12 +216,12 @@ dataset:
       - instruction
       - travaux
     accessRights: Confidentiel (données personnelles et commerciales)
-    spatial: https://www.geonames.org/3017382 - France
   PROPLUVIA:
     a: dcat:Dataset
     title: Saisie et Publication des arrêtés de restriction d’eau (base PROPLUVIA)
     creator: http://id.georef.eu/organization/DGALN/DEB
-    theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    theme: http://eurovoc.europa.eu/3535 - ressource en eau
+    spatial: https://www.geonames.org/3017382 - France
     keyword:
       - arrêté
       - eau
