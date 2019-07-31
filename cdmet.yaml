@@ -163,7 +163,7 @@ dataset:
     keyword:
       - consommation carburant
     accessRights: Données sous secret commercial - diffusion de données agrégées
-  TRAFIC(DGAC):
+  TRAFICDGAC:
     a: dcat:Dataset
     title: Données du trafic aérien commercial (base TRAFIC)
     language: fr
@@ -177,7 +177,7 @@ dataset:
       - fret
       - passager
     accessRights: Données sous secret commercial
-  PRIX(DGAC):
+  PRIXDGAC:
     a: dcat:Dataset
     title: Relevés tarifaires d'itinéraires AR au départ de la France (base PRIX)
     language: fr
@@ -187,7 +187,7 @@ dataset:
     description: |
       Cette base de données sur les prix est construite à partir de relevés tarifaires (tarif pour plus de 300 itinéraires AR
       au départ de France) automatisés sur le système de réservation Travelport et sur les sites internet des transporteurs.
-  TransporteursFR(DGAC):
+  TransporteursFRDGAC:
     a: dcat:Dataset
     title: Liste des transporteurs aériens français (avec données sur entreprise) (base Transporteurs FR)
     language: fr
