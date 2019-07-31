@@ -5,7 +5,36 @@ description: |
   le thésaurus EuroVoc (https://eur-lex.europa.eu/browse/eurovoc.html?locale=fr)
   et Geonames (https://www.geonames.org/) pour l'indexation spatiale.
   Il est exposé en JSON-LD.
-$schema: http://ydclasses.georef.eu/YamlRdf/schema
+$schema3: http://ydclasses.georef.eu/YamlRdf/schema
+$schema:
+  allOf:
+    - description: schéma RDF générique
+      $ref: http://ydclasses.georef.eu/YamlRdf/schema
+    - description: schéma spécifique DCAT
+      type: object
+      properties:
+        dataset:
+          type: object
+          additionalProperties:
+            type: object
+            required: [a, title, language, creator, theme, spatial]
+            properties:
+              a: {type: string}
+              title: {type: string}
+              language: {type: string}
+              theme:
+                oneOf:
+                  - type: string
+                  - type: array
+                    items:
+                      type: string
+              spatial:
+                oneOf:
+                  - type: string
+                  - type: array
+                    items:
+                      type: string
+              description: {type: string}
 namespaces:
   dc: http://purl.org/dc/elements/1.1/
   dcat: http://www.w3.org/ns/dcat#
@@ -51,6 +80,7 @@ properties:
     id: dcat:accessUrl
     type: '@id'
   format: dct:format
+  mediaType: dcat:mediaType
   licence:
     id: dct:licence
     type: '@id'
@@ -58,6 +88,7 @@ properties:
   dataset: dcat:dataset
   distribution: dcat:distribution
   accessService: dcat:accessService
+  service: dcat:service
   endpointURL: dcat:endpointURL
   
 rootId: catalog
@@ -109,10 +140,6 @@ dataset:
       - ferroviaire
     landingPage: http://www.qualitetransports.gouv.fr/les-chiffres-de-la-ponctualite-r2.html
     licence: https://www.etalab.gouv.fr/licence-ouverte-open-licence
-    distribution:
-      siteInternet:
-        a: dcat:Distribution
-        accessUrl: http://www.qualitetransports.gouv.fr/les-chiffres-de-la-ponctualite-r2.html
   ASUR:
     a: dcat:Dataset
     title: Suivi des réclamations passagers (vols au départ ou arrivée en France) (ASUR)
@@ -160,6 +187,7 @@ dataset:
     creator: http://id.georef.eu/organization/DGAC
     description: Ces données sont collectées auprès des aéroports français et éditeurs privés (modèles aéronefs).
     theme: http://eurovoc.europa.eu/4408 - aviation civile
+    spatial: https://www.geonames.org/3017382 - France
     keyword:
       - consommation carburant
     accessRights: Données sous secret commercial - diffusion de données agrégées
@@ -212,6 +240,7 @@ dataset:
     language: fr
     creator: http://id.georef.eu/organization/DGAC
     theme: http://eurovoc.europa.eu/4438 - avion
+    spatial: https://www.geonames.org/3017382 - France
     description: |
       Ces données sont collectées auprès des propriétaires et OSAC (données techniques).
       volumétrie: 16 000 aéronefs « vivants », 18 000 aéronefs radiés
@@ -244,10 +273,11 @@ dataset:
       - arrêté
       - eau
       - retriction
+    landingPage: http://propluvia.developpement-durable.gouv.fr/
     distribution:
       siteInternet:
         a: dcat:Distribution
-        title: version épurée publique diffusée sur Internet
+        title: version épurée publique de la base PROPLUVIA diffusée sur Internet
         licence: https://www.etalab.gouv.fr/licence-ouverte-open-licence
         accessUrl: http://propluvia.developpement-durable.gouv.fr/
   ROSEAU:
@@ -346,26 +376,12 @@ dataset:
     distribution:
       siteInternet:
         a: dcat:Distribution
+        title: exports de données sur l’assainissement communal
         accessUrl: http://assainissement.developpement-durable.gouv.fr/
-        format:
-          - text/csv
-          - application/vnd.oasis.opendocument.spreadsheet
-          - https://www.opengeospatial.org/standards/wms
-          - https://www.opengeospatial.org/standards/wfs
-        accessService:
-          serviceWms:
-            a:
-              - dcat:DataService
-              - https://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/view
-            title: service WMS de consultation
-            endpointURL: http://services.sandre.eaufrance.fr/geo/odp_FRA?REQUEST=GetCapabilities&SERVICE=WMS
-          serviceWfs:
-            a:
-              - dcat:DataService
-              - https://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/download
-            title: service WFS
-            endpointURL: http://services.sandre.eaufrance.fr/geo/odp_FRA?REQUEST=GetCapabilities&SERVICE=WFS
-  www.deb.developpement-durable.gouv.fr-sig-geocoucou:
+        mediaType:
+          - https://www.iana.org/assignments/media-types/text/csv
+          - https://www.iana.org/assignments/media-types/application/vnd.oasis.opendocument.spreadsheet
+  geocoucou:
     a: dcat:Dataset
     title: Portail des catalogues d’informations géographiques sur l’eau et la biodiversité (GéoCoucou)
     language: fr
@@ -379,7 +395,7 @@ dataset:
     distribution:
       siteInternet:
         a: dcat:Distribution
-        title: Catalogue sous la forme d'un site internet
+        title: Catalogue d’informations géographiques sous la forme d'un site internet
         accessUrl: http://www.deb.developpement-durable.gouv.fr/sig/geocoucou.php
   ONAGRE:
     a: dcat:Dataset
@@ -421,15 +437,18 @@ dataset:
     a: dcat:Dataset
     title: Qualité de l’environnement du milieu marin littoral (base QUADRIGE2)
     language: fr
-    description: |
-      saisie, bancarisation de données brutes (bio, chimique) pour les réseaux de surveillance des eaux côtières et transition
     creator: http://id.georef.eu/organization/Ifremer
     theme: http://eurovoc.europa.eu/6404 - écosystème marin
+    spatial: https://www.geonames.org/3017382 - France
+    description: |
+      saisie, bancarisation de données brutes (bio, chimique) pour les réseaux de surveillance des eaux côtières et transition
     landingPage: http://quadrige.eaufrance.fr/
   SEXTANT:
     a: dcat:Dataset
     title: Outil cartographique des données thématiques (SEXTANT)
     language: fr
+    creator: http://id.georef.eu/organization/Ifremer
+    theme: http://eurovoc.europa.eu/6404 - écosystème marin
     description: |
       Cette base concerne les thèmes suivants :
         - Environnement
@@ -437,13 +456,14 @@ dataset:
         - Halieutique
         - Géosciences
         - Physique de l’océan
-    creator: http://id.georef.eu/organization/Ifremer
-    theme: http://eurovoc.europa.eu/6404 - écosystème marin
     landingPage: https://sextant.ifremer.fr/
   SURVAL:
     a: dcat:Dataset
     title: Outil cartographique des données thématiques (SURVAL)
     language: fr
+    creator: http://id.georef.eu/organization/Ifremer
+    theme: http://eurovoc.europa.eu/6404 - écosystème marin
+    spatial: https://www.geonames.org/3017382 - France
     description: |
       Cette base concerne les thèmes suivants :
         - Environnement
@@ -451,10 +471,8 @@ dataset:
         - Halieutique
         - Géosciences
         - Physique de l’océan
-    creator: http://id.georef.eu/organization/Ifremer
-    theme: http://eurovoc.europa.eu/6404 - écosystème marin
     landingPage: https://wwz.ifremer.fr/surval/
-  GEOLITTORAL:
+  GeoLittoral:
     a: dcat:Dataset
     title: Géolittoral - portail des données sur la mer et le littoral du Ministère en charge de l’environnement et de la mer
     language: fr
@@ -463,11 +481,58 @@ dataset:
       publiques portées par le Ministère et a vocation à couvrir la totalité des espaces maritimes et littoraux français.
       Il met également à disposition des informations et des documents de nature à expliciter ces politiques et leur mise
       en œuvre.
-    creator: http://id.georef.eu/organization/Cerema
+    creator:
+      - http://id.georef.eu/organization/DGALN
+      - http://id.georef.eu/organization/CGDD
     theme: http://eurovoc.europa.eu/3142 - protection du littoral
     landingPage: http://www.geolittoral.developpement-durable.gouv.fr/
-
-
+    
+service:
+  portailAssainissementCommunalWms:
+    a:
+      - dcat:DataService
+      - https://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/view
+    title: Référentiel Ouvrages de dépollution France entière - service WMS
+    theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    spatial: https://www.geonames.org/3017382 - France
+    servesDataset: http://id.georef.eu/cdmet/dataset/portailAssainissementCommunal
+    endpointURL: http://services.sandre.eaufrance.fr/geo/odp_FRA?REQUEST=GetCapabilities&SERVICE=WMS
+  portailAssainissementCommunalWfs:
+    a:
+      - dcat:DataService
+      - https://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/download
+    title: Référentiel Ouvrages de dépollution France entière - service WFS
+    theme: http://eurovoc.europa.eu/3144 - gestion de l'eau
+    spatial: https://www.geonames.org/3017382 - France
+    servesDataset: http://id.georef.eu/cdmet/dataset/portailAssainissementCommunal
+    endpointURL: http://services.sandre.eaufrance.fr/geo/odp_FRA?REQUEST=GetCapabilities&SERVICE=WFS
+  GeoLittoralWms:
+    a:
+      - dcat:DataService
+      - https://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/view
+    title: Service WMS de Géolittoral
+    language: fr
+    creator:
+      - http://id.georef.eu/organization/DGALN
+      - http://id.georef.eu/organization/CGDD
+    theme: http://eurovoc.europa.eu/3142 - protection du littoral
+    servesDataset: http://id.georef.eu/cdmet/dataset/GeoLittoral
+    endpointURL: http://geolittoral.din.developpement-durable.gouv.fr/wxs?REQUEST=GetCapabilities&SERVICE=WMS
+  GeoLittoralWfs:
+    a:
+      - dcat:DataService
+      - https://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/download
+    title: Service WFS de Géolittoral
+    language: fr
+    creator:
+      - http://id.georef.eu/organization/DGALN
+      - http://id.georef.eu/organization/CGDD
+    theme: http://eurovoc.europa.eu/3142 - protection du littoral
+    servesDataset: http://id.georef.eu/cdmet/dataset/GeoLittoral
+    endpointURL: http://geolittoral.din.developpement-durable.gouv.fr/wxs?REQUEST=GetCapabilities&SERVICE=WFS
+    
+  
+  
 source: |
   {
     "TYPE_ENTITE": "Administration centrale",
