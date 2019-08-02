@@ -5,19 +5,22 @@ description: |
   le thésaurus EuroVoc (https://eur-lex.europa.eu/browse/eurovoc.html?locale=fr)
   et Geonames (https://www.geonames.org/) pour l'indexation spatiale.
   Il est exposé en JSON-LD.
-$schema3: http://ydclasses.georef.eu/YamlRdf/schema
-$schema:
+$schema: http://ydclasses.georef.eu/YamlRdf/schema
+abstract: |
+  Test d'un autre schéma pour identifier les propriétés manquantes
   allOf:
+    - description: schéma qqc
+      type: object
     - description: schéma RDF générique
       $ref: http://ydclasses.georef.eu/YamlRdf/schema
-    - description: schéma spécifique DCAT
+    - description: schéma spécifique DCATv2
       type: object
       properties:
         dataset:
           type: object
           additionalProperties:
             type: object
-            required: [a, title, language, creator, theme, spatial]
+            required: [a, title, language, creator, theme, spatial, xx]
             properties:
               a: {type: string}
               title: {type: string}
@@ -443,34 +446,30 @@ dataset:
     description: |
       saisie, bancarisation de données brutes (bio, chimique) pour les réseaux de surveillance des eaux côtières et transition
     landingPage: http://quadrige.eaufrance.fr/
+    sameAs: https://doi.org/10.15468/mms45m
   SEXTANT:
     a: dcat:Dataset
-    title: Outil cartographique des données thématiques (SEXTANT)
+    title: SEXTANT - Infrastructure de données géographiques marines et littorales
     language: fr
     creator: http://id.georef.eu/organization/Ifremer
     theme: http://eurovoc.europa.eu/6404 - écosystème marin
     description: |
-      Cette base concerne les thèmes suivants :
-        - Environnement
-        - Aquaculture
-        - Halieutique
-        - Géosciences
-        - Physique de l’océan
+      Infrastructure de Données Géographiques (IDG) marines et littorales, Sextant a pour objectif de documenter, diffuser
+      et promouvoir un catalogue de données relevant du milieu marin. A destination des laboratoires et des partenaires de
+      l’Ifremer, ainsi que des acteurs nationaux et européens œuvrant dans le domaine marin et littoral, Sextant fournit
+      des outils favorisant et facilitant l’archivage, la consultation et la mise à disposition de ces données
+      géographiques.
     landingPage: https://sextant.ifremer.fr/
   SURVAL:
     a: dcat:Dataset
-    title: Outil cartographique des données thématiques (SURVAL)
+    title: SURVAL - Accès aux données d'environnement marin et littoral
     language: fr
     creator: http://id.georef.eu/organization/Ifremer
     theme: http://eurovoc.europa.eu/6404 - écosystème marin
     spatial: https://www.geonames.org/3017382 - France
     description: |
-      Cette base concerne les thèmes suivants :
-        - Environnement
-        - Aquaculture
-        - Halieutique
-        - Géosciences
-        - Physique de l’océan
+      Surval permet de consulter et télécharger les données quantitatives et qualitatives relatives aux eaux marines
+      et littorales à l’aide d’outils web cartographique et graphiques interactifs.
     landingPage: https://wwz.ifremer.fr/surval/
   GeoLittoral:
     a: dcat:Dataset
@@ -486,7 +485,12 @@ dataset:
       - http://id.georef.eu/organization/CGDD
     theme: http://eurovoc.europa.eu/3142 - protection du littoral
     landingPage: http://www.geolittoral.developpement-durable.gouv.fr/
-    
+  zonesHumidesAfb:
+    a: dcat:Dataset
+    title: Données d’observation et restauration sur les zones humides
+    creator: http://id.georef.eu/organization/afbiodiversite
+    landingPage: http://www.zones-humides.org/entre-terre-et-eau/ou-les-trouve-t-on/les-inventaires-de-zones-humides
+
 service:
   portailAssainissementCommunalWms:
     a:
@@ -506,6 +510,15 @@ service:
     spatial: https://www.geonames.org/3017382 - France
     servesDataset: http://id.georef.eu/cdmet/dataset/portailAssainissementCommunal
     endpointURL: http://services.sandre.eaufrance.fr/geo/odp_FRA?REQUEST=GetCapabilities&SERVICE=WFS
+  SextantCsw:
+    a:
+      - dcat:DataService
+      - https://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/discovery
+    title: Service CSW de Sextant
+    creator: http://id.georef.eu/organization/Ifremer
+    theme: http://eurovoc.europa.eu/3142 - protection du littoral
+    servesDataset: http://id.georef.eu/cdmet/dataset/SEXTANT
+    endpointURL: https://sextant.ifremer.fr/geonetwork/srv/eng/csw?service=CSW&request=GetCapabilities
   GeoLittoralWms:
     a:
       - dcat:DataService
@@ -530,42 +543,16 @@ service:
     theme: http://eurovoc.europa.eu/3142 - protection du littoral
     servesDataset: http://id.georef.eu/cdmet/dataset/GeoLittoral
     endpointURL: http://geolittoral.din.developpement-durable.gouv.fr/wxs?REQUEST=GetCapabilities&SERVICE=WFS
-    
-  
+  eaufranceCsw:
+    a:
+      - dcat:DataService
+      - https://inspire.ec.europa.eu/metadata-codelist/SpatialDataServiceType/discovery
+    title: Service CSW de EauFrance
+    creator: http://id.georef.eu/organization/afb
+    theme: http://eurovoc.europa.eu/2470 - politique de l'environnement
+    endpointURL: http://www.sandre.eaufrance.fr/atlas/srv/fre/csw?service=CSW&request=GetCapabilities
   
 source: |
-  {
-    "TYPE_ENTITE": "Administration centrale",
-    "NOM_ENTITE": "DGALN / DEB",
-    "NOM_BASE": "ZONES HUMIDES",
-    "DESCRIPTIF_COURT": "Données d’observation et restauration sur les zones humides",
-    "DESCRIPTIF_LONG": "",
-    "POLPUBLIQUE": "",
-    "STATUT": "Non vérifié",
-    "MOTS_CLEFS": "",
-    "ORIGINE": "",
-    "EXTENSION": "",
-    "COUV_GEO": "",
-    "PROD_TEMPS": "",
-    "VOLUMETRIE": "",
-    "SOCLE_TECH": "",
-    "MOE": "Voir ONEMA",
-    "EFFORT_EXPORT": "",
-    "CONFIDENTIALITE": "",
-    "SENSIBILITE": "",
-    "DIFFUSION_ACTUELLE": "",
-    "PERSP_OPENDATA": "",
-    "EFFORT_REUSE": "",
-    "URL_DATA": "",
-    "LICENCE": "",
-    "FORMATS": "",
-    "PERIODICITE": "",
-    "NOMBRE": "",
-    "OBS": "la maîtrise d’ouvrage opérationnelle est assurée par un établissement public",
-    "QUALITE": 26,
-    "QUALITE_OPENDATA": 1,
-    "DATEMAJ": "27/02/2017"
-  },
   {
     "TYPE_ENTITE": "Administration centrale",
     "NOM_ENTITE": "DGALN / DEB",
