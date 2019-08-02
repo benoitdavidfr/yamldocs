@@ -98,7 +98,7 @@ rootId: catalog
 
 a: dcat:Catalog
 language: fr
-themeTaxonomy: http://eurovoc.europa.eu/100141 - EuroVoc
+themeTaxonomy: http://publications.europa.eu/resource/dataset/eurovoc - EuroVoc
 theme:
   - http://eurovoc.europa.eu/2470 - politique de l'environnement
   - http://eurovoc.europa.eu/4074 - prévention des risques pour l'environnement
