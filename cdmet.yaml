@@ -93,7 +93,8 @@ properties:
   accessService: dcat:accessService
   service: dcat:service
   endpointURL: dcat:endpointURL
-  
+  servesDataset: dcat:servesDataset
+  sameAs: owl:sameAs
 rootId: catalog
 
 a: dcat:Catalog
