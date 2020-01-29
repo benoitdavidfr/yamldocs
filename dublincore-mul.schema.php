@@ -6,7 +6,7 @@
 if (isset($ydcheckWriteAccessForPhpCode))
   return ['benoit'];
 
-require_once __DIR__.'/../../vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 use Symfony\Component\Yaml\Yaml;
 
 //require_once __DIR__.'/../../inc.php';

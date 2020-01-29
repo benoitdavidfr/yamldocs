@@ -16,7 +16,7 @@ definitions:
       Dans le schéma multi-lingue, un texte libre correspond à FreeTextMul
     type: string #MultiLingual $ref: '#/definitions/FreeTextMul'
   FreeTextMul:
-    description: texte libre multi-lingue, dictionnaire de string indexé par le code ISO 639-1 de la langue
+    description: texte libre multi-lingue codé comme un dictionnaire de string indexé par le code ISO 639-1 de la langue
     type: object
     additionalProperties: false
     patternProperties:
@@ -160,7 +160,7 @@ definitions:
     examples:
       - [fr, en]
   cvocConcept:
-    description: concept d'un vocabulaire contrôlé défini par un uri associé à un FreText
+    description: concept d'un vocabulaire contrôlé défini par un uri associé à un FreeText
     type: object
     required: [uri, label]
     properties:
@@ -313,7 +313,7 @@ multiLingualExamples: #MultiLingual examples: # Multi lingual examples
   - title: {fr: un exemple multilingue, en: a multilingual example}
     abstract:
       fr: le résumé en français
-    language: en
+    language: [fr, en]
     subject:
       - {uri: http://id.georef.eu/eurovoc/concepts/3457, label: {fr: réserve naturelle, en: nature reserve}}
       - fr: un mot-clé libre en français
