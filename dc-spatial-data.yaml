@@ -1,22 +1,35 @@
-title: Rectangles englobants de différentes entités administratives
+title: Rectangles englobants de différentes entités administratives françaises
 abstract: |
-  Définition des rectangles englobants des entités administratives ISO 3166-1 alpha-2 françaises et de leur ZEE.
-  Parmi ces entités administratives je distingue FR et FR.ZEE définies comme composées d'autres entités élémentaires.
-  Chaque entité élémentaire correspond soit à un rectangle englobant soit à plusieurs.
+  Ce document propose une décomposition géographique de la France en éléments administratifs.
+  D'une part, la table elements définit les entités administratives ISO 3166-1 françaises et leur ZEE
+  ainsi que leur(s) rectangle(s) englobant(s).
+  D'autre part, la table composition définit FR et FR.ZEE comme composées des entités élémentaires de elements.
+  Par ailleurs, la table codesIso3166-1 définit la correspondance entre les codes ISO 3166-1 alpha-2, alpha-3 et INSEE
+  Enfin, la table codesIso3166-2régions définit les codes ISO 3166-2 des régions métropolitaines,
+  et la table codesIso3166-2drom définit les codes ISO 3166-2 des DROM et la correspondance
+  avec les codes ISO 3166-1 alpha-2
 source:
   - https://fr.wikipedia.org/wiki/ISO_3166-1
   - https://fr.wikipedia.org/wiki/ISO_3166-2:FR
 $schema: http://ydclasses.georef.eu/YData/schema
 tables:
   elements:
-    title: Entités élémentaires ISO 3166-1 et leur(s) rectangle(s) englobant(s) défini(s) comme DCMI Box
+    title: Entités administratives élémentaires françaises ISO 3166-1 et leur(s) rectangle(s) englobant(s) 
+    abstract: |
+      
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       title: Schema des rectangles englobants des zones
+      description: |
+        La clé des objets est soit le code ISO 3166-1 alpha-2 de l'entité, soit ce code suivi de .ZEE pour sa ZEE,
+        soit le code World pour la totalité de la Terre.
+        Chaque objet correspond soit à un rectangle englobant soit à plusieurs,
+        chacun défini comme DCMI Box avec un nom associé.
       type: object
       additionalProperties:
         oneOf:
           - type: object
+            description: élément défini par un rectangle englobant
             required: [westlimit, southlimit, eastlimit, northlimit]
             properties:
               name: { type: string }
@@ -25,6 +38,7 @@ tables:
               eastlimit: { type: number }
               northlimit: { type: number }
           - type: array
+            description: élément défini par plusieurs rectangles englobants
             items:
               type: object
               required: [westlimit, southlimit, eastlimit, northlimit]
@@ -113,17 +127,25 @@ tables:
       FR: [FX, GP, MQ, GF, RE, YT, PM, BL, MF, TF, PF, WF, NC, CP]
       FR.ZEE: [FX.ZEE, GP.ZEE, MQ.ZEE, GF.ZEE, RE.ZEE, YT.ZEE, PM.ZEE, BL.ZEE, MF.ZEE, TF.ZEE, PF.ZEE, WF.ZEE, NC.ZEE, CP.ZEE]
   codesIso3166-1:
-    title: Extrait restructuré des codes ISO 3166-1 et INSEE
+    title: Correspondance entre codes ISO 3166-1 et INSEE
+    abstract: Liste des codes ISO 3166-1 français + le code EU + correspondance avec le code iNSEE quand il existe
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       type: object
+      description: La clé est le code ISO 3166-1 alpha-2.
       patternProperties:
         ^[A-Z][A-Z]$:
           type: object
           properties:
-            name: { type: string }
-            alpha3: { type: string }
-            insee: { type: integer }
+            name:
+              description: libellé associé
+              type: string
+            alpha3:
+              description: code ISO 3166-1 alpha-3 associé
+              type: string
+            insee:
+              description: code INSEE associé
+              type: integer
     data:
       FR:
         name: France
@@ -188,11 +210,14 @@ tables:
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       type: object
+      description: La clé est le code ISO 3166-2.
       patternProperties:
         ^[A-Z][A-Z][A-Z]$:
           type: object
           properties:
-            name: { type: string }
+            name:
+              description: libellé associé
+              type: string
     data:
       ARA:
         name: Auvergne-Rhône-Alpes
@@ -225,6 +250,7 @@ tables:
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       type: object
+      description: La clé est le code ISO 3166-2.
       patternProperties:
         ^[A-Z][A-Z][A-Z]$:
           type: object
