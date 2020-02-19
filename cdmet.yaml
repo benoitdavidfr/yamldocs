@@ -3,8 +3,8 @@ description: |
   Essai d'un catalogue de données structuré conformément au standard DCAT v2 (https://www.w3.org/TR/vocab-dcat-2/)
   reprenant les données décrites dans https://mtes-mct.github.io/dataroom/ et les structurant en utilisant DCAT,
   le thésaurus EuroVoc (https://eur-lex.europa.eu/browse/eurovoc.html?locale=fr)
-  et Geonames (https://www.geonames.org/) pour l'indexation spatiale.
-  Il est exposé en JSON-LD.
+  et Geonames (https://www.geonames.org/) pour l'indexation spatiale.  
+  [Il est exposé en JSON-LD](http://id.georef.eu/cdmet/catalog).
 $schema: http://ydclasses.georef.eu/YamlRdf/schema
 abstract: |
   Test d'un autre schéma pour identifier les propriétés manquantes

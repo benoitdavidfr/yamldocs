@@ -3,11 +3,11 @@ abstract: |
   ### Définition de classes de documents
   Une classe de documents correspond à:
     
-    - un schéma défini par un [schéma JSON](https://json-schema.org/),
     - une classe Php implémentant:
       - des méthodes de consultation interactive du document,
       - une API de consultation en machine to machine,
       - une API Php d'utilisation du document en interne à YamlDoc.
+    - éventuellement un schéma défini par un [schéma JSON](https://json-schema.org/),
   
 spec: |
   A une classe {yamlClass} correspond:
@@ -28,32 +28,35 @@ spec: |
 
 uriUrl: |
   ### Définition des URI et URL
-    - **http://ydclasses.georef.eu/{yamlClass}** est l'URI d'une classe de documents YamlDoc,  
-      exemple: http://ydclasses.georef.eu/YData,  
-      cet URI est utilisé dans le champ `$schema` d'un document pour définir sa classe
-    - la résolution de l'URI d'une classe fournit:
-      - comme doc HTML une documentation de la classe
-      - sinon la description de l'API REST en OAI Yaml
-    - les URL suivantes sont déduites de l'URI d'une classe:
-      - http://ydclasses.georef.eu/{yamlClass}/schema fournit le schéma de la classe par défaut en JSON
-      - http://ydclasses.georef.eu/{yamlClass}/schema.json fournit le schéma de la classe en JSON
-      - http://ydclasses.georef.eu/{yamlClass}/schema.yaml fournit le schéma de la classe en Yaml
-      - http://ydclasses.georef.eu/{yamlClass}/api décrit l'API REST de la classe en OAI et en Yaml
-    - ces résolutions sont mises en oeuvre par un résolveur exposé sur ~/html/yamldoc/ydclasses.php
+  - `http://ydclasses.georef.eu/{yamlClass}` est l'URI d'une classe de documents YamlDoc,  
+    exemple: [`http://ydclasses.georef.eu/YData`](http://ydclasses.georef.eu/YData),  
+  - la résolution de l'URI d'une classe fournit comme doc HTML une documentation de la classe
+    avec des liens vers le schéma de la classe en Yaml et en JSON,
+  - les URL suivantes sont déduites de l'URI d'une classe:
+    - `http://ydclasses.georef.eu/{yamlClass}/schema` fournit le schéma de la classe en JSON,  
+      cet URI est utilisé dans le champ `$schema` d'un document pour définir sa classe,
+    - `http://ydclasses.georef.eu/{yamlClass}/schema.yaml` fournit le schéma de la classe en Yaml,
+    - `http://ydclasses.georef.eu/{yamlClass}/api` décrit l'API REST de la classe en OAI et en Yaml (A FAIRE),
+  - ces résolutions sont mises en oeuvre par un résolveur exposé sur ~/html/yamldoc/ydclasses.php
     
 liste: |
   Les classes générales définies sont les suivantes:
     
+    - [Doc](?action=version&doc=yamldoc&name=yamldoc.inc.php) - classe abstraite correspondant à un document
+      affichable ;
+    - [YamlDoc](?action=version&doc=yamldoc&name=yamldoc.inc.php) - classe abstraite correspondant à un document Yaml ;
     - [BasicYamlDoc](?action=version&doc=yamldoc&name=basicyamldoc.inc.php) - document simple,
       comme par exemple le présent document ;
     - [YamlCatalog](?action=version&doc=yamldoc&name=catalog.inc.php) - catalogue de documents,
       comme par exemple le [document d'accueil](?doc=index) de cet espace ;
+    - [YamlHomeCatalog](?action=version&doc=yamldoc&name=catalog.inc.php) - catalogue d'accueil ;
     - [YamlData](?action=version&doc=yamldoc&name=yamldata.inc.php) - gestion des données,
       comme par exemple la [liste des régions historisées](?doc=geohisto/regions) ;
     - [MultiData](?action=version&doc=yamldoc&name=multidata.inc.php) pour décomposer une grande table
       en sous-tables stockées chacune dans un sous-document ;
     - [YData](?action=version&doc=yamldoc&name=ydata.inc.php) pour la gestion des données (EN CONSTRUCTION),
       illustré par la [synthèse des principaux champs Dublin Core](?doc=dublincore) ;
+    - [YamlRdf](?action=version&doc=yamldoc&name=yamlrdf.inc.php) - gestion d'un graphe RDF ;
     - [YamlSkos](?action=version&doc=yamldoc&name=yamlskos.inc.php) - gestion d'un thésaurus Skos
       organisé en micro-thésaurus,
       comme par exemples le [thésaurus EuroVoc](?doc=eurovoc) ou le [lexique topographique](?doc=topovoc) de l'AFT ;
@@ -62,12 +65,14 @@ liste: |
       comme par exemple le [modèle de données Inspire déduit du règlement interopérabilité](?doc=inspire-datamodel) ;
     - [LegalDoc]((?action=version&doc=yamldoc&name=legaldoc.inc.php)) - gestion d'un texte juridique,
       comme par exemple la [directive Inspire](?doc=inspire-directive) ;
-    - [OdtDoc](?action=version&doc=yamldoc&name=odtdoc.inc.php) - affichage de fichiers ODT
-    - [PdfDoc](?action=version&doc=yamldoc&name=pdfdoc.inc.php) - affichage de fichiers PDF
-    - [inseeapi](?action=version&doc=yamldoc&name=inseeapi.inc.php)
-    - [sireneapi](?action=version&doc=yamldoc&name=sireneapi.inc.php)
-    - [inseenomapi](?action=version&doc=yamldoc&name=inseenomapi.inc.php)
-      
+    - [OdtDoc](?action=version&doc=yamldoc&name=odtdoc.inc.php) - affichage de fichiers ODT ;
+    - [PdfDoc](?action=version&doc=yamldoc&name=pdfdoc.inc.php) - affichage de fichiers PDF ;
+    - [Servreg](?action=version&doc=yamldoc&name=servreg.inc.php) - registre de serveurs ;
+    - [AutoDescribed](?action=version&doc=yamldoc&name=autodescr.inc.php) - données structurées selon un schema ;
+    - [InseeApi](?action=version&doc=yamldoc&name=inseeapi.inc.php) - classe abstraite facilitant l'accès aux API INSEE
+    - [SireneApi](?action=version&doc=yamldoc&name=sireneapi.inc.php) - utilisation l'API SIRENE ;
+    - [InseeNomApi](?action=version&doc=yamldoc&name=inseenomapi.inc.php) - Utilisation de l'API INSEE Nomenclatures V1
+    
   Les classes spécifiques à la gestion de l'information géographique sont les suivantes:
     
     - [Map](?action=version&doc=yamldoc&name=map.inc.php) - description et affichage d'une carte Leaflet,
@@ -78,8 +83,17 @@ liste: |
     - [FeatureDataset](?action=version&doc=yamldoc&name=featureds.inc.php) - document définissant une série de données
       géographiques d'objets vecteur,
       illustré par [Route500](?doc=geodata/route500) ou la [BDTopo](?doc=geodata/bdtopo) de l'IGN.
-    - [WfsServer](?action=version&doc=yamldoc&name=wfsserver.inc.php) - gestion de requêtes à un serveur WFS,
+    - [OgcServer](?action=version&doc=yamldoc&name=ogcserver.inc.php) - classe abstraite implémentant des méthodes
+      communes aux serveurs OGC ;
+    - [WfsServer](?action=version&doc=yamldoc&name=wfsserver.inc.php) - classe abstraite de gestion de requêtes
+      à un serveur WFS ;
+    - [WfsServerJson](?action=version&doc=yamldoc&name=wfsjson.inc.php) - gestion de requêtes à un serveur WFS
+      capable de générer du GeoJSON,
       illustré par le [serveur WFS du Géoportail IGN](?doc=geodata/igngpwfs) ;
+    - [WfsServerJsonAugmented](?action=version&doc=yamldoc&name=wfsjson.inc.php) - gestion de requêtes
+      à un serveur WFS capable de générer du GeoJSON modifiant les retours des requêtes WFS ;
+    - [WfsServerGml](?action=version&doc=yamldoc&name=wfsgml.inc.php) - serveur WFS capable de générer
+      du GML EPSG:4306 ;
     - [Geocat](?action=version&doc=yamldoc&name=geocat.inc.php) - accès au contenu d'un géocatalogue,
       illustré par [le catalogue de Sextant](?doc=geocats/sextant)
     - [CswServer](?action=version&doc=yamldoc&name=cswserver.inc.php) - gestion de requêtes à un serveur CSW,
@@ -99,6 +113,9 @@ liste: |
       illustré par [le serveur ShomGt](?doc=view/shomgt_tile) ;
     - [FeatureViewer](?action=version&doc=yamldoc&name=featureviewer.inc.php) - dessin des objets d'un FeatureDataset
       illustrée par [la visualisation des objets de Route500](?doc=geodata/route500viewer) ;
-    - [tilecache](?action=version&doc=yamldoc&name=tilecache.inc.php)
-    - [viewds](?action=version&doc=yamldoc&name=viewds.inc.php)
+    - [TileCache](?action=version&doc=yamldoc&name=tilecache.inc.php) - Cache de tuiles implémentant l'interface
+      iTileServer ;
+    - [ViewDataset](?action=version&doc=yamldoc&name=viewds.inc.php) - série de données de consultation constituée
+      de couches issues de serveurs conformes à l'interface iTileServer
   
+  La liste efectivement implémentée est disponible [ici](ydclasses.php).

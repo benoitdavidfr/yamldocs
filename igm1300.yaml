@@ -1,59 +1,62 @@
 title: |
   # INSTRUCTION GÉNÉRALE INTERMINISTÉRIELLE N° 1300 SUR LA PROTECTION DU SECRET DE LA DÉFENSE NATIONALE
     
-SOMMAIRE: |
+source:
+  - https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000024892134
+  - http://www.sgdsn.gouv.fr/uploads/2018/01/igi-1300-franxxais.pdf
 
+SOMMAIRE: |
   * Introduction
   * Titre Ier. ― Principes et organisation de la protection (articles 1er à 18)
-  * Chapitre Ier. ― Principes généraux de la protection du secret (articles 1er à 8)
-  * Chapitre II. ― Organisation de la protection (articles 9 à 18)
-  * Section 1. ― Autorités compétentes (articles 9 à 12)
-  * Section 2. ― Organisation fonctionnelle (articles 13 à 18)
+    * [Chapitre Ier. ― Principes généraux de la protection du secret (articles 1er à 8)](?ypath=/chap1.1)
+    * Chapitre II. ― Organisation de la protection (articles 9 à 18)
+        * Section 1. ― Autorités compétentes (articles 9 à 12)
+        * Section 2. ― Organisation fonctionnelle (articles 13 à 18)
   * Titre II. ― Mesures de sécurité relatives aux personnes (articles 19 à 38)
-  * Chapitre Ier. ― L'accès au secret de la défense nationale (articles 19 à 22)
-  * Chapitre II. ― L'habilitation (articles 23 à 31)
-  * Chapitre III. ― Les cas particuliers (articles 32 à 38)
+    * Chapitre Ier. ― L'accès au secret de la défense nationale (articles 19 à 22)
+    * Chapitre II. ― L'habilitation (articles 23 à 31)
+    * Chapitre III. ― Les cas particuliers (articles 32 à 38)
   * Titre III. ― Mesures de sécurité relatives aux informations ou aux supports classifiés (articles 39 à 69)
-  * Chapitre Ier. ― Principes généraux de la classification (articles 39 à 46)
-  * Section 1. ― Les règles de classification (articles 39 à 41)
-  * Section 2. ― Le marquage (articles 42 à 44)
-  * Section 3. ― Enregistrement (article 45)
-  * Section 4. ― Durée de classification des informations ou des supports classifiés (article 46)
-  * Chapitre II. ― Gestion des informations ou supports classifiés (articles 47 à 53)
-  * Section 1. ― Conservation des informations ou supports classifiés (article 47)
-  * Section 2. ― Reproduction (articles 48 à 50)
-  * Section 3. ― Inventaire (article 51)
-  * Section 4. ― La protection des matériels classifiés (articles 52 et 53)
-  * Chapitre III. ― Diffusion et acheminement des informations ou supports classifiés (articles 54 à 58)
-  * Section 1. ― Diffusion et expédition (articles 54 à 56)
-  * Section 2. ― Acheminement (articles 57 et 58)
-  * Chapitre IV. ― Destruction et archivage des informations ou supports classifiés (articles 59 à 63)
-  * Section 1. ― Destruction des informations ou supports classifiés (articles 59 et 60)
-  * Section 2. ― Archivage (articles 61 à 63)
-  * Chapitre V. ― Les mentions additionnelles de limitation du champ de diffusion (articles 64 et 65)
-  * Chapitre VI. ― La compromission du secret (articles 66 et 67)
-  * Chapitre VII. ― L'accès des magistrats aux informations classifiées (articles 68 et 69)
+    * Chapitre Ier. ― Principes généraux de la classification (articles 39 à 46)
+        * Section 1. ― Les règles de classification (articles 39 à 41)
+        * Section 2. ― Le marquage (articles 42 à 44)
+        * Section 3. ― Enregistrement (article 45)
+        * Section 4. ― Durée de classification des informations ou des supports classifiés (article 46)
+    * Chapitre II. ― Gestion des informations ou supports classifiés (articles 47 à 53)
+        * Section 1. ― Conservation des informations ou supports classifiés (article 47)
+        * Section 2. ― Reproduction (articles 48 à 50)
+        * Section 3. ― Inventaire (article 51)
+        * Section 4. ― La protection des matériels classifiés (articles 52 et 53)
+    * Chapitre III. ― Diffusion et acheminement des informations ou supports classifiés (articles 54 à 58)
+        * Section 1. ― Diffusion et expédition (articles 54 à 56)
+        * Section 2. ― Acheminement (articles 57 et 58)
+    * Chapitre IV. ― Destruction et archivage des informations ou supports classifiés (articles 59 à 63)
+        * Section 1. ― Destruction des informations ou supports classifiés (articles 59 et 60)
+        * Section 2. ― Archivage (articles 61 à 63)
+    * Chapitre V. ― Les mentions additionnelles de limitation du champ de diffusion (articles 64 et 65)
+    * Chapitre VI. ― La compromission du secret (articles 66 et 67)
+    * Chapitre VII. ― L'accès des magistrats aux informations classifiées (articles 68 et 69)
   * Titre IV. ― La protection des lieux (articles 70 à 84)
-  * Chapitre Ier. ― Principes de protection physique des lieux (articles 70 à 72)
-  * Chapitre II. ― Les zones protégées (article 73)
-  * Chapitre III. ― Les zones réservées (article 74)
-  * Chapitre IV. ― Lieux abritant temporairement des secrets : la protection des réunions de travail et des salles de conférences (articles 75 à 77)
-  * Chapitre V. ― L'accès des personnes non qualifiées aux lieux abritant des secrets (articles 78 et 79)
-  * Chapitre VI. ― L'accès des magistrats aux lieux abritant des éléments couverts par le secret de la défense nationale (articles 80 à 82)
+    * Chapitre Ier. ― Principes de protection physique des lieux (articles 70 à 72)
+    * Chapitre II. ― Les zones protégées (article 73)
+    * Chapitre III. ― Les zones réservées (article 74)
+    * Chapitre IV. ― Lieux abritant temporairement des secrets : la protection des réunions de travail et des salles de conférences (articles 75 à 77)
+    * Chapitre V. ― L'accès des personnes non qualifiées aux lieux abritant des secrets (articles 78 et 79)
+    * Chapitre VI. ― L'accès des magistrats aux lieux abritant des éléments couverts par le secret de la défense nationale (articles 80 à 82)
   * Titre V. ― Mesures de sécurité relatives aux systèmes d'information (articles 83 à 92)
-  * Champ d'application (article 83)
-  * Chapitre Ier. ― L'organisation des responsabilités relatives aux systèmes d'information (articles 84 à 87)
-  * Chapitre II. ― La protection des systèmes d'information (articles 88 à 92)
+    * Champ d'application (article 83)
+    * Chapitre Ier. ― L'organisation des responsabilités relatives aux systèmes d'information (articles 84 à 87)
+    * Chapitre II. ― La protection des systèmes d'information (articles 88 à 92)
   * Titre VI. ― La protection du secret dans les contrats (articles 95 à 114)
-  * Principes généraux de sécurité (article 93)
-  * Chapitre Ier. ― Mesures de sécurité dans la négociation et la passation des contrats (articles 94 à 104)
-  * Section 1. ― Phase précontractuelle (articles 94 à 98)
-  * Section 2. ― La procédure d'habilitation (articles 99 à 103)
-  * Section 3. ― Phase de contractualisation (article 104)
-  * Chapitre II. ― Mesures de sécurité liées à l'exécution des contrats (articles 105 à 112)
-  * Section 1. ― La structure de sécurité (articles 105 et 106)
-  * Section 2. ― L'annexe de sécurité (articles 107 et 108)
-  * Section 3. ― Suivi de l'exécution (articles 109 à 112)
+    * Principes généraux de sécurité (article 93)
+    * Chapitre Ier. ― Mesures de sécurité dans la négociation et la passation des contrats (articles 94 à 104)
+        * Section 1. ― Phase précontractuelle (articles 94 à 98)
+        * Section 2. ― La procédure d'habilitation (articles 99 à 103)
+        * Section 3. ― Phase de contractualisation (article 104)
+    * Chapitre II. ― Mesures de sécurité liées à l'exécution des contrats (articles 105 à 112)
+        * Section 1. ― La structure de sécurité (articles 105 et 106)
+        * Section 2. ― L'annexe de sécurité (articles 107 et 108)
+        * Section 3. ― Suivi de l'exécution (articles 109 à 112)
   * Glossaire
   * Index
   * Annexes
@@ -81,7 +84,6 @@ titre1: |
   La protection du secret est assurée par une chaîne de responsabilité, qui s'applique aux domaines public et privé.
 
   Le secrétariat général de la défense et de la sécurité nationale (SGDSN) est l'autorité nationale de sécurité ; il peut déléguer des autorités de sécurité dans des domaines particuliers.
-
 chap1.1: |
   ### Chapitre Ier - Principes généraux de la protection du secret
 
@@ -165,7 +167,6 @@ chap1.1: |
   Pour les organismes traitant des informations ou supports classifiés Très Secret Défense, les inspections et les contrôles sont assurés par le secrétariat général de la défense et de la sécurité nationale (SGDSN). Ce dernier propose toutes mesures propres à améliorer les conditions générales de sécurité. Les inspections et les contrôles sont organisés en liaison avec les départements ministériels. En cas d'anomalies constatées, le SGDSN peut saisir, par l'intermédiaire des ministres concernés, les services qui concourent à la répression des crimes et délits. Les rapports de synthèse incluant les mesures préconisées pour rectifier les déficiences constatées et leur planification sont adressés aux autorités responsables des organismes contrôlés et aux autorités ministérielles de tutelle.
 
   A la demande du ministre, pour son département, ou à l'initiative des services enquêteurs, dans le cadre de leurs attributions, des contrôles et des inspections périodiques sont menés dans les organismes traitant des informations ou supports classifiés Secret Défense et Confidentiel Défense. Le SGDSN peut inspecter ces organismes.
-
 chap1.2: |
   ### Chapitre II Organisation de la protection
 
@@ -354,7 +355,7 @@ chap2.1: |
   A la notification d'une décision d'habilitation favorable par l'officier de sécurité, l'information initiale est complétée par une séance de sensibilisation aux risques de compromission puis, par la suite, par des rappels périodiques de la réglementation en vigueur.
 
   Une sensibilisation aux menaces d'investigations ou d'approches par des individus ou des organisations étrangères est faite aux personnes devant se rendre hors du territoire national, que l'Etat de destination soit ou non lié à la France par un accord de sécurité. Avant leur départ, des règles de prudence élémentaire leur sont rappelées (32).
-
+chap2.2: |
   ### Chapitre II - L'habilitation
 
   #### Article 23 - Objet de l'habilitation
@@ -371,180 +372,175 @@ chap2.1: |
 
   Lorsque l'habilitation requise est du niveau Très Secret Défense, il revient à l'autorité d'emploi d'apprécier l'opportunité d'une enquête portant sur chacun des candidats au poste concerné.
 
-    1. Constitution du dossier :
+  ##### 1. Constitution du dossier :
 
-    Le dossier d'habilitation a pour objet de réunir les éléments qui seront vérifiés lors de l'enquête de sécurité (33).
+  Le dossier d'habilitation a pour objet de réunir les éléments qui seront vérifiés lors de l'enquête de sécurité (33).
 
-    Afin de simplifier la constitution des dossiers de demande d'habilitation et d'en accélérer la circulation entre les différents acteurs, il convient de favoriser la dématérialisation des procédures.
+  Afin de simplifier la constitution des dossiers de demande d'habilitation et d'en accélérer la circulation entre les différents acteurs, il convient de favoriser la dématérialisation des procédures.
 
-    Sous la forme dématérialisée, la demande d'habilitation et la notice individuelle peuvent être téléchargées et complétées par voie électronique. La transmission du service enquêteur peut se faire par voie électronique, à condition que le système d'information employé garantisse l'identification et l'authentification de l'éméteur comme du destinataire, assure la confidentialité et l'intégralité des données et permette de tracer les actions effectuées.
+  Sous la forme dématérialisée, la demande d'habilitation et la notice individuelle peuvent être téléchargées et complétées par voie électronique. La transmission du service enquêteur peut se faire par voie électronique, à condition que le système d'information employé garantisse l'identification et l'authentification de l'éméteur comme du destinataire, assure la confidentialité et l'intégralité des données et permette de tracer les actions effectuées.
 
-    Lorsque le recours à la forme dématérialisée n'est pas possible, le dossier d'habilitation est constitué (34) de la demande d'habilitation formulée par le chef du service employeur attestant le besoin de connaître des informations ou supports classifiés à un niveau donné, pour une personne nommément désignée, assortie de la notice individuelle de sécurité, renseignée intégralement par l'intéressé et vérifiée par l'officier de sécurité du service ou de l'organisme dont il relève. Elle est établie en trois exemplaires (un original et deux photocopies, datées et revêtues de la signature originale du candidat) et de trois photographies d'identité originales, identiques et récentes.
+  Lorsque le recours à la forme dématérialisée n'est pas possible, le dossier d'habilitation est constitué (34) de la demande d'habilitation formulée par le chef du service employeur attestant le besoin de connaître des informations ou supports classifiés à un niveau donné, pour une personne nommément désignée, assortie de la notice individuelle de sécurité, renseignée intégralement par l'intéressé et vérifiée par l'officier de sécurité du service ou de l'organisme dont il relève. Elle est établie en trois exemplaires (un original et deux photocopies, datées et revêtues de la signature originale du candidat) et de trois photographies d'identité originales, identiques et récentes.
 
-    Le dossier d'habilitation est adressé par le chef du service employeur à l'autorité d'habilitation (SGDSN, HFDS, ASD, préfet), qui vérifie qu'il est complet et le transmet pour instruction :
+  Le dossier d'habilitation est adressé par le chef du service employeur à l'autorité d'habilitation (SGDSN, HFDS, ASD, préfet), qui vérifie qu'il est complet et le transmet pour instruction :
 
-      * pour le niveau Très Secret Défense, au SGDSN, qui fait mener l'enquête par les services enquêteurs compétents ;
-      * pour les niveaux Secret Défense et Confidentiel Défense, directement aux services enquêteurs compétents.
+    * pour le niveau Très Secret Défense, au SGDSN, qui fait mener l'enquête par les services enquêteurs compétents ;
+    * pour les niveaux Secret Défense et Confidentiel Défense, directement aux services enquêteurs compétents.
 
-    2. Instruction du dossier :
+  ##### 2. Instruction du dossier :
 
-    L'enquête de sécurité menée dans le cadre de la procédure d'habilitation est une enquête administrative permettant de déceler chez le candidat d'éventuelles vulnérabilités.
+  L'enquête de sécurité menée dans le cadre de la procédure d'habilitation est une enquête administrative permettant de déceler chez le candidat d'éventuelles vulnérabilités.
 
-    Elle est diligentée par :
+  Elle est diligentée par :
 
-      * le service enquêteur du ministère de l'intérieur (35) pour les personnels civils (y compris ceux travaillant pour la gendarmerie) ou les organismes travaillant dans le domaine civil ;
-      * les services enquêteurs du ministère de la défense (36) pour les personnels civils ou militaires du ministère de la défense, les personnels militaires de la gendarmerie, les personnels employés dans les organismes ou entreprises travaillant au profit du ministère de la défense (37).
+    * le service enquêteur du ministère de l'intérieur (35) pour les personnels civils (y compris ceux travaillant pour la gendarmerie) ou les organismes travaillant dans le domaine civil ;
+    * les services enquêteurs du ministère de la défense (36) pour les personnels civils ou militaires du ministère de la défense, les personnels militaires de la gendarmerie, les personnels employés dans les organismes ou entreprises travaillant au profit du ministère de la défense (37).
 
-    L'enquête administrative est fondée sur des critères objectifs permettant de déterminer si l'intéressé, par son comportement ou par son environnement proche, présente une vulnérabilité, soit parce qu'il constitue lui-même une menace pour le secret, soit parce qu'il se trouve exposé à un risque de chantage ou de pressions pouvant mettre en péril les intérêts de l'Etat, chantage ou pressions exercés par un service étranger de renseignement, un groupe terroriste, une organisation ou une personne se livrant à des activités subversives.
+  L'enquête administrative est fondée sur des critères objectifs permettant de déterminer si l'intéressé, par son comportement ou par son environnement proche, présente une vulnérabilité, soit parce qu'il constitue lui-même une menace pour le secret, soit parce qu'il se trouve exposé à un risque de chantage ou de pressions pouvant mettre en péril les intérêts de l'Etat, chantage ou pressions exercés par un service étranger de renseignement, un groupe terroriste, une organisation ou une personne se livrant à des activités subversives.
 
-    3. Clôture de l'instruction et avis de sécurité :
+  ##### 3. Clôture de l'instruction et avis de sécurité :
 
-    L'enquête administrative menée dans le cadre de l'habilitation s'achève par l'émission d'un avis de sécurité, par lequel le service enquêteur fait connaître ses conclusions techniques à la seule autorité compétente pour prendre la décision d'habilitation.
+  L'enquête administrative menée dans le cadre de l'habilitation s'achève par l'émission d'un avis de sécurité, par lequel le service enquêteur fait connaître ses conclusions techniques à la seule autorité compétente pour prendre la décision d'habilitation.
 
-    Cet avis est une évaluation des vulnérabilités éventuellement détectées lors de l'enquête et permet à l'autorité décisionnaire d'apprécier l'opportunité de l'habilitation de l'intéressé, au regard des éléments communiqués et des garanties qu'il présente pour le niveau d'habilitation requis.
+  Cet avis est une évaluation des vulnérabilités éventuellement détectées lors de l'enquête et permet à l'autorité décisionnaire d'apprécier l'opportunité de l'habilitation de l'intéressé, au regard des éléments communiqués et des garanties qu'il présente pour le niveau d'habilitation requis.
 
-    Les conclusions de l'avis de sécurité sont de trois types (38) :
+  Les conclusions de l'avis de sécurité sont de trois types (38) :
 
-      * avis sans objection, lorsque l'instruction n'a révélé aucun élément de vulnérabilité de nature à constituer un risque pour la sécurité des informations ou supports classifiés ni pour celle de l'intéressé ;
+    * avis sans objection, lorsque l'instruction n'a révélé aucun élément de vulnérabilité de nature à constituer un risque pour la sécurité des informations ou supports classifiés ni pour celle de l'intéressé ;
+    * avis restrictif, lorsque l'intéressé présente certaines vulnérabilités constituant des risques directs ou indirects pour la sécurité des informations ou supports classifiés auxquels il aurait accès, mais que des mesures de sécurité spécifiques prises par l'officier de sécurité permettraient de maîtriser ;
+    * avis défavorable, lorsque des informations précises font apparaître que l'intéressé présente des vulnérabilités faisant peser sur le secret des risques tels qu'aucune mesure de sécurité ne semble suffisante à les neutraliser.
 
-      * avis restrictif, lorsque l'intéressé présente certaines vulnérabilités constituant des risques directs ou indirects pour la sécurité des informations ou supports classifiés auxquels il aurait accès, mais que des mesures de sécurité spécifiques prises par l'officier de sécurité permettraient de maîtriser ;
+  L'avis de sécurité est émis pour un niveau donné d'habilitation. L'avis sans objection est valable pour le niveau précisé ainsi que pour le (s) niveau (x) inférieur (s). Pour les avis restrictifs ou défavorables, les services enquêteurs se prononcent, au cas par cas, sur l'opportunité d'accorder une habilitation pour le (s) niveau (x) inférieur (s).
 
-      * avis défavorable, lorsque des informations précises font apparaître que l'intéressé présente des vulnérabilités faisant peser sur le secret des risques tels qu'aucune mesure de sécurité ne semble suffisante à les neutraliser.
+  Les avis restrictifs ou défavorables peuvent être classifiés selon l'appréciation du service enquêteur.
 
-    L'avis de sécurité est émis pour un niveau donné d'habilitation. L'avis sans objection est valable pour le niveau précisé ainsi que pour le (s) niveau (x) inférieur (s). Pour les avis restrictifs ou défavorables, les services enquêteurs se prononcent, au cas par cas, sur l'opportunité d'accorder une habilitation pour le (s) niveau (x) inférieur (s).
+  Les avis restrictifs et défavorables sont assortis d'une fiche confidentielle indiquant les motifs de l'avis. Cette fiche est composée de deux parties distinctes, permettant de séparer les éléments, non classifiés, qui peuvent être communiqués au candidat, de ceux, le cas échéant classifiés, qui ne peuvent être portés qu'à la connaissance de la seule autorité d'habilitation. Ne pouvant être reproduite, la fiche confidentielle est retournée après communication et sans délai au service enquêteur qui l'a émise, aux fins de conservation.
 
-    Les avis restrictifs ou défavorables peuvent être classifiés selon l'appréciation du service enquêteur.
+  La durée de validité de l'avis de sécurité est fonction du niveau d'habilitation demandé. Elle ne peut excéder :
 
-    Les avis restrictifs et défavorables sont assortis d'une fiche confidentielle indiquant les motifs de l'avis. Cette fiche est composée de deux parties distinctes, permettant de séparer les éléments, non classifiés, qui peuvent être communiqués au candidat, de ceux, le cas échéant classifiés, qui ne peuvent être portés qu'à la connaissance de la seule autorité d'habilitation. Ne pouvant être reproduite, la fiche confidentielle est retournée après communication et sans délai au service enquêteur qui l'a émise, aux fins de conservation.
+    * cinq ans pour le niveau Très Secret Défense ;
+    * sept ans pour le niveau Secret Défense ;
+    * dix ans pour le niveau Confidentiel Défense.
 
-    La durée de validité de l'avis de sécurité est fonction du niveau d'habilitation demandé. Elle ne peut excéder :
+  L'avis de sécurité ne constitue en soi ni une autorisation ni un refus et ne lie pas l'autorité d'habilitation, qui prend sa décision après avoir apprécié les différents éléments recueillis pendant l'instruction du dossier.
 
-      * cinq ans pour le niveau Très Secret Défense ;
+  ### Article 25 - La décision
 
-      * sept ans pour le niveau Secret Défense ;
+  La décision d'habilitation ou de refus d'habilitation est prononcée par l'autorité d'habilitation (39) au regard des conclusions du service enquêteur. Quel que soit le sens de l'avis de sécurité, auquel il n'est d'ailleurs fait aucune référence dans la décision, l'autorité d'habilitation peut admettre ou rejeter une demande d'habilitation.
 
-      * dix ans pour le niveau Confidentiel Défense.
+  L'autorité d'habilitation peut décider, lorsque l'enquête a mis en valeur des éléments de vulnérabilité, de n'accorder l'habilitation qu'après avoir pris des précautions particulières. Ainsi, afin de garantir le plus efficacement possible la protection des informations ou supports classifiés, l'attention de l'employeur, par une procédure de mise en garde, ou celle de l'intéressé lui-même, par une procédure de mise en éveil, est attirée sur les risques auxquels l'un ou l'autre se trouve exposé. Les procédures de mise en garde et de mise en éveil peuvent être cumulées.
 
-    L'avis de sécurité ne constitue en soi ni une autorisation ni un refus et ne lie pas l'autorité d'habilitation, qui prend sa décision après avoir apprécié les différents éléments recueillis pendant l'instruction du dossier.
+  ##### 1. La décision d'habilitation :
 
-    ### Article 25 - La décision
+  La décision d'habilitation est l'autorisation donnée à une personne, en fonction de son besoin d'en connaître, d'accéder aux informations ou supports classifiés au niveau précisé dans la décision, ainsi qu'au (x) niveau (x) inférieur (s).
 
-    La décision d'habilitation ou de refus d'habilitation est prononcée par l'autorité d'habilitation (39) au regard des conclusions du service enquêteur. Quel que soit le sens de l'avis de sécurité, auquel il n'est d'ailleurs fait aucune référence dans la décision, l'autorité d'habilitation peut admettre ou rejeter une demande d'habilitation.
+  Pour le niveau Très Secret Défense, la décision précise la classification spéciale concernée. Lorsqu'une personne doit avoir accès de façon régulière à des informations relevant de plusieurs classifications spéciales, une décision d'habilitation doit être émise pour chacune de ces classifications. Aussi une personne peut-elle être visée par plusieurs décisions d'habilitation.
 
-    L'autorité d'habilitation peut décider, lorsque l'enquête a mis en valeur des éléments de vulnérabilité, de n'accorder l'habilitation qu'après avoir pris des précautions particulières. Ainsi, afin de garantir le plus efficacement possible la protection des informations ou supports classifiés, l'attention de l'employeur, par une procédure de mise en garde, ou celle de l'intéressé lui-même, par une procédure de mise en éveil, est attirée sur les risques auxquels l'un ou l'autre se trouve exposé. Les procédures de mise en garde et de mise en éveil peuvent être cumulées.
+  ##### 2. La mise en garde :
 
-    1. La décision d'habilitation :
+  Lorsqu'un avis de sécurité est restrictif ou défavorable, l'autorité d'habilitation peut néanmoins décider d'accorder l'habilitation tout en mettant en garde l'officier de sécurité compétent. Cette procédure permet à celui-ci de mettre en œuvre des mesures de sécurité ou de prendre des précautions particulières à l'égard de l'intéressé, si nécessaire avec le conseil du HFDS ou du service enquêteur. Le service enquêteur, en liaison avec le HFDS, apprécie, parmi les éléments révélés par l'enquête, ce qu'il convient de communiquer à l'officier de sécurité et, le cas échéant, à l'employeur.
 
-    La décision d'habilitation est l'autorisation donnée à une personne, en fonction de son besoin d'en connaître, d'accéder aux informations ou supports classifiés au niveau précisé dans la décision, ainsi qu'au (x) niveau (x) inférieur (s).
+  A l'issue de l'entretien de mise en garde, une attestation particulière (40) est signée par l'officier de sécurité du service employeur. La décision d'habilitation n'est rendue qu'à l'issue de la procédure. L'attestation est conservée par l'autorité d'habilitation.
 
-    Pour le niveau Très Secret Défense, la décision précise la classification spéciale concernée. Lorsqu'une personne doit avoir accès de façon régulière à des informations relevant de plusieurs classifications spéciales, une décision d'habilitation doit être émise pour chacune de ces classifications. Aussi une personne peut-elle être visée par plusieurs décisions d'habilitation.
+  Au niveau Très Secret Défense, la procédure de mise en garde est menée par le SGDSN, qui conserve l'attestation.
 
-    2. La mise en garde :
+  ##### 3. La mise en éveil :
 
-    Lorsqu'un avis de sécurité est restrictif ou défavorable, l'autorité d'habilitation peut néanmoins décider d'accorder l'habilitation tout en mettant en garde l'officier de sécurité compétent. Cette procédure permet à celui-ci de mettre en œuvre des mesures de sécurité ou de prendre des précautions particulières à l'égard de l'intéressé, si nécessaire avec le conseil du HFDS ou du service enquêteur. Le service enquêteur, en liaison avec le HFDS, apprécie, parmi les éléments révélés par l'enquête, ce qu'il convient de communiquer à l'officier de sécurité et, le cas échéant, à l'employeur.
+  Lorsque l'autorité d'habilitation décide d'accorder l'habilitation sur la base d'un avis de sécurité restrictif ou en dépit d'un avis de sécurité défavorable, elle peut choisir de demander la mise en éveil de l'intéressé, qui consiste à sensibiliser ce dernier sur les éléments communicables de vulnérabilité révélés par l'enquête (41). La mise en éveil est menée par l'autorité d'habilitation, en présence de l'officier de sécurité concerné. L'autorité d'habilitation définit les modalités de la mise en éveil en liaison avec le service enquêteur et peut, au cas par cas, solliciter sa présence lors de l'entretien avec l'intéressé. Le cas échéant, l'officier de sécurité étudie avec ce service les mesures de sécurité complémentaires à mettre en œuvre au regard de la situation.
 
-    A l'issue de l'entretien de mise en garde, une attestation particulière (40) est signée par l'officier de sécurité du service employeur. La décision d'habilitation n'est rendue qu'à l'issue de la procédure. L'attestation est conservée par l'autorité d'habilitation.
+  A l'issue de l'entretien de mise en éveil, une attestation particulière (42) est signée par le représentant de l'autorité d'habilitation, par l'officier de sécurité du service employeur et par l'intéressé.
 
-    Au niveau Très Secret Défense, la procédure de mise en garde est menée par le SGDSN, qui conserve l'attestation.
+  La décision d'habilitation n'est rendue qu'à l'issue de la procédure. L'attestation est conservée par l'autorité d'habilitation.
 
-    3. La mise en éveil :
+  Au niveau Très Secret Défense, la mise en éveil est menée par le SGDSN, qui conserve l'attestation.
 
-    Lorsque l'autorité d'habilitation décide d'accorder l'habilitation sur la base d'un avis de sécurité restrictif ou en dépit d'un avis de sécurité défavorable, elle peut choisir de demander la mise en éveil de l'intéressé, qui consiste à sensibiliser ce dernier sur les éléments communicables de vulnérabilité révélés par l'enquête (41). La mise en éveil est menée par l'autorité d'habilitation, en présence de l'officier de sécurité concerné. L'autorité d'habilitation définit les modalités de la mise en éveil en liaison avec le service enquêteur et peut, au cas par cas, solliciter sa présence lors de l'entretien avec l'intéressé. Le cas échéant, l'officier de sécurité étudie avec ce service les mesures de sécurité complémentaires à mettre en œuvre au regard de la situation.
+  ##### 4. Le refus d'habilitation :
 
-    A l'issue de l'entretien de mise en éveil, une attestation particulière (42) est signée par le représentant de l'autorité d'habilitation, par l'officier de sécurité du service employeur et par l'intéressé.
+  L'intéressé est informé de la décision défavorable prise à son endroit. Un refus d'habilitation n'a pas à être motivé lorsqu'il repose sur des informations qui ont été classifiées (43).
 
-    La décision d'habilitation n'est rendue qu'à l'issue de la procédure. L'attestation est conservée par l'autorité d'habilitation.
+  #### Article 26 - La notification de la décision
 
-    Au niveau Très Secret Défense, la mise en éveil est menée par le SGDSN, qui conserve l'attestation.
+  La décision prise par l'autorité d'habilitation est transmise à l'officier de sécurité. A réception, ce dernier notifie au candidat à l'habilitation la décision individuelle prise à son endroit, qu'elle soit favorable ou non.
 
-    4. Le refus d'habilitation :
+  ##### 1. Décision favorable et engagement de responsabilité :
 
-    L'intéressé est informé de la décision défavorable prise à son endroit. Un refus d'habilitation n'a pas à être motivé lorsqu'il repose sur des informations qui ont été classifiées (43).
+  La décision d'habilitation est notifiée par l'officier de sécurité compétent à l'intéressé, qui signe un engagement de responsabilité (44). Par cet acte, le candidat reconnaît avoir eu connaissance des obligations particulières imposées par l'accès à une information ou à un support classifié ainsi que des sanctions prévues par le code pénal en cas d'inobservation, délibérée ou non, de la réglementation protégeant le secret de la défense nationale.
 
-    #### Article 26 - La notification de la décision
+  Il est également notifié à l'intéressé qu'il est tenu d'informer au plus vite, pendant toute la durée de son habilitation, l'officier de sécurité dont il relève de tout changement affectant sa vie personnelle (mariage, divorce, PACS, établissement ou rupture d'une vie commune...), professionnelle ou son lieu de résidence. Il lui est signifié qu'il devra l'informer de toute relation suivie et fréquente dépassant le strict cadre professionnel avec un ou plusieurs ressortissants étrangers. L'officier de sécurité devra alors lui faire remplir, afin de mettre à jour les informations, une notice individuelle 94 A et la transmettre à l'autorité d'habilitation (sous forme électronique lorsque la procédure est dématérialisée). Ce changement de situation pourra justifier un réexamen du dossier d'habilitation et, le cas échéant, la saisine du service enquêteur en vue de l'émission d'un nouvel avis.
 
-    La décision prise par l'autorité d'habilitation est transmise à l'officier de sécurité. A réception, ce dernier notifie au candidat à l'habilitation la décision individuelle prise à son endroit, qu'elle soit favorable ou non.
+  Le second volet de cet engagement est signé par l'intéressé à la cessation de ses fonctions ou au retrait de l'habilitation, et précise que les obligations relatives à la protection des informations classifiées auxquelles il a pu être donné accès perdurent au-delà du terme mis à ses fonctions ou à son habilitation. Une fois signé, ce second volet est retourné à l'autorité d'habilitation.
 
-    1. Décision favorable et engagement de responsabilité :
+  ##### 2. Refus d'habilitation :
 
-    La décision d'habilitation est notifiée par l'officier de sécurité compétent à l'intéressé, qui signe un engagement de responsabilité (44). Par cet acte, le candidat reconnaît avoir eu connaissance des obligations particulières imposées par l'accès à une information ou à un support classifié ainsi que des sanctions prévues par le code pénal en cas d'inobservation, délibérée ou non, de la réglementation protégeant le secret de la défense nationale.
+  La décision de refus d'habilitation est notifiée à l'intéressé par l'officier de sécurité. A cette occasion l'intéressé est informé, selon les modalités définies par le département minintériel dont il dépend, des voies de recours et des délais qui lui sont ouverts pour contester cette décision.
 
-    Il est également notifié à l'intéressé qu'il est tenu d'informer au plus vite, pendant toute la durée de son habilitation, l'officier de sécurité dont il relève de tout changement affectant sa vie personnelle (mariage, divorce, PACS, établissement ou rupture d'une vie commune...), professionnelle ou son lieu de résidence. Il lui est signifié qu'il devra l'informer de toute relation suivie et fréquente dépassant le strict cadre professionnel avec un ou plusieurs ressortissants étrangers. L'officier de sécurité devra alors lui faire remplir, afin de mettre à jour les informations, une notice individuelle 94 A et la transmettre à l'autorité d'habilitation (sous forme électronique lorsque la procédure est dématérialisée). Ce changement de situation pourra justifier un réexamen du dossier d'habilitation et, le cas échéant, la saisine du service enquêteur en vue de l'émission d'un nouvel avis.
+  Si le candidat sollicite, par l'exercice d'un recours, une explication du rejet de la demande d'habilitation, il obtient communication des motifs lorsqu'ils ne sont pas classifiés. Lorsqu'ils le sont, le candidat se voit opposer les règles applicables aux informations protégées par le secret.
 
-    Le second volet de cet engagement est signé par l'intéressé à la cessation de ses fonctions ou au retrait de l'habilitation, et précise que les obligations relatives à la protection des informations classifiées auxquelles il a pu être donné accès perdurent au-delà du terme mis à ses fonctions ou à son habilitation. Une fois signé, ce second volet est retourné à l'autorité d'habilitation.
+  #### Article 27 - Durée de validité de l'habilitation
 
-    2. Refus d'habilitation :
+  La durée de validité de l'habilitation est liée à la durée d'occupation du poste qui a justifié sa délivrance. Elle cesse lorsque l'intéressé quitte son emploi.
 
-    La décision de refus d'habilitation est notifiée à l'intéressé par l'officier de sécurité. A cette occasion l'intéressé est informé, selon les modalités définies par le département minintériel dont il dépend, des voies de recours et des délais qui lui sont ouverts pour contester cette décision.
+  La décision d'habilitation précise en principe elle-même sa durée de validité. Elle ne peut excéder celle de l'avis de sécurité au regard duquel elle a été prise.
 
-    Si le candidat sollicite, par l'exercice d'un recours, une explication du rejet de la demande d'habilitation, il obtient communication des motifs lorsqu'ils ne sont pas classifiés. Lorsqu'ils le sont, le candidat se voit opposer les règles applicables aux informations protégées par le secret.
+  Au seul cas de demande de renouvellement de l'habilitation formulée dans les délais prévus à l'article 31, et si aucune observation n'a été émise par le service enquêteur, la décision d'habilitation est implicitement prorogée pour une durée maximale de douze mois.
 
-    #### Article 27 - Durée de validité de l'habilitation
+  #### Article 28 - Habilitation et changement d'affectation
 
-    La durée de validité de l'habilitation est liée à la durée d'occupation du poste qui a justifié sa délivrance. Elle cesse lorsque l'intéressé quitte son emploi.
+  Lorsqu'une personne habilitée change d'affectation, son habilitation pour le poste initial prend fin (45) et une autre décision peut être prise, si la nouvelle affectation l'exige, sur la base de l'avis de sécurité en cours.
 
-    La décision d'habilitation précise en principe elle-même sa durée de validité. Elle ne peut excéder celle de l'avis de sécurité au regard duquel elle a été prise.
+  Si l'autorité d'habilitation compétente change, l'officier de sécurité du service quitté renvoie la décision d'habilitation et l'engagement de responsabilité à l'autorité qui a décidé de l'habilitation. Afin d'informer la nouvelle autorité d'habilitation qu'un avis de sécurité est en cours de validité, l'officier de sécurité du service quitté lui transmet un certificat de sécurité. Si l'avis est restrictif ou défavorable, la nouvelle autorité d'habilitation peut, pour prendre sa décision, demander à connaître les motifs qui l'ont justifié.
 
-    Au seul cas de demande de renouvellement de l'habilitation formulée dans les délais prévus à l'article 31, et si aucune observation n'a été émise par le service enquêteur, la décision d'habilitation est implicitement prorogée pour une durée maximale de douze mois.
+  Pour le niveau Très Secret Défense, lorsque l'habilitation est devenue sans objet en raison du changement d'affectation de son titulaire, l'autorité compétente en avise le SGDSN et lui renvoie sans délai la décision d'habilitation ainsi que l'engagement de responsabilité (volet 2) dûment signé.
 
-    #### Article 28 - Habilitation et changement d'affectation
+  #### Article 29 - Conservation des décisions
 
-    Lorsqu'une personne habilitée change d'affectation, son habilitation pour le poste initial prend fin (45) et une autre décision peut être prise, si la nouvelle affectation l'exige, sur la base de l'avis de sécurité en cours.
+  Pendant leur durée de validité, les décisions d'habilitation sont conservées par l'officier de sécurité du service employeur. Ces documents, qui portent une mention de protection (46), ne sont en aucun cas remis aux intéressés ni reproduits.
 
-    Si l'autorité d'habilitation compétente change, l'officier de sécurité du service quitté renvoie la décision d'habilitation et l'engagement de responsabilité à l'autorité qui a décidé de l'habilitation. Afin d'informer la nouvelle autorité d'habilitation qu'un avis de sécurité est en cours de validité, l'officier de sécurité du service quitté lui transmet un certificat de sécurité. Si l'avis est restrictif ou défavorable, la nouvelle autorité d'habilitation peut, pour prendre sa décision, demander à connaître les motifs qui l'ont justifié.
+  En cas de nécessité, il peut être remis aux intéressés, par l'autorité d'habilitation, un certificat de sécurité (47) délivré pour une mission déterminée et une période limitée. La délivrance de ces certificats peut être déléguée à l'officier de sécurité. Il est de la responsabilité de l'intéressé de procéder ou de faire procéder à la destruction de ce certificat dès le retour de mission.
 
-    Pour le niveau Très Secret Défense, lorsque l'habilitation est devenue sans objet en raison du changement d'affectation de son titulaire, l'autorité compétente en avise le SGDSN et lui renvoie sans délai la décision d'habilitation ainsi que l'engagement de responsabilité (volet 2) dûment signé.
+  Les éléments relatifs à l'habilitation des personnels sont conservés pour une durée que chaque ministre définit pour le département dont il a la charge. Cette durée ne peut pas être inférieure à cinq ans à compter de leur date de péremption.
 
-    #### Article 29 - Conservation des décisions
+  #### Article 30 - Répertoire des habilitations
 
-    Pendant leur durée de validité, les décisions d'habilitation sont conservées par l'officier de sécurité du service employeur. Ces documents, qui portent une mention de protection (46), ne sont en aucun cas remis aux intéressés ni reproduits.
+  Dans chaque département ministériel, il est tenu, pour chacun des trois niveaux de classification, un répertoire :
 
-    En cas de nécessité, il peut être remis aux intéressés, par l'autorité d'habilitation, un certificat de sécurité (47) délivré pour une mission déterminée et une période limitée. La délivrance de ces certificats peut être déléguée à l'officier de sécurité. Il est de la responsabilité de l'intéressé de procéder ou de faire procéder à la destruction de ce certificat dès le retour de mission.
+    * des dossiers d'habilitation en cours d'instruction ;
+    * des habilitations en cours de validité.
 
-    Les éléments relatifs à l'habilitation des personnels sont conservés pour une durée que chaque ministre définit pour le département dont il a la charge. Cette durée ne peut pas être inférieure à cinq ans à compter de leur date de péremption.
+  Le SGDSN tient à jour le répertoire central des habilitations au niveau Très Secret Défense, y compris dans le domaine international.
 
-    #### Article 30 - Répertoire des habilitations
+  Pour permettre au SGDSN d'évaluer le nombre total d'habilitations délivrées et de personnes ayant accès aux informations ou supports classifiés, le HFDS lui adresse, en fin d'année, un état des personnes relevant de son département ministériel habilitées aux niveaux Secret Défense et Confidentiel Défense, dans le cadre du rapport annuel d'évaluation mentionné à l'article 12 de la présente instruction.
 
-    Dans chaque département ministériel, il est tenu, pour chacun des trois niveaux de classification, un répertoire :
+  #### Article 31 - Fin de l'habilitation
 
-      * des dossiers d'habilitation en cours d'instruction ;
-      * des habilitations en cours de validité.
+  L'habilitation prend fin de trois manières : soit lorsque l'intéressé quitte le poste qui a motivé son habilitation, soit lorsque la validité de l'habilitation expire, soit parce que l'habilitation est retirée.
 
-    Le SGDSN tient à jour le répertoire central des habilitations au niveau Très Secret Défense, y compris dans le domaine international.
+  ##### 1. Cessation des fonctions :
 
-    Pour permettre au SGDSN d'évaluer le nombre total d'habilitations délivrées et de personnes ayant accès aux informations ou supports classifiés, le HFDS lui adresse, en fin d'année, un état des personnes relevant de son département ministériel habilitées aux niveaux Secret Défense et Confidentiel Défense, dans le cadre du rapport annuel d'évaluation mentionné à l'article 12 de la présente instruction.
+  L'habilitation liée à l'occupation d'un poste ou à l'exercice d'une fonction déterminée expire lorsque son titulaire change d'affectation ou cesse ses fonctions. En quittant l'emploi précisé dans la décision d'habilitation, le titulaire signe, conformément aux dispositions de l'article 26 de la présente instruction, le second volet de l'engagement de responsabilité.
 
-    #### Article 31 - Fin de l'habilitation
+  ##### 2. Expiration de validité et renouvellement :
 
-    L'habilitation prend fin de trois manières : soit lorsque l'intéressé quitte le poste qui a motivé son habilitation, soit lorsque la validité de l'habilitation expire, soit parce que l'habilitation est retirée.
+  Le titulaire d'une habilitation dont le terme fixé dans la décision arrive à échéance signe, conformément à l'article 26 précité, le second volet de son engagement de responsabilité.
 
-    1. Cessation des fonctions :
+  Seule, au regard des dispositions de l'article 27 de la présente instruction, une demande de renouvellement, engagée dans les formes et les délais requis, permet de proroger provisoirement la validité de l'habilitation afin d'éviter une interruption inopportune des conditions d'emploi, de fonction ou de la mission du titulaire.
 
-    L'habilitation liée à l'occupation d'un poste ou à l'exercice d'une fonction déterminée expire lorsque son titulaire change d'affectation ou cesse ses fonctions. En quittant l'emploi précisé dans la décision d'habilitation, le titulaire signe, conformément aux dispositions de l'article 26 de la présente instruction, le second volet de l'engagement de responsabilité.
+  La demande de renouvellement doit être effectuée dans le délai de six mois et, au plus tard, un mois avant la date d'expiration de l'habilitation en cours. Elle est constituée d'un nouveau dossier de demande d'habilitation identique à celui décrit à l'article 24.
 
-    2. Expiration de validité et renouvellement :
+  Lorsque la procédure peut être dématérialisée, la nouvelle demande est transmise dans les mêmes conditions que la demande initiale.
 
-    Le titulaire d'une habilitation dont le terme fixé dans la décision arrive à échéance signe, conformément à l'article 26 précité, le second volet de son engagement de responsabilité.
+  La validité de la décision initiale d'habilitation est prorogée d'une durée maximale de douze mois après péremption de l'avis de sécurité, lorsque le besoin de connaître des informations classifiées subsiste au-delà de la durée de validité de cet avis, conformément aux dispositions de l'article 27 de la présente instruction, et à la condition impérative qu'une demande de renouvellement ait été régulièrement engagée, dans l'attente des conclusions de l'instruction du nouveau dossier.
 
-    Seule, au regard des dispositions de l'article 27 de la présente instruction, une demande de renouvellement, engagée dans les formes et les délais requis, permet de proroger provisoirement la validité de l'habilitation afin d'éviter une interruption inopportune des conditions d'emploi, de fonction ou de la mission du titulaire.
+  Cette prorogation est autorisée dans les mêmes conditions lorsqu'une demande, à un niveau supérieur, est formulée dans le délai de six à un mois (au plus tard) précédant la date d'expiration de l'habilitation en cours.
 
-    La demande de renouvellement doit être effectuée dans le délai de six mois et, au plus tard, un mois avant la date d'expiration de l'habilitation en cours. Elle est constituée d'un nouveau dossier de demande d'habilitation identique à celui décrit à l'article 24.
+  ##### 3. Retrait d'habilitation :
 
-    Lorsque la procédure peut être dématérialisée, la nouvelle demande est transmise dans les mêmes conditions que la demande initiale.
+  La décision d'habilitation ne confère pas à son bénéficiaire de droit acquis à son maintien. L'habilitation peut être retirée en cours de validité ou à l'occasion d'une demande de renouvellement si l'intéressé ne remplit plus les conditions nécessaires à sa délivrance, ce qui peut être le cas lorsque des éléments de vulnérabilité apparaissent, signalés par exemple par :
 
-    La validité de la décision initiale d'habilitation est prorogée d'une durée maximale de douze mois après péremption de l'avis de sécurité, lorsque le besoin de connaître des informations classifiées subsiste au-delà de la durée de validité de cet avis, conformément aux dispositions de l'article 27 de la présente instruction, et à la condition impérative qu'une demande de renouvellement ait été régulièrement engagée, dans l'attente des conclusions de l'instruction du nouveau dossier.
+    * le service enquêteur ;
+    * le supérieur hiérarchique ou l'officier de sécurité concerné, à la suite d'un changement de situation ou de comportement révélant un risque pour la défense et la sécurité nationale.
 
-    Cette prorogation est autorisée dans les mêmes conditions lorsqu'une demande, à un niveau supérieur, est formulée dans le délai de six à un mois (au plus tard) précédant la date d'expiration de l'habilitation en cours.
-
-    3. Retrait d'habilitation :
-
-    La décision d'habilitation ne confère pas à son bénéficiaire de droit acquis à son maintien. L'habilitation peut être retirée en cours de validité ou à l'occasion d'une demande de renouvellement si l'intéressé ne remplit plus les conditions nécessaires à sa délivrance, ce qui peut être le cas lorsque des éléments de vulnérabilité apparaissent, signalés par exemple par :
-
-      * le service enquêteur ;
-      * le supérieur hiérarchique ou l'officier de sécurité concerné, à la suite d'un changement de situation ou de comportement révélant un risque pour la défense et la sécurité nationale.
-
-    La décision de retrait est notifiée à l'intéressé dans les mêmes formes que le refus d'habilitation, décrites à l'article 26 de la présente instruction, sans que les motifs lui soient communiqués s'ils sont classifiés. L'intéressé est informé des voies de recours et des délais qui lui sont ouverts pour contester cette décision.
-
+  La décision de retrait est notifiée à l'intéressé dans les mêmes formes que le refus d'habilitation, décrites à l'article 26 de la présente instruction, sans que les motifs lui soient communiqués s'ils sont classifiés. L'intéressé est informé des voies de recours et des délais qui lui sont ouverts pour contester cette décision.
 chap2.3: |
   ### Chapitre III - Les cas particuliers
 
@@ -646,321 +642,255 @@ titre3: |
     La classification est matérialisée par l'apposition d'une mention spécifique qui permet de caractériser l'infraction pénale en cas de compromission.
 
     La compromission peut résulter d'un acte de malveillance comme d'une simple négligence.
-
 chap3.1: |
-    ### Chapitre Ier - Principes généraux de la classification
+  ### Chapitre Ier - Principes généraux de la classification
 
-    Section 1
+  ### Section 1 - Les règles de classification
 
-    Les règles de classification
+  #### Article 39 - Responsabilité de la décision de classification
 
-    Article 39
+  Pour le niveau Très Secret Défense, les modalités de protection des informations ou supports classifiés sont déterminées par le Premier ministre dans des instructions particulières (53).
 
-    Responsabilité de la décision de classification
+  Pour les niveaux Secret Défense et Confidentiel Défense, chaque ministre détermine, dans les conditions fixées par le Premier ministre, les informations ou supports qu'il y a lieu de classifier à l'un ou l'autre de ces niveaux et les modalités d'organisation de leur protection.
 
-    Pour le niveau Très Secret Défense, les modalités de protection des informations ou supports classifiés sont déterminées par le Premier ministre dans des instructions particulières (53).
+  Au sein de chaque ministère, la décision de classification est prise, sur proposition de l'auteur du document, au niveau hiérarchique le plus apte à évaluer les enjeux. Le responsable de cette décision, qui doit être en mesure de la justifier auprès de sa hiérarchie, est appelé autorité classificatrice ou autorité émettrice.
 
-    Pour les niveaux Secret Défense et Confidentiel Défense, chaque ministre détermine, dans les conditions fixées par le Premier ministre, les informations ou supports qu'il y a lieu de classifier à l'un ou l'autre de ces niveaux et les modalités d'organisation de leur protection.
+  La décision de classifier résulte de l'analyse de l'importance de l'information au regard de son contexte, des textes applicables et des instructions du ministre compétent. L'autorité classificatrice veille à ce que le niveau de classification soit approprié à l'information ou au support concerné (e), c'est-à-dire à ce qu'il soit à la fois nécessaire et suffisant. Elle cherche ainsi à limiter la prolifération de documents classifiés et à éviter les classifications abusives, qui génèrent des coûts de gestion, des charges de travail importantes et altèrent la valeur du secret de la défense nationale. Cette évaluation comporte un risque d'erreur d'appréciation pouvant conduire, à l'inverse, à ce qu'une information justifiant une classification ne soit pas classifiée, ce qui constitue un manquement aux règles de protection du secret dont l'autorité émettrice est responsable (54).
 
-    Au sein de chaque ministère, la décision de classification est prise, sur proposition de l'auteur du document, au niveau hiérarchique le plus apte à évaluer les enjeux. Le responsable de cette décision, qui doit être en mesure de la justifier auprès de sa hiérarchie, est appelé autorité classificatrice ou autorité émettrice.
+  En cas d'évolution, dans le temps ou en fonction des circonstances, de la sensibilité des informations classifiées, l'autorité classificatrice peut décider de procéder à leur déclassification, leur déclassement ou leur reclassement (55). Elle notifie sa décision de modification ou de suppression de classification aux destinataires de l'information ou du support.
 
-    La décision de classifier résulte de l'analyse de l'importance de l'information au regard de son contexte, des textes applicables et des instructions du ministre compétent. L'autorité classificatrice veille à ce que le niveau de classification soit approprié à l'information ou au support concerné (e), c'est-à-dire à ce qu'il soit à la fois nécessaire et suffisant. Elle cherche ainsi à limiter la prolifération de documents classifiés et à éviter les classifications abusives, qui génèrent des coûts de gestion, des charges de travail importantes et altèrent la valeur du secret de la défense nationale. Cette évaluation comporte un risque d'erreur d'appréciation pouvant conduire, à l'inverse, à ce qu'une information justifiant une classification ne soit pas classifiée, ce qui constitue un manquement aux règles de protection du secret dont l'autorité émettrice est responsable (54).
+  Les cas manifestes de surclassification ou de sous-classification sont signalés par le (s) destinataire (s) à l'émetteur qui procédera, si nécessaire, à la modification appropriée, en informera l'ensemble des destinataires et prendra les mesures nécessaires pour éviter une compromission lorsque le document change de niveau.
 
-    En cas d'évolution, dans le temps ou en fonction des circonstances, de la sensibilité des informations classifiées, l'autorité classificatrice peut décider de procéder à leur déclassification, leur déclassement ou leur reclassement (55). Elle notifie sa décision de modification ou de suppression de classification aux destinataires de l'information ou du support.
+  #### Article 40 - Critères de classification
 
-    Les cas manifestes de surclassification ou de sous-classification sont signalés par le (s) destinataire (s) à l'émetteur qui procédera, si nécessaire, à la modification appropriée, en informera l'ensemble des destinataires et prendra les mesures nécessaires pour éviter une compromission lorsque le document change de niveau.
+  Les critères de classification et l'importance de ne classifier que ce qui est réellement nécessaire sont énoncés dans une instruction ministérielle (56).
 
-    Article 40
+  Le niveau de classification est déterminé par la nature de l'information ou du support classifié. La source de l'information peut également être prise en considération lorsque sa sensibilité justifie une protection (57).
 
-    Critères de classification
+  Lorsqu'un document comprend diverses parties, les unes nécessitant une classification, les autres non, il convient de s'efforcer de les présenter de manière distincte afin de ne pas entraver la diffusion des informations non classifiées. La diffusion de la partie non classifiée du document est rendue possible en plaçant en annexe classifiée l'information couverte par le secret de la défense nationale.
 
-    Les critères de classification et l'importance de ne classifier que ce qui est réellement nécessaire sont énoncés dans une instruction ministérielle (56).
+  Tout ensemble (58) de documents contenant des informations classifiées à des niveaux différents doit être classifié lui-même au moins au niveau le plus élevé de ces documents.
 
-    Le niveau de classification est déterminé par la nature de l'information ou du support classifié. La source de l'information peut également être prise en considération lorsque sa sensibilité justifie une protection (57).
+  Un ensemble d'informations ou de supports, dit parfois " agrégat ", est classifié si le regroupement des informations ou supports qui le composent le justifie, alors même qu'aucun de ses éléments, pris isolément, n'est classifié.
 
-    Lorsqu'un document comprend diverses parties, les unes nécessitant une classification, les autres non, il convient de s'efforcer de les présenter de manière distincte afin de ne pas entraver la diffusion des informations non classifiées. La diffusion de la partie non classifiée du document est rendue possible en plaçant en annexe classifiée l'information couverte par le secret de la défense nationale.
+  Un extrait d'information classifiée conserve le niveau de classification de l'information elle-même, à moins que l'autorité classificatrice en décide autrement (59).
 
-    Tout ensemble (58) de documents contenant des informations classifiées à des niveaux différents doit être classifié lui-même au moins au niveau le plus élevé de ces documents.
+  #### Article 41 - Identification de la classification
 
-    Un ensemble d'informations ou de supports, dit parfois " agrégat ", est classifié si le regroupement des informations ou supports qui le composent le justifie, alors même qu'aucun de ses éléments, pris isolément, n'est classifié.
+  Une information ou un support, quel qu'il soit, acquiert juridiquement le caractère de secret de la défense nationale dès lors qu'il fait l'objet de mesures de classification destinées à restreindre sa diffusion, matérialisées par la mention de niveau de classification sur le support de l'information (60).
 
-    Un extrait d'information classifiée conserve le niveau de classification de l'information elle-même, à moins que l'autorité classificatrice en décide autrement (59).
+  Les supports préparatoires ayant servi à l'élaboration de l'information classifiée (brouillons, impressions sur papier, matériels informatiques nomades [61]), qui ne sont pas identifiés, sont placés sous la responsabilité de celui qui les a élaborés. Ils doivent être détruits ou effacés le plus rapidement possible dès qu'ils sont devenus sans objet et, en tout état de cause, au plus tard lorsque le document classifié est émis.
 
-    Article 41
+  ### Section 2 - Le marquage
 
-    Identification de la classification
+  #### Article 42 - Principe général du marquage
 
-    Une information ou un support, quel qu'il soit, acquiert juridiquement le caractère de secret de la défense nationale dès lors qu'il fait l'objet de mesures de classification destinées à restreindre sa diffusion, matérialisées par la mention de niveau de classification sur le support de l'information (60).
+  Le marquage, par ses trois éléments constitutifs que sont le timbre, l'identification et la pagination, permet de vérifier l'authenticité et l'intégrité du support. Chaque exemplaire d'un document classifié porte la mention du niveau de classification des informations qu'il contient.
 
-    Les supports préparatoires ayant servi à l'élaboration de l'information classifiée (brouillons, impressions sur papier, matériels informatiques nomades [61]), qui ne sont pas identifiés, sont placés sous la responsabilité de celui qui les a élaborés. Ils doivent être détruits ou effacés le plus rapidement possible dès qu'ils sont devenus sans objet et, en tout état de cause, au plus tard lorsque le document classifié est émis.
+  Les paragraphes, alinéas, annexes, traitant d'informations classifiées à un niveau inférieur ou non classifiées, sont mis en évidence, s'il y a lieu, par la mention, dans la marge, de leur propre niveau de classification et par une mise en page qui les détache sans ambiguïté du contexte général du document.
 
-    Section 2
+  Jusqu'au niveau Secret Défense, les abréviations indiquant la classification peuvent être utilisées pour préciser le niveau de classification des paragraphes du texte. Les abréviations admises sont les suivantes :
 
-    Le marquage
+    * Confidentiel Défense : CD ;
+    * Secret Défense : SD.
 
-    Article 42
+  Ces abréviations ne remplacent pas la mention de classification inscrite en toutes lettres sur le document papier, réalisée par le timbrage.
 
-    Principe général du marquage
+  S'il est matériellement impossible d'apposer le marquage sur le support classifié ou contenant une information classifiée, il convient de mettre en œuvre des mesures de protection destinées à lever toute ambiguïté qui pourrait naître de l'absence de mention visible de classification. A cette fin, chaque ministère édicte, après avis du SGDSN, des directives particulières afin d'adapter aux caractéristiques des supports la réglementation relative au marquage, et de permettre leur identification au niveau de classification requis.
 
-    Le marquage, par ses trois éléments constitutifs que sont le timbre, l'identification et la pagination, permet de vérifier l'authenticité et l'intégrité du support. Chaque exemplaire d'un document classifié porte la mention du niveau de classification des informations qu'il contient.
+  L'absence de mise en œuvre de ces consignes rend inopérante la protection pénale accordée au secret de la défense nationale. Le respect scrupuleux des consignes constitue par conséquent un enjeu majeur.
 
-    Les paragraphes, alinéas, annexes, traitant d'informations classifiées à un niveau inférieur ou non classifiées, sont mis en évidence, s'il y a lieu, par la mention, dans la marge, de leur propre niveau de classification et par une mise en page qui les détache sans ambiguïté du contexte général du document.
 
-    Jusqu'au niveau Secret Défense, les abréviations indiquant la classification peuvent être utilisées pour préciser le niveau de classification des paragraphes du texte. Les abréviations admises sont les suivantes :
+  #### Article 43 - Le marquage d'un support papier
 
-    -Confidentiel Défense : CD ;
+  Le marquage d'un support papier comprend à la fois le timbre, l'identification et la pagination :
 
-    -Secret Défense : SD.
+    * le timbre indique le niveau de classification et permet par sa position, sa taille et sa couleur d'attirer immédiatement l'attention sur le caractère secret de l'information ou du support ;
+    * l'identification est constituée par les références du support ;
+    * la pagination consiste en la numérotation de chaque page et la mention du nombre total de pages contenues dans le document.
 
-    Ces abréviations ne remplacent pas la mention de classification inscrite en toutes lettres sur le document papier, réalisée par le timbrage.
+  ##### 1. Timbre :
 
-    S'il est matériellement impossible d'apposer le marquage sur le support classifié ou contenant une information classifiée, il convient de mettre en œuvre des mesures de protection destinées à lever toute ambiguïté qui pourrait naître de l'absence de mention visible de classification. A cette fin, chaque ministère édicte, après avis du SGDSN, des directives particulières afin d'adapter aux caractéristiques des supports la réglementation relative au marquage, et de permettre leur identification au niveau de classification requis.
+  Le timbre de la mention de classification est apposé, avec une encre de couleur rouge, ou, à titre exceptionnel, d'une couleur contrastant avec celle du support, au milieu du haut et du bas de chaque page. Pour les documents reliés, un timbre d'un modèle de dimension supérieure est placé au milieu du bas de la couverture et de la page de garde (62).
 
-    L'absence de mise en œuvre de ces consignes rend inopérante la protection pénale accordée au secret de la défense nationale. Le respect scrupuleux des consignes constitue par conséquent un enjeu majeur.
+  Lorsque des documents sont élaborés sur un poste de travail informatique, le marquage doit être ajouté par voie électronique à l'en-tête et au pied de page.
 
+  Le timbre, dont la dimension peut être adaptée à celle du support, est définitif et toujours visible.
 
-    Article 43
+  ##### 2. Identification :
 
-    Le marquage d'un support papier
+  Tout document classifié est identifié dès sa première page. En plus des références ordinaires de toute pièce administrative, des mesures particulières sont prises. Ainsi, sur la première page du document, figurent les références du service émetteur, de la date d'émission, du numéro d'enregistrement, le timbre du niveau de classification et celui indiquant l'échéance de la classification (c'est-à-dire la date à laquelle la classification du document est réévaluée ou le document déclassifié). Le cas échéant, la mention de déclassement ou de déclassification est apposée sur cette même page.
 
-    Le marquage d'un support papier comprend à la fois le timbre, l'identification et la pagination :
+  Pour les documents classifiés au niveau Secret Défense, chaque exemplaire est individualisé et le nombre total d'exemplaires est porté sur le document. Le numéro d'enregistrement émane du bureau de protection du secret compétent.
 
-    -le timbre indique le niveau de classification et permet par sa position, sa taille et sa couleur d'attirer immédiatement l'attention sur le caractère secret de l'information ou du support ;
+  ##### 3. Pagination :
 
-    -l'identification est constituée par les références du support ;
+  Chaque page du document est numérotée. Au bas de la première page est mentionné le nombre total de pages, d'annexes ou de plans qui composent le document.
 
-    -la pagination consiste en la numérotation de chaque page et la mention du nombre total de pages contenues dans le document.
+  Les pages de chaque annexe sont numérotées indépendamment de la pagination du document lui-même, et portent mention du nombre total de pages de l'annexe.
 
-    1. Timbre :
+  Pour les documents classifiés au niveau Secret Défense, les pages vierges et les feuilles intercalaires sont également numérotées. Toute page vierge porte en son centre la mention " PAS DE TEXTE ".
 
-    Le timbre de la mention de classification est apposé, avec une encre de couleur rouge, ou, à titre exceptionnel, d'une couleur contrastant avec celle du support, au milieu du haut et du bas de chaque page. Pour les documents reliés, un timbre d'un modèle de dimension supérieure est placé au milieu du bas de la couverture et de la page de garde (62).
+  #### Article 44 - Le marquage d'un support non papier
 
-    Lorsque des documents sont élaborés sur un poste de travail informatique, le marquage doit être ajouté par voie électronique à l'en-tête et au pied de page.
+  Le marquage d'un support non papier d'information classifiée est adapté au type de support, définitif et toujours visible. Il consiste en un timbre et une identification.
 
-    Le timbre, dont la dimension peut être adaptée à celle du support, est définitif et toujours visible.
+  ##### 1. Timbre :
 
-    2. Identification :
+  Le timbre spécifiant le niveau de classification a une dimension adaptée à celle du support et comporte la mention de ce niveau en toutes lettres. En cas de difficultés pratiques, les abréviations précédemment évoquées peuvent y être substituées.
 
-    Tout document classifié est identifié dès sa première page. En plus des références ordinaires de toute pièce administrative, des mesures particulières sont prises. Ainsi, sur la première page du document, figurent les références du service émetteur, de la date d'émission, du numéro d'enregistrement, le timbre du niveau de classification et celui indiquant l'échéance de la classification (c'est-à-dire la date à laquelle la classification du document est réévaluée ou le document déclassifié). Le cas échéant, la mention de déclassement ou de déclassification est apposée sur cette même page.
+  ##### 2. Identification :
 
-    Pour les documents classifiés au niveau Secret Défense, chaque exemplaire est individualisé et le nombre total d'exemplaires est porté sur le document. Le numéro d'enregistrement émane du bureau de protection du secret compétent.
+  L'identification des supports non papier d'informations classifiées est assurée par l'inscription des références et, le cas échéant, du volume de chacune des informations enregistrées. Lorsqu'il est impossible d'inscrire sur le support l'ensemble des références, l'identification est faite par le numéro d'enregistrement.
 
-    3. Pagination :
+  Pour le niveau Secret Défense, le numéro d'enregistrement est délivré par le bureau de protection du secret et est éventuellement assorti d'une fiche où sont inscrites les références réglementaires des informations contenues.
 
-    Chaque page du document est numérotée. Au bas de la première page est mentionné le nombre total de pages, d'annexes ou de plans qui composent le document.
+  ##### 3. Pagination des documents électroniques :
 
-    Les pages de chaque annexe sont numérotées indépendamment de la pagination du document lui-même, et portent mention du nombre total de pages de l'annexe.
+  Chaque page du document est numérotée. Au bas de la première page est mentionné le nombre total de pages, d'annexes ou de plans qui composent le document.
 
-    Pour les documents classifiés au niveau Secret Défense, les pages vierges et les feuilles intercalaires sont également numérotées. Toute page vierge porte en son centre la mention " PAS DE TEXTE ".
+  Les pages de chaque annexe sont numérotées indépendamment de la pagination du document lui-même, et portent mention du nombre total de pages de l'annexe.
 
-    Article 44
+  Pour les documents classifiés au niveau Secret Défense, les pages vierges et les feuilles intercalaires sont également numérotées. Toute page vierge porte en son centre la mention " PAS DE TEXTE ".
 
-    Le marquage d'un support non papier
+  ##### 4. Dispositions particulières :
 
-    Le marquage d'un support non papier d'information classifiée est adapté au type de support, définitif et toujours visible. Il consiste en un timbre et une identification.
+  En raison de la possibilité technique de faire réapparaître des informations en principe effacées, un support informatique d'informations classifiées conserve toujours le niveau de classification qui lui a été initialement attribué. Il ne peut être déclassé ou déclassifié qu'à la condition que les informations qu'il contient ou a contenues aient elles-mêmes préalablement fait l'objet d'une telle mesure.
 
-    1. Timbre :
+  ### Section 3 - Enregistrement
 
-    Le timbre spécifiant le niveau de classification a une dimension adaptée à celle du support et comporte la mention de ce niveau en toutes lettres. En cas de difficultés pratiques, les abréviations précédemment évoquées peuvent y être substituées.
+  #### Article 45 - L'enregistrement des informations ou supports classifiés
 
-    2. Identification :
+  Tout support contenant des informations classifiées est enregistré, dans l'ordre chronologique, par un système d'enregistrement manuel ou informatisé permettant l'identification des destinataires.
 
-    L'identification des supports non papier d'informations classifiées est assurée par l'inscription des références et, le cas échéant, du volume de chacune des informations enregistrées. Lorsqu'il est impossible d'inscrire sur le support l'ensemble des références, l'identification est faite par le numéro d'enregistrement.
+  L'enregistrement établit sans ambiguïté l'attribution du support à un détenteur, personne physique, clairement identifiée. Ce détenteur assume alors la responsabilité de la protection du support. Cet enregistrement est la seule référence de cette attribution de responsabilité.
 
-    Pour le niveau Secret Défense, le numéro d'enregistrement est délivré par le bureau de protection du secret et est éventuellement assorti d'une fiche où sont inscrites les références réglementaires des informations contenues.
+  La mention de l'objet du document, si cet objet est lui-même classifié, ne doit pas figurer dans le système d'enregistrement, à moins que ce système ne soit classifié et dédié. Cette obligation de classifier et de dédier le système d'enregistrement lui-même s'impose au niveau Secret Défense.
 
-    3. Pagination des documents électroniques :
+  Au niveau Confidentiel Défense, le système d'enregistrement peut être relié à une base de gestion du courrier sous réserve que l'accès à la base soit restreint et que celle-ci permette de tracer les documents jusqu'au détenteur final.
 
-    Chaque page du document est numérotée. Au bas de la première page est mentionné le nombre total de pages, d'annexes ou de plans qui composent le document.
+  Au niveau Secret Défense, le système d'enregistrement est tenu à jour par le bureau de protection du secret. Les documents Secret Défense font obligatoirement l'objet d'une double numérotation, présentée sous forme de fraction : ils portent le numéro d'enregistrement de l'émetteur et le numéro d'enregistrement du bureau de protection du secret chargé de leur traitement.
 
-    Les pages de chaque annexe sont numérotées indépendamment de la pagination du document lui-même, et portent mention du nombre total de pages de l'annexe.
 
-    Pour les documents classifiés au niveau Secret Défense, les pages vierges et les feuilles intercalaires sont également numérotées. Toute page vierge porte en son centre la mention " PAS DE TEXTE ".
+  ### Section 4 - Durée de classification des informations ou supports classifiés
 
-    4. Dispositions particulières :
+  #### Article 46 - La durée de vie des classifications
 
-    En raison de la possibilité technique de faire réapparaître des informations en principe effacées, un support informatique d'informations classifiées conserve toujours le niveau de classification qui lui a été initialement attribué. Il ne peut être déclassé ou déclassifié qu'à la condition que les informations qu'il contient ou a contenues aient elles-mêmes préalablement fait l'objet d'une telle mesure.
+  La sensibilité d'une information ou d'un support classifié pouvant évoluer en fonction du temps ou des circonstances, il revient à l'autorité émettrice d'en apprécier la durée utile de classification. L'autorité émettrice mentionne sur le document (63) la date à partir de laquelle le document sera automatiquement déclassifié. Lorsque cette date ne peut être déterminée, l'autorité émettrice mentionne la date ou le délai au terme duquel le niveau de classification devra être réexaminé. La réévaluation peut avoir pour résultat le maintien du niveau de classification, le déclassement ou la déclassification du document. L'autorité émettrice peut également fixer comme terme non pas une date mais un événement défini (par exemple, début de production d'un matériel, retrait de service d'un matériel, fin d'un exercice...), à la suite duquel le document sera automatiquement déclassé au niveau qu'elle aura précisé ou sera déclassifié. Elle conserve la possibilité de prolonger à tout moment le délai qu'elle a fixé.
 
-    Section 3
+  En tout état de cause, la révision du besoin et du niveau de classification des informations ou supports doit être effectuée rigoureusement selon une périodicité inférieure ou égale à dix ans, précisément définie par chaque ministre pour le département dont il a la charge. Cette rigueur de gestion s'impose d'autant plus que, dès l'expiration d'un délai de cinquante ans à compter de la date d'émission d'un document classifié, se pose, dans les conditions énoncées à l'article 63 de la présente instruction, la question de la communicabilité du document et de sa déclassification préalable.
 
-    Enregistrement
-
-    Article 45
-
-    L'enregistrement des informations
-    ou supports classifiés
-
-    Tout support contenant des informations classifiées est enregistré, dans l'ordre chronologique, par un système d'enregistrement manuel ou informatisé permettant l'identification des destinataires.
-
-    L'enregistrement établit sans ambiguïté l'attribution du support à un détenteur, personne physique, clairement identifiée. Ce détenteur assume alors la responsabilité de la protection du support. Cet enregistrement est la seule référence de cette attribution de responsabilité.
-
-    La mention de l'objet du document, si cet objet est lui-même classifié, ne doit pas figurer dans le système d'enregistrement, à moins que ce système ne soit classifié et dédié. Cette obligation de classifier et de dédier le système d'enregistrement lui-même s'impose au niveau Secret Défense.
-
-    Au niveau Confidentiel Défense, le système d'enregistrement peut être relié à une base de gestion du courrier sous réserve que l'accès à la base soit restreint et que celle-ci permette de tracer les documents jusqu'au détenteur final.
-
-    Au niveau Secret Défense, le système d'enregistrement est tenu à jour par le bureau de protection du secret. Les documents Secret Défense font obligatoirement l'objet d'une double numérotation, présentée sous forme de fraction : ils portent le numéro d'enregistrement de l'émetteur et le numéro d'enregistrement du bureau de protection du secret chargé de leur traitement.
-
-
-    Section 4
-
-    Durée de classification des informations
-    ou supports classifiés
-
-    Article 46
-
-    La durée de vie des classifications
-
-    La sensibilité d'une information ou d'un support classifié pouvant évoluer en fonction du temps ou des circonstances, il revient à l'autorité émettrice d'en apprécier la durée utile de classification. L'autorité émettrice mentionne sur le document (63) la date à partir de laquelle le document sera automatiquement déclassifié. Lorsque cette date ne peut être déterminée, l'autorité émettrice mentionne la date ou le délai au terme duquel le niveau de classification devra être réexaminé. La réévaluation peut avoir pour résultat le maintien du niveau de classification, le déclassement ou la déclassification du document. L'autorité émettrice peut également fixer comme terme non pas une date mais un événement défini (par exemple, début de production d'un matériel, retrait de service d'un matériel, fin d'un exercice...), à la suite duquel le document sera automatiquement déclassé au niveau qu'elle aura précisé ou sera déclassifié. Elle conserve la possibilité de prolonger à tout moment le délai qu'elle a fixé.
-
-    En tout état de cause, la révision du besoin et du niveau de classification des informations ou supports doit être effectuée rigoureusement selon une périodicité inférieure ou égale à dix ans, précisément définie par chaque ministre pour le département dont il a la charge. Cette rigueur de gestion s'impose d'autant plus que, dès l'expiration d'un délai de cinquante ans à compter de la date d'émission d'un document classifié, se pose, dans les conditions énoncées à l'article 63 de la présente instruction, la question de la communicabilité du document et de sa déclassification préalable.
-
-    Pour les informations ou supports classifiés étrangers, seule l'autorité étrangère émettrice peut procéder à une déclassification ou à un déclassement.
-    
+  Pour les informations ou supports classifiés étrangers, seule l'autorité étrangère émettrice peut procéder à une déclassification ou à un déclassement.
 chap3.2: |
-    ### Chapitre II - Gestion des informations ou supports classifiés
+  ### Chapitre II - Gestion des informations ou supports classifiés
 
-    Section 1
+  ### Section 1 - Conservation des informations ou supports classifiés
 
-    Conservation des informations ou supports classifiés
+  #### Article 47 - Conditions matérielles de conservation
 
-    Article 47
+  En dehors des périodes d'utilisation, les informations ou supports classifiés sont conservés dans des coffres-forts ou des armoires fortes conformes aux dispositions relatives aux meubles de sécurité énoncées dans la présente instruction. Aucune indication relative à la nature des informations n'est visible à l'extérieur du coffre ou de l'armoire.
 
-    Conditions matérielles de conservation
+  La combinaison des coffres-forts, suffisamment complexe pour être fiable, n'est connue que des seuls utilisateurs. Une copie de cette combinaison est conservée sous enveloppe opaque, fermée, dans le coffre-fort d'une autorité spécialement désignée, la clé du coffre-fort de cette autorité étant elle-même placée dans un coffre distinct.
 
-    En dehors des périodes d'utilisation, les informations ou supports classifiés sont conservés dans des coffres-forts ou des armoires fortes conformes aux dispositions relatives aux meubles de sécurité énoncées dans la présente instruction. Aucune indication relative à la nature des informations n'est visible à l'extérieur du coffre ou de l'armoire.
+  Les combinaisons sont changées au moins tous les six mois, et à chaque fois qu'il y a mutation des utilisateurs, risque ou suspicion de compromission.
 
-    La combinaison des coffres-forts, suffisamment complexe pour être fiable, n'est connue que des seuls utilisateurs. Une copie de cette combinaison est conservée sous enveloppe opaque, fermée, dans le coffre-fort d'une autorité spécialement désignée, la clé du coffre-fort de cette autorité étant elle-même placée dans un coffre distinct.
+  Les clés sont impérativement mises en sécurité, notamment hors des heures ouvrables, suivant une procédure clairement établie par chaque autorité responsable (dépôt dans un coffre mural, sans clé, à combinaisons et à commande unique ou avec ouverture par lecture de badge, garde permanente avec système d'alarme).
 
-    Les combinaisons sont changées au moins tous les six mois, et à chaque fois qu'il y a mutation des utilisateurs, risque ou suspicion de compromission.
+  Il est formellement interdit d'emporter à l'extérieur des lieux de travail :
 
-    Les clés sont impérativement mises en sécurité, notamment hors des heures ouvrables, suivant une procédure clairement établie par chaque autorité responsable (dépôt dans un coffre mural, sans clé, à combinaisons et à commande unique ou avec ouverture par lecture de badge, garde permanente avec système d'alarme).
+    * des informations ou supports classifiés, sauf nécessités impérieuses de service ;
+    * les clés des coffres ou armoires où sont conservés de tels informations ou supports.
 
-    Il est formellement interdit d'emporter à l'extérieur des lieux de travail :
-
-    -des informations ou supports classifiés, sauf nécessités impérieuses de service ;
-
-    -les clés des coffres ou armoires où sont conservés de tels informations ou supports.
-
-    La responsabilité de la conservation des informations ou supports classifiés Secret Défense incombe à un détenteur responsable ou au chef du bureau de protection du secret.
+  La responsabilité de la conservation des informations ou supports classifiés Secret Défense incombe à un détenteur responsable ou au chef du bureau de protection du secret.
 
 
-    Section 2
+  ### Section 2 - Reproduction
 
-    Reproduction
+  #### Article 48 - Règles générales de la reproduction
 
-    Article 48
+  La généralisation et la diversité des moyens de reproduction accroissent les risques de diffusion incontrôlée des informations ou supports classifiés.
 
-    Règles générales de la reproduction
+  Pour les niveaux Secret Défense et Confidentiel Défense, des consignes précises sont établies par chaque ministre ou par son représentant (HFDS) pour le département dont il a la charge afin de fixer :
 
-    La généralisation et la diversité des moyens de reproduction accroissent les risques de diffusion incontrôlée des informations ou supports classifiés.
+    * la désignation, par les directeurs ou chefs de service, des autorités habilitées à autoriser la reproduction ;
+    * les procédures de contrôle de la reproduction ;
+    * la nécessité de consigner sur un système d'enregistrement le nombre de pièces reproduites et leurs détenteurs.
 
-    Pour les niveaux Secret Défense et Confidentiel Défense, des consignes précises sont établies par chaque ministre ou par son représentant (HFDS) pour le département dont il a la charge afin de fixer :
-
-    -la désignation, par les directeurs ou chefs de service, des autorités habilitées à autoriser la reproduction ;
-
-    -les procédures de contrôle de la reproduction ;
-
-    -la nécessité de consigner sur un système d'enregistrement le nombre de pièces reproduites et leurs détenteurs.
-
-    Les matériels utilisés pour la reproduction d'informations classifiées (photocopieuses, télécopieurs, systèmes informatiques...) doivent être physiquement protégés afin d'en limiter l'emploi aux seules personnes autorisées. Les opérations de maintenance sur ces matériels sont effectuées dans des conditions permettant de garantir la sécurité des informations classifiées qui ont été reproduites, dans le respect des dispositions de la présente instruction. Il en est de même pour leur mise au rebut, qui doit garantir la destruction des mémoires de ces appareils.
+  Les matériels utilisés pour la reproduction d'informations classifiées (photocopieuses, télécopieurs, systèmes informatiques...) doivent être physiquement protégés afin d'en limiter l'emploi aux seules personnes autorisées. Les opérations de maintenance sur ces matériels sont effectuées dans des conditions permettant de garantir la sécurité des informations classifiées qui ont été reproduites, dans le respect des dispositions de la présente instruction. Il en est de même pour leur mise au rebut, qui doit garantir la destruction des mémoires de ces appareils.
 
 
-    Article 49
+  #### Article 49 - Reproduction totale
 
-    Reproduction totale
+  Au niveau Secret Défense, la reproduction totale d'informations ou supports classifiés n'est possible qu'avec l'autorisation préalable de l'autorité émettrice. Le dépositaire de l'information ou du support qui souhaite en effectuer une reproduction doit adresser une demande motivée à cette autorité. Si celle-ci consent à la reproduction (64), elle spécifie les numéros à attribuer aux exemplaires supplémentaires et porte mention de cette reproduction sur l'exemplaire en sa possession.
 
-    Au niveau Secret Défense, la reproduction totale d'informations ou supports classifiés n'est possible qu'avec l'autorisation préalable de l'autorité émettrice. Le dépositaire de l'information ou du support qui souhaite en effectuer une reproduction doit adresser une demande motivée à cette autorité. Si celle-ci consent à la reproduction (64), elle spécifie les numéros à attribuer aux exemplaires supplémentaires et porte mention de cette reproduction sur l'exemplaire en sa possession.
-
-    En cas d'urgence et à titre exceptionnel, le dépositaire peut s'affranchir de cette procédure à la condition de prendre les dispositions suivantes :
+  En cas d'urgence et à titre exceptionnel, le dépositaire peut s'affranchir de cette procédure à la condition de prendre les dispositions suivantes :
 
     1. Limiter au minimum indispensable le nombre des reproductions ;
-
     2. Procéder au marquage réglementaire en attribuant à chaque exemplaire un numéro individuel composé de deux nombres fractionnaires :
-
-    -le premier ayant en numérateur le numéro d'ordre de la copie dans la série des reproductions et en dénominateur le nombre total de reproductions ;
-
-    -le second étant le numéro individuel de l'exemplaire attribué par l'autorité émettrice du document ;
-
+        * le premier ayant en numérateur le numéro d'ordre de la copie dans la série des reproductions et en dénominateur le nombre total de reproductions ;
+        * le second étant le numéro individuel de l'exemplaire attribué par l'autorité émettrice du document ;
     3. Porter si nécessaire, sur l'exemplaire reproduit, la destination qui en est faite ou établir une liste séparée des destinataires ;
-
     4. Rendre compte sans délai à l'autorité émettrice du nombre de reproductions, des numéros de reproductions et de la destination des exemplaires. L'autorité émettrice porte mention de cette reproduction sur l'exemplaire en sa possession.
 
-    Au niveau Confidentiel Défense, la reproduction peut être effectuée par les autorités détentrices, sous leur responsabilité, à condition de conserver sur un système d'enregistrement la trace du nombre et des destinataires des exemplaires reproduits.
+  Au niveau Confidentiel Défense, la reproduction peut être effectuée par les autorités détentrices, sous leur responsabilité, à condition de conserver sur un système d'enregistrement la trace du nombre et des destinataires des exemplaires reproduits.
 
-    Article 50
+  #### Article 50 - Reproduction partielle
 
-    Reproduction partielle
+  Les extraits de documents classifiés sont eux-mêmes classifiés au niveau approprié à leur contenu. Si un extrait de document classifié ne justifie pas lui-même une classification, son importance doit rester limitée de façon à ne pas compromettre, en cas de divulgation, l'information dont il a été extrait. La diffusion séquentielle d'extraits non classifiés par découpage de l'information classifiée est interdite.
 
-    Les extraits de documents classifiés sont eux-mêmes classifiés au niveau approprié à leur contenu. Si un extrait de document classifié ne justifie pas lui-même une classification, son importance doit rester limitée de façon à ne pas compromettre, en cas de divulgation, l'information dont il a été extrait. La diffusion séquentielle d'extraits non classifiés par découpage de l'information classifiée est interdite.
+  Des extraits d'informations classifiées Confidentiel Défense ou Secret Défense peuvent être reproduits par leur dépositaire dans les conditions fixées par l'article 49 de la présente instruction.
 
-    Des extraits d'informations classifiées Confidentiel Défense ou Secret Défense peuvent être reproduits par leur dépositaire dans les conditions fixées par l'article 49 de la présente instruction.
-
-    Lorsque des extraits de documents contenant des informations classifiées sont transférés sur un autre support, si ces extraits sont eux-mêmes classifiés, la mention de classification est reportée sur le nouveau support conformément aux prescriptions de la présente instruction.
+  Lorsque des extraits de documents contenant des informations classifiées sont transférés sur un autre support, si ces extraits sont eux-mêmes classifiés, la mention de classification est reportée sur le nouveau support conformément aux prescriptions de la présente instruction.
 
 
-    Section 3
+  ### Section 3 - Inventaire
 
-    Inventaire
+  #### Article 51 - La procédure d'inventaire
 
-    Article 51
+  Les documents classifiés font l'objet d'un suivi permanent afin d'assurer leur traçabilité et leur prise en compte par des détenteurs habilités.
 
-    La procédure d'inventaire
+  A cet effet, chaque ministre préconise les modalités d'inventaire et de suivi des documents classifiés Confidentiel Défense et Secret Défense détenus dans l'ensemble des services et organismes relevant de son département.
 
-    Les documents classifiés font l'objet d'un suivi permanent afin d'assurer leur traçabilité et leur prise en compte par des détenteurs habilités.
+  Un inventaire est effectué sous forme contradictoire à chaque mutation de personnel, l'ancien détenteur et le nouveau apposant tous deux leur signature sur le procès-verbal.
 
-    A cet effet, chaque ministre préconise les modalités d'inventaire et de suivi des documents classifiés Confidentiel Défense et Secret Défense détenus dans l'ensemble des services et organismes relevant de son département.
+  La période d'inventaire est mise à profit pour alléger la gestion des documents classifiés. Les dates d'expiration de validité sont vérifiées aux fins de déclassement ou de déclassification : la réévaluation du niveau de protection des documents classifiés et, le cas échéant, leur destruction doivent être réalisées.
 
-    Un inventaire est effectué sous forme contradictoire à chaque mutation de personnel, l'ancien détenteur et le nouveau apposant tous deux leur signature sur le procès-verbal.
+  Au niveau Confidentiel Défense, il est conseillé de procéder à un inventaire annuel. Cet inventaire est à effectuer sous la responsabilité de chaque détenteur ou par un bureau spécialisé. S'il y est procédé, un procès-verbal en est dressé. A défaut, un récolement annuel doit être effectué selon les modalités définies par les directives ministérielles afin de vérifier la présence physique des documents.
 
-    La période d'inventaire est mise à profit pour alléger la gestion des documents classifiés. Les dates d'expiration de validité sont vérifiées aux fins de déclassement ou de déclassification : la réévaluation du niveau de protection des documents classifiés et, le cas échéant, leur destruction doivent être réalisées.
+  Au niveau Secret Défense, l'inventaire annuel, obligatoire, est effectué par les bureaux de protection du secret en liaison avec les détenteurs. Les HFDS collationnent les procès-verbaux d'inventaires et en transmettent un bilan au SGDSN, au plus tard le 31 mars de chaque année, dans le cadre du rapport annuel d'évaluation précédemment mentionné.
 
-    Au niveau Confidentiel Défense, il est conseillé de procéder à un inventaire annuel. Cet inventaire est à effectuer sous la responsabilité de chaque détenteur ou par un bureau spécialisé. S'il y est procédé, un procès-verbal en est dressé. A défaut, un récolement annuel doit être effectué selon les modalités définies par les directives ministérielles afin de vérifier la présence physique des documents.
+  Le procès-verbal d'inventaire annuel, dressé par chaque bureau de protection du secret, mentionne les références et l'identification de chaque support classifié Secret Défense, et est accompagné, le cas échéant (65), de l'une ou l'autre des pièces administratives suivantes :
 
-    Au niveau Secret Défense, l'inventaire annuel, obligatoire, est effectué par les bureaux de protection du secret en liaison avec les détenteurs. Les HFDS collationnent les procès-verbaux d'inventaires et en transmettent un bilan au SGDSN, au plus tard le 31 mars de chaque année, dans le cadre du rapport annuel d'évaluation précédemment mentionné.
+    * un récépissé du nouveau détenteur ;
+    * un procès-verbal de destruction ;
+    * un procès-verbal de versement à un dépôt d'archives.
 
-    Le procès-verbal d'inventaire annuel, dressé par chaque bureau de protection du secret, mentionne les références et l'identification de chaque support classifié Secret Défense, et est accompagné, le cas échéant (65), de l'une ou l'autre des pièces administratives suivantes :
+  ### Section 4 - La protection des matériels classifiés
 
-    -un récépissé du nouveau détenteur ;
+  #### Article 52 - Dispositions générales et classifications
 
-    -un procès-verbal de destruction ;
+  La protection des matériels classifiés implique la mise en œuvre de mesures de sécurité à tous les stades de la réalisation (programme, étude, plan, fabrication ou construction, essai, etc.) de même que pour l'utilisation, l'entretien, la réparation et le transport jusqu'à leur mise hors service et à leur destruction.
 
-    -un procès-verbal de versement à un dépôt d'archives.
+  L'autorité responsable (directeur de programme jusqu'à la livraison ou autorité détentrice lors de l'utilisation) détermine les matériels à protéger et le niveau de classification à retenir, qui peut être différent de celui couvrant les documents (notices, plans, etc.) qui les concernent.
 
-    Section 4
+  Il importe d'éliminer toute possibilité de vue terrestre ou aérienne et l'utilisation de procédés techniques de détection et d'identification. Un moyen efficace d'assurer la protection des matériels classifiés au niveau Secret Défense consiste à les entreposer dans une zone répondant aux règles de protection définies par la présente instruction. La zone considérée devra être érigée en zone protégée afin de pouvoir sanctionner pénalement la violation de l'interdiction d'y pénétrer.
 
-    La protection des matériels classifiés
-
-    Article 52
-
-    Dispositions générales et classifications
-
-    La protection des matériels classifiés implique la mise en œuvre de mesures de sécurité à tous les stades de la réalisation (programme, étude, plan, fabrication ou construction, essai, etc.) de même que pour l'utilisation, l'entretien, la réparation et le transport jusqu'à leur mise hors service et à leur destruction.
-
-    L'autorité responsable (directeur de programme jusqu'à la livraison ou autorité détentrice lors de l'utilisation) détermine les matériels à protéger et le niveau de classification à retenir, qui peut être différent de celui couvrant les documents (notices, plans, etc.) qui les concernent.
-
-    Il importe d'éliminer toute possibilité de vue terrestre ou aérienne et l'utilisation de procédés techniques de détection et d'identification. Un moyen efficace d'assurer la protection des matériels classifiés au niveau Secret Défense consiste à les entreposer dans une zone répondant aux règles de protection définies par la présente instruction. La zone considérée devra être érigée en zone protégée afin de pouvoir sanctionner pénalement la violation de l'interdiction d'y pénétrer.
-
-    Lorsque les matériels sont en service ou exposés à la vue en dehors d'une zone protégée, les autorités responsables font prendre des mesures de protection adaptées pour les matériels classifiés et leurs éléments constitutifs.
+  Lorsque les matériels sont en service ou exposés à la vue en dehors d'une zone protégée, les autorités responsables font prendre des mesures de protection adaptées pour les matériels classifiés et leurs éléments constitutifs.
 
 
-    Article 53
+  #### Article 53 - La protection des matériels classifiés en cours de transport
 
-    La protection des matériels classifiés en cours de transport
+  La circulation et le transport des matériels classifiés nécessitent des mesures particulières de sécurité : protection contre les vues dans la mesure du possible et garde permanente pendant la durée de l'acheminement.
 
-    La circulation et le transport des matériels classifiés nécessitent des mesures particulières de sécurité : protection contre les vues dans la mesure du possible et garde permanente pendant la durée de l'acheminement.
+  Les itinéraires sont choisis en fonction du degré de sécurité qu'ils présentent. Suivant le type de matériel à protéger et dès lors que le matériel transporté figure sur la liste tenue à jour par le ministère de la défense, il convient de se reporter aux dispositions particulières (66).
 
-    Les itinéraires sont choisis en fonction du degré de sécurité qu'ils présentent. Suivant le type de matériel à protéger et dès lors que le matériel transporté figure sur la liste tenue à jour par le ministère de la défense, il convient de se reporter aux dispositions particulières (66).
+  Pour les autres matériels ou équipements classifiés, l'autorité en ayant prescrit le mouvement assume la responsabilité des tâches suivantes :
 
-    Pour les autres matériels ou équipements classifiés, l'autorité en ayant prescrit le mouvement assume la responsabilité des tâches suivantes :
+    * conditionnement des matériels ;
+    * choix de l'itinéraire et des lieux d'étape, en accord avec les autorités civiles ou militaires intéressées ;
+    * organisation du convoyage ou de l'escorte et des dispositions techniques en cas de panne ou d'accident.
 
-    -conditionnement des matériels ;
-
-    -choix de l'itinéraire et des lieux d'étape, en accord avec les autorités civiles ou militaires intéressées ;
-
-    -organisation du convoyage ou de l'escorte et des dispositions techniques en cas de panne ou d'accident.
-
-    Le transport des matériels classifiés est effectué, sauf impossibilité absolue ou opération conjointe, par des moyens nationaux. A défaut, il doit être convoyé et toutes dispositions sont prises pour que la sécurité soit assurée sans discontinuité pendant toute la durée du transport.
-
+  Le transport des matériels classifiés est effectué, sauf impossibilité absolue ou opération conjointe, par des moyens nationaux. A défaut, il doit être convoyé et toutes dispositions sont prises pour que la sécurité soit assurée sans discontinuité pendant toute la durée du transport.
 chap3.3: |
     ### Chapitre III - Diffusion et acheminement des informations ou supports classifiés
 
@@ -1135,7 +1065,6 @@ chap3.3: |
     3. Certificat de courrier :
 
     Lorsqu'un accord ou un règlement international de sécurité le prévoit, l'acheminement est possible par convoyeur autorisé, dans les conditions déterminées à l'article 57. Le convoyeur est alors muni d'un certificat de courrier pour un seul ou plusieurs voyages (70) délivré par l'ANS ou les autorités de sécurité déléguées. Il est rappelé au convoyeur qu'il s'engage, tout au long du voyage, à garder en sa possession ou sous sa surveillance directe le colis contenant les documents, équipements ou composants classifiés (71).
-
 chap3.4: |
     ### Chapitre IV - Destruction et archivage des informations ou supports classifiés
 
@@ -1226,7 +1155,6 @@ chap3.4: |
     Quelle que soit la durée d'incommunicabilité affectée au document classifié, sa communication n'est possible qu'après déclassification du document. Lorsque le service détenteur des archives est saisi d'une demande de communication d'un document couvert par le secret de la défense nationale, il doit transmettre cette demande à l'autorité émettrice du document concerné. Cette autorité vérifie la durée d'incommunicabilité affectée au document. Si tous les délais applicables sont expirés, l'autorité émettrice procède à la déclassification. Le document ne peut être communiqué qu'à l'issue de cette procédure.
 
     Une personne souhaitant consulter une archive classifiée avant l'expiration des délais de communicabilité applicables doit solliciter une dérogation (85). Le service d'archives détenteur saisi de la demande de dérogation transmet cette demande à l'autorité émettrice. Cette autorité doit toujours s'interroger sur l'opportunité de la déclassification du document. Si la classification reste justifiée, la communication est impossible et la dérogation est refusée.
-    
 chap3.5: |
     ### Chapitre V - Les mentions additionnelles de limitation du champ de diffusion
 
@@ -1253,7 +1181,6 @@ chap3.5: |
     Ces documents peuvent sortir des frontières du territoire par la valise diplomatique (87), qui constitue un circuit national protégé, garantissant la protection et le cloisonnement des informations transmises et impliquant la mise en œuvre, à tous les stades de l'acheminement, des mesures de sécurité appropriées au degré de classification éventuellement apposé. Il en est de même de la transmission par courrier militaire spécialisé ou, en cas d'urgence, de la lettre de courrier délivrée par le ministère des affaires étrangères (88).
 
     Les règles applicables aux informations et supports matériels valent également pour les documents informatiques, qui ne peuvent être acheminés, par voie électronique, que par un canal national spécifique de transmission offrant toutes les garanties précitées de sécurité et de cloisonnement.
-
 chap3.6: |
     ### Chapitre VI - La compromission du secret de la défense nationale
 
@@ -1315,7 +1242,6 @@ chap3.6: |
     Le rapport annuel d'évaluation de la protection du secret établi annuellement par les HFDS (100) indique le nombre de cas de compromission constatés ou soupçonnés ainsi que les suites données.
 
     Lorsque la compromission porte sur des informations classifiées étrangères, l'ANS française informe dans les plus brefs délais l'ANS étrangère. Lorsqu'une ASD est concernée, elle informe dans les plus brefs délais l'ANS étrangère ainsi que l'ANS française. Lorsque ce sont des informations de niveau Secret Défense qui sont compromises, l'ASD rend compte à l'ANS française, qui transmettra elle-même l'information à son homologue étrangère.
-
 chap3.7: |
     ### Chapitre VII - L'accès des magistrats aux informations classifiées
 
@@ -1387,7 +1313,6 @@ titre4: |
     Les contrôles élémentaires de personnes physiques ou morales sont prévus pour l'exécution de contrats sensibles dans des lieux abritant des secrets de la défense nationale.
 
     L'accès d'un magistrat aux lieux abritant des secrets de la défense nationale se fait dans des conditions clairement définies et impliquant l'intervention de la CCSDN.
-
 chap4.1: |
     ### Chapitre Ier -  Principes de protection physique des lieux
 
@@ -1480,7 +1405,6 @@ chap4.1: |
     En raison de la diversité des dispositifs de protection disponibles sur le marché et de l'évolution constante des techniques utilisées, les autorités concernées peuvent, en cas de besoin, consulter les services enquêteurs compétents des ministères de la défense et de l'intérieur sur l'efficacité des matériels et des systèmes de protection qu'ils désirent installer ou afin de vérifier la validité des matériels et systèmes en place.
 
     Les services enquêteurs s'assurent notamment que l'analyse de risques et les mesures de protection physique, qu'elles soient réglementaires ou compensatoires, prennent en compte le délai réel écoulé entre la détection de l'intrusion, la résistance des moyens mécaniques et la possibilité d'une intervention.
-
 chap4.2: |
     ### Chapitre II - Les zones protégées
 
@@ -1499,7 +1423,6 @@ chap4.2: |
     L'autorisation de pénétrer dans une zone est donnée par le chef du service, de l'établissement ou de l'entreprise, selon les directives et sous le contrôle de l'autorité ayant décidé de la création de la zone protégée.
 
     En vertu des dispositions pénales précitées, toute personne non autorisée s'introduisant dans une zone protégée encourt une peine correctionnelle.
-
 chap4.3: |
     ### Chapitre III - Les zones réservées
 
@@ -1514,8 +1437,7 @@ chap4.3: |
     Une zone réservée ne peut être créée en dehors d'une zone protégée. Elle peut être incluse dans une zone protégée ou lui correspondre.
 
     Les mesures de sécurité applicables aux zones réservées sont définies à l'annexe 7.
-
-charp4.4: |
+chap4.4: |
     ### Chapitre IV - Lieux abritant temporairement des secrets : la protection des réunions de travail et des salles de conférences
 
     Article 75
@@ -1567,7 +1489,6 @@ charp4.4: |
     La transmission des notes prises par les participants ou de leurs comptes rendus de réunion s'effectue par les voies prévues aux articles 57 et 58 de la présente instruction.
 
     Une liste de contrôle des tâches à effectuer tout au long de la préparation, de la tenue et de la fin de la réunion figure à l'annexe 8.
-
 chap4.5: |
     ### Chapitre V - L'accès des personnes non qualifiées aux lieux abritant des secrets de la défense nationale
 
@@ -1613,7 +1534,6 @@ chap4.5: |
     De manière générale, les règles de protection du secret de la défense nationale s'appliquent à toute inspection ou à tout contrôle prévu par des dispositions législatives ou réglementaires.
 
     Si, dans des circonstances exceptionnelles, l'un de ces intervenants accède à un secret de la défense nationale, il est tenu de ne pas le divulguer, sous peine de s'exposer aux dispositions de l'article 413-11 du code pénal. A cet effet, toutes ces personnes sont dûment informées de leurs obligations par leur autorité d'emploi.
-
 chap4.6: |
     ### Chapitre VI - L'accès des magistrats aux lieux abritant des éléments couverts par le secret de la défense nationale
 
@@ -1683,7 +1603,6 @@ titre5: |
     Ces mesures s'appliquent à tout système d'information ayant vocation à traiter des informations classifiées, qu'il soit placé sous la responsabilité d'un département ministériel (administration centrale ou service déconcentré), d'un organisme ou d'un établissement qui en relève, d'un organisme public ou privé ayant passé un contrat concernant la défense ou la sécurité nationale, ou plus généralement de toute personne publique ou privée qui traite de telles informations.
 
     Des instructions et des directives techniques complètent en tant que de besoin les mesures générales exposées dans la présente instruction.
-
 chap5.1: |
   ### Chapitre Ier - L'organisation des responsabilités relatives aux systèmes d'information
 
@@ -1775,7 +1694,6 @@ chap5.1: |
   L'administrateur rend compte à l'ASSI de toute vulnérabilité du système qu'il détecte, de tout incident de sécurité et de toute difficulté dans l'application des mesures de sécurité.
 
   L'administrateur de la sécurité administrateur de sécurité doit dans la mesure du possible être distinct de l'administrateur du système. Il doit être habilité au niveau de classification des informations traitées par le système et au minimum au niveau Secret Défense.
-
 chap5.2: |
   ### Chapitre II - La protection des systèmes d'information
 
@@ -1944,7 +1862,6 @@ titre6: |
     La sécurité des informations ou supports classifiés dans les contrats, entendus au sens de l'article 2 de la présente instruction, est garantie par l'insertion de stipulations répondant aux présentes prescriptions et précisant les obligations des contractants. Tout contrat de sous-traitance (142) d'un marché nécessitant l'accès aux informations ou supports classifiés obéit aux règles de la présente instruction, y compris dans la phase précontractuelle.
     Tout contrat qui implique l'accès aux informations ou supports classifiés comporte des clauses de protection du secret précisant les obligations des contractants telles que définies en annexe 9. Le titulaire d'un tel contrat s'engage, sous sa responsabilité pénale et contractuelle, à assurer la protection des informations ou supports classifiés qu'il aura à détenir ou à connaître au titre de ce contrat en tenant compte des dispositions particulières stipulées dans l'annexe de sécurité se rapportant au contrat.
     L'aptitude physique à détenir des informations ou supports classifiés est conditionnée par le respect des dispositions législatives et réglementaires en matière de protection du secret de la défense nationale. Le titulaire d'un contrat dont l'objet implique la détention d'informations ou de supports classifiés est tenu de mettre en œuvre dans son ou ses établissements les mesures de sécurité requises pour assurer la protection du secret de la défense nationale conformément à l'article 71. A l'égard de toute personne qu'il emploie, qu'il reçoit ou avec laquelle il a des liens, le titulaire du contrat concerné prend toutes mesures utiles pour contrôler, et le cas échéant limiter, l'accès aux parties de ses installations dans lesquelles la protection des informations ou supports classifiés le justifie.
-
 chap6.1: |
     ### Chapitre Ier - Mesures de sécurité dans la négociation et la passation des contrats
 
@@ -2093,7 +2010,6 @@ chap6.1: |
     4. Si l'attestation n'est pas parvenue dans le délai prédéfini ou si des carences sont constatées lors des contrôles effectués par le service enquêteur, une mise en demeure de se conformer aux prescriptions de l'article 71 est effectuée. Le défaut d'exécution des travaux engage la responsabilité du titulaire.
 
     Si le titulaire dispose d'un local apte au traitement d'informations ou de supports classifiés ayant fait l'objet d'un avis d'aptitude dans le cadre d'un précédent contrat, il communique à l'autorité contractante de référence cet avis ainsi que l'attestation de non-changement des conditions qui ont amené la délivrance de l'avis d'aptitude (146).
-
 chap6.2: |
     ### Chapitre II - Mesures de sécurité liées à l'exécution des contrats
 
@@ -2212,300 +2128,236 @@ chap6.2: |
     L'annexe de sécurité d'un contrat ayant généré un ou plusieurs contrats de sous-traitance ne peut être clôturée qu'après la clôture de toutes les annexes de sécurité de sous-traitance.
 
     Lorsque après la clôture d'une annexe de sécurité l'entreprise conserve des informations ou des supports classifiés, elle doit faire l'objet d'une décision d'habilitation valide et d'un suivi par un service enquêteur, quand bien même cette entreprise ne serait titulaire d'aucun autre contrat générant l'accès à des éléments couverts par le secret de la défense nationale.
+glossaire: |
+  ## Glossaire
 
-    Glossaire
+  Accord de sécurité : accord intergouvernemental conclu entre au moins deux Etats ou au sein d'une alliance multinationale et ayant pour objet la protection d'informations ou de supports classifiés. Ces accords comprennent l'identification et la reconnaissance mutuelle des autorités nationales de sécurité, la correspondance des niveaux de classification, la reconnaissance mutuelle des habilitations de personnes, les modalités de transmission et de protection des informations et supports classifiés.
 
-    Accord de sécurité : accord intergouvernemental conclu entre au moins deux Etats ou au sein d'une alliance multinationale et ayant pour objet la protection d'informations ou de supports classifiés. Ces accords comprennent l'identification et la reconnaissance mutuelle des autorités nationales de sécurité, la correspondance des niveaux de classification, la reconnaissance mutuelle des habilitations de personnes, les modalités de transmission et de protection des informations et supports classifiés.
+  Administrateur de sécurité : personne chargée de la mise en œuvre, du maintien, du contrôle et de l'évolution des mesures de sécurité à appliquer à tout système d'information contenant des informations ou supports classifiés aux niveaux Secret Défense ou Confidentiel Défense.
 
-    Administrateur de sécurité : personne chargée de la mise en œuvre, du maintien, du contrôle et de l'évolution des mesures de sécurité à appliquer à tout système d'information contenant des informations ou supports classifiés aux niveaux Secret Défense ou Confidentiel Défense.
+  Administrateur système : personne chargée de la mise au point, de l'exploitation, de la maintenance, du contrôle et des évolutions du système informatique.
 
-    Administrateur système : personne chargée de la mise au point, de l'exploitation, de la maintenance, du contrôle et des évolutions du système informatique.
+  Agent de sécurité des SSI : personne chargée de la gestion et du suivi des moyens de sécurité des systèmes d'information se trouvant sur le ou les sites où s'exercent ses responsabilités, notamment lorsque la gestion et le suivi des articles nécessitent une comptabilité individuelle.
 
-    Agent de sécurité des SSI : personne chargée de la gestion et du suivi des moyens de sécurité des systèmes d'information se trouvant sur le ou les sites où s'exercent ses responsabilités, notamment lorsque la gestion et le suivi des articles nécessitent une comptabilité individuelle.
+  Agrément : décision prise à l'issue d'une procédure d'habilitation ordinaire au profit d'une personne amenée à prendre occasionnellement connaissance d'informations ou supports classifiés du niveau Très Secret Défense de différentes classifications spéciales, du niveau Secret Défense ou du niveau Confidentiel Défense.
 
-    Agrément : décision prise à l'issue d'une procédure d'habilitation ordinaire au profit d'une personne amenée à prendre occasionnellement connaissance d'informations ou supports classifiés du niveau Très Secret Défense de différentes classifications spéciales, du niveau Secret Défense ou du niveau Confidentiel Défense.
+  Agrément d'un produit de sécurité : reconnaissance formelle que le produit de sécurité évalué peut protéger des informations jusqu'à un niveau spécifié dans les conditions d'emploi définies.
 
-    Agrément d'un produit de sécurité : reconnaissance formelle que le produit de sécurité évalué peut protéger des informations jusqu'à un niveau spécifié dans les conditions d'emploi définies.
+  Antenne d'utilisation : bureau où sont émis, reçus, manipulés, expédiés et conservés les informations ou supports classifiés Très Secret Défense.
 
-    Antenne d'utilisation : bureau où sont émis, reçus, manipulés, expédiés et conservés les informations ou supports classifiés Très Secret Défense.
+  Aptitude : capacité d'une entreprise à traiter ou à détenir des informations ou des supports classifiés. Cette capacité, évaluée par un service enquêteur, est fondée sur le contrôle de l'ensemble des mesures de sécurité physique mises en œuvre par le titulaire du contrat pour un ou plusieurs établissements et incluant, si nécessaire, la sécurité des systèmes d'information.
 
-    Aptitude : capacité d'une entreprise à traiter ou à détenir des informations ou des supports classifiés. Cette capacité, évaluée par un service enquêteur, est fondée sur le contrôle de l'ensemble des mesures de sécurité physique mises en œuvre par le titulaire du contrat pour un ou plusieurs établissements et incluant, si nécessaire, la sécurité des systèmes d'information.
+  Archivage : opération consistant à verser à un service d'archives des supports d'information lorsqu'ils ne sont plus d'utilisation habituelle. Les supports faisant encore l'objet d'une classification ne peuvent être archivés que dans certaines conditions et dans des services habilités à les recevoir. Un support classifié au niveau Très Secret Défense ne peut en aucun cas être archivé.
 
-    Archivage : opération consistant à verser à un service d'archives des supports d'information lorsqu'ils ne sont plus d'utilisation habituelle. Les supports faisant encore l'objet d'une classification ne peuvent être archivés que dans certaines conditions et dans des services habilités à les recevoir. Un support classifié au niveau Très Secret Défense ne peut en aucun cas être archivé.
+  Authenticité : propriété d'une information ou d'un traitement qui garantit son identité, son origine et, éventuellement, sa destination.
 
-    Authenticité : propriété d'une information ou d'un traitement qui garantit son identité, son origine et, éventuellement, sa destination.
+  Autorité contractante : toute personne publique ou privée, y compris dans le cas des contrats de sous-traitance, qui fait appel à un fournisseur ou à un prestataire pour l'exécution d'un contrat ou d'un marché. Lorsque le marché est régi par les dispositions du code des marchés publics, l'expression " autorité contractante " désigne le pouvoir adjudicateur. Lorsqu'un marché régi par les dispositions du code des marchés publics entraîne des contrats de sous-traitance, le pouvoir adjudicateur à l'origine de celui-ci est appelé " autorité contractante de référence ".
 
-    Autorité contractante : toute personne publique ou privée, y compris dans le cas des contrats de sous-traitance, qui fait appel à un fournisseur ou à un prestataire pour l'exécution d'un contrat ou d'un marché. Lorsque le marché est régi par les dispositions du code des marchés publics, l'expression " autorité contractante " désigne le pouvoir adjudicateur. Lorsqu'un marché régi par les dispositions du code des marchés publics entraîne des contrats de sous-traitance, le pouvoir adjudicateur à l'origine de celui-ci est appelé " autorité contractante de référence ".
+  Autorité d'habilitation : autorité compétente pour solliciter une enquête d'habilitation ou un contrôle élémentaire et émettre la décision.
 
-    Autorité d'habilitation : autorité compétente pour solliciter une enquête d'habilitation ou un contrôle élémentaire et émettre la décision.
+  Autorité nationale de sécurité (ANS) : organisme gouvernemental chargé des relations avec les autres Etats et les structures internationales en matière d'habilitation de personnes et de protection des informations ou supports classifiés. En France, l'autorité nationale de sécurité est le secrétaire général de la défense et de la sécurité nationale.
 
-    Autorité nationale de sécurité (ANS) : organisme gouvernemental chargé des relations avec les autres Etats et les structures internationales en matière d'habilitation de personnes et de protection des informations ou supports classifiés. En France, l'autorité nationale de sécurité est le secrétaire général de la défense et de la sécurité nationale.
+  Autorité de sécurité déléguée (ASD) : autorité responsable devant l'autorité nationale de sécurité (ANS) et chargée de faire connaître aux entreprises la politique nationale dans un domaine, notamment industriel, ainsi que de donner des orientations et de fournir une aide pour sa mise en application.
 
-    Autorité de sécurité déléguée (ASD) : autorité responsable devant l'autorité nationale de sécurité (ANS) et chargée de faire connaître aux entreprises la politique nationale dans un domaine, notamment industriel, ainsi que de donner des orientations et de fournir une aide pour sa mise en application.
+  Autorité qualifiée en matière de SSI : responsable de la sécurité des systèmes d'information dans les administrations centrales et les services déconcentrés de l'Etat, dans les établissements publics placés sous l'autorité d'un ministre ainsi que dans les organismes et établissements relevant de ses attributions.
 
-    Autorité qualifiée en matière de SSI : responsable de la sécurité des systèmes d'information dans les administrations centrales et les services déconcentrés de l'Etat, dans les établissements publics placés sous l'autorité d'un ministre ainsi que dans les organismes et établissements relevant de ses attributions.
+  Avis de sécurité : conclusion émise par un service enquêteur à l'issue d'investigations se rapportant à une personne et visant à détecter et à évaluer les vulnérabilités de cette personne. L'avis de sécurité est une aide à la décision d'habilitation, mais il ne lie pas l'autorité responsable de la décision.
 
-    Avis de sécurité : conclusion émise par un service enquêteur à l'issue d'investigations se rapportant à une personne et visant à détecter et à évaluer les vulnérabilités de cette personne. L'avis de sécurité est une aide à la décision d'habilitation, mais il ne lie pas l'autorité responsable de la décision.
+  Besoin d'en connaître : nécessité impérieuse de prendre connaissance d'une information dans le cadre d'une fonction déterminée, pour la bonne exécution d'une mission précise.
 
-    Besoin d'en connaître : nécessité impérieuse de prendre connaissance d'une information dans le cadre d'une fonction déterminée, pour la bonne exécution d'une mission précise.
+  Bureau de protection du secret : bureau situé en zone réservée et dont l'existence est obligatoire pour procéder à l'élaboration, au marquage, au stockage, à l'acheminement, à l'enregistrement, au suivi et à la destruction des informations ou supports classifiés Secret Défense.
 
-    Bureau de protection du secret : bureau situé en zone réservée et dont l'existence est obligatoire pour procéder à l'élaboration, au marquage, au stockage, à l'acheminement, à l'enregistrement, au suivi et à la destruction des informations ou supports classifiés Secret Défense.
+  Catalogue des emplois : dans un organisme, liste des emplois qui peuvent nécessiter l'accès aux informations ou supports classifiés. Le catalogue est dressé sur le seul critère du besoin d'en connaître.
 
-    Catalogue des emplois : dans un organisme, liste des emplois qui peuvent nécessiter l'accès aux informations ou supports classifiés. Le catalogue est dressé sur le seul critère du besoin d'en connaître.
+  Certificat de sécurité : document prouvant l'habilitation d'une personne au traitement d'informations ou supports classifiés à un niveau précisé.
 
-    Certificat de sécurité : document prouvant l'habilitation d'une personne au traitement d'informations ou supports classifiés à un niveau précisé.
+  Classification spéciale : catégorie d'informations ou supports classifiés au niveau Très Secret Défense et répondant à la nécessité de cloisonnement. Les classifications spéciales sont organisées en réseaux de sécurité constitués d'antennes d'utilisation. Les habilitations au niveau Très Secret Défense sont prononcées au titre d'une ou plusieurs classifications spéciales expressément désignées.
 
-    Classification spéciale : catégorie d'informations ou supports classifiés au niveau Très Secret Défense et répondant à la nécessité de cloisonnement. Les classifications spéciales sont organisées en réseaux de sécurité constitués d'antennes d'utilisation. Les habilitations au niveau Très Secret Défense sont prononcées au titre d'une ou plusieurs classifications spéciales expressément désignées.
+  Compromission : prise de connaissance, certaine ou possible, d'une information ou d'un support classifié par une ou plusieurs personnes non qualifiées.
 
-    Compromission : prise de connaissance, certaine ou possible, d'une information ou d'un support classifié par une ou plusieurs personnes non qualifiées.
+  Confidentialité : caractère réservé d'une information ou d'un traitement dont l'accès est limité aux seules personnes admises à la (le) connaître pour les besoins du service, ou aux entités ou processus autorisés.
 
-    Confidentialité : caractère réservé d'une information ou d'un traitement dont l'accès est limité aux seules personnes admises à la (le) connaître pour les besoins du service, ou aux entités ou processus autorisés.
+  Contrôle élémentaire : enquête administrative simplifiée, destinée à s'assurer de l'intégrité d'une personne et sollicitée par l'autorité d'habilitation, l'autorité contractante ou le responsable d'un site afin d'autoriser son accès à un établissement ou pour assurer, durant un transport, la garde d'informations ou de supports classifiés.
 
-    Contrôle élémentaire : enquête administrative simplifiée, destinée à s'assurer de l'intégrité d'une personne et sollicitée par l'autorité d'habilitation, l'autorité contractante ou le responsable d'un site afin d'autoriser son accès à un établissement ou pour assurer, durant un transport, la garde d'informations ou de supports classifiés.
+  Décision d'habilitation : acte administratif autorisant, au terme de la procédure d'habilitation, le titulaire, en fonction de son besoin d'en connaître, à accéder aux informations ou aux supports classifiés d'un niveau déterminé. L'intéressé est informé de la décision d'habilitation, qui ne lui est jamais remise.
 
-    Décision d'habilitation : acte administratif autorisant, au terme de la procédure d'habilitation, le titulaire, en fonction de son besoin d'en connaître, à accéder aux informations ou aux supports classifiés d'un niveau déterminé. L'intéressé est informé de la décision d'habilitation, qui ne lui est jamais remise.
+  Décision d'habilitation provisoire : décision exceptionnelle et temporaire prise au vu d'un avis de sécurité provisoire et permettant l'accès d'une personne aux informations ou supports classifiés. Cette autorisation prend fin lors de la délivrance de la décision définitive et au plus tard six mois après avoir été accordée.
 
-    Décision d'habilitation provisoire : décision exceptionnelle et temporaire prise au vu d'un avis de sécurité provisoire et permettant l'accès d'une personne aux informations ou supports classifiés. Cette autorisation prend fin lors de la délivrance de la décision définitive et au plus tard six mois après avoir été accordée.
+  Décision de sécurité convoyeur : autorisation accordée non pas pour prendre connaissance d'informations ou de supports classifiés, mais pour assurer, durant le transport, la garde des informations ou des supports classifiés. Pour cette raison, cette décision est délivrée non pas au terme de la procédure d'habilitation, mais après un contrôle élémentaire effectué auprès des services enquêteurs des ministères de l'intérieur et de la défense.
 
-    Décision de sécurité convoyeur : autorisation accordée non pas pour prendre connaissance d'informations ou de supports classifiés, mais pour assurer, durant le transport, la garde des informations ou des supports classifiés. Pour cette raison, cette décision est délivrée non pas au terme de la procédure d'habilitation, mais après un contrôle élémentaire effectué auprès des services enquêteurs des ministères de l'intérieur et de la défense.
+  Déclassement : modification, par abaissement, du niveau de classification d'informations ou supports classifiés.
 
-    Déclassement : modification, par abaissement, du niveau de classification d'informations ou supports classifiés.
+  Déclassification : suppression de la classification d'informations ou supports classifiés à quelque niveau que ce soit.
 
-    Déclassification : suppression de la classification d'informations ou supports classifiés à quelque niveau que ce soit.
+  Disponibilité : propriété d'une information ou d'un traitement d'être utilisable à la demande par une personne ou par un système.
 
-    Disponibilité : propriété d'une information ou d'un traitement d'être utilisable à la demande par une personne ou par un système.
+  Dossier d'habilitation : dossier constitué en vue de l'habilitation d'une personne. Il comporte la demande d'habilitation établie par l'autorité demanderesse et attestant le besoin d'en connaître, la notice individuelle renseignée par l'intéressé et une photographie d'identité récente.
 
-    Dossier d'habilitation : dossier constitué en vue de l'habilitation d'une personne. Il comporte la demande d'habilitation établie par l'autorité demanderesse et attestant le besoin d'en connaître, la notice individuelle renseignée par l'intéressé et une photographie d'identité récente.
+  Donnée : toute représentation d'une information sous une forme conventionnelle destinée à faciliter son traitement.
 
-    Donnée : toute représentation d'une information sous une forme conventionnelle destinée à faciliter son traitement.
+  Engagement de responsabilité : document en deux volets signés par le titulaire de l'habilitation lors de sa prise et de sa cessation de fonction. L'engagement a pour but de rappeler à cette personne la responsabilité pénale qui lui incombe du fait de son habilitation. La signature de l'encart central du formulaire de l'engagement de responsabilité par l'intéressé vaut prise de connaissance de la décision.
 
-    Engagement de responsabilité : document en deux volets signés par le titulaire de l'habilitation lors de sa prise et de sa cessation de fonction. L'engagement a pour but de rappeler à cette personne la responsabilité pénale qui lui incombe du fait de son habilitation. La signature de l'encart central du formulaire de l'engagement de responsabilité par l'intéressé vaut prise de connaissance de la décision.
+  Entreprise étrangère : tout soumissionnaire à un contrat dont le siège social n'est pas situé en France.
 
-    Entreprise étrangère : tout soumissionnaire à un contrat dont le siège social n'est pas situé en France.
+  Fonctionnaire de sécurité de défense (FSD) : personne assistant le HFDS et contrôlant sous sa direction, notamment, l'exécution des mesures de protection des informations ou des supports classifiés.
 
-    Fonctionnaire de sécurité de défense (FSD) : personne assistant le HFDS et contrôlant sous sa direction, notamment, l'exécution des mesures de protection des informations ou des supports classifiés.
+  Fonctionnaire de sécurité des systèmes d'information (FSSI) : personne chargée de porter la réglementation interministérielle à la connaissance des organismes et entreprises concernés, d'élaborer la réglementation propre à son ministère en définissant pour chaque type de système d'information les mesures de protection nécessaires et de contrôler dans son département l'application de cette réglementation et l'efficacité des mesures prescrites.
 
-    Fonctionnaire de sécurité des systèmes d'information (FSSI) : personne chargée de porter la réglementation interministérielle à la connaissance des organismes et entreprises concernés, d'élaborer la réglementation propre à son ministère en définissant pour chaque type de système d'information les mesures de protection nécessaires et de contrôler dans son département l'application de cette réglementation et l'efficacité des mesures prescrites.
+  Habilitation d'une personne morale de droit privé : décision rendue à l'issue d'une procédure permettant d'apprécier les garanties offertes par la personne morale de droit privé et d'évaluer l'intérêt porté par ses dirigeants à la protection du secret de la défense nationale et aux aspects liés à la sécurité des informations ou des supports classifiés.
 
-    Habilitation d'une personne morale de droit privé : décision rendue à l'issue d'une procédure permettant d'apprécier les garanties offertes par la personne morale de droit privé et d'évaluer l'intérêt porté par ses dirigeants à la protection du secret de la défense nationale et aux aspects liés à la sécurité des informations ou des supports classifiés.
+  Haut fonctionnaire de défense et de sécurité (HFDS) : personne chargée d'assister le ministre dans l'exercice de ses attributions de sécurité, de défense et de protection du secret. Il est, dans certains ministères, appelé haut fonctionnaire correspondant de sécurité et de défense (HFCDS) ou haut fonctionnaire de défense (HFD).
 
-    Haut fonctionnaire de défense et de sécurité (HFDS) : personne chargée d'assister le ministre dans l'exercice de ses attributions de sécurité, de défense et de protection du secret. Il est, dans certains ministères, appelé haut fonctionnaire correspondant de sécurité et de défense (HFCDS) ou haut fonctionnaire de défense (HFD).
+  Homologation de sécurité : déclaration par l'autorité d'homologation, au vu du dossier d'homologation, que le système d'information considéré est apte à traiter des informations d'un niveau de classification donné conformément aux objectifs de sécurité visés, et que les risques de sécurité résiduels sont acceptés et maîtrisés. L'homologation de sécurité reste valide tant que le système d'information (SI) opère dans les conditions approuvées par l'autorité d'homologation.
 
-    Homologation de sécurité : déclaration par l'autorité d'homologation, au vu du dossier d'homologation, que le système d'information considéré est apte à traiter des informations d'un niveau de classification donné conformément aux objectifs de sécurité visés, et que les risques de sécurité résiduels sont acceptés et maîtrisés. L'homologation de sécurité reste valide tant que le système d'information (SI) opère dans les conditions approuvées par l'autorité d'homologation.
+  Identification : mention figurant sur un support d'information et précisant le numéro de l'exemplaire ainsi que son numéro d'enregistrement.
 
-    Identification : mention figurant sur un support d'information et précisant le numéro de l'exemplaire ainsi que son numéro d'enregistrement.
+  Imputabilité : capacité à identifier l'auteur d'une action.
 
-    Imputabilité : capacité à identifier l'auteur d'une action.
+  Information : tout renseignement ou tout élément de connaissance susceptible d'être représenté sous une forme adaptée à une communication, à un enregistrement ou à un traitement.
 
-    Information : tout renseignement ou tout élément de connaissance susceptible d'être représenté sous une forme adaptée à une communication, à un enregistrement ou à un traitement.
+  Information ou support classifié : procédé, objet, document, information, réseau informatique, donnée informatisée ou fichier présentant un caractère de secret de la défense nationale (art. 413-9 du code pénal).
 
-    Information ou support classifié : procédé, objet, document, information, réseau informatique, donnée informatisée ou fichier présentant un caractère de secret de la défense nationale (art. 413-9 du code pénal).
+  Intégrité : propriété assurant qu'une information ou un traitement n'a pas été modifié ou détruit de façon non autorisée.
 
-    Intégrité : propriété assurant qu'une information ou un traitement n'a pas été modifié ou détruit de façon non autorisée.
+  Lieux abritant des éléments classifiés : locaux dans lesquels sont détenus des informations ou supports classifiés, quel qu'en soit le niveau.
 
-    Lieux abritant des éléments classifiés : locaux dans lesquels sont détenus des informations ou supports classifiés, quel qu'en soit le niveau.
+  Marquage : opération consistant à apposer sur un support classifié les mentions précisant son niveau de classification, le numéro d'exemplaire, le numéro d'enregistrement, la pagination pour un document papier et, le cas échéant, la destination exclusivement nationale.
 
-    Marquage : opération consistant à apposer sur un support classifié les mentions précisant son niveau de classification, le numéro d'exemplaire, le numéro d'enregistrement, la pagination pour un document papier et, le cas échéant, la destination exclusivement nationale.
+  Matériel classifié : objet, équipement, installation, système ou substance présentant un caractère de secret de la défense nationale et qui nécessite une protection appropriée au niveau Très Secret Défense, Secret Défense ou Confidentiel Défense.
 
-    Matériel classifié : objet, équipement, installation, système ou substance présentant un caractère de secret de la défense nationale et qui nécessite une protection appropriée au niveau Très Secret Défense, Secret Défense ou Confidentiel Défense.
+  Mise en éveil : démarche initiée par l'autorité d'habilitation auprès de la personne à habiliter pour la sensibiliser à ses vulnérabilités découvertes au cours de l'enquête administrative.
 
-    Mise en éveil : démarche initiée par l'autorité d'habilitation auprès de la personne à habiliter pour la sensibiliser à ses vulnérabilités découvertes au cours de l'enquête administrative.
+  Mise en garde : démarche initiée par l'autorité d'habilitation visant à sensibiliser l'officier de sécurité du service employeur d'une personne sur l'existence d'éléments pouvant présenter un risque de vulnérabilité de la personne à habiliter.
 
-    Mise en garde : démarche initiée par l'autorité d'habilitation visant à sensibiliser l'officier de sécurité du service employeur d'une personne sur l'existence d'éléments pouvant présenter un risque de vulnérabilité de la personne à habiliter.
+  Non-répudiation : impossibilité de nier la participation au traitement d'une information.
 
-    Non-répudiation : impossibilité de nier la participation au traitement d'une information.
+  Notice individuelle : formulaire destiné à recueillir les renseignements nécessaires à l'habilitation d'une personne. Elle doit être renseignée par l'intéressé lui-même et constitue un élément majeur du dossier d'habilitation. Elle est exploitée par l'autorité chargée de prononcer la décision et par les services enquêteurs.
 
-    Notice individuelle : formulaire destiné à recueillir les renseignements nécessaires à l'habilitation d'une personne. Elle doit être renseignée par l'intéressé lui-même et constitue un élément majeur du dossier d'habilitation. Elle est exploitée par l'autorité chargée de prononcer la décision et par les services enquêteurs.
+  Officier de sécurité : nommé par le chef du service employeur, il est le correspondant du HFDS et des services enquêteurs. Il a pour mission, sous les ordres de son autorité d'emploi et en fonction des modalités propres à chaque structure, de fixer les règles et consignes de sécurité à mettre en œuvre concernant les personnes et les informations ou supports classifiés et d'en contrôler l'application. Il participe à l'instruction et à la sensibilisation du personnel en matière de protection du secret. Il est chargé de la gestion des habilitations et, en liaison avec les services enquêteurs, du contrôle des accès aux zones protégées. Il dirige le bureau de protection du secret.
 
-    Officier de sécurité : nommé par le chef du service employeur, il est le correspondant du HFDS et des services enquêteurs. Il a pour mission, sous les ordres de son autorité d'emploi et en fonction des modalités propres à chaque structure, de fixer les règles et consignes de sécurité à mettre en œuvre concernant les personnes et les informations ou supports classifiés et d'en contrôler l'application. Il participe à l'instruction et à la sensibilisation du personnel en matière de protection du secret. Il est chargé de la gestion des habilitations et, en liaison avec les services enquêteurs, du contrôle des accès aux zones protégées. Il dirige le bureau de protection du secret.
+  Ses missions sont à distinguer de celles dévolues à l'officier de sécurité dans une entreprise titulaire d'un contrat, qui est désigné par le responsable de l'entreprise après agrément de l'administration contractante.
 
-    Ses missions sont à distinguer de celles dévolues à l'officier de sécurité dans une entreprise titulaire d'un contrat, qui est désigné par le responsable de l'entreprise après agrément de l'administration contractante.
+  Personne qualifiée : est qualifiée, au sens de l'article 413-10 du code pénal, la personne qui, par son état, sa profession, sa fonction ou sa mission, temporaire ou permanente, est habilitée à avoir accès à une information classifiée et a le besoin d'en connaître.
 
-    Personne qualifiée : est qualifiée, au sens de l'article 413-10 du code pénal, la personne qui, par son état, sa profession, sa fonction ou sa mission, temporaire ou permanente, est habilitée à avoir accès à une information classifiée et a le besoin d'en connaître.
+  Plan d'urgence : document établi par un organisme détenteur d'informations ou supports classifiés, prévoyant, en cas de circonstances exceptionnelles, les modalités d'évacuation ou de destruction des supports d'information.
 
-    Plan d'urgence : document établi par un organisme détenteur d'informations ou supports classifiés, prévoyant, en cas de circonstances exceptionnelles, les modalités d'évacuation ou de destruction des supports d'information.
+  Primocontractant : est ainsi dénommé celui qui, dans le cadre d'un marché public, a conclu le contrat avec la personne publique, maître d'ouvrage, et qui confie, sous sa responsabilité, tout ou partie de l'exécution de ce contrat à un ou plusieurs sous-traitants.
 
-    Primocontractant : est ainsi dénommé celui qui, dans le cadre d'un marché public, a conclu le contrat avec la personne publique, maître d'ouvrage, et qui confie, sous sa responsabilité, tout ou partie de l'exécution de ce contrat à un ou plusieurs sous-traitants.
+  Procédure d'habilitation : procédure visant à s'assurer qu'une personne peut, sans risque pour la défense nationale ou pour sa propre sécurité, connaître des informations ou supports classifiés dans l'exercice de ses fonctions.
 
-    Procédure d'habilitation : procédure visant à s'assurer qu'une personne peut, sans risque pour la défense nationale ou pour sa propre sécurité, connaître des informations ou supports classifiés dans l'exercice de ses fonctions.
-
-    Reclassement : modification, par relèvement, du niveau de classification d'informations ou de supports classifiés.
-
-    Refus d'habilitation : décision prise par l'autorité d'emploi, au vu de l'avis de sécurité ou de tout autre élément recueilli sur une personne, de ne pas habiliter cette personne. Sa motivation est régie par les articles L. 211-2 à L. 211-7 du code des relations entre le public et l'administration.
-
-    Réseau de sécurité : ensemble des moyens humains, matériels et organisationnels qui permettent l'acheminement en toute sécurité des informations ou supports classifiés à un niveau déterminé (et en deçà), entre un ensemble de correspondants habilités.
-
-    Responsable de la classification : autorité émettrice d'informations qui leur attribue, en fonction de leur contenu, un niveau de classification approprié.
-
-    Renouvellement d'habilitation : procédure déclenchée à la fin de validité d'un avis de sécurité concernant une personne déjà habilitée en vue d'obtenir un avis actualisé. Ce nouvel avis permettra de prononcer une décision d'habilitation au profit de la personne qui présente encore le besoin d'en connaître.
-
-    Responsable de l'entreprise : personne représentant une personne morale pour un contrat et ayant le pouvoir d'engager celle-ci.
-
-    Retrait d'habilitation : décision prise par l'autorité d'emploi, au vu d'éléments nouveaux de vulnérabilité, de supprimer l'habilitation d'une personne.
-
-    Sensibilisation : instruction périodiquement prodiguée aux personnes habilitées ou susceptibles d'être habilitées et destinée à leur faire prendre conscience des enjeux de la protection du secret de la défense nationale, des sanctions judiciaires et administratives encourues et de la nécessité d'appliquer les mesures de sécurité prescrites.
-
-    Service enquêteur : service d'Etat chargé de procéder aux investigations sur les personnes préalablement à une décision d'habilitation ou dans le cadre d'un contrôle élémentaire, d'évaluer l'aptitude des locaux et de contrôler les mesures de sécurité. Ces services rendent leurs conclusions sous la forme d'avis de sécurité.
-
-    Soumissionnaire : toute personne morale candidate à un contrat. Dans les cas précisément identifiés dans la présente instruction, le soumissionnaire peut être une personne physique.
-
-    Spécial France : mention figurant sur des supports d'information et précisant leur destination exclusivement nationale.
-
-    Support : tout moyen matériel, quelles qu'en soient la forme et les caractéristiques physiques, permettant de recevoir, de conserver ou de restituer des informations ou des données.
-
-    Système d'information : ensemble des moyens informatiques ayant pour finalité d'élaborer, de traiter, de stocker, d'acheminer, de présenter ou de détruire des informations.
-
-    Timbre : mention figurant sur un support d'information précisant son niveau de classification et, le cas échéant, son usage national exclusif. Le timbre possède des caractéristiques définies (dimensions, aspect).
-
-    Titulaire : toute personne attributaire d'un contrat. Lorsque le contrat est un marché public avec sous-traitance, le titulaire de ce marché est appelé " primocontractant ".
-
-    Travaux classifiés : prestations, quelle qu'en soit la nature, nécessitant l'accès à des informations ou à des supports classifiés.
-
-    Vulnérabilité : fait relatif à la situation d'une personne et qui amoindrit les garanties qu'elle présente pour la protection des informations ou supports classifiés. Il s'agit d'une fragilité qui peut donner lieu à des pressions de diverses natures et qui doit être prise en compte pour accorder avec ou sans restriction, pour refuser ou pour retirer l'accès aux informations ou supports classifiés.
-
-    Zone protégée : zone créée par arrêté des ministres intéressés et faisant l'objet d'une interdiction d'accès sans autorisation, sanctionnée pénalement en cas d'infraction (articles 413-7 et R. 413-1 à R. 413-5 du code pénal).
-
-    Zone réservée : local ou emplacement qui fait l'objet de mesures de protection matérielle particulières et dont l'accès est réglementé et subordonné à des conditions spéciales.
-
-    Index
-
-    A
-
-    Accord de sécurité
-
-    Administrateur de sécurité
-
-    Administrateur système
-
-    Agent de sécurité
-
-    Agrément
-
-    Antenne d'utilisation
-
-    Archivage
-
-    Authenticité
-
-    Autorité de sécurité déléguée
-
-    Autorité émettrice
-
-    Autorité expéditrice
-
-    Autorité nationale de sécurité
-
-    Avis de sécurité
-
-    B
-
-    Besoin d'en connaître
-
-    C
-
-    Catalogue des emplois
-
-    Certificat de sécurité
-
-    Classification spéciale
-
-    Compromission
-
-    Confidentialité
-
-    Contrôle élémentaire
-
-    D
-
-    Décision d'habilitation provisoire
-
-    Décision de sécurité convoyeur
-
-    Décision d'habilitation
-
-    Déclassement
-
-    Déclassification
-
-    Disponibilité
-
-    Dossier d'habilitation
-
-    E
-
-    Engagement de responsabilité
-
-    H
-
-    Haut fonctionnaire de défense et de sécurité
-
-    Homologation de sécurité
-
-    I
-
-    Identification
-
-    L
-
-    Lieux abritant des éléments classifiés
-
-    M
-
-    Marquage
-
-    Matériel classifié
-
-    Mise en éveil
-
-    Mise en garde
-
-    N
-
-    Notice individuelle
-
-    O
-
-    Officier de sécurité
-
-    P
-
-    Procédure d'habilitation
-
-    R
-
-    Reclassement
-
-    Refus d'habilitation
-
-    Renouvellement d'habilitation
-
-    Réseau de sécurité
-
-    S
-
-    Sécurité des systèmes d'information
-
-    Sensibilisation
-
-    Service enquêteur
-
-    Système d'information
-
-    T
-
-    Timbre
-
-    V
-
-    Vulnérabilité
-
-    Z
-
-    Zone protégée
-
-    Zone réservée
-
-Notes: |
+  Reclassement : modification, par relèvement, du niveau de classification d'informations ou de supports classifiés.
+
+  Refus d'habilitation : décision prise par l'autorité d'emploi, au vu de l'avis de sécurité ou de tout autre élément recueilli sur une personne, de ne pas habiliter cette personne. Sa motivation est régie par les articles L. 211-2 à L. 211-7 du code des relations entre le public et l'administration.
+
+  Réseau de sécurité : ensemble des moyens humains, matériels et organisationnels qui permettent l'acheminement en toute sécurité des informations ou supports classifiés à un niveau déterminé (et en deçà), entre un ensemble de correspondants habilités.
+
+  Responsable de la classification : autorité émettrice d'informations qui leur attribue, en fonction de leur contenu, un niveau de classification approprié.
+
+  Renouvellement d'habilitation : procédure déclenchée à la fin de validité d'un avis de sécurité concernant une personne déjà habilitée en vue d'obtenir un avis actualisé. Ce nouvel avis permettra de prononcer une décision d'habilitation au profit de la personne qui présente encore le besoin d'en connaître.
+
+  Responsable de l'entreprise : personne représentant une personne morale pour un contrat et ayant le pouvoir d'engager celle-ci.
+
+  Retrait d'habilitation : décision prise par l'autorité d'emploi, au vu d'éléments nouveaux de vulnérabilité, de supprimer l'habilitation d'une personne.
+
+  Sensibilisation : instruction périodiquement prodiguée aux personnes habilitées ou susceptibles d'être habilitées et destinée à leur faire prendre conscience des enjeux de la protection du secret de la défense nationale, des sanctions judiciaires et administratives encourues et de la nécessité d'appliquer les mesures de sécurité prescrites.
+
+  Service enquêteur : service d'Etat chargé de procéder aux investigations sur les personnes préalablement à une décision d'habilitation ou dans le cadre d'un contrôle élémentaire, d'évaluer l'aptitude des locaux et de contrôler les mesures de sécurité. Ces services rendent leurs conclusions sous la forme d'avis de sécurité.
+
+  Soumissionnaire : toute personne morale candidate à un contrat. Dans les cas précisément identifiés dans la présente instruction, le soumissionnaire peut être une personne physique.
+
+  Spécial France : mention figurant sur des supports d'information et précisant leur destination exclusivement nationale.
+
+  Support : tout moyen matériel, quelles qu'en soient la forme et les caractéristiques physiques, permettant de recevoir, de conserver ou de restituer des informations ou des données.
+
+  Système d'information : ensemble des moyens informatiques ayant pour finalité d'élaborer, de traiter, de stocker, d'acheminer, de présenter ou de détruire des informations.
+
+  Timbre : mention figurant sur un support d'information précisant son niveau de classification et, le cas échéant, son usage national exclusif. Le timbre possède des caractéristiques définies (dimensions, aspect).
+
+  Titulaire : toute personne attributaire d'un contrat. Lorsque le contrat est un marché public avec sous-traitance, le titulaire de ce marché est appelé " primocontractant ".
+
+  Travaux classifiés : prestations, quelle qu'en soit la nature, nécessitant l'accès à des informations ou à des supports classifiés.
+
+  Vulnérabilité : fait relatif à la situation d'une personne et qui amoindrit les garanties qu'elle présente pour la protection des informations ou supports classifiés. Il s'agit d'une fragilité qui peut donner lieu à des pressions de diverses natures et qui doit être prise en compte pour accorder avec ou sans restriction, pour refuser ou pour retirer l'accès aux informations ou supports classifiés.
+
+  Zone protégée : zone créée par arrêté des ministres intéressés et faisant l'objet d'une interdiction d'accès sans autorisation, sanctionnée pénalement en cas d'infraction (articles 413-7 et R. 413-1 à R. 413-5 du code pénal).
+
+  Zone réservée : local ou emplacement qui fait l'objet de mesures de protection matérielle particulières et dont l'accès est réglementé et subordonné à des conditions spéciales.
+
+index: |
+  ## Index
+
+  * A
+    - Accord de sécurité
+    - Administrateur de sécurité
+    - Administrateur système
+    - Agent de sécurité
+    - Agrément
+    - Antenne d'utilisation
+    - Archivage
+    - Authenticité
+    - Autorité de sécurité déléguée
+    - Autorité émettrice
+    - Autorité expéditrice
+    - Autorité nationale de sécurité
+    - Avis de sécurité
+  * B
+    - Besoin d'en connaître
+  * C
+    - Catalogue des emplois
+    - Certificat de sécurité
+    - Classification spéciale
+    - Compromission
+    - Confidentialité
+    - Contrôle élémentaire
+  * D
+    - Décision d'habilitation provisoire
+    - Décision de sécurité convoyeur
+    - Décision d'habilitation
+    - Déclassement
+    - Déclassification
+    - Disponibilité
+    - Dossier d'habilitation
+  * E
+    - Engagement de responsabilité
+  * H
+    - Haut fonctionnaire de défense et de sécurité
+    - Homologation de sécurité
+  * I
+    - Identification
+  * L
+    - Lieux abritant des éléments classifiés
+  * M
+    - Marquage
+    - Matériel classifié
+    - Mise en éveil
+    - Mise en garde
+  * N
+    - Notice individuelle
+  * O
+    - Officier de sécurité
+  * P
+    - Procédure d'habilitation
+  * R
+    - Reclassement
+    - Refus d'habilitation
+    - Renouvellement d'habilitation
+    - Réseau de sécurité
+  * S
+    - Sécurité des systèmes d'information
+    - Sensibilisation
+    - Service enquêteur
+    - Système d'information
+  * T
+    - Timbre
+  * V
+    - Vulnérabilité
+  * Z
+    - Zone protégée
+    - Zone réservée
+
+notes: |
+  ## Notes
+  
   (1) Décision du Conseil constitutionnel n° 2011-192 QPC du 10 novembre 2011.
 
   (2) Blocages malveillants, destruction matérielle, neutralisation d'un système, vol ou altération de données, prise de contrôle d'un dispositif à des fins hostiles...
@@ -3934,12 +3786,10 @@ annexe12: |
     n° 279 du 02/12/2011 texte numéro 1
 
 annexe13: |
-    A N N E X E 13
+  ## A N N E X E 13 - PRESCRIPTIONS RELATIVES AUX ANNEXES DE SÉCURITÉ
 
-
-    PRESCRIPTIONS RELATIVES AUX ANNEXES DE SÉCURITÉ
-
-    L'annexe de sécurité porte sur les éléments suivants :
+  L'annexe de sécurité porte sur les éléments suivants :
+    
     ― l'engagement pris par le titulaire de s'assurer que les personnes qui ont besoin d'avoir accès à des informations classifiées dans l'exercice de leurs fonctions ont fait l'objet de l'habilitation de sécurité appropriée ;
     ― l'engagement pris par le contractant de s'assurer que toutes les personnes qui ont accès à des informations ou supports classifiés sont informées de leur responsabilité en matière de protection desdites informations en vertu des lois et règlements appropriés ;
     ― l'engagement de signaler toute infraction effective ou supposée aux lois et règlements afférents à la protection des informations classifiées relevant du contrat ;
@@ -3952,10 +3802,10 @@ annexe13: |
     ― les modalités de communication des informations classifiées aux sous-traitants ;
     ― la procédure de transmission des informations classifiées ;
     ― les modalités de gestion prévisionnelle des informations ou supports classifiés une fois le contrat achevé.
-    Un exemplaire de l'annexe de sécurité est transmis au service enquêteur chargé du suivi de l'entreprise.
-
-    Modèles de notices, de formulaires
-    et de décisions administratives
+  
+  Un exemplaire de l'annexe de sécurité est transmis au service enquêteur chargé du suivi de l'entreprise.
+modeles: |
+    # Modèles de notices, de formulaires et de décisions administratives
 
     Demande ou renouvellement d'habilitation et notice individuelle de sécurité (modèle 01/IGI 1300).
     Demande de contrôle élémentaire (modèle 02/IGI 1300).

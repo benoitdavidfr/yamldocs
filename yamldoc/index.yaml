@@ -1,27 +1,30 @@
 title: Présentation résumée de YamlDoc
-modified: 2019-02-23
+modified: 2020-02-18
 abstract: |
   YamlDoc
   -------
   YamlDoc est un système de gestion documentaire fondé sur :
   
-    - l'organisation de documents correspondants principalement à des fichiers texte structurés au
-      **[format Yaml](?ypath=/yaml)**,
-    - l'utilisation, quand cela est adapté, pour les champs d'une **[sémantique bien connue](?ypath=/semantic)**
-      (DublinCore, Skos, Schema.org, GeoJSON, ...), conformément aux principes
+    1. l'organisation de documents correspondants principalement à des fichiers texte
+      structurés au **[format Yaml](?ypath=/yaml)**,
+    2. l'utilisation, quand cela est adapté, pour les champs d'une **[sémantique bien connue](?ypath=/semantic)**
+      (DublinCore, DCAT, Skos, Schema.org, GeoJSON, ...), conformément aux principes
       du [Web des données](https://fr.wikipedia.org/wiki/Web_des_donn%C3%A9es),
-    - la définition de [classes de documents](?ypath=/ydclass) permettant,
+    3. la définition de [classes de documents](?ypath=/ydclass) permettant,
       d'une part, de spécifier le contenu des documents par un [schéma JSON](https://json-schema.org/)
-      et, d'autre part, d'associer à un document un comportement défini par une classe Php.
-    - la possibilité de formatter les textes contenus dans un champ du fichier Yaml
+      et, d'autre part, d'associer à un document un comportement défini par une classe Php,
+    4. la possibilité de formatter les textes contenus dans un champ du fichier Yaml
       en utilisant le **[langage Markdown](?ypath=/markdown)**,
-    - l'utilisation d'un [visualiseur Web](?ypath=/viewer) de documents extensible grâce aux classes de documents,
-    - un mécanisme de [requête simple (ypath)](?ypath=/ypath) dans les documents,
-    - la possibilité d'effectuer des [recherches plein texte](?ypath=/textSearch) dans les documents,
-    - l'[organisation d'espaces documentaires partagés chacun sous la forme d'une archive Git](?ypath=/git),
+    5. la visualisation des documents et fragments au moyen d'un [visualiseur Web](?ypath=/viewer)
+      extensible grâce aux classes de documents,
+    6. un mécanisme de [requête simple (ypath)](?ypath=/ypath) dans les documents,
+    7. l'[identification](?ypath=/id) par un URI de chaque document et chacun de ses fragments,
+      dont le déréférencement expose son contenu en JSON ou en JSON-LD,
+    8. la possibilité d'effectuer des [recherches plein texte](?ypath=/textSearch) dans les documents,
+    9. l'[organisation d'espaces documentaires partagés chacun sous la forme d'une archive Git](?ypath=/git),
       pouvant ainsi utiliser soit [Github](https://github.com/benoitdavidfr/yamldocs),
       soit une archive Git privée,
-    - la définition de [requêtes sur les documents](?ypath=/query) en Php,
+    10. la définition de [requêtes sur les documents](?ypath=/query) en Php,
       
   YamlDoc est notamment étendu pour permettre :
     
@@ -29,6 +32,8 @@ abstract: |
     - l'[exploitation de catalogue de données géographiques](?doc=geocats),
     - l'utilisation de thésaurus Skos comme [EuroVoc](?doc=eurovoc),
     - l'[utilisation d'API de l'INSEE](?doc=insee).
+    
+  [Idées pour la suite](?ypath=/next).
     
 yaml: |
   ### Fondé sur le format Yaml
@@ -46,19 +51,20 @@ yaml: |
   
 semantic: |
   ### Sémantique bien connue
-  Lorsque cela est adapté, la sémantique des champs des tableaux associatifs Yaml respecte les standards suivants:
+  Lorsque cela est adapté, la sémantique des champs des tableaux associatifs Yaml respecte les standards suivants :
     
     - le [standard Dublin Core](https://fr.wikipedia.org/wiki/Dublin_Core) pour décrire les métadonnées
       d'un document ; ainsi il est recommandé d'utiliser des champs Dublin Core (comme title, subject, description,
       date, ...) pour définir les métadonnées de chaque document
-      ([synthèse des principaux champs ici](?doc=dublincore)) ;
-    - le [standard SKOS](https://fr.wikipedia.org/wiki/Simple_Knowledge_Organization_System) ([résumé ici](?doc=skos))
-      encodé en Yaml pour représenter des thésaurus comme le [thésaurus EuroVoc](?doc=eurovoc)
-      ou le [lexique topographique](?doc=topovoc) de l'AFT ;
+      ([synthèse des principaux champs ici](?doc=dublincore&ypath=/abstract)) ;
+    - le [standard W3C DCAT](https://www.w3.org/TR/vocab-dcat-2/) pour décrire les catalogues de jeux de données,
+    - le [standard W3C SKOS](https://fr.wikipedia.org/wiki/Simple_Knowledge_Organization_System)
+      ([résumé ici](?doc=skos)) encodé en Yaml pour représenter des thésaurus
+      comme le [thésaurus EuroVoc](?doc=eurovoc) ou le [lexique topographique](?doc=topovoc) de l'AFT ;
     - le [standard Schema.org](https://fr.wikipedia.org/wiki/Schema.org) pour structurer
       des bases de données, telles que par exemple des listes d'organismes en utilisant le
       [type Organization](https://schema.org/Organization),
-    - le [standard GeoJSON](https://tools.ietf.org/html/rfc7946) pour décrire des bases de données
+    - le [standard IETF GeoJSON](https://tools.ietf.org/html/rfc7946) pour décrire des bases de données
       géographiques vecteur, [plus de détails ici](?doc=geodata).
 
 ydclass: |
@@ -127,6 +133,23 @@ ypath: |
       - la projection sur les champs *insee_code*, *name* et *successors* s'effectue par la 
         chaine [`/data/insee_code,name,successors`](?doc=geohisto/departements&ypath=/data/insee_code,name,successors)
 
+id: |
+  ### Identification des documents et de leurs fragments et leur exposition en JSON
+  Chaque document correspond à un URI de la forme `http://id.georef.eu/{path}` où `{path}` est le chemin du document.  
+  Le déréférencement de cet URI expose le document en JSON.
+  
+  De même chaque fragment d'un document correspond à un URI de la forme `http://id.georef.eu/{path}{ypath}`,
+  où `{ypath}` est le chemin du fragment dans le document,
+  qui peut être déréférencé pour exposer le fragment en JSON.
+
+  Exemples:
+    
+    - Le présent document : [`http://id.georef.eu/yamldoc`](http://id.georef.eu/yamldoc)
+    - Le présent fragment : [`http://id.georef.eu/yamldoc/id`](http://id.georef.eu/yamldoc/id)
+    - Codification des langues selon la norme ISO 639 : [`http://id.georef.eu/iso639`](http://id.georef.eu/iso639)
+    - Définition du code `fre` selon la norme ISO 639 :
+      [`http://id.georef.eu/iso639/concepts/fre`](http://id.georef.eu/iso639/concepts/fre)
+
 textSearch: |
   ### Recherche plein texte
   En tapant un mot ou plusieurs dans le champ de saisie, une recherche plein texte est effectuée dans les documents.
@@ -193,3 +216,33 @@ query: |
       
   Du point de vue implémentation, un document requête est un script Php qui renvoie un array Php 
   à partir duquel sera créé un objet Yamldoc par exemple pour afficher le résultat de la requête.
+
+next: |
+  ### Réflexions pour la suite
+  Reconstruire YamlDoc fondé sur 3 mécanismes :
+    
+    - YRdf - stockage d'un graphe RDF exposé en JSON-LD
+      dans l'[hypothèse du monde ouvert](https://fr.wikipedia.org/wiki/Hypoth%C3%A8se_du_monde_ouvert).  
+      Chaque ressource est identifiée par un URI et est exposée en JSON-LD.  
+      Faut-il exposer le document en JSON-LD ?
+    - YDB - stockage d'un dictionnaire de collections homogènes d'enregistrements
+      chacun étant censé respecter le schéma JSON défini au niveau de la collection.  
+      Logique de base de données et donc
+      [hypothèse du monde clos](https://fr.wikipedia.org/wiki/Hypoth%C3%A8se_du_monde_clos).  
+      Chaque enregistrement est identifié par un URI et est exposé en JSON.
+    - accès aux API en mode RESTfull
+      
+  Peut-on gérer simplement la structure Skos comme un cas particulier de Rdf ?
+  
+  #### JSON-LD vs. JSON Schema
+  In `https://lists.w3.org/Archives/Public/public-linked-json/2014Oct/0010.html`  
+  <markus.lanthaler@gmx.net> wrote:
+    
+  > They serve different purposes. The short version is:
+  > 
+  >   - JSON-LD give JSON messages a well-defined meaning by mapping most things to IRIs.
+  >   - JSON Schema describes the syntactic structure of a JSON document.
+  > 
+  > Both work with JSON so you can use them together.
+  
+

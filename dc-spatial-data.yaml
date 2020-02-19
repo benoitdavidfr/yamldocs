@@ -246,7 +246,7 @@ tables:
       PAC:
         name: Provence-Alpes-Côte d'Azur
   codesIso3166-2drom:
-    title: Codes ISO 3166-2 et correspondance ISO 3166-1 des DROM
+    title: Codes ISO 3166-2 des DROM et correspondance ISO 3166-1
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       type: object

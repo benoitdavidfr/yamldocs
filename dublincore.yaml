@@ -1,7 +1,7 @@
 title: éléments de MD du Dublin Core
 abstract: |
-  Le **Dublin Core** est un schéma de métadonnées générique permettant de décrire des ressources numériques ou physiques
-  et d’établir des relations entre ressources.
+  Le **Dublin Core** est un schéma de métadonnées générique permettant de décrire des ressources numériques
+  ou physiques et d’établir des relations entre ressources.
   Il comprend les [15 éléments de métadonnées, appelés "Dublin Core Metadata Element Set (DCMES)",
   listés ici en français](?ypath=/dcmes/*/_id,name.fr,definition.fr,description.fr),
   ou [en anglais](?ypath=/dcmes/*/_id,name.en,definition.en,description.en).
@@ -22,7 +22,7 @@ lineage:
   '2019-01-05': Définition des schéma JSON de chaque table
 publisher: https://github.com/benoitdavidfr
 created: '2018-06-05'
-modified: '2019-01-26'
+modified: '2020-02-19'
 source:
   - https://fr.wikipedia.org/wiki/Dublin_Core
   - http://www.dublincore.org/documents/dces/
@@ -477,7 +477,7 @@ tables:
           fr: Détenteur des droits
           en: Rights Holder
         definition:
-          fr: Une personne ou une organisation possédant ou exploitant les droits sur la ressources.
+          fr: Une personne ou une organisation possédant ou exploitant les droits sur la ressource.
           en: A person or organization owning or managing rights over the resource.
 
   cvoc:
@@ -540,6 +540,9 @@ tables:
           en: Internet Media Types
         definition:
           fr: L'ensemble des types de média spécifiés par l'IANA (Internet Assigned Numbers Authority).
+        content: |
+          [extrait](?ypath=/mediaType/*)
+            
         isAvailableAt: http://www.iana.org/assignments/media-types/
       LCC:
         name:
@@ -634,37 +637,47 @@ tables:
         name: Event
         uri: http://purl.org/dc/dcmitype/Event
         definition: A non-persistent, time-based occurrence.
-        description: Metadata for an event provides descriptive information that is the basis for discovery of the purpose, location, duration, and responsible agents associated with an event.
-        examples: an exhibition, webcast, conference, workshop, open day, performance, battle, trial, wedding, tea party, conflagration.
+        description: >
+          Metadata for an event provides descriptive information that is the basis for discovery of the purpose,
+          location, duration, and responsible agents associated with an event.
+        examples: >
+          an exhibition, webcast, conference, workshop, open day, performance, battle, trial, wedding, tea party,
+          conflagration.
       Image:
         name: Image
         uri: http://purl.org/dc/dcmitype/Image
         definition: A visual representation other than text.
         description: Image may include both electronic and physical representations.
         examples: >
-          images and photographs of physical objects, paintings, prints, drawings, other images and graphics, animations
-          and moving pictures, film, diagrams, maps, musical notation.
+          images and photographs of physical objects, paintings, prints, drawings, other images and graphics,
+          animations and moving pictures, film, diagrams, maps, musical notation.
       InteractiveResource:
         name: Interactive Resource
         uri: http://purl.org/dc/dcmitype/InteractiveResource
         definition: A resource requiring interaction from the user to be understood, executed, or experienced.
-        examples: forms on Web pages, applets, multimedia learning objects, chat services, or virtual reality environments.
+        examples: >
+          forms on Web pages, applets, multimedia learning objects, chat services, or virtual reality environments.
       MovingImage:
         name: Moving Image
         uri: http://purl.org/dc/dcmitype/MovingImage
         definition: A series of visual representations imparting an impression of motion when shown in succession.
-        description: Instances of the type Moving Image must also be describable as instances of the broader type Image.
+        description: >
+          Instances of the type Moving Image must also be describable as instances of the broader type Image.
         examples: animations, movies, television programs, videos, zoetropes, or visual output from a simulation.
       PhysicalObject:
         name: Physical Object
         uri: http://purl.org/dc/dcmitype/PhysicalObject
         definition: An inanimate, three-dimensional object or substance.
-        description: Note that digital representations of, or surrogates for, these objects should use Image, Text or one of the other types.
+        description: >
+          Note that digital representations of, or surrogates for, these objects should use Image, Text
+          or one of the other types.
       Service:
         name: Service
         uri: http://purl.org/dc/dcmitype/Service
         definition: A system that provides one or more functions.
-        examples: a photocopying service, a banking service, an authentication service, interlibrary loans, a Z39.50 or Web server.
+        examples: >
+          a photocopying service, a banking service, an authentication service, interlibrary loans, a Z39.50
+          or Web server.
       Software:
         name: Software
         uri: http://purl.org/dc/dcmitype/Software
@@ -680,14 +693,108 @@ tables:
         uri: http://purl.org/dc/dcmitype/StillImage
         definition: A static visual representation.
         description: Instances of the type Still Image must also be describable as instances of the broader type Image.
-        examples: paintings, drawings, graphic designs, plans and maps. Recommended best practice is to assign the type Text to images of textual materials.
+        examples: >
+          paintings, drawings, graphic designs, plans and maps.
+          Recommended best practice is to assign the type Text to images of textual materials.
       Text:
         name: Text
         uri: http://purl.org/dc/dcmitype/Text
         definition: A resource consisting primarily of words for reading.
         description: Note that facsimiles or images of texts are still of the genre Text.
         examples: books, letters, dissertations, poems, newspapers, articles, archives of mailing lists. 
-        
+  
+  mediaType:
+    title: types de média standardisés par l'IANA les plus féquents
+    publisher: https://www.iana.org/
+    source: https://www.iana.org/assignments/media-types/media-types.xhtml
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      type: object
+      patternProperties: # the property is the identifier of the type
+        '^[-a-zA-Z]+$':
+          description: description of each type
+          type: object
+          required: [ type, label ]
+          properties:
+            type:
+              description: the string defining the type
+              type: string
+            label:
+              description: a label defining the type
+              type: string
+            wikipedia:
+              description: URL de l'article Wikipédia
+              type: string
+            definedBy:
+              description: Référence ou liste de référence de(s) document(s) définissant le type
+              oneOf:
+                - type: string
+                - type: array
+                  items:
+                    type: string
+    data:
+      plainText:
+        type: text/plain
+        label: texte brut sans sous-type
+      htmlText:
+        type: text/html
+        label: HTML
+        wikipedia: https://fr.wikipedia.org/wiki/Hypertext_Markup_Language
+      xml:
+        type: text/xml
+        label: XML
+        wikipedia: https://fr.wikipedia.org/wiki/Extensible_Markup_Language
+      rdf:
+        type: application/rdf+xml
+        label: RDF
+        definedBy: https://www.w3.org/TR/rdf11-concepts/
+      turtle:
+        type: text/turtle
+        label: Turtle
+        definedBy: https://www.w3.org/TR/turtle/
+      markdown:
+        type: text/markdown
+        label: Markdown
+        wikipedia: https://fr.wikipedia.org/wiki/Markdown
+      csv:
+        type: text/csv
+        label: valeurs séparées par des virgules
+        definedBy:
+          - https://tools.ietf.org/html/rfc4180
+          - https://tools.ietf.org/html/rfc7111
+      tab-separated-values:
+        type: text/tab-separated-values
+        label: valeurs séparées par des tabulations
+        wikipedia: https://fr.wikipedia.org/wiki/Tabulation-separated_values
+      jpeg:
+        type: image/jpeg
+        label: Image JPEG
+        definedBy: Norme ISO/CEI 10918-1 UIT-T Recommendation T.81
+      png:
+        type: image/png
+        label: Image PNG
+        definedBy: Norme ISO/CEI 15948:2004
+      pdf:
+        type: application/pdf
+        label: format PDF
+        wikipedia: https://fr.wikipedia.org/wiki/Portable_Document_Format
+      json:
+        type: application/json
+        label: Format JSON
+        definedBy: https://tools.ietf.org/html/rfc8259
+      json-ld:
+        type: application/ld+json
+        label: Serialisation RDF en JSON
+        definedBy: https://www.w3.org/TR/json-ld11/
+      GeoJSON:
+        type: application/geo+json
+        label: format GeoJSON
+        definedBy: https://tools.ietf.org/html/rfc7946
+      gml:
+        type: application/gml+xml
+        label: langage GML
+        wikipedia: https://fr.wikipedia.org/wiki/Geography_Markup_Language
+    
   encoding:
     title:
       fr: Schémas de codage de syntaxe
