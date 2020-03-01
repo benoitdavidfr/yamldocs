@@ -152,6 +152,7 @@ tables:
         alpha3: FRA
       FX:
         name: France métropolitaine
+        alpha3: FXX
       GP:
         name: Guadeloupe
         alpha3: GLP

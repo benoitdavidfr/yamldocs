@@ -1,0 +1,32 @@
+title: gestion d'une forêt de hiérarchies de personnes chacune définie par une étiquette et ses enfants
+$schema:
+  $id: http://id.georef.eu/personhierarchy/$schema
+  $schema: http://json-schema.org/draft-07/schema#
+  definitions:
+    person:
+      oneOf:
+        - type: object
+          additionalProperties:
+            $ref: '#/definitions/person'
+        - type: 'null'
+  type: object
+  properties:
+    title:
+      description: titre du document
+      type: string
+    $schema:
+      description: schema du document
+      $ref: http://json-schema.org/draft-07/schema#
+    persons:
+      description: liste des personnes de 1er niveau
+      type: object
+      additionalProperties:
+        $ref: '#/definitions/person'
+persons:
+  Elizabeth:
+    Charles:
+      William:
+        George:
+        Charlotte:
+      Harry:
+        

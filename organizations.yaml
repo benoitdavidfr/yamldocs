@@ -1,0 +1,424 @@
+title: registre hiérarchique d'organisations
+description:
+  Registre d'organisations décrites selon le type http://schema.org/Organization et identifiées par un identifiant
+  L'historique des DREAL est géré au moyen des propriétés foundingDate, dissolutionDate, successors et ancestors.
+  Les UD de la DRIEA IDF sont aussi décrites.
+  La propriété sameAs est utilisée pour les entrées Wikipedia et url pour le site officiel de l'organisation.  
+$schema:
+  $id: http://id.georef.eu/organizations/$schema
+  $schema: http://json-schema.org/draft-07/schema#
+  definitions:
+    Organization:
+      description: description d'une organization proche de https://schema.org/Organization
+      type: object
+      required: [ name ]
+      properties:
+        name:
+          description: nom de l'organisation
+          type: string
+        alternateName:
+          description: nom(s) alternatif(s)
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+        url:
+          description: URL du site web institutionnel
+          type: string
+        address:
+          description: adresse(s) postale(s)
+          oneOf:
+            - $ref: '#/definitions/PostalAddress'
+            - type: array
+              items:
+                $ref: '#/definitions/PostalAddress'
+        sameAs:
+          description: autre URI, notamment sur wikipedia
+          type: string
+        areaServed:
+          description: zone géographique servie
+          type: string
+        foundingDate:
+          description: date de création
+        dissolutionDate:
+          description: lendemain de la date de suppression
+        ancestors:
+          description: organisation(s) remplacées par l'organisation créée
+        successors:
+          description: organisation(s) ayant remplacé l'organisation supprimée
+        subOrganization:
+          description: liste des sous-organisations chacune identifiée par un id
+          type: object
+          additionalProperties:
+            $ref: '#/definitions/Organization'
+    PostalAddress:
+      description: adresse postale structurée proche de https://schema.org/PostalAddress
+      type: object
+      properties:
+        streetAddress:
+          description: nom de la voie et numéro dans la voie
+          type: string
+        addressLocality:
+          description: nom de la ville et du Pays
+          type: string
+        postalCode:
+          description: code postal
+          type: string
+  type: object
+  properties:
+    title:
+      description: titre du document
+      type: string
+    description:
+      description: description du document
+      type: string
+    $schema:
+      description: schema du document
+      $ref: http://json-schema.org/draft-07/schema#
+    ydADscrBhv:
+      description: paramètres de comportement utilisés par le code Php de la classe AutoDescribed
+      type: object
+      properties:
+        writePserReally:
+          description: si défini alors le doc est stocké en pser
+          type: boolean
+        extract:
+          description: >
+            liste de la clé utilisée au premier niveau et de la clé utilisée pour descendre dans un sous-objet
+          type: array
+          items:
+            type: string
+          minItems: 2
+          maxItems: 2
+    json-ld:
+      description: paramétrage de la sortie JSON-LD
+      type: object
+      properties:
+        '@context':
+          description: contexte JSON-LD à ajouter
+        defaultType:
+          description: type par défaut des enregistrements
+          type: string
+    organizations:
+      description: liste d'organisations chacune identifiée par un id récursivement
+      type: object
+      additionalProperties:
+        $ref: '#/definitions/Organization'
+ydADscrBhv:
+  writePserReally: true
+  extract:
+    - organizations
+    - subOrganization
+json-ld:
+  '@context': http://schema.org
+  defaultType: Organization
+organizations:
+  fr.gouv:
+    name: gouvernement français
+    subOrganization:
+      ditp:
+        name: Direction interministérielle à la transformation publique
+        alternateName: DITP
+        url: http://www.modernisation.gouv.fr/mots-cle/ditp
+        sameAs: https://fr.wikipedia.org/wiki/Direction_interminist%C3%A9rielle_de_la_transformation_publique
+      dge:
+        name: Direction générale des entreprises
+        alternateName: DGE
+        url: http://www.entreprises.gouv.fr
+      dreal.hdf:
+        name: DREAL Hauts-de-France
+        areaServed: fr:region:32@2016-01-01
+        foundingDate: 2016-01-01
+        ancestors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.npdc
+          - http://id.georef.eu/organizations/fr.gouv/dreal.picardie
+      dreal.npdc:
+        name: DREAL Nord-Pas-de-Calais
+        areaServed: fr:region:31@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.hdf
+      dreal.picardie:
+        name: DREAL Picardie
+        areaServed: fr:region:22@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.hdf
+      dreal.ges:
+        name: DREAL Grand Est
+        areaServed: fr:region:44@2016-01-01
+        foundingDate: 2016-01-01
+        alternateName:
+          - DREAL Grand Est (Direction Régionale de l'Environnement, de l'Aménagement et du Logement)
+        ancestors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.cardenne
+          - http://id.georef.eu/organizations/fr.gouv/dreal.lorraine
+          - http://id.georef.eu/organizations/fr.gouv/dreal.alsace
+      dreal.cardenne:
+        name: DREAL Champagne-Ardenne
+        alternateName:
+          - DREAL Champ Ard
+        areaServed: fr:region:21@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.ges
+      dreal.lorraine:
+        name: DREAL Lorraine
+        areaServed: fr:region:41@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.ges
+      dreal.alsace:
+        name: DREAL Alsace
+        areaServed: fr:region:42@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.ges
+      dreal.bfc:
+        name: DREAL Bourgogne-Franche-Comté
+        areaServed: fr:region:27@2016-01-01
+        foundingDate: 2016-01-01
+        ancestors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.bourgogne
+          - http://id.georef.eu/organizations/fr.gouv/dreal.fcomte
+      dreal.bourgogne:
+        name: DREAL Bourgogne
+        areaServed: fr:region:26@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.bfc
+      dreal.fcomte:
+        name: DREAL Franche-Comté
+        alternateName:
+          - DREAL Fr Comte
+        areaServed: fr:region:43@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.bfc
+      dreal.ara:
+        name: DREAL Auvergne-Rhône-Alpes
+        areaServed: fr:region:84@2016-01-01
+        foundingDate: 2016-01-01
+        ancestors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.auvergne
+          - http://id.georef.eu/organizations/fr.gouv/dreal.ralpes
+      dreal.auvergne:
+        name: DREAL Auvergne
+        areaServed: fr:region:83@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.ara
+      dreal.ralpes:
+        name: DREAL Rhône-Alpes
+        areaServed: fr:region:82@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.ara
+      dreal.pac:
+        name: DREAL Provence-Alpes-Côte d'Azur
+        areaServed: fr:region:93@1970-01-09
+        foundingDate: 2009-01-01
+      dreal.cor:
+        name: DREAL Corse
+        areaServed: fr:region:94@1970-01-09
+        foundingDate: 2009-01-01
+      dreal.occ:
+        name: DREAL Occitanie
+        areaServed: fr:region:76@2016-01-01
+        foundingDate: 2016-01-01
+        ancestors:
+          - http://id.georef.eu/organizations/fr.gouv/lroussillon
+          - http://id.georef.eu/organizations/fr.gouv/dreal.mip
+      dreal.lroussillon:
+        name: DREAL Languedoc-Roussillon
+        alternateName:
+          - DREAL Lang Rous
+        areaServed: fr:region:91@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.occ
+      dreal.mip:
+        name: DREAL Midi-Pyrénées
+        areaServed: fr:region:73@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.occ
+      dreal.naq:
+        name: DREAL Nouvelle-Aquitaine 
+        areaServed: fr:region:75@2016-01-01
+        foundingDate: 2016-01-01
+        ancestors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.pcharentes
+          - http://id.georef.eu/organizations/fr.gouv/dreal.aquitaine
+          - http://id.georef.eu/organizations/fr.gouv/dreal.limousin
+      dreal.pcharentes:
+        name: DREAL Poitou-Charentes
+        areaServed: fr:region:54@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.naq
+      dreal.aquitaine:
+        name: DREAL Aquitaine
+        areaServed: fr:region:72@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.naq
+      dreal.limousin:
+        name: DREAL Limousin
+        areaServed: fr:region:74@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.naq
+      dreal.cvl:
+        name: DREAL Centre-Val de Loire
+        areaServed: fr:region:24@1970-01-09
+        foundingDate: 2009-01-01
+      dreal.pdl:
+        name: DREAL Pays de la Loire
+        areaServed: fr:region:52@1970-01-09
+        foundingDate: 2009-01-01
+      dreal.bre:
+        name: DREAL Bretagne
+        areaServed: fr:region:53@1970-01-09
+        foundingDate: 2009-01-01
+      dreal.nor:
+        name: DREAL Normandie 
+        areaServed: fr:region:28@2016-01-01
+        foundingDate: 2016-01-01
+        ancestors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.bnormandie
+          - http://id.georef.eu/organizations/fr.gouv/dreal.hnormandie
+      dreal.bnormandie:
+        name: DREAL Basse-Normandie
+        areaServed: fr:region:25@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.nor
+      dreal.hnormandie:
+        name: DREAL Haute-Normandie
+        areaServed: fr:region:23@1970-01-09
+        foundingDate: 2009-01-01
+        dissolutionDate: 2016-01-01
+        successors:
+          - http://id.georef.eu/organizations/fr.gouv/dreal.nor
+      driea.idf:
+        name: DRIEA Île-de-France
+        alternateName:
+          - DRIEA Ile-de-France
+          - DRIEA IF
+        areaServed: fr:region:11@1970-01-09
+        foundingDate: 2009-01-01
+        subOrganization:
+          ud75:
+            name: DRIEA Île-de-France UD75
+            alternateName:
+              - DRIEA IF/UTEA75
+            areaServed: fr:departement:75@1968-01-01 
+            foundingDate: 2009-01-01
+          ud92:
+            name: DRIEA Île-de-France UD92
+            alternateName:
+              - DRIEA IF/UTEA92
+            areaServed: fr:departement:92@1968-01-01 
+            foundingDate: 2009-01-01
+          ud93:
+            name: DRIEA Île-de-France UD93
+            alternateName:
+              - UD93 (Unité départementale de Seine-Saint-Denis)
+            areaServed: fr:departement:93@1968-01-01 
+            foundingDate: 2009-01-01
+          ud94:
+            name: DRIEA Île-de-France UD94
+            alternateName:
+              - DRIEA IF/UTEA94
+            areaServed: fr:departement:93@1968-01-01 
+            foundingDate: 2009-01-01
+      driee.idf:
+        name: DRIEE Île-de-France
+        areaServed: fr:region:11@1970-01-09
+        foundingDate: 2009-01-01
+  fr.gouv2:
+    name: gouvernement français2
+    subOrganization:
+      ditp:
+        name: Direction interministérielle à la transformation publique
+        alternateName: DITP
+        url: http://www.modernisation.gouv.fr/mots-cle/ditp
+        sameAs: https://fr.wikipedia.org/wiki/Direction_interminist%C3%A9rielle_de_la_transformation_publique
+      dge:
+        name: Direction générale des entreprises
+        alternateName: DGE
+        url: http://www.entreprises.gouv.fr
+      driea.idf:
+        name: DRIEA Île-de-France
+        alternateName:
+          - DRIEA Ile-de-France
+          - DRIEA IF
+        areaServed: fr:region:11@1970-01-09
+        foundingDate: 2009-01-01
+        subOrganization:
+          ud75:
+            name: DRIEA Île-de-France UD75
+            areaServed: fr:departement:75@1968-01-01 
+            foundingDate: 2009-01-01
+          ud92:
+            name: DRIEA Île-de-France UD92
+            areaServed: fr:departement:92@1968-01-01 
+            foundingDate: 2009-01-01
+            
+  fr.cnes:
+    name: Centre National des Etudes Spatiales
+    alternateName: CNES
+    url: http://www.cnes.fr
+    sameAs: https://fr.wikipedia.org/wiki/Centre_national_d%27%C3%A9tudes_spatiales
+    address:
+      - '@type': PostalAddress
+        streetAddress: 2 place Maurice Quentin
+        addressLocality: Paris, France
+        postalCode: F-75001
+      - '@type': PostalAddress
+        streetAddress: 18, avenue Edouard Belin
+        addressLocality: Toulouse cedex 9, France
+        postalCode: F-31401
+  fr.isep:
+    name: Institut Supérieur d'Electronique de Paris
+    alternateName: ISEP
+    url: http://www.isep.fr
+    address:
+      '@type': PostalAddress
+      streetAddress: 10 rue de Vanves
+      postalCode: F-92130
+      addressLocality: Issy-le-Moulineaux, France
+  fr.bpifrance:
+    name: Banque Publique d'Investissements - France
+    alternateName: BPI France
+    url: https://www.bpifrance.fr/
+    address:
+      - '@type': PostalAddress
+        streetAddress: 27-31 avenue du Général Leclerc 
+        postalCode: F-94710
+        addressLocality: Maisons-Alfort Cedex, France
+      - '@type': PostalAddress
+        streetAddress: 6-8, boulevard Haussmann 
+        postalCode: F-75009
+        addressLocality: Paris, France
+  com.shippeo:
+    name: SHIPPEO
+    url: http://www.shippeo.com
+

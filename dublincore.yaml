@@ -744,9 +744,13 @@ tables:
         type: text/xml
         label: XML
         wikipedia: https://fr.wikipedia.org/wiki/Extensible_Markup_Language
+      yaml:
+        type: application/x-yaml
+        label: YAML
+        definedBy: https://yaml.org/spec/1.2/spec.html
       rdf:
         type: application/rdf+xml
-        label: RDF
+        label: RDF sérialisé en XML
         definedBy: https://www.w3.org/TR/rdf11-concepts/
       turtle:
         type: text/turtle

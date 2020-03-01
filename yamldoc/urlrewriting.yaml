@@ -8,14 +8,13 @@ doc: |
     
   Par convention, les motifs URI suivants sont définis:
     
-    - http://(id|docs).georef.eu/{docid} pour le document {docid}
-    - http://(id|docs).georef.eu/{docid}{ypath} pour le fragment {ypath} du document {docid}
+    - http://id.georef.eu/{docid} pour le document {docid}
+    - http://id.georef.eu/{docid}{ypath} pour le fragment {ypath} du document {docid}
     - http://ydclasses.georef.eu/{ydClass} pour la classe de documents {ydClass}
     - http://ydclasses.georef.eu/{YdClass}/schema pour le schéma associé à la classe de documents {ydClass}
     - http://json-schema.org/schema#
     - http://json-schema.org/draft-07/schema#
     - http://geojson.org/schema/FeatureCollection.json
-    - http://schema.georef.eu/{path}
     
   De plus les liens suivants :
     

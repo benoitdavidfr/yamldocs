@@ -219,20 +219,39 @@ query: |
 
 next: |
   ### Réflexions pour la suite
-  Reconstruire YamlDoc fondé sur 3 mécanismes :
+  Reconstruire YamlDoc fondé sur les mécanismes suivants :
     
-    - YRdf - stockage d'un graphe RDF exposé en JSON-LD
+    - un document contient, outre ses métadonnées, un ensemble de ressources liées (RDF)
       dans l'[hypothèse du monde ouvert](https://fr.wikipedia.org/wiki/Hypoth%C3%A8se_du_monde_ouvert).  
-      Chaque ressource est identifiée par un URI et est exposée en JSON-LD.  
-      Faut-il exposer le document en JSON-LD ?
-    - YDB - stockage d'un dictionnaire de collections homogènes d'enregistrements
-      chacun étant censé respecter le schéma JSON défini au niveau de la collection.  
-      Logique de base de données et donc
-      [hypothèse du monde clos](https://fr.wikipedia.org/wiki/Hypoth%C3%A8se_du_monde_clos).  
-      Chaque enregistrement est identifié par un URI et est exposé en JSON.
+      Chaque ressource est identifiée par un URI et exposée en JSON-LD.  
+      Aujourd'hui 3 prototypes :
+        - les thésaurus Skos comme [EuroVoc](http://localhost/yamldoc/?doc=/eurovoc)
+          fondés sur la classe [YamlSkos](http://localhost/yamldoc/ydclasses.php/YamlSkos/schema)
+        - le [catalogue des données](http://localhost/yamldoc/id.php/cdmet)
+          fondé sur la classe [YamlRdf](http://localhost/yamldoc/ydclasses.php/YamlRdf)
+        - le [registre des organisations](http://localhost/yamldoc/id.php/organizations)
+          fondé sur la classe [AutoDescribed](http://localhost/yamldoc/ydclasses.php/AutoDescribed)  
+
+      Ces 3 prototypes sont assez différents:
+        - le registre des organisations comporte un schéma qui permet de vérifier le contenu du document
+          alors que le catalogue des données n'en contient pas
+        
+    - un document contient un dictionnaire de collections homogènes d'enregistrements,
+      chaque enregistrement étant censé respecter le schéma JSON défini au niveau de la collection.  
+      C'est la logique des bases de données
+      et donc [hypothèse du monde clos](https://fr.wikipedia.org/wiki/Hypoth%C3%A8se_du_monde_clos).  
+      Chaque enregistrement est identifié par un URI et est exposé en JSON (pourquoi pas en JSON-LD ?).
+      
     - accès aux API en mode RESTfull
       
   Peut-on gérer simplement la structure Skos comme un cas particulier de Rdf ?
+  
+  L'exemple du registre des organisations avec la classe AutoDescribed montre:
+    
+    - l'intérêt d'utiliser conjointement:
+        - le schema JSON pour vérifier la syntaxe des données saisies
+        - JSON-LD pour exposer de manière standardisée et formalisée la sémantique des données
+    - pour YamlDoc que les 2 mécanismes ne s'opposent pas
   
   #### JSON-LD vs. JSON Schema
   In `https://lists.w3.org/Archives/Public/public-linked-json/2014Oct/0010.html`  
@@ -245,4 +264,5 @@ next: |
   > 
   > Both work with JSON so you can use them together.
   
-
+ld: |
+  
