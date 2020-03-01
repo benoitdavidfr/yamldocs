@@ -353,35 +353,13 @@ organizations:
         name: DRIEE Île-de-France
         areaServed: fr:region:11@1970-01-09
         foundingDate: 2009-01-01
-  fr.gouv2:
-    name: gouvernement français2
-    subOrganization:
-      ditp:
-        name: Direction interministérielle à la transformation publique
-        alternateName: DITP
-        url: http://www.modernisation.gouv.fr/mots-cle/ditp
-        sameAs: https://fr.wikipedia.org/wiki/Direction_interminist%C3%A9rielle_de_la_transformation_publique
-      dge:
-        name: Direction générale des entreprises
-        alternateName: DGE
-        url: http://www.entreprises.gouv.fr
-      driea.idf:
-        name: DRIEA Île-de-France
-        alternateName:
-          - DRIEA Ile-de-France
-          - DRIEA IF
-        areaServed: fr:region:11@1970-01-09
-        foundingDate: 2009-01-01
-        subOrganization:
-          ud75:
-            name: DRIEA Île-de-France UD75
-            areaServed: fr:departement:75@1968-01-01 
-            foundingDate: 2009-01-01
-          ud92:
-            name: DRIEA Île-de-France UD92
-            areaServed: fr:departement:92@1968-01-01 
-            foundingDate: 2009-01-01
-            
+  fr.ign:
+    name: Institut national de l'information géographique et forestière (IGN)
+    url: http://www.ign.fr/
+    address:
+      streetAddress: 73, avenue de Paris
+      postalCode: 94165
+      addressLocality: Saint-Mandé
   fr.cnes:
     name: Centre National des Etudes Spatiales
     alternateName: CNES
