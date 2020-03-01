@@ -10,48 +10,51 @@ $schema:
   definitions:
     Organization:
       description: description d'une organization proche de https://schema.org/Organization
-      type: object
-      required: [ name ]
-      properties:
-        name:
-          description: nom de l'organisation
-          type: string
-        alternateName:
-          description: nom(s) alternatif(s)
-          oneOf:
-            - type: string
-            - type: array
-              items:
-                type: string
-        url:
-          description: URL du site web institutionnel
-          type: string
-        address:
-          description: adresse(s) postale(s)
-          oneOf:
-            - $ref: '#/definitions/PostalAddress'
-            - type: array
-              items:
-                $ref: '#/definitions/PostalAddress'
-        sameAs:
-          description: autre URI, notamment sur wikipedia
-          type: string
-        areaServed:
-          description: zone géographique servie
-          type: string
-        foundingDate:
-          description: date de création
-        dissolutionDate:
-          description: lendemain de la date de suppression
-        ancestors:
-          description: organisation(s) remplacées par l'organisation créée
-        successors:
-          description: organisation(s) ayant remplacé l'organisation supprimée
-        subOrganization:
-          description: liste des sous-organisations chacune identifiée par un id
-          type: object
-          additionalProperties:
-            $ref: '#/definitions/Organization'
+      oneOf:
+        - description: possibilité d'en enregistrement non rempli
+          type: 'null'
+        - type: object
+          required: [ name ]
+          properties:
+            name:
+              description: nom de l'organisation
+              type: string
+            alternateName:
+              description: nom(s) alternatif(s)
+              oneOf:
+                - type: string
+                - type: array
+                  items:
+                    type: string
+            url:
+              description: URL du site web institutionnel
+              type: string
+            address:
+              description: adresse(s) postale(s)
+              oneOf:
+                - $ref: '#/definitions/PostalAddress'
+                - type: array
+                  items:
+                    $ref: '#/definitions/PostalAddress'
+            sameAs:
+              description: autre URI, notamment sur wikipedia
+              type: string
+            areaServed:
+              description: zone géographique servie
+              type: string
+            foundingDate:
+              description: date de création
+            dissolutionDate:
+              description: lendemain de la date de suppression
+            ancestors:
+              description: organisation(s) remplacées par l'organisation créée
+            successors:
+              description: organisation(s) ayant remplacé l'organisation supprimée
+            subOrganization:
+              description: liste des sous-organisations chacune identifiée par un id
+              type: object
+              additionalProperties:
+                $ref: '#/definitions/Organization'
     PostalAddress:
       description: adresse postale structurée proche de https://schema.org/PostalAddress
       type: object
@@ -129,6 +132,12 @@ organizations:
     name: administration de l'Etat
     url: https://www.gouvernement.fr/
     subOrganization:
+      CGEDD:
+        name: Conseil Général de l'Environnement et du Développement Durable
+        subOrganization:
+          MRR:
+            name: Section Milieux, Ressources et Risques
+      CGDD:
       ditp:
         name: Direction interministérielle à la transformation publique
         alternateName: DITP
@@ -365,6 +374,52 @@ organizations:
         name: DRIEE Île-de-France
         areaServed: fr:region:11@1970-01-09
         foundingDate: 2009-01-01
+  fr.cerema:
+    name: Centre d'études et d'expertise sur les risques, l'environnement, la mobilité et l'aménagement (Cérema)
+    url: https://www.cerema.fr/
+    subOrganization:
+      DTechEMF:
+        name: Direction Technique Mer, Eau, Fleuve
+        address:
+          streetAddress: Technopôle Brest-Iroise - BP5 - 155, Rue Pierre Bouguer
+          postalCode: 29280
+          addressLocality: PLOUZANE
+        subOrganization:
+          DTI:
+            name: Département Technologies Innovantes
+      DTerNC:
+        name: direction territoriale Normandie-Centre
+        subOrganization:
+          LRR:
+            name: laboratoire régional de Rouen
+            subOrganization:
+              GST:
+                name: groupe Sciences de la terre (GST)
+                subOrganization:
+                  UEA:
+                    name: unité Électromagnétisme appliqué (UEA)
+xx
+  cerema:
+    - name: Raphael ANTOINE
+      worksFor: CEREMA/DTerNC/LRR/GST/UEA
+      note: suit l'activité drone
+    - name: Joris BIAUNIER
+      jobTitle: Chargé d'études biodiversité et eau
+      email: joris.biaunier@cerema.fr
+      knows: Frédérique.Millard
+      worksFor: Cerema/DTerCE/DETC/BE
+      brand: {name: GéoMCE}
+    - name: Geraldine BUR
+      jobTitle: Chef de groupe Satellite, Climat, Gestion, Systèmes d'information
+      worksFor: CEREMA/DTerSO/DALETT/SCGSI
+      knows: José.Devers
+      note: contact José au Céréma
+    - name: Amélie LOMBARD
+      jobTitle: Chargée d'affaires applications satellitaires
+      worksFor: Cerema Sud-Ouest / DALETT / SCGSI
+      telephone: +33(0)5 62 25 93 66
+      email: amelie.lombard@cerema.fr
+
   fr.ign:
     name: Institut national de l'information géographique et forestière (IGN)
     url: http://www.ign.fr/
