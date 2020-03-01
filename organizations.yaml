@@ -56,15 +56,26 @@ $schema:
       description: adresse postale structurée proche de https://schema.org/PostalAddress
       type: object
       properties:
+        '@type':
+          description: schema
+          type: string
         streetAddress:
           description: nom de la voie et numéro dans la voie
           type: string
         addressLocality:
-          description: nom de la ville et du Pays
+          description: nom de la ville
           type: string
         postalCode:
           description: code postal
+          type: [number, string]
+        adressCountry:
+          description: Pays, peut être fourni comme code ISO ISO 3166-1 alpha-2
           type: string
+        telephone:
+          description: no de téléphone de l'organisation (accueil, ...)
+          type: [number, string]
+        note: { description: "info qqc, hors schema.org", type: string }
+      additionalProperties: false
   type: object
   properties:
     title:
@@ -115,7 +126,8 @@ json-ld:
   defaultType: Organization
 organizations:
   fr.gouv:
-    name: gouvernement français
+    name: administration de l'Etat
+    url: https://www.gouvernement.fr/
     subOrganization:
       ditp:
         name: Direction interministérielle à la transformation publique
@@ -360,20 +372,113 @@ organizations:
       streetAddress: 73, avenue de Paris
       postalCode: 94165
       addressLocality: Saint-Mandé
+    subOrganization:
+      DP:
+        name: direction des programmes et de l’appui aux politiques publiques (DP)
+        subOrganization:
+          PEPS:
+            name: service du pilotage économique, de la planification et du support (PEPS)
+          SPRI:
+            name: service des partenariats et des relations institutionnelles (SPRI)
+            subOrganization:
+              DGT:
+                name: Département Gestion des territoires
+          SPP:
+            name: service des projets et des prestations (SPP)
+          SPDU:
+            name: service des données, produits et usages (SDPU)
+      DSTI:
+        name: direction des sciences et technologies de l’information (DSTI)
+        subOrganization:
+          ENSG:
+            name: École nationale des sciences géographiques (ENSG Géomatique)
+            subOrganization:
+              SE:
+                name: service des enseignements
+              SMG:
+                name: service des moyens généraux
+              MDNPI:
+                name: mission du développement numérique et des partenariats industriels
+              MCC:
+                name: mission communication-concours
+              CCGMD:
+                name: centre de compétence en géodésie et métrologie dimensionnelle
+              CCIF:
+                name: centre de compétence en information forestière
+              CCIMI:
+                name: centre de compétence en instrumentation métrologique innovante
+              CCSIG:
+                name: centre de compétence en SIG, cartographie et analyse spatiale
+              CCTSI:
+                name: centre de compétence en technologies des systèmes d’information
+              CCTPVO:
+                name: centre de compétence en télédétection, photogrammétrie et vision par ordinateur
+          SOI:
+            name: service socle informatique (SOI)
+          SDM:
+            name: service des développements métier (SDM)
+          SIMV:
+            name: service innovation, maturation et valorisation (SIMV)
+      DOT:
+        name: direction des opérations et des territoires (DOT)
+        subOrganization:
+          SISFE:
+            name: service de l’information statistique forestière et environnementale
+          SGM:
+            name: service de géodésie et de métrologie
+          SIS:
+            name: service de l’imagerie spatiale
+          SIA:
+            name: service de l’imagerie et de l’aéronautique
+          SV3D:
+            name: service vecteur et 3D
+          SVRP:
+            name: service de la valorisation des référentiels et du patrimoine
+          DT-CE:
+            name: direction territoriale Centre-Est
+          DT-GO:
+            name: direction territoriale Grand Ouest
+          DT-NE:
+            name: direction territoriale Nord-Est
+          DT-SE:
+            name: direction territoriale Sud-Est
+          DT-SO:
+            name: direction territoriale Sud-Ouest
+          DT-NOOM:
+            name: département territorial Nord-Ouest et Outre-mer
+          DSGM:
+            name: département de soutien à la géographie militaire
+          DCQ:
+            name: département des contrôles qualité
+          MAP:
+            name: mission d’appui au pilotage
+      SG:
+        name: Secrétariat Général (SG)
+      AC:
+        name: Agence comptable
+      DRH:
+        name: direction des ressources humaines (DRH)
+      DIRCOM:
+        name: Direction de la communication (DIRCOM)
   fr.cnes:
     name: Centre National des Etudes Spatiales
     alternateName: CNES
     url: http://www.cnes.fr
     sameAs: https://fr.wikipedia.org/wiki/Centre_national_d%27%C3%A9tudes_spatiales
     address:
-      - '@type': PostalAddress
-        streetAddress: 2 place Maurice Quentin
-        addressLocality: Paris, France
-        postalCode: F-75001
-      - '@type': PostalAddress
-        streetAddress: 18, avenue Edouard Belin
-        addressLocality: Toulouse cedex 9, France
-        postalCode: F-31401
+      '@type': PostalAddress
+      streetAddress: 2 place Maurice Quentin
+      addressLocality: Paris, France
+      postalCode: F-75001
+    subOrganization:
+      toulouse:
+        name: Centre spatial de Toulouse
+        address:
+          '@type': https://schema.org/PostalAddress
+          streetAddress: 18, avenue Edouard Belin
+          addressLocality: Toulouse cedex 9
+          postalCode: 31401
+          telephone: 05 61 27 31 31
   fr.isep:
     name: Institut Supérieur d'Electronique de Paris
     alternateName: ISEP
@@ -382,20 +487,20 @@ organizations:
       '@type': PostalAddress
       streetAddress: 10 rue de Vanves
       postalCode: F-92130
-      addressLocality: Issy-le-Moulineaux, France
+      addressLocality: Issy-le-Moulineaux
   fr.bpifrance:
     name: Banque Publique d'Investissements - France
     alternateName: BPI France
     url: https://www.bpifrance.fr/
     address:
-      - '@type': PostalAddress
+      - '@type': https://schema.org/PostalAddress
         streetAddress: 27-31 avenue du Général Leclerc 
         postalCode: F-94710
-        addressLocality: Maisons-Alfort Cedex, France
-      - '@type': PostalAddress
+        addressLocality: Maisons-Alfort Cedex
+      - '@type': https://schema.org/PostalAddress
         streetAddress: 6-8, boulevard Haussmann 
         postalCode: F-75009
-        addressLocality: Paris, France
+        addressLocality: Paris
   com.shippeo:
     name: SHIPPEO
     url: http://www.shippeo.com
