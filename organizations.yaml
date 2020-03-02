@@ -177,7 +177,7 @@ organizations:
               PNM:
                 name: Sous-direction produits numériques métiers
                 suborganization:
-                  PNM5:
+                  DPNM5:
                     name: Département biodiversité, prévention des risques
                     subOrganization:
                       GPR:
