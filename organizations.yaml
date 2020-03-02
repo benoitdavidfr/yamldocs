@@ -9,11 +9,11 @@ $schema:
   $schema: http://json-schema.org/draft-07/schema#
   definitions:
     Organization:
-      description: description d'une organization proche de https://schema.org/Organization
       oneOf:
-        - description: possibilité d'en enregistrement non rempli
+        - description: possibilité d'un enregistrement vide
           type: 'null'
-        - type: object
+        - description: description d'une organisation proche de https://schema.org/Organization
+          type: object
           required: [ name ]
           properties:
             name:
@@ -134,10 +134,62 @@ organizations:
     subOrganization:
       CGEDD:
         name: Conseil Général de l'Environnement et du Développement Durable
+        address:
+          streetAddress: Tour Sequoïa
+          postalCode: 92055
+          addressLocality: La Défense cedex 04
         subOrganization:
           MRR:
             name: Section Milieux, Ressources et Risques
       CGDD:
+        name: Commissariat Général au Développement Durable
+        subOrganization:
+          SRI:
+            name: Service de la Recherche et de l'Innovation
+          SEVS:
+            name: Service de l'économie verte et solidaire
+          SDES:
+            name: Service des données et études statistiques
+            url: http://www.statistiques.developpement-durable.gouv.fr/
+          SDSED:
+            name: Sous-direction de la stratégie éditoriale et de la diffusion
+          SDAG:
+      DGAC:
+        name: Direction générale de l'aviation civile
+      DGALN:
+        name: Direction générale de l'Aménagement, du Logement et de la Nature
+      DGEC:
+        name: Direction générale de l'énergie et du climat
+      DGITM:
+        name: Direction générale des infrastructures, des transports et de la mer
+      DGPR:
+        name: Direction générale de la prévention des risques
+      SGPMET:
+        name: Secrétariat général du pôle ministériel Ecologie et Territoires
+        subOrganization:
+          SNUM:
+            name: Service du numérique
+            subOrganization:
+              DPTN:
+                name: Département du pilotage de la transformation numérique
+              UNI:
+                name: Sous-direction Usages numériques et innovation
+              PNM:
+                name: Sous-direction produits numériques métiers
+                suborganization:
+                  PNM5:
+                    name: Département biodiversité, prévention des risques
+                    subOrganization:
+                      GPR:
+                        name: Groupe produits risques
+              MSP:
+                name: Sous-direction des méthodes et services de plateforme
+                subOrganization:
+                  DS:
+                    name: Département socles
+                    subOrganization:
+                      CSG:
+                        name: Groupe socle géomatique
       ditp:
         name: Direction interministérielle à la transformation publique
         alternateName: DITP
@@ -398,27 +450,28 @@ organizations:
                 subOrganization:
                   UEA:
                     name: unité Électromagnétisme appliqué (UEA)
-  cerema:
-    - name: Raphael ANTOINE
-      worksFor: CEREMA/DTerNC/LRR/GST/UEA
-      note: suit l'activité drone
-    - name: Joris BIAUNIER
-      jobTitle: Chargé d'études biodiversité et eau
-      email: joris.biaunier@cerema.fr
-      knows: Frédérique.Millard
-      worksFor: Cerema/DTerCE/DETC/BE
-      brand: {name: GéoMCE}
-    - name: Geraldine BUR
-      jobTitle: Chef de groupe Satellite, Climat, Gestion, Systèmes d'information
-      worksFor: CEREMA/DTerSO/DALETT/SCGSI
-      knows: José.Devers
-      note: contact José au Céréma
-    - name: Amélie LOMBARD
-      jobTitle: Chargée d'affaires applications satellitaires
-      worksFor: Cerema Sud-Ouest / DALETT / SCGSI
-      telephone: +33(0)5 62 25 93 66
-      email: amelie.lombard@cerema.fr
-
+      DTerCE:
+        name: Direction territoriale Centre-Est
+        subOrganization:
+          DETC:
+            name: Département environnement territoires climat
+            address:
+              streetAddress: 46, rue Saint-Théobald, BP 128
+              postalCode: 38081
+              addressLocality: L’Isle-d'Abeau Cedex
+            email : DETC.DTerCE@cerema.fr
+            subOrganization:
+              BE:
+                name: Biodiversité et eau
+                email: BE.DETC.DTerCE@cerema.fr
+      DTerSO:
+        name: Direction territoriale Sud-Ouest
+        subOrganization:
+          DALETT:
+            name: Délégation Aménagement Laboratoire Expertise Transports de Toulouse (DALETT)
+            subOrganization:
+              SCGSI:
+                name: Satellite Climat, Gestion, Systèmes d'Information (SCGSI)
   fr.ign:
     name: Institut national de l'information géographique et forestière (IGN)
     url: http://www.ign.fr/
@@ -555,6 +608,10 @@ organizations:
         streetAddress: 6-8, boulevard Haussmann 
         postalCode: F-75009
         addressLocality: Paris
+  com.dataiku:
+    name: Dataiku
+    url: http://www.dataiku.com/
+  
   com.shippeo:
     name: SHIPPEO
     url: http://www.shippeo.com

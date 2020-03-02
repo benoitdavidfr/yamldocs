@@ -265,4 +265,18 @@ next: |
   > Both work with JSON so you can use them together.
   
 ld: |
+  ### Réflexions pour la gestion de données liées
   
+  Un document RDF assez générique pourrait être décrit par:
+    
+    - un schéma JSON pour contrôler la saisie des données et documenter la structure de données
+    - un champ permettant la simplification de la traversée hiérarchique des objets,
+      permettant ainsi la définition d'URI simples
+        - exemple: http://id.georef.eu/organizations/fr.ign/DP/SPRI/DGT
+    - un champ explicitant le formattage JSON-LD du retour d'une URI
+    
+    
+  Exemples:
+    
+    - http://id.georef.eu/organizations
+    - 
