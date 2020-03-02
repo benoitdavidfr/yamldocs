@@ -176,7 +176,7 @@ organizations:
                 name: Sous-direction Usages numériques et innovation
               PNM:
                 name: Sous-direction produits numériques métiers
-                suborganization:
+                subOrganization:
                   DPNM5:
                     name: Département biodiversité, prévention des risques
                     subOrganization:
