@@ -267,7 +267,7 @@ next: |
 ld: |
   ### Réflexions pour la gestion de données liées
   
-  Un document RDF assez générique pourrait être décrit par:
+  Un document RDF assez générique derait être décrit par:
     
     - un schéma JSON pour contrôler la saisie des données et documenter la structure de données
     - un champ permettant la simplification de la traversée hiérarchique des objets,
@@ -279,4 +279,12 @@ ld: |
   Exemples:
     
     - http://id.georef.eu/organizations
-    - 
+    - http://bdavid.alwaysdata.net/yamldoc/id.php/contacts
+    - http://id-benoit.georef.eu/contacts
+    
+  Test dans http://id.georef.eu/organizations d'utilisation de l'URI schema.org dans un schema JSON
+  
+  Voir l'utilisation de ce principe dans:
+    
+    - http://id.georef.eu/cdmet
+    - http://id.georef.eu/eurovoc
