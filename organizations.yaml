@@ -187,11 +187,43 @@ organizations:
         name: Direction générale de l'énergie et du climat
       DGITM:
         name: Direction générale des infrastructures, des transports et de la mer
+        subOrganization:
+          MINT:
+            name: mission innovation, numérique et territoires
+          SAGS:
+            name: Service de l'administration générale et de la stratégie
+            subOrganization:
+              EP:
+                name: Sous-direction des études et de la prospective
+                subOrganization:
+                  EP2:
+                    name: Bureau des études économiques générales
+          DIT:
+            name: Direction des infrastructures de transport
+            subOrganization:
+              GRN:
+                name: Service de la gestion du réseau routier national
+                subOrganization:
+                  GRT:
+                    name: Sous-direction de la gestion du réseau routier national non concédé et du trafic
       DGPR:
         name: Direction générale de la prévention des risques
       SGPMET:
         name: Secrétariat général du pôle ministériel Ecologie et Territoires
         subOrganization:
+          SDSIE:
+            name: Service de défense, de sécurité et d'intelligence économique
+            subOrganization:
+              DIEPI:
+                name: Département de l'intelligence économique et de la protection de l'information
+                subOrganization:
+                  SSI:
+                    name: Mission de la sécurité des systèmes d'information
+              DPGC:
+                name: Département de la planification et de la gestion de crise
+                subOrganization:
+                  PO:
+                    name: Mission préparation opérationnelle
           SNUM:
             name: Service du numérique
             subOrganization:
@@ -304,6 +336,20 @@ organizations:
                 name: Pôle Architecture et Sécurité - X
               PDSN:
                 name: Pôle Design des Services Numériques - Marine Boudeau
+      SGAE:
+        name: Secrétariat général des affaires européennes
+        url: http://www.sgae.gouv.fr/
+        adresse:
+          streetAddress: 68, rue de Bellechasse
+          postalCode: 75700
+          addressLocality: Paris
+        subOrganization:
+          ITEC:
+            name: Secteur Marché intérieur, Industrie, Recherche & Innovation, Numérique (ITEC)
+            email: sgae-itec@sgae.gouv.fr
+          TREG:
+            name: Secteur Transports, politique régionalen Outre-mer, R et D, Espace (TREG)
+            email: sgae-treg@sgae.gouv.fr
       INSEE:
         name: Institut National de la stratistique et des études économiques
         url: https://www.insee.fr/
@@ -707,6 +753,13 @@ organizations:
         name: direction des ressources humaines (DRH)
       DIRCOM:
         name: Direction de la communication (DIRCOM)
+  fr.ademe:
+    name: ADEME
+    url: http://www.ademe.fr/
+    address:
+      streetAddress: 155 bis Avenue Pierre Brossolette
+      addressLocality: Montrouge
+      postalCode: 92120
   fr.cnes:
     name: Centre National des Etudes Spatiales
     alternateName: CNES
