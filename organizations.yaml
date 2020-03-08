@@ -211,6 +211,19 @@ organizations:
       SGPMET:
         name: Secrétariat général du pôle ministériel Ecologie et Territoires
         subOrganization:
+          CAB:
+            name: Cabinet du secrétaire général
+          DAF:
+            name: Direction des affaires financières
+            hasOrganisation:
+              SAS:
+                name: Service achat soutien
+                hasOrganizations:
+                  SAD:
+                    name: sous-direction des achats durables
+                    hasOrganization:
+                      SAD1:
+                        name: bureau de l'administration exemplaire
           SDSIE:
             name: Service de défense, de sécurité et d'intelligence économique
             subOrganization:
@@ -786,6 +799,16 @@ organizations:
       streetAddress: 73, avenue de Paris
       postalCode: 94165
       addressLocality: Saint-Mandé Cedex
+    sameAs: http://id.georef.eu/insee/sirene/siren/389985565
+  fr.dataforgood:
+    name: data for good
+    url: https://dataforgood.fr/
+    email: hellodataforgood@gmail.com
+    address:
+      streetAddress: 9 rue d'Alexandrie
+      postalCode: 75002
+      addressLocality: Paris
+    sameAs: http://id.georef.eu/insee/sirene/siren/840436638
   fr.health-data-hub:
     name: Plateforme des Données de Santé (Health Data Hub)
     url: https://www.health-data-hub.fr/
