@@ -1,0 +1,200 @@
+title: Stratégie européenne pour les données publiée le 19/2/2020
+source: https://ec.europa.eu/info/files/communication-european-strategy-data_fr
+abstract: |
+  ## Résumé de la Commission
+  La stratégie européenne pour les données vise à faire en sorte que l'UE devienne un modèle et un acteur majeur d'une société dont les moyens d'action sont renforcés par les données. À cette fin, elle entend établir un véritable espace européen des données, un marché unique des données, pour mobiliser les données inutilisées, en autorisant leur libre circulation dans l'Union et entre les secteurs, au bénéfice des entreprises, des chercheurs et des administrations publiques. Il convient de donner aux citoyens, aux entreprises et aux organisations les moyens de prendre de meilleures décisions, sur la base des informations tirées de données à caractère non personnel. Ces données devraient être accessibles à tous les acteurs, qu'ils soient publics ou privés, jeunes pousses ou géants d'un secteur.
+
+  Pour y parvenir, la Commission proposera d'abord la création d'un cadre réglementaire idoine pour la gouvernance des données, leur accessibilité et leur réutilisation entre entreprises, entre entreprises et administrations, et au sein des administrations. Cela implique d'instaurer des mesures d'incitation visant à promouvoir le partage des données, en déterminant l'accessibilité et l'utilisation des données à l'aide de règles pratiques, équitables et claires, qui respecteront les valeurs et les droits européens tels que la protection des données à caractère personnel et la protection des consommateurs, ainsi que les règles de concurrence. Cela requiert aussi d'accroître la disponibilité des données du secteur public en ouvrant l'accès à des ensembles de données de grande valeur dans l'ensemble de l'Union et en permettant leur réutilisation aux fins d'innovations.
+
+  Ensuite, la Commission entend soutenir l'élaboration de systèmes technologiques et d'infrastructures de nouvelle génération, qui permettront à l'UE et à tous les acteurs d'exploiter le potentiel de l'économie des données. Elle cofinancera des projets européens à forte incidence, portant sur des espaces européens des données et des infrastructures en nuage économes en énergie et fiables.
+
+  Enfin, elle lancera des mesures sectorielles spécifiques pour le déploiement d'espaces européens communs des données, dans des domaines tels que l'industrie manufacturière, le pacte vert, la mobilité ou la santé.
+
+  La Commission s'attachera également à réduire le déficit de compétences numériques des Européens et étudiera les moyens permettant aux citoyens de mieux contrôler qui peut accéder aux données les concernant générées par des machines.
+
+  ###Prochaines étapes
+
+  Comme indiqué dans la stratégie, la Commission présentera, dans le courant de l'année, une législation sur les services numériques et un plan d'action pour la démocratie européenne; en outre, elle proposera un réexamen du règlement eIDAS et renforcera la cybersécurité en établissant une unité conjointe de cybersécurité. L'Europe continuera également à nouer des alliances avec des partenaires au niveau mondial, en mobilisant sa puissance réglementaire, ses capacités renforcées, sa diplomatie et ses instruments de financement pour promouvoir le modèle européen de numérisation.
+content: |
+  - principales orientations nous concernant
+    - transformation verte du secteur des TIC (p. 3)
+    - minimiser l'empreinte carbone (p. 5)
+    - création de réserve européenne commune de données (p. 6)
+    - plan de normalisation (p. 10)
+    - fédération des nuages (p. 21)
+    - mise en place de 9 espaces européens de données (p. 27-28):
+      - industrie
+      - pacte vert avec initiatives GreenData4All et "Destination Terre"
+      - mobilité
+      - santé
+      - données financières dont financement durable
+      - énergie
+      - agriculture
+      - administration publique
+      - compétences
+espaceDeDonnées:
+  pacteVert:
+    - espace européen commun des données relatives au pacte vert (pp. 31-33)
+    - lancera l'initiative GreenData4All
+      - évaluer et éventuellement réviser la directive Inspire ainsi que la directive sur l'accès à l'information en matière d'environnement
+      - moderniser le régime en fonction des possibilités offertes par les technologies et l'innovation
+      - permettre aux pouvoirs publics, aux entreprises et aux citoyens de l'UE de soutenir plus facilement la transition
+        vers une économie plus verte et neutre en carbone, et de réduire la charge administrative
+    - déploiera des services de données réutilisables à grande échelle
+    - mettra en place un espace européen commun des données pour les applications circulaires intelligentes
+      - accent sur les secteurs visés par le plan d'action sur l'économie circulaire
+        - environnement bâti
+        - emballages
+        - textiles
+        - électronique
+        - TIC
+        - matières plastiques
+      - passeport de produit numériques (Digital "product  passports") donneront infos sur
+        - origine du produit
+        - durabilité
+        - composition
+        - possibilités de réutilisation, de réparation et de démontage
+        - traitement en fin de vie
+      - planning
+        - architecture et gouvernance (2020)
+        - stratégies sectorielles en matière de données (2021)
+        - adoption d'une politique de produits durables avec des passeports de produits (2021)
+        - cartographie des ressources et suivi des tarnsferts des déchets (2021)
+    - lancera un projet pilote dans le contexte de l'objectif "zéro pollution"
+    - lancera l'initiative "Destination Terre"
+      - modèle numérique de la Terre de très grande précision
+      - modélisation numérique permettant de visualiser, de surveiller et de prévoir l'activité naturelle et humaine
+        sur la planète à l'appui du développement durable.
+      - progessivement construit à partir de 2021
+  mobilité:
+    automobile:
+      - partage des données issues des voitures de manière sûre et bien encadré, dans le respect des règles de concurrence
+      - actualisation de la réglementation pour tenir compte de l'utilisation de la connectivité (télé-diagnostic)
+        afin d'assurer le respect des droits et intérêts des propriétaires de voiture qui génèrent les données,
+        ainsi que le respect des règles en matière de protection des données
+    systèmeDeTransport:
+      - ouverture des données relatives aux véhicules automobiles à un plus grand nombre de services
+      - réexamen des directives relatives à des services d'information fluviale harmonisés et sur les systèmes de transport
+        intelligent (STI)
+        - pour contribuer davantage à la disponibilité, la réutiloisation et l'interopérabilité des données
+        - coordination renforcée des points d'accès nationaux au titre de la directive STI
+      - modification de la proposition de règlement ciel unique européen
+        - en vue d'y inclure des dispositions relatives à la disponibilité des données et à l'accès au marché
+          pour les fournisseurs de services de données
+        - afin de promouvoir la numérisation et l'automatisation de la gestion de trafic aérien
+      - réexamen du cadre réglementaire pour le partage de données interopérable dans le transport ferroviaire
+      - établir des ensembles de données communs comme prévu dans le règlement sur le guichet unique maritime européen
+  énergie:
+    - établir des exigences d'interopérabilité et des procédures transparentes et non discriminatoires pour l'accès aux données
+    - envisager des actions visant à améliorer l'interopérabilité dans les bâtiments et produits intelligents, en vue d'améliorer
+      leur efficacité énergétique, d'optimiser la consommation locale et d'élargir l'intégration des sources d'énergie renouvelable.
+  administrationsPubliques:
+    - initiative en matière de données relatives aux marchés publics
+    - orientations sur des normes communes ainsi que des cadres interopérables pour les informations juridiques
+      détenues aux niveaux européen et national
+    
+mailEnvoyé:
+  content: |
+    Bonjour,
+
+    La Commission européenne a publié le 19/2/2020 une stratégie européenne pour les données disponible en français sur :
+    https://ec.europa.eu/info/files/communication-european-strategy-data_fr
+
+    Vous trouverez ci-dessous :
+     1) le résumé de la Commission sur cette stratégie
+     2) les sujets qui me semblent les plus importants pour le MTES sous la forme de mots-clés
+
+    A noter qu'une réaction coordonnée en interministériel est en cours de rédaction pilotée par le SGAE.
+    Par ailleurs, le même jour la Commission a publié un livre blanc sur l'intelligence artificielle:
+    https://ec.europa.eu/info/files/white-paper-artificial-intelligence-european-approach-excellence-and-trust_fr
+
+    Résumé de la Commission
+      La stratégie européenne pour les données vise à faire en sorte que l'UE devienne un modèle et un acteur majeur d'une société dont les moyens d'action sont renforcés par les données. À cette fin, elle entend établir un véritable espace européen des données, un marché unique des données, pour mobiliser les données inutilisées, en autorisant leur libre circulation dans l'Union et entre les secteurs, au bénéfice des entreprises, des chercheurs et des administrations publiques. Il convient de donner aux citoyens, aux entreprises et aux organisations les moyens de prendre de meilleures décisions, sur la base des informations tirées de données à caractère non personnel. Ces données devraient être accessibles à tous les acteurs, qu'ils soient publics ou privés, jeunes pousses ou géants d'un secteur.
+
+      Pour y parvenir, la Commission proposera d'abord la création d'un cadre réglementaire idoine pour la gouvernance des données, leur accessibilité et leur réutilisation entre entreprises, entre entreprises et administrations, et au sein des administrations. Cela implique d'instaurer des mesures d'incitation visant à promouvoir le partage des données, en déterminant l'accessibilité et l'utilisation des données à l'aide de règles pratiques, équitables et claires, qui respecteront les valeurs et les droits européens tels que la protection des données à caractère personnel et la protection des consommateurs, ainsi que les règles de concurrence. Cela requiert aussi d'accroître la disponibilité des données du secteur public en ouvrant l'accès à des ensembles de données de grande valeur dans l'ensemble de l'Union et en permettant leur réutilisation aux fins d'innovations.
+
+      Ensuite, la Commission entend soutenir l'élaboration de systèmes technologiques et d'infrastructures de nouvelle génération, qui permettront à l'UE et à tous les acteurs d'exploiter le potentiel de l'économie des données. Elle cofinancera des projets européens à forte incidence, portant sur des espaces européens des données et des infrastructures en nuage économes en énergie et fiables.
+
+      Enfin, elle lancera des mesures sectorielles spécifiques pour le déploiement d'espaces européens communs des données, dans des domaines tels que l'industrie manufacturière, le pacte vert, la mobilité ou la santé.
+
+      La Commission s'attachera également à réduire le déficit de compétences numériques des Européens et étudiera les moyens permettant aux citoyens de mieux contrôler qui peut accéder aux données les concernant générées par des machines.
+
+    Prochaines étapes
+
+      La Commission présentera, dans le courant de l'année, une législation sur les services numériques et un plan d'action pour la démocratie européenne; en outre, elle proposera un réexamen du règlement eIDAS et renforcera la cybersécurité en établissant une unité conjointe de cybersécurité. L'Europe continuera également à nouer des alliances avec des partenaires au niveau mondial, en mobilisant sa puissance réglementaire, ses capacités renforcées, sa diplomatie et ses instruments de financement pour promouvoir le modèle européen de numérisation.
+
+
+    Principaux sujets importants pour le MTES
+        - transformation verte du secteur des TIC -> stratégie numérique de l'UE intitulée "Façonner l'avenir numérique de l'Europe" (p. 3)
+        - objectif de minimiser l'empreinte carbone (p. 5)
+        - création de réserve européenne commune de données (European data pools) permettant l'analyse de mégadonnées et l'apprentissage automatique (p. 6)
+        - plan de normalisation des TIC (p. 10)
+        - fédération des nuages (p. 21)
+        - mise en place de 9 espaces européens de données (p. 27-28):
+          - industrie
+          - pacte vert avec initiatives GreenData4All et "Destination Terre"
+          - mobilité
+          - santé
+          - données financières dont financement durable
+          - énergie
+          - agriculture
+          - administration publique
+          - compétences
+
+    Détails sur quelques espaces de données
+
+    Espace européen commun des données relatives au pacte vert (pp. 31-33)
+      - initiative GreenData4All
+          - évaluer et éventuellement réviser la directive Inspire ainsi que la directive sur l'accès à l'information en matière d'environnement
+          - moderniser le régime en fonction des possibilités offertes par les technologies et l'innovation
+          - permettre aux pouvoirs publics, aux entreprises et aux citoyens de l'UE de soutenir plus facilement la transition vers une économie plus verte et neutre en carbone, et de réduire la charge administrative
+        - déploiement de services de données réutilisables à grande échelle
+        - mise en place d'un espace européen commun des données pour les applications circulaires intelligentes
+          - accent sur les secteurs visés par le plan d'action sur l'économie circulaire
+            - environnement bâti
+            - emballages
+            - textiles
+            - électronique
+            - TIC
+            - matières plastiques
+          - passeport de produit numériques (Digital "product  passports") donneront infos sur
+            - origine du produit
+            - durabilité
+            - composition
+            - possibilités de réutilisation, de réparation et de démontage
+            - traitement en fin de vie
+          - planning
+            - architecture et gouvernance (2020)
+            - stratégies sectorielles en matière de données (2021)
+            - adoption d'une politique de produits durables avec des passeports de produits (2021)
+            - cartographie des ressources et suivi des transferts des déchets (2021)
+      - projet pilote dans le contexte de l'objectif "zéro pollution"
+      - initiative "Destination Terre"
+          - modèle numérique de la Terre de très grande précision
+          - modélisation numérique permettant de visualiser, de surveiller et de prévoir l'activité naturelle et humaine sur la planète à l'appui du développement durable.
+          - progressivement construit à partir de 2021
+
+    Espace européen commun des données relatives à la mobilité, (pp. 33-35)
+      automobile:
+          - partage des données issues des voitures de manière sûre et bien encadré, dans le respect des règles de concurrence
+          - actualisation de la réglementation pour tenir compte de l'utilisation de la connectivité (télé-diagnostic) afin d'assurer le respect des droits et intérêts des propriétaires de voiture qui génèrent les données, ainsi que le respect des règles en matière de protection des données
+      système de transport:
+          - ouverture des données relatives aux véhicules automobiles à un plus grand nombre de services
+          - réexamen des directives relatives à des services d'information fluviale harmonisés et sur les systèmes de transport intelligent (STI)
+            - pour contribuer davantage à la disponibilité, la réutiloisation et l'interopérabilité des données
+            - coordination renforcée des points d'accès nationaux au titre de la directive STI
+          - modification de la proposition de règlement ciel unique européen
+            - en vue d'y inclure des dispositions relatives à la disponibilité des données et à l'accès au marché pour les fournisseurs de services de données
+            - afin de promouvoir la numérisation et l'automatisation de la gestion de trafic aérien
+          - réexamen du cadre réglementaire pour le partage de données interopérable dans le transport ferroviaire
+          - établir des ensembles de données communs comme prévu dans le règlement sur le guichet unique maritime européen
+
+    Espace européen commun des données relatives à l'énergie, (pp. 37-38)
+        - établir des exigences d'interopérabilité et des procédures transparentes et non discriminatoires pour l'accès aux données
+        - envisager des actions visant à améliorer l'interopérabilité dans les bâtiments et produits intelligents, en vue d'améliorer leur efficacité énergétique, d'optimiser la consommation locale et d'élargir l'intégration des sources d'énergie renouvelable.
+
+    Espace européen commun des données pour les administrations publiques, (pp. 39-40)
+        - initiative en matière de données relatives aux marchés publics
+        - orientations sur des normes communes ainsi que des cadres interopérables pour les informations juridiques détenues aux niveaux européen et national
+
+eof:
