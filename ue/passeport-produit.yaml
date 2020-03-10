@@ -1,0 +1,31 @@
+title: passeport numérique de produit (Digital "product  passports")
+content: |
+  Concept cité dans <http://id.georef.eu/ue/strategie-data2020/annex/pacteVert>
+  
+  > Des «passeports de produits» numériques seront élaborés, qui fourniront des informations sur l’origine du produit, sa durabilité, sa composition, ses possibilités de réutilisation, de réparation et de démontage et son traitement en fin de vie. Développement de l’architecture et de la gouvernance (2020), stratégies sectorielles en matière de données (2021), adoption d’une politique de produits durable avec des passeports de produits (2021) et cartographie des ressources et suivi des transferts de déchets (2021);
+
+  passeport de produit numériques (Digital "product  passports") donneront infos sur:
+    
+    - origine du produit
+    - durabilité
+    - composition
+    - possibilités de réutilisation, de réparation et de démontage
+    - traitement en fin de vie
+
+  Biblio :
+    
+    - [Un « passeport produit » ouvrirait la voie à l’éco-innovation, 2013 ](https://www.euractiv.fr/section/developpement-durable/news/un-passeport-produit-ouvrirait-la-voie-a-l-eco-innovation/)
+    - [Linked Spatial Data for a Circular Economy, Exploring its potential through a Textile Use Case](http://ceur-ws.org/Vol-2044/paper10/paper10.html)
+    - [Fundamental Characteristics and Concept of Material Passports, Ioana Miu, University of Twente, Enschede, the Netherlands, i.miu@student.utwente.nl](http://essay.utwente.nl/80682/1/32tscit_paper_49.pdf)
+    - https://www.ellenmacarthurfoundation.org/case-studies/using-product-passports-to-improve-the-recovery-and-reuse-of-shipping-steel
+    - https://www.jku.at/fileadmin/gruppen/92/Downloads/Master_Theses/20191015_Digital_product_passports_for_asset_reuse_in_B2B.pdf
+    - https://www.euractiv.com/section/energy-environment/opinion/how-can-the-industry-lead-in-the-circular-economy-material-and-product-passports-are-just-the-beginning/
+    - http://makeresourcescount.eu/whats-a-product-passport-and-can-it-work-for-businesses/
+    - https://www.bamb2020.eu/wp-content/uploads/2019/02/D7-Operational-materials-passports.pdf
+    - https://www.researchgate.net/publication/330729011_SmartTags_IoT_Product_Passport_for_Circular_Economy_Based_on_Printed_Sensors_and_Unique_Item-Level_Identifiers
+    - https://www.finextra.com/blogposting/15299/blockchain-in-the-supply-chain-use-cases--digital-passport
+    
+  Ontology for product passports:
+    
+    - https://en.wikipedia.org/wiki/Material_passport
+    - https://www.epea.nl/circularity-passports/

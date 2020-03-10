@@ -183,8 +183,82 @@ organizations:
         name: Direction générale de l'aviation civile
       DGALN:
         name: Direction générale de l'Aménagement, du Logement et de la Nature
+        subOrganization:
+          DEB:
+            name: Direction de l'Eau et de la Biodiversité
+            subOrganization:
+              ATAP:
+                name: >
+                  Sous-direction de l'animation territoriale
+                  et de l'appui aux politiques de protection et de restauration des écosystèmes
+              EARM:
+                name: >
+                  Sous-direction de la protection et de la gestion de l'eau,
+                  des ressources minérales et des écosystèmes aquatiques
+                subOrganization:
+                  EARM1:
+                    name: Bureau de la politique de l'eau
+                  EARM2:
+                    name: Bureau de la politique des ressources minérales non énergétiques
+                  EARM3:
+                    name: Bureau de la ressource en eau et des milieux aquatiques
+                  EARM4:
+                    name: Bureau de la lutte contre les pollutions domestiques et industrielles
+                  EARM5:
+                    name: Bureau « qualité de l'eau et agriculture »
+              ELM:
+                name: Sous-direction de la protection et de la restauration des écosystèmes littoraux et marins
+              ET:
+                name: Sous-direction de la protection et de la restauration des écosystèmes terrestres
+              MI:
+                name: Mission de coordination européenne et internationale
+              PEM:
+                name: Sous-direction de la protection et de la valorisation des espèces et de leurs milieux
+          DHUP:
+            name: Direction de l'habitat, de l'urbanisme et des paysages
+          SAGP:
+            name: Service des affaires générales et de la performance
       DGEC:
         name: Direction générale de l'énergie et du climat
+        subOrganization:
+          DE:
+            name: Direction de l'énergie
+            subOrganization:
+              SD1:
+                name: Sous-direction des marchés de l'énergie et des affaires sociales
+              SD2:
+                name: Sous-direction de la sécurité d'approvisionnement et des nouveaux produits énergétiques
+              SD3:
+                name: Sous-direction du système électrique et des énergies renouvelables
+                subOrganization:
+                  3A:
+                    name: Bureau production électrique
+                  3B:
+                    name: Bureau énergies renouvelables
+                  3C:
+                    name: Bureau réseaux de transport et de distribution électriques
+              SD4:
+                name: Sous-direction de l'industrie nucléaire
+          SCEE:
+            name: Service du climat et de l'efficacité énergétique
+            subOrganization:
+              DLCES:
+                name: Département de lutte contre l'effet de serre
+                subOrganization:
+                  EPM:
+                    name: Bureau des émissions, projections et modélisations
+                  MC:
+                    name: Bureau des marchés carbone
+                  PCA:
+                    name: Bureau politique climat et atténuation
+              ONERC:
+                name: Observatoire national sur les effets du réchauffement climatique
+              SD5:
+                name: Sous-direction du climat et de la qualité de l'air
+              SD6:
+                name: Sous-direction de la sécurité et des émissions des véhicules
+          SD7:
+            name: Sous-direction des affaires générales et de la synthèse
       DGITM:
         name: Direction générale des infrastructures, des transports et de la mer
         subOrganization:
