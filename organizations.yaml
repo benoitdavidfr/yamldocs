@@ -1,9 +1,14 @@
 title: registre hiérarchique d'organisations
 description:
-  Registre d'organisations décrites selon le type http://schema.org/Organization et identifiées par un identifiant
-  L'historique des DREAL est géré au moyen des propriétés foundingDate, dissolutionDate, successors et ancestors.
-  Les UD de la DRIEA IDF sont aussi décrites.
-  La propriété sameAs est utilisée pour les entrées Wikipedia et url pour le site officiel de l'organisation.  
+  Registre hiérarchique d'organisations décrites selon le type http://schema.org/Organization
+  et identifiées par un identifiant.
+  L'identifiant est défini selon les règles suivantes:
+    - les administrations de l'Etat sont définies selon une hiérarchie dont la racine est fr.gouv
+    - les identifiants des autres organismes sont définis à partir de leur nom de domaine
+  Une gestion de l'historique et de la généalogie est testée pour les DREAL au moyen des propriétés foundingDate,
+  dissolutionDate, successors et ancestors.
+  La propriété sameAs est utilisée pour les entrées Wikipedia et pour les nos SIREN
+  et la propriété url pour le site officiel de l'organisation.
 $schema:
   $id: http://id.georef.eu/organizations/$schema
   $schema: http://json-schema.org/draft-07/schema#
@@ -16,6 +21,7 @@ $schema:
         - description: description d'une organisation proche de https://schema.org/Organization
           type: object
           required: [ name ]
+          additionalProperties: false
           properties:
             name:
               description: nom de l'organisation
@@ -30,6 +36,9 @@ $schema:
             url:
               description: URL du site web institutionnel
               type: string
+            sameAs:
+              description: autre URI, notamment sur Wikipedia et URI SIRENE
+              type: string
             address:
               description: adresse(s) postale(s)
               oneOf:
@@ -39,9 +48,18 @@ $schema:
                   type: object
                   additionalProperties:
                     $ref: '#/definitions/PostalAddress'
-            sameAs:
-              description: autre URI, notamment sur wikipedia
+            email:
+              description: adresse électronique de l'organisation
               type: string
+            telephone:
+              description: no(s) de téléphone
+              oneOf:
+                - description: un no de téléphone
+                  type: string
+                - description: une liste de numéros de téléphone chacun identifié par une clé
+                  type: object
+                  additionalProperties:
+                    type: string
             areaServed:
               description: zone géographique servie
               type: string
@@ -53,11 +71,24 @@ $schema:
               description: organisation(s) remplacées par l'organisation créée
             successors:
               description: organisation(s) ayant remplacé l'organisation supprimée
+            mainEntityOfPage:
+              description: documents décrivant cette organisation, décret, organigramme, note d'organisation, ...
+              type: array
+              items:
+                $ref: '#/definitions/CreativeWork'
             subOrganization:
               description: liste des sous-organisations chacune identifiée par un id
               type: object
               additionalProperties:
                 $ref: '#/definitions/Organization'
+            employee:
+              description: liste d'employés de l'organisation, généralement l'encadrement dont les noms sont publics
+              type: array
+              items:
+                $ref: '#/definitions/Person'
+            note:
+              description: note quelconque associée (hors Schema.org, provient de Skos)
+              type: string
     PostalAddress:
       $id: https://schema.org/PostalAddress
       description: adresse postale structurée proche de https://schema.org/PostalAddress
@@ -83,6 +114,80 @@ $schema:
           type: [number, string]
         note: { description: "info qqc, hors schema.org", type: string }
       additionalProperties: false
+    CreativeWork:
+      $id: https://schema.org/CreativeWork
+      description: Document, film, ...
+      type: object
+      properties:
+        title:
+          description: titre du document
+          type: string
+        url:
+          description: URL d'accès au document
+          type: string
+        datePublished:
+          description: date de publication du document
+          type: string
+      additionalProperties: false
+    Person:
+      $id: https://schema.org/Person
+      description: structuration d'une personne selon http://schema.org/Person
+      type: object
+      required: [name]
+      properties:
+        name: { type: string }
+        identifier: { type: string }
+        givenName: { type: string }
+        telephone: { type: [number, string] }
+        email:
+          description: adresses(s) électronique(s)
+          oneOf:
+            - {type: string}
+            - {type: array, items: {type: string}}
+        address:
+          oneOf:
+            - description: structuration d'une adresse selon http://schema.org/PostalAddress
+              $ref: '#/definitions/PostalAddress'
+            - description: référence vers une adresse par exemple dans le registre des organisations
+              type: string
+        birthDate: { type: string }
+        deathDate: { type: string }
+        affiliation:
+          description: |
+            An organization that this person is affiliated with.
+            Utilisé pour une adhésion à une association.
+          oneOf:
+            - { description: "URI d'une organisation", type: string }
+            - $ref: '#/definitions/Organization'
+        hasOccupation:
+          description: |
+            The Person's occupation. For past professions, use Role for expressing dates.
+            Champ utilisé pour les profession libérales (médecin, ...), les anciens stagiaires, paticipation à un projet, ...
+          type: string
+        spouse:
+          $ref: '#/definitions/Person'
+        children:
+          type: array
+          items:
+            $ref: '#/definitions/Person'
+        employs:
+          description: liste d'employés, hors schema.org
+          type: array
+          items:
+            $ref: '#/definitions/Person'
+        knows:
+          description: nom d'une personne, permet de me souvenir des liens
+          type: string
+        jobTitle: { type: string }
+        brand:
+          description: >
+            The brand(s) associated with a product or service, or the brand(s) maintained by an organization or business person.
+          $ref: '#/definitions/Brand'
+        url:
+          description: utilisé notamment pour l'URI LinkedIn
+        note: { description: "info qqc, hors schema.org", type: string }
+        modified: { description: "date de mise à jour de la fiche, hors schema.org", type: string }
+      additionalProperties: false
   type: object
   properties:
     title:
@@ -97,41 +202,57 @@ $schema:
     ydADscrBhv:
       description: paramètres de comportement utilisés par le code Php de la classe AutoDescribed
       type: object
+      additionalProperties: false
       properties:
+        jsonLdContext:
+          description: contexte JSON-LD à ajouter
+          type: string
+        firstLevelType:
+          description: type des enregistrements de premier niveau dans contents
+          type: string
+        extractProperties:
+          description: >
+            clés utilisées pour traverser les objets définies par type du sujet
+            et avec pour chacune le type de l'objet et la propriété inverse pour référencer le parent
+          type: object
+          additionalProperties:
+            description: clé de premier niveau est le type du sujet de la propriété (départ)
+            type: object
+            additionalProperties:
+              description: clé de second niveau est le nom de la propriété
+              type: object
+              additionalProperties: false
+              properties:
+                objectType:
+                  description: type de l'objet de la propriété (arrivée)
+                  type: string
+                inverse:
+                  description: propriété inverse pour référencer le parent
+                  type: string
         writePserReally:
           description: si défini alors le doc est stocké en pser
           type: boolean
-        extract:
-          description: >
-            liste de la clé utilisée au premier niveau et de la clé utilisée pour descendre dans un sous-objet
-          type: array
-          items:
-            type: string
-          minItems: 2
-          maxItems: 2
-    json-ld:
-      description: paramétrage de la sortie JSON-LD
-      type: object
-      properties:
-        '@context':
-          description: contexte JSON-LD à ajouter
-        defaultType:
-          description: type par défaut des enregistrements
-          type: string
-    organizations:
-      description: liste d'organisations chacune identifiée par un id récursivement
+    contents:
+      description: liste récursive d'organisations chacune identifiée par un id
       type: object
       additionalProperties:
         $ref: '#/definitions/Organization'
+    eof:
+      description: marque de fin de fichier
+      type: 'null'
 ydADscrBhv:
+  jsonLdContext: http://schema.org
+  firstLevelType: Organization
+  extractProperties:
+    Organization: # subject type
+      subOrganization: # property name
+        objectType: Organization # object type
+        inverse: parentOrganization # inverse property
+      employee:
+        objectType: Person
+        inverse: worksFor
   writePserReally: true
-  extract:
-    - organizations
-    - subOrganization
-json-ld:
-  '@context': http://schema.org
-  defaultType: Organization
-organizations:
+contents:
   fr.gouv:
     name: administration de l'Etat
     url: https://www.gouvernement.fr/
@@ -139,8 +260,10 @@ organizations:
       CGEDD:
         name: Conseil Général de l'Environnement et du Développement Durable
         url: http://www.cgedd.developpement-durable.gouv.fr/
+        sameAs: >
+          https://fr.wikipedia.org/wiki/Conseil_g%C3%A9n%C3%A9ral_de_l%27environnement_et_du_d%C3%A9veloppement_durable
         address:
-          streetAddress: Tour Sequoïa
+          streetAddress: Tour Sequoïa, 1 Place Carpeaux
           postalCode: 92055
           addressLocality: La Défense cedex 04
         subOrganization:
@@ -148,82 +271,173 @@ organizations:
             name: Section Milieux, Ressources et Risques
       CGDD:
         name: Commissariat Général au Développement Durable
+        url: https://www.ecologique-solidaire.gouv.fr/commissariat-general-au-developpement-durable-cgdd
+        sameAs: https://fr.wikipedia.org/wiki/Commissariat_g%C3%A9n%C3%A9ral_au_d%C3%A9veloppement_durable
+        employee:
+          - jobTitle: Commissaire général
+            name: Thomas LESUEUR
+          - jobTitle: directrice, adjointe au commissaire général au développement durable
+            name: Diane SIMIU
         address:
           siege:
-            streetAddress: Tour Sequoïa
+            streetAddress: Tour Sequoïa, 1 Place Carpeaux
             postalCode: 92055
             addressLocality: La Défense cedex 04
           Orléans:
             streetAddress: 5 route d’Olivet – CS 16105
             postalCode: 45061
             addressLocality: Orléans cedex 2
+        mainEntityOfPage:
+          - title: Note d'organisation du Commissariat Général au Développement Durable
+            datePublished: 2019-12-30
+            url: http://id.georef.eu/organisation-note-cgdd
         subOrganization:
           SDAG:
             name: Sous-direction des affaires générales
+            employee:
+              - jobTitle: sous-directrice des affaires générales par intérim
+                name: Véronique Balestra
+            subOrganization:
+              AG1:
+                name: bureau des ressources humaines, de la formation et des moyens généraux
+              AG2:
+                name: bureau du budget, des affaires financières et des marchés
+              AG3:
+                name: bureau de la gestion délocalisée du site du CGDD à Orléans
           SDSED:
             name: Sous-direction de la stratégie éditoriale et de la diffusion
+            employee:
+              - jobTitle: Sous-directeur
+                name: Lionel Janin
+              - jobTitle: Adjoint au sous-directeur
+                name: Hugues Cahen
+              - jobTitle: responsable de la veille stratégique
+                name: Rosa Casany
+              - jobTitle: cheffe de la mission de coordination du portail d'information environnementale
+                name: Nathalie Tessier
             subOrganization:
               BEV:
                 name: Bureau de l'édition et de la valorisation
+                employee:
+                  - jobTitle: Chef du bureau
+                    name: Florence Patin
               BUN:
                 name: Bureau des usages numériques
+                employee:
+                  - jobTitle: Chef du bureau
+                    name: Nicolas Chuche
           DDD:
             name: Délégation au développement durable
+            employee:
+              - jobTitle: Chef de la délégation
+                name: Martin Bortzmeyer
+              - name: Edwige Duclay
             subOrganization:
               DATPA:
                 name: Département de l'action territoriale et de la participation des acteurs
+                employee:
+                  - name: Anne Guiheux
               DTODD:
                 name: Département de la transformation pour les objectifs du développement durable
           SEVS:
             name: Service de l'économie verte et solidaire
+            employee:
+              - jobTitle: Chef du service
+                name: Pascal Dupuis
             subOrganization:
               SDEE:
                 name: Sous-direction de l'économie et de l'évaluation
-                subOrganisation:
+                employee:
+                  - jobTitle: Sous-directeur de l'économie et de l'évaluation
+                    name: Vincent MARCUS
+                subOrganization:
                   BBR:
                     name: Bureau de la biodiversité et des ressources
                   BTES:
                     name: Bureau de la transition énergétique et solidaire
+                    employee:
+                      - name: Alexandre Godzinski
                   BTAR:
                     name: bureau des transports, de l’aménagement et des risques
+                    employee:
+                      - name: Tomas Hidalgo Olivares
               SDE:
                 name: Sous-direction des entreprises
+                employee:
+                  - jobTitle: Sous-directrice
+                    name: Elise Calais
+                  - jobTitle: Adjoint à la sous-directrice
+                    name: Stéphane Hocquet
                 subOrganization:
                   BFVRSE:
                     name: bureau de la finance verte et de la responsabilité sociétale des entreprises
+                    employee:
+                      - name: Paul Benoist
                   BTOMA:
                     name: bureau de la transformation des organisations et des modèles d’affaires
+                    employee:
+                      - jobTitle: Cheffe du bureau
+                        name: Marie Olive-Otto
                   BEF:
                     name: bureau des engagements et des filières
               SDPPD:
                 name: Sous-direction des politiques publiques durables
+                employee:
+                  - jobTitle: Sous-directeur
+                    name: Loïc AGNES
                 subOrganization:
                   MADRAE:
                     name: mission d’appui aux directions régionales sur l’autorité environnementale
                   BDEEPP:
                     name: bureau du droit de l’évaluation environnementale et de la participation du public
+                    employee:
+                      - name: David Catot
                   BAEEE:
                     name: bureau de l’accompagnement et de l’expertise de l’évaluation environnementale
+                    employee:
+                      - jobTitle: Cheffe du bureau
+                        name: Frédérique Millard
                   BAA:
                     name: bureau de l’agriculture et de l’alimentation durables
           SDES:
             name: Service des données et études statistiques
+            employee:
+              - jobTitle: Chef du SDES
+                name: Béatrice SEDILLOT
             url: http://www.statistiques.developpement-durable.gouv.fr/
             subOrganization:
+              BACS:
+                name: Bureau de l'appui et de la coordination statistique
+                employee:
+                  - jobTitle: Chef du bureau
+                    name: Frédéric Vey
               SDSLC:
                 name: Sous-direction des statistiques du logement et de la construction
+                employee:
+                  - jobTitle: sous-directeur des statistiques du logement et de la construction
+                    name: Jérôme HARNOIS
                 subOrganization:
                   BOL:
                     name: bureau de l’offre de logement
+                    employee:
+                      - jobTitle: Cheffe du bureau
+                        name: Marie Hassan
                   BSE:
                     name: bureau des statistiques d’entreprises
                   BSLI:
                     name: bureau des synthèses sur le logement et l’immobilier
+                    employee:
+                      - name: Sylvie Lefranc
               SDSE:
                 name: Sous-direction des statistiques de l'énergie
+                employee:
+                  - jobTitle: Sous-directeur
+                    name: Nicolas RIEDINGER
                 subOrganization:
                   BSOE:
                     name: bureau des statistiques de l’offre d’énergie
+                    employee:
+                      - name: Simon Beck
                   BSDE:
                     name: bureau des statistiques de la demande d’énergie
               SDST:
@@ -231,10 +445,16 @@ organizations:
                 subOrganization:
                   BSRV:
                     name: bureau des statistiques de la route et des véhicules
+                    employee:
+                      - name: Nathalie Guillon
                   BOSTML:
                     name: bureau de l’observation statistique des transports, de la mobilité et de la logistique
+                    employee:
+                      - name: Pierre Greffet
                   BSEST:
                     name: bureau des synthèses économiques et sociales sur les transports
+                    employee:
+                      - name: Layla Ricroch
               SDIE:
                 name: Sous-direction de l'information environnementale
                 subOrganization:
@@ -242,32 +462,61 @@ organizations:
                     name: bureau de l’état des milieux
                   BPE:
                     name: bureau des pressions sur l’environnement
+                    employee:
+                      - jobTitle: Cheffe du bureau
+                        name: Céline Magnier
                   BSESE:
                     name: bureau des synthèses économiques et sociales de l’environnement
-              BACS:
-                name: Bureau de l'appui et de la coordination statistique
+                    employee:
+                      - name: Benoît Bourges
           SRI:
             name: Service de la Recherche et de l'Innovation
+            employee:
+              - jobTitle: Chef du service
+                name: Thierry Courtine
             subOrganization:
               AST:
                 name: sous-direction de l'animation scientifique et technique
-                subOrganization: |
-                  bureau de la tutelle
-                  bureau de la reconnaissance des compétences scientifiques et techniques
-                  mission de l’animation du réseau scientifique et technique
+                employee:
+                  - jobTitle: sous-directrice de l'animation scientifique et technique
+                    name: Claire Sallenave
+                  - jobTitle: adjoint à la sous-directrice
+                    name: Jean-Louis Antoine
+                subOrganization:
+                  AST1:
+                    name: bureau de la tutelle
+                    employee:
+                      - jobTitle: Cheffe du bureau
+                        name: Oriane Gauffre
+                  AST3:
+                    name: bureau de la reconnaissance des compétences scientifiques et techniques
+                    employee:
+                      - name: Isabelle Gonday
+                  MARST:
+                    name: mission de l’animation du réseau scientifique et technique
               SDR:
                 name: sous-direction de la recherche
+                employee:
+                  - jobTitle: Sous-directrice
+                    name: Gwenaëlle HELLO
                 subOrganization:
                   MiCOEST:
                     name: mission Climat, Observation et Évolution du Système Terre (MiCOEST)
+                    employee:
+                      - jobTitle: Cheffe de mission
+                        name: Magali Domergue
                   MiBAAS:
                     name: mission Biodiversité, Activités Anthropiques, Santé (MiBAAS)
                   MiSST:
                     name: mission Science, Société et Territoires (MiSST)
                   MiP:
-                    name: La mission Prospective (MiP)
+                    name: mission Prospective (MiP)
+                    employee:
+                      - name: Thomas Guéret
               Ecolab:
                 name: Laboratoire d'innovation Ecolab
+                employee:
+                  - name: Hélène Costa de Beauregard
                 subOrganization:
                   dataIa:
                     name: Équipe projets innovation Data/Intelligence artificielle (IA)
@@ -275,6 +524,13 @@ organizations:
                     name: Équipe projets innovation Start-up & Nudge 
       DGAC:
         name: Direction générale de l'aviation civile
+        url: https://www.ecologique-solidaire.gouv.fr/direction-generale-laviation-civile-dgac
+        sameAs: https://fr.wikipedia.org/wiki/Direction_g%C3%A9n%C3%A9rale_de_l%27Aviation_civile
+        address:
+          streetAddress: 50 rue Henry FARMAN
+          postalCode: 75720
+          addressLocality: Paris cedex 15
+        telephone: 01.58.09.43.21
       DGALN:
         name: Direction générale de l'Aménagement, du Logement et de la Nature
         subOrganization:
@@ -378,18 +634,22 @@ organizations:
         name: Direction générale de la prévention des risques
       SGPMET:
         name: Secrétariat général du pôle ministériel Ecologie et Territoires
+        address:
+          streetAddress: Grand Arche paroi Sud, Parvis de La Défense
+          postalCode: 92055
+          addressLocality: La Défense cedex 04
         subOrganization:
           CAB:
             name: Cabinet du secrétaire général
           DAF:
             name: Direction des affaires financières
-            hasOrganisation:
+            subOrganization:
               SAS:
                 name: Service achat soutien
-                hasOrganizations:
+                subOrganization:
                   SAD:
                     name: sous-direction des achats durables
-                    hasOrganization:
+                    subOrganization:
                       SAD1:
                         name: bureau de l'administration exemplaire
           SDSIE:
@@ -436,12 +696,16 @@ organizations:
       DINUM:
         name: Direction interministérielle du numérique (DINUM)
         url: https://www.numerique.gouv.fr/
-        note: |
-          * [décret](https://www.legifrance.gouv.fr/eli/decret/2019/10/25/2019-1088/jo/texte)
-          * [organigramme au 01/03/2020](https://www.numerique.gouv.fr/uploads/organigramme_DINUM.pdf)
+        mainEntityOfPage:
+          - title: >
+              Décret n° 2019-1088 du 25 octobre 2019 relatif au système d'information et de communication de l'Etat
+              et à la direction interministérielle du numérique
+            url: https://www.legifrance.gouv.fr/eli/decret/2019/10/25/2019-1088/jo/texte
+          - title: organigramme au 01/03/2020
+            url: https://www.numerique.gouv.fr/uploads/organigramme_DINUM.pdf
         foundingDate: 2019-10-25
         employee:
-          - jobTitle: Directeur
+          - jobTitle: Directeur interministériel du numérique
             name: Nadi Bou Hanna
           - jobTitle: Directeur adjoint
             name: Xavier Albouy
@@ -474,7 +738,8 @@ organizations:
           ISO:
             name: Département ISO - Infrastructures et Services Opérés
             employee:
-              - name: Guy Duplaquet
+              - jobTitle: Chef du département
+                name: Guy Duplaquet
               - jobTitle: Adjoint
                 name: Benjamin Vidal
             subOrganization:
@@ -520,7 +785,7 @@ organizations:
       SGAE:
         name: Secrétariat général des affaires européennes
         url: http://www.sgae.gouv.fr/
-        adresse:
+        address:
           streetAddress: 68, rue de Bellechasse
           postalCode: 75700
           addressLocality: Paris
@@ -539,8 +804,12 @@ organizations:
             streetAddress: 88 Avenue Verdier
             postalCode: 92120
             addressLocality: Montrouge
-        note: |
-          * [arrêté d'organisation](https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000039494417)
+        mainEntityOfPage:
+          - title: >
+              Arrêté du 2 décembre 2019 relatif à l'organisation interne de l'Institut national de la statistique
+              et des études économiques 
+            datePublished: 2019-12-02
+            url: https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000039494417
         subOrganization:
           DG:
             name: direction générale
@@ -563,8 +832,10 @@ organizations:
       SGMEF:
         name: Secrétariat Général des Ministères Economiques et Financiers
         url: https://www.economie.gouv.fr/
-        note: |
-          * [organigramme](https://www.economie.gouv.fr/files/files/2020/orga-sg-02-01-detail.pdf)
+        mainEntityOfPage:
+          - title: Organigramme du SG des ministères économiques et financiers
+            datePublished: 2020-02-01
+            url: https://www.economie.gouv.fr/files/files/2020/orga-sg-02-01-detail.pdf
       dreal.hdf:
         name: DREAL Hauts-de-France
         areaServed: fr:region:32@2016-01-01
