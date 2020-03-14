@@ -158,27 +158,121 @@ organizations:
             postalCode: 45061
             addressLocality: Orléans cedex 2
         subOrganization:
-          SRI:
-            name: Service de la Recherche et de l'Innovation
-            subOrganization:
-              Ecolab:
-                name: Ecolab
-              SDR:
-                name: sous-direction de la recherche
-              AST:
-                name: sous-direction de l'animation scientifique et technique
-          SEVS:
-            name: Service de l'économie verte et solidaire
-          SDES:
-            name: Service des données et études statistiques
-            url: http://www.statistiques.developpement-durable.gouv.fr/
+          SDAG:
+            name: Sous-direction des affaires générales
           SDSED:
             name: Sous-direction de la stratégie éditoriale et de la diffusion
             subOrganization:
+              BEV:
+                name: Bureau de l'édition et de la valorisation
               BUN:
                 name: Bureau des usages numériques
-          SDAG:
-            name: Sous-direction des affaires générales
+          DDD:
+            name: Délégation au développement durable
+            subOrganization:
+              DATPA:
+                name: Département de l'action territoriale et de la participation des acteurs
+              DTODD:
+                name: Département de la transformation pour les objectifs du développement durable
+          SEVS:
+            name: Service de l'économie verte et solidaire
+            subOrganization:
+              SDEE:
+                name: Sous-direction de l'économie et de l'évaluation
+                subOrganisation:
+                  BBR:
+                    name: Bureau de la biodiversité et des ressources
+                  BTES:
+                    name: Bureau de la transition énergétique et solidaire
+                  BTAR:
+                    name: bureau des transports, de l’aménagement et des risques
+              SDE:
+                name: Sous-direction des entreprises
+                subOrganization:
+                  BFVRSE:
+                    name: bureau de la finance verte et de la responsabilité sociétale des entreprises
+                  BTOMA:
+                    name: bureau de la transformation des organisations et des modèles d’affaires
+                  BEF:
+                    name: bureau des engagements et des filières
+              SDPPD:
+                name: Sous-direction des politiques publiques durables
+                subOrganization:
+                  MADRAE:
+                    name: mission d’appui aux directions régionales sur l’autorité environnementale
+                  BDEEPP:
+                    name: bureau du droit de l’évaluation environnementale et de la participation du public
+                  BAEEE:
+                    name: bureau de l’accompagnement et de l’expertise de l’évaluation environnementale
+                  BAA:
+                    name: bureau de l’agriculture et de l’alimentation durables
+          SDES:
+            name: Service des données et études statistiques
+            url: http://www.statistiques.developpement-durable.gouv.fr/
+            subOrganization:
+              SDSLC:
+                name: Sous-direction des statistiques du logement et de la construction
+                subOrganization:
+                  BOL:
+                    name: bureau de l’offre de logement
+                  BSE:
+                    name: bureau des statistiques d’entreprises
+                  BSLI:
+                    name: bureau des synthèses sur le logement et l’immobilier
+              SDSE:
+                name: Sous-direction des statistiques de l'énergie
+                subOrganization:
+                  BSOE:
+                    name: bureau des statistiques de l’offre d’énergie
+                  BSDE:
+                    name: bureau des statistiques de la demande d’énergie
+              SDST:
+                name: Sous-direction des statistiques des transports
+                subOrganization:
+                  BSRV:
+                    name: bureau des statistiques de la route et des véhicules
+                  BOSTML:
+                    name: bureau de l’observation statistique des transports, de la mobilité et de la logistique
+                  BSEST:
+                    name: bureau des synthèses économiques et sociales sur les transports
+              SDIE:
+                name: Sous-direction de l'information environnementale
+                subOrganization:
+                  BEM:
+                    name: bureau de l’état des milieux
+                  BPE:
+                    name: bureau des pressions sur l’environnement
+                  BSESE:
+                    name: bureau des synthèses économiques et sociales de l’environnement
+              BACS:
+                name: Bureau de l'appui et de la coordination statistique
+          SRI:
+            name: Service de la Recherche et de l'Innovation
+            subOrganization:
+              AST:
+                name: sous-direction de l'animation scientifique et technique
+                subOrganization: |
+                  bureau de la tutelle
+                  bureau de la reconnaissance des compétences scientifiques et techniques
+                  mission de l’animation du réseau scientifique et technique
+              SDR:
+                name: sous-direction de la recherche
+                subOrganization:
+                  MiCOEST:
+                    name: mission Climat, Observation et Évolution du Système Terre (MiCOEST)
+                  MiBAAS:
+                    name: mission Biodiversité, Activités Anthropiques, Santé (MiBAAS)
+                  MiSST:
+                    name: mission Science, Société et Territoires (MiSST)
+                  MiP:
+                    name: La mission Prospective (MiP)
+              Ecolab:
+                name: Laboratoire d'innovation Ecolab
+                subOrganization:
+                  dataIa:
+                    name: Équipe projets innovation Data/Intelligence artificielle (IA)
+                  startUpNudge:
+                    name: Équipe projets innovation Start-up & Nudge 
       DGAC:
         name: Direction générale de l'aviation civile
       DGALN:
@@ -641,6 +735,16 @@ organizations:
         name: DREAL Bretagne
         areaServed: fr:region:53@1970-01-09
         foundingDate: 2009-01-01
+        address:
+          streetAddress: L'armorique - 10 Rue Maurice Fabre - CS 96515
+          postalCode: 35065
+          addressLocality: Rennes Cedex
+        subOrganization:
+          SPN:
+            name: Service Patrimoine Naturel
+            subOrganization:
+              BGP:
+                name: Division Biodiversité, Géologie et Paysages
       dreal.nor:
         name: DREAL Normandie 
         areaServed: fr:region:28@2016-01-01
@@ -924,4 +1028,4 @@ organizations:
   com.shippeo:
     name: SHIPPEO
     url: http://www.shippeo.com
-
+eof:
