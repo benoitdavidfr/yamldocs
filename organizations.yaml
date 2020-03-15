@@ -1,12 +1,15 @@
 title: registre hiérarchique d'organisations
-description:
+description: |
   Registre hiérarchique d'organisations décrites selon le type http://schema.org/Organization
   et identifiées par un identifiant.
   L'identifiant est défini selon les règles suivantes:
+    
     - les administrations de l'Etat sont définies selon une hiérarchie dont la racine est fr.gouv
     - les identifiants des autres organismes sont définis à partir de leur nom de domaine
+    
   Une gestion de l'historique et de la généalogie est testée pour les DREAL au moyen des propriétés foundingDate,
   dissolutionDate, successors et ancestors.
+  
   La propriété sameAs est utilisée pour les entrées Wikipedia et pour les nos SIREN
   et la propriété url pour le site officiel de l'organisation.
 $schema:
@@ -40,14 +43,10 @@ $schema:
               description: autre URI, notamment sur Wikipedia et URI SIRENE
               type: string
             address:
-              description: adresse(s) postale(s)
-              oneOf:
-                - description: une seule adresse
-                  $ref: '#/definitions/PostalAddress'
-                - description: une liste d'adresses chacune identifiée par une clé
-                  type: object
-                  additionalProperties:
-                    $ref: '#/definitions/PostalAddress'
+              description: liste des adresses postales chacune identifiée par une clé, siege pour le siège
+              type: object
+              additionalProperties:
+                $ref: '#/definitions/PostalAddress'
             email:
               description: adresse électronique de l'organisation
               type: string
@@ -225,7 +224,19 @@ $schema:
               properties:
                 objectType:
                   description: type de l'objet de la propriété (arrivée)
-                  type: string
+                  oneOf:
+                    - description: type simple
+                      type: string
+                    - description: array ou dict d'un type simple
+                      type: object
+                      additionalProperties: false
+                      properties:
+                        array:
+                          description: le type est array(type2)
+                          type: string
+                        dict:
+                          description: le type est dict(type)
+                          type: string
                 inverse:
                   description: propriété inverse pour référencer le parent
                   type: string
@@ -251,6 +262,12 @@ ydADscrBhv:
       employee:
         objectType: Person
         inverse: worksFor
+      address:
+        objectType: PostalAddress
+  buildName: # définition de l'affichage réduit par type d'objet, code Php par type
+    Organization: "return $item['name'];"
+    Person: "return $item['name'];"
+    PostalAddress: "return $skey;"
   writePserReally: true
 contents:
   fr.gouv:
@@ -263,9 +280,10 @@ contents:
         sameAs: >
           https://fr.wikipedia.org/wiki/Conseil_g%C3%A9n%C3%A9ral_de_l%27environnement_et_du_d%C3%A9veloppement_durable
         address:
-          streetAddress: Tour Sequoïa, 1 Place Carpeaux
-          postalCode: 92055
-          addressLocality: La Défense cedex 04
+          siege:
+            streetAddress: Tour Sequoïa, 1 Place Carpeaux
+            postalCode: 92055
+            addressLocality: La Défense cedex 04
         subOrganization:
           MRR:
             name: Section Milieux, Ressources et Risques
@@ -295,6 +313,8 @@ contents:
           SDAG:
             name: Sous-direction des affaires générales
             employee:
+              - jobTitle: Sous-directrice des affaires générales (à.c. du 16/4/2020)
+                name: Florence Macé
               - jobTitle: sous-directrice des affaires générales par intérim
                 name: Véronique Balestra
             subOrganization:
@@ -527,9 +547,10 @@ contents:
         url: https://www.ecologique-solidaire.gouv.fr/direction-generale-laviation-civile-dgac
         sameAs: https://fr.wikipedia.org/wiki/Direction_g%C3%A9n%C3%A9rale_de_l%27Aviation_civile
         address:
-          streetAddress: 50 rue Henry FARMAN
-          postalCode: 75720
-          addressLocality: Paris cedex 15
+          siege:
+            streetAddress: 50 rue Henry FARMAN
+            postalCode: 75720
+            addressLocality: Paris cedex 15
         telephone: 01.58.09.43.21
       DGALN:
         name: Direction générale de l'Aménagement, du Logement et de la Nature
@@ -635,9 +656,10 @@ contents:
       SGPMET:
         name: Secrétariat général du pôle ministériel Ecologie et Territoires
         address:
-          streetAddress: Grand Arche paroi Sud, Parvis de La Défense
-          postalCode: 92055
-          addressLocality: La Défense cedex 04
+          siege:
+            streetAddress: Grand Arche paroi Sud, Parvis de La Défense
+            postalCode: 92055
+            addressLocality: La Défense cedex 04
         subOrganization:
           CAB:
             name: Cabinet du secrétaire général
@@ -786,9 +808,10 @@ contents:
         name: Secrétariat général des affaires européennes
         url: http://www.sgae.gouv.fr/
         address:
-          streetAddress: 68, rue de Bellechasse
-          postalCode: 75700
-          addressLocality: Paris
+          siege:
+            streetAddress: 68, rue de Bellechasse
+            postalCode: 75700
+            addressLocality: Paris
         subOrganization:
           ITEC:
             name: Secteur Marché intérieur, Industrie, Recherche & Innovation, Numérique (ITEC)
@@ -1007,9 +1030,10 @@ contents:
         areaServed: fr:region:53@1970-01-09
         foundingDate: 2009-01-01
         address:
-          streetAddress: L'armorique - 10 Rue Maurice Fabre - CS 96515
-          postalCode: 35065
-          addressLocality: Rennes Cedex
+          siege:
+            streetAddress: L'armorique - 10 Rue Maurice Fabre - CS 96515
+            postalCode: 35065
+            addressLocality: Rennes Cedex
         subOrganization:
           SPN:
             name: Service Patrimoine Naturel
@@ -1080,9 +1104,10 @@ contents:
       DTechEMF:
         name: Direction Technique Mer, Eau, Fleuve
         address:
-          streetAddress: Technopôle Brest-Iroise - BP5 - 155, Rue Pierre Bouguer
-          postalCode: 29280
-          addressLocality: PLOUZANE
+          siege:
+            streetAddress: Technopôle Brest-Iroise - BP5 - 155, Rue Pierre Bouguer
+            postalCode: 29280
+            addressLocality: PLOUZANE
         subOrganization:
           DTI:
             name: Département Technologies Innovantes
@@ -1103,9 +1128,10 @@ contents:
           DETC:
             name: Département environnement territoires climat
             address:
-              streetAddress: 46, rue Saint-Théobald, BP 128
-              postalCode: 38081
-              addressLocality: L’Isle-d'Abeau Cedex
+              siege:
+                streetAddress: 46, rue Saint-Théobald, BP 128
+                postalCode: 38081
+                addressLocality: L’Isle-d'Abeau Cedex
             email : DETC.DTerCE@cerema.fr
             subOrganization:
               BE:
@@ -1124,9 +1150,10 @@ contents:
     url: http://www.ign.fr/
     sameAs: http://id.georef.eu/insee/sirene/siren/180067019
     address:
-      streetAddress: 73, avenue de Paris
-      postalCode: 94165
-      addressLocality: Saint-Mandé
+      siege:
+        streetAddress: 73, avenue de Paris
+        postalCode: 94165
+        addressLocality: Saint-Mandé
     subOrganization:
       DP:
         name: direction des programmes et de l’appui aux politiques publiques (DP)
@@ -1219,44 +1246,45 @@ contents:
     name: ADEME
     url: http://www.ademe.fr/
     address:
-      streetAddress: 155 bis Avenue Pierre Brossolette
-      addressLocality: Montrouge
-      postalCode: 92120
+      siege:
+        streetAddress: 155 bis Avenue Pierre Brossolette
+        addressLocality: Montrouge
+        postalCode: 92120
   fr.cnes:
     name: Centre National des Etudes Spatiales
     alternateName: CNES
     url: http://www.cnes.fr
     sameAs: https://fr.wikipedia.org/wiki/Centre_national_d%27%C3%A9tudes_spatiales
     address:
-      '@type': PostalAddress
-      streetAddress: 2 place Maurice Quentin
-      addressLocality: Paris, France
-      postalCode: F-75001
-    subOrganization:
-      toulouse:
-        name: Centre spatial de Toulouse
-        address:
-          '@type': https://schema.org/PostalAddress
-          streetAddress: 18, avenue Edouard Belin
-          addressLocality: Toulouse cedex 9
-          postalCode: 31401
-          telephone: 05 61 27 31 31
+      siege:
+        '@type': PostalAddress
+        streetAddress: 2 place Maurice Quentin
+        postalCode: 75001
+        addressLocality: Paris, France
+      Toulouse:
+        '@type': https://schema.org/PostalAddress
+        streetAddress: 18, avenue Edouard Belin
+        addressLocality: Toulouse cedex 9
+        postalCode: 31401
+        telephone: 05 61 27 31 31
   fr.asso.afigeo:
     name: AFIGEO
     url: http://www.afigeo.asso.fr
     address:
-      streetAddress: 73, avenue de Paris
-      postalCode: 94165
-      addressLocality: Saint-Mandé Cedex
+      siege:
+        streetAddress: 73, avenue de Paris
+        postalCode: 94165
+        addressLocality: Saint-Mandé Cedex
     sameAs: http://id.georef.eu/insee/sirene/siren/389985565
   fr.dataforgood:
     name: data for good
     url: https://dataforgood.fr/
     email: hellodataforgood@gmail.com
     address:
-      streetAddress: 9 rue d'Alexandrie
-      postalCode: 75002
-      addressLocality: Paris
+      siege:
+        streetAddress: 9 rue d'Alexandrie
+        postalCode: 75002
+        addressLocality: Paris
     sameAs: http://id.georef.eu/insee/sirene/siren/840436638
   fr.health-data-hub:
     name: Plateforme des Données de Santé (Health Data Hub)
@@ -1269,16 +1297,17 @@ contents:
     alternateName: ISEP
     url: http://www.isep.fr
     address:
-      '@type': PostalAddress
-      streetAddress: 10 rue de Vanves
-      postalCode: F-92130
-      addressLocality: Issy-le-Moulineaux
+      siege:
+        '@type': PostalAddress
+        streetAddress: 10 rue de Vanves
+        postalCode: F-92130
+        addressLocality: Issy-le-Moulineaux
   fr.bpifrance:
     name: Banque Publique d'Investissements - France
     alternateName: BPI France
     url: https://www.bpifrance.fr/
     address:
-      Haussmann:
+      siege:
         '@type': https://schema.org/PostalAddress
         streetAddress: 6-8, boulevard Haussmann 
         postalCode: F-75009
