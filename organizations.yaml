@@ -618,6 +618,8 @@ contents:
                   AST3:
                     name: bureau de la reconnaissance des compétences scientifiques et techniques
                     employee:
+                      - name: Vincent Letrouit
+                        jobTitle: Chef du bureau
                       - name: Isabelle Gonday
                   MARST:
                     name: mission de l’animation du réseau scientifique et technique
@@ -634,8 +636,13 @@ contents:
                         name: Magali Domergue
                   MiBAAS:
                     name: mission Biodiversité, Activités Anthropiques, Santé (MiBAAS)
+                    employee:
+                      - name: Céline COUDERC-OBERT
+                        jobTitle: Cheffe de mission
                   MiSST:
                     name: mission Science, Société et Territoires (MiSST)
+                    employee:
+                      - name: Sylvain Rotillon
                   MiP:
                     name: mission Prospective (MiP)
                     employee:
