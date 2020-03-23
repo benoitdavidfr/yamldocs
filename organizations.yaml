@@ -292,7 +292,7 @@ contents:
     url: https://www.gouvernement.fr/
     subOrganization:
       MTES:
-        name: Ministère de la transition écologique
+        name: Ministère de la transition écologique et solidaire
         note: |
           Du point de vue hiérarchie des organisations, seuls les cabinets sont rattachés à cette organisation.
           Les organisations sous l'autorité de la Ministre sont représentées à l'aide du lien member.
@@ -774,6 +774,8 @@ contents:
         employee:
           - name: M. Christophe Itier
             jobTitle: Haut-commissaire à l’Économie sociale et solidaire et à l’innovation sociale
+        sponsor:
+          - http://id.georef.eu/organizations/fr.le-frenchimpact
       SGPMET:
         name: Secrétariat général du pôle ministériel Ecologie et Territoires
         address:
@@ -878,6 +880,7 @@ contents:
                   PEPS:
                     name: start-up d'Etat PEPS - Arrêt du Glyphosate
                     email: peps@beta.gouv.fr
+                    url: https://beta.gouv.fr/startups/peps.html
               IDNUM:
                 name: Mission IDNUM - Christine Balian
               PILOT:
@@ -953,7 +956,7 @@ contents:
             name: Secteur Transports, politique régionalen Outre-mer, R et D, Espace (TREG)
             email: sgae-treg@sgae.gouv.fr
       INSEE:
-        name: Institut National de la stratistique et des études économiques
+        name: Institut National de la statistique et des études économiques
         url: https://www.insee.fr/
         address:
           siege:
@@ -1514,13 +1517,18 @@ contents:
     name: Plateforme des Données de Santé (Health Data Hub)
     url: https://www.health-data-hub.fr/
     sameAs: http://id.georef.eu/insee/sirene/siren/130003783
-    note: |
-      statut de GIP - voir documents sur son site internet
+    note: statut de GIP - voir documents sur son site internet
   fr.inserm:
     name: institut national de la santé et de la recherche médicale
     subOrganization:
       U1209:
         name: Inserm U1209, Team of Environmental Epidemiology Applied to Reproduction and Respiratory Health
+  fr.le-frenchimpact:
+    name: Le French impact
+    note: |
+      accélérateur d'innovation sociale et environnementale porté par le MTES.
+      Semble être l'administration du HCESSIS
+    url: https://le-frenchimpact.fr/
   fr.isep:
     name: Institut Supérieur d'Electronique de Paris
     alternateName: ISEP
