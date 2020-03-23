@@ -1516,6 +1516,12 @@ contents:
   fr.health-data-hub:
     name: Plateforme des Données de Santé (Health Data Hub)
     url: https://www.health-data-hub.fr/
+    address:
+      siege:
+        streetAddress: 9, Rue Georges Pitard
+        postalCode: 75015
+        addressLocality: Paris
+    email: contact@health-data-hub.fr
     sameAs: http://id.georef.eu/insee/sirene/siren/130003783
     note: statut de GIP - voir documents sur son site internet
   fr.inserm:
@@ -1529,6 +1535,12 @@ contents:
       accélérateur d'innovation sociale et environnementale porté par le MTES.
       Semble être l'administration du HCESSIS
     url: https://le-frenchimpact.fr/
+    sameAs: http://id.georef.eu/insee/sirene/siren/841565187
+    address:
+      siege:
+        streetAddress:  19 Avenue Léopold II  
+        postalCode: 75016
+        addressLocality: Paris
   fr.isep:
     name: Institut Supérieur d'Electronique de Paris
     alternateName: ISEP

@@ -1,0 +1,15 @@
+title: Plateforme des Données de Santé (Health Data Hub)
+url: https://www.health-data-hub.fr/
+email: contact@health-data-hub.fr
+address:
+  siege:
+    streetAddress: 9, Rue Georges Pitard
+    postalCode: 75015
+    addressLocality: Paris
+contacts: http://bdavid.alwaysdata.net/yamldoc/?doc=contactspro&ypath=%2Ffr.healthdatahub
+fiche: "http://georef.eu/yamldoc/?doc=organizations&amp;ypath=/fr.health-data-hub"
+contents: |
+  - [Notes échange avec Stéphanie Combes, directrice du Health Data Hub](http://bdavid.alwaysdata.net/yamldoc/?doc=actu-ecolab&ypath=/health-data-hub-2020-01-31)
+  xx
+attachements:
+  - "[Les engagements de la plateforme des données de santé vis-à-vis de ses partenaires responsables des données](?doc=healthdatahub-chartedonnees)"
