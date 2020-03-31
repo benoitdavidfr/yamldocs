@@ -95,6 +95,14 @@ $schema:
           type: array
           items:
             type: string
+        sponsor:
+          description: >
+            A person or organization that supports a thing through a pledge, promise, or financial contribution.
+            e.g. a sponsor of a Medical Study or a corporate sponsor of an event.
+            Représenté avec une liste d'URI
+          type: array
+          items:
+            type: string
         employee:
           description: liste d'employés de l'organisation, généralement l'encadrement dont les noms sont publics
           type: array
@@ -768,6 +776,18 @@ contents:
                     name: Sous-direction de la gestion du réseau routier national non concédé et du trafic
       DGPR:
         name: Direction générale de la prévention des risques
+        subOrganization:
+          DAGSI:
+            name: Département des affaires générales et des systèmes d'information
+          SRNH:
+            name: Service des risques naturels et hydrauliques
+          SRSEDPD:
+            name: Service des risques sanitaires liés à l'environnement des déchets et des pollutions diffuses
+            subOrganization:
+              SDDEC:
+                name: Sous-direction déchets et économie circulaire
+          SRT:
+            name: Service des risques technologiques
       HCESSIS:
         name: Haut commissariat à l'économie sociale et solidaire et à l'innovation sociale
         url: https://www.ecologique-solidaire.gouv.fr/ministere/haut-commissaire-leconomie-sociale-et-solidaire-et-linnovation-sociale
@@ -1003,6 +1023,12 @@ contents:
         name: Direction générale des entreprises
         alternateName: DGE
         url: http://www.entreprises.gouv.fr
+        address:
+          Ivry-sur-Seine:
+            streetAddress: 67, rue Barbès
+            postOfficeBoxNumber: BP 80001
+            postalCode: 94201
+            addressLocality: Ivry-sur-Seine Cedex
         subOrganization:
           SCIDE:
             name: Service de la compétitivité, de l'innovation et du développement des entreprises
@@ -1305,6 +1331,14 @@ contents:
         name: DRIEE Île-de-France
         areaServed: fr:region:11@1970-01-09
         foundingDate: 2009-01-01
+  fr.elysee:
+    name: Palais de l’Élysée
+    url: https://www.elysee.fr/
+    address:
+      siege:
+        streetAddress: 55, rue du Faubourg Saint-Honoré
+        postalCode: 75008
+        addressLocality: PARIS
   fr.assemblee-nationale:
     name: Assemblée nationale
     url: http://www.assemblee-nationale.fr/
@@ -1563,6 +1597,9 @@ contents:
         streetAddress: 27-31 avenue du Général Leclerc 
         postalCode: F-94710
         addressLocality: Maisons-Alfort Cedex
+  fr.cme-france:
+    name: Confédération des métiers de l'environnement
+    url: https://www.cme-france.fr/
   fr.kynapse:
     name: KYNAPSE
     url: http://www.kynapse.fr/
