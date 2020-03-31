@@ -132,6 +132,8 @@ properties:
   modified:
     type: string
   $schema:
-    $ref: http://json-schema.org/draft-07/schema#
+    oneOf:
+      - $ref: http://json-schema.org/draft-07/schema#
+      - type: string
 additionalProperties:
   $ref: '#/definitions/contactList'
