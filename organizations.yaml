@@ -45,10 +45,13 @@ $schema:
               items:
                 type: string
         address:
-          description: liste des adresses postales chacune identifiée par une clé, siege pour le siège
-          type: object
-          additionalProperties:
-            $ref: '#/definitions/PostalAddress'
+          oneOf:
+            - description: une adresse postale
+              $ref: '#/definitions/PostalAddress'
+            - description: liste des adresses postales chacune identifiée par une clé, siege pour le siège
+              type: object
+              additionalProperties:
+                $ref: '#/definitions/PostalAddress'
         location:
           description: liste des adresses géographiques chacune identifiée par une clé, siege pour le siège
           type: object
@@ -1354,9 +1357,18 @@ contents:
   fr.cerema:
     name: Centre d'études et d'expertise sur les risques, l'environnement, la mobilité et l'aménagement (Cérema)
     url: https://www.cerema.fr/
+    telephone: 04 72 14 30 30
+    address:
+      siege:
+        name: Cité des mobilités
+        streetAddress: 25, avenue François Mitterrand
+        postOfficeBoxNumber: CS 92 803
+        postalCode: 69674
+        addressLocality: Bron Cedex
     subOrganization:
       DTechEMF:
         name: Direction Technique Mer, Eau, Fleuve
+        url: http://www.eau-mer-fleuves.cerema.fr/
         address:
           siege:
             streetAddress: Technopôle Brest-Iroise - BP5 - 155, Rue Pierre Bouguer
@@ -1399,6 +1411,20 @@ contents:
             subOrganization:
               SCGSI:
                 name: Satellite Climat, Gestion, Systèmes d'Information (SCGSI)
+      DTerMed:
+        name: Direction territoriale Méditerranée
+        address:
+          siege:
+            name: Pôle d'activités
+            postOfficeBoxNumber: CS 70 499
+            postalCode: 13593
+            addressLocality: Aix en Provence cedex 3
+        subOrganization:
+          SLEB:
+            name: Service Littoral Énergies et Biodiversité
+            subOrganization:
+              DAT:
+                name: Département Aménagement des territoires
   fr.ign:
     name: Institut national de l'information géographique et forestière (IGN)
     url: http://www.ign.fr/
@@ -1496,6 +1522,34 @@ contents:
         name: direction des ressources humaines (DRH)
       DIRCOM:
         name: Direction de la communication (DIRCOM)
+  fr.brgm:
+    name: Bureau de Recherches Géologiques et Minières
+    employee:
+      - name: Michele Rousseau
+        jobTitle: PDG
+        email: michele.rousseau@brgm.fr
+    address:
+      Orléans:
+        streetAddress: 3, avenue Claude Guillemin
+        postOfficeBoxNumber: BP 39009
+        postalCode: 45060
+        addressLocality: Orléans Cedex 2
+    subOrganization:
+      DISN:
+        name: Direction des Infrastructures et des Services Numériques
+  fr.inrae:
+    name: Institut national de recherche pour l’agriculture, l’alimentation et l’environnement
+    subOrganization:
+      UMR-TETIS:
+        name: UMR TETIS
+        url: https://www.umr-tetis.fr/
+        note: UMR conjointe entre AgroParisTech, le Cirad, l’Inrae et le CNRS
+        address:
+          name: Maison de la Télédétection
+          streetAddress: 500 rue Jean-François Breton
+          postalCode: 34093
+          addressLocality: Montpellier Cedex 5
+          telephone: 04 67 54 87 54
   fr.ademe:
     name: Agence de l'environnement et de la maîtrise de l'énergie (ADEME)
     url: http://www.ademe.fr/
@@ -1528,6 +1582,12 @@ contents:
         addressLocality: Toulouse cedex 9
         addressCountry: France
         telephone: 05 61 27 31 31
+    subOrganization:
+      DIA:
+        name: Direction de l’Innovation, des Applications & de la Science
+        subOrganization:
+          ESA:
+            name: Equipe Services Aval
   fr.asso.afigeo:
     name: AFIGEO
     url: http://www.afigeo.asso.fr
@@ -1600,6 +1660,7 @@ contents:
   fr.cme-france:
     name: Confédération des métiers de l'environnement
     url: https://www.cme-france.fr/
+    note: représente la filière industrielle de traitements de déchets vis à vis de la DGE
   fr.kynapse:
     name: KYNAPSE
     url: http://www.kynapse.fr/

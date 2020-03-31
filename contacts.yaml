@@ -1,6 +1,10 @@
 title: base de contacts publics définissant le schéma partagé avec d'autres bases de contacts
+abstract: |
+  Ce document contient une base de contacts publics ainsi qu'un schéma utilisé par d'autres bases de contacts
+  non publics.
 $schema:
-  $id: http://id.georef.eu/contacts.schema
+  title: Schéma décrivant un document base de contacts
+  $id: http://id.georef.eu/contacts/$schema
   $schema: http://json-schema.org/draft-07/schema#
   definitions:
     contactList:
@@ -42,20 +46,28 @@ $schema:
           type: string
         deathDate: { type: string }
         worksFor:
-          description: Organizations that the person works for. IRI d'une organisation dans http://id.georef.eu/organizations/
-          type: string
-          pattern: '^http://id.georef.eu/organizations/'
+          description: Organizations that the person works for.
+          oneOf:
+            - description: URI d'une organisation dans http://id.georef.eu/organizations/
+              type: string
+              pattern: '^http://id.georef.eu/organizations/'
+            - description: Définition de l'organisation
+              $ref: '#/definitions/Organization'
         affiliation:
           description: |
             An organization that this person is affiliated with.
             Utilisé pour une adhésion à une association.
           oneOf:
-            - { description: "URI d'une organisation", type: string }
-            - $ref: '#/definitions/Organization'
+            - description: URI d'une organisation dans http://id.georef.eu/organizations/
+              type: string
+              pattern: '^http://id.georef.eu/organizations/'
+            - description: Définition de l'organisation
+              $ref: '#/definitions/Organization'
         hasOccupation:
           description: |
             The Person's occupation. For past professions, use Role for expressing dates.
-            Champ utilisé pour les professions libérales (médecin, ...), les anciens stagiaires, paticipation à un projet, ...
+            Champ utilisé pour les professions libérales (médecin, ...), les anciens stagiaires,
+            participation à un projet, ...
           oneOf:
             - type: string
             - type: array
@@ -78,7 +90,8 @@ $schema:
         jobTitle: { type: string }
         brand:
           description: >
-            The brand(s) associated with a product or service, or the brand(s) maintained by an organization or business person.
+            The brand(s) associated with a product or service, or the brand(s) maintained by an organization
+            or business person.
           $ref: '#/definitions/Brand'
         url:
           description: utilisé notamment pour l'URI LinkedIn
@@ -134,8 +147,10 @@ $schema:
       type: string
     $schema:
       oneOf:
-        - $ref: http://json-schema.org/draft-07/schema#
-        - type: string
+        - description: schéma décrit par une structure Yaml
+          $ref: http://json-schema.org/draft-07/schema#
+        - description: schéma défini par une URL
+          type: string
   additionalProperties:
     $ref: '#/definitions/contactList'
 fr.gouv:
@@ -149,5 +164,30 @@ fr.gouv:
     jobTitle: Secrétaire d’État auprès de la ministre de la Transition écologique et solidaire
   - name: Jean-Baptiste Djebbari
     jobTitle: Secrétaire d'État auprès de la ministre de la Transition écologique et solidaire, chargé des Transports
-
-
+  - name: Bruno Le Maire
+    jobTitle: Ministre de l'Économie et des Finances
+  - name: Cédric O
+    jobTitle: Secrétaire d'État auprès du ministre de l’Économie et des Finances et du ministre de l’Action et des Comptes publics, chargé du Numérique
+  - name: Agnès Pannier-Runacher
+    jobTitle: Secrétaire d’État auprès du ministre de l’Économie et des Finances
+  - name: Gérald Darmanin
+    jobTitle: Ministre de l'Action et des Comptes publics
+  - name: Olivier Dussopt
+    jobTitle: Secrétaire d’État auprès du ministre de l’Action et des Comptes publics
+  - name: Jacqueline Gourault
+    jobTitle: Ministre de la Cohésion des territoires et des Relations avec les collectivités territoriales
+  - name: Sébastien Lecornu
+    jobTitle: Ministre auprès de la ministre de la Cohésion des territoires et des Relations avec les collectivités territoriales, chargé des Collectivités territoriales
+  - name: Julien Denormandie
+    jobTitle: Ministre auprès de la ministre de la Cohésion des territoires et des Relations avec les collectivités territoriales, chargé de la Ville et du Logement
+  - name: Didier Guillaume
+    jobTitle: Ministre de l’Agriculture et de l’Alimentation
+  - name: Frédérique Vidal
+    jobTitle: Ministre de l’Enseignement supérieur, de la Recherche et de l’Innovation
+fr.ign:
+  - name: Daniel BURSAUX
+    jobTitle: directeur général de l'IGN
+fr.cerema:
+  - name: Pascal Berteaud
+    jobTitle: directeur général du Cerema
+eof:

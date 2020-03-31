@@ -10,6 +10,6 @@ contacts: http://bdavid.alwaysdata.net/yamldoc/?doc=contactspro&ypath=%2Ffr.heal
 fiche: "http://georef.eu/yamldoc/?doc=organizations&amp;ypath=/fr.health-data-hub"
 contents: |
   - [Notes échange avec Stéphanie Combes, directrice du Health Data Hub](http://bdavid.alwaysdata.net/yamldoc/?doc=actu-ecolab&ypath=/health-data-hub-2020-01-31)
-  xx
+  
 attachements:
   - "[Les engagements de la plateforme des données de santé vis-à-vis de ses partenaires responsables des données](?doc=healthdatahub-chartedonnees)"
