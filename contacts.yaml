@@ -2,7 +2,7 @@ title: base de contacts publics définissant le schéma partagé avec d'autres b
 abstract: |
   Ce document contient une base de contacts publics ainsi qu'un schéma utilisé par d'autres bases de contacts
   non publics.
-$schema:
+$schema: 
   title: Schéma décrivant un document base de contacts
   $id: http://id.georef.eu/contacts/$schema
   $schema: http://json-schema.org/draft-07/schema#
@@ -13,7 +13,46 @@ $schema:
         - description: liste de contacts
           type: array
           items:
-            $ref: 'http://id.georef.eu/schema.org/definitions/Person'
+            $ref: http://id.georef.eu/schema.org/definitions/Person
+        - description: organisation en catégories
+          type: object
+          additionalProperties:
+            $ref: '#/definitions/contactList'
+        - description: cas d'une catégorie vide
+          type: 'null'
+  type: object
+  properties:
+    title:
+      type: string
+    authorizedReaders:
+      description: liste des lecteurs YamlDoc autorisés
+      type: array
+      items:
+        type: string
+    abstract:
+      type: string
+    modified:
+      type: string
+    $schema:
+      oneOf:
+        - description: schéma décrit par une structure Yaml
+          $ref: http://json-schema.org/draft-07/schema#
+        - description: schéma défini par une URL
+          type: string
+  additionalProperties:
+    $ref: '#/definitions/contactList'
+xx$schema:
+  title: Schéma décrivant un document base de contacts
+  $id: http://id.georef.eu/contacts/$schema
+  $schema: http://json-schema.org/draft-07/schema#
+  definitions:
+    contactList:
+      description: liste de contacts éventuellement organisée en catégories
+      oneOf:
+        - description: liste de contacts
+          type: array
+          items:
+            $ref: '#/definitions/Person'
         - description: organisation en catégories
           type: object
           additionalProperties:
