@@ -1,0 +1,235 @@
+title: Définitions issues de https://schema.org/
+$id: http://id.georef.eu/contacts/$schema
+$schema: http://json-schema.org/draft-07/schema#
+definitions:
+  Person:
+    $id: https://schema.org/Person
+    description: structuration d'une personne selon http://schema.org/Person
+    type: object
+    required: [name]
+    properties:
+      name: { type: string }
+      identifier: { type: string }
+      givenName: { type: string }
+      telephone: { type: [number, string] }
+      email:
+        description: adresses(s) électronique(s)
+        oneOf:
+          - {type: string}
+          - {type: array, items: {type: string}}
+      address:
+        oneOf:
+          - description: structuration d'une adresse selon http://schema.org/PostalAddress
+            $ref: '#/definitions/PostalAddress'
+          - description: référence vers une adresse par exemple dans le registre des organisations
+            type: string
+      birthDate: { type: string }
+      weddingDate:
+        description: date de marriage, hors http://schema.org/
+        type: string
+      deathDate: { type: string }
+      worksFor:
+        description: Organizations that the person works for.
+        oneOf:
+          - description: URI d'une organisation dans http://id.georef.eu/organizations/
+            type: string
+            pattern: '^http://id.georef.eu/organizations/'
+          - description: Définition de l'organisation
+            $ref: '#/definitions/Organization'
+      affiliation:
+        description: |
+          An organization that this person is affiliated with.
+          Utilisé pour une adhésion à une association.
+        oneOf:
+          - description: URI d'une organisation dans http://id.georef.eu/organizations/
+            type: string
+            pattern: '^http://id.georef.eu/organizations/'
+          - description: Définition de l'organisation
+            $ref: '#/definitions/Organization'
+      hasOccupation:
+        description: |
+          The Person's occupation. For past professions, use Role for expressing dates.
+          Champ utilisé pour les professions libérales (médecin, ...), les anciens stagiaires,
+          participation à un projet, ...
+        oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+      spouse:
+        $ref: '#/definitions/Person'
+      children:
+        type: array
+        items:
+          $ref: '#/definitions/Person'
+      employs:
+        description: liste d'employés, hors schema.org
+        type: array
+        items:
+          $ref: '#/definitions/Person'
+      knows:
+        description: nom d'une personne, permet de me souvenir des liens
+        type: string
+      jobTitle: { type: string }
+      brand:
+        description: >
+          The brand(s) associated with a product or service, or the brand(s) maintained by an organization
+          or business person.
+        $ref: '#/definitions/Brand'
+      url:
+        description: utilisé notamment pour l'URI LinkedIn
+      note: { description: "info qqc, hors schema.org", type: string }
+      modified: { description: "date de mise à jour de la fiche, hors schema.org", type: string }
+    additionalProperties: false
+  PostalAddress:
+    $id: https://schema.org/PostalAddress
+    description: structuration d'une adresse selon http://schema.org/PostalAddress
+    type: object
+    properties:
+      name:
+        description: nom donné à l'adresse
+        type: string
+        examples:
+          - Site d'Orléans
+      streetAddress:
+        description: The street address. For example, 1600 Amphitheatre Pkwy.
+        type: string
+      postOfficeBoxNumber:
+        description: Utilisé pour une boite postale (BP) ou un identifiant de Course Spéciale (CS)
+        type: string
+      addressLocality:
+        description: The locality in which the street address is, and which is in the region. For example, Mountain View.
+        type: string
+      postalCode:
+        description: The postal code. For example, 94043.
+        type: [number, string]
+      adressCountry:
+        description: The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.
+        type: string
+      telephone:
+        description: no de téléphone de l'organisation (accueil, ...)
+        type: [number, string]
+      faxNumber:
+        description: The fax number.
+        type: string
+      note: { description: "info qqc, hors schema.org", type: string }
+    additionalProperties: false
+  Organization:
+    $id: https://schema.org/Organization
+    description: description d'une organisation, reprend https://schema.org/Organization avec ajout signalé
+    type: object
+    properties:
+      name:
+        description: nom de l'organisation
+        type: string
+      alternateName:
+        description: nom(s) alternatif(s)
+        oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+      url:
+        description: URL du site web institutionnel
+        type: string
+      sameAs:
+        description: autre(s) URI, notamment sur Wikipedia et URI SIRENE
+        oneOf:
+          - type: string
+          - type: array
+            items:
+              type: string
+      address:
+        oneOf:
+          - description: une adresse postale
+            $ref: '#/definitions/PostalAddress'
+          - description: liste des adresses postales chacune identifiée par une clé, siege pour le siège
+            type: object
+            additionalProperties:
+              $ref: '#/definitions/PostalAddress'
+      location:
+        description: liste des adresses géographiques chacune identifiée par une clé, siege pour le siège
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/PostalAddress'
+      email:
+        description: adresse électronique de l'organisation
+        type: string
+      telephone:
+        description: no(s) de téléphone
+        oneOf:
+          - description: un no de téléphone
+            type: string
+          - description: une liste de numéros de téléphone chacun identifié par une clé
+            type: object
+            additionalProperties:
+              type: string
+      areaServed:
+        description: zone géographique servie
+        type: string
+      foundingDate:
+        description: date de création
+      dissolutionDate:
+        description: lendemain de la date de suppression
+      ancestors:
+        description: organisation(s) remplacées par l'organisation créée
+      successors:
+        description: organisation(s) ayant remplacé l'organisation supprimée
+      mainEntityOfPage:
+        description: documents décrivant cette organisation, décret, organigramme, note d'organisation, ...
+        type: array
+        items:
+          $ref: '#/definitions/CreativeWork'
+      subOrganization:
+        description: liste des sous-organisations chacune identifiée par un id. inverse parentOrganization
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/Organization'
+      member:
+        description: >
+          A member of an Organization. Organizations can be members of organizations. inverse member
+          Utilisé pour décrire un lien hiérarchique non géré dans l'arbre subOrganization.
+          Représenté avec une liste d'URI
+        type: array
+        items:
+          type: string
+      sponsor:
+        description: >
+          A person or organization that supports a thing through a pledge, promise, or financial contribution.
+          e.g. a sponsor of a Medical Study or a corporate sponsor of an event.
+          Représenté avec une liste d'URI
+        type: array
+        items:
+          type: string
+      employee:
+        description: liste d'employés de l'organisation, généralement l'encadrement dont les noms sont publics
+        type: array
+        items:
+          $ref: '#/definitions/Person'
+      note:
+        description: >
+          note quelconque associée, hors schema.org, défini par http://www.w3.org/2004/02/skos/core#note
+        type: string
+  Brand:
+    description: A brand is a name used by an organization or business person for labeling a product, product group, or similar.
+    type: object
+    required: [name]
+    properties:
+      name:
+        type: string
+  CreativeWork:
+    $id: https://schema.org/CreativeWork
+    description: Document, film, ...
+    type: object
+    properties:
+      title:
+        description: titre du document
+        type: string
+      url:
+        description: URL d'accès au document
+        type: string
+      datePublished:
+        description: date de publication du document
+        type: string
+    additionalProperties: false
+type: object

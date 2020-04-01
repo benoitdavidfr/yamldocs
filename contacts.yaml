@@ -13,7 +13,7 @@ $schema:
         - description: liste de contacts
           type: array
           items:
-            $ref: '#/definitions/Person'
+            $ref: 'http://id.georef.eu/schema.org/definitions/Person'
         - description: organisation en catégories
           type: object
           additionalProperties:
@@ -105,6 +105,9 @@ $schema:
         streetAddress:
           description: The street address. For example, 1600 Amphitheatre Pkwy.
           type: string
+        postOfficeBoxNumber:
+          description: Utilisé pour une boite postale (BP) ou un identifiant de Course Spéciale (CS)
+          type: string
         addressLocality:
           description: The locality in which the street address is, and which is in the region. For example, Mountain View.
           type: string
@@ -113,6 +116,9 @@ $schema:
           type: [number, string]
         adressCountry:
           description: The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.
+          type: string
+        faxNumber:
+          description: The fax number.
           type: string
         note: { description: "info qqc, hors schema.org", type: string }
       additionalProperties: false
