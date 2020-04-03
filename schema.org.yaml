@@ -1,4 +1,4 @@
-title: Définitions issues de https://schema.org/
+title: Schéma contenant des définitions issues de https://schema.org/
 $id: http://id.georef.eu/contacts/$schema
 $schema: http://json-schema.org/draft-07/schema#
 definitions:
@@ -12,6 +12,7 @@ definitions:
       identifier: { type: string }
       givenName: { type: string }
       telephone: { type: [number, string] }
+      faxNumber: { type: [number, string] }
       email:
         description: adresses(s) électronique(s)
         oneOf:
