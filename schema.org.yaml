@@ -1,7 +1,14 @@
-title: Schéma contenant des définitions issues de https://schema.org/
-$id: http://id.georef.eu/contacts/$schema
+title: Schéma contenant des définitions inspirées de https://schema.org/
+$id: http://id.georef.eu/schema.org
 $schema: http://json-schema.org/draft-07/schema#
 definitions:
+  reference:
+    description: référence JSON (RFC 6901) à un objet
+    type: object
+    required: [$ref]
+    properties:
+      $ref: {type: string}
+    additionalProperties: false
   Person:
     $id: https://schema.org/Person
     description: structuration d'une personne selon http://schema.org/Person
@@ -19,11 +26,8 @@ definitions:
           - {type: string}
           - {type: array, items: {type: string}}
       address:
-        oneOf:
-          - description: structuration d'une adresse selon http://schema.org/PostalAddress
-            $ref: '#/definitions/PostalAddress'
-          - description: référence vers une adresse par exemple dans le registre des organisations
-            type: string
+        description: adresse postale de la personne
+        $ref: '#/definitions/PostalAddressOrRef'
       birthDate: { type: string }
       weddingDate:
         description: date de marriage, hors http://schema.org/
@@ -31,22 +35,12 @@ definitions:
       deathDate: { type: string }
       worksFor:
         description: Organizations that the person works for.
-        oneOf:
-          - description: URI d'une organisation dans http://id.georef.eu/organizations/
-            type: string
-            pattern: '^http://id.georef.eu/organizations/'
-          - description: Définition de l'organisation
-            $ref: '#/definitions/Organization'
+        $ref: '#/definitions/OrganizationOrRef'
       affiliation:
         description: |
           An organization that this person is affiliated with.
           Utilisé pour une adhésion à une association.
-        oneOf:
-          - description: URI d'une organisation dans http://id.georef.eu/organizations/
-            type: string
-            pattern: '^http://id.georef.eu/organizations/'
-          - description: Définition de l'organisation
-            $ref: '#/definitions/Organization'
+        $ref: '#/definitions/OrganizationOrRef'
       hasOccupation:
         description: |
           The Person's occupation. For past professions, use Role for expressing dates.
@@ -58,20 +52,26 @@ definitions:
             items:
               type: string
       spouse:
-        $ref: '#/definitions/Person'
+        description: Définition de l'époux/épouse
+        $ref: '#/definitions/PersonOrRef'
       children:
+        description: liste des enfants
         type: array
         items:
-          $ref: '#/definitions/Person'
+          $ref: '#/definitions/PersonOrRef'
       employs:
         description: liste d'employés, hors schema.org
         type: array
         items:
-          $ref: '#/definitions/Person'
+          $ref: '#/definitions/PersonOrRef'
       knows:
-        description: nom d'une personne, permet de me souvenir des liens
+        description: liste de personnes, permet de me souvenir des liens
+        type: array
+        items:
+          $ref: '#/definitions/PersonOrRef'
+      jobTitle:
+        description: The job title of the person (for example, Financial Manager).
         type: string
-      jobTitle: { type: string }
       brand:
         description: >
           The brand(s) associated with a product or service, or the brand(s) maintained by an organization
@@ -79,9 +79,20 @@ definitions:
         $ref: '#/definitions/Brand'
       url:
         description: utilisé notamment pour l'URI LinkedIn
-      note: { description: "info qqc, hors schema.org", type: string }
-      modified: { description: "date de mise à jour de la fiche, hors schema.org", type: string }
+        type: string
+      note:
+        $id: http://www.w3.org/2004/02/skos/core#note
+        description: "info qqc, hors schema.org"
+        type: string
+      modified:
+        $id: http://purl.org/dc/terms/modified
+        description: date de mise à jour de la fiche, hors schema.org, défini dans Dublin Core terms
+        type: string
     additionalProperties: false
+  PersonOrRef:
+    oneOf:
+      - $ref: '#/definitions/Person'
+      - $ref: '#/definitions/reference'
   PostalAddress:
     $id: https://schema.org/PostalAddress
     description: structuration d'une adresse selon http://schema.org/PostalAddress
@@ -99,12 +110,13 @@ definitions:
         description: Utilisé pour une boite postale (BP) ou un identifiant de Course Spéciale (CS)
         type: string
       addressLocality:
-        description: The locality in which the street address is, and which is in the region. For example, Mountain View.
+        description: >
+          The locality in which the street address is, and which is in the region. For example, Mountain View.
         type: string
       postalCode:
         description: The postal code. For example, 94043.
         type: [number, string]
-      adressCountry:
+      addressCountry:
         description: The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.
         type: string
       telephone:
@@ -113,8 +125,16 @@ definitions:
       faxNumber:
         description: The fax number.
         type: string
-      note: { description: "info qqc, hors schema.org", type: string }
+      note:
+        $id: http://www.w3.org/2004/02/skos/core#note
+        description: >
+          note quelconque associée, hors schema.org, défini par http://www.w3.org/2004/02/skos/core#note
+        type: string
     additionalProperties: false
+  PostalAddressOrRef:
+    oneOf:
+      - $ref: '#/definitions/PostalAddress'
+      - $ref: '#/definitions/reference'
   Organization:
     $id: https://schema.org/Organization
     description: description d'une organisation, reprend https://schema.org/Organization avec ajout signalé
@@ -170,12 +190,18 @@ definitions:
         type: string
       foundingDate:
         description: date de création
+        type: string
       dissolutionDate:
         description: lendemain de la date de suppression
+        type: string
       ancestors:
-        description: organisation(s) remplacées par l'organisation créée
+        description: organisations remplacées par l'organisation créée
+        type: array
+        items: {$ref: '#/definitions/OrganizationOrRef'}
       successors:
-        description: organisation(s) ayant remplacé l'organisation supprimée
+        description: organisations ayant remplacé l'organisation supprimée
+        type: array
+        items: {$ref: '#/definitions/OrganizationOrRef'}
       mainEntityOfPage:
         description: documents décrivant cette organisation, décret, organigramme, note d'organisation, ...
         type: array
@@ -188,12 +214,11 @@ definitions:
           $ref: '#/definitions/Organization'
       member:
         description: >
-          A member of an Organization. Organizations can be members of organizations. inverse member
+          A member of an Organization. Organizations can be members of organizations. inverse memberOf
           Utilisé pour décrire un lien hiérarchique non géré dans l'arbre subOrganization.
-          Représenté avec une liste d'URI
+          Représenté avec une liste d'organisations ou de de références à des organisations.
         type: array
-        items:
-          type: string
+        items: {$ref: '#/definitions/OrganizationOrRef'}
       sponsor:
         description: >
           A person or organization that supports a thing through a pledge, promise, or financial contribution.
@@ -208,9 +233,15 @@ definitions:
         items:
           $ref: '#/definitions/Person'
       note:
+        $id: http://www.w3.org/2004/02/skos/core#note
         description: >
           note quelconque associée, hors schema.org, défini par http://www.w3.org/2004/02/skos/core#note
         type: string
+    additionalProperties: false
+  OrganizationOrRef:
+    oneOf:
+      - $ref: '#/definitions/Organization'
+      - $ref: '#/definitions/reference'
   Brand:
     description: A brand is a name used by an organization or business person for labeling a product, product group, or similar.
     type: object
@@ -218,6 +249,7 @@ definitions:
     properties:
       name:
         type: string
+    additionalProperties: false
   CreativeWork:
     $id: https://schema.org/CreativeWork
     description: Document, film, ...
@@ -233,4 +265,68 @@ definitions:
         description: date de publication du document
         type: string
     additionalProperties: false
+  AdministrativeArea:
+    $id: https://schema.org/AdministrativeArea
+    description: |
+      entité administrative, ne reprend que peu de propriétés de https://schema.org/.
+      Pour une entité vivante, la propriété sameAs définit les codes INSEE et NUTS correspondants.
+      Pour une entité supprimée, les registres INSEE et NUTS ne gérant pas l'historique, utiliser des
+      propriétés spécifiques.
+    type: object
+    required: [name, foundingDate]
+    properties:
+      name:
+        type: string
+      alternateName:
+        description: An alias for the item.
+        type: array
+        items:
+          type: string
+      sameAs:
+        description: autre(s) URI pour une entité vivante, notamment sur http://id.insee.fr/geo/region
+        oneOf:
+          - {type: string, format: uri}
+          - type: array
+            items: {type: string, format: uri}
+      foundingDate:
+        description: date de création
+        type: string
+        format: date
+      dissolutionDate:
+        description: lendemain de la date de suppression, propriété absente pour une entités vivante
+        type: string
+        format: date
+      ancestors:
+        description: entités administratives remplacées par l'entité créée, sous la forme de références
+        type: array
+        items:
+          $ref: '#/definitions/reference'
+      successors:
+        description: >
+          pour une entité supprimée, entités administratives la remplacant, sous la forme de références
+        type: array
+        items:
+          $ref: '#/definitions/reference'
+      insee_code:
+        description: code INSEE d'une entité supprimée
+        type: string
+      nuts_code:
+        description: code NUTS d'une entité supprimée
+        type: string
+      populationTotale:
+        $id: http://rdf.insee.fr/def/demo#populationTotale
+        description: population totale, au sens de l'INSEE, en nombre d'habitants, donnée en fonction de la date
+        type: object
+        patternProperties:
+          '^\d\d\d\d-\d\d-\d\d$': {type: number}
+        additionalProperties: false
+      superficie(km2):
+        description: superficie en km2
+        type: number
+      chefLieu:
+        $id: http://rdf.insee.fr/def/geo#chefLieu
+        description: Chef-Lieu, référence à une commune vivante
+        $ref: '#/definitions/reference'
+    additionalProperties: false
+  
 type: object

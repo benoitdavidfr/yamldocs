@@ -1,0 +1,81 @@
+title: registre historisé des communes
+$schema:
+  $id: http://id.georef.eu/frregions/$schema
+  $schema: http://json-schema.org/draft-07/schema#
+  type: object
+  properties:
+    title:
+      description: titre du document
+      type: string
+    description:
+      description: description du document
+      type: string
+    $schema:
+      description: schema du document
+      $ref: http://json-schema.org/draft-07/schema#
+    ydADscrBhv:
+      description: paramètres de comportement utilisés par le code Php de la classe AutoDescribed
+      type: object
+      additionalProperties: false
+      properties:
+        jsonLdContext:
+          description: contexte JSON-LD à ajouter
+          type: string
+        firstLevelType:
+          description: type des enregistrements de premier niveau dans contents
+          type: string
+        extractProperties:
+          description: >
+            clés utilisées pour traverser les objets définies par type du sujet
+            et avec pour chacune le type de l'objet et la propriété inverse pour référencer le parent
+          type: object
+          additionalProperties:
+            description: clé de premier niveau est le type du sujet de la propriété (départ)
+            type: object
+            additionalProperties:
+              description: clé de second niveau est le nom de la propriété
+              type: object
+              additionalProperties: false
+              properties:
+                objectType:
+                  description: type de l'objet de la propriété (arrivée)
+                  type: string
+                inverse:
+                  description: propriété inverse pour référencer le parent
+                  type: string
+        buildName:
+          description: définition de l'affichage réduit par type d'objet, code Php par type défini dans definitions
+          type: object
+          additionalProperties:
+            description: Pour chaque type le code Php d'affichage réduit est défini comme chaine
+            type: string
+        writePserReally:
+          description: si défini alors le doc est stocké en pser
+          type: boolean
+    contents:
+      description: >
+        liste des régions administratives françaises chacune identifiée par un id qui est
+        pour les régions vivantes, le code ISO 3166-2 suivi de la date de création séparée par le caractère @,
+        pour les régions supprimées, le code INSEE suivi de la date de création séparée par le caractère @.
+      type: object
+      additionalProperties:
+        $ref: 'http://id.georef.eu/schema.org#/definitions/AdministrativeArea'
+    eof:
+      description: marque de fin de fichier
+      type: 'null'
+ydADscrBhv:
+  jsonLdContext: http://schema.org
+  firstLevelType: AdministrativeArea
+  buildName: # définition de l'affichage réduit par type d'objet, code Php par type
+    AdministrativeArea: |
+      $s = isset($item['dissolutionDate']);
+      return ($s?'<s>':'').$item['name'].($s?'</s>':'');
+  writePserReally: true
+contents:
+  75056@1942-01-01:
+    name: Paris
+    foundingDate: '1942-01-01'
+  45234@1942-01-01:
+    name: Orléans
+    foundingDate: '1942-01-01'
+eof:

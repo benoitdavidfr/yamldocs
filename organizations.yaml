@@ -13,214 +13,9 @@ description: |
   La propriété sameAs est utilisée pour les entrées Wikipedia et pour les nos SIREN
   et la propriété url pour le site officiel de l'organisation.
   Voir le schema.
-$schema:
+$schema: 
   $id: http://id.georef.eu/organizations/$schema
   $schema: http://json-schema.org/draft-07/schema#
-  definitions:
-    Organization:
-      $id: https://schema.org/Organization
-      description: description d'une organisation, reprend https://schema.org/Organization avec ajout signalé
-      type: object
-      required: [ name ]
-      additionalProperties: false
-      properties:
-        name:
-          description: nom de l'organisation
-          type: string
-        alternateName:
-          description: nom(s) alternatif(s)
-          oneOf:
-            - type: string
-            - type: array
-              items:
-                type: string
-        url:
-          description: URL du site web institutionnel
-          type: string
-        sameAs:
-          description: autre(s) URI, notamment sur Wikipedia et URI SIRENE
-          oneOf:
-            - type: string
-            - type: array
-              items:
-                type: string
-        address:
-          oneOf:
-            - description: une adresse postale
-              $ref: '#/definitions/PostalAddress'
-            - description: liste des adresses postales chacune identifiée par une clé, siege pour le siège
-              type: object
-              additionalProperties:
-                $ref: '#/definitions/PostalAddress'
-        location:
-          description: liste des adresses géographiques chacune identifiée par une clé, siege pour le siège
-          type: object
-          additionalProperties:
-            $ref: '#/definitions/PostalAddress'
-        email:
-          description: adresse électronique de l'organisation
-          type: string
-        telephone:
-          description: no(s) de téléphone
-          oneOf:
-            - description: un no de téléphone
-              type: string
-            - description: une liste de numéros de téléphone chacun identifié par une clé
-              type: object
-              additionalProperties:
-                type: string
-        areaServed:
-          description: zone géographique servie
-          type: string
-        foundingDate:
-          description: date de création
-        dissolutionDate:
-          description: lendemain de la date de suppression
-        ancestors:
-          description: organisation(s) remplacées par l'organisation créée
-        successors:
-          description: organisation(s) ayant remplacé l'organisation supprimée
-        mainEntityOfPage:
-          description: documents décrivant cette organisation, décret, organigramme, note d'organisation, ...
-          type: array
-          items:
-            $ref: '#/definitions/CreativeWork'
-        subOrganization:
-          description: liste des sous-organisations chacune identifiée par un id. inverse parentOrganization
-          type: object
-          additionalProperties:
-            $ref: '#/definitions/Organization'
-        member:
-          description: >
-            A member of an Organization. Organizations can be members of organizations. inverse member
-            Utilisé pour décrire un lien hiérarchique non géré dans l'arbre subOrganization.
-            Représenté avec une liste d'URI
-          type: array
-          items:
-            type: string
-        sponsor:
-          description: >
-            A person or organization that supports a thing through a pledge, promise, or financial contribution.
-            e.g. a sponsor of a Medical Study or a corporate sponsor of an event.
-            Représenté avec une liste d'URI
-          type: array
-          items:
-            type: string
-        employee:
-          description: liste d'employés de l'organisation, généralement l'encadrement dont les noms sont publics
-          type: array
-          items:
-            $ref: '#/definitions/Person'
-        note:
-          description: >
-            note quelconque associée, hors schema.org, défini par http://www.w3.org/2004/02/skos/core#note
-          type: string
-    PostalAddress:
-      $id: https://schema.org/PostalAddress
-      description: adresse postale structurée proche de https://schema.org/PostalAddress
-      type: object
-      properties:
-        name:
-          description: nom donné à l'adresse
-          type: string
-          examples:
-            - Site d'Orléans
-        streetAddress:
-          description: nom de la voie et numéro dans la voie
-          type: string
-        postOfficeBoxNumber:
-          description: Utilisé pour une boite postale (BP) ou un identifiant de Course Spéciale (CS)
-          type: string
-        addressLocality:
-          description: nom de la ville, comprend éventuellement le Cedex
-          type: string
-        postalCode:
-          description: code postal
-          type: [number, string]
-        addressCountry:
-          description: Pays, peut être fourni comme code ISO ISO 3166-1 alpha-2
-          type: string
-        telephone:
-          description: no de téléphone de l'organisation (accueil, ...)
-          type: [number, string]
-        note:
-          description: note quelconque associée, hors schema.org, défini par http://www.w3.org/2004/02/skos/core#note
-          type: string
-      additionalProperties: false
-    CreativeWork:
-      $id: https://schema.org/CreativeWork
-      description: Document, film, ...
-      type: object
-      properties:
-        title:
-          description: titre du document
-          type: string
-        url:
-          description: URL d'accès au document
-          type: string
-        datePublished:
-          description: date de publication du document
-          type: string
-      additionalProperties: false
-    Person:
-      $id: https://schema.org/Person
-      description: structuration d'une personne selon http://schema.org/Person
-      type: object
-      required: [name]
-      properties:
-        name: { type: string }
-        identifier: { type: string }
-        givenName: { type: string }
-        telephone: { type: [number, string] }
-        email:
-          description: adresses(s) électronique(s)
-          oneOf:
-            - {type: string}
-            - {type: array, items: {type: string}}
-        address:
-          oneOf:
-            - description: structuration d'une adresse selon http://schema.org/PostalAddress
-              $ref: '#/definitions/PostalAddress'
-            - description: référence vers une adresse par exemple dans le registre des organisations
-              type: string
-        birthDate: { type: string }
-        deathDate: { type: string }
-        affiliation:
-          description: |
-            An organization that this person is affiliated with.
-            Utilisé pour une adhésion à une association.
-          oneOf:
-            - { description: "URI d'une organisation", type: string }
-            - $ref: '#/definitions/Organization'
-        hasOccupation:
-          description: |
-            The Person's occupation. For past professions, use Role for expressing dates.
-            Champ utilisé pour les profession libérales (médecin, ...), les anciens stagiaires, paticipation à un projet, ...
-          type: string
-        spouse:
-          $ref: '#/definitions/Person'
-        children:
-          type: array
-          items:
-            $ref: '#/definitions/Person'
-        employs:
-          description: liste d'employés, hors schema.org
-          type: array
-          items:
-            $ref: '#/definitions/Person'
-        knows:
-          description: nom d'une personne, permet de me souvenir des liens
-          type: string
-        jobTitle: { type: string }
-        brand:
-          description: >
-            The brand(s) associated with a product or service, or the brand(s) maintained by an organization or business person.
-          $ref: '#/definitions/Brand'
-        url:
-          description: utilisé notamment pour l'URI LinkedIn
-        note: { description: "info qqc, hors schema.org", type: string }
-        modified: { description: "date de mise à jour de la fiche, hors schema.org", type: string }
-      additionalProperties: false
   type: object
   properties:
     title:
@@ -275,7 +70,7 @@ $schema:
       description: liste récursive d'organisations chacune identifiée par un id
       type: object
       additionalProperties:
-        $ref: '#/definitions/Organization'
+        $ref: 'http://id.georef.eu/schema.org#/definitions/Organization'
     eof:
       description: marque de fin de fichier
       type: 'null'
@@ -327,16 +122,16 @@ contents:
           - name: Mme Emmanuelle WARGON
             jobTitle: Secrétaire d'Etat auprès de la ministre de la transition écologique et solidaire
         member:
-          - http://id.georef.eu/organizations/fr.gouv/CGEDD
-          - http://id.georef.eu/organizations/fr.gouv/IGAM
-          - http://id.georef.eu/organizations/fr.gouv/SGPMET
-          - http://id.georef.eu/organizations/fr.gouv/CGDD
-          - http://id.georef.eu/organizations/fr.gouv/DGEC
-          - http://id.georef.eu/organizations/fr.gouv/DGITM
-          - http://id.georef.eu/organizations/fr.gouv/DGAC
-          - http://id.georef.eu/organizations/fr.gouv/DGALN
-          - http://id.georef.eu/organizations/fr.gouv/DGPR
-          - http://id.georef.eu/organizations/fr.gouv/HCESSIS
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/CGEDD}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/IGAM}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/SGPMET}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/CGDD}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/DGEC}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/DGITM}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/DGAC}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/DGALN}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/DGPR}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/HCESSIS}
         address:
           siege:
             name: Hôtel de Roquelaure
@@ -407,7 +202,7 @@ contents:
             streetAddress: Tour Sequoïa, 1 Place Carpeaux
             postalCode: 92055
             addressLocality: La Défense cedex 04
-          Orléans:
+          Orleans:
             name: Site d'Orléans
             streetAddress: 5 route d’Olivet
             postOfficeBoxNumber: CS 16105
@@ -1101,22 +896,22 @@ contents:
         areaServed: fr:region:32@2016-01-01
         foundingDate: 2016-01-01
         ancestors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.npdc
-          - http://id.georef.eu/organizations/fr.gouv/dreal.picardie
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.npdc}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.picardie}
       dreal.npdc:
         name: DREAL Nord-Pas-de-Calais
         areaServed: fr:region:31@1970-01-09
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.hdf
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.hdf}
       dreal.picardie:
         name: DREAL Picardie
         areaServed: fr:region:22@1970-01-09
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.hdf
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.hdf}
       dreal.ges:
         name: DREAL Grand Est
         areaServed: fr:region:44@2016-01-01
@@ -1124,9 +919,9 @@ contents:
         alternateName:
           - DREAL Grand Est (Direction Régionale de l'Environnement, de l'Aménagement et du Logement)
         ancestors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.cardenne
-          - http://id.georef.eu/organizations/fr.gouv/dreal.lorraine
-          - http://id.georef.eu/organizations/fr.gouv/dreal.alsace
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.cardenne}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.lorraine}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.alsace}
       dreal.cardenne:
         name: DREAL Champagne-Ardenne
         alternateName:
@@ -1135,35 +930,35 @@ contents:
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.ges
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.ges}
       dreal.lorraine:
         name: DREAL Lorraine
         areaServed: fr:region:41@1970-01-09
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.ges
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.ges}
       dreal.alsace:
         name: DREAL Alsace
         areaServed: fr:region:42@1970-01-09
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.ges
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.ges}
       dreal.bfc:
         name: DREAL Bourgogne-Franche-Comté
         areaServed: fr:region:27@2016-01-01
         foundingDate: 2016-01-01
         ancestors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.bourgogne
-          - http://id.georef.eu/organizations/fr.gouv/dreal.fcomte
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.bourgogne}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.fcomte}
       dreal.bourgogne:
         name: DREAL Bourgogne
         areaServed: fr:region:26@1970-01-09
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.bfc
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.bfc}
       dreal.fcomte:
         name: DREAL Franche-Comté
         alternateName:
@@ -1172,28 +967,28 @@ contents:
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.bfc
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.bfc}
       dreal.ara:
         name: DREAL Auvergne-Rhône-Alpes
         areaServed: fr:region:84@2016-01-01
         foundingDate: 2016-01-01
         ancestors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.auvergne
-          - http://id.georef.eu/organizations/fr.gouv/dreal.ralpes
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.auvergne}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.ralpes}
       dreal.auvergne:
         name: DREAL Auvergne
         areaServed: fr:region:83@1970-01-09
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.ara
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.ara}
       dreal.ralpes:
         name: DREAL Rhône-Alpes
         areaServed: fr:region:82@1970-01-09
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.ara
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.ara}
       dreal.pac:
         name: DREAL Provence-Alpes-Côte d'Azur
         areaServed: fr:region:93@1970-01-09
@@ -1207,8 +1002,8 @@ contents:
         areaServed: fr:region:76@2016-01-01
         foundingDate: 2016-01-01
         ancestors:
-          - http://id.georef.eu/organizations/fr.gouv/lroussillon
-          - http://id.georef.eu/organizations/fr.gouv/dreal.mip
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.lroussillon}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.mip}
       dreal.lroussillon:
         name: DREAL Languedoc-Roussillon
         alternateName:
@@ -1217,43 +1012,43 @@ contents:
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.occ
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.occ}
       dreal.mip:
         name: DREAL Midi-Pyrénées
         areaServed: fr:region:73@1970-01-09
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.occ
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.occ}
       dreal.naq:
         name: DREAL Nouvelle-Aquitaine 
         areaServed: fr:region:75@2016-01-01
         foundingDate: 2016-01-01
         ancestors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.pcharentes
-          - http://id.georef.eu/organizations/fr.gouv/dreal.aquitaine
-          - http://id.georef.eu/organizations/fr.gouv/dreal.limousin
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.pcharentes}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.aquitaine}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.limousin}
       dreal.pcharentes:
         name: DREAL Poitou-Charentes
         areaServed: fr:region:54@1970-01-09
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.naq
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.naq}
       dreal.aquitaine:
         name: DREAL Aquitaine
         areaServed: fr:region:72@1970-01-09
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.naq
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.naq}
       dreal.limousin:
         name: DREAL Limousin
         areaServed: fr:region:74@1970-01-09
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.naq
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.naq}
       dreal.cvl:
         name: DREAL Centre-Val de Loire
         areaServed: fr:region:24@1970-01-09
@@ -1282,22 +1077,22 @@ contents:
         areaServed: fr:region:28@2016-01-01
         foundingDate: 2016-01-01
         ancestors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.bnormandie
-          - http://id.georef.eu/organizations/fr.gouv/dreal.hnormandie
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.bnormandie}
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.hnormandie}
       dreal.bnormandie:
         name: DREAL Basse-Normandie
         areaServed: fr:region:25@1970-01-09
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.nor
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.nor}
       dreal.hnormandie:
         name: DREAL Haute-Normandie
         areaServed: fr:region:23@1970-01-09
         foundingDate: 2009-01-01
         dissolutionDate: 2016-01-01
         successors:
-          - http://id.georef.eu/organizations/fr.gouv/dreal.nor
+          - {$ref: http://id.georef.eu/organizations/fr.gouv/dreal.nor}
       driea.idf:
         name: DRIEA Île-de-France
         alternateName:
@@ -1665,6 +1460,16 @@ contents:
     name: KYNAPSE
     url: http://www.kynapse.fr/
     sameAs: http://id.georef.eu/insee/sirene/siren/844443200
+  com.google:
+    name: Google
+    subOrganization:
+      fr:
+        name: bureau de Paris
+        address:
+          siege:
+            streetAddress: 8 rue de Londres
+            postalCode: 75009
+            addressLocality: Paris
   com.dataiku:
     name: Dataiku
     url: http://www.dataiku.com/
