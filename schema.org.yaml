@@ -313,13 +313,20 @@ definitions:
       nuts_code:
         description: code NUTS d'une entité supprimée
         type: string
+      containedInPlace:
+        description: entités administratives parentes
+        type: array
+        items:
+          $ref: '#/definitions/reference'
       populationTotale:
         $id: http://rdf.insee.fr/def/demo#populationTotale
-        description: population totale, au sens de l'INSEE, en nombre d'habitants, donnée en fonction de la date
-        type: object
-        patternProperties:
-          '^\d\d\d\d-\d\d-\d\d$': {type: number}
-        additionalProperties: false
+        description: population totale, au sens de l'INSEE, en nombre d'habitants, si possible datée
+        oneOf:
+          - type: object
+            patternProperties:
+              '^\d\d\d\d-\d\d-\d\d$': {type: number}
+            additionalProperties: false
+          - type: number
       superficie(km2):
         description: superficie en km2
         type: number
@@ -327,6 +334,8 @@ definitions:
         $id: http://rdf.insee.fr/def/geo#chefLieu
         description: Chef-Lieu, référence à une commune vivante
         $ref: '#/definitions/reference'
+      insee_modification:
+        type: [string, number]
     additionalProperties: false
   
 type: object
