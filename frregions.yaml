@@ -1,9 +1,13 @@
 title: registre des régions françaises avec leur historique
 creator: https://github.com/benoitdavidfr
 description: |
-  Jeu de données de l'historique des régions françaises dérivé de geohisto d'Etalab et organisé en registre Yaml.
+  Jeu de données de l'historique des régions françaises (circonscription administrative) dérivé de geohisto
+  d'Etalab et organisé en registre YamlDoc.
   L'historique démarre au 9/1/1970, le jeu est à jour des régions de 2016 avec leur nom défini en 2016.
   Le jeu est publié sous la licence ouverte Etalab 2.0.
+  
+  L'identifiant utilisé est la partie spécifique du code ISO 3166-2 pour les régions vivantes et son code INSEE
+  pour les régions périmées.
 publisher: https://github.com/benoitdavidfr
 contributor: [ https://www.etalab.gouv.fr/ ]
 date: 2018-06-03
@@ -77,9 +81,8 @@ $schema:
           type: boolean
     contents:
       description: >
-        liste des régions administratives françaises chacune identifiée par un id qui est
-        pour les régions vivantes, le code ISO 3166-2 suivi de la date de création séparée par le caractère @,
-        pour les régions supprimées, le code INSEE suivi de la date de création séparée par le caractère @.
+        Liste des régions administratives françaises chacune identifiée par un id qui est pour les régions
+        vivantes, la partie spécifique de son code ISO 3166-2, pour les régions supprimées, son code INSEE.
       type: object
       additionalProperties:
         $ref: 'http://id.georef.eu/schema.org#/definitions/AdministrativeArea'
@@ -95,7 +98,7 @@ ydADscrBhv:
       return ($s?'<s>':'').$item['name'].($s?'</s>':'');
   writePserReally: true
 contents:
-  IDF@1970-01-09:
+  IDF:
     name: Île-de-France
     sameAs:
       - http://id.insee.fr/geo/region/11
@@ -106,8 +109,8 @@ contents:
     populationTotale:
       '2016-01-01': 12258425
     superficie(km2): 12011
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/75056@1942-01-01}
-  CVL@2015-01-17:
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/75056}
+  CVL:
     name: Centre-Val de Loire
     sameAs:
       - http://id.insee.fr/geo/region/24
@@ -115,31 +118,31 @@ contents:
       - https://fr.wikipedia.org/wiki/Centre-Val_de_Loire
     foundingDate: '2015-01-17'
     ancestors:
-      - {$ref: '#/24@1970-01-09'}
+      - {$ref: '#/contents/24'}
     populationTotale:
       '2016-01-01': 2577866
     superficie(km2): 39151
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/45234@1942-01-01}
-  24@1970-01-09:
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/45234}
+  '24':
     name: Centre
     insee_code: '24'
     nuts_code: FR24
     foundingDate: '1970-01-09'
     dissolutionDate: '2015-01-17'
     successors:
-      - {$ref: '#/CVL@2015-01-17'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/45234@1942-01-01}
-  BFC@2016-01-01:
+      - {$ref: '#/contents/CVL'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/45234}
+  BFC:
     name: Bourgogne-Franche-Comté
     sameAs:
       - http://id.insee.fr/geo/region/27
       - https://fr.wikipedia.org/wiki/Bourgogne-Franche-Comt%C3%A9
     foundingDate: '2016-01-01'
     ancestors:
-      - {$ref: '#/26@1970-01-09'}
-      - {$ref: '#/43@1970-01-09'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/21231@1942-01-01}
-  26@1970-01-09:
+      - {$ref: '#/contents/26'}
+      - {$ref: '#/contents/43'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/21231}
+  '26':
     name: Bourgogne
     sameAs:
       - https://fr.wikipedia.org/wiki/Bourgogne_(ancienne_r%C3%A9gion_administrative)
@@ -147,9 +150,9 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/BFC@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/21231@1942-01-01}
-  43@1970-01-09:
+      - {$ref: '#/contents/BFC@2016-01-01'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/21231}
+  '43':
     name: Franche-Comté
     sameAs:
       - https://fr.wikipedia.org/wiki/Franche-Comt%C3%A9_(ancienne_r%C3%A9gion_administrative)
@@ -157,27 +160,27 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/BFC@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/25056@1942-01-01}
-  NOR@2016-01-01:
+      - {$ref: '#/contents/BFC'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/25056}
+  NOR:
     name: Normandie
     sameAs:
       - http://id.insee.fr/geo/region/28
       - https://fr.wikipedia.org/wiki/Normandie_(r%C3%A9gion_administrative)
     foundingDate: '2016-01-01'
     ancestors:
-      - {$ref: '#/23@1970-01-09'}
-      - {$ref: '#/25@1970-01-09'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/76540@1942-01-01}
-  23@1970-01-09:
+      - {$ref: '#/contents/23'}
+      - {$ref: '#/contents/25'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/76540}
+  '23':
     name: Haute-Normandie
     insee_code: '23'
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/NOR@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/76540@1942-01-01}
-  25@1970-01-09:
+      - {$ref: '#/contents/NOR'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/76540}
+  '25':
     name: Basse-Normandie
     sameAs:
       - https://fr.wikipedia.org/wiki/Basse-Normandie
@@ -185,9 +188,9 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/NOR@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/14118@1942-01-01}
-  HDF@2016-01-01:
+      - {$ref: '#/contents/NOR'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/14118}
+  HDF:
     name: Hauts-de-France
     sameAs:
       - http://id.insee.fr/geo/region/32
@@ -195,11 +198,11 @@ contents:
       - https://fr.wikipedia.org/wiki/Hauts-de-France
     foundingDate: '2016-01-01'
     ancestors:
-      - {$ref: '#/22@1970-01-09'}
-      - {$ref: '#/31@1970-01-09'}
+      - {$ref: '#/contents/22'}
+      - {$ref: '#/contents/31'}
     superficie(km2): 31813
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/59350@1942-01-01}
-  22@1970-01-09:
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/59350}
+  '22':
     name: Picardie
     sameAs:
       - https://fr.wikipedia.org/wiki/Picardie_(ancienne_r%C3%A9gion_administrative)
@@ -208,9 +211,9 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/HDF@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/80021@1942-01-01}
-  31@1970-01-09:
+      - {$ref: '#/contents/HDF@2016-01-01'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/80021}
+  '31':
     name: Nord-Pas-de-Calais
     sameAs:
       - https://fr.wikipedia.org/wiki/Nord-Pas-de-Calais
@@ -219,20 +222,20 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/HDF@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/59350@1942-01-01}
-  GES@2016-01-01:
+      - {$ref: '#/contents/HDF'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/59350}
+  GES:
     name: Grand Est
     sameAs:
       - http://id.insee.fr/geo/region/44
       - https://fr.wikipedia.org/wiki/Grand-Est
     foundingDate: '2016-01-01'
     ancestors:
-      - {$ref: '#/21@1970-01-09'}
-      - {$ref: '#/41@1970-01-09'}
-      - {$ref: '#/42@1970-01-09'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/67482@1942-01-01}
-  21@1970-01-09:
+      - {$ref: '#/contents/21'}
+      - {$ref: '#/contents/41'}
+      - {$ref: '#/contents/42'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/67482}
+  '21':
     name: Champagne-Ardenne
     sameAs:
       - https://fr.wikipedia.org/wiki/Champagne-Ardenne
@@ -240,9 +243,9 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/GES@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/51108@1998-01-04}
-  41@1970-01-09:
+      - {$ref: '#/contents/GES'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/51108}
+  '41':
     name: Lorraine
     sameAs:
       - https://fr.wikipedia.org/wiki/Lorraine_(ancienne_r%C3%A9gion_administrative)
@@ -250,9 +253,9 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/GES@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/57463@1942-01-01}
-  42@1970-01-09:
+      - {$ref: '#/contents/GES'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/57463}
+  '42':
     name: Alsace
     sameAs:
       - https://fr.wikipedia.org/wiki/Alsace_(ancienne_r%C3%A9gion_administrative)
@@ -260,34 +263,34 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/GES@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/67482@1942-01-01}
-  PDL@1970-01-09:
+      - {$ref: '#/contents/GES'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/67482}
+  PDL:
     name: Pays de la Loire
     sameAs:
       - http://id.insee.fr/geo/region/52
       - https://fr.wikipedia.org/wiki/Pays_de_la_Loire
     foundingDate: '1970-01-09'
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/44109@1942-01-01}
-  BRE@1970-01-09:
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/44109}
+  BRE:
     name: Bretagne
     sameAs:
       - http://id.insee.fr/geo/region/53
       - https://fr.wikipedia.org/wiki/R%C3%A9gion_Bretagne
     foundingDate: '1970-01-09'
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/35238@1942-01-01}
-  NAQ@2016-01-01:
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/35238}
+  NAQ:
     name: Nouvelle-Aquitaine
     sameAs:
       - http://id.insee.fr/geo/region/75
       - https://fr.wikipedia.org/wiki/Nouvelle-Aquitaine
     foundingDate: '2016-01-01'
     ancestors:
-      - {$ref: '#/54@1970-01-09'}
-      - {$ref: '#/72@1970-01-09'}
-      - {$ref: '#/74@1970-01-09'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/33063@1942-01-01}
-  54@1970-01-09:
+      - {$ref: '#/contents/54'}
+      - {$ref: '#/contents/72'}
+      - {$ref: '#/contents/74'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/33063}
+  '54':
     name: Poitou-Charentes
     sameAs:
       - https://fr.wikipedia.org/wiki/Poitou-Charentes
@@ -295,9 +298,9 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/NAQ@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/86194@1942-01-01}
-  72@1970-01-09:
+      - {$ref: '#/contents/NAQ'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/86194}
+  '72':
     name: Aquitaine
     sameAs:
       - https://fr.wikipedia.org/wiki/Aquitaine_(ancienne_r%C3%A9gion)
@@ -305,9 +308,9 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/NAQ@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/33063@1942-01-01}
-  74@1970-01-09:
+      - {$ref: '#/contents/NAQ'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/33063}
+  '74':
     name: Limousin
     sameAs:
       - https://fr.wikipedia.org/wiki/Limousin_(ancienne_r%C3%A9gion_administrative)
@@ -315,19 +318,19 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/NAQ@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/87085@1942-01-01}
-  OCC@2016-01-01:
+      - {$ref: '#/contents/NAQ'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/87085}
+  OCC:
     name: Occitanie
     sameAs:
       - http://id.insee.fr/geo/region/76
       - https://fr.wikipedia.org/wiki/R%C3%A9gion_Occitanie
     foundingDate: '2016-01-01'
     ancestors:
-      - {$ref: '#/73@1970-01-09'}
-      - {$ref: '#/91@1970-01-09'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/31555@1942-01-01}
-  73@1970-01-09:
+      - {$ref: '#/contents/73'}
+      - {$ref: '#/contents/91'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/31555}
+  '73':
     name: Midi-Pyrénées
     sameAs:
       - https://fr.wikipedia.org/wiki/Midi-Pyr%C3%A9n%C3%A9es
@@ -335,9 +338,9 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/OCC@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/31555@1942-01-01}
-  91@1970-01-09:
+      - {$ref: '#/contents/OCC@2016-01-01'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/31555}
+  '91':
     name: Languedoc-Roussillon
     sameAs:
       - https://fr.wikipedia.org/wiki/Languedoc-Roussillon
@@ -345,19 +348,19 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/OCC@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/34172@1942-01-01}
-  ARA@2016-01-01:
+      - {$ref: '#/contents/OCC@2016-01-01'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/34172}
+  ARA:
     name: Auvergne-Rhône-Alpes
     sameAs:
       - http://id.insee.fr/geo/region/84
       - https://fr.wikipedia.org/wiki/Auvergne-Rh%C3%B4ne-Alpes
     foundingDate: '2016-01-01'
     ancestors:
-      - {$ref: '#/82@1970-01-09'}
-      - {$ref: '#/83@1970-01-09'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/69123@1942-01-01}
-  82@1970-01-09:
+      - {$ref: '#/contents/82'}
+      - {$ref: '#/contents/83'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/69123}
+  '82':
     name: Rhône-Alpes
     sameAs:
       - https://fr.wikipedia.org/wiki/Rh%C3%B4ne-Alpes
@@ -365,9 +368,9 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/ARA@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/69123@1942-01-01}
-  83@1970-01-09:
+      - {$ref: '#/contents/ARA'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/69123}
+  '83':
     name: Auvergne
     sameAs:
       - https://fr.wikipedia.org/wiki/Auvergne_(ancienne_r%C3%A9gion_administrative)
@@ -375,9 +378,9 @@ contents:
     foundingDate: '1970-01-09'
     dissolutionDate: '2016-01-01'
     successors:
-      - {$ref: '#/ARA@2016-01-01'}
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/63113@1942-01-01}
-  PAC@1970-01-09:
+      - {$ref: '#/contents/ARA'}
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/63113}
+  PAC:
     name: Provence-Alpes-Côte d'Azur
     alternateName:
       - PACA
@@ -386,47 +389,49 @@ contents:
       - http://id.insee.fr/geo/region/93
       - https://fr.wikipedia.org/wiki/Provence-Alpes-C%C3%B4te_d%27Azur
     foundingDate: '1970-01-09'
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/13055@1942-01-01}
-  COR@1970-01-09:
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/13055}
+  COR:
     name: Corse
     sameAs:
       - http://id.insee.fr/geo/region/94
       - https://fr.wikipedia.org/wiki/Provence-Alpes-C%C3%B4te_d%27Azur
     foundingDate: '1970-01-09'
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/2A004@1976-01-01}
-  GUA@1970-01-09:
+    chefLieu:
+      '1970-01-09': {$ref: http://id.georef.eu/frcommunes/20004}
+      '1976-01-01': {$ref: http://id.georef.eu/frcommunes/2A004}
+  GUA:
     name: Guadeloupe
     sameAs:
       - http://id.insee.fr/geo/region/01
       - https://fr.wikipedia.org/wiki/Guadeloupe
     foundingDate: '1970-01-09'
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/97105@1942-01-01}
-  MTQ@1970-01-09:
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/97105}
+  MTQ:
     name: Martinique
     sameAs:
       - http://id.insee.fr/geo/region/02
       - https://fr.wikipedia.org/wiki/Martinique
     foundingDate: '1970-01-09'
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/97209@1942-01-01}
-  GUF@1970-01-09:
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/97209}
+  GUF:
     name: Guyane
     sameAs:
       - http://id.insee.fr/geo/region/03
       - https://fr.wikipedia.org/wiki/Guyane
     foundingDate: '1970-01-09'
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/97302@1942-01-01}
-  LRE@1970-01-09:
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/97302}
+  LRE:
     name: La Réunion
     sameAs:
       - http://id.insee.fr/geo/region/04
       - https://fr.wikipedia.org/wiki/La_R%C3%A9union
     foundingDate: '1970-01-09'
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/97302@1942-01-01}
-  MAY@1970-01-09:
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/97302}
+  MAY:
     name: Mayotte
     sameAs:
       - http://id.insee.fr/geo/region/06
       - https://fr.wikipedia.org/wiki/Mayotte
-    foundingDate: '1970-01-09'
-    chefLieu: {$ref: http://id.georef.eu/frcommunes/97611@1942-01-01}
+    foundingDate: '2011-03-31'
+    chefLieu: {$ref: http://id.georef.eu/frcommunes/97611}
 eof:

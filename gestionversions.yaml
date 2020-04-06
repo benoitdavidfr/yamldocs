@@ -1,0 +1,55 @@
+title: gestion d'une base d'objets versionnés
+contents: |
+  Définir dans YamlDoc des mécanismes génériques de gestion d'une base d'objets versionnés.
+  Application aux entités administratives.
+  Au lieu de contenir les objets originaux, le fichier contient des versions d'objets vivantes ou périmées.
+  Ajout de 4 propriétés:
+    - foundingDate: type date, début de la version, propriété obligatoire, participe à la clé
+    - dissolutionDate: type date?, propriété optionnelle, existe ssi la version est périmée
+    - ancestors: ref réflexive vers la liste des versions précédentes, optionnel
+    - successors: ref réflexive vers la liste des versions suivantes, optionnel, existe ssi la version est périmée
+  Certaines propriétés mono-valuées deviennent multi-valuées pour founir les différents valeurs dans le temps
+  sous la forme {{dateDeDébut}: {valeur}}
+  La propriété contents du fichier comprend les versions d'objets avec 2 niveaux de clés:
+    1) la clé des objets non versionnés,
+    2) la date de début de la version.
+  
+  On peut prévoir diverses utilisations:
+    1) à partir de la clé composite de version,
+      - accès à une version d'un objet ou
+      - erreur d'absence si la version n'existe pas
+      exemples:
+        - '01187@2016-01-01' -> { }
+        - '01187@2016-01-02' -> absent
+    2) à partir de la clé d'objet,
+      - accès à une version non périmée de l'objet, ou
+      - renvoi vers la clé de l'objet ayant remplacé l'objet demandé, ou
+      - erreur d'absence si la clé n'a jamais existé
+        ou si l'objet référencé est périmé et qu'il n'a été remplacé par aucun objet vivant
+      exemples:
+        - '01187' -> { }
+        - '01292' -> [-> 01187]
+        - '01555' -> absent
+    3) à partir d'une clé constituée d'un code INSEE et d'une data qqc
+      - si une version est valable à cette date alors renvoie de cette version
+        - ex: '/01187@2016-01-02/interpolate' -> { l'objet 01187@2016-01-01 valide à cette date }
+      - sinon erreur d'absence
+    4) à partir de la clé d'objet,
+      - accès à l'arbre des versions successives de l'objet
+      - /01292/successors
+    5) à partir de la clé d'objet,
+      - accès au graphe des versions successives de l'objet et des versions ayant contribué aux versions
+      - /01292/graph
+
+questions: |
+  - les références entre registres doivent-elles utiliser des URI avec date ou sans ?
+    - avantage de la date
+      - définition d'une version précise
+      - logique d'URI simple
+    - inconvénients
+      - plus complexe à gérer
+      - logique d'URI plus complexe
+  - pourquoi mettre une date dans les clés des régions ?
+
+aFaire: |
+  - vérifier les liens

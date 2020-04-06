@@ -268,10 +268,12 @@ definitions:
   AdministrativeArea:
     $id: https://schema.org/AdministrativeArea
     description: |
-      entité administrative, ne reprend que peu de propriétés de https://schema.org/.
-      Pour une entité vivante, la propriété sameAs définit les codes INSEE et NUTS correspondants.
-      Pour une entité supprimée, les registres INSEE et NUTS ne gérant pas l'historique, utiliser des
-      propriétés spécifiques.
+      Entité administrative, ne reprend que peu de propriétés de https://schema.org/.
+      Gère des versions successives de l'entité avec la filiation entre versions avec les propriétés
+      foundingDate, dissolutionDate, ancestors et successors.
+      Pour une version vivante, la propriété sameAs définit les codes INSEE et NUTS correspondants.
+      Pour une entité supprimée, les registres INSEE et NUTS ne gérant pas l'historique, des propriétés
+      spécifiques son utilisées.
     type: object
     required: [name, foundingDate]
     properties:
@@ -293,7 +295,9 @@ definitions:
         type: string
         format: date
       dissolutionDate:
-        description: lendemain de la date de suppression, propriété absente pour une entités vivante
+        description: >
+          lendemain de la date de suppression, cad date de création du successeur,
+          propriété absente pour une entités vivante
         type: string
         format: date
       ancestors:
@@ -308,16 +312,29 @@ definitions:
         items:
           $ref: '#/definitions/reference'
       insee_code:
-        description: code INSEE d'une entité supprimée
+        description: code INSEE d'une version supprimée
         type: string
       nuts_code:
-        description: code NUTS d'une entité supprimée
+        description: code NUTS d'une version supprimée
         type: string
-      containedInPlace:
-        description: entités administratives parentes
+      statutJuridique:
+        type: string
+      mainEntityOfPage:
+        description: documents décrivant cette entité, lois, décrets, ...
         type: array
         items:
-          $ref: '#/definitions/reference'
+          $ref: '#/definitions/CreativeWork'
+      containedInPlace:
+        description: entité administrative parente, éventuellement définie par période
+        oneOf:
+          - description: référence à une entité valable pendant toute la durée de vie de l'objet
+            $ref: '#/definitions/reference'
+          - description: >
+              référence à différentes entités en fonction des périodes, indexé sur la date de début de la période
+            type: object
+            patternProperties:
+              '^\d\d\d\d-\d\d-\d\d$': {$ref: '#/definitions/reference'}
+            additionalProperties: false
       populationTotale:
         $id: http://rdf.insee.fr/def/demo#populationTotale
         description: population totale, au sens de l'INSEE, en nombre d'habitants, si possible datée
@@ -332,10 +349,24 @@ definitions:
         type: number
       chefLieu:
         $id: http://rdf.insee.fr/def/geo#chefLieu
-        description: Chef-Lieu, référence à une commune vivante
-        $ref: '#/definitions/reference'
+        description: Chef-Lieu, références à une ou plusieurs communes dans le temps.
+        oneOf:
+          - description: référence à une commune valable pendant toute la durée de vie de l'objet
+            $ref: '#/definitions/reference'
+          - description: >
+              référence à différentes communes en fonction des périodes, indexé sur la date de début de la période
+            type: object
+            patternProperties:
+              '^\d\d\d\d-\d\d-\d\d$': {$ref: '#/definitions/reference'}
+            additionalProperties: false
       insee_modification:
+        description: codification de la modification par l'INSEE
         type: [string, number]
+      note:
+        $id: http://www.w3.org/2004/02/skos/core#note
+        description: >
+          note quelconque associée, hors schema.org, défini par http://www.w3.org/2004/02/skos/core#note
+        type: string
     additionalProperties: false
   
 type: object

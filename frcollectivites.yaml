@@ -1,0 +1,226 @@
+title: registre historisé des collectivités et territoires des outres-mers français
+creator: https://github.com/benoitdavidfr
+description: |
+  Jeu de données de l'historique des collectivités et territoires des outres-mers français dérivé de geohisto d'Etalab et organisé en YamlDoc.
+  L'historique démarre au 28/3/2003.
+  Le jeu est publié sous la licence ouverte Etalab 2.0.
+publisher: https://github.com/benoitdavidfr
+contributor: [ https://www.etalab.gouv.fr/ ]
+date: 2020-04-05
+type: http://purl.org/dc/dcmitype/Dataset
+format: application/x-yaml
+identifier: http://yamldoc.georef.eu/collectivites
+source:
+  - import le 28/5/2018 de https://github.com/etalab/geohisto/blob/master/exports/collectivites/collectivites.csv
+  - structuration en YamlDoc avec définition de la clé en 2 parties (code insee, date de début)
+  - ajout de métadonnées DublinCore
+language: fra
+relation:
+  - https://github.com/etalab/geohisto/tree/master/exports/collectivites
+  - https://github.com/benoitdavidfr/yamldoc
+coverage:
+  spatial: iso:code:3166:FR
+  temporal: { start: 2003-03-28, end: 2017-01-01 }
+rights: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+$schema:
+  $id: http://id.georef.eu/frregions/$schema
+  $schema: http://json-schema.org/draft-07/schema#
+  type: object
+  properties:
+    title:
+      description: titre du document
+      type: string
+    description:
+      description: description du document
+      type: string
+    $schema:
+      description: schema du document
+      $ref: http://json-schema.org/draft-07/schema#
+    ydADscrBhv:
+      description: paramètres de comportement utilisés par le code Php de la classe AutoDescribed
+      type: object
+      additionalProperties: false
+      properties:
+        jsonLdContext:
+          description: contexte JSON-LD à ajouter
+          type: string
+        doubleKeys:
+          description: indique que les enregistrements sont indexés pat une double clé
+          type: boolean
+        firstLevelType:
+          description: type des enregistrements de premier niveau dans contents
+          type: string
+        extractProperties:
+          description: >
+            clés utilisées pour traverser les objets définies par type du sujet
+            et avec pour chacune le type de l'objet et la propriété inverse pour référencer le parent
+          type: object
+          additionalProperties:
+            description: clé de premier niveau est le type du sujet de la propriété (départ)
+            type: object
+            additionalProperties:
+              description: clé de second niveau est le nom de la propriété
+              type: object
+              additionalProperties: false
+              properties:
+                objectType:
+                  description: type de l'objet de la propriété (arrivée)
+                  type: string
+                inverse:
+                  description: propriété inverse pour référencer le parent
+                  type: string
+        buildName:
+          description: définition de l'affichage réduit par type d'objet, code Php par type défini dans definitions
+          type: object
+          additionalProperties:
+            description: Pour chaque type le code Php d'affichage réduit est défini comme chaine
+            type: string
+        writePserReally:
+          description: si défini alors le doc est stocké en pser
+          type: boolean
+    contents:
+    contents:
+      description: >
+        Liste des versions sucessives des collectivités françaises, chacune identifiée par 2 id :
+          1) le code ISO 3166-1 alpha-2 et,
+          2) la date de création de la version.
+      type: object
+      patternProperties:
+        '^[A-Z][A-Z]$': # clé 1 = code 3166-1 alpha-2
+          type: object
+          patternProperties:
+            '^\d\d\d\d-\d\d-\d\d$': # clé 2 = date de création de la version
+              $ref: 'http://id.georef.eu/schema.org#/definitions/AdministrativeArea'
+          additionalProperties: false
+      additionalProperties: false
+    eof:
+      description: marque de fin de fichier
+      type: 'null'
+ydADscrBhv:
+  jsonLdContext: http://schema.org
+  doubleKeys: true
+  firstLevelType: AdministrativeArea
+  buildName: # définition de l'affichage réduit par type d'objet, code Php par type
+    AdministrativeArea: |
+      $s = isset($item['dissolutionDate']);
+      return ($s?'<s>':'')."$item[name] ($skey)".($s?'</s>':'');
+  writePserReally: true
+contents:
+  PM:
+    '2003-03-28':
+      name: Saint-Pierre-et-Miquelon
+      foundingDate: '2003-03-28'
+      sameAs:
+        - http://id.georef.eu/iso3166-1/PM
+        - https://fr.wikipedia.org/wiki/Saint-Pierre-et-Miquelon
+      insee_code: '975'
+      ancestors:
+        - {$ref: http://id.georef.eu/departements/975@1976-07-19}
+      statutJuridique: collectivité d'outre mer (COM) régi par l'article 74 de la Constitution de la République.
+      mainEntityOfPage:
+        - title: >
+            Loi constitutionnelle n°2003-276 du 28 mars 2003 relative à l'organisation décentralisée de la
+            République
+          url: https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000601882
+        - title: >
+            Loi organique n° 2007-223 du 21 février 2007 portant dispositions statutaires et institutionnelles
+            relatives à l'outre-mer
+          url: https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000465963&categorieLien=cid
+  BL:
+    '2007-02-21':
+      name: Saint-Barthélemy
+      foundingDate: '2007-02-21'
+      sameAs:
+        - http://id.georef.eu/iso3166-1/BL
+        - https://fr.wikipedia.org/wiki/Saint-Barth%C3%A9lemy_(Antilles_fran%C3%A7aises)
+      insee_code: '977'
+      statutJuridique: collectivité d'outre mer (COM) régi par l'article 74 de la Constitution de la République.
+      mainEntityOfPage:
+        - title: >
+            Loi constitutionnelle n°2003-276 du 28 mars 2003 relative à l'organisation décentralisée de la
+            République
+          url: https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000601882
+        - title: >
+            Loi organique n° 2007-223 du 21 février 2007 portant dispositions statutaires et institutionnelles
+            relatives à l'outre-mer
+          url: https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000465963&categorieLien=cid
+  MF:
+    '2007-02-21':
+      name: Saint-Martin
+      foundingDate: '2007-02-21'
+      sameAs:
+        - http://id.georef.eu/iso3166-1/MF
+        - https://fr.wikipedia.org/wiki/Saint-Martin_(%C3%AEle)
+      insee_code: '978'
+      statutJuridique: collectivité d'outre mer (COM) régi par l'article 74 de la Constitution de la République.
+  WF:
+    '2003-03-28':
+      name: Wallis-et-Futuna
+      foundingDate: '2003-03-28'
+      sameAs:
+        - http://id.georef.eu/iso3166-1/WF
+        - https://fr.wikipedia.org/wiki/Wallis-et-Futuna
+      insee_code: '986'
+      statutJuridique: collectivité d'outre mer (COM) régi par l'article 74 de la Constitution de la République.
+  PF:
+    '2004-02-27':
+      name: Polynésie française
+      foundingDate: '2004-02-27'
+      sameAs:
+        - http://id.georef.eu/iso3166-1/PF
+        - https://fr.wikipedia.org/wiki/Polyn%C3%A9sie_fran%C3%A7aise
+      insee_code: '987'
+      statutJuridique: collectivité d'outre mer (COM) régi par l'article 74 de la Constitution de la République.
+  NC:
+    '1999-03-19':
+      name: Nouvelle-Calédonie
+      foundingDate: '1999-03-19'
+      sameAs:
+        - http://id.georef.eu/iso3166-1/NC
+        - https://fr.wikipedia.org/wiki/Nouvelle-Cal%C3%A9donie
+      insee_code: '988'
+      statutJuridique: >
+        statut particulier de large autonomie sui generis instauré par l'accord de Nouméa du 5 mai 1998.
+  TF:
+    '2007-02-21':
+      name: Terres australes et antarctiques françaises
+      alternateName:
+        - TAAF
+      foundingDate: '2007-02-21'
+      sameAs:
+        - http://id.georef.eu/iso3166-1/TF
+        - https://fr.wikipedia.org/wiki/Terres_australes_et_antarctiques_fran%C3%A7aises
+      insee_code: '984'
+      statutJuridique: |
+        Créées en tant que territoire d'outre-mer (TOM) par la loi du 6 août 1955, les TAAF sont dotées de la
+        personnalité juridique et de l'autonomie administrative et financière.
+        Elles sont en outre, depuis la révision constitutionnelle du 28 mars 2003, mentionnées explicitement
+        à l'article 72-3 de la Constitution de la République française. 
+        
+        Les TAAF sont placées sous l'autorité de l'administrateur supérieur des Terres australes et antarctiques
+        françaises qui a rang de préfet, et qui agit en double qualité de représentant de l'État et d'exécutif
+        du territoire.
+  CP:
+    '2007-02-21':
+      name: Île Clipperton
+      foundingDate: '2007-02-21'
+      sameAs:
+        - http://id.georef.eu/iso3166-1/CP
+        - https://fr.wikipedia.org/wiki/%C3%8Ele_Clipperton
+      insee_code: '989'
+      statutJuridique: >
+        L'île Clipperton est directement administrée par le haut-commissaire de la Polynésie française
+        sous l'égide du ministre de l'Outre-Mer.
+      mainEntityOfPage:
+        - title: >
+            Loi constitutionnelle n°2003-276 du 28 mars 2003 relative à l'organisation décentralisée de la
+            République
+          url: https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000601882
+        - title: >
+            Loi organique n° 2007-223 du 21 février 2007 portant dispositions statutaires et institutionnelles
+            relatives à l'outre-mer
+          url: https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000465963&categorieLien=cid
+        - title: >
+            Loi no 55-1052 du 6 août 1955 portant statut des Terres australes et antarctiques françaises
+            et de l'île Clipperton
+          url: https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000000879815&categorieLien=cid

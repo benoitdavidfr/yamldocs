@@ -1,0 +1,86 @@
+title: codes ISO 3166-1 français et correspondance avec codes INSEE
+note: |
+  urn:iso:std:iso:3166
+abstract: Liste des codes ISO 3166-1 français + correspondance avec le code iNSEE quand il existe
+$schema:
+  $schema: http://json-schema.org/draft-07/schema#
+  type: object
+  description: La clé est le code ISO 3166-1 alpha-2.
+  patternProperties:
+    ^[A-Z][A-Z]$:
+      type: object
+      properties:
+        name:
+          description: libellé associé
+          type: string
+        alpha3:
+          description: code ISO 3166-1 alpha-3 associé
+          type: string
+        insee:
+          description: code INSEE associé
+          type: integer
+ydADscrBhv:
+  jsonLdContext: http://schema.org
+  firstLevelType: AdministrativeArea
+  buildName: # définition de l'affichage réduit par type d'objet, code Php par type
+    AdministrativeArea: |
+      return "$item[name] ($skey)";
+  writePserReally: true
+contents:
+  FR:
+    name: France
+    alpha3: FRA
+  FX:
+    name: France métropolitaine
+    alpha3: FXX
+  GP:
+    name: Guadeloupe
+    alpha3: GLP
+    insee: 971
+  GF:
+    name: Guyane
+    alpha3: GUF
+    insee: 973
+  MQ:
+    name: Martinique
+    alpha3: MTQ
+    insee: 972
+  YT:
+    name: Mayotte
+    alpha3: MYT
+    insee: 976
+  RE:
+    name: La Réunion
+    alpha3: REU
+    insee: 974
+  PM:
+    name: Saint-Pierre-et-Miquelon
+    alpha3: SPM
+    insee: 975
+  BL:
+    name: Saint-Barthélémy
+    alpha3: BLM
+    insee: 977
+  MF:
+    name: Saint-Martin
+    alpha3: MAF
+    insee: 978
+  TF:
+    name: Terres australes et antarctiques françaises
+    alpha3: ATF
+    insee: 984
+  PF:
+    name: Polynésie française
+    alpha3: PYF
+    insee: 987
+  WF:
+    name: Wallis-et-Futuna
+    alpha3: WLF
+    insee: 986
+  NC:
+    name: Nouvelle-Calédonie
+    alpha3: NCL
+    insee: 988
+  CP:
+    name: Île Clipperton
+    insee: 989

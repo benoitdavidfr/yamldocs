@@ -1,5 +1,5 @@
 <?php
-// conversion du fichier geohisto/communes.yaml en frcommunes.yaml - 4/4/2020 21:45
+// conversion du fichier geohisto/communes.yaml en frcommunes.yaml - 5/4/2020 11:11
 
 ini_set('memory_limit', '2048M');
 
@@ -13,10 +13,11 @@ $communes = Yaml::parse($communes, Yaml::PARSE_DATETIME);
 //print_r($communes);
 $nbre = 0;
 foreach ($communes['data'] as $cinsee => $com1) {
+  $coms = []; // les enregistrement en sortie correspondant à $cinsee
   foreach ($com1 as $foundingDate => $commune) {
     //echo Yaml::dump(['source' => [$cinsee => [$foundingDate => $commune]]], 99, 2);
     //echo "end_datetime: ",$commune['end_datetime']->format('Y-m-d H:i'),"\n";
-    $com = [
+    $com = [ // l'enregistrement en sortie correspondant à [$cinsee][$foundingDate]
       'name'=> $commune['name'],
       'foundingDate'=> $foundingDate,
     ];
@@ -56,7 +57,8 @@ foreach ($communes['data'] as $cinsee => $com1) {
       $com['populationTotale'] = $commune['population'];
     if (isset($commune['insee_modification']))
       $com['insee_modification'] = $commune['insee_modification'];
-    echo Yaml::dump(["$cinsee@$foundingDate" => $com], 99, 2);
-    //if (++$nbre >= 1000) die();
+    $coms[$foundingDate] = $com;
   }
+  echo Yaml::dump([$cinsee => $coms], 99, 2);
+  //if (++$nbre >= 1000) die();
 }

@@ -1,0 +1,1276 @@
+title: registre versionné des départements français
+creator: https://github.com/benoitdavidfr
+description: |
+  Jeu de données de l'historique des départements français de métropole et des DOM, dérivé de geohisto d'Etalab et organisé en YalmDoc.
+  L'historique démarre au 1/7/1860, le jeu est à jour de l'intégration des modifications au 1/1/2017.
+  Seuls les départements de métropole et des DOM sont présents.
+  
+  Le jeu est publié sous la licence ouverte Etalab 2.0.
+publisher: https://github.com/benoitdavidfr
+contributor: [ https://www.etalab.gouv.fr/ ]
+date: 2020-04-05
+type: http://purl.org/dc/dcmitype/Dataset
+format: application/x-yaml
+identifier: http://id.georef.eu/frdepartements
+source:
+  - import le 28/5/2018 de departements.csv depuis geohisto (https://github.com/etalab/geohisto/tree/master/exports/departements)
+  - structuration en YamlDoc avec définition de la clé en 2 parties (code insee, date de début)
+  - ajout de métadonnées DublinCore
+language: fra
+relation:
+  - https://github.com/etalab/geohisto/tree/master/exports/departements 
+  - https://github.com/benoitdavidfr/yamldoc
+coverage:
+  spatial: iso:code:3166:FR (métropole + DOM)
+  temporal: { start: 1860-07-01, end: 2017-01-01 }
+rights: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+
+$schema:
+  $id: http://id.georef.eu/frregions/$schema
+  $schema: http://json-schema.org/draft-07/schema#
+  type: object
+  properties:
+    title:
+      description: titre du document
+      type: string
+    description:
+      description: description du document
+      type: string
+    $schema:
+      description: schema du document
+      $ref: http://json-schema.org/draft-07/schema#
+    ydADscrBhv:
+      description: paramètres de comportement utilisés par le code Php de la classe AutoDescribed
+      type: object
+      additionalProperties: false
+      properties:
+        jsonLdContext:
+          description: contexte JSON-LD à ajouter
+          type: string
+        doubleKeys:
+          description: indique que les enregistrements sont indexés pat une double clé
+          type: boolean
+        firstLevelType:
+          description: type des enregistrements de premier niveau dans contents
+          type: string
+        extractProperties:
+          description: >
+            clés utilisées pour traverser les objets définies par type du sujet
+            et avec pour chacune le type de l'objet et la propriété inverse pour référencer le parent
+          type: object
+          additionalProperties:
+            description: clé de premier niveau est le type du sujet de la propriété (départ)
+            type: object
+            additionalProperties:
+              description: clé de second niveau est le nom de la propriété
+              type: object
+              additionalProperties: false
+              properties:
+                objectType:
+                  description: type de l'objet de la propriété (arrivée)
+                  type: string
+                inverse:
+                  description: propriété inverse pour référencer le parent
+                  type: string
+        buildName:
+          description: définition de l'affichage réduit par type d'objet, code Php par type défini dans definitions
+          type: object
+          additionalProperties:
+            description: Pour chaque type le code Php d'affichage réduit est défini comme chaine
+            type: string
+        writePserReally:
+          description: si défini alors le doc est stocké en pser
+          type: boolean
+    contents:
+      description: >
+        Liste des versions sucessives des départements français, chacune identifiée par 2 id :
+          1) le code INSEE du département et,
+          2) la date de création de la version du département.
+      type: object
+      patternProperties:
+        '^\d[\dAB]\d?$': # clé 1 = code INSEE du département
+          type: object
+          patternProperties:
+            '^\d\d\d\d-\d\d-\d\d$': # clé 2 = date de création de la version de la commune
+              $ref: 'http://id.georef.eu/schema.org#/definitions/AdministrativeArea'
+          additionalProperties: false
+      additionalProperties: false
+    eof:
+      description: marque de fin de fichier
+      type: 'null'
+ydADscrBhv:
+  jsonLdContext: http://schema.org
+  doubleKeys: true
+  firstLevelType: AdministrativeArea
+  buildName: # définition de l'affichage réduit par type d'objet, code Php par type
+    AdministrativeArea: |
+      $s = isset($item['dissolutionDate']);
+      return ($s?'<s>':'')."$item[name] ($skey)".($s?'</s>':'');
+  writePserReally: true
+contents:
+  '01':
+    '1860-07-01':
+      name: Ain
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/82}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/ARA}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/01053}
+  '02':
+    '1860-07-01':
+      name: Aisne
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/02
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/22}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/HDF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/02408}
+  '03':
+    '1860-07-01':
+      name: Allier
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/03
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/83}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/ARA}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/03190}
+  '04':
+    '1860-07-01':
+      name: Basses-Alpes
+      foundingDate: '1860-07-01'
+      dissolutionDate: '1970-04-13'
+      insee_code: '04'
+      successors:
+        - $ref: http://id.georef.eu/frdepartements/04@1970-04-13
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/PAC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/04070}
+    '1970-04-13':
+      name: Alpes-de-Haute-Provence
+      foundingDate: '1970-04-13'
+      sameAs:
+        - http://id.insee.fr/geo/departement/04
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/04@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/PAC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/04070}
+  '05':
+    '1860-07-01':
+      name: Hautes-Alpes
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/05
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/PAC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/05061}
+  '06':
+    '1860-07-01':
+      name: Alpes-Maritimes
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/06
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/PAC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/06088}
+  '07':
+    '1860-07-01':
+      name: Ardèche
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/07
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/82}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/ARA}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/07186}
+  '08':
+    '1860-07-01':
+      name: Ardennes
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/08
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/21}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/GES}
+      chefLieu:
+        '1860-07-01': {$ref: http://id.georef.eu/frcommunes/08290}
+        '1966-10-01': {$ref: http://id.georef.eu/frcommunes/08105}
+  '09':
+    '1860-07-01':
+      name: Ariège
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/09
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/73}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/OCC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/09122}
+  '10':
+    '1860-07-01':
+      name: Aube
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/10
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/21}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/GES}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/10387}
+  '11':
+    '1860-07-01':
+      name: Aude
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/11
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/91}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/OCC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/11069}
+  '12':
+    '1860-07-01':
+      name: Aveyron
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/12
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/73}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/OCC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/12202}
+  '13':
+    '1860-07-01':
+      name: Bouches-du-Rhône
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/13
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/PAC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/13055}
+  '14':
+    '1860-07-01':
+      name: Calvados
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/14
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/25}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NOR}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/14118}
+  '15':
+    '1860-07-01':
+      name: Cantal
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/15
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/83}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/ARA}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/15014}
+  '16':
+    '1860-07-01':
+      name: Charente
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/16
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/54}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NAQ}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/16015}
+  '17':
+    '1860-07-01':
+      name: Charente-Inférieure
+      foundingDate: '1860-07-01'
+      dissolutionDate: '1941-09-04'
+      insee_code: '17'
+      successors:
+        - $ref: http://id.georef.eu/frdepartements/17@1941-09-04
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/17300}
+    '1941-09-04':
+      name: Charente-Maritime
+      foundingDate: '1941-09-04'
+      sameAs:
+        - http://id.insee.fr/geo/departement/17
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/17@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/54}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NAQ}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/17300}
+  '18':
+    '1860-07-01':
+      name: Cher
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/18
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/24}
+        '2015-01-17': {$ref: http://id.georef.eu/frregions/CVL}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/18033}
+  '19':
+    '1860-07-01':
+      name: Corrèze
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/19
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/74}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NAQ}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/19272}
+  '20':
+    '1860-07-01':
+      name: Corse
+      foundingDate: '1860-07-01'
+      dissolutionDate: '1976-01-01'
+      insee_code: '20'
+      successors:
+        - $ref: http://id.georef.eu/frdepartements/2A@1976-01-01
+        - $ref: http://id.georef.eu/frdepartements/2B@1976-01-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/COR}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/20004}
+  2A:
+    '1976-01-01':
+      name: Corse-du-Sud
+      foundingDate: '1976-01-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/2A
+      ancestors:
+        - $ref: 'http://id.georef.eu/frdepartements/20@1860-07-01'
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/COR}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/2A004}
+  2B:
+    '1976-01-01':
+      name: Haute-Corse
+      foundingDate: '1976-01-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/2B
+      ancestors:
+        - $ref: 'http://id.georef.eu/frdepartements/20@1860-07-01'
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/COR}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/2B033}
+  '21':
+    '1860-07-01':
+      name: Côte-d'Or
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/21
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/26}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/BFC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/21231}
+  '22':
+    '1860-07-01':
+      name: Côtes-du-Nord
+      foundingDate: '1860-07-01'
+      dissolutionDate: '1990-02-27'
+      insee_code: '22'
+      successors:
+        - $ref: http://id.georef.eu/frdepartements/22@1990-02-27
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/BRE}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/22278}
+    '1990-02-27':
+      name: Côtes-d'Armor
+      foundingDate: '1990-02-27'
+      sameAs:
+        - http://id.insee.fr/geo/departement/22
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/22@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/BRE}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/22278}
+  '23':
+    '1860-07-01':
+      name: Creuse
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/23
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/74}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NAQ}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/23096}
+  '24':
+    '1860-07-01':
+      name: Dordogne
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/24
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/72}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NAQ}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/24322}
+  '25':
+    '1860-07-01':
+      name: Doubs
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/25
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/43}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/BFC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/25056}
+  '26':
+    '1860-07-01':
+      name: Drôme
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/26
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/82}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/ARA}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/26362}
+  '27':
+    '1860-07-01':
+      name: Eure
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/27
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/23}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NOR}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/27229}
+  '28':
+    '1860-07-01':
+      name: Eure-et-Loir
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/28
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/24}
+        '2015-01-17': {$ref: http://id.georef.eu/frregions/CVL}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/28085}
+  '29':
+    '1860-07-01':
+      name: Finistère
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/29
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/BRE}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/29232}
+  '30':
+    '1860-07-01':
+      name: Gard
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/30
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/91}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/OCC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/30189}
+  '31':
+    '1860-07-01':
+      name: Haute-Garonne
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/31
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/73}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/OCC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/31555}
+  '32':
+    '1860-07-01':
+      name: Gers
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/32
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/73}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/OCC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/32013}
+  '33':
+    '1860-07-01':
+      name: Gironde
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/33
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/72}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NAQ}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/33063}
+  '34':
+    '1860-07-01':
+      name: Hérault
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/34
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/91}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/OCC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/34172}
+  '35':
+    '1860-07-01':
+      name: Ille-et-Vilaine
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/35
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/BRE}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/35238}
+  '36':
+    '1860-07-01':
+      name: Indre
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/36
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/24}
+        '2015-01-17': {$ref: http://id.georef.eu/frregions/CVL}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/36044}
+  '37':
+    '1860-07-01':
+      name: Indre-et-Loire
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/37
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/24}
+        '2015-01-17': {$ref: http://id.georef.eu/frregions/CVL}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/37261}
+  '38':
+    '1860-07-01':
+      name: Isère
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/38
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/82}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/ARA}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/38185}
+  '39':
+    '1860-07-01':
+      name: Jura
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/39
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/43}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/BFC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/39300}
+  '40':
+    '1860-07-01':
+      name: Landes
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/40
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/72}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NAQ}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/40192}
+  '41':
+    '1860-07-01':
+      name: Loir-et-Cher
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/41
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/24}
+        '2015-01-17': {$ref: http://id.georef.eu/frregions/CVL}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/41018}
+  '42':
+    '1860-07-01':
+      name: Loire
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/42
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/82}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/ARA}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/42218}
+  '43':
+    '1860-07-01':
+      name: Haute-Loire
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/43
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/83}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/ARA}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/43157}
+  '44':
+    '1860-07-01':
+      name: Loire-Inférieure
+      foundingDate: '1860-07-01'
+      dissolutionDate: '1957-03-09'
+      insee_code: '44'
+      successors:
+        - $ref: http://id.georef.eu/frdepartements/44@1957-03-09
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/44109}
+    '1957-03-09':
+      name: Loire-Atlantique
+      foundingDate: '1957-03-09'
+      sameAs:
+        - http://id.insee.fr/geo/departement/44
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/44@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/PDL}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/44109}
+  '45':
+    '1860-07-01':
+      name: Loiret
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/45
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/24}
+        '2015-01-17': {$ref: http://id.georef.eu/frregions/CVL}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/45234}
+  '46':
+    '1860-07-01':
+      name: Lot
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/46
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/91}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/OCC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/46042}
+  '47':
+    '1860-07-01':
+      name: Lot-et-Garonne
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/47
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/72}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NAQ}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/47001}
+  '48':
+    '1860-07-01':
+      name: Lozère
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/48
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/91}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/OCC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/48095}
+  '49':
+    '1860-07-01':
+      name: Maine-et-Loire
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/49
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/PDL}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/49007}
+  '50':
+    '1860-07-01':
+      name: Manche
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/50
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/23}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NOR}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/50502}
+  '51':
+    '1860-07-01':
+      name: Marne
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/51
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/21}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/GES}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/51108}
+  '52':
+    '1860-07-01':
+      name: Haute-Marne
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/52
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/21}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/GES}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/18060}
+  '53':
+    '1860-07-01':
+      name: Mayenne
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/53
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/PDL}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/38206}
+  '54':
+    '1871-09-07':
+      name: Meurthe-et-Moselle
+      foundingDate: '1871-09-07'
+      sameAs:
+        - http://id.insee.fr/geo/departement/54
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/21}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/GES}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/54395}
+  '55':
+    '1860-07-01':
+      name: Meuse
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/55
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/21}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/GES}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/55029}
+  '56':
+    '1860-07-01':
+      name: Morbihan
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/56
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/BRE}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/56260}
+  '57':
+    '1860-07-01':
+      name: Moselle
+      foundingDate: '1860-07-01'
+      dissolutionDate: '1871-05-10'
+      insee_code: '57'
+      successors:
+        - $ref: http://id.georef.eu/frdepartements/57@1920-01-10
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/57463}
+      note: Transfert du département à l'Empire allemand le 10 mai 1871 à la suite du traité de Francfort
+    '1920-01-10':
+      name: Moselle
+      foundingDate: '1920-01-10'
+      sameAs:
+        - http://id.insee.fr/geo/departement/57
+        - https://fr.wikipedia.org/wiki/Moselle_(d%C3%A9partement)
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/57@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/21}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/GES}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/57463}
+      note: |
+        Le traité de Versailles promulgué le 10 janvier 1920 transfert à la France le « Bezirk Lothringen »
+        qui devient le « Département de la Moselle ».
+        
+        Au cours de la Seconde Guerre mondiale, la Moselle est à nouveau annexée, en juillet 1940, par
+        l'Allemagne nazie. 
+  '58':
+    '1860-07-01':
+      name: Nièvre
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/58
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/43}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/BFC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/58194}
+  '59':
+    '1860-07-01':
+      name: Nord
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/59
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/22}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/HDF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/59350}
+  '60':
+    '1860-07-01':
+      name: Oise
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/60
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/22}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/HDF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/60057}
+  '61':
+    '1860-07-01':
+      name: Orne
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/61
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/23}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NOR}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/61001}
+  '62':
+    '1860-07-01':
+      name: Pas-de-Calais
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/62
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/22}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/HDF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/62041}
+  '63':
+    '1860-07-01':
+      name: Puy-de-Dôme
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/63
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/82}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/ARA}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/63113}
+  '64':
+    '1860-07-01':
+      name: Basses-Pyrénées
+      foundingDate: '1860-07-01'
+      dissolutionDate: '1969-10-10'
+      insee_code: '64'
+      successors:
+        - $ref: http://id.georef.eu/frdepartements/64@1969-10-10
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/64445}
+    '1969-10-10':
+      name: Pyrénées-Atlantiques
+      foundingDate: '1969-10-10'
+      sameAs:
+        - http://id.insee.fr/geo/departement/64
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/64@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/72}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NAQ}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/64445}
+  '65':
+    '1860-07-01':
+      name: Hautes-Pyrénées
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/65
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/91}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/OCC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/65440}
+  '66':
+    '1860-07-01':
+      name: Pyrénées-Orientales
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/66
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/91}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/OCC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/66136}
+  '67':
+    '1860-07-01':
+      name: Bas-Rhin
+      foundingDate: '1860-07-01'
+      dissolutionDate: '1871-05-10'
+      insee_code: '67'
+      successors:
+        - $ref: http://id.georef.eu/frdepartements/67@1920-01-10
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/67482}
+      note: Transfert du département à l'Empire allemand le 10 mai 1871 à la suite du traité de Francfort.
+    '1920-01-10':
+      name: Bas-Rhin
+      foundingDate: '1920-01-10'
+      sameAs:
+        - http://id.insee.fr/geo/departement/67
+        - https://fr.wikipedia.org/wiki/Bas-Rhin
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/67@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/21}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/GES}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/67482}
+      note: |
+        Le traité de Versailles promulgué le 10 janvier 1920 transfert à la France le département.
+        
+        Au cours de la Seconde Guerre mondiale, le département est à nouveau annexé, en juillet 1940, par
+        l'Allemagne nazie. 
+  '68':
+    '1860-07-01':
+      name: Haut-Rhin
+      foundingDate: '1860-07-01'
+      dissolutionDate: '1871-05-10'
+      insee_code: '68'
+      successors:
+        - $ref: http://id.georef.eu/frdepartements/68@1920-01-10
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/68066}
+      note: Transfert du département à l'Empire allemand le 10 mai 1871 à la suite du traité de Francfort.
+    '1920-01-10':
+      name: Haut-Rhin
+      foundingDate: '1920-01-10'
+      sameAs:
+        - http://id.insee.fr/geo/departement/68
+        - https://fr.wikipedia.org/wiki/Haut-Rhin
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/68@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/21}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/GES}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/68066}
+      note: |
+        Le traité de Versailles promulgué le 10 janvier 1920 transfert à la France le département.
+        
+        Au cours de la Seconde Guerre mondiale, le département est à nouveau annexé, en juillet 1940, par
+        l'Allemagne nazie. 
+  '69':
+    '1860-07-01':
+      name: Rhône
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/69
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/82}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/ARA}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/69123}
+  '70':
+    '1860-07-01':
+      name: Haute-Saône
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/70
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/43}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/BFC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/70550}
+  '71':
+    '1860-07-01':
+      name: Saône-et-Loire
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/71
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/43}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/BFC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/71270}
+  '72':
+    '1860-07-01':
+      name: Sarthe
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/72
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/PDL}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/72181}
+  '73':
+    '1860-07-01':
+      name: Savoie
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/73
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/82}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/ARA}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/73065}
+  '74':
+    '1860-07-01':
+      name: Haute-Savoie
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/74
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/82}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/ARA}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/74010}
+  '75':
+    '1860-07-01':
+      name: Seine
+      foundingDate: '1860-07-01'
+      dissolutionDate: '1968-01-01'
+      insee_code: '75'
+      successors:
+        - $ref: http://id.georef.eu/frdepartements/75@1968-01-01
+        - $ref: http://id.georef.eu/frdepartements/92@1968-01-01
+        - $ref: http://id.georef.eu/frdepartements/93@1968-01-01
+        - $ref: http://id.georef.eu/frdepartements/94@1968-01-01
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/75056}
+    '1968-01-01':
+      name: Paris
+      foundingDate: '1968-01-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/75
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/75@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/IDF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/75056}
+  '76':
+    '1860-07-01':
+      name: Seine-Inférieure
+      foundingDate: '1860-07-01'
+      dissolutionDate: '1955-01-18'
+      insee_code: '76'
+      successors:
+        - $ref: http://id.georef.eu/frdepartements/76@1955-01-18
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/76540}
+    '1955-01-18':
+      name: Seine-Maritime
+      foundingDate: '1955-01-18'
+      sameAs:
+        - http://id.insee.fr/geo/departement/76
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/76@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/23}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NOR}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/76540}
+  '77':
+    '1860-07-01':
+      name: Seine-et-Marne
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/77
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/IDF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/77288}
+  '78':
+    '1860-07-01':
+      name: Seine-et-Oise
+      foundingDate: '1860-07-01'
+      dissolutionDate: '1968-01-01'
+      insee_code: '78'
+      successors:
+        - $ref: http://id.georef.eu/frdepartements/78@1968-01-01
+        - $ref: http://id.georef.eu/frdepartements/91@1968-01-01
+        - $ref: http://id.georef.eu/frdepartements/92@1968-01-01
+        - $ref: http://id.georef.eu/frdepartements/95@1968-01-01
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/78646}
+    '1968-01-01':
+      name: Yvelines
+      foundingDate: '1968-01-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/78
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/78@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/IDF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/78646}
+  '79':
+    '1860-07-01':
+      name: Deux-Sèvres
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/79
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/72}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NAQ}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/79191}
+  '80':
+    '1860-07-01':
+      name: Somme
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/80
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/22}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/HDF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/80021}
+  '81':
+    '1860-07-01':
+      name: Tarn
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/81
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/91}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/OCC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/81004}
+  '82':
+    '1860-07-01':
+      name: Tarn-et-Garonne
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/82
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/91}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/OCC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/82121}
+  '83':
+    '1860-07-01':
+      name: Var
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/83
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/PAC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/83137}
+  '84':
+    '1860-07-01':
+      name: Vaucluse
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/84
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/PAC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/84007}
+  '85':
+    '1860-07-01':
+      name: Vendée
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/85
+        - https://fr.wikipedia.org/wiki/Vend%C3%A9e_(d%C3%A9partement)
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/PDL}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/85191}
+  '86':
+    '1860-07-01':
+      name: Vienne
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/86
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/72}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NAQ}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/86194}
+  '87':
+    '1860-07-01':
+      name: Haute-Vienne
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/87
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/72}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/NAQ}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/87085}
+  '88':
+    '1860-07-01':
+      name: Vosges
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/88
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/21}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/GES}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/88160}
+  '89':
+    '1860-07-01':
+      name: Yonne
+      foundingDate: '1860-07-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/89
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/43}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/BFC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/89024}
+  '90':
+    '1922-03-11':
+      name: 'Territoire de Belfort'
+      foundingDate: '1922-03-11'
+      sameAs:
+        - http://id.insee.fr/geo/departement/90
+        - https://fr.wikipedia.org/wiki/Territoire_de_Belfort
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/43}
+        '2016-01-01': {$ref: http://id.georef.eu/frregions/BFC}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/90010}
+      note: |
+        Département français créé en 1922 à partir de l'arrondissement de Belfort, seule partie du Haut-Rhin et
+        de l'Alsace restée à la France après la défaite de 1871. Il était à l'origine nommé « arrondissement
+        subsistant du Haut-Rhin » mais ne réintègre pas le Haut-Rhin après 1919.
+  '91':
+    '1968-01-01':
+      name: Essonne
+      foundingDate: '1968-01-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/91
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/78@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/IDF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/91228}
+  '92':
+    '1968-01-01':
+      name: Hauts-de-Seine
+      foundingDate: '1968-01-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/92
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/75@1860-07-01
+        - $ref: http://id.georef.eu/frdepartements/78@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/IDF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/92050}
+  '93':
+    '1968-01-01':
+      name: Seine-Saint-Denis
+      foundingDate: '1968-01-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/93
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/75@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/IDF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/93008}
+  '94':
+    '1968-01-01':
+      name: Val-de-Marne
+      foundingDate: '1968-01-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/94
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/75@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/IDF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/94028}
+  '95':
+    '1968-01-01':
+      name: Val-d'Oise
+      foundingDate: '1968-01-01'
+      sameAs:
+        - http://id.insee.fr/geo/departement/95
+      ancestors:
+        - $ref: http://id.georef.eu/frdepartements/78@1860-07-01
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/IDF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/95500}
+  971:
+    '1946-03-19':
+      name: Guadeloupe
+      foundingDate: '1946-03-19'
+      sameAs:
+        - http://id.insee.fr/geo/departement/971
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/GUA}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/97105}
+  972:
+    '1946-03-19':
+      name: Martinique
+      foundingDate: '1946-03-19'
+      sameAs:
+        - http://id.insee.fr/geo/departement/972
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/MTQ}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/97209}
+  973:
+    '1946-03-19':
+      name: Guyane
+      foundingDate: '1946-03-19'
+      sameAs:
+        - http://id.insee.fr/geo/departement/973
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/GUF}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/97302}
+  974:
+    '1946-03-19':
+      name: 'La Réunion'
+      foundingDate: '1946-03-19'
+      sameAs:
+        - http://id.insee.fr/geo/departement/974
+      containedInPlace:
+        '1970-01-09': {$ref: http://id.georef.eu/frregions/LRE}
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/97411}
+  975:
+    '1976-07-19':
+      name: Saint-Pierre-et-Miquelon
+      foundingDate: '1976-07-19'
+      dissolutionDate: '1985-06-11'
+      insee_code: '975'
+      successors:
+        - $ref: http://id.georef.eu/frcollectivites/PM@2003-03-28
+  976:
+    '2011-03-31':
+      name: Mayotte
+      foundingDate: '2011-03-31'
+      sameAs:
+        - http://id.insee.fr/geo/departement/976
+      containedInPlace:
+        $ref: http://id.georef.eu/frregions/MAY
+      chefLieu: {$ref: http://id.georef.eu/frcommunes/97611}
+eof:
