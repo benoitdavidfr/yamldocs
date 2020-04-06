@@ -1,0 +1,13 @@
+title: registre des entités administratives
+identifier: http://id.georef.eu/regadm
+abstract: |
+  Le registre des entités administratives est constitué de 4 sous-registres gérés de manière cohérente:
+    
+    - le [registre des régions françaises avec leur historique](?doc=frregions),
+    - le [registre des départements français avec leur historique](?doc=frdepartements),
+    - le [registre des communes françaises avec leur historique](?doc=frcommunes),
+    - le [registre des arrondissements communaux de Paris, Marseille et Lyon](?doc=frardtcom),
+    - le [registre des collectivités et territoires des outres-mers français](?doc=frcollectivites).
+    
+    
+

@@ -1,0 +1,371 @@
+title: registre des arrondissements communaux de Paris, Marseille et Lyon
+creator: https://github.com/benoitdavidfr
+description: |
+  Suppression des arrondissements communaux du registre des communes et restructuration.
+publisher: https://github.com/benoitdavidfr
+date: 2020-04-06
+type: http://purl.org/dc/dcmitype/Dataset
+format: application/x-yaml
+identifier: http://id.georef.eu/frardtcom
+language: fra
+relation:
+  - https://github.com/benoitdavidfr/yamldoc
+coverage:
+  spatial: iso:code:3166:FR (métropole + DOM)
+  temporal: { start: 1942-01-01, end: 2017-01-01 }
+rights: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+
+$schema:
+  $id: http://id.georef.eu/frardtcom/$schema
+  $schema: http://json-schema.org/draft-07/schema#
+  type: object
+  properties:
+    title:
+      description: titre du document
+      type: string
+    description:
+      description: description du document
+      type: string
+    $schema:
+      description: schema du document
+      $ref: http://json-schema.org/draft-07/schema#
+    ydADscrBhv:
+      description: paramètres de comportement utilisés par le code Php de la classe AutoDescribed
+      type: object
+      additionalProperties: false
+      properties:
+        jsonLdContext:
+          description: contexte JSON-LD à ajouter
+          type: string
+        doubleKeys:
+          description: indique que les enregistrements sont indexés pat une double clé
+          type: boolean
+        firstLevelType:
+          description: type des enregistrements de premier niveau dans contents
+          type: string
+        extractProperties:
+          description: >
+            clés utilisées pour traverser les objets définies par type du sujet
+            et avec pour chacune le type de l'objet et la propriété inverse pour référencer le parent
+          type: object
+          additionalProperties:
+            description: clé de premier niveau est le type du sujet de la propriété (départ)
+            type: object
+            additionalProperties:
+              description: clé de second niveau est le nom de la propriété
+              type: object
+              additionalProperties: false
+              properties:
+                objectType:
+                  description: type de l'objet de la propriété (arrivée)
+                  type: string
+                inverse:
+                  description: propriété inverse pour référencer le parent
+                  type: string
+        buildName:
+          description: définition de l'affichage réduit par type d'objet, code Php par type défini dans definitions
+          type: object
+          additionalProperties:
+            description: Pour chaque type le code Php d'affichage réduit est défini comme chaine
+            type: string
+        writePserReally:
+          description: si défini alors le doc est stocké en pser
+          type: boolean
+    contents:
+      description: >
+        Liste des versions sucessives des arrondissemnts communaux français, chacun identifié par 2 id :
+          1) le code de l'arrondissement communal et,
+          2) la date de création de la version.
+      type: object
+      patternProperties:
+        '^\d[\dAB]\d\d\d$': # clé 1 = code INSEE de la commune
+          type: object
+          patternProperties:
+            '^\d\d\d\d-\d\d-\d\d$': # clé 2 = date de création de la version de la commune
+              $ref: 'http://id.georef.eu/schema.org#/definitions/AdministrativeArea'
+          additionalProperties: false
+      additionalProperties: false
+    eof:
+      description: marque de fin de fichier
+      type: 'null'
+ydADscrBhv:
+  jsonLdContext: http://schema.org
+  doubleKeys: true
+  firstLevelType: AdministrativeArea
+  buildName: # définition de l'affichage réduit par type d'objet, code Php par type
+    AdministrativeArea: |
+      $s = isset($item['dissolutionDate']);
+      return ($s?'<s>':'')."$item[name] ($skey)".($s?'</s>':'');
+  writePserReally: true
+contents:
+  75101:
+    '1942-01-01':
+      name: 'Paris 1er Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 17022
+  75102:
+    '1942-01-01':
+      name: 'Paris 2e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 21741
+  75103:
+    '1942-01-01':
+      name: 'Paris 3e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 35666
+  75104:
+    '1942-01-01':
+      name: 'Paris 4e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 27335
+  75105:
+    '1942-01-01':
+      name: 'Paris 5e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 60273
+  75106:
+    '1942-01-01':
+      name: 'Paris 6e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 43479
+  75107:
+    '1942-01-01':
+      name: 'Paris 7e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 56325
+  75108:
+    '1942-01-01':
+      name: 'Paris 8e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 39175
+  75109:
+    '1942-01-01':
+      name: 'Paris 9e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 59427
+  75110:
+    '1942-01-01':
+      name: 'Paris 10e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 92494
+  75111:
+    '1942-01-01':
+      name: 'Paris 11e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 153461
+  75112:
+    '1942-01-01':
+      name: 'Paris 12e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 144719
+  75113:
+    '1942-01-01':
+      name: 'Paris 13e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 183713
+  75114:
+    '1942-01-01':
+      name: 'Paris 14e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 140799
+  75115:
+    '1942-01-01':
+      name: 'Paris 15e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 237120
+  75116:
+    '1942-01-01':
+      name: 'Paris 16e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 166552
+  75117:
+    '1942-01-01':
+      name: 'Paris 17e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 170077
+  75118:
+    '1942-01-01':
+      name: 'Paris 18e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 199519
+  75119:
+    '1942-01-01':
+      name: 'Paris 19e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 185953
+  75120:
+    '1942-01-01':
+      name: 'Paris 20e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/75056}
+      populationTotale: 194771
+  13201:
+    '1946-01-01':
+      name: 'Marseille 1er Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 41027
+  13202:
+    '1946-01-01':
+      name: 'Marseille 2e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 25559
+  13203:
+    '1946-01-01':
+      name: 'Marseille 3e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 44651
+  13204:
+    '1946-01-01':
+      name: 'Marseille 4e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 46617
+  13205:
+    '1946-01-01':
+      name: 'Marseille 5e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 44261
+  13206:
+    '1946-01-01':
+      name: 'Marseille 6e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 43217
+  13207:
+    '1946-01-01':
+      name: 'Marseille 7e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 35444
+  13208:
+    '1946-01-01':
+      name: 'Marseille 8e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 77882
+  13209:
+    '1946-01-01':
+      name: 'Marseille 9e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 75329
+  13210:
+    '1946-01-01':
+      name: 'Marseille 10e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 50140
+  13211:
+    '1946-01-01':
+      name: 'Marseille 11e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 55699
+  13212:
+    '1946-01-01':
+      name: 'Marseille 12e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 57908
+  13213:
+    '1946-01-01':
+      name: 'Marseille 13e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 86826
+  13214:
+    '1946-01-01':
+      name: 'Marseille 14e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 61317
+  13215:
+    '1946-01-01':
+      name: 'Marseille 15e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 75783
+  13216:
+    '1946-01-01':
+      name: 'Marseille 16e Arrondissement'
+      foundingDate: '1946-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/13055}
+      populationTotale: 17383
+  69381:
+    '1942-01-01':
+      name: 'Lyon 1er Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/69123}
+      populationTotale: 29313
+  69382:
+    '1942-01-01':
+      name: 'Lyon 2e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/69123}
+      populationTotale: 30804
+  69383:
+    '1942-01-01':
+      name: 'Lyon 3e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/69123}
+      populationTotale: 98956
+  69384:
+    '1942-01-01':
+      name: 'Lyon 4e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/69123}
+      populationTotale: 36336
+  69385:
+    '1942-01-01':
+      name: 'Lyon 5e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/69123}
+      populationTotale: 46630
+  69386:
+    '1942-01-01':
+      name: 'Lyon 6e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/69123}
+      populationTotale: 50364
+  69387:
+    '1942-01-01':
+      name: 'Lyon 7e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/69123}
+      populationTotale: 77855
+  69388:
+    '1942-01-01':
+      name: 'Lyon 8e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/69123}
+      populationTotale: 81531
+  69389:
+    '1942-01-01':
+      name: 'Lyon 9e Arrondissement'
+      foundingDate: '1942-01-01'
+      containedInPlace: {$ref: http://id.georef.eu/frcommunes/69123}
+      populationTotale: 48926
+eof:
