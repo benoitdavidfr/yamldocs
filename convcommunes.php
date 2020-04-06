@@ -13,6 +13,12 @@ $communes = Yaml::parse($communes, Yaml::PARSE_DATETIME);
 //print_r($communes);
 $nbre = 0;
 foreach ($communes['data'] as $cinsee => $com1) {
+  if (preg_match('!^(751\d\d|132\d\d|6938\d)$!', $cinsee)) {
+    foreach ($com1 as $foundingDate => $commune) {
+      fprintf(STDERR, "Suppression de $cinsee@$foundingDate -> $commune[name]\n");
+    }
+    continue;
+  }
   $coms = []; // les enregistrement en sortie correspondant à $cinsee
   foreach ($com1 as $foundingDate => $commune) {
     //echo Yaml::dump(['source' => [$cinsee => [$foundingDate => $commune]]], 99, 2);
@@ -48,10 +54,21 @@ foreach ($communes['data'] as $cinsee => $com1) {
       }
     }
     $com['containedInPlace'] = [];
+    $places = [];
     foreach ($commune['parents'] as $parent) {
-      $com['containedInPlace'][] = [
-        '$ref'=> str_replace('fr:departement:', 'http://id.georef.eu/frdepartements/', $parent),
-      ];
+      if (!preg_match('!^fr:departement:([^@]+)@\d\d\d\d-\d\d-\d\d$!', $parent, $matches)) {
+        fprintf(STDERR, "No match on '$parent' ligne ".__LINE__."\n");
+        die();
+      }
+      $place = 'http://id.georef.eu/frdepartements/'.$matches[1];
+      if (!in_array($place, $places)) {
+        if ($places) {
+          fprintf(STDERR, "Erreur sur $cinsee ligne ".__LINE__."\n");
+          die();
+        }
+        $places[] = $place;
+        $com['containedInPlace'] = [ '$ref'=> $place ];
+      }
     }
     if (isset($commune['population']))
       $com['populationTotale'] = $commune['population'];
@@ -60,5 +77,5 @@ foreach ($communes['data'] as $cinsee => $com1) {
     $coms[$foundingDate] = $com;
   }
   echo Yaml::dump([$cinsee => $coms], 99, 2);
-  //if (++$nbre >= 1000) die();
+  //if (++$nbre >= 100) die();
 }
