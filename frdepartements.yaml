@@ -337,7 +337,7 @@ contents:
       sameAs:
         - http://id.insee.fr/geo/departement/2A
       ancestors:
-        - $ref: 'http://id.georef.eu/frdepartements/20@1860-07-01'
+        - $ref: http://id.georef.eu/frdepartements/20@1860-07-01
       containedInPlace:
         '1970-01-09': {$ref: http://id.georef.eu/frregions/COR}
       chefLieu: {$ref: http://id.georef.eu/frcommunes/2A004}
@@ -348,7 +348,7 @@ contents:
       sameAs:
         - http://id.insee.fr/geo/departement/2B
       ancestors:
-        - $ref: 'http://id.georef.eu/frdepartements/20@1860-07-01'
+        - $ref: http://id.georef.eu/frdepartements/20@1860-07-01
       containedInPlace:
         '1970-01-09': {$ref: http://id.georef.eu/frregions/COR}
       chefLieu: {$ref: http://id.georef.eu/frcommunes/2B033}
