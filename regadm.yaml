@@ -1,13 +1,78 @@
 title: registre des entités administratives
 identifier: http://id.georef.eu/regadm
 abstract: |
-  Le registre des entités administratives est constitué de 4 sous-registres gérés de manière cohérente:
+  Le registre des entités administratives est constitué de 5 sous-registres gérés de manière cohérente:
     
-    - le [registre des régions françaises avec leur historique](?doc=frregions),
+    - le [registre des régions administratives françaises avec leur historique](?doc=frregions),
     - le [registre des départements français avec leur historique](?doc=frdepartements),
     - le [registre des communes françaises avec leur historique](?doc=frcommunes),
     - le [registre des arrondissements communaux de Paris, Marseille et Lyon](?doc=frardtcom),
-    - le [registre des collectivités et territoires des outres-mers français](?doc=frcollectivites).
+    - le [registre des collectivités (COM) et territoires (TOM) des outres-mers français](?doc=frcollectivites).
     
-    
+  A l'exception du registre des régions, les registres sont gérés sous la forme de registre d'objets versionnés.
+  Cela signifie que chaque entité contenue dans le registre correspond à une ou plusieurs versions.
 
+  Une version peut être valide ou périmée ; elle est périmée ssi une dissolutionDate est définie.
+
+  Une entité est identifié par un identifiant:
+    
+    - pour les départements, communes et arrondissements communaux par leur numéro INSEE,
+    - pour les COM et TOM par leur code ISO 3166-1 plus facile à mémoriser que les codes INSEE.
+
+  Les versions d'une entité sont de plus identifiées par leur date de création sous la forme AAAA-MM-JJ.
+  L'identifiant global d'une version d'entité prend la forme {entityId}@{foundingDate} où:
+    
+    - {entityId} est l'identité de l'entité,
+    - {foundingDate} est la date création de la version.
+    
+  Un registre d'objets versionnés définit des URI et permet de les résoudre:
+    
+    - de la forme http://id.georef.eu/{registreName}/{entityId} pour une entité,  
+      sa résolution retourne le liste des enregistrements correspondants aux versions successives de l'entité ;
+    - de la forme http://id.georef.eu/{registreName}/{entityId}@{foundingDate} pour une version d'entité,  
+      sa résolution retourne l'enregistrement correspondant à cette version.
+
+  Par exemples:
+    
+    - http://id.georef.eu/frcommunes/42218 correspond à la commune de Saint-Etienne qui correspond à 3 versions
+      sucessives,
+    - http://id.georef.eu/frcommunes/42218@1969-10-18 correspond à la version du 18/10/1969 de cette commune.
+    
+  Dans les relations entre registres, un URI d'entité sera privilégié à différents URI de version,
+  signifiant que le lien est effectué à une des versions en fonction de la date.
+  Cela est plus simple et correct sémantiquement.  
+  Par exemple, la propriété chefLieu du département de la Loire (42) peut être définie comme
+  {$ref: http://id.georef.eu/frcommunes/42218} qui correspond à plusieurs versions successives.
+  
+  Les enregistrement d'un registre d'entités versionnés doivent comprendre les propriétés suivantes:
+    
+    - foundingDate - la date de création de la version en format AAAA-MM-JJ, propriété obligatoire,
+    - dissolutionDate - la date de péremption de la version, obligatoire ssi la version est périmée,
+    - ancestors - liste de références vers une ou plusieurs versions du même registre, obligatoire ssi la version
+      succède à une ou plusieurs autres versions,
+      
+      '22':
+        '1860-07-01':
+          name: Côtes-du-Nord
+          foundingDate: '1860-07-01'
+          dissolutionDate: '1990-02-27'
+          insee_code: '22'
+          successors:
+            - $ref: http://id.georef.eu/frdepartements/22@1990-02-27
+          containedInPlace:
+            '1970-01-09': {$ref: http://id.georef.eu/frregions/BRE}
+          chefLieu: {$ref: http://id.georef.eu/frcommunes/22278}
+        '1990-02-27':
+          name: Côtes-d'Armor
+          foundingDate: '1990-02-27'
+          sameAs:
+            - http://id.insee.fr/geo/departement/22
+          ancestors:
+            - $ref: http://id.georef.eu/frdepartements/22@1860-07-01
+          containedInPlace:
+            '1970-01-09': {$ref: http://id.georef.eu/frregions/BRE}
+          chefLieu: {$ref: http://id.georef.eu/frcommunes/22278}
+      
+   
+  
+  

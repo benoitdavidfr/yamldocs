@@ -1,0 +1,98 @@
+title: définition du schéma des fichiers de communes avec exemple d'un tel fichier imaginaire
+$schema:
+  title: schéma des fichiers donnant une photo instantannée des communes
+  $id: http://id.georef.eu/mvtscommunes/exfcoms/$schema
+  $schema: http://json-schema.org/draft-07/schema#
+  description: liste de communes chacune identfiée par son code dit INSEE
+  definitions:
+    componentList:
+      description: liste de composants d'une commune, chacun identifié par son code INSEE
+      type: object
+      patternProperties:
+        '^\d[\dAB]\d\d\d$': # code INSEE du composant
+          type: object
+          required: [name]
+          properties:
+            name:
+              description: nom du composant en typographie riche en minuscules sans article
+              type: string
+      additionalProperties: false
+  type: object
+  properties:
+    title:
+      type: string
+    $schema:
+      $ref: http://json-schema.org/draft-07/schema#
+    ydADscrBhv:
+      description: paramètres de comportement utilisés par le code Php de la classe AutoDescribed
+      type: object
+      additionalProperties: false
+      properties:
+        jsonLdContext:
+          description: contexte JSON-LD à ajouter
+          type: string
+        firstLevelType:
+          description: type des enregistrements de premier niveau dans contents
+          type: string
+        buildName:
+          description: définition de l'affichage réduit par type d'objet, code Php par type défini dans definitions
+          type: object
+          additionalProperties:
+            description: Pour chaque type le code Php d'affichage réduit est défini comme chaine
+            type: string
+        writePserReally:
+          description: si défini alors le doc est stocké en pser
+          type: boolean
+    contents:
+      type: object
+      patternProperties:
+        '^\d[\dAB]\d\d\d$': # code INSEE
+          type: object
+          required: [name]
+          properties:
+            name:
+              description: nom de la commune en typographie riche en minuscules sans article
+              type: string
+            associées:
+              description: liste éventuelle des communes associées, chacune indexée par son code INSEE
+              $ref: '#/definitions/componentList'
+            déléguées:
+              description: liste éventuelle des communes déléguées, chacune indexée par son code INSEE
+              $ref: '#/definitions/componentList'
+            ardtCom:
+              description: liste éventuelle des arrondissements communaux, chacun indexé par son code INSEE
+              $ref: '#/definitions/componentList'
+      additionalProperties: false
+    eof:
+      type: 'null'
+ydADscrBhv:
+  jsonLdContext: http://schema.org
+  firstLevelType: AdministrativeArea
+  buildName: # définition de l'affichage réduit par type d'objet, code Php par type
+    AdministrativeArea: |
+      return "$item[name] ($skey)";
+  writePserReally: true
+contents:
+  '01001': {name: Abergement-Clémenciat}
+  '01015':
+    name: Arboys en Bugey
+    déléguées:
+      '01015': {name: Arbignieu}
+      '01340': {name: Saint-Bois}
+  '01245':
+    name: Bohas-Meyriat-Rignat
+    associées:
+      '01324': {name: Rignat}
+  69123:
+    name: Lyon
+    ardtCom:
+      69381: {name: Lyon 1er Arrondissement}
+      69382: {name: Lyon 2e Arrondissement}
+      69383: {name: Lyon 3e Arrondissement}
+      69384: {name: Lyon 4e Arrondissement}
+      69385: {name: Lyon 5e Arrondissement}
+      69386: {name: Lyon 6e Arrondissement}
+      69387: {name: Lyon 7e Arrondissement}
+      69388: {name: Lyon 8e Arrondissement}
+      69389: {name: Lyon 9e Arrondissement}
+eof:

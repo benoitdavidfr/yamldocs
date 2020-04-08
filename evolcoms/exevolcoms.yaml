@@ -1,0 +1,142 @@
+title: définition du schéma des fichiers d'évolutions des communes avec exemple d'un tel fichier imaginaire
+$schema:
+  title: schéma des fichiers d'évolutions des communes
+  $id: http://id.georef.eu/mvtscommunes/exevolcoms/$schema
+  $schema: http://json-schema.org/draft-07/schema#
+  description: liste d'évolutions' de communes
+  definitions:
+    communeList:
+      description: liste de communes, chacune identifiée par son code INSEE
+      type: object
+      patternProperties:
+        '^\d[\dAB]\d\d\d$': # code INSEE
+          type: object
+          required: [name]
+          properties:
+            name:
+              description: nom de la commune en typographie riche en minuscules sans article
+              type: string
+            associées:
+              description: liste éventuelle des communes associées, chacune indexée par son code INSEE
+              $ref: '#/definitions/componentList'
+            déléguées:
+              description: liste éventuelle des communes déléguées, chacune indexée par son code INSEE
+              $ref: '#/definitions/componentList'
+            ardtCom:
+              description: liste éventuelle des arrondissements communaux, chacun indexé par son code INSEE
+              $ref: '#/definitions/componentList'
+          additionalProperties: false
+      additionalProperties: false
+    componentList:
+      description: liste de composants d'une commune, chacun identifié par son code INSEE
+      type: object
+      patternProperties:
+        '^\d[\dAB]\d\d\d$': # code INSEE du composant
+          type: object
+          required: [name]
+          properties:
+            name:
+              description: nom du composant en typographie riche en minuscules sans article
+              type: string
+      additionalProperties: false
+  type: object
+  properties:
+    title:
+      type: string
+    $schema:
+      $ref: http://json-schema.org/draft-07/schema#
+    ydADscrBhv:
+      description: paramètres de comportement utilisés par le code Php de la classe AutoDescribed
+      type: object
+      additionalProperties: false
+      properties:
+        jsonLdContext:
+          description: contexte JSON-LD à ajouter
+          type: string
+        firstLevelType:
+          description: type des enregistrements de premier niveau dans contents
+          type: string
+        buildName:
+          description: définition de l'affichage réduit par type d'objet, code Php par type défini dans definitions
+          type: object
+          additionalProperties:
+            description: Pour chaque type le code Php d'affichage réduit est défini comme chaine
+            type: string
+        writePserReally:
+          description: si défini alors le doc est stocké en pser
+          type: boolean
+    contents:
+      type: array
+      items:
+        type: object
+        properties:
+          mod:
+            description: code identifiant le type de modification
+            type: [string, number]
+          label:
+            description: étiquette associée à ce type de modification
+            type: string
+          date:
+            description: date d'effet de la modification
+            type: string
+            format: date
+          input:
+            description: liste des communes à modifier en entrée
+            $ref: '#/definitions/communeList'
+          result:
+            description: liste des communes modifiées en sortie
+            $ref: '#/definitions/communeList'
+        additionalProperties: false
+    eof:
+      type: 'null'
+ydADscrBhv:
+  jsonLdContext: http://id.georef.eu
+  firstLevelType: EvolCommune
+  buildName: # définition de l'affichage réduit par type d'objet, code Php par type
+    EvolCommune: |
+      $inputs = array_keys($item['input']);
+      $input = count($inputs) == 1 ? $inputs[0] : '('.implode(', ', $inputs).')';
+      $results = array_keys($item['result']);
+      $result = count($results) == 1 ? $results[0] : '('.implode(', ', $results).')';
+      return "$item[date] - $item[label] - $input -> $result";
+  writePserReally: true
+contents:
+  - mod: 33
+    label: Fusion-Association
+    date: '1973-11-01'
+    input:
+      '01278': {name: Ochiaz}
+      '01458': {name: Vouvray}
+      '01091': {name: Châtillon-de-Michaille}
+    result:
+      '01091':
+        name: Châtillon-de-Michaille
+        associées:
+          '01278': {name: Ochiaz}
+          '01458': {name: Vouvray}
+  - mod: 34
+    label: Transformation de fusion association en fusion simple ou suppression de communes déléguées
+    date: '1985-02-01'
+    input:
+      '01091':
+        name: Châtillon-de-Michaille
+        associées:
+          '01278': {name: Ochiaz}
+          '01458': {name: Vouvray}
+    result:
+      '01091': {name: Châtillon-de-Michaille}
+  - mod: 32
+    label: Création de commune nouvelle
+    date: '2019-01-01'
+    input:
+      '01033': {name: Bellegarde-sur-Valserine}
+      '01091': {name: Châtillon-de-Michaille}
+      '01205': {name: Lancrans}
+    result:
+      '01033':
+        name: Valserhône
+        déléguées:
+          '01033': {name: Bellegarde-sur-Valserine}
+          '01091': {name: Châtillon-de-Michaille}
+          '01205': {name: Lancrans}
+eof:

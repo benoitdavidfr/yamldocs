@@ -1,0 +1,153 @@
+title: erreurs détectées dans le fichier CSV initial des communes
+tours:
+  title: Historique de Tours
+  statut: non corrigé
+  note: |
+    L'enregistrement de Tours@1/1/1942 comporte des ancestors,
+    la date de fusion peut être retrouvée à partir de la date de dissolution des autres communes participant
+    à la fusion
+    Voir aussi:
+      - https://www.insee.fr/fr/metadonnees/cog/commune/COM37239-saint-symphorien
+  extraitVersionErronée:
+    '37261':
+      '1942-01-01':
+        id: fr:commune:37261@1942-01-01
+        insee_code: '37261'
+        start_datetime: 1942-01-01 00:00:00
+        end_datetime: 9999-12-31 23:59:59
+        name: Tours
+        ancestors:
+          - fr:commune:37235@1942-01-01
+          - fr:commune:37239@1942-01-01
+        parents:
+          - fr:departement:37@1860-07-01
+        population: 134803
+    '37235':
+      '1942-01-01':
+        id: fr:commune:37235@1942-01-01
+        insee_code: '37235'
+        start_datetime: 1942-01-01 00:00:00
+        end_datetime: 1964-05-31 23:59:59
+        name: Sainte-Radegonde-en-Touraine
+        successors:
+          - fr:commune:37261@1964-06-01
+        parents:
+          - fr:departement:37@1860-07-01
+        population: NULL
+        insee_modification: 310
+    '37239':
+      '1942-01-01':
+        id: fr:commune:37239@1942-01-01
+        insee_code: '37239'
+        start_datetime: 1942-01-01 00:00:00
+        end_datetime: 1964-05-31 23:59:59
+        name: Saint-Symphorien
+        successors:
+          - fr:commune:37261@1964-06-01
+        parents:
+          - fr:departement:37@1860-07-01
+        population: NULL
+        insee_modification: 310
+  correction:
+    title: l'enregistrement '37261' devrait être
+    '37261':
+      '1942-01-01':
+        id: fr:commune:37261@1942-01-01
+        insee_code: '37261'
+        start_datetime: 1942-01-01 00:00:00
+        end_datetime: 1964-05-31 23:59:59
+        name: Tours
+        successors:
+          - fr:commune:37261@1964-06-01
+        parents:
+          - fr:departement:37@1860-07-01
+      '1964-06-01':
+        id: fr:commune:37261@1964-06-01
+        insee_code: '37261'
+        start_datetime: 1964-06-01 00:00:00
+        end_datetime: 9999-12-31 23:59:59
+        name: Tours
+        ancestors:
+          - fr:commune:37235@1942-01-01
+          - fr:commune:37239@1942-01-01
+          - fr:commune:37261@1942-01-01
+        parents:
+          - fr:departement:37@1860-07-01
+        population: 134803
+Chartèves:
+  title: Chartève n'a pas d'ancêtre et sa création est postérieure au 1/1/1942
+  explication: |
+    https://www.insee.fr/fr/metadonnees/cog/commune/COM02166-charteves
+    01/01/1978 : Chartèves est rétablie.
+    01/10/1974 : Chartèves est rattachée à Mont-Saint-Père (02524) (fusion association) qui devient Charmont-sur-Marne.
+  extraitVersionErronée:
+    02166@1978-01-01:
+      name: Chartèves
+      foundingDate: '1978-01-01'
+      sameAs:
+        - 'http://id.insee.fr/geo/commune/02166'
+      containedInPlace:
+        $ref: 'http://id.georef.eu/frdepartements/02'
+      populationTotale: 353
+
+
+    15/06/1979 : Charmont-sur-Marne devient Mont-Saint-Père.
+    01/01/1978 : Charmont-sur-Marne se sépare de Chartèves (02166).
+    01/10/1974 : Mont-Saint-Père devient Charmont-sur-Marne suite à sa fusion-association avec Chartèves (02166).
+
+  '1942-01-01':
+    name: Mont-Saint-Père
+    foundingDate: '1942-01-01'
+    dissolutionDate: '1974-10-01'
+    insee_code: '02524'
+    successors:
+      - $ref: 'http://id.georef.eu/frcommunes/02524@1974-10-01'
+    containedInPlace:
+      $ref: 'http://id.georef.eu/frdepartements/02'
+    populationTotale: 709
+    insee_modification: 110
+  '1974-10-01':
+    name: Charmont-sur-Marne
+    foundingDate: '1974-10-01'
+    dissolutionDate: '1979-06-15'
+    insee_code: '02524'
+    ancestors:
+      - $ref: 'http://id.georef.eu/frcommunes/02166@1942-01-01'
+      - $ref: 'http://id.georef.eu/frcommunes/02524@1942-01-01'
+    successors:
+      - $ref: 'http://id.georef.eu/frcommunes/02524@1979-06-15'
+    containedInPlace:
+      $ref: 'http://id.georef.eu/frdepartements/02'
+    populationTotale: 1062
+    insee_modification: 100
+  '1979-06-15':
+    name: Mont-Saint-Père
+    foundingDate: '1979-06-15'
+    sameAs:
+      - 'http://id.insee.fr/geo/commune/02524'
+    ancestors:
+      - $ref: 'http://id.georef.eu/frcommunes/02524@1974-10-01'
+    containedInPlace:
+      $ref: 'http://id.georef.eu/frdepartements/02'
+    populationTotale: 709
+    insee_modification: 230
+  
+
+
+Saint-Martin-les-Eaux:
+  title: Saint-Martin-les-Eaux n'a pas d'ancêtre et sa création est postérieure au 1/1/1942
+  explication: |
+    https://www.insee.fr/fr/metadonnees/cog/commune/COM04190-saint-martin-les-eaux
+    12/06/1980 : Saint-Martin-les-Eaux est rétablie.
+    01/01/1975 : Saint-Martin-les-Eaux est rattachée à Manosque (04112) (fusion association).
+  extraitVersionErronée:
+    04190@1980-06-12:
+      name: Saint-Martin-les-Eaux
+      foundingDate: '1980-06-12'
+      sameAs:
+        - 'http://id.insee.fr/geo/commune/04190'
+      containedInPlace:
+        $ref: 'http://id.georef.eu/frdepartements/04'
+      populationTotale: 114
+    
+eof:

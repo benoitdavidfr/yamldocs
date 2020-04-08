@@ -1,0 +1,143 @@
+title: conception
+contents: |
+  Mon objectif est d'outiller l'utilisation du code INSEE des communes comme référentiel pivot.  
+  Ces codes évoluant, lorsqu'une base les utilise pour localiser des informations, il est nécessaire de la modifier pour tenir
+  compte de ces évolutions.  
+  Pour cela je cherche à créer une liste d'évolutions des communes avec un sémantique adaptée pour effectuer
+  les modifications d'une base utilisant les codes INSEE des communes.
+  
+  Depuis quelques années, la liste des communes évolue en raison principalement des textes suivants:
+
+    - La loi « Marcellin » du 16 juillet 1971 a créé la possibilité de fusionner des communes
+      avec une possibilité, appelée fusion-association, de conserver des communes associées.
+    - L'article 21 de la loi no 2010-1563 du 16 décembre 2010 de réforme des collectivités territoriales a remplacé ce mécanisme
+      par la possibilité de regrouper des communes en créant des communes nouvelles.  
+    - De plus, la loi du 16 mars 2015, dite loi Pélissard, a amélioré le régime des communes nouvelles et institué des incitations
+      financières pour en favoriser la création. Ainsi, les communes fusionnant en **2015** ou en **2016** au sein de communes 
+      nouvelles de moins de 10 000 habitants se voyaient garantir pendant trois ans le niveau des dotations de l’Etat.
+      Le texte instaurait également des communes déléguées correspondant aux anciennes communes.  
+    - Enfin, la loi de finances pour 2018 a prolongé ce dispositif d’incitations financières pour les communes créées entre
+      le 2 janvier **2017** et le 1er janvier **2019**.
+  
+  Début 2020, la situation est la suivante:
+
+    - On appelle **commune simple** une commune qui n'est ni associée, ni déléguée.
+      Ces communes simples forment une partition du territoire, à condition de prendre comme territoire d'une communes issue d'une
+      fusion-association, l'union des territoires des anciennes communes avant la fusion.
+    - On peut définir une seconde partition en gérant à part les communes associées.
+    - Parmi les communes simples, certaines sont issues de la création d'une commune nouvelle et parmi ces dernières,
+      certaines, que j'appelle **communes composites**, sont composées de communes déléguées.
+      En substituant aux communes composites leurs communes déléguées et aux communes PLM leurs arrondissements communaux,
+      on définit une troisième partition.
+  
+  Il existe en fait donc maintenant 3 référentiels pivot que j'appelle:
+    
+    - les communes simples, cad en intégrant les communes associées à leur commune de rattachement,
+    - les communes simples et associées, cad en distinguant les communes associées de leur commune de  rattachement,
+    - les communes élémentaires, cad en remplacant les communes composites par leurs communes déléguées et
+      les communes PLM par leurs arrondissements communaux.
+    
+  Il est utile de savoir quel référentiel AdminExpress implémente.
+  La documentation semble indiquer qu'il s'agit d'un des 2 premiers.
+  
+  Les fichiers 2019 et 2020 sont similaires.
+  Le fichier 2018 est différent et les communes déléguées ayant le même code que la com. composite sont perdues.
+  
+  ## Construction d'un fichier des états et mises à jour par commune
+  ~~~~
+  {dept}: // code département
+    {cinsee}: // code INSEE de commune simple
+      'states': // liste d'états
+        {date}: // date d'un état sous la forme 'AAAA-MM-JJ', valeur nulle si la commune n'existe plus
+          'name': {name} // nom de la commune simple
+          'associées': // liste optionnelle des communes associées
+            {cinsee}: // code INSEE d'une commune associée
+              'name': {name} // nom de la commune associée
+          'déléguées': // liste optionnelle des communes déléguées
+            {cinsee}: // code INSEE d'une commune déléguée
+              'name': {name} // nom de la commune déléguée
+          'ardts': // liste des arrondissements municipaux
+            {cinsee}: // code INSEE d'un arrondissement municipal
+              'name': {name} // nom de l'arrondissement municipal
+      'updates': // liste des évolutions par date
+        {date}: // date d'effet d'une évolution sous la forme 'AAAA-MM-JJ'
+          'source'/'destination'/'srceAndDest': // évols ayant la commune courante comme source ou comme destination ou les 2
+            - 'mod': {mod} // code définissant le type d'évolution
+              'label': {modVal} // libellé du type d'évolution
+              'input'/'output':
+                'type': {typecom} // type de commune (COM, COMA, COMD, ARM)
+                'com': {com} // code INSEE de commune avant
+                'name': {name} // libellé avant
+  ~~~~
+  ### Exemple:
+  ~~~~
+  '01025':
+    states:
+      '2000-01-01':
+        name: Bâgé-la-Ville
+      '2010-01-01':
+        name: Bâgé-la-Ville
+      '2020-01-01':
+        name: Bâgé-Dommartin
+        déléguées:
+          '01025':
+            name: Bâgé-la-Ville
+          '01144':
+            name: Dommartin
+    updates:
+      '2018-01-01':
+        srceAndDest:
+          - mod: '32'
+            label: 'Création de commune nouvelle'
+            input: { type: COM, com: '01025', name: Bâgé-la-Ville }
+            output: { type: COM, com: '01025', name: Bâgé-Dommartin }
+          - mod: '32'
+            label: 'Création de commune nouvelle'
+            input: { type: COM, com: '01025', name: Bâgé-la-Ville }
+            output: { type: COMD, com: '01025', name: Bâgé-la-Ville }
+        destination:
+          - mod: '32'
+            label: 'Création de commune nouvelle'
+            input: { type: COM, com: '01144', name: Dommartin }
+            output: { type: COM, com: '01025', name: Bâgé-Dommartin }
+  
+  ~~~~
+  Le fichier est progressivement construit, il est stocké en pser entre les opérations
+  Il est affiché en Yaml à la fin de chaque opération.
+
+  ## Formalisation d'un fichier d'évolutions
+  Un fichier d'évolutions est une liste d'évolutions qui chacune remplace un ensemble de communes par un autre.  
+  Une commune est décrite formellement par le schéma défini
+  dans [http://id.georef.eu/mvtscommunes/exfcoms](?doc=mvtscommunes/exfcoms&ypath=/$schema)  
+  Une évolution est décrite formellement par le schéma défini
+  dans [http://id.georef.eu/mvtscommunes/exevolcoms](?doc=mvtscommunes/exevolcoms&ypath=/$schema)
+
+dénombrement:
+  1/1/2020:
+    cSimples: 34968
+    cSimplesAssociées: 34968 + 546 = 35514
+    cElémentaires: 35514 + 2342 + 45 - 717 = 37184
+    s:  37901 enr. lus, 34968 c. simples, 546 c. associées, 717 c. composites, 2342 c. déléguées, 45 ardt m
+  1/1/2019:
+    cSimples: 34970
+    cSimplesAssociées: 34970 + 550 = 35520
+    cElémentaires: 35520 + 2365 + 45 - 728 = 37202
+    s:  37930 enr. lus, 34970 c. simples, 550 c. associées, 728 c. composites, 2365 c. déléguées, 45 ardt m 
+  1/1/2018:
+    cSimples: 35357
+    cSimplesAssociées: 35357 + 571 = 35928
+    cElémentaires: 35928 + 1322 + 45 - 3 = 37292
+    note: (les codes insee à la fois composites et délégués ne sont présents qu'une seule fois sauf PLM)
+    s:  37295 enr. lus, 35357 c. simples, 571 c. associées, 533 c. composites, 1322 c. déléguées, 45 ardt m 
+  1/1/2010:
+    cSimples: 37818
+    cSimplesAssociées: 37818 + 746 = 38564
+    cElémentaires: 38564 + 45 - 3 = 38612
+    s:  38609 enr. lus, 37818 c. simples, 746 c. associées, 3 c. composites, 0 c. déléguées, 45 ardt municipaux 
+  1/1/2000:
+    cSimples: 37818
+    cSimplesAssociées: 37818 + 746 = 38564
+    cElémentaires: 38564 + 45 - 3 = 38612
+    s:  38609 enr. lus, 37818 c. simples, 746 c. associées, 3 c. composites, 0 c. déléguées, 45 ardt municipaux 
+
+eof:

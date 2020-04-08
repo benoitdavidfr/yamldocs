@@ -1,0 +1,277 @@
+title: dessin des fichiers
+sémantique: |
+  On part initialement d'un ensemble de communes simples, aussi appelée communes.
+  Ces communes peuvent être regroupées:
+  
+    - soit par **création d'une commune nouvelle**, opération prévue par l'article 21 de la loi no 2010-1563
+      du 16 décembre 2010 de réforme des collectivités territoriales, (code 32)  
+      Les communes fusionnées subsistent sous forme de **communes déléguées**, reprenant le nom et les limites
+      territoriales des anciennes communes mais ne disposant pas de la personnalité morale,
+      ayant des compétences proches de celles des arrondissements municipaux instauré par la Loi PLM ;
+      Toutefois, le conseil municipal de la commune nouvelle peut décider par une délibération
+      de ne pas maintenir les diverses communes déléguées.
+      **Attention**, le code INSEE qui désigne la commune nouvelle peut aussi désigner une des communes déléguées.
+    - soit par **fusion simple**, opération prévue par la loi « Marcellin » du 16 juillet 1971 (code 31),
+      cette opération remplace les anciennes communes qui sont supprimées par une seule commune.
+      Un des codes INSEE est conservé, les autres sont supprimés.
+    - soit par **fusion-association**, opération prévue par la même loi Marcellin (code 33),
+      cette opération définit une commune principale et des communes associées, ces dernières prennent le statut
+      de commune associée.
+      Les codes INSEE sont tous conservés.
+      
+  L'arrêté préfectoral instituant un regroupement désigne une des communes comme chef-lieu.
+  Le code INSEE de la commune regroupée est par principe celui du chef-lieu ainsi désigné.
+
+  Les communes définissent plusieurs partitions géographiques du territoire:
+    
+    - la partition la plus grossière est définie par l'ensemble des communes simples en remplacant les communes
+      principales issues d'une fusion-association par l'ensemble de leurs anciennes communes.
+    - une partition intermédiaire est définie par l'ensemble constitué des communes simples et des communes
+      associées.
+    - enfin une partition plus fine est définie en substituant dans la partition précédente les communes ayant
+      des communes déléguées ou des ardts municipaux par ceux-ci.
+
+  Le fichier INSEE comporte:
+    - au 1/1/2018 35357 enr. dans comsimp2018.txt
+    - au 1/1/2018 39941 enr. dans France2018.txt
+    - au 1/1/2019 37930 enr. lus, 34970 com. simples, 595 com. associées, 2365 com. déléguées 
+    - au 1/1/2020 37901 enr. lus, 34968 com. simples, 591 com. associées, 2342 com. déléguées
+    
+
+communes2020:
+  TYPECOM:
+    longueur: 4
+    libellé: Type de commune
+    modalités:
+      COM: Commune
+      COMA: Commune associée
+      COMD: Commune déléguée
+      ARM: Arrondissement municipal
+  COM:
+    longueur: 5
+    libellé: Code commune
+  REG:
+    longueur: 2
+    libellé: Code région
+  DEP:
+    longueur: 3
+    libellé: Code département
+  ARR:
+    longueur: 4
+    libellé: Code arrondissement
+  TNCC:
+    longueur: 1
+    libellé: Type de nom en clair
+    modalités:
+      0: Pas d'article et le nom commence par une consonne sauf H muet, charnière = DE
+      1: Pas d'article et le nom commence par une voyelle ou un H muet, charnière = D'
+      2: Article = LE, charnière = DU
+      3: Article = LA, charnière = DE LA
+      4: Article = LES, charnière = DES
+      5: Article = L', charnière = DE L'
+      6: Article = AUX, charnière = DES
+      7: Article = LAS, charnière = DE LAS
+      8: Article = LOS, charnière = DE LOS
+  NCC:
+    longueur: 200
+    libellé: Nom en clair (majuscules)
+  NCCENR:
+    longueur: 200
+    libellé: Nom en clair (typographie riche)
+  LIBELLE:
+    longueur: 200
+    libellé: Nom en clair (typographie riche) avec article
+  CAN:
+    longueur: 5
+    libellé: Code canton. Pour les communes « multi-cantonales » code décliné de 99 à 90 (pseudo-canton) ou de 89 à 80 (communes nouvelles)
+  COMPARENT:
+    longueur: 5
+    libellé: Code de la commune parente pour les arrondissements municipaux et les communes associées ou déléguées.
+mvtcommune2020:
+  description: >
+    Dessin du fichier « Liste des événements survenus aux communes, arrondissements municipaux, communes
+    associées et communes déléguées depuis 1943 » et liste des variables
+  MOD:
+    longueur: 2
+    libellé: Type d'événement de communes
+    modalités:
+      10: Changement de nom
+      20: Création
+      21: Rétablissement
+      30: Suppression
+      31: Fusion simple
+      32: Création de commune nouvelle
+      33: Fusion association
+      34: Transformation de fusion association en fusion simple
+      41: Changement de code dû à un changement de département
+      50: Changement de code dû à un transfert de chef-lieu
+      70: Transformation de commune associé en commune déléguée
+  DATE_EFF:
+    longueur: 10
+    libellé: Date d'effet (AAAA-MM-JJ)
+  TYPECOM_AV:
+    longueur: 4
+    libellé: Type de la commune avant événement
+    modalités:
+      COM: Commune
+      COMA: Commune associée
+      COMD: Commune déléguée
+      ARM: Arrondissement municipal
+  COM_AV:
+    longueur: 5
+    libellé: Code de la commune avant événement
+  TNCC_AV:
+    longueur: 1
+    libellé: Type de nom en clair
+    modalités:
+      0: Pas d'article et le nom commence par une consonne sauf H muet, charnière = DE
+      1: Pas d'article et le nom commence par une voyelle ou un H muet, charnière = D'
+      2: Article = LE, charnière = DU
+      3: Article = LA, charnière = DE LA
+      4: Article = LES, charnière = DES
+      5: Article = L', charnière = DE L'
+      6: Article = AUX, charnière = DES
+      7: Article = LAS, charnière = DE LAS
+      8: Article = LOS, charnière = DE LOS
+  NCC_AV:
+    longueur: 200
+    libellé: Nom en clair (majuscules)
+  NCCENR_AV:
+    longueur: 200
+    libellé: Nom en clair (typographie riche)
+  LIBELLE_AV:
+    longueur: 200
+    libellé: Nom en clair (typographie riche) avec article
+  TYPECOM_AP:
+    longueur: 4
+    libellé: Type de commune après l'événement
+    modalités:
+      COM: Commune
+      COMA: Commune associée
+      COMD: Commune déléguée
+      ARM: Arrondissement municipal
+  COM_AP:
+    longueur: 5
+    libellé: Code de la commune après l'événement
+  TNCC_AP:
+    longueur: 1
+    libellé: Type de nom en clair
+    modalités:
+      0: Pas d'article et le nom commence par une consonne sauf H muet, charnière = DE
+      1: Pas d'article et le nom commence par une voyelle ou un H muet, charnière = D'
+      2: Article = LE, charnière = DU
+      3: Article = LA, charnière = DE LA
+      4: Article = LES, charnière = DES
+      5: Article = L', charnière = DE L'
+      6: Article = AUX, charnière = DES
+      7: Article = LAS, charnière = DE LAS
+      8: Article = LOS, charnière = DE LOS
+  NCC_AP:
+    longueur: 200
+    libellé: Nom en clair (majuscules)
+  NCCENR_AP:
+    longueur: 200
+    libellé: Nom en clair (typographie riche)
+  LIBELLE_AP:
+    longueur: 200
+    libellé: Nom en clair (typographie riche) avec article
+comsimp2018/France2018:
+  ACTUAL:
+    libellé: Code actualité de la commune
+    modalités:
+      1: commune actuelle
+      2: commune « associée »
+      3: commune périmée
+      4: ancien code dû à un changement de département
+      5: arrondissement municipal
+      6: Commune déléguée
+      9: fraction cantonale
+  CHEFLIEU:
+    libellé: Chef-lieu d'arrondissement, de département, de région ou bureau centralisateur
+    modalités:
+      0: commune non chef-lieu
+      1: commune bureau centralisateur de canton
+      2: commune chef-lieu d'arrondissement
+      3: commune chef-lieu de département
+      4: commune chef-lieu de région
+  CDC:
+    libellé: Découpage de la commune en cantons
+    modalités:
+      0: commune non découpée en cantons
+      1: fraction cantonale
+      2: canton non précisé
+  RANG:
+    libellé: Nombre de fractions cantonales + 1 de la commune lorsqu'elle est multi cantonale
+  REG:
+    libellé: Code région
+    longueur: 2
+  DEP:
+    libellé: Code département
+    longueur: 3 (afin de prendre en compte les départements des DOM)
+  COM:
+    libellé: Code de la commune ; précédé du code DEP, il forme le code Insee de la commune.
+    longueur: 3
+  AR:
+    libellé: Code de l'arrondissement dans le département.
+  CT:
+    libellé: Code canton
+  MODIF:
+    libellé: Indicateur de modification subie par la commune
+    modalités:
+      0: commune non touchée par un événement
+      1: commune touchée par un événement
+    note: |
+      Ces événements font référence aux événements contenus dans le nouveau fichier historique, décrit ci-après. 
+      Cela concerne les « événements » suivants:
+        - changement de nom,
+        - création,
+        - rétablissement,
+        - fusion,
+        - fusion-association,
+        - fusion-association se transformant en fusion simple,
+        - changement de département, d'arrondissement et de canton,
+        - transfert de chef-lieu de commune et
+        - échange de parcelles avec transfert de population.
+
+      Les 6 premiers « événements » sont renseignés depuis 1943. Les autres ont été initialisés avec le nouveau
+      répertoire, depuis 1994.
+  POLE:
+    libellé: Code département-commune de rattachement
+    note: |
+      Il s'agit du code département-commune de la commune actuelle (pôle ou chef-lieu) à laquelle s'est rattachée
+      la commune.  
+      La commune rattachée peut-être associée (ACTUAL='2'), fusionnée (ACTUAL='3') ou déléguée (ACTUAL='6').
+
+      Remarque : un code ACTUAL='3' peut représenter une commune fusionnée (fusion simple) ou une commune
+      regroupée non déléguée au sein d'une commune nouvelle.
+
+      Pour les communes ayant changé de département (ACTUAL='4'), la variable POLE prend le code
+      département-commune dans le nouveau département.
+
+      Pour les arrondissements municipaux (ACTUAL='5'), la variable POLE prend pour valeur le code de la commune
+      (Paris, Lyon ou Marseille).
+  TNCC:
+    libellé: Type de nom en clair
+    modalités:
+      0: Pas d'article et le nom commence par une consonne sauf H muet, charnière = DE
+      1: Pas d'article et le nom commence par une voyelle ou un H muet, charnière = D'
+      2: Article = LE, charnière = DU
+      3: Article = LA, charnière = DE LA
+      4: Article = LES, charnière = DES
+      5: Article = L', charnière = DE L'
+      6: Article = AUX, charnière = DES
+      7: Article = LAS, charnière = DE LAS
+      8: Article = LOS, charnière = DE LOS
+  ARTMAJ:
+    libellé: article, décodé en fonction de TNCC et encadré de parenthèses, en caractères majuscules
+  NCC:
+    libellé: Libellé en lettres majuscules
+  ARTMIN:
+    libellé: article, décodé en fonction de TNCC et encadré de parenthèses, en caractères enrichis.
+  NCCENR:
+    libellé: Libellé en typographie riche, majuscules, minuscules, accentuation.
+  ARTICLCT:
+    libellé: Article précédent éventuellement le nom du canton et encadré de parenthèses.
+  NCCCT:
+    libellé: Libellé du canton auquel appartient la commune en typographie riche.
+eof:
