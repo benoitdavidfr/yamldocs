@@ -7,6 +7,8 @@ doc: |
 journal: |
   11/4/2020:
     - extraction des classes Base et Criteria dans base.inc.php
+    - correction de la définition de l'encodage des anciens ficheirs INSEE en Windows-1252
+    - extraction de la classe GroupMvts dans grpmvts.inc.php
   10/4/2020:
     - genEvols semble fonctionner jusqu'au 1/1/2000
     - Pas réussi à comparer avec le fichier INSEE de cette date
@@ -35,10 +37,10 @@ if (($_GET['action'] ?? null) == 'delBase') { // suppression de la base
   unset($_GET['action']);
 }
 
-/*PhpDoc: screens
+{/*PhpDoc: screens
 name: Menu
 title: Menu - permet d'exécuter les différentes actions définies
-*/
+*/}
 if (!isset($_GET['action'])) { // Menu
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>menu</title></head><body>\n";
   echo "<a href='?action=csvMvt2yaml&amp;file=mvtcommune2020.csv'>Affiche mvtcommune2020.csv</a><br>\n";
@@ -320,7 +322,7 @@ if ($_GET['action'] == 'extrait') { // extrait
   die("Aucun enregistrement trouvé");
 }
 
-// convertit un enregistrement txt en csv
+// convertit un enregistrement txt en csv, cad de l'ancien frmat INSEE dans le nouveau
 function conv2Csv(array $rec): array {
   switch($rec['actual']) {
     case '1': // commune simple
@@ -501,418 +503,7 @@ if ($_GET['action'] == 'genCom1943') { // génération d'un fichier des communes
   die();
 }
 
-{/*PhpDoc: classes
-name: GroupMvts
-title: GroupMvts - Groupe de mvts, chacun correspond à une évolution sémantique distincte
-doc: |
-  Les groupes sont générés par la méthode statique buildGroups() qui en produit un ensemble à partir d'un ens. de mvts
-  élémentaires ; cette méthode est indépendante de la sémantique du mouvement.
-  Ces groupes sont ensuite transformés en évolutions par la méthode buildEvol() qui interprète la sémantique du fichier INSEE
-  des mouvements.
-  La méthode asArray() exporte un groupe comme array Php afin notamment permettre de le visualiser en Yaml ou en JSON.
-methods:
-*/}
-class GroupMvts {
-  protected $mod; // code de modifications
-  protected $label; // étiquette des modifications
-  protected $date; // date d'effet des modifications
-  protected $mvts; // [['avant/après'=>['type'=> type, 'id'=> id, 'name'=>name]]]
-  
-  static function buildGroups(array $mvtcoms): array {
-    {/*PhpDoc: methods
-    name: buildGroups
-    title: "static function buildGroups(array $mvtcoms): array - Regroupement d'un ens. de mvts élémentaires en un ens. de groupes de mvts"
-    doc: |
-      L'algorithme consiste à considérer le graphe dont les sommets sont constitués des codes INSEE de commune
-      et les arêtes l'existence d'un mvt entre 2 codes.
-      Les groupes de mvts sont les parties connexes de ce graphe.
-      L'avantage de cet algorithme est qu'il est indépendant de la sémantique des mod.
-      Les mvts élémentaires initiaux doivent être du même mod et avoir la même date d'effet.
-    */}
-    $result = [];
-    while ($mvtcoms) { // j'itère tant qu'il reste des mvts dans l'ensemble des mvts en entrée
-      $comConcerned = []; // liste des communes concernées par le groupe de mvts que je construis
-      // j'initialise la liste des communes concernées avec celles de la première arrête qui n'est pas une boucle
-      foreach ($mvtcoms as $i => $mvt) {
-        if ($mvt['avant']['id'] <> $mvt['après']['id']) {
-          $comConcerned[$mvt['avant']['id']] = 1;
-          $comConcerned[$mvt['après']['id']] = 1;
-          $mod = $mvt['mod'];
-          break;
-        }
-      }
-      //echo Yaml::dump(['aggrMvtsCom::$comConcerned'=> array_keys($comConcerned)], 4, 2);
-      if (!$comConcerned) { // Si je n'ai trouvé aucun arc non boucle cela veut dire que je n'ai que des boucles
-        // dans ce cas chaque boucle correspond à une partie connexe
-        foreach ($mvtcoms as $i => $mvt)
-          $result[] = new GroupMvts([$mvt]);
-        //echo Yaml::dump(['GroupMvts::buildGroups::$result'=> $result], 4, 2);
-        return $result;
-      }
-      // Sinon, ici j'ai initialisé $comConcerned avec 2 communes et $mod avec une valeur
-      // puis j'ajoute à $comConcerned les mvts du même mod et dont un des 2 id appartient à $comConcerned
-      // et au fur et à mesure j'ajoute à $groupOfMvts la liste des mvts ainsi sélectionnés
-      $groupOfMvts = []; // liste des mvts appartenant au groupe courant
-      $done = false;
-      while (!$done) { // je boucle ttq j'ajoute au moins un nouveu mt au groupe
-        $done = true;
-        foreach ($mvtcoms as $i => $mvt) {
-          //echo Yaml::dump(["mvt $i"=> $mvt]);
-          if (isset($comConcerned[$mvt['avant']['id']]) || isset($comConcerned[$mvt['après']['id']])) {
-            $groupOfMvts[] = $mvt;
-            $comConcerned[$mvt['avant']['id']] = 1; // ajout aux communes concernées
-            $comConcerned[$mvt['après']['id']] = 1; // ajout aux communes concernées
-            unset($mvtcoms[$i]); // je supprime un mvt de l'ensemble en entrée ce qui garantit que je ne boucle pas
-            $done = false;
-          }
-        }
-      }
-      //echo Yaml::dump(['GroupMvts::buildGroups'=> $groupOfMvts], 4, 2);
-      $result[] = new GroupMvts($groupOfMvts);
-    }
-    return $result;
-  }
-  
-  function __construct(array $groupOfMvts) {
-    //echo Yaml::dump(['GroupMvts::__construct::$groupOfMvts'=> $groupOfMvts], 4, 2);
-    $this->mod = $groupOfMvts[0]['mod'];
-    $this->label = $groupOfMvts[0]['label'];
-    $this->date = $groupOfMvts[0]['date_eff'];
-    $this->mvts = [];
-    foreach ($groupOfMvts as $mvt) {
-      $this->mvts[] = [
-        'avant'=> $mvt['avant'],
-        'après'=> $mvt['après'],
-      ];
-    }
-  }
-  
-  function asArray(): array {
-    $array = [
-      'mod'=> $this->mod,
-      'label'=> $this->label,
-      'date'=> $this->date,
-      'mvts'=> [],
-    ];
-    foreach ($this->mvts as $mvt) {
-      $array['mvts'][] = [
-        'avant'=> $mvt['avant'],
-        'après'=> $mvt['après'],
-      ];
-    }
-    return $array;
-  }
-  
-  // factorisation des mvts sur l'avant
-  private function factorAvant(): array {
-    $result = []; // [ {id_avant}=> ['type'=> type_avant, 'name'=> name_avant, 'après'=> [après]]]
-    foreach ($this->mvts as $mvt) {
-      if (!isset($result[$mvt['avant']['id']])) {
-        $result[$mvt['avant']['id']] = [
-          'type'=> $mvt['avant']['type'],
-          'name'=> $mvt['avant']['name'],
-          'après'=> [
-            $mvt['après']['id'] => [
-              'type'=> $mvt['après']['type'],
-              'name'=> $mvt['après']['name'],
-            ],
-          ],
-        ];
-      }
-      else {
-        $result[$mvt['avant']['id']]['après'][$mvt['après']['id']] = [
-          'type'=> $mvt['après']['type'],
-          'name'=> $mvt['après']['name'],
-        ];
-      }
-    }
-    //echo Yaml::dump(['factorAvant()'=> $result], 3, 2);
-    return $result;
-  }
-  
-  // Fabrique une évolution sémantique à partir d'un groupe de mvts et met à jour la base des communes
-  function buildEvol(Base $coms, Criteria $trace): array {
-    switch($this->mod) {
-      case '10': { // Changement de nom
-        if (count($this->mvts) <> 1) {
-          //throw new Exception("Erreur: Changement de nom sur plusieurs éléments - Je ne sais pas interpéter");
-          return [
-            'mod'=> $this->mod,
-            'label'=> $this->label,
-            'date'=> $this->date,
-            'ALERTE'=> "Erreur: Changement de nom sur plusieurs éléments ligne ".__LINE__,
-            'input'=> $this->asArray(),
-          ];
-        }
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [ $this->mvts[0]['avant']['id']=> ['name'=> $this->mvts[0]['avant']['name']] ],
-          'output'=> [ $this->mvts[0]['après']['id']=> ['name'=> $this->mvts[0]['après']['name']] ],
-        ];
-        // Chgt de nom dans la base
-        $id_av = $this->mvts[0]['après']['id'];
-        $coms->$id_av = ['name' => $this->mvts[0]['après']['name']];
-        return $evol;
-      }
-
-      case '20': { // Création
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [],
-          'output'=> [],
-        ];
-        foreach ($this->factorAvant() as $id_av => $avant) {
-          $evol['input'][$id_av] = ['name'=> $avant['name']];
-          foreach ($avant['après'] as $id_ap => $après)
-            $evol['output'][$id_ap] = ['name'=> $après['name']];
-        }
-        // création dans la base
-        //$coms[$mvt0['après']['id']] = ['name'=> $mvt0['après']['name']];
-        return $evol;
-      }
-        
-      case '21': { // Rétablissement - je suppose qu'il s'agit d'une défusion
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [],
-          'output'=> [],
-        ];
-        foreach ($this->factorAvant() as $id_av => $avant) {
-          $evol['input'][$id_av] = ['name'=> $avant['name']];
-          foreach ($avant['après'] as $id_ap => $après) {
-            $evol['output'][$id_ap] = ['name'=> $après['name']];
-            // Création dans la base des communes qui n'existaient pas déjà
-            if ($id_ap <> $id_av)
-              $coms->$id_ap = ['name'=> $après['name']];
-          }
-        }
-        return $evol;
-      }
- 
-      case '30': { // Suppression
-        // ex de Pierrelez (77362) supprimée en 1949 et son territoire a été partagé entre de Cerneux et Sancy-lès-Provins.  
-        // https://fr.wikipedia.org/wiki/Pierrelez
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [],
-          'output'=> [],
-        ];
-        $deleted = [];
-        foreach ($this->mvts as $mvt) {
-          $id_av = $mvt['avant']['id'];
-          $evol['input'][$id_av] = ['name'=> $mvt['avant']['name']];
-          if ($id_av <> $mvt['après']['id']) {
-            $evol['output'][$mvt['après']['id']] = ['name'=> $mvt['après']['name']];
-            if (!isset($deleted[$id_av])) {
-              unset($coms->$id_av);
-              $deleted[$id_av] = 1;
-            }
-          }
-        }
-        return $evol;
-      }
-    
-      case '31': { // Fusion simple
-        if (count($this->mvts) == 1)
-          throw new Exception("Erreur: Fusion simple sur un seul élément ligne ".__LINE__);
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [],
-          'output'=> [ $this->mvts[0]['après']['id']=> ['name'=> $this->mvts[0]['après']['name']] ],
-        ];
-        foreach ($this->mvts as $mvt) {
-          $id_av = $mvt['avant']['id'];
-          $evol['input'][$id_av] = ['name'=> $mvt['avant']['name']];
-          // Suppressions dans la base des communes fusionnées sauf celle résultant de la fusion
-          if ($id_av <> $mvt['après']['id'])
-            unset($coms->$id_av);
-        }
-        //echo Yaml::dump(['$evol'=> $evol], 99, 2);
-        return $evol;
-      }
-
-      case '32': { // Création de commune nouvelle
-        if (count($grpMvtsCom) == 1)
-          throw new Exception("Erreur: Création de commune nouvelle sur un seul élément");
-        $evol = [
-          'mod'=> $mvt0['mod'],
-          'label'=> $mvt0['label'],
-          'date'=> $mvt0['date_eff'],
-          'input'=> [],
-          'output'=> [],
-        ];
-        foreach ($grpMvtsCom as $mvt) {
-          if ($mvt['avant']['type'] == 'COM') {
-            $idChefLieu['avant'] = $mvt['avant']['id'];
-            $evol['input'][$idChefLieu['avant']] = ['name'=> $mvt['avant']['name']];
-          }
-          if ($mvt['après']['type'] == 'COM') {
-            $idChefLieu['après'] = $mvt['après']['id'];
-            $evol['output'][$idChefLieu['après']] = ['name'=> $mvt['après']['name']];
-          }
-        }
-      
-        foreach ($grpMvtsCom as $mvt) {
-          if ($mvt['avant']['type'] == 'COMD') {
-            $evol['input'][$idChefLieu['avant']]['déléguées'][$mvt['avant']['id']] = ['name'=> $mvt['avant']['name']];
-          }
-          if ($mvt['après']['type'] == 'COMD') {
-            $evol['output'][$idChefLieu['après']]['déléguées'][$mvt['après']['id']] = ['name'=> $mvt['après']['name']];
-            $coms[$mvt['après']['id']] = ['déléguéeDe' => $idChefLieu['après']];
-          }
-        }
-        //echo Yaml::dump(['$evol'=> $evol], 99, 2);
-        unset($coms[$idChefLieu['avant']]);
-        $coms[$idChefLieu['après']] = $evol['output'][$idChefLieu['après']];
-        return $evol;
-      }
-    
-      case '33': { // Fusion association
-        if (count($this->mvts) == 1)
-          throw new Exception("Erreur: Fusion association sur un seul élément ligne ".__LINE__);
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [],
-          'output'=> [],
-        ];
-        //echo Yaml::dump(['factorAvant'=> $this->factorAvant()]);
-        foreach ($this->factorAvant() as $id_av => $avant) {
-          $evol['input'][$id_av] = ['name'=> $avant['name']];
-          if (count($avant['après']) == 1) { // ident du chefLieu
-            $idChefLieu = array_keys($avant['après'])[0];
-            $evol['output'][$idChefLieu] = ['name'=> $avant['après'][$idChefLieu]['name']];
-          }
-        }
-        foreach ($this->factorAvant() as $id_av => $avant) {
-          if (count($avant['après']) <> 1) {
-            foreach ($avant['après'] as $id_ap => $après) {
-              if ($id_ap == $id_av) {
-                $evol['output'][$idChefLieu]['associées'][$id_ap] = ['name'=> $après['name']];
-                $coms->$id_ap = ['associéeA'=> $idChefLieu];
-              }
-            }
-          }
-        }
-        $coms->$idChefLieu = $evol['output'][$idChefLieu];
-        //die(Yaml::dump(['evol'=> $evol], 3));
-        return $evol;
-      }
-
-      case '34': { // Transformation de fusion association en fusion simple ou suppression de communes déléguées
-        // trouver la commune de rattachement
-        $rttchmnt = []; // mvt correspondant à la commune de rattachement
-        foreach ($this->mvts as $mvt) {
-          if ($mvt['avant']['type']=='COM')
-            $rttchmnt = $mvt;
-        }
-        if (!$rttchmnt)
-          throw new Exception("Erreur ligne ".__LINE__);
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [ $rttchmnt['avant']['id'] => ['name'=> $rttchmnt['avant']['name']]],
-          'output'=> [ $rttchmnt['après']['id'] => ['name'=> $rttchmnt['après']['name']]],
-        ];
-        foreach ($this->mvts as $mvt) {
-          $id_av = $mvt['avant']['id'];
-          if ($mvt['avant']['type'] == 'COMA') {
-            $evol['input'][$rttchmnt['avant']['id']]['associés'] = [$mvt['avant']['id'] => ['name'=> $mvt['avant']['name']]];
-            unset($coms->$id_av);
-          }
-          elseif ($mvt['avant']['type'] == 'COMD') {
-            $evol['input'][$rttchmnt['avant']['id']]['délégués'] = [$mvt['avant']['id'] => ['name'=> $mvt['avant']['name']]];
-            unset($coms->$id_av);
-          }
-        }
-        $id_rttchmnt = $rttchmnt['après']['id'];
-        $coms->$id_rttchmnt = ['name'=> $rttchmnt['après']['name']];
-        return $evol;
-      }
-
-      case '41': { // Changement de code dû à un changement de département
-        if (count($this->mvts) <> 1)
-          throw new Exception("Erreur: Changement de code (41) sur plusieurs éléments ligne ".__LINE__);
-        $mvt0 = $this->mvts[0];
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [ $mvt0['avant']['id']=> ['name'=> $mvt0['avant']['name']] ],
-          'output'=> [ $mvt0['après']['id']=> ['name'=> $mvt0['après']['name']] ],
-        ];
-        // Chgt de du code dans la base
-        $id_av = $mvt0['avant']['id'];
-        unset($coms->$id_av);
-        $id_ap = $mvt0['après']['id'];
-        $coms->$id_ap = ['name' => $mvt0['après']['name']];
-        return $evol;
-      }
-
-      case '50': { // Changement de code dû à un transfert de chef-lieu
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [],
-          'output'=> [],
-        ];
-        //echo Yaml::dump(['factorAvant'=> $this->factorAvant()]);
-        foreach ($this->factorAvant() as $id_av => $avant) {
-          if ($avant['type'] == 'COM') {
-            $idChefLieu = $id_av;
-            $evol['input'][$id_av] = ['name'=> $avant['name']];
-          }
-        }
-        foreach ($this->factorAvant() as $id_av => $avant) {
-          if ($avant['type'] <> 'COM') {
-            $evol['input'][$idChefLieu]['associées'][$id_av] = ['name'=> $avant['name']];
-          }
-          foreach ($avant['après'] as $id_ap => $après) {
-            if ($après['type']=='COM')
-              $chefLieu_ap = ['id'=> $id_ap, 'name'=> $après['name']];
-            else
-              $assoc_ap = ['id'=> $id_ap, 'name'=> $après['name']];
-          }
-          $evol['output'][$chefLieu_ap['id']]['name'] = $chefLieu_ap['name'];
-          $evol['output'][$chefLieu_ap['id']]['associées'][$assoc_ap['id']] = ['name'=> $assoc_ap['name']];
-        }
-        foreach ($evol['output'] as $idChefLieu => $chefLieu) {
-          $coms->$idChefLieu = $chefLieu;
-          foreach ($chefLieu['associées'] as $ida => $noma) {
-            $coms->$ida = ['associéeA'=> $idChefLieu];
-          }
-        }
-        return $evol;
-      }
-    
-      case '70': { // Transformation de commune associée en commune déléguée
-        return [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'ALERTE'=> "Erreur ".__LINE__,
-          'input'=> $this->asArray(),
-        ];
-      }
-    
-      default:
-        throw new Exception("mod $this->mod non traité ligne ".__LINE__);
-    }
-  }
-};
+require_once __DIR__.'/grpmvts.inc.php';
 
 {/*PhpDoc: screens
 name: genEvols
@@ -923,7 +514,7 @@ if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions 
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>genEvols</title></head><body><pre>\n";
   $trace = new Criteria([]); // aucun critère, tout est affiché
   //$trace = new Criteria(['mod'=> ['not'=> ['10','20','21','30','31','33','34','41','50']]]);
-  //$trace = new Criteria(['mod'=> ['34']]); 
+  //$trace = new Criteria(['mod'=> ['21']]); 
   if (1) { // lecture de mvtcommune2020.csv dans $mvtcoms et tri par ordre chronologique
     $mvtcoms = []; // Liste des mvts retriée par ordre chronologique
     $file = fopen(__DIR__.'/mvtcommune2020.csv', 'r');
@@ -937,7 +528,7 @@ if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions 
       //print_r($rec);
       $yaml = [
         'mod'=> $rec['mod'],
-        'label'=> Mvt::ModVals[$rec['mod']],
+        'label'=> GroupMvts::ModLabels[$rec['mod']],
         'date_eff'=> $rec['date_eff'],
         'avant'=> [
           'type'=> $rec['typecom_av'],
@@ -959,6 +550,7 @@ if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions 
     //echo Yaml::dump($mvtcoms, 99, 2);
   }
   $coms = new Base(__DIR__.'/com1943', $trace); // Lecture de com1943.yaml dans $coms
+  //$mvtcoms = ['1976-01-01' => $mvtcoms['1976-01-01']]; // Test de mod=21
   //$mvtcoms = ['1990-02-01' => $mvtcoms['1990-02-01']]; // Test de aggrMvtsCom()
   //$mvtcoms = ['2020-01-01' => $mvtcoms['2020-01-01']]; // Test de mod=70
   foreach($mvtcoms as $date_eff => $mvtcomsD) {
@@ -1001,14 +593,16 @@ if ($_GET['action'] == 'buildState') { // fabrication d'un fichier Yaml d'un ét
   foreach ($headers as $i => $header)
     if (preg_match('!"([^"]+)"!', $header, $matches))
       $headers[$i] = $matches[1];
-  echo "<pre>headers="; print_r($headers); echo "</pre>\n";
+  //echo "<pre>headers="; print_r($headers); echo "</pre>\n";
   while($record = fgetcsv($file, 0, $sep)) {
-    echo "<pre>record="; print_r($record); echo "</pre>\n";
+    //echo "<pre>record="; print_r($record); echo "</pre>\n";
     $rec = [];
     foreach ($headers as $i => $header) {
-      $rec[strtolower($header)] = $_GET['format'] == 'csv' ? $record[$i] : utf8_encode($record[$i]);
+      $rec[strtolower($header)] = $_GET['format'] == 'csv' ?
+          $record[$i] :
+            mb_convert_encoding ($record[$i], 'UTF-8', 'Windows-1252');
     }
-    echo "<pre>rec="; print_r($rec); echo "</pre>\n";
+    //echo "<pre>rec="; print_r($rec); echo "</pre>\n";
     if ($_GET['format'] == 'txt') {
       $rec = conv2Csv($rec);
       if ($rec['typecom'] == 'X')
@@ -1073,45 +667,155 @@ function readfiles($dir, $recursive=false) { // lecture du nom, du type et de la
   return $files;
 }
 
-function is_scalar2($v) { return is_scalar($v) || is_null($v); }
-
-// renvoie l'union des clés triée
-function union_keys(array $seta, array $setb): array {
-  foreach ($setb as $kb => $b)
-    if (!isset($seta[$kb]))
-      $seta[$kb] = $b;
-  ksort($seta);
-  return array_keys($seta);
+// renvoie l'union des clés de $a et $b, en gardant d'abord l'ordre du + long et en ajoutant à la fin celles du + court
+function union_keys(array $a, array $b): array {
+  // $a est considéré comme le + long, si non on inverse
+  if (count($b) > count($a))
+    return union_keys($b, $a);
+  // j'ajoute à la fin de $a les clés de $b absentes de $a
+  foreach (array_keys($b) as $kb) {
+    if (!array_key_exists($kb, $a))
+      $a[$kb] = 1;
+  }
+  return array_keys($a);
+}
+if (0) { // Test de union_keys()
+  echo '<pre>';
+  echo "arrays identiques\n";
+  print_r(union_keys(
+    ['c'=>1,'b'=>1,'a'=>1,'g'=>1,'u'=>1,'d'=>1],
+    ['c'=>1,'b'=>1,'a'=>1,'g'=>1,'u'=>1,'d'=>1]
+  ));
+  echo "zyx identiques\n";
+  print_r(union_keys(
+    ['z'=>1,'y'=>1,'x'=>1,'g'=>1,'u'=>1,'d'=>1],
+    ['z'=>1,'y'=>1,'x'=>1,'d'=>1,'u'=>1]
+  ));
+  print_r(union_keys(
+    ['a'=>1,'b'=>1,'c'=>1,'g'=>1,'u'=>1,'d'=>1],
+    ['x'=>1,'b'=>1,'c'=>1,'d'=>1,'u'=>1]
+  ));
+  die("Fin Test de union_keys");
 }
 
-function compare(array $file1, array $file2, $path=[]): void {
+// fonction utilisé par compare pour afficher un élément d'un des 2 fichiers
+function compareShowOneElt(string $key, array $file, array $keypath, string $filepath): void {
+  echo '<td>';
+  if (!array_key_exists($key, $file))
+    echo "<i>non défini</i>";
+  elseif (is_null($file[$key]))
+    echo "<i>null</i>";
+  elseif (is_scalar($file[$key]))
+    echo $file[$key];
+  elseif (is_array($file[$key])
+    && (strlen($json = json_encode($file[$key], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE)) < 60))
+      echo "<code>$json</code>";
+  else {
+    $href = "?action=ypath&amp;file=$filepath&amp;ypath=".urlencode(implode('/',array_merge($keypath,[$key])));
+    echo "<b>type <a href='$href'>",gettype($file[$key]),"</a></b>";
+  }
+  echo '</td>';
+}
+
+// chaque appel doit afficher 0, 1 ou plusieurs lignes du tableau comparatif, renvoie des stats
+function compare(array $file1, array $file2, callable $fneq=null, array $path=[], array $stat=['diff'=>0,'tot'=>0]): array {
+  if (!$path) {
+    echo "<table border=1><th></th><th>$_GET[file1]</th><th>$_GET[file2]</th>\n";
+  }
   foreach (union_keys($file1, $file2) as $key) {
-    //echo "key=$key<br>\n";
-    if (isset($file1[$key]) && isset($file2[$key])) {
-      if (is_array($file1[$key]) && is_array($file2[$key]))
-        compare($file1[$key], $file2[$key], array_merge($path, [$key]));
-      elseif (is_scalar2($file1[$key]) && is_scalar2($file2[$key])) {
-        if ($file1[$key] <> $file2[$key])
-          echo '<tr><td>',implode('/', $path),"/$key</td><td>",$file1[$key],"</td><td>",$file2[$key],"</td></tr>\n";
+    if (isset($file1[$key]) && is_array($file1[$key]) && isset($file2[$key]) && is_array($file2[$key])) {
+      $stat = compare($file1[$key], $file2[$key], $fneq, array_merge($path, [$key]), $stat);
+    }
+    else {
+      // si soit n'existe que d'un des 2 côtés soit sont différents
+      if (!array_key_exists($key, $file1) || !array_key_exists($key, $file2)
+          || (is_null($fneq) ? ($file1[$key] <> $file2[$key]) : !$fneq($file1[$key], $file2[$key]))) {
+        // A partir d'ici je sais que j'affiche une ligne et une seule
+        echo '<tr><td>',implode('/', array_merge($path,[$key])),"</td>"; // affichage de la clé
+        // affichage de file1
+        compareShowOneElt($key, $file1, $path, $_GET['file1']);
+        // affichage de file2
+        compareShowOneElt($key, $file2, $path, $_GET['file2']);
+        echo "</tr>\n";
+        $stat['diff']++;
       }
-      else
-        echo '<tr><td>',implode('/', $path),"/$key</td>",
-          "<td><b>type ",gettype($value),"</b></td><td><b>type ",gettype($file2[$key]),"</b></td></tr>\n";
-    }
-    elseif (isset($file1[$key])) {
-      $href = "?action=ypath&amp;file=$_GET[file1]&amp;ypath=".urlencode(implode('/',$path))."/$key";
-      echo '<tr><td>',implode('/', $path),"/$key</td>",
-        "<td><b>type <a href='$href'>",gettype($file1[$key]),"</a></b></td>",
-        "<td><b>non défini</b></td></tr>\n";
-    }
-    elseif (isset($file1[$key])) {
-      echo '<tr><td>',implode('/', $path),"/$key</td>",
-        "<td><b>non défini</b></td><td><b>type ",gettype($file2[$key]),"</b></td></tr>\n";
+      $stat['tot']++;
     }
   }
+  if (!$path) {
+    echo "</table>\n";
+    printf("%d/%d différents soit %.0f %%<br>\n", $stat['diff'], $stat['tot'], $stat['diff']/$stat['tot']*100);
+  }
+  return $stat;
+}
+if (0) { // Test de la fonction compare
+  $doc1 = [
+    'title'=> 'doc1',
+    'idem'=> 'contenu identique',
+    'zdiff'=> 'contenu différent 1',
+    'ssdoc'=> [
+      'idem'=> 'contenu identique',
+      'diff'=> 'contenu différent 1',
+      'null1'=> null,
+      'tab'=> ['a','b'],
+    ],
+    'ssdoc2'=> [
+      't'=> 'ssdoc2',
+      'x'=> 'b',
+    ],
+  ];
+  $doc2 = [
+    'title'=> 'doc2',
+    'idem'=> 'contenu identique',
+    'tab'=> ['a','b'],
+    'zdiff'=> 'contenu différent 2',
+    'ssdoc'=> [
+      'idem'=> 'contenu identique',
+      'diff'=> 'contenu différent 2',
+      'null1'=> "non null dans doc2",
+      'null2'=> null,
+    ],
+    'ssdoc2'=> [
+      't'=> 'ssdoc2',
+      'x'=> 'b',
+      'y'=> 'y',
+      'b'=> 'b',
+    ],
+  ];
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>test compare</title></head><body>\n";
+  $_GET = ['file1'=>'file1', 'file2'=> 'file2'];
+  compare($doc1, $doc2);
+  die("Fin test compare()");
 }
 
-if ($_GET['action'] == 'compare') {
+// Test si 2 noms de communes sont identiques en supprimant éventuellement l'article en début du nom
+function fneqArticle(?string $a, ?string $b): bool {
+  static $articles = ['Le ','La ','Les '];
+  $a = str_replace('  ', ' ', $a);
+  $b = str_replace('  ', ' ', $b);
+  if ($a == $b)
+    return true;
+  if (strlen($a) < strlen($b))
+    return fneqArticle($b, $a);
+  foreach ($articles as $article) {
+    if (substr($a, 0, strlen($article))==$article) {
+      return (substr($a, strlen($article)) == $b);
+    }
+  }
+  return false;
+}
+if (0) { // Test de fneqArticle()
+  foreach([
+    ['aaa', 'aaa'],
+    ['aaa', 'bbb'],
+    ['aaa', 'Le aaa'],
+    ['Le aaa', 'aaa'],
+  ] as $strs)
+    echo "$strs[0] == $strs[1] ? ",fneqArticle($strs[0], $strs[1]) ? 'vrai' : 'faux',"<br>\n";
+  die("Fin test de fneqArticle()");
+}
+  
+if ($_GET['action'] == 'compare') { // comparaison de 2 fichiers et affichage d'un tableau de comparaison
   if (!isset($_GET['file1'])) {
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>compare</title></head><body>\n";
     echo "<b>Choix du premier fichier</b><br>\n";
@@ -1123,6 +827,7 @@ if ($_GET['action'] == 'compare') {
       if ($ext == 'yaml')
         echo "<a href='?action=$_GET[action]&amp;file1=",urlencode($name),"'>$name</a><br>\n";
     }
+    die();
   }
   if (!isset($_GET['file2'])) {
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>compare</title></head><body>\n";
@@ -1135,14 +840,13 @@ if ($_GET['action'] == 'compare') {
         echo "<a href='?action=$_GET[action]&amp;file1=",urlencode($_GET['file1']),
           "&amp;file2=",urlencode($name),"'>$name</a><br>\n";
     }
+    die();
   }
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>compare $_GET[file1] $_GET[file2]</title></head><body>\n";
   echo "<b>Comparaison de $_GET[file1] et $_GET[file2]</b><br>\n";
   $file1 = Yaml::parse(file_get_contents(__DIR__."/$_GET[file1]"));
   $file2 = Yaml::parse(file_get_contents(__DIR__."/$_GET[file2]"));
-  echo "<table border=1><th></th><th>$_GET[file1]</th><th>$_GET[file2]</th>\n";
-  compare($file1, $file2);
-  echo "</table>\n";
+  compare($file1, $file2, 'fneqArticle');
   die("Fin de compare");
 }
 

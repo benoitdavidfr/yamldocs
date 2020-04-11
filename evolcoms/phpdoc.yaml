@@ -19,6 +19,7 @@ phpScripts:
   - /yamldoc/pub/evolcoms/index.php
 phpIncludes:
   - /yamldoc/pub/evolcoms/base.inc.php
+  - /yamldoc/pub/evolcoms/grpmvts.inc.php
 htmlFiles:
   - /yamldoc/pub/evolcoms/conception.yaml
   - /yamldoc/pub/evolcoms/dessin.yaml

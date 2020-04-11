@@ -564,7 +564,7 @@ contents:
     name: Pont-Farcy
     associées:
       14507:
-        name: Pleines-uvres
+        name: Pleines-Œuvres
   14515:
     name: Port-en-Bessin-Huppain
     associées:
@@ -1805,7 +1805,7 @@ contents:
       50286:
         name: Mancellière
       50306:
-        name: Mesnil-Bufs
+        name: Mesnil-Bœufs
       50322:
         name: Mesnil-Thébault
       50344:
@@ -3352,7 +3352,7 @@ contents:
   67157:
     associéeA: '67034'
   67160:
-    name: Grsdorf
+    name: Gœrsdorf
     associées:
       67294:
         name: Mitschdorf
@@ -3364,7 +3364,7 @@ contents:
     name: Gundershoffen
     associées:
       67114:
-        name: Eberbach-Wrth
+        name: Eberbach-Wœrth
       67170:
         name: Griesbach
   67193:
@@ -3431,7 +3431,7 @@ contents:
     name: Reichshoffen
     associées:
       67316:
-        name: Nehwiller-près-Wrth
+        name: Nehwiller-près-Wœrth
   67390:
     associéeA: '67339'
   67393:
@@ -3482,7 +3482,7 @@ contents:
     name: Willgottheim
     associées:
       67549:
-        name: Wllenheim
+        name: Wœllenheim
   67533:
     associéeA: '67530'
   67544:
@@ -3790,7 +3790,7 @@ contents:
       73185:
         name: Naves
       73199:
-        name: Petit-Cur
+        name: Petit-Cœur
       73209:
         name: Pussy
   73199:

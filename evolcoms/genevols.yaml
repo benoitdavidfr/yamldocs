@@ -1,4 +1,4 @@
-title: journal de mise au point de l'action genEvols dans index.php
+title: journal de mise au point de l'action genEvols d'index.php
 created: 2020-04-11
 2020-04-10: |
   - réorganisation du code en créant les classes Verbose, Base et GroupMvts
@@ -6,35 +6,8 @@ created: 2020-04-11
   - développement de l'action compare pour comparer 2 fichiers Yaml
   - le fichier coms2000-01-01gen.yaml généré par genEvols est sensiblement différent de celui coms2000-01-01insee.yaml
     fourni par l'INSEE
-  - une première analyse des écarts met en lumière des bugs dans l'action genEvols
-    - genEvols
-      '04112':
-        name: Manosque
-        associées:
-          '04190':
-            name: Saint-Martin-les-Eaux
-    - absent de coms2000-01-01insee.yaml mais pas de france2000.txt, a pb été supprimé de coms2000-01-01insee.yaml car simple
-    - la consultation des évols donne
-      $group:
-        mod: '21'
-        label: Rétablissement
-        date: '1980-06-12'
-        mvts:
-          - { avant: { type: COM, id: '04112', name: Manosque }, après: { type: COM, id: '04112', name: Manosque } }
-          - { avant: { type: COM, id: '04112', name: Manosque }, après: { type: COM, id: '04190', name: Saint-Martin-les-Eaux } }
-          - { avant: { type: COMA, id: '04190', name: Saint-Martin-les-Eaux }, après: { type: COM, id: '04190', name: Saint-Martin-les-Eaux } }
-      Base::__set(04190, {"name":"Saint-Martin-les-Eaux"})
-      $evol:
-        mod: '21'
-        label: Rétablissement
-        date: '1980-06-12'
-        input:
-          '04112': { name: Manosque }
-          '04190': { name: Saint-Martin-les-Eaux }
-        output:
-          '04112': { name: Manosque }
-          '04190': { name: Saint-Martin-les-Eaux }
-      montre plusieurs erreurs
+  - une première analyse des écarts met en lumière des bugs dans l'action genEvols, notamment sur 04112
 2020-04-11:
   - redev du cas 21 de genEvols
+  - diff sur Autun (71014)
     

@@ -269,9 +269,9 @@ comsimp2018/France2018:
   ARTMIN:
     libellé: article, décodé en fonction de TNCC et encadré de parenthèses, en caractères enrichis.
   NCCENR:
-    libellé: Libellé en typographie riche, majuscules, minuscules, accentuation.
+    libellé: Libellé en typographie riche (encodage Windows-1252), majuscules, minuscules, accentuation.
   ARTICLCT:
     libellé: Article précédent éventuellement le nom du canton et encadré de parenthèses.
   NCCCT:
-    libellé: Libellé du canton auquel appartient la commune en typographie riche.
+    libellé: Libellé du canton auquel appartient la commune en typographie riche (encodage Windows-1252).
 eof:
