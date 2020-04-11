@@ -4,6 +4,10 @@ doc: |
   Test de l'utilisation des données INSEE pour reconstituer l'historique des communes
   
 journal: |
+  11/4/2020:
+    - création de base.inc.php par extraction de index.php
+  9-10/4/2020:
+    - développement de l'action genEvols de index.php
   8/4/2020:
     - téléchargement de nbx fichiers INSEE
   7/4/2020:
@@ -12,6 +16,11 @@ journal: |
     - téléchargement de communes2020 et de mvtcommune2020
 submodules:
 phpScripts:
-  - /yamldoc/evolcoms/index.php
+  - /yamldoc/pub/evolcoms/index.php
 phpIncludes:
+  - /yamldoc/pub/evolcoms/base.inc.php
 htmlFiles:
+  - /yamldoc/pub/evolcoms/conception.yaml
+  - /yamldoc/pub/evolcoms/dessin.yaml
+  - /yamldoc/pub/evolcoms/exfcoms.yaml
+  - /yamldoc/pub/evolcoms/exevolcoms.yaml

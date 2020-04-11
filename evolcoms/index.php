@@ -1,23 +1,27 @@
 <?php
-// index.php - lecture des mvts
-/* 10/4/2020
-  genEvols semble fonctionner jusqu'au 1/1/2000
-  Pas réussi à comparer avec le fichier INSEE de cette date
-  Pb:
-    - article intégré ou non dans le nom
-    - des erreurs dans genEvols, Voir 04112
-*/
-/*
-  modalités de typecom_(av|ap):
-    COM: Commune
-    COMA: Commune associée
-    COMD: Commune déléguée
-    ARM: Arrondissement municipal
+/*PhpDoc:
+name: index.php
+title: index.php - diverses actions evolcoms
+doc: |
+  Définition de différentes actions accessibles par le Menu
+journal: |
+  11/4/2020:
+    - extraction des classes Base et Criteria dans base.inc.php
+  10/4/2020:
+    - genEvols semble fonctionner jusqu'au 1/1/2000
+    - Pas réussi à comparer avec le fichier INSEE de cette date
+    - Pb:
+      - article intégré ou non dans le nom
+      - des erreurs dans genEvols, Voir 04112
+screens:
+classes:
+functions:
 */
 
 ini_set('memory_limit', '2048M');
 
 require_once __DIR__.'/../../vendor/autoload.php';
+require_once __DIR__.'/base.inc.php';
 
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -29,6 +33,10 @@ if (($_GET['action'] ?? null) == 'delBase') { // suppression de la base
   unset($_GET['action']);
 }
 
+/*PhpDoc: screens
+name: Menu
+title: Menu - permet d'exécuter les différentes actions définies
+*/
 if (!isset($_GET['action'])) { // Menu
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>menu</title></head><body>\n";
   echo "<a href='?action=csvMvt2yaml&amp;file=mvtcommune2020.csv'>Affiche mvtcommune2020.csv</a><br>\n";
@@ -383,8 +391,13 @@ if ($_GET['action'] == 'integrateState') { // intégration d'un état dans la ba
   die();
 }
 
-// ajoute $val à $array, si $array existe alors $val est ajouté, sinon $array est créé à [ $val ]
-function addValToArray($val, &$array) {
+{/*PhpDoc: functions
+name: addValToArray
+title: "function addValToArray($val, &$array): void - ajoute $val à $array, si $array existe alors $val est ajouté, sinon $array est créé à [ $val ]"
+doc: |
+  Le paramètre $array n'existe pas forcément. Par exemple si $a = [] on peut utiliser $a['key'] comme paramètre.
+*/}
+function addValToArray($val, &$array): void {
   if (!isset($array))
     $array = [ $val ];
   else
@@ -486,129 +499,34 @@ if ($_GET['action'] == 'genCom1943') { // génération d'un fichier des communes
   die();
 }
 
-// Enregistre des critères et les teste
-class Verbose {
-  protected $criteria; // critères sous la forme [{var} => ([{val}] | ['not'=>[{val}]])]
-  
-  function __construct(array $criteria) { $this->criteria = $criteria; }
-  
-  // vrai ssi pour chaque variable {var} à la fois dans $params et dans $criteria le critère $criteria[{var}] est respecté
-  // Ce critère est vérifié
-  // s'il est de la forme [{val}] et que la valeur de la variable {var} appartient à cet ensemble
-  // sinon s'il est de la forme ['not'=>[{val}]] et que la valeur de la variable {var} n'appartient pas à cet ensemble
-  function is(array $params): bool {
-    foreach ($this->criteria as $var => $criterium) {
-      if (isset($criterium['not'])) {
-        if (isset($params[$var]) && in_array($params[$var], $criterium['not']))
-          return false;
-      }
-      else {
-        if (isset($params[$var]) && !in_array($params[$var], $criterium))
-          return false;
-      }
-    }
-    return true;
-  }
-  
-  // Test de la classe
-  static function test() {
-    if (0) {
-      $verbose = new self(['var'=>['Oui']]);
-      //$verbose = new self(['var'=>['not'=> ['Oui']]]);
-      foreach([
-        ['var'=>'Oui'],
-        ['var'=>'Non'],
-        ['var2'=>'xxx']] as $params)
-          echo Yaml::dump($params),"-> ",$verbose->is($params) ? 'vrai' : 'faux', "<br>\n";
-    }
-    if (1) {
-      $verbose = new Verbose(['mod'=> ['not'=> ['31']]]); // affichage mod <> 31
-      foreach([
-        ['mod'=>'31'],
-        ['mod'=>'XXX'],
-        ['var2'=>'xxx']] as $params)
-          echo Yaml::dump($params),"-> ",$verbose->is($params) ? 'vrai' : 'faux', "<br>\n";
-    }
-    die("Verbose:test()");
-  }
-};
-if (0) { Verbose::test(); } // Test de la classe Verbose
-
-// Gestion d'une base en mémoire
-// La base est stockée dans un fichier PSER dans le champ contents
-class Base {
-  protected $base; // [ {key} => {record} ]
-  protected $verbose; // critère de verbosité
-  protected $verboseVars = []; // variables utilisées pour tester la verbosité
-  
-  // affectation d'une des variables utilisées pour tester la verbosité
-  function setVerboseVar(string $var, $val) { $this->verboseVars[$var] = $val; }
-  
-  function __construct(string $filepath, Verbose $verbose) {
-    if (!is_file($filepath)) {
-      $base = Yaml::parse(file_get_contents($filepath));
-      file_put_contents($filepath, serialize($base));
-    }
-    else
-      $base = unserialize(file_get_contents($filepath));
-    $this->base = $base['contents'];
-    $this->verbose = $verbose;
-  }
-  
-  function __set(string $key, array $record): void {
-    if ($this->verbose->is($this->verboseVars))
-      echo "Base::__set($key, ",json_encode($record, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE),")\n";
-    $this->base[$key] = $record;
-  }
-  
-  function __get(string $key): array {
-    if ($this->verbose->is($this->verboseVars))
-      echo "Base::__get($key)\n";
-    return $this->base[$key] ?? null;
-  }
-  
-  function __isset(string $key): bool {
-    if ($this->verbose->is($this->verboseVars))
-      echo "Base::__isset($key)\n";
-    return isset($this->base[$key]);
-  }
-  
-  function __unset(string $key): void {
-    if ($this->verbose->is($this->verboseVars))
-      echo "Base::__unset($key)\n";
-    unset($this->base[$key]);
-  }
-  
-  // sauve la base en PSER pour une réutilisation 
-  function save(string $filepath, array $metadata) {
-    file_put_contents($filepath, serialize(array_merge($metadata, ['contents'=> $this->base])));
-  }
-
-  // enregistre le contenu de la base dans un fichier Yaml
-  function writeAsYaml(string $filepath, array $metadata) {
-    // post-traitement, suppression des communes ayant uniq. un nom comme propriété pour faciliter la visualisation
-    ksort($this->base);
-    foreach ($this->base as $c => $com) {
-      if (isset($com['name']) && (count(array_keys($com))==1))
-        unset($this->base[$c]);
-    }
-    file_put_contents($filepath, Yaml::dump(array_merge($metadata, ['contents'=> $this->base]), 99, 2));
-  }
-};
-
-// Groupe de mvts, chacun correspond à une évolution sémantique distincte
+{/*PhpDoc: classes
+name: GroupMvts
+title: GroupMvts - Groupe de mvts, chacun correspond à une évolution sémantique distincte
+doc: |
+  Les groupes sont générés par la méthode statique buildGroups() qui en produit un ensemble à partir d'un ens. de mvts
+  élémentaires ; cette méthode est indépendante de la sémantique du mouvement.
+  Ces groupes sont ensuite transformés en évolutions par la méthode buildEvol() qui interprète la sémantique du fichier INSEE
+  des mouvements.
+  La méthode asArray() exporte un groupe comme array Php afin notamment permettre de le visualiser en Yaml ou en JSON.
+methods:
+*/}
 class GroupMvts {
   protected $mod; // code de modifications
   protected $label; // étiquette des modifications
   protected $date; // date d'effet des modifications
   protected $mvts; // [['avant/après'=>['type'=> type, 'id'=> id, 'name'=>name]]]
   
-  // Regroupement d'un ens. de mvts élémentaires en un ens. de groupes de mvts
-  // L'algorithme consiste à considérer le graphe dont les sommets sont constitués des codes INSEE de commune
-  // et les arêtes l'existence d'un mvt entre 2 codes.
-  // Les groupes de mvts sont les parties connexes de ce graphe.
-  // L'avantage de cet algorithme est qu'il est indépendant de la sémantique des mod
   static function buildGroups(array $mvtcoms): array {
+    {/*PhpDoc: methods
+    name: buildGroups
+    title: "static function buildGroups(array $mvtcoms): array - Regroupement d'un ens. de mvts élémentaires en un ens. de groupes de mvts"
+    doc: |
+      L'algorithme consiste à considérer le graphe dont les sommets sont constitués des codes INSEE de commune
+      et les arêtes l'existence d'un mvt entre 2 codes.
+      Les groupes de mvts sont les parties connexes de ce graphe.
+      L'avantage de cet algorithme est qu'il est indépendant de la sémantique des mod.
+      Les mvts élémentaires initiaux doivent être du même mod et avoir la même date d'effet.
+    */}
     $result = [];
     while ($mvtcoms) { // j'itère tant qu'il reste des mvts dans l'ensemble des mvts en entrée
       $comConcerned = []; // liste des communes concernées par le groupe de mvts que je construis
@@ -684,7 +602,7 @@ class GroupMvts {
   }
   
   // factorisation des mvts sur l'avant
-  function factorAvant(): array {
+  private function factorAvant(): array {
     $result = []; // [ {id_avant}=> ['type'=> type_avant, 'name'=> name_avant, 'après'=> [après]]]
     foreach ($this->mvts as $mvt) {
       if (!isset($result[$mvt['avant']['id']])) {
@@ -711,7 +629,7 @@ class GroupMvts {
   }
   
   // Fabrique une évolution sémantique à partir d'un groupe de mvts et met à jour la base des communes
-  function buildEvol(Base $coms, Verbose $verbose): array {
+  function buildEvol(Base $coms, Criteria $trace): array {
     switch($this->mod) {
       case '10': { // Changement de nom
         if (count($this->mvts) <> 1) {
@@ -994,12 +912,16 @@ class GroupMvts {
   }
 };
 
+{/*PhpDoc: screens
+name: genEvols
+title: genEvols - génération du fichier des évolutions et enregistrement d'un fichier d'état
+*/}
 if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions et enregistrement d'un fichier d'état
   $datefin = '2000-01-01';
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>genEvols</title></head><body><pre>\n";
-  $verbose = new Verbose([]); // aucun critère, tout est affiché
-  //$verbose = new Verbose(['mod'=> ['not'=> ['10','20','21','30','31','33','34','41','50']]]);
-  //$verbose = new Verbose(['mod'=> ['34']]); 
+  $trace = new Criteria([]); // aucun critère, tout est affiché
+  //$trace = new Criteria(['mod'=> ['not'=> ['10','20','21','30','31','33','34','41','50']]]);
+  //$trace = new Criteria(['mod'=> ['34']]); 
   if (1) { // lecture de mvtcommune2020.csv dans $mvtcoms et tri par ordre chronologique
     $mvtcoms = []; // Liste des mvts retriée par ordre chronologique
     $file = fopen(__DIR__.'/mvtcommune2020.csv', 'r');
@@ -1034,25 +956,29 @@ if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions 
     ksort($mvtcoms); // tri sur la date d'effet
     //echo Yaml::dump($mvtcoms, 99, 2);
   }
-  if (1) { // Lecture de com1943.yaml dans $coms
-    $coms = new Base(__DIR__.'/com1943.pser', $verbose);
-  }
+  $coms = new Base(__DIR__.'/com1943', $trace); // Lecture de com1943.yaml dans $coms
   //$mvtcoms = ['1990-02-01' => $mvtcoms['1990-02-01']]; // Test de aggrMvtsCom()
   //$mvtcoms = ['2020-01-01' => $mvtcoms['2020-01-01']]; // Test de mod=70
   foreach($mvtcoms as $date_eff => $mvtcomsD) {
     if (isset($datefin) && (strcmp($date_eff, $datefin) > 0)) {
-      $coms->writeAsYaml(__DIR__."/com${datefin}gen.yaml", ['title'=> "Fichier des communes reconstitué au $datefin"]);
+      $coms->writeAsYaml(
+          __DIR__."/com${datefin}gen",
+          [
+            'title'=> "Fichier des communes reconstitué au $datefin",
+            'created'=> date(DATE_ATOM),
+          ]
+      );
       die("Fin sur date_eff=$date_eff\n");
     }
     foreach($mvtcomsD as $mod => $mvtcomsDM) {
-      $coms->setVerboseVar('mod', $mod);
-      if (0 && $verbose->is(['mod'=> $mod]))
+      $coms->setTraceVar('mod', $mod);
+      if (0 && $trace->is(['mod'=> $mod]))
         echo Yaml::dump(['$mvtcomsDM'=> $mvtcomsDM], 3, 2);
       foreach (GroupMvts::buildGroups($mvtcomsDM) as $group) {
-        if ($verbose->is(['mod'=> $mod]))
+        if ($trace->is(['mod'=> $mod]))
           echo Yaml::dump(['$group'=> $group->asArray()], 3, 2);
-        $evol = $group->buildEvol($coms, $verbose);
-        if ($verbose->is(['mod'=> $mod]))
+        $evol = $group->buildEvol($coms, $trace);
+        if ($trace->is(['mod'=> $mod]))
           echo '<b>',Yaml::dump(['$evol'=> $evol], 3, 2),"</b>\n";
       }
     }
@@ -1117,13 +1043,13 @@ if ($_GET['action'] == 'buildState') { // fabrication d'un fichier Yaml d'un ét
   die();
 }
 
-/*PhpDoc: functions
+{/*PhpDoc: functions
 name: readfiles
 title: function readfiles($dir, $recursive=false) - Lecture des fichiers locaux du répertoire $dir
 doc: |
   Le système d'exploitation utilise ISO 8859-1, toutes les données sont gérées en UTF-8
   Si recursive est true alors renvoie l'arbre
-*/
+*/}
 function readfiles($dir, $recursive=false) { // lecture du nom, du type et de la date de modif des fichiers d'un rép.
   if (!$dh = opendir(utf8_decode($dir)))
     die("Ouverture de $dir impossible");

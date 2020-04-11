@@ -1,4 +1,5 @@
 title: 'Fichier des communes reconstitué au 2000-01-01'
+created: '2020-04-11T09:36:01+00:00'
 contents:
   '01120':
     associéeA: '01262'
@@ -400,6 +401,73 @@ contents:
     associées:
       12003:
         name: 'Les Albres'
+  13055:
+    name: Marseille
+    ardtMun:
+      13201:
+        name: 'Marseille 1er Arrondissement'
+      13202:
+        name: 'Marseille 2e Arrondissement'
+      13203:
+        name: 'Marseille 3e Arrondissement'
+      13204:
+        name: 'Marseille 4e Arrondissement'
+      13205:
+        name: 'Marseille 5e Arrondissement'
+      13206:
+        name: 'Marseille 6e Arrondissement'
+      13207:
+        name: 'Marseille 7e Arrondissement'
+      13208:
+        name: 'Marseille 8e Arrondissement'
+      13209:
+        name: 'Marseille 9e Arrondissement'
+      13210:
+        name: 'Marseille 10e Arrondissement'
+      13211:
+        name: 'Marseille 11e Arrondissement'
+      13212:
+        name: 'Marseille 12e Arrondissement'
+      13213:
+        name: 'Marseille 13e Arrondissement'
+      13214:
+        name: 'Marseille 14e Arrondissement'
+      13215:
+        name: 'Marseille 15e Arrondissement'
+      13216:
+        name: 'Marseille 16e Arrondissement'
+  13201:
+    ardtMunDe: '13055'
+  13202:
+    ardtMunDe: '13055'
+  13203:
+    ardtMunDe: '13055'
+  13204:
+    ardtMunDe: '13055'
+  13205:
+    ardtMunDe: '13055'
+  13206:
+    ardtMunDe: '13055'
+  13207:
+    ardtMunDe: '13055'
+  13208:
+    ardtMunDe: '13055'
+  13209:
+    ardtMunDe: '13055'
+  13210:
+    ardtMunDe: '13055'
+  13211:
+    ardtMunDe: '13055'
+  13212:
+    ardtMunDe: '13055'
+  13213:
+    ardtMunDe: '13055'
+  13214:
+    ardtMunDe: '13055'
+  13215:
+    ardtMunDe: '13055'
+  13216:
+    ardtMunDe: '13055'
   14010:
     associéeA: 14697
   14011:
@@ -3915,8 +3983,43 @@ contents:
     associées:
       69262:
         name: 'La Ville'
+  69123:
+    name: Lyon
+    ardtMun:
+      69381:
+        name: 'Lyon 1er Arrondissement'
+      69382:
+        name: 'Lyon 2e Arrondissement'
+      69383:
+        name: 'Lyon 3e Arrondissement'
+      69384:
+        name: 'Lyon 4e Arrondissement'
+      69385:
+        name: 'Lyon 5e Arrondissement'
+      69386:
+        name: 'Lyon 6e Arrondissement'
+      69387:
+        name: 'Lyon 7e Arrondissement'
+      69388:
+        name: 'Lyon 8e Arrondissement'
+      69389:
+        name: 'Lyon 9e Arrondissement'
   69262:
     associéeA: 69066
+  69381:
+    ardtMunDe: '69123'
+  69382:
+    ardtMunDe: '69123'
+  69383:
+    ardtMunDe: '69123'
+  69384:
+    ardtMunDe: '69123'
+  69385:
+    ardtMunDe: '69123'
+  69386:
+    ardtMunDe: '69123'
+  69387:
+    ardtMunDe: '69123'
   70031:
     name: Athesans-Étroitefontaine
     associées:
@@ -4231,6 +4334,89 @@ contents:
         name: Anthy-sur-Léman
       74166:
         name: Marin
+  75056:
+    name: Paris
+    ardtMun:
+      75101:
+        name: 'Paris 1er Arrondissement'
+      75102:
+        name: 'Paris 2e Arrondissement'
+      75103:
+        name: 'Paris 3e Arrondissement'
+      75104:
+        name: 'Paris 4e Arrondissement'
+      75105:
+        name: 'Paris 5e Arrondissement'
+      75106:
+        name: 'Paris 6e Arrondissement'
+      75107:
+        name: 'Paris 7e Arrondissement'
+      75108:
+        name: 'Paris 8e Arrondissement'
+      75109:
+        name: 'Paris 9e Arrondissement'
+      75110:
+        name: 'Paris 10e Arrondissement'
+      75111:
+        name: 'Paris 11e Arrondissement'
+      75112:
+        name: 'Paris 12e Arrondissement'
+      75113:
+        name: 'Paris 13e Arrondissement'
+      75114:
+        name: 'Paris 14e Arrondissement'
+      75115:
+        name: 'Paris 15e Arrondissement'
+      75116:
+        name: 'Paris 16e Arrondissement'
+      75117:
+        name: 'Paris 17e Arrondissement'
+      75118:
+        name: 'Paris 18e Arrondissement'
+      75119:
+        name: 'Paris 19e Arrondissement'
+      75120:
+        name: 'Paris 20e Arrondissement'
+  75101:
+    ardtMunDe: '75056'
+  75102:
+    ardtMunDe: '75056'
+  75103:
+    ardtMunDe: '75056'
+  75104:
+    ardtMunDe: '75056'
+  75105:
+    ardtMunDe: '75056'
+  75106:
+    ardtMunDe: '75056'
+  75107:
+    ardtMunDe: '75056'
+  75108:
+    ardtMunDe: '75056'
+  75109:
+    ardtMunDe: '75056'
+  75110:
+    ardtMunDe: '75056'
+  75111:
+    ardtMunDe: '75056'
+  75112:
+    ardtMunDe: '75056'
+  75113:
+    ardtMunDe: '75056'
+  75114:
+    ardtMunDe: '75056'
+  75115:
+    ardtMunDe: '75056'
+  75116:
+    ardtMunDe: '75056'
+  75117:
+    ardtMunDe: '75056'
+  75118:
+    ardtMunDe: '75056'
+  75119:
+    ardtMunDe: '75056'
+  75120:
+    ardtMunDe: '75056'
   76003:
     associéeA: 76020
   76020:
