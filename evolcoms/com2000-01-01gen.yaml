@@ -1,0 +1,5066 @@
+title: 'Fichier des communes reconstitué au 2000-01-01'
+contents:
+  '01120':
+    associéeA: '01262'
+  '01137':
+    associéeA: '01426'
+  '01245':
+    name: Bohas-Meyriat-Rignat
+    associées:
+      '01048':
+        name: Bohas
+      '01324':
+        name: Rignat
+  '01262':
+    name: Montluel
+    associées:
+      '01120':
+        name: Cordieux
+  '01283':
+    name: Oyonnax
+    associées:
+      '01440':
+        name: Veyziat
+  '01426':
+    name: Treffort-Cuisiat
+    associées:
+      '01137':
+        name: Cuisiat
+  '01440':
+    associéeA: '01283'
+  '02285':
+    associéeA: 59545
+  '02300':
+    associéeA: '02738'
+  '02630':
+    associéeA: '02738'
+  '02738':
+    name: Tergnier
+    associées:
+      '02300':
+        name: Fargniers
+      '02630':
+        name: Quessy
+      '02825':
+        name: Vouël
+  '02825':
+    associéeA: '02738'
+  '04003':
+    associéeA: '04081'
+  '04010':
+    associéeA: '04136'
+  '04011':
+    associéeA: '04023'
+  '04014':
+    associéeA: '04109'
+  '04023':
+    name: Bayons
+    associées:
+      '04011':
+        name: Astoin
+      '04082':
+        name: Esparron-la-Bâtie
+      '04165':
+        name: Reynier
+  '04038':
+    associéeA: '04208'
+  '04040':
+    name: 'Le Castellard-Melan'
+    associées:
+      '04117':
+        name: Melan
+  '04052':
+    associéeA: '04144'
+  '04072':
+    name: Archail-Draix
+    associées:
+      '04009':
+        name: Archail
+  '04081':
+    name: Esparron-de-Verdon
+    associées:
+      '04003':
+        name: Albiosc
+  '04082':
+    associéeA: '04023'
+  '04105':
+    associéeA: '04192'
+  '04109':
+    name: Mallefougasse-Augès
+    associées:
+      '04014':
+        name: Augès
+  '04112':
+    name: Manosque
+    associées:
+      '04190':
+        name: Saint-Martin-les-Eaux
+  '04117':
+    associéeA: '04040'
+  '04124':
+    name: Montagnac-Montpezat
+    associées:
+      '04131':
+        name: Montpezat
+  '04131':
+    associéeA: '04124'
+  '04136':
+    name: 'La Mure-Argens'
+    associées:
+      '04010':
+        name: Argens
+  '04144':
+    name: 'La Palud-sur-Verdon'
+    associées:
+      '04052':
+        name: Châteauneuf-lès-Moustiers
+  '04153':
+    associéeA: '04204'
+  '04165':
+    associéeA: '04023'
+  '04192':
+    name: 'Saint-Michel-l''Observatoire'
+    associées:
+      '04105':
+        name: Lincel
+  '04204':
+    name: Senez
+    associées:
+      '04153':
+        name: 'Le Poil'
+  '04208':
+    name: Simiane-la-Rotonde
+    associées:
+      '04038':
+        name: Carniol
+      '04232':
+        name: Valsaintes
+  '04232':
+    associéeA: '04208'
+  '05023':
+    name: Briançon
+    associées:
+      '05109':
+        name: Puy-Saint-Pierre
+  '05061':
+    name: Gap
+    associées:
+      '05125':
+        name: Romette
+  '05123':
+    name: 'La Roche-des-Arnauds'
+    associées:
+      '05112':
+        name: Rabou
+  '05125':
+    associéeA: '05061'
+  '07021':
+    associéeA: '07207'
+  '07031':
+    name: Berrias-et-Casteljau
+    associées:
+      '07046':
+        name: Casteljau
+  '07043':
+    associéeA: '07334'
+  '07046':
+    associéeA: '07031'
+  '07057':
+    associéeA: '07334'
+  '07132':
+    name: Largentière
+    associées:
+      '07318':
+        name: Tauriers
+  '07164':
+    associéeA: '07334'
+  '07207':
+    name: Saint-Alban-Auriolles
+    associées:
+      '07021':
+        name: Auriolles
+  '07246':
+    associéeA: '07284'
+  '07270':
+    name: Saint-Martin-sur-Lavezon
+    associées:
+      '07271':
+        name: 'Saint-Martin-l''Inférieur'
+  '07271':
+    associéeA: '07270'
+  '07284':
+    name: Saint-Pierre-Saint-Jean
+    associées:
+      '07246':
+        name: Saint-Jean-de-Pourcharesse
+  '07334':
+    name: 'Les Vans'
+    associées:
+      '07043':
+        name: Brahic
+      '07057':
+        name: Chassagnes
+      '07164':
+        name: Naves
+  '08012':
+    associéeA: '08437'
+  '08050':
+    associéeA: '08437'
+  '08051':
+    associéeA: '08069'
+  '08054':
+    associéeA: '08319'
+  '08057':
+    name: Belleville-et-Châtillon-sur-Bar
+    associées:
+      '08112':
+        name: Châtillon-sur-Bar
+  '08068':
+    associéeA: '08490'
+  '08069':
+    name: Blanchefosse-et-Bay
+    associées:
+      '08051':
+        name: Bay
+  '08093':
+    associéeA: '08344'
+  '08112':
+    associéeA: '08057'
+  '08113':
+    name: Chaumont-Porcien
+    associées:
+      '08258':
+        name: Logny-lès-Chaumont
+      '08495':
+        name: Wadimont
+  '08125':
+    name: Montcornet-en-Ardenne
+    associées:
+      '08297':
+        name: Montcornet
+  '08177':
+    associéeA: '08189'
+  '08189':
+    name: Girondelle
+    associées:
+      '08177':
+        name: Foulzy
+  '08213':
+    associéeA: '08366'
+  '08258':
+    associéeA: '08113'
+  '08265':
+    associéeA: '08366'
+  '08266':
+    associéeA: '08366'
+  '08285':
+    associéeA: '08328'
+  '08319':
+    name: Neuville-lez-Beaulieu
+    associées:
+      '08054':
+        name: Beaulieu
+  '08328':
+    name: Nouzonville
+    associées:
+      '08285':
+        name: Meillier-Fontaine
+  '08333':
+    name: Olizy-Primat
+    associées:
+      '08345':
+        name: Primat
+  '08337':
+    associéeA: '08362'
+  '08344':
+    name: Prez
+    associées:
+      '08093':
+        name: 'La Cerleau'
+  '08345':
+    associéeA: '08333'
+  '08352':
+    name: Raillicourt-Barbaise
+    associées:
+      '08047':
+        name: Barbaise
+  '08359':
+    associéeA: '08437'
+  '08362':
+    name: Rethel
+    associées:
+      '08337':
+        name: Pargny-Resson
+  '08366':
+    name: Rocquigny
+    associées:
+      '08213':
+        name: 'La Hardoye'
+      '08265':
+        name: Mainbresson
+      '08266':
+        name: Mainbressy
+  '08437':
+    name: Tailly
+    associées:
+      '08012':
+        name: Andevanne
+      '08050':
+        name: Barricourt
+      '08359':
+        name: Rémonville
+  '08470':
+    name: Verpel
+    associées:
+      '08233':
+        name: Imécourt
+  '08490':
+    name: Vouziers
+    associées:
+      '08068':
+        name: Blaise
+  '08495':
+    associéeA: '08113'
+  '09107':
+    name: Dun
+    associées:
+      '09112':
+        name: Engraviès
+      '09191':
+        name: Merviel
+      '09288':
+        name: Senesse-de-Senabugue
+  '09112':
+    associéeA: '09107'
+  '09191':
+    associéeA: '09107'
+  '09248':
+    associéeA: '09299'
+  '09288':
+    associéeA: '09107'
+  '09299':
+    name: Soueix
+    associées:
+      '09248':
+        name: Rogalle
+  '09306':
+    name: Tarascon-sur-Ariège
+    associées:
+      '09036':
+        name: Banat
+      '09092':
+        name: Cazenave-Serres-et-Allens
+  10036:
+    associéeA: 10058
+  10054:
+    name: 'Val-d''Orvin'
+    associées:
+      10038:
+        name: Bercenay-le-Hayer
+      10383:
+        name: Trancault
+  10058:
+    name: Bragelogne-Beauvoir
+    associées:
+      10036:
+        name: Beauvoir-sur-Sarce
+  10148:
+    name: Ferreux-Quincey
+    associées:
+      10311:
+        name: Quincey
+  10311:
+    associéeA: 10148
+  10316:
+    name: Rhèges-Bessy
+    associées:
+      10043:
+        name: Bessy
+  11128:
+    name: Escueillens-et-Saint-Just-de-Bélengard
+    associées:
+      11349:
+        name: Saint-Just-de-Bélengard
+  11195:
+    name: Laurabuc-et-Mireval
+    associées:
+      11234:
+        name: Mireval-Lauragais
+  11349:
+    associéeA: 11128
+  12132:
+    associéeA: 12257
+  12257:
+    name: Causse-et-Diège
+    associées:
+      12132:
+        name: Loupiac
+  12305:
+    name: Viviez-les-Albres
+    associées:
+      12003:
+        name: 'Les Albres'
+  14010:
+    associéeA: 14697
+  14011:
+    name: Anctoville
+    associées:
+      14267:
+        name: Feuguerolles-sur-Seulles
+      14479:
+        name: Orbois
+      14673:
+        name: Sermentot
+  14017:
+    associéeA: 14352
+  14046:
+    name: Bavent
+    associées:
+      14537:
+        name: Robehomme
+  14051:
+    associéeA: 14231
+  14067:
+    associéeA: 14697
+  14112:
+    associéeA: 14266
+  14114:
+    associéeA: 14712
+  14126:
+    name: Cambremer
+    associées:
+      14315:
+        name: Grandouet
+      14561:
+        name: Saint-Aubin-sur-Algot
+      14641:
+        name: Saint-Pair-du-Mont
+  14149:
+    name: Cesny-aux-Vignes-Ouézy
+    associées:
+      14482:
+        name: Ouézy
+  14194:
+    name: Courtonne-les-Deux-Églises
+    associées:
+      14642:
+        name: Saint-Paul-de-Courtonne
+  14199:
+    associéeA: 14621
+  14228:
+    name: Douvres-la-Délivrande
+    associées:
+      14683:
+        name: Tailleville
+  14231:
+    name: Beaufour-Druval
+    associées:
+      14051:
+        name: Beaufour
+      14560:
+        name: Saint-Aubin-Lébizay
+  14233:
+    associéeA: 14422
+  14234:
+    associéeA: 14697
+  14247:
+    associéeA: 14735
+  14262:
+    associéeA: 14629
+  14266:
+    name: Feuguerolles-Bully
+    associées:
+      14112:
+        name: Bully
+  14267:
+    associéeA: 14011
+  14295:
+    associéeA: 14697
+  14314:
+    associéeA: 14697
+  14315:
+    associéeA: 14126
+  14321:
+    associéeA: 14735
+  14333:
+    name: Honfleur
+    associées:
+      14725:
+        name: Vasouy
+  14336:
+    name: Hottot-Longraye
+    associées:
+      14376:
+        name: Longraye
+  14340:
+    associéeA: 14515
+  14352:
+    name: Landelles-et-Coupigny
+    associées:
+      14017:
+        name: Annebecq
+  14363:
+    associéeA: 14697
+  14372:
+    name: Livry
+    associées:
+      14490:
+        name: 'Parfouru-l''Éclin'
+  14422:
+    name: 'Le Mesnil-Mauger'
+    associées:
+      14233:
+        name: Écajeul
+      14567:
+        name: Saint-Crespin
+      14617:
+        name: Sainte-Marie-aux-Anglais
+  14447:
+    associéeA: 14697
+  14463:
+    associéeA: 14721
+  14472:
+    associéeA: 14697
+  14479:
+    associéeA: 14011
+  14482:
+    associéeA: 14149
+  14490:
+    associéeA: 14372
+  14507:
+    associéeA: 14513
+  14513:
+    name: Pont-Farcy
+    associées:
+      14507:
+        name: Pleines-Œuvres
+  14515:
+    name: Port-en-Bessin-Huppain
+    associées:
+      14340:
+        name: Huppain
+  14537:
+    associéeA: 14046
+  14560:
+    associéeA: 14231
+  14561:
+    associéeA: 14126
+  14567:
+    associéeA: 14422
+  14617:
+    associéeA: 14422
+  14621:
+    name: Saint-Martin-de-Bienfaite-la-Cressonnière
+    associées:
+      14199:
+        name: 'La Cressonnière'
+  14624:
+    associéeA: 14697
+  14629:
+    name: Saint-Martin-des-Besaces
+    associées:
+      14262:
+        name: 'La Ferrière-au-Doyen'
+  14631:
+    associéeA: 14762
+  14641:
+    associéeA: 14126
+  14642:
+    associéeA: 14194
+  14673:
+    associéeA: 14011
+  14683:
+    associéeA: 14228
+  14697:
+    name: 'L''Oudon'
+    associées:
+      14010:
+        name: Ammeville
+      14067:
+        name: Berville
+      14234:
+        name: Écots
+      14295:
+        name: Garnetot
+      14314:
+        name: Grandmesnil
+      14363:
+        name: Lieury
+      14447:
+        name: Montpinçon
+      14472:
+        name: Notre-Dame-de-Fresnay
+      14624:
+        name: Saint-Martin-de-Fresnay
+  14712:
+    name: Troarn
+    associées:
+      14114:
+        name: Bures-sur-Dives
+  14721:
+    name: Vacognes-Neuilly
+    associées:
+      14463:
+        name: Neuilly-le-Malherbe
+  14725:
+    associéeA: 14333
+  14735:
+    name: Vendeuvre
+    associées:
+      14247:
+        name: Escures-sur-Favières
+      14321:
+        name: Grisy
+  14762:
+    name: Vire
+    associées:
+      14631:
+        name: Saint-Martin-de-Tallevende
+  15003:
+    name: Ally
+    associées:
+      15024:
+        name: Brageac
+      15062:
+        name: Drignac
+  15023:
+    associéeA: 15108
+  15038:
+    name: Champs-sur-Tarentaine-Marchal
+    associées:
+      15115:
+        name: Marchal
+  15108:
+    name: Loubaresse
+    associées:
+      15023:
+        name: Bournoncles
+  15109:
+    associéeA: 15153
+  15115:
+    associéeA: 15038
+  15140:
+    name: Naucelles-Reilhac
+    associées:
+      15160:
+        name: Reilhac
+  15153:
+    name: Pleaux
+    associées:
+      15109:
+        name: Loupiac
+      15177:
+        name: Saint-Christophe-les-Gorges
+      15239:
+        name: Tourniac
+  15177:
+    associéeA: 15153
+  15202:
+    name: Saint-Martin-Valmeroux
+    associées:
+      15210:
+        name: Saint-Rémy-de-Salers
+  15210:
+    associéeA: 15202
+  15239:
+    associéeA: 15153
+  16006:
+    associéeA: 16242
+  16028:
+    name: Barbezieux-Saint-Hilaire
+    associées:
+      16327:
+        name: Saint-Hilaire
+  16029:
+    name: Brie-Bardenac
+    associées:
+      16063:
+        name: Brie-sous-Chalais
+  16046:
+    name: Blanzac-Porcheresse
+    associées:
+      16265:
+        name: Porcheresse
+  16097:
+    name: Cherves-Richemont
+    associées:
+      16278:
+        name: Richemont
+  16126:
+    associéeA: 16253
+  16193:
+    name: Louzac-Saint-André
+    associées:
+      16299:
+        name: Saint-André
+  16219:
+    associéeA: 16242
+  16235:
+    associéeA: 16242
+  16242:
+    name: Nanteuil-en-Vallée
+    associées:
+      16006:
+        name: Aizecq
+      16219:
+        name: Messeux
+      16235:
+        name: Moutardon
+      16266:
+        name: Pougné
+      16324:
+        name: Saint-Gervais
+  16253:
+    name: Paizay-Naudouin-Embourie
+    associées:
+      16126:
+        name: Embourie
+  16265:
+    associéeA: 16046
+  16266:
+    associéeA: 16242
+  16278:
+    associéeA: 16097
+  16287:
+    name: Roullet-Saint-Estèphe
+    associées:
+      16313:
+        name: Saint-Estèphe
+  16299:
+    associéeA: 16193
+  16313:
+    associéeA: 16287
+  16324:
+    associéeA: 16242
+  16327:
+    associéeA: 16028
+  17001:
+    associéeA: 17397
+  17013:
+    name: Antezant-la-Chapelle
+    associées:
+      17088:
+        name: 'La Chapelle-Bâton'
+  17014:
+    associéeA: 17332
+  17026:
+    name: Authon-Ébéon
+    associées:
+      17144:
+        name: Ébéon
+  17088:
+    associéeA: 17013
+  17090:
+    associéeA: 17240
+  17123:
+    associéeA: 17397
+  17144:
+    associéeA: 17026
+  17240:
+    name: Montendre
+    associées:
+      17090:
+        name: Chardes
+      17456:
+        name: Vallet
+  17332:
+    name: Saint-Georges-Antignac
+    associées:
+      17014:
+        name: Antignac
+  17397:
+    name: Saint-Savinien
+    associées:
+      17001:
+        name: Agonnay
+      17123:
+        name: Coulonge-sur-Charente
+  17456:
+    associéeA: 17240
+  19034:
+    name: Camps-Saint-Mathurin-Léobazel
+    associées:
+      19224:
+        name: Saint-Mathurin-Léobazel
+  19197:
+    associéeA: 19275
+  19224:
+    associéeA: 19034
+  19261:
+    name: Sornac-Saint-Germain-Lavolps
+    associées:
+      19206:
+        name: Saint-Germain-Lavolps
+  19267:
+    associéeA: 19275
+  19275:
+    name: Ussel
+    associées:
+      19197:
+        name: Saint-Dézery
+      19267:
+        name: 'La Tourette'
+  21304:
+    name: Grancey-le-Château-Neuvelle
+    associées:
+      21453:
+        name: Neuvelle-lès-Grancey
+  21331:
+    name: Labergement-lès-Auxonne-Billey-Flagey
+    associées:
+      21074:
+        name: Billey
+      21268:
+        name: Flagey-lès-Auxonne
+  21433:
+    name: Montigny-Mornay-Villeneuve-sur-Vingeanne
+    associées:
+      21443:
+        name: Mornay
+      21697:
+        name: 'La Villeneuve-sur-Vingeanne'
+  21443:
+    associéeA: 21433
+  21453:
+    associéeA: 21304
+  21667:
+    name: Véronnes
+    associées:
+      21668:
+        name: Véronnes-les-Petites
+  21668:
+    associéeA: 21667
+  21697:
+    associéeA: 21433
+  22093:
+    name: Lamballe
+    associées:
+      22142:
+        name: Maroué
+      22252:
+        name: 'La Poterie'
+      22270:
+        name: Saint-Aaron
+      22355:
+        name: Trégomar
+  22118:
+    name: Lanvallay
+    associées:
+      22329:
+        name: Saint-Solen
+      22374:
+        name: Tressaint
+  22142:
+    associéeA: 22093
+  22179:
+    name: Fréhel
+    associées:
+      22201:
+        name: Plévenon
+  22190:
+    name: Pleslin-Trigavou
+    associées:
+      22382:
+        name: Trigavou
+  22201:
+    associéeA: 22179
+  22204:
+    name: Ploëzal-Runan
+    associées:
+      22269:
+        name: Runan
+  22213:
+    name: Plouër-Langrolay-sur-Rance
+    associées:
+      22103:
+        name: Langrolay-sur-Rance
+  22252:
+    associéeA: 22093
+  22270:
+    associéeA: 22093
+  22296:
+    name: Saint-Glen-Penguily
+    associées:
+      22165:
+        name: Penguily
+  22329:
+    associéeA: 22118
+  22355:
+    associéeA: 22093
+  22374:
+    associéeA: 22118
+  22382:
+    associéeA: 22190
+  23090:
+    name: Gentioux-Pigerolles
+    associées:
+      23153:
+        name: Pigerolles
+  23093:
+    name: Gouzon
+    associées:
+      23094:
+        name: Gouzougnat
+  23094:
+    associéeA: 23093
+  23153:
+    associéeA: 23090
+  23163:
+    associéeA: 23220
+  23220:
+    name: Saint-Médard-la-Rochette
+    associées:
+      23163:
+        name: 'La Rochette'
+  24035:
+    name: Belvès
+    associées:
+      24185:
+        name: Fongalop
+  24049:
+    associéeA: 24497
+  24068:
+    name: 'Le Buisson-de-Cadouin'
+    associées:
+      24072:
+        name: Cadouin
+      24315:
+        name: Paleyrac
+      24560:
+        name: Urval
+  24086:
+    name: Castelnaud-la-Chapelle
+    associées:
+      24112:
+        name: 'La Chapelle-Péchaud'
+  24112:
+    associéeA: 24086
+  24168:
+    name: Plaisance
+    associées:
+      24173:
+        name: Falgueyrat
+      24250:
+        name: Mandacou
+  24172:
+    name: 'Les Eyzies-de-Tayac-Sireuil'
+    associées:
+      24539:
+        name: Sireuil
+  24173:
+    associéeA: 24168
+  24185:
+    associéeA: 24035
+  24201:
+    associéeA: 24260
+  24250:
+    associéeA: 24168
+  24260:
+    name: Mauzac-et-Grand-Castang
+    associées:
+      24201:
+        name: Grand-Castang
+  24275:
+    associéeA: 24549
+  24342:
+    associéeA: 24549
+  24354:
+    name: 'La Roche-de-Saint-Michel'
+    associées:
+      24467:
+        name: Saint-Michel-de-Rivière
+      24469:
+        name: 'Saint-Michel-l''Écluse-et-Léparon'
+  24356:
+    name: Rouffignac-Saint-Cernin-de-Reilhac
+    associées:
+      24387:
+        name: Saint-Cernin-de-Reillac
+  24387:
+    associéeA: 24356
+  24450:
+    name: Saint-Martial-et-Saint-Aubin-de-Nabirat
+    associées:
+      24375:
+        name: Saint-Aubin-de-Nabirat
+  24467:
+    associéeA: 24354
+  24469:
+    associéeA: 24354
+  24497:
+    name: Sainte-Sabine-Born
+    associées:
+      24049:
+        name: Born-de-Champs
+  24539:
+    associéeA: 24172
+  24549:
+    name: Thénac
+    associées:
+      24275:
+        name: Monbos
+      24342:
+        name: Puyguilhem
+  25010:
+    associéeA: 25223
+  25015:
+    name: Amancey
+    associées:
+      25017:
+        name: Amondans
+      25155:
+        name: Cléron
+      25236:
+        name: Fertans
+      25359:
+        name: Malans
+  25018:
+    name: Anteuil
+    associées:
+      25272:
+        name: Glainans
+      25568:
+        name: Tournedoz
+  25036:
+    name: Avanne-Aveney
+    associées:
+      25037:
+        name: Aveney
+  25037:
+    associéeA: 25036
+  25064:
+    associéeA: 25433
+  25080:
+    associéeA: 25486
+  25101:
+    name: Burgille
+    associées:
+      25146:
+        name: Chazoy
+      25165:
+        name: Cordiron
+  25144:
+    associéeA: 25505
+  25146:
+    associéeA: 25101
+  25158:
+    associéeA: 25524
+  25165:
+    associéeA: 25101
+  25167:
+    associéeA: 25374
+  25168:
+    associéeA: 25223
+  25187:
+    name: Mambelin
+    associées:
+      25363:
+        name: Mambouhans
+  25205:
+    associéeA: 25223
+  25212:
+    name: École-Valentin
+    associées:
+      25581:
+        name: Valentin
+  25223:
+    name: Éternoz
+    associées:
+      25010:
+        name: Alaise
+      25168:
+        name: Coulans-sur-Lizon
+      25205:
+        name: Doulaize
+      25484:
+        name: Refranche
+  25272:
+    associéeA: 25018
+  25275:
+    name: Glère
+    associées:
+      25407:
+        name: Montursin
+      25606:
+        name: Vernois-le-Fol
+  25288:
+    name: Fournets-Luisans
+    associées:
+      25352:
+        name: Luisans
+  25291:
+    associéeA: 25417
+  25292:
+    associéeA: 25334
+  25317:
+    name: Jallerange
+    associées:
+      25172:
+        name: Courchapon
+      25414:
+        name: 'Le Moutherot'
+  25334:
+    name: Levier
+    associées:
+      25292:
+        name: Granges-Maillot
+  25337:
+    associéeA: 25357
+  25352:
+    associéeA: 25288
+  25353:
+    associéeA: 25468
+  25357:
+    name: Maisons-du-Bois-Lièvremont
+    associées:
+      25337:
+        name: Lièvremont
+  25358:
+    associéeA: 25537
+  25363:
+    associéeA: 25187
+  25374:
+    name: Mercey-le-Grand
+    associées:
+      25167:
+        name: Cottier
+  25385:
+    name: Montagney-Servigney
+    associées:
+      25543:
+        name: Servigney
+  25396:
+    associéeA: 25505
+  25407:
+    associéeA: 25275
+  25409:
+    associéeA: 25505
+  25417:
+    name: Naisey-les-Granges
+    associées:
+      25291:
+        name: Granges-de-Vienney
+  25433:
+    name: Orgeans-Blanchefontaine
+    associées:
+      25064:
+        name: Blanchefontaine
+  25463:
+    name: Pont-de-Roide
+    associées:
+      25603:
+        name: Vermondans
+  25468:
+    name: Pouligney-Lusans
+    associées:
+      25353:
+        name: Lusans
+  25484:
+    associéeA: 25223
+  25486:
+    name: Remoray-Boujeons
+    associées:
+      25080:
+        name: Boujeons
+  25505:
+    name: Rougemont
+    associées:
+      25144:
+        name: Chazelot
+      25396:
+        name: Montferney
+      25409:
+        name: Morchamps
+  25524:
+    name: Saint-Maurice-Colombier
+    associées:
+      25158:
+        name: Colombier-Châtelot
+  25527:
+    name: Saint-Vit
+    associées:
+      39012:
+        name: Antorpe
+  25537:
+    name: Scey-Maisières
+    associées:
+      25358:
+        name: Maisières-Notre-Dame
+  25543:
+    associéeA: 25385
+  25568:
+    associéeA: 25018
+  25581:
+    associéeA: 25212
+  25592:
+    name: Vaux-et-Chantegrue-Malpas
+    associées:
+      25362:
+        name: Malpas
+  25603:
+    associéeA: 25463
+  25606:
+    associéeA: 25275
+  27153:
+    name: Chauvincourt
+    associées:
+      27479:
+        name: Provemont
+  27479:
+    associéeA: 27153
+  28002:
+    name: Allaines-Mervilliers
+    associées:
+      28244:
+        name: Mervilliers
+  28011:
+    associéeA: 28023
+  28023:
+    name: Bailleau-Armenonville
+    associées:
+      28011:
+        name: Armenonville-les-Gâtineaux
+  28034:
+    name: Berchères-Saint-Germain
+    associées:
+      28338:
+        name: Saint-Germain-la-Gâtine
+  28056:
+    name: Boutigny-Prouais
+    associées:
+      28307:
+        name: Prouais
+  28097:
+    associéeA: 28393
+  28120:
+    name: Crucey-Villages
+    associées:
+      28228:
+        name: Mainterne
+      28420:
+        name: Vitray-sous-Brézolles
+  28138:
+    associéeA: 28393
+  28159:
+    name: 'La Framboisière-la-Saucelle'
+    associées:
+      28368:
+        name: 'La Saucelle'
+  28168:
+    name: Gallardon
+    associées:
+      28266:
+        name: Montlouet
+  28174:
+    associéeA: 28386
+  28181:
+    associéeA: 28393
+  28226:
+    name: Maillebois
+    associées:
+      28043:
+        name: Blévy
+      28125:
+        name: Dampierre-sur-Blévy
+      28351:
+        name: Saint-Maixme-Hauterive
+  28228:
+    associéeA: 28120
+  28238:
+    associéeA: 28360
+  28244:
+    associéeA: 28002
+  28266:
+    associéeA: 28168
+  28279:
+    name: Nogent-le-Roi
+    associées:
+      28399:
+        name: Vacheresses-les-Basses
+  28307:
+    associéeA: 28056
+  28328:
+    associéeA: 28393
+  28338:
+    associéeA: 28034
+  28360:
+    name: Saint-Sauveur-Marville
+    associées:
+      28238:
+        name: Marville-les-Bois
+  28373:
+    name: Senonches
+    associées:
+      28381:
+        name: Tardais
+      28413:
+        name: 'La Ville-aux-Nonains'
+  28381:
+    associéeA: 28373
+  28384:
+    associéeA: 28393
+  28386:
+    name: Thimert-Gâtelles
+    associées:
+      28174:
+        name: Gâtelles
+  28393:
+    name: Tremblay-les-Villages
+    associées:
+      28097:
+        name: Chêne-Chenu
+      28138:
+        name: Écublé
+      28181:
+        name: Gironville-et-Neuville
+      28328:
+        name: Saint-Chéron-des-Champs
+      28384:
+        name: Theuvy-Achères
+  28399:
+    associéeA: 28279
+  28413:
+    associéeA: 28373
+  28420:
+    associéeA: 28120
+  29092:
+    associéeA: 29241
+  29241:
+    name: Rosporden
+    associées:
+      29092:
+        name: Kernével
+  31016:
+    associéeA: 31085
+  31085:
+    name: Boutx
+    associées:
+      31016:
+        name: Argut-Dessus
+      31154:
+        name: Couledoux
+  31144:
+    name: Cierp-Gaud-Signac
+    associées:
+      31548:
+        name: Signac
+  31154:
+    associéeA: 31085
+  31300:
+    associéeA: 31483
+  31483:
+    name: Saint-Gaudens
+    associées:
+      31300:
+        name: Lieoux
+  32011:
+    associéeA: 32426
+  32045:
+    name: Berdoues-Ponsampère
+    associées:
+      32323:
+        name: Ponsampère
+  32179:
+    associéeA: 32462
+  32426:
+    name: Seissan
+    associées:
+      32011:
+        name: Artiguedieu
+  32462:
+    name: Vic-Fezensac
+    associées:
+      32179:
+        name: Lagraulas
+  35020:
+    associéeA: 35130
+  35036:
+    associéeA: 35064
+  35043:
+    associéeA: 35068
+  35064:
+    name: 'La Chapelle-de-Brain'
+    associées:
+      35036:
+        name: Brain-sur-Vilaine
+  35068:
+    name: Châteaubourg
+    associées:
+      35043:
+        name: Broons-sur-Vilaine
+      35298:
+        name: Saint-Melaine
+  35074:
+    associéeA: 35096
+  35096:
+    name: Domagné
+    associées:
+      35074:
+        name: Chaumeré
+  35130:
+    name: Hédé
+    associées:
+      35020:
+        name: Bazouges-sous-Hédé
+      35317:
+        name: Saint-Symphorien
+  35298:
+    associéeA: 35068
+  35317:
+    associéeA: 35130
+  36039:
+    associéeA: 36070
+  36070:
+    name: Éguzon-Chantôme
+    associées:
+      36039:
+        name: Chantôme
+  38139:
+    name: Creys-Mépieu
+    associées:
+      38227:
+        name: Mépieu
+  38227:
+    associéeA: 38139
+  38251:
+    associéeA: 38348
+  38348:
+    name: Ruy
+    associées:
+      38251:
+        name: Montceau
+  38466:
+    name: Saint-Vincent-de-Mercuze-Sainte-Marie-du-Mont
+    associées:
+      38418:
+        name: Sainte-Marie-du-Mont
+  38506:
+    associéeA: 38541
+  38541:
+    name: Veyrins-Thuellin
+    associées:
+      38506:
+        name: Thuellin
+  39005:
+    associéeA: 39385
+  39010:
+    name: Andelot-Morval
+    associées:
+      39369:
+        name: Morval
+  39012:
+    associéeA: 25527
+  39022:
+    name: Asnans-Beauvoisin
+    associées:
+      39044:
+        name: Beauvoisin
+  39044:
+    associéeA: 39022
+  39049:
+    name: Bersaillin
+    associées:
+      39067:
+        name: 'Le Bouchaud'
+      39580:
+        name: 'Le Viseney'
+  39067:
+    associéeA: 39049
+  39086:
+    name: Cernon
+    associées:
+      39578:
+        name: Viremont
+  39198:
+    name: Dole
+    associées:
+      39256:
+        name: Goux
+  39205:
+    name: Éclans-Nenon
+    associées:
+      39383:
+        name: Nenon
+  39231:
+    associéeA: 39436
+  39256:
+    associéeA: 39198
+  39302:
+    name: Louvatange-le-Petit-Mercey
+    associées:
+      39414:
+        name: 'Le Petit-Mercey'
+  39358:
+    associéeA: 39479
+  39369:
+    associéeA: 39010
+  39374:
+    associéeA: 39436
+  39383:
+    associéeA: 39205
+  39385:
+    name: Neublans-Abergement
+    associées:
+      39005:
+        name: Abergement-Saint-Jean
+  39436:
+    name: 'Pont-d''Héry'
+    associées:
+      39231:
+        name: Fonteny
+      39374:
+        name: Moutaine
+  39439:
+    name: Port-Lesney-Grange-de-Vaivre
+    associées:
+      39259:
+        name: Grange-de-Vaivre
+  39465:
+    name: Romange-lès-Vriange
+    associées:
+      39584:
+        name: Vriange
+  39479:
+    name: Saint-Cyr-Montmalin
+    associées:
+      39358:
+        name: Montmalin
+  39578:
+    associéeA: 39086
+  39580:
+    associéeA: 39049
+  41021:
+    associéeA: 41273
+  41076:
+    associéeA: 41273
+  41149:
+    name: Montoire-sur-le-Loir
+    associées:
+      41227:
+        name: Saint-Quentin-lès-Troo
+  41227:
+    associéeA: 41149
+  41273:
+    name: Vievy-le-Rayé
+    associées:
+      41021:
+        name: 'La Bosse'
+      41076:
+        name: Écoman
+  42080:
+    associéeA: 42225
+  42144:
+    associéeA: 42147
+  42147:
+    name: Montbrison
+    associées:
+      42144:
+        name: Moingt
+  42190:
+    associéeA: 42218
+  42218:
+    name: Saint-Étienne
+    associées:
+      42190:
+        name: Rochetaillée
+  42225:
+    name: Genilac
+    associées:
+      42080:
+        name: 'La Cula'
+  42239:
+    name: Saint-Jean-Saint-Maurice-sur-Loire
+    associées:
+      42263:
+        name: Saint-Maurice-sur-Loire
+  42250:
+    associéeA: 42279
+  42263:
+    associéeA: 42239
+  42279:
+    name: Saint-Just-Saint-Rambert
+    associées:
+      42250:
+        name: Saint-Just-sur-Loire
+  44131:
+    name: Pornic
+    associées:
+      44042:
+        name: 'Le Clion-sur-Mer'
+      44177:
+        name: Sainte-Marie
+  45003:
+    associéeA: 45240
+  45007:
+    associéeA: 45155
+  45025:
+    name: Bazoches-les-Gallerandes
+    associées:
+      45172:
+        name: Izy
+  45035:
+    name: Boiscommun
+    associées:
+      45090:
+        name: Chemault
+  45048:
+    associéeA: 45253
+  45090:
+    associéeA: 45035
+  45118:
+    name: Crottes-en-Pithiverais
+    associées:
+      45319:
+        name: Teillay-Saint-Benoît
+  45140:
+    associéeA: 45240
+  45155:
+    name: Gien
+    associées:
+      45007:
+        name: Arrabloy
+  45160:
+    name: Greneville-en-Beauce
+    associées:
+      45163:
+        name: Guignonville
+  45162:
+    name: Guigneville
+    associées:
+      45304:
+        name: Sébouville
+  45163:
+    associéeA: 45160
+  45172:
+    associéeA: 45025
+  45240:
+    name: Outarville
+    associées:
+      45003:
+        name: Allainville-en-Beauce
+      45140:
+        name: Faronville
+      45295:
+        name: Saint-Péravy-Épreux
+      45318:
+        name: Teillay-le-Gaudin
+  45253:
+    name: Pithiviers-le-Vieil
+    associées:
+      45048:
+        name: Bouzonville-en-Beauce
+  45295:
+    associéeA: 45240
+  45304:
+    associéeA: 45162
+  45318:
+    associéeA: 45240
+  45319:
+    associéeA: 45118
+  45348:
+    name: Yèvre-la-Ville
+    associées:
+      45349:
+        name: Yèvre-le-Châtel
+  45349:
+    associéeA: 45348
+  47010:
+    name: Antagnac
+    associées:
+      47227:
+        name: Ruffiac
+  47048:
+    name: Cancon
+    associées:
+      47033:
+        name: Boudy-de-Beauregard
+      47259:
+        name: Saint-Maurice-de-Lestapel
+  47093:
+    name: Fargues-sur-Ourbise
+    associées:
+      47058:
+        name: Caubeyres
+  47116:
+    associéeA: 47302
+  47134:
+    name: Lannes
+    associées:
+      47322:
+        name: Villeneuve-de-Mézin
+  47149:
+    associéeA: 47221
+  47157:
+    name: Marmande
+    associées:
+      47163:
+        name: Mauvezin-sur-Gupie
+  47163:
+    associéeA: 47157
+  47166:
+    associéeA: 47302
+  47206:
+    name: Pinel-Hauterive
+    associées:
+      47268:
+        name: Saint-Pierre-de-Caubel
+  47209:
+    name: Pont-du-Casse
+    associées:
+      47019:
+        name: Bajamont
+  47221:
+    name: Réaup
+    associées:
+      47149:
+        name: Lisse
+  47227:
+    associéeA: 47010
+  47268:
+    associéeA: 47206
+  47302:
+    name: Sos
+    associées:
+      47116:
+        name: Gueyze
+      47166:
+        name: Meylan
+  47310:
+    name: Tonneins
+    associées:
+      47095:
+        name: Fauillet
+  47322:
+    associéeA: 47134
+  47324:
+    name: Villeréal
+    associées:
+      47223:
+        name: Rives
+  48011:
+    associéeA: 48034
+  48034:
+    name: 'La Canourgue'
+    associées:
+      48011:
+        name: Auxillac
+      48035:
+        name: 'La Capelle'
+      48102:
+        name: Montjézieu
+  48035:
+    associéeA: 48034
+  48039:
+    name: Chanac
+    associées:
+      48196:
+        name: 'Le Villard'
+  48102:
+    associéeA: 48034
+  48196:
+    associéeA: 48039
+  49016:
+    associéeA: 49328
+  49094:
+    name: Chênehutte-Trèves-Cunault
+    associées:
+      49357:
+        name: Trèves-Cunault
+  49099:
+    name: Cholet
+    associées:
+      79224:
+        name: 'Le Puy-Saint-Bonnet'
+  49118:
+    associéeA: 49328
+  49146:
+    associéeA: 49281
+  49168:
+    associéeA: 49180
+  49180:
+    name: Longué-Jumelles
+    associées:
+      49168:
+        name: Jumelles
+  49281:
+    name: Saint-Georges-des-Gardes
+    associées:
+      49146:
+        name: 'Les Gardes'
+  49286:
+    associéeA: 49373
+  49287:
+    associéeA: 49328
+  49293:
+    associéeA: 49328
+  49328:
+    name: Saumur
+    associées:
+      49016:
+        name: Bagneux
+      49118:
+        name: Dampierre-sur-Loire
+      49287:
+        name: Saint-Hilaire-Saint-Florent
+      49293:
+        name: Saint-Lambert-des-Levées
+  49357:
+    associéeA: 49094
+  49373:
+    name: Vihiers
+    associées:
+      49286:
+        name: Saint-Hilaire-du-Bois
+      49379:
+        name: 'Le Voide'
+  49379:
+    associéeA: 49373
+  50011:
+    associéeA: 50142
+  50047:
+    associéeA: 50188
+  50053:
+    associéeA: 50256
+  50066:
+    name: Jullouville
+    associées:
+      50102:
+        name: Carolles
+      50526:
+        name: Saint-Michel-des-Loups
+      50532:
+        name: Saint-Pair-sur-Mer
+  50113:
+    associéeA: 50256
+  50122:
+    associéeA: 50444
+  50142:
+    name: Cosqueville
+    associées:
+      50011:
+        name: Angoville-en-Saire
+      50645:
+        name: Vrasville
+  50160:
+    name: Denneville
+    associées:
+      50097:
+        name: Canville-la-Rocque
+  50167:
+    name: Dragey-Tombelaine
+    associées:
+      50199:
+        name: Genêts
+      50439:
+        name: Ronthon
+      50496:
+        name: Saint-Jean-le-Thomas
+  50188:
+    name: Folligny
+    associées:
+      50047:
+        name: 'La Beslière'
+      50309:
+        name: 'Le Mesnil-Drey'
+  50197:
+    name: Gavray
+    associées:
+      50307:
+        name: 'Le Mesnil-Bonant'
+      50314:
+        name: 'Le Mesnil-Hue'
+  50201:
+    associéeA: 50629
+  50256:
+    name: Isigny-le-Buat
+    associées:
+      50053:
+        name: 'Les Biards'
+      50113:
+        name: Chalandrey
+      50286:
+        name: 'La Mancellière'
+      50306:
+        name: 'Le Mesnil-Bœufs'
+      50322:
+        name: 'Le Mesnil-Thébault'
+      50344:
+        name: Montgothier
+      50346:
+        name: Montigny
+      50367:
+        name: Naftel
+      50632:
+        name: Vezins
+  50286:
+    associéeA: 50256
+  50306:
+    associéeA: 50256
+  50309:
+    associéeA: 50188
+  50322:
+    associéeA: 50256
+  50344:
+    associéeA: 50256
+  50346:
+    associéeA: 50256
+  50367:
+    associéeA: 50256
+  50377:
+    associéeA: 50590
+  50410:
+    name: Pontorson
+    associées:
+      50017:
+        name: Ardevon
+      50042:
+        name: Beauvoir
+      50065:
+        name: Boucey
+      50141:
+        name: Cormeray
+      50157:
+        name: Curey
+      50331:
+        name: Moidrey
+      50392:
+        name: 'Les Pas'
+  50424:
+    associéeA: 50456
+  50444:
+    name: Saint-Amand
+    associées:
+      50122:
+        name: 'La Chapelle-du-Fest'
+      50559:
+        name: Saint-Symphorien-les-Buttes
+  50456:
+    name: Saint-Clément-Rancoudray
+    associées:
+      50424:
+        name: Rancoudray
+  50463:
+    name: Saint-Denis-le-Gast
+    associées:
+      50221:
+        name: Grimesnil
+  50493:
+    name: Saint-Jean-des-Champs
+    associées:
+      50501:
+        name: Saint-Léger
+      50561:
+        name: Saint-Ursin
+  50501:
+    associéeA: 50493
+  50528:
+    name: Pierrepont-en-Cotentin
+    associées:
+      50035:
+        name: Baudreville
+      50063:
+        name: Bolleville
+      50548:
+        name: Saint-Sauveur-de-Pierrepont
+  50531:
+    name: Saint-Ovin
+    associées:
+      50067:
+        name: 'La Boulouze'
+      50317:
+        name: 'Le Mesnil-Ozenne'
+  50559:
+    associéeA: 50444
+  50561:
+    associéeA: 50493
+  50590:
+    name: 'Le Tanu'
+    associées:
+      50377:
+        name: Noirpalu
+  50609:
+    name: Criqueville-au-Plain
+    associées:
+      50170:
+        name: Écoquenéauville
+      50571:
+        name: Sébeville
+  50629:
+    name: Vesly
+    associées:
+      50201:
+        name: Gerville-la-Forêt
+  50630:
+    name: Vessey
+    associées:
+      50284:
+        name: Macey
+  50632:
+    associéeA: 50256
+  50645:
+    associéeA: 50142
+  51021:
+    associéeA: 51158
+  51024:
+    associéeA: 51158
+  51136:
+    name: Châtillon-sur-Marne
+    associées:
+      51201:
+        name: Cuisles
+  51158:
+    name: Val-des-Marais
+    associées:
+      51021:
+        name: Aulnay-aux-Planches
+      51024:
+        name: Aulnizeux
+      51383:
+        name: Morains
+  51201:
+    associéeA: 51136
+  51248:
+    name: Fère-Champenoise
+    associées:
+      51405:
+        name: Normée
+  51316:
+    name: Larzicourt-Isle-sur-Marne
+    associées:
+      51300:
+        name: Isle-sur-Marne
+  51383:
+    associéeA: 51158
+  51405:
+    associéeA: 51248
+  51494:
+    associéeA: 52182
+  51575:
+    associéeA: 51611
+  51611:
+    name: Vert-Toulon
+    associées:
+      51575:
+        name: Toulon-la-Montagne
+  52008:
+    name: Andelot-Blancheville
+    associées:
+      52054:
+        name: Blancheville
+  52010:
+    associéeA: 52088
+  52017:
+    name: Arc-en-Barrois
+    associées:
+      52022:
+        name: Aubepierre-sur-Aube
+  52018:
+    associéeA: 52140
+  52020:
+    associéeA: 52273
+  52031:
+    name: Autreville-sur-la-Renne
+    associées:
+      52278:
+        name: Lavilleneuve-au-Roi
+      52451:
+        name: Saint-Martin-sur-la-Renne
+      52501:
+        name: Valdelancourt
+  52032:
+    associéeA: 52497
+  52033:
+    associéeA: 52332
+  52035:
+    name: Hauts-de-Vingeanne
+    associées:
+      52285:
+        name: Leuchey
+  52041:
+    associéeA: 52400
+  52044:
+    name: Roches-Bettaincourt
+    associées:
+      52430:
+        name: Roches-sur-Rognon
+  52046:
+    associéeA: 52187
+  52049:
+    associéeA: 52140
+  52050:
+    name: Biesles
+    associées:
+      52412:
+        name: 'Le Puits-des-Mèzes'
+  52052:
+    associéeA: 52140
+  52054:
+    associéeA: 52008
+  52058:
+    name: Bologne
+    associées:
+      52309:
+        name: Marault
+      52434:
+        name: Roôcourt-la-Côte
+  52060:
+    name: Bourbonne-les-Bains
+    associées:
+      52215:
+        name: Genrupt
+      52527:
+        name: Villars-Saint-Marcellin
+  52064:
+    name: Bourmont
+    associées:
+      52224:
+        name: Gonaincourt
+  52068:
+    associéeA: 52182
+  52071:
+    associéeA: 52491
+  52073:
+    associéeA: 52123
+  52074:
+    name: Breuvannes-en-Bassigny
+    associées:
+      52139:
+        name: Colombey-lès-Choiseul
+      52324:
+        name: Meuvy
+  52077:
+    associéeA: 52197
+  52078:
+    associéeA: 52121
+  52080:
+    associéeA: 52491
+  52081:
+    associéeA: 52426
+  52083:
+    name: Champsevraine
+    associées:
+      52143:
+        name: Corgirnon
+  52088:
+    name: Ceffonds
+    associées:
+      52010:
+        name: Anglus
+      52466:
+        name: Sauvage-Magny
+  52094:
+    name: Vals-des-Tilles
+    associées:
+      52261:
+        name: Lamargelle-aux-Bois
+      52345:
+        name: Musseau
+      52530:
+        name: Villemervry
+      52531:
+        name: Villemoron
+  52096:
+    associéeA: 52125
+  52100:
+    associéeA: 52140
+  52112:
+    associéeA: 52197
+  52113:
+    name: Chassigny-Aisey
+    associées:
+      52145:
+        name: Coublanc
+      52170:
+        name: Dommarien
+      52228:
+        name: Grandchamp
+  52114:
+    name: Châteauvillain
+    associées:
+      52153:
+        name: Créancey
+      52192:
+        name: Essey-les-Ponts
+      52314:
+        name: Marmesse
+  52117:
+    associéeA: 52189
+  52118:
+    name: Chatonrupt-Sommermont
+    associées:
+      52477:
+        name: Sommermont
+  52121:
+    name: Chaumont
+    associées:
+      52078:
+        name: Brottes
+  52123:
+    name: Chevillon
+    associées:
+      52073:
+        name: Breuil-sur-Marne
+      52478:
+        name: Sommeville
+  52125:
+    name: Chamarandes-Choignes
+    associées:
+      52096:
+        name: Chamarandes
+  52126:
+    name: Choilley-Dardenay
+    associées:
+      52166:
+        name: Dardenay
+  52139:
+    associéeA: 52074
+  52140:
+    name: Colombey-les-Deux-Églises
+    associées:
+      52018:
+        name: Argentolles
+      52049:
+        name: Biernes
+      52052:
+        name: Blaise
+      52100:
+        name: Champcourt
+      52238:
+        name: Harricourt
+      52279:
+        name: Lavilleneuve-aux-Fresnes
+      52404:
+        name: Pratz
+  52143:
+    associéeA: 52083
+  52144:
+    associéeA: 52269
+  52150:
+    associéeA: 52189
+  52153:
+    associéeA: 52114
+  52156:
+    name: Curel-Autigny
+    associées:
+      52030:
+        name: Autigny-le-Petit
+  52158:
+    name: Cusey
+    associées:
+      52382:
+        name: Percey-sous-Montormentier
+  52166:
+    associéeA: 52126
+  52173:
+    name: Domremy-Landéville
+    associées:
+      52263:
+        name: Landéville
+  52176:
+    associéeA: 52353
+  52177:
+    name: Doulaincourt-Saucourt
+    associées:
+      52462:
+        name: Saucourt-sur-Rognon
+  52178:
+    name: Blaiserives
+    associées:
+      52533:
+        name: Villiers-aux-Chênes
+  52182:
+    name: Éclaron-Braucourt-Sainte-Livière
+    associées:
+      51494:
+        name: Sainte-Livière
+      52068:
+        name: Braucourt
+  52186:
+    associéeA: 52332
+  52187:
+    name: Épizon
+    associées:
+      52046:
+        name: Bettoncourt-le-Haut
+  52189:
+    name: 'Le Val-d''Esnoms'
+    associées:
+      52117:
+        name: Chatoillenot
+      52150:
+        name: 'Courcelles-Val-d''Esnoms'
+  52191:
+    associéeA: 52353
+  52192:
+    associéeA: 52114
+  52197:
+    name: Fayl-la-Forêt
+    associées:
+      52077:
+        name: Broncourt
+      52112:
+        name: Charmoy
+  52202:
+    associéeA: 52497
+  52205:
+    name: Foulain
+    associées:
+      52154:
+        name: Crenay
+      52297:
+        name: Luzy-sur-Marne
+  52209:
+    associéeA: 52377
+  52210:
+    associéeA: 70122
+  52211:
+    name: Froncles
+    associées:
+      52409:
+        name: Provenchères-sur-Marne
+  52215:
+    associéeA: 52060
+  52224:
+    associéeA: 52064
+  52226:
+    associéeA: 52265
+  52230:
+    name: Gudmont-Villiers
+    associées:
+      52537:
+        name: Villiers-sur-Marne
+  52236:
+    associéeA: 52288
+  52238:
+    associéeA: 52140
+  52242:
+    name: Haute-Amance
+    associées:
+      52333:
+        name: Montlandon
+      52435:
+        name: Rosoy-sur-Amance
+      52496:
+        name: Troischamps
+  52246:
+    name: Humes-Jorquenay
+    associées:
+      52252:
+        name: Jorquenay
+  52251:
+    name: Jonchery
+    associées:
+      52259:
+        name: Laharmand
+      52460:
+        name: Sarcicourt
+  52252:
+    associéeA: 52246
+  52257:
+    name: Laferté-sur-Amance
+    associées:
+      52390:
+        name: Pisseloup
+      52513:
+        name: Velles
+  52259:
+    associéeA: 52251
+  52261:
+    associéeA: 52094
+  52263:
+    associéeA: 52173
+  52265:
+    name: Bayard-sur-Marne
+    associées:
+      52226:
+        name: Gourzon
+      52408:
+        name: Prez-sur-Marne
+  52266:
+    associéeA: 52427
+  52268:
+    associéeA: 52288
+  52269:
+    name: Langres
+    associées:
+      52144:
+        name: Corlée
+  52273:
+    name: Larivière-Arnoncourt
+    associées:
+      52020:
+        name: Arnoncourt-sur-Apance
+  52274:
+    name: Latrecey-Ormoy-sur-Aube
+    associées:
+      52368:
+        name: Ormoy-sur-Aube
+  52278:
+    associéeA: 52031
+  52279:
+    associéeA: 52140
+  52281:
+    associéeA: 52332
+  52283:
+    associéeA: 52332
+  52288:
+    name: Lezéville
+    associées:
+      52236:
+        name: Harméville
+      52268:
+        name: Laneuville-au-Bois
+  52292:
+    name: Vallinot
+    associées:
+      52381:
+        name: Percey-le-Pautel
+  52299:
+    associéeA: 52456
+  52309:
+    associéeA: 52058
+  52311:
+    name: Marcilly-Plesnoy
+    associées:
+      52392:
+        name: Plesnoy
+  52314:
+    associéeA: 52114
+  52317:
+    associéeA: 52332
+  52324:
+    associéeA: 52074
+  52329:
+    associéeA: 52388
+  52332:
+    name: Val-de-Meuse
+    associées:
+      52033:
+        name: Avrecourt
+      52186:
+        name: Épinant
+      52281:
+        name: Lécourt
+      52283:
+        name: Lénizeul
+      52317:
+        name: Maulain
+      52410:
+        name: Provenchères-sur-Meuse
+      52417:
+        name: Ravennefontaines
+      52418:
+        name: Récourt
+      52465:
+        name: Saulxures
+  52333:
+    associéeA: 52242
+  52339:
+    associéeA: 52469
+  52345:
+    associéeA: 52094
+  52348:
+    name: Val-de-Gris
+    associées:
+      52009:
+        name: Andilly-en-Bassigny
+      52037:
+        name: Bannes
+      52059:
+        name: Bonnecourt
+      52105:
+        name: Changey
+      52108:
+        name: Charmes
+      52116:
+        name: Chatenay-Vaudin
+      52163:
+        name: Dampierre
+      52207:
+        name: Frécourt
+      52280:
+        name: Lecey
+      52363:
+        name: Orbigny-au-Val
+      52397:
+        name: Poiseul
+  52353:
+    name: Nogent
+    associées:
+      52176:
+        name: Donnemarie
+      52191:
+        name: Essey-les-Eaux
+      52361:
+        name: Odival
+  52359:
+    name: Nully-Trémilly
+    associées:
+      52495:
+        name: Trémilly
+  52361:
+    associéeA: 52353
+  52368:
+    associéeA: 52274
+  52374:
+    name: Hauts-Vals-sous-Nouroy
+    associées:
+      52240:
+        name: Heuilley-le-Grand
+      52354:
+        name: Noidant-Chatenoy
+      52375:
+        name: Palaiseul
+      52539:
+        name: Violot
+  52377:
+    name: Parnoy-en-Bassigny
+    associées:
+      52209:
+        name: Fresnoy-en-Bassigny
+  52381:
+    associéeA: 52292
+  52382:
+    associéeA: 52158
+  52383:
+    name: Perrancey-les-Vieux-Moulins
+    associées:
+      52521:
+        name: Vieux-Moulins
+  52384:
+    name: Perrogney-les-Fontaines
+    associées:
+      52389:
+        name: Pierrefontaines
+  52387:
+    associéeA: 52529
+  52388:
+    name: Pierremont-sur-Amance
+    associées:
+      52329:
+        name: Montesson
+  52389:
+    associéeA: 52384
+  52400:
+    name: 'Le Châtelet-sur-Meuse'
+    associées:
+      52041:
+        name: Beaucharmoy
+  52402:
+    associéeA: 52529
+  52404:
+    associéeA: 52140
+  52406:
+    name: Saint-Pérégrin-sur-Vannon
+    associées:
+      52223:
+        name: Gilley
+      52394:
+        name: Poinson-lès-Fayl
+      52467:
+        name: Savigny
+      52493:
+        name: Tornay
+      52503:
+        name: Valleroy
+      52546:
+        name: Voncourt
+  52408:
+    associéeA: 52265
+  52409:
+    associéeA: 52211
+  52410:
+    associéeA: 52332
+  52412:
+    associéeA: 52050
+  52417:
+    associéeA: 52332
+  52418:
+    associéeA: 52332
+  52420:
+    name: Reynel
+    associées:
+      52335:
+        name: Montot-sur-Rognon
+      52473:
+        name: Signéville
+      52523:
+        name: Vignes-la-Côte
+  52426:
+    name: Rizaucourt-Buchey
+    associées:
+      52081:
+        name: Buchey
+  52427:
+    name: Robert-Magny-Laneuville-à-Rémy
+    associées:
+      52266:
+        name: Laneuville-à-Rémy
+  52430:
+    associéeA: 52044
+  52432:
+    name: Rolampont
+    associées:
+      52042:
+        name: Beauchemin
+      52111:
+        name: Charmoilles
+      52270:
+        name: Lannes
+      52498:
+        name: Tronchoy
+  52434:
+    associéeA: 52058
+  52435:
+    associéeA: 52242
+  52439:
+    name: Rouvres-Arbot
+    associées:
+      52016:
+        name: Arbot
+  52441:
+    associéeA: 52479
+  52444:
+    name: Saint-Blin-Semilly
+    associées:
+      52468:
+        name: Semilly
+  52451:
+    associéeA: 52031
+  52454:
+    associéeA: 52529
+  52456:
+    name: Saint-Urbain-Maconcourt
+    associées:
+      52299:
+        name: Maconcourt
+  52460:
+    associéeA: 52251
+  52462:
+    associéeA: 52177
+  52465:
+    associéeA: 52332
+  52466:
+    associéeA: 52088
+  52469:
+    name: Semoutiers-Montsaon
+    associées:
+      52339:
+        name: Montsaon
+  52477:
+    associéeA: 52118
+  52478:
+    associéeA: 52123
+  52479:
+    name: Sommevoire
+    associées:
+      52441:
+        name: Rozières
+  52481:
+    associéeA: 52491
+  52491:
+    name: Thonnance-les-Moulins
+    associées:
+      52071:
+        name: Bressoncourt
+      52080:
+        name: Brouthières
+      52481:
+        name: Soulaincourt
+  52495:
+    associéeA: 52359
+  52496:
+    associéeA: 52242
+  52497:
+    name: Troisfontaines-la-Ville
+    associées:
+      52032:
+        name: Avrainville
+      52202:
+        name: Flornoy
+      52532:
+        name: Villiers-aux-Bois
+  52501:
+    associéeA: 52031
+  52504:
+    name: Terre-Natale
+    associées:
+      52103:
+        name: Champigny-sous-Varennes
+      52124:
+        name: Chézeaux
+  52508:
+    associéeA: 52544
+  52521:
+    associéeA: 52383
+  52527:
+    associéeA: 52060
+  52529:
+    name: Villegusien-le-Lac
+    associées:
+      52387:
+        name: Piépape
+      52402:
+        name: Prangey
+      52454:
+        name: Saint-Michel
+  52530:
+    associéeA: 52094
+  52531:
+    associéeA: 52094
+  52532:
+    associéeA: 52497
+  52533:
+    associéeA: 52178
+  52537:
+    associéeA: 52230
+  52544:
+    name: Voisey
+    associées:
+      52508:
+        name: Vaux-la-Douce
+  53003:
+    name: Ambrières-les-Vallées
+    associées:
+      53070:
+        name: Cigné
+      53111:
+        name: 'La Haie-Traversaine'
+  53020:
+    associéeA: 53127
+  53024:
+    associéeA: 53062
+  53044:
+    associéeA: 53118
+  53060:
+    associéeA: 53121
+  53062:
+    name: Château-Gontier
+    associées:
+      53024:
+        name: Bazouges
+  53079:
+    name: Couesmes-Vaucé
+    associées:
+      53268:
+        name: Vaucé
+  53118:
+    name: 'Le Housseau-Brétignolles'
+    associées:
+      53044:
+        name: Brétignolles-le-Moulin
+  53121:
+    name: Javron-les-Chapelles
+    associées:
+      53060:
+        name: 'Les Chapelles'
+  53127:
+    name: Lassay-les-Châteaux
+    associées:
+      53020:
+        name: 'La Baroche-Gondouin'
+      53149:
+        name: Melleray-la-Vallée
+      53166:
+        name: Niort-la-Fontaine
+  53149:
+    associéeA: 53127
+  53160:
+    name: Montreuil-Poulay
+    associées:
+      53183:
+        name: Poulay
+  53166:
+    associéeA: 53127
+  53181:
+    name: Pontmain
+    associées:
+      53213:
+        name: Saint-Ellier-du-Maine
+      53238:
+        name: Saint-Mars-sur-la-Futaie
+  53183:
+    associéeA: 53160
+  53268:
+    associéeA: 53079
+  54405:
+    name: Ochey-Thuilley
+    associées:
+      54523:
+        name: Thuilley-aux-Groseilles
+  54418:
+    name: Parroy
+    associées:
+      54133:
+        name: Coincourt
+      54388:
+        name: Mouacourt
+      54601:
+        name: Xures
+  55002:
+    name: Abaucourt-Hautecourt
+    associées:
+      55240:
+        name: Hautecourt-lès-Broville
+  55003:
+    associéeA: 55229
+  55006:
+    associéeA: 55040
+  55012:
+    name: Apremont-la-Forêt
+    associées:
+      55294:
+        name: Liouville
+      55319:
+        name: Marbotte
+      55451:
+        name: Saint-Agnant-sous-les-Côtes
+  55016:
+    associéeA: 55184
+  55019:
+    associéeA: 55388
+  55020:
+    associéeA: 55117
+  55026:
+    name: Badonvilliers-Gérauvilliers
+    associées:
+      55205:
+        name: Gérauvilliers
+  55033:
+    name: Baulny-Charpentry
+    associées:
+      55103:
+        name: Charpentry
+  55035:
+    name: Bazincourt-Montplonne
+    associées:
+      55352:
+        name: Montplonne
+  55040:
+    name: Beausite
+    associées:
+      55006:
+        name: Amblaincourt
+      55152:
+        name: Deuxnouds-devant-Beauzée
+      55486:
+        name: Seraucourt
+  55052:
+    associéeA: 55551
+  55056:
+    associéeA: 55385
+  55060:
+    name: Bonzée
+    associées:
+      55337:
+        name: Mesnil-sous-les-Côtes
+      55354:
+        name: Mont-Villers
+  55068:
+    associéeA: 55419
+  55069:
+    name: Brabant-lès-Villers
+    associées:
+      55560:
+        name: Villers-aux-Vents
+  55074:
+    associéeA: 55229
+  55082:
+    associéeA: 55419
+  55085:
+    name: Broussey-Raulecourt
+    associées:
+      55417:
+        name: Raulecourt
+  55086:
+    associéeA: 55389
+  55090:
+    associéeA: 55366
+  55091:
+    associéeA: 55457
+  55092:
+    associéeA: 55093
+  55093:
+    name: Buxières-sous-les-Côtes
+    associées:
+      55092:
+        name: Buxerulles
+      55585:
+        name: Woinville
+  55094:
+    name: Buzy-Darmont
+    associées:
+      55147:
+        name: Darmont
+  55098:
+    associéeA: 55473
+  55112:
+    associéeA: 55358
+  55114:
+    name: Chonville-Malaumont
+    associées:
+      55314:
+        name: Malaumont
+  55117:
+    name: Clermont-en-Argonne
+    associées:
+      55020:
+        name: Auzéville-en-Argonne
+      55259:
+        name: Jubécourt
+      55402:
+        name: Parois
+  55123:
+    name: 'Les Hauts-de-Chée'
+    associées:
+      55203:
+        name: Génicourt-sous-Condé
+      55231:
+        name: Hargeville-sur-Chée
+      55305:
+        name: Louppy-sur-Chée
+      55318:
+        name: 'Les Marats'
+  55126:
+    associéeA: 55258
+  55131:
+    associéeA: 55518
+  55136:
+    associéeA: 55551
+  55147:
+    associéeA: 55094
+  55148:
+    name: Delouze-Rosières
+    associées:
+      55441:
+        name: Rosières-en-Blois
+  55151:
+    associéeA: 55274
+  55152:
+    associéeA: 55040
+  55154:
+    name: Dieue
+    associées:
+      55204:
+        name: Génicourt-sur-Meuse
+  55161:
+    associéeA: 55179
+  55176:
+    associéeA: 55442
+  55179:
+    name: Erneville-aux-Bois
+    associées:
+      55161:
+        name: Domremy-aux-Bois
+      55308:
+        name: Loxéville
+  55183:
+    name: Étraye-Wavrille
+    associées:
+      55580:
+        name: Wavrille
+  55184:
+    name: Euville
+    associées:
+      55016:
+        name: Aulnois-sous-Vertuzey
+      55548:
+        name: Vertuzey
+      55558:
+        name: Ville-Issey
+  55186:
+    name: Fains-Véel
+    associées:
+      55542:
+        name: Véel
+  55190:
+    associéeA: 55389
+  55191:
+    name: Foameix-Ornel
+    associées:
+      55393:
+        name: Ornel
+  55203:
+    associéeA: 55123
+  55205:
+    associéeA: 55026
+  55213:
+    associéeA: 55258
+  55215:
+    name: Gondrecourt-le-Château
+    associées:
+      55309:
+        name: Luméville-en-Ornois
+      55513:
+        name: Tourailles-sous-Bois
+  55223:
+    associéeA: 55267
+  55229:
+    name: Han-sur-Meuse
+    associées:
+      55003:
+        name: Ailly-sur-Meuse
+      55074:
+        name: Brasseitte
+  55230:
+    associéeA: 55571
+  55231:
+    associéeA: 55123
+  55233:
+    associéeA: 55551
+  55234:
+    associéeA: 55551
+  55235:
+    associéeA: 55500
+  55238:
+    associéeA: 55267
+  55240:
+    associéeA: 55002
+  55245:
+    name: Madine
+    associées:
+      55273:
+        name: Lamarche-en-Woëvre
+      55386:
+        name: Nonsard
+  55249:
+    associéeA: 55500
+  55254:
+    name: 'Les Trois-Domaines'
+    associées:
+      55342:
+        name: Mondrecourt
+      55432:
+        name: Rignaucourt
+  55258:
+    name: Geville
+    associées:
+      55126:
+        name: Corniéville
+      55213:
+        name: Gironville-sous-les-Côtes
+  55259:
+    associéeA: 55117
+  55267:
+    name: Lachaussée
+    associées:
+      55223:
+        name: Hadonville-lès-Lachaussée
+      55238:
+        name: Haumont-lès-Lachaussée
+  55273:
+    associéeA: 55386
+  55274:
+    name: Lamorville
+    associées:
+      55151:
+        name: Deuxnouds-aux-Bois
+      55283:
+        name: Lavignéville
+      55499:
+        name: Spada
+  55276:
+    name: Landrecourt-Lempire
+    associées:
+      55287:
+        name: Lempire-aux-Bois
+  55283:
+    associéeA: 55274
+  55286:
+    name: 'Les Quatre-Vents'
+    associées:
+      55395:
+        name: Osches
+      55482:
+        name: Senoncourt-les-Maujouy
+      55525:
+        name: Vadelaincourt
+  55287:
+    associéeA: 55276
+  55294:
+    associéeA: 55012
+  55305:
+    associéeA: 55123
+  55308:
+    associéeA: 55179
+  55309:
+    associéeA: 55215
+  55314:
+    associéeA: 55114
+  55318:
+    associéeA: 55123
+  55319:
+    associéeA: 55012
+  55337:
+    associéeA: 55060
+  55342:
+    associéeA: 55254
+  55354:
+    associéeA: 55060
+  55358:
+    name: Chanteraine
+    associées:
+      55112:
+        name: Chennevières
+      55390:
+        name: Oëy
+  55366:
+    name: 'Val-d''Ornain'
+    associées:
+      55090:
+        name: Bussy-la-Côte
+      55529:
+        name: Varney
+  55369:
+    name: Naives-Rosières
+    associées:
+      55440:
+        name: Rosières-devant-Bar
+  55385:
+    name: Nixéville-Blercourt
+    associées:
+      55056:
+        name: Blercourt
+  55386:
+    name: Nonsard-Lamarche
+    associées:
+      55273:
+        name: Lamarche-en-Woëvre
+  55388:
+    name: Noyers-Auzécourt
+    associées:
+      55019:
+        name: Auzécourt
+  55389:
+    name: Nubécourt
+    associées:
+      55086:
+        name: Bulainville
+      55190:
+        name: Fleury-sur-Aire
+  55390:
+    associéeA: 55358
+  55392:
+    associéeA: 55500
+  55393:
+    associéeA: 55191
+  55402:
+    associéeA: 55117
+  55413:
+    associéeA: 55497
+  55417:
+    associéeA: 55085
+  55418:
+    associéeA: 55500
+  55419:
+    name: Récicourt
+    associées:
+      55068:
+        name: Brabant-en-Argonne
+      55082:
+        name: Brocourt-en-Argonne
+  55423:
+    name: Rembercourt-Sommaisne
+    associées:
+      55491:
+        name: Sommaisne
+  55432:
+    associéeA: 55254
+  55438:
+    name: Romagne-Gesnes
+    associées:
+      55208:
+        name: Gesnes-en-Argonne
+  55440:
+    associéeA: 55369
+  55441:
+    associéeA: 55148
+  55442:
+    name: Raival
+    associées:
+      55176:
+        name: Érize-la-Grande
+  55451:
+    associéeA: 55012
+  55455:
+    associéeA: 55551
+  55457:
+    name: Saint-Hilaire-en-Woëvre
+    associées:
+      55091:
+        name: Butgnéville
+      55576:
+        name: Wadonville-en-Woëvre
+  55472:
+    name: Saulvaux
+    associées:
+      55538:
+        name: Vaux-la-Grande
+      55539:
+        name: Vaux-la-Petite
+  55473:
+    name: Saulx-lès-Champlon
+    associées:
+      55098:
+        name: Champlon
+  55478:
+    associéeA: 55530
+  55483:
+    associéeA: 55530
+  55486:
+    associéeA: 55040
+  55487:
+    name: Seuzey-Vaux
+    associées:
+      55540:
+        name: Vaux-lès-Palameix
+  55491:
+    associéeA: 55423
+  55497:
+    name: 'Les Souhesmes-Rampont'
+    associées:
+      55413:
+        name: Rampont
+  55499:
+    associéeA: 55274
+  55500:
+    name: Spincourt
+    associées:
+      55235:
+        name: Haucourt-la-Rigole
+      55249:
+        name: Houdelaucourt-sur-Othain
+      55392:
+        name: Ollières
+      55418:
+        name: Réchicourt
+  55513:
+    associéeA: 55215
+  55517:
+    name: 'Seuil-d''Argonne'
+    associées:
+      55409:
+        name: Pretz
+      55480:
+        name: Senard
+  55518:
+    name: Cousances-lès-Triconville
+    associées:
+      55131:
+        name: Cousances-au-Bois
+  55529:
+    associéeA: 55366
+  55530:
+    name: Valbois
+    associées:
+      55478:
+        name: Savonnières-en-Woëvre
+      55483:
+        name: Senonville
+  55535:
+    name: 'Les Tilleuls-Vaudoncourt'
+    associées:
+      55216:
+        name: Gouraincourt
+      55367:
+        name: Muzeray
+  55538:
+    associéeA: 55472
+  55539:
+    associéeA: 55472
+  55542:
+    associéeA: 55186
+  55548:
+    associéeA: 55184
+  55550:
+    associéeA: 55551
+  55551:
+    name: Vigneulles-lès-Hattonchâtel
+    associées:
+      55052:
+        name: Billy-sous-les-Côtes
+      55136:
+        name: Creuë
+      55233:
+        name: Hattonchâtel
+      55234:
+        name: Hattonville
+      55455:
+        name: Saint-Benoît-en-Woëvre
+      55550:
+        name: Viéville-sous-les-Côtes
+  55558:
+    associéeA: 55184
+  55569:
+    name: Vilisle
+    associées:
+      55295:
+        name: Lisle-en-Barrois
+  55570:
+    name: Villotte-sur-Aire
+    associées:
+      55044:
+        name: Belrain
+      55210:
+        name: Gimécourt
+      55448:
+        name: Rupt-devant-Saint-Mihiel
+      55555:
+        name: Ville-devant-Belrain
+  55571:
+    name: Vilosnes-Haraumont
+    associées:
+      55230:
+        name: Haraumont
+  55576:
+    associéeA: 55457
+  55585:
+    associéeA: 55093
+  57011:
+    name: Albestroff
+    associées:
+      57248:
+        name: Givrycourt
+      57346:
+        name: Insming
+      57494:
+        name: Munster
+      57573:
+        name: Réning
+      57675:
+        name: Torcheville
+  57086:
+    name: Belles-Forêts
+    associées:
+      57023:
+        name: Angviller-lès-Bisping
+      57173:
+        name: Desseling
+  57097:
+    name: Boulay-Moselle
+    associées:
+      57285:
+        name: Halling-lès-Boulay
+  57106:
+    name: Bouzonville
+    associées:
+      57110:
+        name: Brettnach
+  57115:
+    name: Brulange
+    associées:
+      57027:
+        name: Arraincourt
+      57328:
+        name: Holacourt
+      57673:
+        name: Thonville
+  57132:
+    name: Château-Salins
+    associées:
+      57157:
+        name: Coutures
+  57135:
+    associéeA: 57209
+  57150:
+    name: Condé-Northen
+    associées:
+      57420:
+        name: Loutremange
+  57155:
+    name: Courcelles-Chaussy
+    associées:
+      57378:
+        name: Landonvillers
+  57157:
+    associéeA: 57132
+  57175:
+    name: Diane-et-Kerprich
+    associées:
+      57362:
+        name: Kerprich-aux-Bois
+  57209:
+    name: Faulquemont
+    associées:
+      57135:
+        name: Chémery
+  57252:
+    name: Gomelange
+    associées:
+      57279:
+        name: Guirlange
+  57279:
+    associéeA: 57252
+  57285:
+    associéeA: 57097
+  57378:
+    associéeA: 57155
+  57420:
+    associéeA: 57150
+  57460:
+    name: Merten
+    associées:
+      57069:
+        name: Berviller-en-Moselle
+      57570:
+        name: Rémering-lès-Hargarten
+      57720:
+        name: Villing
+  57542:
+    name: Piblange
+    associées:
+      57608:
+        name: Saint-Bernard
+  57608:
+    associéeA: 57542
+  57695:
+    name: Varize
+    associées:
+      57699:
+        name: Vaudoncourt
+  57699:
+    associéeA: 57695
+  58086:
+    name: Cosne-Cours-sur-Loire
+    associées:
+      58091:
+        name: Cours
+  58091:
+    associéeA: 58086
+  59183:
+    name: Dunkerque
+    associées:
+      59380:
+        name: Mardyck
+  59298:
+    associéeA: 59350
+  59349:
+    name: Ligny-Haucourt
+    associées:
+      59287:
+        name: Haucourt-en-Cambrésis
+  59350:
+    name: Lille
+    associées:
+      59298:
+        name: Hellemmes-Lille
+  59380:
+    associéeA: 59183
+  59545:
+    name: Saint-Souplet
+    associées:
+      '02285':
+        name: Escaufourt
+  59561:
+    associéeA: 59631
+  59631:
+    name: Walincourt-Selvigny
+    associées:
+      59561:
+        name: Selvigny
+  60202:
+    associéeA: 60537
+  60537:
+    name: Ribécourt-Dreslincourt
+    associées:
+      60202:
+        name: Dreslincourt
+  60607:
+    associéeA: 60668
+  60668:
+    name: Verderel-lès-Sauqueuse
+    associées:
+      60607:
+        name: Sauqueuse-Saint-Lucien
+  62110:
+    associéeA: 62473
+  62119:
+    name: Béthune
+    associées:
+      62126:
+        name: Beuvry
+      62847:
+        name: Verquigneul
+  62178:
+    name: Bruay-la-Buissière
+    associées:
+      62482:
+        name: Labuissière
+  62473:
+    name: Isbergues
+    associées:
+      62110:
+        name: Berguette
+      62575:
+        name: Molinghem
+  62482:
+    associéeA: 62178
+  62575:
+    associéeA: 62473
+  63038:
+    name: Besse-et-Saint-Anastaise
+    associées:
+      63316:
+        name: Saint-Anastaise
+  63103:
+    name: Châtelguyon
+    associées:
+      63361:
+        name: Saint-Hippolyte
+  63217:
+    associéeA: 63303
+  63303:
+    name: Roche-Charles-la-Mayrand
+    associées:
+      63217:
+        name: 'La Mayrand'
+  63316:
+    associéeA: 63038
+  63361:
+    associéeA: 63103
+  64010:
+    name: Aïcirits
+    associées:
+      64163:
+        name: Camou-Mixe-Suhast
+  64030:
+    associéeA: 64396
+  64049:
+    name: Aroue-Ithorots-Olhaïby
+    associées:
+      64278:
+        name: Ithorots-Olhaïby
+  64055:
+    associéeA: 64064
+  64064:
+    name: Asasp-Arros
+    associées:
+      64055:
+        name: 'Arros-d''Oloron'
+  64076:
+    associéeA: 64300
+  64113:
+    name: Bergouey-Arancou-Viellenave
+    associées:
+      64031:
+        name: Arancou
+      64553:
+        name: Viellenave-sur-Bidouze
+  64148:
+    name: Bruges-Capbis-Mifaget
+    associées:
+      64164:
+        name: Capbis
+      64384:
+        name: Mifaget
+  64163:
+    associéeA: 64010
+  64164:
+    associéeA: 64148
+  64168:
+    name: Carresse-Cassaber
+    associées:
+      64169:
+        name: Cassaber
+  64169:
+    associéeA: 64168
+  64248:
+    associéeA: 64396
+  64269:
+    name: Idron-Lée-Ousse-Sendets
+    associées:
+      64329:
+        name: Lée
+      64439:
+        name: Ousse
+      64518:
+        name: Sendets
+  64278:
+    associéeA: 64049
+  64300:
+    name: Lacq
+    associées:
+      64076:
+        name: Audéjos
+  64333:
+    associéeA: 64396
+  64367:
+    name: Maslacq
+    associées:
+      64179:
+        name: Castetner
+      64349:
+        name: Loubieng
+  64384:
+    associéeA: 64148
+  64396:
+    name: Mont
+    associées:
+      64030:
+        name: Arance
+      64248:
+        name: Gouze
+      64333:
+        name: Lendresse
+  64402:
+    associéeA: 64440
+  64417:
+    name: Nay-Bourdettes
+    associées:
+      64145:
+        name: Bourdettes
+  64430:
+    name: Orthez
+    associées:
+      64497:
+        name: Sainte-Suzanne
+  64440:
+    name: Ozenx
+    associées:
+      64402:
+        name: Montestrucq
+  64461:
+    name: Puyo-Bellocq-Ramous
+    associées:
+      64108:
+        name: Bellocq
+      64462:
+        name: Ramous
+  64497:
+    associéeA: 64430
+  65003:
+    name: Adervielle-Pouchergues
+    associées:
+      65365:
+        name: Pouchergues
+  65008:
+    associéeA: 65141
+  65054:
+    name: Avezac-Prat-Lahitte
+    associées:
+      65246:
+        name: Lahitte
+  65099:
+    name: Bordères-Louron
+    associées:
+      65227:
+        name: Ilhan
+  65141:
+    name: Cazaux-Fréchet-Anéran-Camors
+    associées:
+      65008:
+        name: Anéran-Camors
+  65227:
+    associéeA: 65099
+  65246:
+    associéeA: 65054
+  65365:
+    associéeA: 65003
+  66037:
+    name: Canet-en-Roussillon-Saint-Nazaire
+    associées:
+      66186:
+        name: Saint-Nazaire
+  66130:
+    name: Osséja
+    associées:
+      66220:
+        name: Valcebollère
+  66134:
+    name: Passa-Llauro-Tordères
+    associées:
+      66099:
+        name: Llauro
+      66211:
+        name: Tordères
+  66167:
+    name: Saillagouse-Llo
+    associées:
+      66100:
+        name: Llo
+  67007:
+    associéeA: 67544
+  67015:
+    associéeA: 67452
+  67024:
+    associéeA: 67495
+  67034:
+    name: Berstett
+    associées:
+      67157:
+        name: Gimbrett
+      67393:
+        name: Reitwiller
+      67419:
+        name: Rumersheim
+  67042:
+    associéeA: 67104
+  67057:
+    associéeA: 67242
+  67061:
+    name: Bouxwiller
+    associées:
+      67171:
+        name: Griesbach-le-Bastberg
+      67219:
+        name: Imbsheim
+      67399:
+        name: Riedheim
+  67064:
+    associéeA: 67074
+  67074:
+    name: Cleebourg
+    associées:
+      67064:
+        name: Bremmelbach
+  67104:
+    name: Drachenbronn-Birlenbach
+    associées:
+      67042:
+        name: Birlenbach
+  67108:
+    name: Duppigheim
+    associées:
+      67247:
+        name: Kolbsheim
+  67114:
+    associéeA: 67176
+  67122:
+    name: Wangenbourg-Engenthal
+    associées:
+      67518:
+        name: Wangenbourg
+  67157:
+    associéeA: 67034
+  67160:
+    name: Gœrsdorf
+    associées:
+      67294:
+        name: Mitschdorf
+  67163:
+    name: Gougenheim
+    associées:
+      67406:
+        name: Rohr
+  67170:
+    associéeA: 67176
+  67171:
+    associéeA: 67061
+  67176:
+    name: Gundershoffen
+    associées:
+      67114:
+        name: Eberbach-Wœrth
+      67170:
+        name: Griesbach
+  67193:
+    associéeA: 67206
+  67206:
+    name: Hoffen
+    associées:
+      67193:
+        name: Hermerswiller
+      67262:
+        name: Leiterswiller
+  67211:
+    associéeA: 67474
+  67219:
+    associéeA: 67061
+  67224:
+    associéeA: 67442
+  67242:
+    name: Kirrwiller-Bosselshausen
+    associées:
+      67057:
+        name: Bosselshausen
+  67243:
+    associéeA: 67452
+  67251:
+    associéeA: 67339
+  67262:
+    associéeA: 67206
+  67263:
+    name: Lembach
+    associées:
+      67284:
+        name: Mattstall
+  67284:
+    associéeA: 67263
+  67294:
+    associéeA: 67160
+  67316:
+    associéeA: 67388
+  67332:
+    associéeA: 67351
+  67339:
+    name: Betschdorf
+    associées:
+      67251:
+        name: Kuhlendorf
+      67390:
+        name: Reimerswiller
+      67457:
+        name: Schwabwiller
+  67340:
+    name: Oberbronn-Zinswiller
+    associées:
+      67558:
+        name: Zinswiller
+  67347:
+    name: Modern
+    associées:
+      67562:
+        name: Zutzendorf
+  67351:
+    name: Seebach
+    associées:
+      67332:
+        name: Niederseebach
+  67376:
+    associéeA: 67435
+  67388:
+    name: Reichshoffen
+    associées:
+      67316:
+        name: Nehwiller-près-Wœrth
+  67390:
+    associéeA: 67339
+  67393:
+    associéeA: 67034
+  67399:
+    associéeA: 67061
+  67419:
+    associéeA: 67034
+  67435:
+    name: Sarrewerden
+    associées:
+      67376:
+        name: Bischtroff-sur-Sarre
+      67561:
+        name: Zollingen
+  67442:
+    name: Scharrachbergheim-Irmstett
+    associées:
+      67224:
+        name: Irmstett
+  67452:
+    name: Schnersheim
+    associées:
+      67015:
+        name: Avenheim
+      67243:
+        name: Kleinfrankenheim
+  67457:
+    associéeA: 67339
+  67474:
+    name: Soultz-sous-Forêts
+    associées:
+      67211:
+        name: Hohwiller
+  67484:
+    name: Stundwiller
+    associées:
+      67012:
+        name: Aschbach
+      67349:
+        name: Oberrœdern
+  67495:
+    name: Truchtersheim
+    associées:
+      67024:
+        name: Behlenheim
+  67513:
+    name: 'Le Ban-de-la-Roche'
+    associées:
+      67026:
+        name: Bellefosse
+      67027:
+        name: Belmont
+      67144:
+        name: Fouday
+  67518:
+    associéeA: 67122
+  67530:
+    name: Wickersheim-Wilshausen
+    associées:
+      67533:
+        name: Wilshausen
+  67532:
+    name: Willgottheim
+    associées:
+      67549:
+        name: Wœllenheim
+  67533:
+    associéeA: 67530
+  67544:
+    name: Wissembourg
+    associées:
+      67007:
+        name: Altenstadt
+  67549:
+    associéeA: 67532
+  67561:
+    associéeA: 67435
+  67562:
+    associéeA: 67347
+  68003:
+    associéeA: 68106
+  68106:
+    name: Goldbach-Altenbach
+    associées:
+      68003:
+        name: Altenbach
+  69066:
+    name: Cours-la-Ville
+    associées:
+      69262:
+        name: 'La Ville'
+  69262:
+    associéeA: 69066
+  70031:
+    name: Athesans-Étroitefontaine
+    associées:
+      70223:
+        name: Étroitefontaine
+  70033:
+    associéeA: 70059
+  70034:
+    associéeA: 70101
+  70045:
+    name: Avrigney-Virey
+    associées:
+      70570:
+        name: Virey
+  70058:
+    name: Beaujeu-Saint-Vallier-Pierrejux-et-Quitteur
+    associées:
+      70434:
+        name: Quitteur
+  70059:
+    name: Beaumotte-lès-Montbozon-et-Aubertans
+    associées:
+      70033:
+        name: Aubertans
+  70101:
+    name: Broye-lès-Pesmes-Aubigney-Montseugny
+    associées:
+      70034:
+        name: Aubigney
+      70370:
+        name: Montseugny
+  70108:
+    associéeA: 70285
+  70117:
+    name: Châlonvillars-Mandrevillars
+    associées:
+      70330:
+        name: Mandrevillars
+  70122:
+    name: Champlitte
+    associées:
+      52210:
+        name: Frettes
+      70123:
+        name: Champlitte-la-Ville
+      70300:
+        name: Leffond
+      70333:
+        name: Margilley
+      70354:
+        name: Montarlot-lès-Champlitte
+      70382:
+        name: Neuvelle-lès-Champlitte
+  70123:
+    associéeA: 70122
+  70131:
+    associéeA: 70492
+  70139:
+    associéeA: 70283
+  70191:
+    associéeA: 70492
+  70209:
+    associéeA: 70528
+  70223:
+    associéeA: 70031
+  70241:
+    associéeA: 70447
+  70246:
+    associéeA: 70247
+  70247:
+    name: Fouvent-Saint-Andoche
+    associées:
+      70246:
+        name: Fouvent-le-Bas
+      70458:
+        name: Saint-Andoche
+  70283:
+    name: Haut-du-Them-Château-Lambert
+    associées:
+      70139:
+        name: Château-Lambert
+  70285:
+    name: Héricourt
+    associées:
+      70108:
+        name: Bussurel
+  70292:
+    name: Jussey
+    associées:
+      70391:
+        name: Noroy-lès-Jussey
+  70300:
+    associéeA: 70122
+  70333:
+    associéeA: 70122
+  70346:
+    associéeA: 70487
+  70354:
+    associéeA: 70122
+  70370:
+    associéeA: 70101
+  70373:
+    name: 'La Roche-Morey'
+    associées:
+      70068:
+        name: Betoncourt-les-Ménétriers
+      70465:
+        name: Saint-Julien
+      70495:
+        name: Suaucourt-et-Pisseloup
+  70382:
+    associéeA: 70122
+  70391:
+    associéeA: 70292
+  70427:
+    name: Purgerot-Arbecey
+    associées:
+      70025:
+        name: Arbecey
+  70434:
+    associéeA: 70058
+  70447:
+    name: Rioz
+    associées:
+      70241:
+        name: 'Les Fontenis'
+  70458:
+    associéeA: 70247
+  70487:
+    name: Senargent-Mignafans
+    associées:
+      70346:
+        name: Mignafans
+  70492:
+    name: Soing-Cubry-Charentenay
+    associées:
+      70131:
+        name: Charentenay
+      70191:
+        name: Cubry-lès-Soing
+  70528:
+    name: Velesmes-Échevanne
+    associées:
+      70209:
+        name: Échevanne
+  70570:
+    associéeA: 70045
+  71014:
+    name: Autun
+    associées:
+      71414:
+        name: Saint-Forgeot
+      71467:
+        name: Saint-Pantaléon
+  71260:
+    associéeA: 71270
+  71263:
+    name: Louhans
+    associées:
+      71056:
+        name: Branges
+      71114:
+        name: Châteaurenaud
+      71528:
+        name: Sornay
+  71270:
+    name: Mâcon
+    associées:
+      71260:
+        name: Loché
+      71432:
+        name: Saint-Jean-le-Priche
+      71511:
+        name: Sennecé-lès-Mâcon
+  71353:
+    associéeA: 71543
+  71432:
+    associéeA: 71270
+  71476:
+    associéeA: 71481
+  71481:
+    name: 'Saint-Symphorien-d''Ancelles'
+    associées:
+      71476:
+        name: Saint-Romain-des-Îles
+  71511:
+    associéeA: 71270
+  71543:
+    name: Tournus
+    associées:
+      71353:
+        name: Plottes
+  73003:
+    name: Aigueblanche
+    associées:
+      73024:
+        name: 'Les Avanchers'
+  73006:
+    name: Aime
+    associées:
+      73148:
+        name: Longefoy
+      73291:
+        name: Tessens
+      73325:
+        name: Villette
+  73010:
+    name: Albens
+    associées:
+      73016:
+        name: Ansigny
+  73013:
+    name: Albiez-Montrond
+    associées:
+      73174:
+        name: Montrond
+  73016:
+    associéeA: 73010
+  73035:
+    associéeA: 73261
+  73060:
+    associéeA: 73187
+  73102:
+    associéeA: 73187
+  73148:
+    associéeA: 73006
+  73172:
+    associéeA: 73203
+  73174:
+    associéeA: 73013
+  73185:
+    associéeA: 73187
+  73187:
+    name: 'La Léchère'
+    associées:
+      73060:
+        name: Celliers
+      73102:
+        name: Doucy
+      73185:
+        name: Naves
+      73199:
+        name: Petit-Cœur
+      73209:
+        name: Pussy
+  73199:
+    associéeA: 73187
+  73203:
+    name: Pontamafrey-Montpascal
+    associées:
+      73172:
+        name: Montpascal
+  73209:
+    associéeA: 73187
+  73261:
+    name: Saint-Michel-de-Maurienne
+    associées:
+      73035:
+        name: Beaune
+      73295:
+        name: Thyl
+  73291:
+    associéeA: 73006
+  73295:
+    associéeA: 73261
+  73325:
+    associéeA: 73006
+  74017:
+    associéeA: 74077
+  74077:
+    name: Clarafond
+    associées:
+      74017:
+        name: Arcine
+  74106:
+    associéeA: 74210
+  74113:
+    associéeA: 74220
+  74115:
+    associéeA: 74185
+  74125:
+    associéeA: 74217
+  74185:
+    name: Monnetier-Mornex
+    associées:
+      74115:
+        name: Esserts-Salève
+  74210:
+    name: Perrignier
+    associées:
+      74106:
+        name: Draillant
+  74217:
+    name: Pringy
+    associées:
+      74125:
+        name: Ferrières
+  74220:
+    name: Reignier
+    associées:
+      74113:
+        name: Ésery
+  74237:
+    name: Saint-Gingolph
+    associées:
+      74203:
+        name: Novel
+  74281:
+    name: Thonon-les-Bains
+    associées:
+      74013:
+        name: Anthy-sur-Léman
+      74166:
+        name: Marin
+  76003:
+    associéeA: 76020
+  76020:
+    name: Anneville-Ambourville
+    associées:
+      76003:
+        name: Ambourville
+  76217:
+    name: Dieppe
+    associées:
+      76466:
+        name: Neuville-lès-Dieppe
+  76351:
+    name: 'Le Havre'
+    associées:
+      76539:
+        name: Rouelles
+  76355:
+    name: Rocquefort-sur-Héricourt
+    associées:
+      76531:
+        name: Rocquefort
+  76466:
+    associéeA: 76217
+  76539:
+    associéeA: 76351
+  76601:
+    associéeA: 76676
+  76676:
+    name: Sigy-en-Bray
+    associées:
+      76601:
+        name: Saint-Lucien
+  76755:
+    name: Saint-Michel-en-Caux
+    associées:
+      76386:
+        name: Limpiville
+      76680:
+        name: Sorquainville
+      76689:
+        name: Thiétreville
+  77010:
+    name: Aubepierre-Ozouer-le-Repos
+    associées:
+      77351:
+        name: Ozouer-le-Repos
+  77017:
+    associéeA: 77211
+  77020:
+    name: Bannost-Villegagnon
+    associées:
+      77502:
+        name: Villegagnon
+  77031:
+    name: Bernay-Vilbert
+    associées:
+      77499:
+        name: Vilbert
+  77093:
+    name: 'La Chapelle-Moutils'
+    associées:
+      77324:
+        name: Moutils
+  77175:
+    name: Évry-Grégy-sur-Yerre
+    associées:
+      77213:
+        name: Grégy-sur-Yerre
+  77189:
+    associéeA: 77262
+  77211:
+    name: Grandpuits-Bailly-Carrois
+    associées:
+      77017:
+        name: Bailly-Carrois
+  77213:
+    associéeA: 77175
+  77261:
+    name: Lorrez-le-Bocage-Préaux
+    associées:
+      77375:
+        name: Préaux
+  77262:
+    name: Louan-Villegruis-Fontaine
+    associées:
+      77189:
+        name: Fontaine-sous-Montaiguillon
+      77503:
+        name: Villegruis
+  77264:
+    name: Lumigny-Nesles-Ormeaux
+    associées:
+      77334:
+        name: Nesles
+      77346:
+        name: Ormeaux
+  77324:
+    associéeA: 77093
+  77334:
+    associéeA: 77264
+  77346:
+    associéeA: 77264
+  77351:
+    associéeA: 77010
+  77352:
+    name: Ozouer-Courquetaine
+    associées:
+      77136:
+        name: Courquetaine
+  77375:
+    associéeA: 77261
+  77421:
+    name: Saint-Mars-Vieux-Maisons
+    associées:
+      77497:
+        name: Vieux-Maisons
+  77497:
+    associéeA: 77421
+  77499:
+    associéeA: 77031
+  77502:
+    associéeA: 77020
+  77503:
+    associéeA: 77262
+  78193:
+    name: Dampierre-en-Yvelines
+    associées:
+      78357:
+        name: Maincourt-sur-Yvette
+  78246:
+    name: Fontenay-Saint-Père
+    associées:
+      78202:
+        name: Drocourt
+  78357:
+    associéeA: 78193
+  79005:
+    name: Airvault
+    associées:
+      79041:
+        name: Borcq-sur-Airvault
+      79047:
+        name: Boussais
+      79317:
+        name: Soulièvres
+  79014:
+    name: 'Argenton-l''Église'
+    associées:
+      79026:
+        name: Bagneux
+  79016:
+    name: Assais-les-Jumeaux
+    associées:
+      79143:
+        name: 'Les Jumeaux'
+  79021:
+    associéeA: 79090
+  79026:
+    associéeA: 79014
+  79031:
+    name: Beauvoir-sur-Niort
+    associées:
+      79097:
+        name: 'Le Cormenier'
+      79227:
+        name: 'La Revêtizon'
+  79049:
+    name: Bressuire
+    associées:
+      79028:
+        name: Beaulieu-sous-Bressuire
+      79038:
+        name: Boismé
+      79052:
+        name: Breuil-Chaussée
+      79065:
+        name: Chambroutet
+      79093:
+        name: Clazay
+      79192:
+        name: Noirlieu
+      79193:
+        name: Noirterre
+      79296:
+        name: Saint-Sauveur
+      79324:
+        name: Terves
+  79061:
+    name: Celles-sur-Belle
+    associées:
+      79181:
+        name: Montigné
+      79344:
+        name: Verrines-sous-Celles
+  79063:
+    name: Cersay
+    associées:
+      79288:
+        name: Saint-Pierre-à-Champ
+  79066:
+    name: Champdeniers-Saint-Denis
+    associées:
+      79067:
+        name: Champeaux
+  79067:
+    associéeA: 79066
+  79079:
+    name: Mauléon
+    associées:
+      79073:
+        name: 'La Chapelle-Largeau'
+      79155:
+        name: Loublande
+      79186:
+        name: Moulins
+      79233:
+        name: Rorthais
+      79235:
+        name: Saint-Amand-sur-Sèvre
+      79237:
+        name: Saint-Aubin-de-Baubigné
+      79323:
+        name: 'Le Temple'
+  79090:
+    name: Chizé
+    associées:
+      79021:
+        name: Availles-sur-Chizé
+  79097:
+    associéeA: 79031
+  79100:
+    name: Coulon-Sansais
+    associées:
+      79304:
+        name: Sansais
+  79122:
+    name: 'Fontenille-Saint-Martin-d''Entraigues'
+    associées:
+      79275:
+        name: 'Saint-Martin-d''Entraigues'
+  79123:
+    name: 'La Forêt-sur-Sèvre'
+    associées:
+      79182:
+        name: Montigny
+      79232:
+        name: 'La Ronde'
+      79272:
+        name: Saint-Marsault
+  79136:
+    name: Gournay-Loizé
+    associées:
+      79151:
+        name: Loizé
+  79143:
+    associéeA: 79016
+  79151:
+    associéeA: 79136
+  79169:
+    associéeA: 79321
+  79171:
+    name: Mauzé-Thouarsais
+    associées:
+      79228:
+        name: Rigné
+  79181:
+    associéeA: 79061
+  79182:
+    associéeA: 79123
+  79196:
+    name: Oiron
+    associées:
+      79036:
+        name: Bilazais
+      79054:
+        name: Brie
+      79194:
+        name: Noizé
+  79224:
+    associéeA: 49099
+  79227:
+    associéeA: 79031
+  79228:
+    associéeA: 79171
+  79232:
+    associéeA: 79123
+  79272:
+    associéeA: 79123
+  79275:
+    associéeA: 79122
+  79277:
+    name: Saint-Martin-de-Sanzay
+    associées:
+      79056:
+        name: Brion-près-Thouet
+  79288:
+    associéeA: 79063
+  79321:
+    name: Taizé
+    associées:
+      79169:
+        name: Maulais
+  79344:
+    associéeA: 79061
+  80007:
+    associéeA: 80436
+  80111:
+    associéeA: 80443
+  80211:
+    name: Conty
+    associées:
+      80816:
+        name: Wailly
+  80222:
+    name: Crécy-en-Ponthieu
+    associées:
+      80510:
+        name: Marcheville
+  80229:
+    name: Crouy-Saint-Pierre
+    associées:
+      80712:
+        name: Saint-Pierre-à-Gouy
+  80245:
+    name: Domléger-Longvillers
+    associées:
+      80492:
+        name: Longvillers
+  80257:
+    associéeA: 80554
+  80289:
+    associéeA: 80557
+  80309:
+    associéeA: 80566
+  80363:
+    associéeA: 80436
+  80382:
+    associéeA: 80443
+  80394:
+    associéeA: 80703
+  80398:
+    associéeA: 80456
+  80406:
+    name: Hallencourt
+    associées:
+      80441:
+        name: Hocquincourt
+      80817:
+        name: Wanel
+  80436:
+    name: Hescamps
+    associées:
+      80007:
+        name: Agnières
+      80363:
+        name: Frettemolle
+      80739:
+        name: Souplicourt
+  80441:
+    associéeA: 80406
+  80443:
+    name: Hornoy-le-Bourg
+    associées:
+      80111:
+        name: Boisrault
+      80382:
+        name: 'Gouy-l''Hôpital'
+      80483:
+        name: Lincheux-Hallivillers
+      80612:
+        name: Orival
+      80731:
+        name: Selincourt
+      80768:
+        name: Tronchoy
+  80454:
+    associéeA: 80456
+  80456:
+    name: Lafresguimont-Saint-Martin
+    associées:
+      80398:
+        name: Guibermesnil
+      80454:
+        name: Laboissière-Saint-Martin
+      80564:
+        name: Montmarquet
+  80457:
+    associéeA: 80630
+  80483:
+    associéeA: 80443
+  80492:
+    associéeA: 80245
+  80510:
+    associéeA: 80222
+  80554:
+    name: Molliens-Dreuil
+    associées:
+      80257:
+        name: Dreuil-lès-Molliens
+  80557:
+    name: Estrées-Mons
+    associées:
+      80289:
+        name: Estrées-en-Chaussée
+  80564:
+    associéeA: 80456
+  80566:
+    name: Fieffes-Montrelet
+    associées:
+      80309:
+        name: Fieffes
+  80581:
+    associéeA: 80582
+  80582:
+    name: Namps-Maisnil
+    associées:
+      80581:
+        name: Namps-au-Mont
+      80689:
+        name: Rumaisnil
+      80745:
+        name: Taisnil
+  80610:
+    associéeA: 80623
+  80612:
+    associéeA: 80443
+  80623:
+    name: Piennes-Onvillers
+    associées:
+      80610:
+        name: Onvillers
+  80630:
+    name: Poix-de-Picardie
+    associées:
+      80457:
+        name: Lahaye-Saint-Romain
+  80689:
+    associéeA: 80582
+  80703:
+    name: Saint-Germain-sur-Bresle
+    associées:
+      80394:
+        name: Guémicourt
+  80712:
+    associéeA: 80229
+  80731:
+    associéeA: 80443
+  80739:
+    associéeA: 80436
+  80745:
+    associéeA: 80582
+  80768:
+    associéeA: 80443
+  80816:
+    associéeA: 80211
+  80817:
+    associéeA: 80406
+  81057:
+    associéeA: 81262
+  81262:
+    name: Saint-Marcel-Campes
+    associées:
+      81057:
+        name: Campes
+  85002:
+    name: 'L''Aiguillon-la-Chaize'
+    associées:
+      85045:
+        name: 'La Chaize-Giraud'
+  85003:
+    name: Aizenay
+    associées:
+      85055:
+        name: 'La Chapelle-Palluau'
+  85020:
+    name: Benet
+    associées:
+      85122:
+        name: Lesson
+      85203:
+        name: Sainte-Christine
+  85034:
+    name: Bournezeau
+    associées:
+      85275:
+        name: Saint-Vincent-Puymaufrais
+  85036:
+    name: 'La Bretonnière-la-Claye'
+    associées:
+      85068:
+        name: 'La Claye'
+  85040:
+    name: 'La Caillère-Saint-Hilaire'
+    associées:
+      85230:
+        name: Saint-Hilaire-du-Bois
+  85051:
+    name: Chantonnay
+    associées:
+      85263:
+        name: Saint-Philbert-du-Pont-Charrault
+  85068:
+    associéeA: 85036
+  85079:
+    associéeA: 85135
+  85122:
+    associéeA: 85020
+  85135:
+    name: Mareuil-sur-Lay-Dissais
+    associées:
+      85079:
+        name: Dissais
+  85203:
+    associéeA: 85020
+  85230:
+    associéeA: 85040
+  85243:
+    name: Brem-sur-Mer
+    associées:
+      85258:
+        name: Saint-Nicolas-de-Brem
+  85258:
+    associéeA: 85243
+  85263:
+    associéeA: 85051
+  85270:
+    associéeA: 85277
+  85275:
+    associéeA: 85034
+  85277:
+    name: Saint-Vincent-sur-Graon
+    associées:
+      85270:
+        name: Saint-Sornin
+  86057:
+    associéeA: 86233
+  86066:
+    name: Châtellerault
+    associées:
+      86267:
+        name: Targé
+  86070:
+    name: Chauvigny
+    associées:
+      86199:
+        name: Pouzioux
+  86101:
+    associéeA: 86225
+  86108:
+    name: 'La Grimaudière'
+    associées:
+      86179:
+        name: 'Notre-Dame-d''Or'
+      86283:
+        name: Verger-sur-Dive
+  86120:
+    name: Lathus
+    associées:
+      86240:
+        name: Saint-Rémy-en-Montmorillon
+  86137:
+    name: Loudun
+    associées:
+      86212:
+        name: Rossay
+  86155:
+    associéeA: 86161
+  86160:
+    name: Mirebeau
+    associées:
+      86002:
+        name: Amberre
+      86073:
+        name: Cherves
+      86089:
+        name: Cuhon
+      86144:
+        name: Maisonneuve
+      86150:
+        name: Massognes
+      86277:
+        name: Varennes
+      86299:
+        name: Vouzailles
+  86161:
+    name: Moncontour
+    associées:
+      86155:
+        name: Messais
+      86185:
+        name: Ouzilly-Vignolles
+      86216:
+        name: Saint-Chartres
+  86179:
+    associéeA: 86108
+  86185:
+    associéeA: 86161
+  86199:
+    associéeA: 86070
+  86212:
+    associéeA: 86137
+  86216:
+    associéeA: 86161
+  86225:
+    name: Saint-Jean-de-Sauves
+    associées:
+      86101:
+        name: Frontenay-sur-Dive
+  86233:
+    name: Valdivienne
+    associées:
+      86057:
+        name: Chapelle-Morthemer
+  86240:
+    associéeA: 86120
+  86267:
+    associéeA: 86066
+  86283:
+    associéeA: 86108
+  87027:
+    name: Bussière-Galant
+    associées:
+      87171:
+        name: Saint-Nicolas-Courbefy
+  87092:
+    name: Marval
+    associées:
+      87098:
+        name: Milhaguet
+  87098:
+    associéeA: 87092
+  87171:
+    associéeA: 87027
+  87175:
+    associéeA: 87180
+  87180:
+    name: Saint-Sornin-Leulac
+    associées:
+      87175:
+        name: Saint-Priest-le-Betoux
+  88067:
+    associéeA: 88322
+  88322:
+    name: 'La Neuveville-devant-Lépanges'
+    associées:
+      88067:
+        name: 'Le Boulay'
+      88420:
+        name: Saint-Jean-du-Marché
+  88420:
+    associéeA: 88322
+  89005:
+    name: Ancy-le-Franc
+    associées:
+      89135:
+        name: Cusy
+  89010:
+    name: Annay-sur-Serein
+    associées:
+      89259:
+        name: Môlay
+      89371:
+        name: Sainte-Vertu
+  89014:
+    name: Arces-Dilo
+    associées:
+      89140:
+        name: Dilo
+  89024:
+    name: Auxerre
+    associées:
+      89435:
+        name: Vaux
+  89047:
+    associéeA: 89055
+  89052:
+    associéeA: 89439
+  89054:
+    name: Brannay-Saint-Sérotin
+    associées:
+      89369:
+        name: Saint-Sérotin
+  89055:
+    name: Brienon-sur-Armançon
+    associées:
+      89047:
+        name: Bligny-en-Othe
+      89288:
+        name: Paroy-en-Othe
+  89069:
+    name: Chailley-Turny
+    associées:
+      89425:
+        name: Turny
+  89073:
+    name: Champignelles
+    associées:
+      89231:
+        name: Louesme
+  89114:
+    associéeA: 89407
+  89118:
+    name: Coulanges-la-Vineuse
+    associées:
+      89155:
+        name: Escolives-Sainte-Camille
+  89135:
+    associéeA: 89005
+  89140:
+    associéeA: 89014
+  89166:
+    associéeA: 89414
+  89224:
+    name: Lichères-Aigremont
+    associées:
+      89002:
+        name: Aigremont
+  89231:
+    associéeA: 89073
+  89233:
+    name: Lucy-sur-Cure
+    associées:
+      89040:
+        name: Bessy-sur-Cure
+      89157:
+        name: Essert
+  89263:
+    name: Monéteau
+    associées:
+      89401:
+        name: Sougères-sur-Sinotte
+  89275:
+    name: Neuilly
+    associées:
+      89457:
+        name: Villemer
+  89283:
+    name: Ouanne
+    associées:
+      89090:
+        name: Chastenay
+      89252:
+        name: Merry-Sec
+  89288:
+    associéeA: 89055
+  89322:
+    associéeA: 89439
+  89326:
+    associéeA: 89387
+  89341:
+    name: Saint-Cyr-les-Colons
+    associées:
+      89315:
+        name: Préhy
+  89344:
+    name: Saint-Fargeau
+    associées:
+      89220:
+        name: Lavau
+      89254:
+        name: Mézilles
+      89325:
+        name: Ronchères
+      89352:
+        name: Saint-Martin-des-Champs
+      89389:
+        name: Septfonds
+  89357:
+    associéeA: 89414
+  89372:
+    associéeA: 89407
+  89387:
+    name: Sens
+    associées:
+      89326:
+        name: Rosoy
+  89401:
+    associéeA: 89263
+  89407:
+    name: Tanlay
+    associées:
+      89114:
+        name: Commissey
+      89372:
+        name: Saint-Vinnemer
+  89414:
+    name: Thorigny-sur-Oreuse
+    associées:
+      89166:
+        name: Fleurigny
+      89357:
+        name: Saint-Martin-sur-Oreuse
+  89420:
+    name: Treigny
+    associées:
+      89293:
+        name: Perreuse
+      89340:
+        name: Sainte-Colombe-sur-Loing
+  89435:
+    associéeA: 89024
+  89439:
+    name: Vergigny
+    associées:
+      89052:
+        name: Bouilly
+      89322:
+        name: Rebourseaux
+  89472:
+    name: Villiers-Saint-Benoît
+    associées:
+      89476:
+        name: 'La Villotte'
+  89476:
+    associéeA: 89472
+  90026:
+    name: Chèvremont-Fontenelle
+    associées:
+      90048:
+        name: Fontenelle
+  90033:
+    name: Delle
+    associées:
+      90056:
+        name: Joncherey
+      90063:
+        name: Lebetain
+  90068:
+    name: Meroux-Moval
+    associées:
+      90073:
+        name: Moval

@@ -101,6 +101,70 @@ ydADscrBhv:
       return "$item[date] - $item[label] - $input -> $result";
   writePserReally: true
 contents:
+  - mod: '10'
+    label: 'Changement de nom'
+    date: '1943-08-12'
+    input:
+      78334: { name: Lévy-Saint-Nom }
+    output:
+      78334: { name: Lévis-Saint-Nom }
+  - mod: '20'
+    label: Création
+    date: '1948-06-17'
+    input:
+      46251: { name: Saint-Céré }
+      46271: { name: Saint-Jean-Lespinasse }
+      46281: { name: Saint-Médard-de-Presque }
+      46295: { name: Saint-Vincent-du-Pendit }
+    output:
+      46251: { name: Saint-Céré }
+      46339: { name: Saint-Jean-Lagineste }
+      46271: { name: Saint-Jean-Lespinasse }
+      46281: { name: Saint-Médard-de-Presque }
+      46295: { name: Saint-Vincent-du-Pendit }
+  - mod: '21'
+    label: Rétablissement
+    date: '1945-09-17'
+    input:
+      15196: { name: Saint-Mamet-la-Salvetat }
+    output:
+      15196: { name: Saint-Mamet-la-Salvetat }
+      15268: { name: 'Le Rouget' }
+  - mod: '30'
+    label: Suppression
+    date: '1949-07-08'
+    input:
+      77066: { name: Cerneux }
+      77362: { name: Pierrelez }
+      77444: { name: Sancy-lès-Provins }
+    output:
+      77066: { name: Cerneux }
+      77444: { name: Sancy-lès-Provins }
+  - mod: '31'
+    label: 'Fusion simple'
+    date: '1943-02-19'
+    input:
+      60057: { name: Beauvais }
+      60384: { name: Marissel }
+      60467: { name: Notre-Dame-du-Thil }
+      60580: { name: Saint-Just-des-Marais }
+      60696: { name: Voisinlieu }
+    output:
+      60057: { name: Beauvais }
+  - mod: 32
+    label: Création de commune nouvelle
+    date: '2019-01-01'
+    input:
+      '01033': {name: Bellegarde-sur-Valserine}
+      '01091': {name: Châtillon-de-Michaille}
+      '01205': {name: Lancrans}
+    result:
+      '01033':
+        name: Valserhône
+        déléguées:
+          '01033': {name: Bellegarde-sur-Valserine}
+          '01091': {name: Châtillon-de-Michaille}
+          '01205': {name: Lancrans}
   - mod: 33
     label: Fusion-Association
     date: '1973-11-01'
@@ -125,18 +189,40 @@ contents:
           '01458': {name: Vouvray}
     result:
       '01091': {name: Châtillon-de-Michaille}
-  - mod: 32
-    label: Création de commune nouvelle
-    date: '2019-01-01'
+  - mod: '41'
+    label: 'Changement de code dû à un changement de département'
+    date: '1967-12-31'
     input:
-      '01033': {name: Bellegarde-sur-Valserine}
-      '01091': {name: Châtillon-de-Michaille}
-      '01205': {name: Lancrans}
-    result:
-      '01033':
-        name: Valserhône
-        déléguées:
-          '01033': {name: Bellegarde-sur-Valserine}
-          '01091': {name: Châtillon-de-Michaille}
-          '01205': {name: Lancrans}
+      38079: { name: Chaponnay }
+    output:
+      69270: { name: Chaponnay }
+  - mod: '50'
+    label: 'Changement de code dû à un transfert de chef-lieu'
+    date: '1990-02-01'
+    input:
+      14624:
+        name: 'L''Oudon'
+        associées:
+          14010: { name: Ammeville }
+          14067: { name: Berville }
+          14234: { name: Écots }
+          14295: { name: Garnetot }
+          14314: { name: Grandmesnil }
+          14363: { name: Lieury }
+          14447: { name: Montpinçon }
+          14472: { name: Notre-Dame-de-Fresnay }
+          14697: { name: Tôtes }
+    output:
+      14697:
+        name: 'L''Oudon'
+        associées:
+          14010: { name: Ammeville }
+          14067: { name: Berville }
+          14234: { name: Écots }
+          14295: { name: Garnetot }
+          14314: { name: Grandmesnil }
+          14363: { name: Lieury }
+          14447: { name: Montpinçon }
+          14472: { name: Notre-Dame-de-Fresnay }
+          14624: { name: Saint-Martin-de-Fresnay } 
 eof:

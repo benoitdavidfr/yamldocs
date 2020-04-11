@@ -1,5 +1,5 @@
 title: conception
-contents: |
+intro: |
   Mon objectif est d'outiller l'utilisation du code INSEE des communes comme référentiel pivot.  
   Ces codes évoluant, lorsqu'une base les utilise pour localiser des informations, il est nécessaire de la modifier pour tenir
   compte de ces évolutions.  
@@ -8,13 +8,14 @@ contents: |
   
   Depuis quelques années, la liste des communes évolue en raison principalement des textes suivants:
 
-    - La loi « Marcellin » du 16 juillet 1971 a créé la possibilité de fusionner des communes
-      avec une possibilité, appelée fusion-association, de conserver des communes associées.
+    - La loi « Marcellin » du 16 juillet 1971 a créé la possibilité de fusionner des communes avec une possibilité,
+      appelée fusion-association, de conserver des communes associées.
     - L'article 21 de la loi no 2010-1563 du 16 décembre 2010 de réforme des collectivités territoriales a remplacé ce mécanisme
       par la possibilité de regrouper des communes en créant des communes nouvelles.  
-    - De plus, la loi du 16 mars 2015, dite loi Pélissard, a amélioré le régime des communes nouvelles et institué des incitations
-      financières pour en favoriser la création. Ainsi, les communes fusionnant en **2015** ou en **2016** au sein de communes 
-      nouvelles de moins de 10 000 habitants se voyaient garantir pendant trois ans le niveau des dotations de l’Etat.
+    - De plus, la loi du 16 mars 2015, dite loi Pélissard, a amélioré le régime des communes nouvelles et institué des 
+      incitations financières pour en favoriser la création. Ainsi, les communes fusionnant en **2015** ou en **2016** 
+      au sein de communes nouvelles de moins de 10 000 habitants se voyaient garantir pendant trois ans le niveau des 
+      dotations de l’Etat.
       Le texte instaurait également des communes déléguées correspondant aux anciennes communes.  
     - Enfin, la loi de finances pour 2018 a prolongé ce dispositif d’incitations financières pour les communes créées entre
       le 2 janvier **2017** et le 1er janvier **2019**.
@@ -22,8 +23,8 @@ contents: |
   Début 2020, la situation est la suivante:
 
     - On appelle **commune simple** une commune qui n'est ni associée, ni déléguée.
-      Ces communes simples forment une partition du territoire, à condition de prendre comme territoire d'une communes issue d'une
-      fusion-association, l'union des territoires des anciennes communes avant la fusion.
+      Ces communes simples forment une partition du territoire, à condition de prendre comme territoire d'une communes issue
+      d'une fusion-association, l'union des territoires des anciennes communes avant la fusion.
     - On peut définir une seconde partition en gérant à part les communes associées.
     - Parmi les communes simples, certaines sont issues de la création d'une commune nouvelle et parmi ces dernières,
       certaines, que j'appelle **communes composites**, sont composées de communes déléguées.
@@ -43,33 +44,47 @@ contents: |
   Les fichiers 2019 et 2020 sont similaires.
   Le fichier 2018 est différent et les communes déléguées ayant le même code que la com. composite sont perdues.
   
-  ## Construction d'un fichier des états et mises à jour par commune
+fichierEtatsEvols: |
+  ## Construction d'un fichier des états et évolutions par commune
+  
+  Pour mieux comprendre et formaliser un fichier d'évolutions, j'ai construit un fichier dans lequel je rapproche
+  d'une part les états successifs de chaque commune issus des fichiers INSEE intitulés
+  "Liste des communes de la métropole et des Dom existantes au 01/01/AAAA"
+  et d'autre part les évolutions issues du fichier INSEE intitulé
+  "Liste des événements survenus aux communes, arrondissements municipaux, communes associées et communes déléguées depuis 1943"
   ~~~~
-  {dept}: // code département
-    {cinsee}: // code INSEE de commune simple
-      'states': // liste d'états
-        {date}: // date d'un état sous la forme 'AAAA-MM-JJ', valeur nulle si la commune n'existe plus
-          'name': {name} // nom de la commune simple
-          'associées': // liste optionnelle des communes associées
-            {cinsee}: // code INSEE d'une commune associée
-              'name': {name} // nom de la commune associée
-          'déléguées': // liste optionnelle des communes déléguées
-            {cinsee}: // code INSEE d'une commune déléguée
-              'name': {name} // nom de la commune déléguée
-          'ardts': // liste des arrondissements municipaux
-            {cinsee}: // code INSEE d'un arrondissement municipal
-              'name': {name} // nom de l'arrondissement municipal
-      'updates': // liste des évolutions par date
-        {date}: // date d'effet d'une évolution sous la forme 'AAAA-MM-JJ'
-          'source'/'destination'/'srceAndDest': // évols ayant la commune courante comme source ou comme destination ou les 2
-            - 'mod': {mod} // code définissant le type d'évolution
-              'label': {modVal} // libellé du type d'évolution
-              'input'/'output':
-                'type': {typecom} // type de commune (COM, COMA, COMD, ARM)
-                'com': {com} // code INSEE de commune avant
-                'name': {name} // libellé avant
+  {cinsee}: // code INSEE de commune simple
+    'states': // liste d'états à différentes dates
+      {date}: // date d'un état sous la forme 'AAAA-MM-JJ', valeur nulle si la commune n'existe plus
+        'name': {name} // nom de la commune simple
+        'associées': // liste optionnelle des communes associées
+          {cinsee}: // code INSEE d'une commune associée
+            'name': {name} // nom de la commune associée
+        'déléguées': // liste optionnelle des communes déléguées
+          {cinsee}: // code INSEE d'une commune déléguée
+            'name': {name} // nom de la commune déléguée
+        'ardts': // liste des arrondissements municipaux
+          {cinsee}: // code INSEE d'un arrondissement municipal
+            'name': {name} // nom de l'arrondissement municipal
+    'updates': // liste des évolutions par date
+      {date}: // date d'effet d'une évolution sous la forme 'AAAA-MM-JJ'
+        'source'/'destination'/'srceAndDest': // évols ayant la commune courante comme source ou comme destination ou les 2
+          - 'mod': {mod} // code définissant le type d'évolution
+            'label': {modVal} // libellé du type d'évolution
+            'input'/'output':
+              'type': {typecom} // type de commune (COM, COMA, COMD, ARM)
+              'com': {com} // code INSEE de commune avant
+              'name': {name} // libellé avant
   ~~~~
-  ### Exemple:
+  Ce fichier est produit en générant les appels suivants:
+    
+    - http://localhost/yamldoc/pub/evolcoms/?action=delBase
+    - http://localhost/yamldoc/pub/evolcoms/?action=buildState&state=2000-01-01&file=France2000.txt&format=txt
+    - http://localhost/yamldoc/pub/evolcoms/?action=buildState&state=2010-01-01&file=France2010.txt&format=txt
+    - http://localhost/yamldoc/pub/evolcoms/?action=buildState&state=2020-01-01&file=communes2020.csv&format=csv
+    - http://localhost/yamldoc/pub/evolcoms/?action=buildUpdates&file=mvtcommune2020.csv
+    
+  ### Extrait exemple:
   ~~~~
   '01025':
     states:
@@ -105,12 +120,99 @@ contents: |
   Le fichier est progressivement construit, il est stocké en pser entre les opérations
   Il est affiché en Yaml à la fin de chaque opération.
 
+interpérations:
+  - title: doc - la fusion-association de Belmont avec Luthézieu
+    contenu: |
+      Mod 	Date d'effet 	Type commune avant 	Id commune avant 	Libellé avant 	Type commune après 	Type commune après 	Libellé après
+      33 	1974-11-01 	COM 	01036 	Belmont 	COM 	01036 	Belmont-Luthézieu
+      33 	1974-11-01 	COM 	01226 	Luthézieu 	COM 	01036 	Belmont-Luthézieu
+      33 	1974-11-01 	COM 	01226 	Luthézieu 	COMA 	01226 	Luthézieu
+    explication: |
+      « le 1er novembre 1974, le territoire de la commune de Belmont dont le code est 01036 se retrouve dans le territoire de la commune de Belmont-Luthézieu dont le code est aussi 01036 dans le cadre d’une fusion-association (mod=33). Il s’agit donc de la commune pôle de la fusion-association. »
+      « le 1er novembre 1974, la commune de Luthézieu dont le code est 01226 devient la commune associée de Luthézieu dont le code est aussi 01226, et le territoire de cette commune se retrouve dans celui de la commune de Belmont-Luthézieu dont le code est 01036 dans le cadre d’une fusion-association (mod=33). »
+    source: https://www.insee.fr/fr/information/4316069
+  - title: doc - la création de la commune nouvelle d’Arboys-en-Bugey
+    contenu: |
+      Mod 	Date d'effet 	Type commune avant 	Id commune avant 	Libellé avant 	Type commune après 	Type commune après 	Libellé après
+      32 	2016-01-01 	COM 	01015 	Arbignieu 	COM 	01015 	Arboys en Bugey
+      32 	2016-01-01 	COM 	01015 	Arbignieu 	COMD 	01015 	Arbignieu
+      32 	2016-01-01 	COM 	01340 	Saint-Bois 	COM 	01015 	Arboys en Bugey
+      32 	2016-01-01 	COM 	01340 	Saint-Bois 	COMD 	01340 	Saint-Bois
+    interpétation: |
+      « le 1er janvier 2016, la commune d’Arbignieu dont le code et 01015 devient commune déléguée avec le même code au sein de la commune nouvelle (mod=32) d’Arboys en Bugey dont le code est également 01015 (ce qui indique que le chef lieu de la commune nouvelle se situe à Arbignieu). »
+      « le 1er janvier 2016, la commune de Saint-Bois dont le code est 01340 devient commune déléguée avec le même code au sein de la commune nouvelle (mod=32) d’Arboys en Bugey dont le code est 01015. »
+  - title: comment interpréter ?
+    group:
+      - mod: '33'
+        label: 'Fusion association'
+        date_eff: '1972-12-31'
+        avant: { type: COM, id: '70034', name: Aubigney } -> après: { type: COMA, id: '70034', name: Aubigney }
+      - avant: { type: COM, id: '70034', name: Aubigney } -> après: { type: COM, id: '70101', name: Broye-lès-Pesmes-Aubigney-Montseugny }
+      - avant: { type: COM, id: '70101', name: Broye-lès-Pesmes } -< après: { type: COM, id: '70101', name: Broye-lès-Pesmes-Aubigney-Montseugny }
+      - avant: { type: COM, id: '70370', name: Montseugny } -> après: { type: COM, id: '70101', name: Broye-lès-Pesmes-Aubigney-Montseugny }
+      - avant: { type: COM, id: '70370', name: Montseugny } -> après: { type: COMA, id: '70370', name: Montseugny }
+    interprétation:
+      input:
+        70034: {name: Aubigney}
+        70101: {name: Broye-lès-Pesmes}
+        70370: {name: Montseugny}
+      result:
+        70034: {associéeA: 70101}
+        70101:
+          name: Broye-lès-Pesmes-Aubigney-Montseugny
+          associées:
+            70034: {name: Aubigney}
+            70370: {name: Montseugny}
+        70370: {associéeA: 70101}
+  - title: Comment interpréter un changement de nom composé de plusieurs mouvements ?
+    group:
+      - mod: '10'
+        label: 'Changement de nom'
+        date_eff: '1974-02-13'
+        avant: { type: COM, id: '70101', name: Broye-lès-Pesmes-Aubigney-Montseugny } -> après: { type: COMA, id: '70034', name: Aubigney }
+      - avant: { type: COMA, id: '70034', name: Aubigney } -> après: { type: COM, id: '70101', name: Broye-Aubigney-Montseugny }
+      - avant: { type: COM, id: '70101', name: Broye-lès-Pesmes-Aubigney-Montseugny } -> après: { type: COM, id: '70101', name: Broye-Aubigney-Montseugny }
+      - avant: { type: COMA, id: '70370', name: Montseugny } -> après: { type: COM, id: '70101', name: Broye-Aubigney-Montseugny }
+      - avant: { type: COM, id: '70101', name: Broye-lès-Pesmes-Aubigney-Montseugny } -> après: { type: COMA, id: '70370', name: Montseugny }
+    interprétation:
+      input:
+        70101:
+          name: Broye-lès-Pesmes-Aubigney-Montseugny
+          associées:
+            70034: {name: Aubigney}
+            70370: {name: Montseugny}
+      result:
+        70101:
+          name: Broye-Aubigney-Montseugny
+          associées:
+            70034: {name: Aubigney}
+            70370: {name: Montseugny}
+  - title: 27/08/1949 - Pont-de-Buis est créée à partir des parcelles de Quimerch (29231) et de Saint-Ségal (29263). 
+    $group:
+      - mod: '20'
+        label: Création
+        date_eff: '1949-08-27'
+        avant: { type: COM, id: '29231', name: Quimerch } -> { type: COM, id: '29231', name: Quimerch }
+        avant: { type: COM, id: '29231', name: Quimerch } -> { type: COM, id: '29302', name: Pont-de-Buis }
+        avant: { type: COM, id: '29263', name: Saint-Ségal } -> { type: COM, id: '29302', name: Pont-de-Buis }
+        avant: { type: COM, id: '29263', name: Saint-Ségal } -> { type: COM, id: '29263', name: Saint-Ségal }
+    
+formalisation: |
   ## Formalisation d'un fichier d'évolutions
   Un fichier d'évolutions est une liste d'évolutions qui chacune remplace un ensemble de communes par un autre.  
   Une commune est décrite formellement par le schéma défini
   dans [http://id.georef.eu/mvtscommunes/exfcoms](?doc=mvtscommunes/exfcoms&ypath=/$schema)  
   Une évolution est décrite formellement par le schéma défini
   dans [http://id.georef.eu/mvtscommunes/exevolcoms](?doc=mvtscommunes/exevolcoms&ypath=/$schema)
+
+  ## Idées de construction de ce fichier d'évolutions
+  
+  1) partir du fichier des communes au 1/1/1943
+    1.1) utiliser géohisto qui avait produit ce fichier
+  2) lire en // le fichier des mvts de l'INSEE et le fichier initial des communes
+    pour produire des évols complètes
+  3) appliquer ces évols et comparer les états à ceux fournis par l'INSEE
+  4) en // enregistrer les évols plus complètes
 
 dénombrement:
   1/1/2020:
