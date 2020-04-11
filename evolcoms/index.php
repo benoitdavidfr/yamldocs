@@ -13,6 +13,8 @@ journal: |
     - Pb:
       - article intégré ou non dans le nom
       - des erreurs dans genEvols, Voir 04112
+includes:
+  - base.inc.php
 screens:
 classes:
 functions:
