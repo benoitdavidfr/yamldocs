@@ -1,7 +1,7 @@
 <?php
 /*PhpDoc:
 name: index.php
-title: index.php - diverses actions evolcoms
+title: index.php - diverses actions rpicom
 doc: |
   Définition de différentes actions accessibles par le Menu
 journal: |
@@ -17,6 +17,7 @@ journal: |
       - des erreurs dans genEvols, Voir 04112
 includes:
   - base.inc.php
+  - grpmvts.inc.php
 screens:
 classes:
 functions:
@@ -32,14 +33,16 @@ use Symfony\Component\Yaml\Exception\ParseException;
 
 
 if (($_GET['action'] ?? null) == 'delBase') { // suppression de la base
-  if (is_file(__DIR__.'/base.pser'))
+  if (is_file(__DIR__.'/base.pser')) {
     unlink(__DIR__.'/base.pser');
+    echo "Le fichier base.pser a été effacé<br>\n";
+  }
   unset($_GET['action']);
 }
 
 {/*PhpDoc: screens
 name: Menu
-title: Menu - permet d'exécuter les différentes actions définies
+title: Menu - permet d'exécuter différentes actions définies
 */}
 if (!isset($_GET['action'])) { // Menu
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>menu</title></head><body>\n";
@@ -72,11 +75,11 @@ if (!isset($_GET['action'])) { // Menu
   echo "<a href='?action=comp&amp;date=2000-01-01'>comparaison entre l'état généré au 1/1/2000 et celui de l'INSEE</a><br>\n";
   echo "<a href='?action=buildState&amp;state=2000-01-01&amp;file=France2000.txt&amp;format=txt'>",
     "création du fichier Yaml des communes au 1/1/2000 à partir du fichier INSEE</a><br>\n";
-    echo "<a href='?action=compare'>Comapre 2 fichiers entre eux</a>\n";
+    echo "<a href='?action=compare'>Compare 2 fichiers entre eux</a>\n";
   die();
 }
 
-// Classe des mouvements, agrége plusieurs lignes en un mouvement
+// PERIME - Classe des mouvements, agrége plusieurs lignes en un mouvement
 class Mvt {
   const ModVals = [ // modalités de mod
     '10'=> "Changement de nom",
@@ -544,6 +547,13 @@ if ($_GET['action'] == 'genCom1943') { // génération d'un fichier des communes
 
 require_once __DIR__.'/grpmvts.inc.php';
 
+{/*PhpDoc: screens
+name: mvtsPatterns
+title: mvtsPatterns - génération des motifs de mouvements existants dans le fichier des mouvements INSEE
+doc: |
+  Le résultat est l'affichage d'un tableau des motifs des mouvements distincts.
+  Si le paramètre example est défini alors pour caque motif un exemple est fourni pour faciliter la compréhension.
+*/}
 if ($_GET['action'] == 'mvtsPatterns') { // génération des motifs de mouvements existants dans le fichier des mouvements
   //$datefin = '2000-01-01';
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>mvtsPatterns</title></head><body><pre>\n";
@@ -591,7 +601,7 @@ if ($_GET['action'] == 'mvtsPatterns') { // génération des motifs de mouvement
     if (isset($_GET['example']))
       echo '<td>',Yaml::dump(['factAvExample'=> $example['factAv']], 7, 2),"</td>";
     echo "</tr>\n";
-    // Nouvelle exécution de mvtsPattern() éventuellement avec trace
+    // Nouvelle exécution de GroupMvts::mvtsPattern() éventuellement avec trace
     if ($trace->is(['mod'=> $mod])) {
       $group = $example['group'];
       echo Yaml::dump(['$group'=> $group->asArray()], 7, 2),"\n";
@@ -602,6 +612,16 @@ if ($_GET['action'] == 'mvtsPatterns') { // génération des motifs de mouvement
   die();
 }
 
+{/*PhpDoc: screens
+name: diffPatterns
+title: diffPatterns - identif. des patterns périmés de patterns.yaml par comp. avec patterns-srce.yaml
+doc: |
+  patterns-srce.yaml correspond à une sortie de http://localhost/yamldoc/pub/rpicom/?action=mvtsPatterns
+  patterns.yaml est commenté, et pour ne pas perdre ces commentaires, la présente cmde est utilisée
+  en cas de modification de GroupMvts::factorAvant() ou de GroupMvts::mvtsPattern()
+  J'utilise le champ md5 qui est le md5 du json_encode() du pattern produit par GroupMvts::mvtsPattern(),
+  cette propriété a aussi été nommée id
+*/}
 if ($_GET['action'] == 'diffPatterns') { // identif. des patterns périmés de patterns.yaml par comp. avec patterns-srce.yaml
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>diffPatterns</title></head><body><pre>\n";
   $md5 = []; // liste des md5
@@ -640,6 +660,8 @@ if ($_GET['action'] == 'diffPatterns') { // identif. des patterns périmés de p
 {/*PhpDoc: screens
 name: genEvols
 title: genEvols - génération du fichier des évolutions et enregistrement d'un fichier d'état
+doc: |
+  Si ${datefin} est défini génère un fichier com${datefin}gen
 */}
 if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions et enregistrement d'un fichier d'état
   //$datefin = '2000-01-01';
@@ -656,7 +678,7 @@ if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions 
   foreach($mvtcoms as $date_eff => $mvtcomsD) {
     if (isset($datefin) && (strcmp($date_eff, $datefin) > 0)) {
       $coms->writeAsYaml(
-          __DIR__."/com${datefin}gen2",
+          __DIR__."/com${datefin}gen",
           [
             'title'=> "Fichier des communes reconstitué au $datefin",
             'created'=> date(DATE_ATOM),
@@ -771,7 +793,10 @@ function readfiles($dir, $recursive=false) { // lecture du nom, du type et de la
   return $files;
 }
 
-// renvoie l'union des clés de $a et $b, en gardant d'abord l'ordre du + long et en ajoutant à la fin celles du + court
+{/*PhpDoc: functions
+name: readfiles
+title: "function union_keys(array $a, array $b): array - renvoie l'union des clés de $a et $b, en gardant d'abord l'ordre du + long et en ajoutant à la fin celles du + court"
+*/}
 function union_keys(array $a, array $b): array {
   // $a est considéré comme le + long, si non on inverse
   if (count($b) > count($a))
@@ -802,7 +827,7 @@ if (0) { // Test de union_keys()
   die("Fin Test de union_keys");
 }
 
-// fonction utilisé par compare pour afficher un élément d'un des 2 fichiers
+// fonction utilisé par compareYaml() pour afficher un élément d'un des 2 fichiers
 function compareShowOneElt(string $key, array $file, array $keypath, string $filepath): void {
   echo '<td>';
   if (!array_key_exists($key, $file))
@@ -821,14 +846,21 @@ function compareShowOneElt(string $key, array $file, array $keypath, string $fil
   echo '</td>';
 }
 
-// chaque appel doit afficher 0, 1 ou plusieurs lignes du tableau comparatif, renvoie des stats
-function compare(array $file1, array $file2, callable $fneq=null, array $path=[], array $stat=['diff'=>0,'tot'=>0]): array {
+{/*PhpDoc: functions
+name: compareYaml
+title: "function compareYaml(array $file1, array $file2, callable $fneq=null, array $path=[], array $stat=['diff'=>0,'tot'=>0]): array - compare 2 tableaux correspondant à des fichiers Yaml"
+doc: |
+  Fonction récursive sur les noeuds des arbres.
+  Chaque appel doit afficher 0, 1 ou plusieurs lignes du tableau comparatif.
+  Prend des stats en entrée, les modifie et les renvoie à la fin.
+*/}
+function compareYaml(array $file1, array $file2, callable $fneq=null, array $path=[], array $stat=['diff'=>0,'tot'=>0]): array {
   if (!$path) {
     echo "<table border=1><th></th><th>$_GET[file1]</th><th>$_GET[file2]</th>\n";
   }
   foreach (union_keys($file1, $file2) as $key) {
     if (isset($file1[$key]) && is_array($file1[$key]) && isset($file2[$key]) && is_array($file2[$key])) {
-      $stat = compare($file1[$key], $file2[$key], $fneq, array_merge($path, [$key]), $stat);
+      $stat = compareYaml($file1[$key], $file2[$key], $fneq, array_merge($path, [$key]), $stat);
     }
     else {
       // si soit n'existe que d'un des 2 côtés soit sont différents
@@ -852,7 +884,7 @@ function compare(array $file1, array $file2, callable $fneq=null, array $path=[]
   }
   return $stat;
 }
-if (0) { // Test de la fonction compare
+if (0) { // Test de la fonction compareYaml() 
   $doc1 = [
     'title'=> 'doc1',
     'idem'=> 'contenu identique',
@@ -888,12 +920,18 @@ if (0) { // Test de la fonction compare
   ];
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>test compare</title></head><body>\n";
   $_GET = ['file1'=>'file1', 'file2'=> 'file2'];
-  compare($doc1, $doc2);
-  die("Fin test compare()");
+  compareYaml($doc1, $doc2);
+  die("Fin test compareYaml()");
 }
 
-// Test si 2 noms de communes sont identiques en supprimant éventuellement l'article en début du nom
-function fneqArticle(?string $a, ?string $b): bool {
+{/*PhpDoc: functions
+name: fneqArticle
+title: "function fneqArticle(?string $a, ?string $b): bool - Test si 2 noms de communes sont identiques"
+doc: |
+  Remplace les multiples blancs par un blanc simple
+  Supprime éventuellement l'article en début du nom
+*/}
+function fneqArticle(?string $a, ?string $b): bool { // Test si 2 noms de communes sont identiques
   static $articles = ['Le ','La ','Les ',"L'"];
   $a = str_replace('  ', ' ', $a);
   $b = str_replace('  ', ' ', $b);
@@ -918,7 +956,15 @@ if (0) { // Test de fneqArticle()
     echo "$strs[0] == $strs[1] ? ",fneqArticle($strs[0], $strs[1]) ? 'vrai' : 'faux',"<br>\n";
   die("Fin test de fneqArticle()");
 }
-  
+
+{/*PhpDoc: screens
+name: compare
+title: compare - comparaison de 2 fichiers Yaml et affichage d'un tableau de comparaison
+doc: |
+  Les 2 fichiers à comparer doivent être sélectionnés interactivement.
+  Le résultat est un tableau Html avec une ligne par feuille différente
+  Utilise la fonction compareYaml()
+*/}
 if ($_GET['action'] == 'compare') { // comparaison de 2 fichiers et affichage d'un tableau de comparaison
   if (!isset($_GET['file1'])) {
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>compare</title></head><body>\n";

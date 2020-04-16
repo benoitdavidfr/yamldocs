@@ -3,13 +3,17 @@
 name: grpmvts.inc.php
 title: grpmvts.inc.php - définition de la classe GroupMvts
 doc: |
-  Définition de différentes actions accessibles par le Menu
+  La classe GroupMvts permet de regrouper des mouvements élémentaires correspondant à une évolution sémantique
+  et de les exploiter.
 journal: |
+  16/4/2020:
+    - amélioration de la doc
   14/4/2020:
     - suppression de 6 doublons dans la lecture du CSV des mouvements INSEE
     - modification de factorAvant() en introduisant des codes INSEE modifiés pour les communes déléguées
   11/4/2020:
     - extraction de la classe GroupMvts dans grpmvts.inc.php
+functions:
 classes:
 */
 
@@ -25,7 +29,10 @@ classes:
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
 
-// intervertit l'ordre des 2 clés dans array en gardant les valeurs correspondantes
+{/*PhpDoc: functions
+name: swapKeysInArray
+title: "function swapKeysInArray(string $key1, string $key2, array $array): array - intervertit l'ordre des 2 clés dans array en gardant les valeurs correspondantes"
+*/}
 function swapKeysInArray(string $key1, string $key2, array $array): array {
   $result = [];
   foreach ($array as $key => $value) {
@@ -38,7 +45,7 @@ function swapKeysInArray(string $key1, string $key2, array $array): array {
   }
   return $result;
 }
-if (0) { // Test swapKeysInArray
+if ('TestSwapKeysInArray' == $_GET['action'] ?? null) { // Test swapKeysInArray
   $array = [
     'avant' => "avant",
     '46251' => "Saint-Céré",
@@ -48,10 +55,13 @@ if (0) { // Test swapKeysInArray
   echo "<pre>\n";
   print_r($array);
   print_r(swapKeysInArray('46251', '46339', $array));
-  die("Fin test swap");
+  die("Fin test swapKeysInArray");
 }
 
-// compte le nombre de feuilles stockées dans $tree considéré comme un arbre où chaque array est un noeud intermédiaire
+{/*PhpDoc: functions
+name: countLeaves
+title: "function countLeaves(array $tree): int - compte le nombre de feuilles stockées dans $tree considéré comme un arbre où chaque array est un noeud intermédiaire"
+*/}
 function countLeaves(array $tree): int {
   $count = 0;
   foreach ($tree as $key => $child) {
@@ -62,7 +72,7 @@ function countLeaves(array $tree): int {
   }
   return $count;
 }
-if (0) { // Test countLeaves() 
+if ('TestCountLeaves' == $_GET['action'] ?? null) { // Test countLeaves() 
   class TestForCountLeaves { };
   echo countLeaves(['a'=> 1]),"<br>\n";
   echo countLeaves(['a'=> 1, 'b'=> ['c'=> 2, 'd'=> 3]]),"<br>\n";
@@ -80,6 +90,8 @@ doc: |
   Ces groupes sont ensuite transformés en évolutions par la méthode buildEvol() qui interprète la sémantique du fichier INSEE
   des mouvements.
   La méthode asArray() exporte un groupe comme array Php afin notamment permettre de le visualiser en Yaml ou en JSON.
+  La méthode mvtsPattern() retourne un motif de mouvement, permettant ainsi d'identifier les différents motifs et
+  d'améliorer la qualité de la programmation de buildEvol().
 methods:
 */}
 class GroupMvts {
@@ -363,8 +375,11 @@ class GroupMvts {
     return $factAv2;
   }
   
-  // fabrique le motif correspondant au groupe
   function mvtsPattern(Criteria $trace): array {
+    {/*PhpDoc: methods
+    name: mvtsPattern
+    title: "function mvtsPattern(Criteria $trace): array - fabrique le motif correspondant au groupe"
+    */}
     $factAv = $this->factorAvant($trace);
     if ($trace->is(['mod'=> $this->mod]))
       echo Yaml::dump(['factorAvant'=> $factAv], 6, 2);
@@ -406,8 +421,11 @@ class GroupMvts {
     return $mvtsPat;
   }
   
-  // Fabrique une évolution sémantique à partir d'un groupe de mvts et met à jour la base des communes
   function buildEvol(Base $coms, Criteria $trace): array {
+    {/*PhpDoc: methods
+    name: buildEvol
+    title: "function buildEvol(Base $coms, Criteria $trace): array - Fabrique une évolution sémantique à partir d'un groupe de mvts et met à jour la base des communes"
+    */}
     switch($this->mod) {
       case '10': { // Changement de nom
         if (count($this->mvts) <> 1) {
@@ -716,3 +734,17 @@ class GroupMvts {
   }
 };
 
+
+if (basename(__FILE__)<>basename($_SERVER['PHP_SELF'])) return;
+
+
+require_once __DIR__.'/../../vendor/autoload.php';
+
+// Tests unitaires des classe Verbose et Base
+echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>test Base</title></head><body>\n";
+
+if (!isset($_GET['action'])) {
+  echo "<a href='?action=TestSwapKeysInArray'> Test de la fonction swapKeysInArray()</a><br>\n";
+  echo "<a href='?action=TestCountLeaves'> Test de la fonction countLeaves()</a><br>\n";
+  die();
+}

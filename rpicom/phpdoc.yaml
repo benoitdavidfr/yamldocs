@@ -1,9 +1,12 @@
-title: Gestion des évolutions des communes
-path: /yamldoc/pub/evolcoms
+title: Référentiel pivot des codes INSEE des communes (RPiCom)
+path: /yamldoc/pub/rpicom
 doc: |
-  Test de l'utilisation des données INSEE pour reconstituer l'historique des communes
-  
+  Voir <a href='http://localhost/markdown/?file=/yamldoc/pub/rpicom/README.md'>README.md</a>.
 journal: |
+  16/4/2020:
+    - changement du nom du projet de evolcoms en rpicom
+    - changement d'objectif du projet, il ne s'agit plus de permettre de mettre à jour les codes INSEE dans une base
+      mais de leur garder une sémantique sans avoir à les mettre à jour.
   11/4/2020:
     - création de base.inc.php par extraction de index.php
   9-10/4/2020:
@@ -16,12 +19,12 @@ journal: |
     - téléchargement de communes2020 et de mvtcommune2020
 submodules:
 phpScripts:
-  - /yamldoc/pub/evolcoms/index.php
+  - /yamldoc/pub/rpicom/index.php
 phpIncludes:
-  - /yamldoc/pub/evolcoms/base.inc.php
-  - /yamldoc/pub/evolcoms/grpmvts.inc.php
+  - /yamldoc/pub/rpicom/base.inc.php
+  - /yamldoc/pub/rpicom/grpmvts.inc.php
 htmlFiles:
-  - /yamldoc/pub/evolcoms/conception.yaml
-  - /yamldoc/pub/evolcoms/dessin.yaml
-  - /yamldoc/pub/evolcoms/exfcoms.yaml
-  - /yamldoc/pub/evolcoms/exevolcoms.yaml
+  - /yamldoc/pub/rpicom/conception.yaml
+  - /yamldoc/pub/rpicom/dessin.yaml
+  - /yamldoc/pub/rpicom/exfcoms.yaml
+  - /yamldoc/pub/rpicom/exevolcoms.yaml

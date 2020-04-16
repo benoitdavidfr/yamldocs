@@ -4,8 +4,10 @@ name: base.inc.php
 title: base.inc.php - Gestion d'une base en mémoire + Gestion de critères utile pour gérer la trace
 doc: |
   La classe Base gère une base d'objets en mémoire enregistrée en pser.
-  La classe Criteria gère des critères utilisés pour gérer la trace dans la classe Base.
+  La classe Criteria gère des critères utilisés pour afficher une trace dans la classe Base.
 journal: |
+  16/4/2020:
+    - amélioration de la doc
   11/4/2020:
     - créé par extraction de index.php
 classes:
@@ -16,6 +18,7 @@ use Symfony\Component\Yaml\Exception\ParseException;
 {/*PhpDoc: classes
 name: Criteria
 title: class Criteria - Enregistre des critères et les teste
+methods:
 doc: |
   - la méthode __construct() initialise les critères définis sous la forme:
       [({var} => [{val}] | {var} => ['not'=>[{val}]] | 'not')]
@@ -24,7 +27,7 @@ doc: |
       - si [ 'not' ] alors est toujours faux
       - si [ {var} => [{val}] ] alors la valeur d'une variable {var} doit être parmi les valeurs [{val}]
       - si [ {var} => ['not'=> [{val}]] ] alors, à l'inverse, la valeur de {var} ne doit pas être parmi les valeurs [{val}]
-  - la méthode is() teste si les critères sont vérifiés pour un ensemble de variables prenant chacune une valeur défini
+  - la méthode is() évalue si les critères sont vérifiés pour un ensemble de variables prenant chacune une valeur défini
     dans le paramètre $params.
     Le résultat est vrai ssi pour chaque variable {var} à la fois dans $params et dans $criteria le critère correspondant 
     est respecté, c'est à dire:
@@ -39,8 +42,11 @@ class Criteria {
   
   function __construct(array $criteria) { $this->criteria = $criteria; }
   
-  // teste si les critères sont vérifiés pour un ensemble de variables prenant chacune une valeur
   function is(array $params): bool {
+    {/*PhpDoc: methods
+    name: is
+    title: "function is(array $params): bool - évalue si les critères sont vérifiés pour un ensemble de variables prenant chacune une valeur"
+    */}
     if ($this->criteria == ['not'])
       return false;
     foreach ($this->criteria as $var => $criterium) {
@@ -56,8 +62,11 @@ class Criteria {
     return true;
   }
   
-  // Test de la classe
-  static function test() {
+  static function test() { // Test de la classe
+    {/*PhpDoc: methods
+    name: is
+    title: "static function test() - Test de la classe"
+    */}
     if (0) {
       $trace = new self(['var'=>['Oui']]);
       //$trace = new self(['var'=>['not'=> ['Oui']]]);
@@ -105,11 +114,11 @@ doc: |
 methods:
 */}
 class Base {
-  protected $filepath; // chemin initial
-  protected $base; // [ {key} => {record} ]
-  protected $metadata; // [ {key} => {val} ]
-  protected $trace; // critères de trace
-  protected $traceVars = []; // variables utilisées pour tester si la trace est active ou non
+  protected $filepath; // string - chemin initial du fichier Yaml/pser, évt '' qui signifie que la base a été init. à vide
+  protected $base; // [ {key} => {record} ] - contenu des enregistrements de la base
+  protected $metadata; // [ {key} => {val} ] - liste des métadata, si possible DublinCore
+  protected $trace; // Criteria - critères de trace
+  protected $traceVars = []; // [string] - variables utilisées pour tester si la trace est active ou non
   
   // affectation d'une des variables utilisées pour tester la verbosité
   function setTraceVar(string $var, $val) { $this->traceVars[$var] = $val; }
@@ -262,8 +271,19 @@ require_once __DIR__.'/../../vendor/autoload.php';
 // Tests unitaires des classe Verbose et Base
 echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>test Base</title></head><body>\n";
 
-if (0) { Criteria::test(); } // Test de la classe Verbose
+if (!isset($_GET['action'])) {
+  echo "<a href='?action=TestCriteria'> Test de la classe Criteria</a><br>\n";
+  echo "<a href='?action=TestBase'> Test de la classe Base</a><br>\n";
+  die();
+}
 
-Base::test();
-die("Fin Base::test()\n");
+if ($_GET['action'] == 'TestCriteria') { // Test de la classe Criteria
+  Criteria::test();
+  die("Fin Criteria::test()\n");
+}
+
+if ($_GET['action'] == 'TestBase') { // Test de la classe Base 
+  Base::test();
+  die("Fin Base::test()\n");
+}
 
