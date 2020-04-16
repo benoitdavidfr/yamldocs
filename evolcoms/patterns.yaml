@@ -1,0 +1,2157 @@
+title: liste des 206 motifs identifiés dans le fichiers INSEE des mvts
+description: |
+  fichier annoté à la main
+  resynchonisé le 15/4 19:30 avec http://localhost/yamldoc/pub/evolcoms/?action=mvtsPatterns
+logique:
+  opérations logiques au sein d'une partition:
+    - création par transfert de territoires de plusieurs entités existantes
+    - suppression par tranfert de territoires vers plusieurs entités existantes
+    - fusion de plusieurs entités en une seule
+    - séparation d'une entité en plusieurs
+  
+terms:
+  associée: une c. est associée signifie quelle est associée à une autre
+  associante: une c. est associante signifie quelle a des comunes associées
+  déléguée: une c. est déléguée signifie quelle est déléguée d'une autre
+  déléguante: une c. est déléguante signifie quelle a des communes déléguées
+  absorbée: une c. est absorbée <-> la commune disparait dans une fusion ou dans une commune nouvelle
+statuts:
+  un code Insee peut correspondre aux statuts suivantes:
+    - absorbée
+    - associée
+    - associante
+    
+ChangementDeNom:
+  mod: '10'
+  label: 'Changement de nom'
+  patterns:
+    - title: chgt de nom d'une commune
+      nb: 1314
+      id: d9df20a5fbfafa440ba6a4fc8f408d55
+      règles:
+        id1: [id1]
+    - title: chgt de nom d'une commune ayant des communes associées
+      nb: 13
+      id: 961cabaa9790da6a4f154a710666b183
+      règles:
+        id1: [id1, id2a]
+        id2a: [id1]
+      example:
+        date: '1975-01-01'
+        $factAv:
+          27153:
+            COM:
+              name: Chauvincourt
+              après:
+                27153:
+                  COM: { name: Chauvincourt-Provemont }
+                27479:
+                  COMA: { name: Provemont }
+          27479:
+            COMA:
+              name: Provemont
+              après:
+                27153:
+                  COM: { name: Chauvincourt-Provemont }
+        cog:
+          01/01/1975: Chauvincourt devient Chauvincourt-Provemont.
+    - title: chgt de nom d'une commune ayant des communes associées
+      nb: 3
+      id: f494799afdbf650a4d756a6f02df8fab
+      règles:
+        id1: [id1, id2a, id3a]
+        id2a: [id1]
+        id3a: [id1]
+Création:
+  mod: '20'
+  label: Création
+  patterns:
+    - nb: 3
+      id: b53f45ee8e9206e733c2e940a066d1e8
+      règles:
+        id1: [id1, id3]
+        id2: [id2, id3]
+    - nb: 1
+      id: 9d8322180b07ac4bff764dc381711f9a
+      règles:
+        id1: [id1, id4]
+        id2: [id2, id4]
+        id3: [id3, id4]
+    - nb: 1
+      id: b1ffdbcea5b35c7e1802b5390f2a72ba
+      règles:
+        id1: [id1, id5]
+        id2: [id2, id5]
+        id3: [id3, id5]
+        id4: [id4, id5]
+    - nb: 1
+      id: 29d0af56a0be4b6a0896b1c35f352eef
+      règles:
+        id1: [id1, id9]
+        id2: [id2, id9]
+        id3: [id3, id9]
+        id4: [id4, id9]
+        id5: [id5, id9]
+        id6: [id6, id9]
+        id7: [id7, id9]
+        id8: [id8, id9]
+Rétablissement:
+  mod: '21'
+  label: Rétablissement
+  patterns:
+    - title: scission d'un ARM en 2
+      nb: 2
+      id: 4d27cfdef2c5fe60d61a3751c3fe33dd
+      règles:
+        id1m: [id1m, id2m]
+    - title: id2 fusionnée est rétablie
+      nb: 75
+      id: d1dbff3cf487c1eae9c0ba59a2ab8450
+      règles:
+        id1: [id1, id2]
+    - title: id2 et id3 fusionnées sont rétablies
+      nb: 2
+      id: a28ef23e6f4d4c02c86a19bb4a8640a4
+      règles:
+        id1: [id1, id2, id3]
+    - title: id2 déléguée est rétablie
+      nb: 1
+      id: 11ce29143ddd22b775a183ccb2b1741a
+      règles:
+        id1: [id1, id2]
+        id2d: [id2]
+    - title: id2 associée est rétablie
+      nb: 100
+      id: c153fadaa10342255e2fbf13dd3664bf
+      règles:
+        id1: [id1, id2]
+        id2a: [id2]
+    -
+      nb: 1
+      md5: 1da7ed7aaf86f48836585e1e60513ccf
+      règles:
+        id1: [id1, id2, id3a]
+        id1d: [id1]
+        id2d: [id2]
+    - title: id2 associée est rétablie, id3a reste associée
+      nb: 12
+      id: 3dd5c6307127b20dfed178f78e2b81b2
+      règles:
+        id1: [id1, id2, id3a]
+        id2a: [id2]
+        id3a: [id3a]
+    - title: idem précédent, à l'ordre près
+      nb: 10
+      id: ea862f6799061551b89619fa06b4799f
+      règles:
+        id1: [id1, id2a, id3]
+        id2a: [id2a]
+        id3a: [id3]
+    - title: id2 et id3 associées sont rétablies
+      nb: 15
+      id: c5ab59c52101e4bba18a4996c9e22221
+      règles:
+        id1: [id1, id2, id3]
+        id2a: [id2]
+        id3a: [id3]
+    - title: id2 .. id4 associées sont rétablies
+      nb: 10
+      id: 5aae0f6b9b8e36ef110459fbfb9638a9
+      règles:
+        id1: [id1, id2, id3, id4]
+        id2a: [id2]
+        id3a: [id3]
+        id4a: [id4]
+    - title: id2 et id3 associées sont rétablies, id4a reste associée
+      nb: 1
+      id: b4d211cc73fa4bddb8ced18e7db6d381
+      règles:
+        id1: [id1, id2, id3, id4a]
+        id2a: [id2]
+        id3a: [id3]
+        id4a: [id4a]
+    - title: idem précédent à l'ordre près
+      nb: 1
+      id: f52e2b47962131acd78d83b2e3245542
+      règles:
+        id1: [id1, id2, id3a, id4]
+        id2a: [id2]
+        id3a: [id3a]
+        id4a: [id4]
+    - title: id2 .. id4 associées sont rétablies, id5a et id6a deviennent associées à id1
+      nb: 1
+      id: f7afc113b18b2c1674d8f8724d0bac43
+      règles:
+        id1: [id1, id2, id3, id4, id5a, id6a]
+        id2a: [id2]
+        id3a: [id3]
+        id4a: [id4]
+    - title: id2 associée est rétablie, id3a et id4a restent associées
+      nb: 4
+      id: c7fdcf112c53666ce17f26cbb640387c
+      règles:
+        id1: [id1, id2, id3a, id4a]
+        id2a: [id2]
+        id3a: [id3a]
+        id4a: [id4a]
+    - nb: 3
+      id: edcc1383023c56fb6dd7a48e10e6313a
+      règles:
+        id1: [id1, id2a, id3, id4a]
+        id2a: [id2a]
+        id3a: [id3]
+        id4a: [id4a]
+    - nb: 2
+      id: 7a674173b94fe57854f8637d4bfd3397
+      règles:
+        id1: [id1, id2a, id3a, id4]
+        id2a: [id2a]
+        id3a: [id3a]
+        id4a: [id4]
+    - title: id2 .. id5 associées sont rétablies
+      nb: 2
+      id: 4d0df99344a929c06e760016471f3030
+      règles:
+        id1: [id1, id2, id3, id4, id5]
+        id2a: [id2]
+        id3a: [id3]
+        id4a: [id4]
+        id5a: [id5]
+    - title: id2 associée est rétablie, id3a .. id5a restent associées
+      nb: 2
+      id: e5ec6807ab5c0dd2855bccfb09145955
+      règles:
+        id1: [id1, id2, id3a, id4a, id5a]
+        id2a: [id2]
+        id3a: [id3a]
+        id4a: [id4a]
+        id5a: [id5a]
+    - nb: 1
+      id: d679bb6496607a3d71a400da02e00c5e
+      règles:
+        id1: [id1, id2a, id3, id4a, id5a]
+        id2a: [id2a]
+        id3a: [id3]
+        id4a: [id4a]
+        id5a: [id5a]
+    - nb: 1
+      id: 77b5e520555785f68395f6bc70f31c06
+      règles:
+        id1: [id1, id2a, id3a, id4, id5a, id6a]
+        id2a: [id2a]
+        id3a: [id3a]
+        id4a: [id4]
+        id5a: [id5a]
+        id6a: [id6a]
+    - nb: 1
+      id: 03553d30b30199c869a533199fa99456
+      règles:
+        id1: [id1, id2, id3, id4, id5, id6, id7]
+        id2a: [id2]
+        id3a: [id3]
+        id4a: [id4]
+        id5a: [id5]
+        id6a: [id6]
+        id7a: [id7]
+    - nb: 1
+      id: 369bbb2b6e669530e7ed0ed19c644b61
+      règles:
+        id1: [id1, id2, id3, id4, id5, id6, id7, id8]
+        id2a: [id2]
+        id3a: [id3]
+        id4a: [id4]
+        id5a: [id5]
+        id6a: [id6]
+        id7a: [id7]
+        id8a: [id8]
+    -
+      id: f6d979ce1697b8f222afdf9338aa7632
+      nb: 1
+      règles:
+        id1: [id1, id2a, id3, id4a, id5a, id6a, id7a, id8a]
+        id2a: [id2a]
+        id3a: [id3]
+        id4a: [id4a]
+        id5a: [id5a]
+        id6a: [id6a]
+        id7a: [id7a]
+        id8a: [id8a]
+    - nb: 1
+      id: 9b0fc8bc08ecd54d929a866242ef06b4
+      règles:
+        id1: [id1, id2a, id3a, id4a, id5a, id6, id7a, id8a]
+        id2a: [id2a]
+        id3a: [id3a]
+        id4a: [id4a]
+        id5a: [id5a]
+        id6a: [id6]
+        id7a: [id7a]
+        id8a: [id8a]
+    - nb: 1
+      id: c263d8698edc6b8418f1639be0d5b0f5
+      règles:
+        id1: [id1, id2, id3a, id4a, id5a, id6, id7a, id8a, id9a, id10a]
+        id2a: [id2]
+        id3a: [id3a]
+        id4a: [id4a]
+        id5a: [id5a]
+        id6a: [id6]
+        id7a: [id7a]
+        id8a: [id8a]
+        id9a: [id9a]
+        id10a: [id10a]
+    - nb: 1
+      id: e4d8fb4e7e50a86671bda3e0b2171019
+      règles:
+        id1: [id1, id2a, id3a, id4a, id5a, id6a, id7a, id8a, id9a, id10]
+        id2a: [id2a]
+        id3a: [id3a]
+        id4a: [id4a]
+        id5a: [id5a]
+        id6a: [id6a]
+        id7a: [id7a]
+        id8a: [id8a]
+        id9a: [id9a]
+        id10a: [id10]
+    - nb: 1
+      id: 913f73ff1faad5a54e7aab99f97aa5f9
+      règles:
+        id1: [id1, id2, id3, id4, id5, id6, id7, id8, id9, id10, id11, id12]
+        id2a: [id2]
+        id3a: [id3]
+        id4a: [id4]
+        id5a: [id5]
+        id6a: [id6]
+        id7a: [id7]
+        id8a: [id8]
+        id9a: [id9]
+        id10a: [id10]
+        id11a: [id11]
+        id12a: [id12]
+Suppression:
+  mod: '30'
+  label: Suppression
+  patterns:
+    - nb: 2
+      id: 8cd284ca7d5a2015247d136e9347e51e
+      règles:
+        id1: [id2, id3, id4]
+        id2: [id2]
+        id3: [id3]
+        id4: [id4]
+    - nb: 4
+      id: 7ac4e4d587be024be560e252463a6e08
+      règles:
+        id1: [id2, id3]
+        id2: [id2]
+        id3: [id3]
+FusionSimple:
+  mod: '31'
+  label: 'Fusion simple'
+  patterns:
+    - nb: 290
+      id: 335c1f340bed9e0a0cfd5a46b1a35c3e
+      règles:
+        id1: [id1]
+        id2: [id1]
+    - nb: 254
+      id: b4faa8851641fed69f01ae285c280a5a
+      règles:
+        id1: [id2]
+        id2: [id2]
+    - nb: 1
+      id: b7edf071bf9cca1d63457709dfa4904e
+      règles:
+        id1: [id3]
+        id2: [id3]
+    - nb: 21
+      id: f1c1621cdd3e2ee4208ddd09d2ce7de8
+      règles:
+        id1: [id1]
+        id2: [id1]
+        id3: [id1]
+    - nb: 15
+      id: 68550420966544baf3f7326c70cd28fd
+      règles:
+        id1: [id2]
+        id2: [id2]
+        id3: [id2]
+    - nb: 8
+      id: c93d33c9bda15d78efdb5ec5f9a31c53
+      règles:
+        id1: [id3]
+        id2: [id3]
+        id3: [id3]
+    - nb: 4
+      id: 671aca237ab0c7f7772e9dd95a16ab64
+      règles:
+        id1: [id1]
+        id2: [id1]
+        id3: [id1]
+        id4: [id1]
+    - nb: 3
+      id: 8878257aa49bc9823e72f4113659d4d8
+      règles:
+        id1: [id2]
+        id2: [id2]
+        id3: [id2]
+        id4: [id2]
+    - nb: 2
+      id: 9e80aad894dfb6cc169293231c58ff66
+      règles:
+        id1: [id3]
+        id2: [id3]
+        id3: [id3]
+        id4: [id3]
+    - nb: 5
+      id: eee9c6367e39193ec00527777f27cdaf
+      règles:
+        id1: [id4]
+        id2: [id4]
+        id3: [id4]
+        id4: [id4]
+    - nb: 3
+      id: 14338277090fa4a86582615f3d08b014
+      règles:
+        id1: [id1]
+        id2: [id1]
+        id3: [id1]
+        id4: [id1]
+        id5: [id1]
+    - nb: 1
+      id: 7397a08babf1600efb3dd4dad0bf9bfc
+      règles:
+        id1: [id3]
+        id2: [id3]
+        id3: [id3]
+        id4: [id3]
+        id5: [id3]
+    - nb: 1
+      id: 960f9d84b95c7b45c0d2254f2d2ffa35
+      règles:
+        id1: [id1]
+        id2: [id1]
+        id3: [id1]
+        id4: [id1]
+        id5: [id1]
+        id6: [id1]
+    - nb: 1
+      id: c35d8226f9f384e6fbbd93f9d9509e31
+      règles:
+        id1: [id5]
+        id2: [id5]
+        id3: [id5]
+        id4: [id5]
+        id5: [id5]
+        id6: [id5]
+    - nb: 1
+      id: 496750beb96b1f0cdc11d4844e89ba84
+      règles:
+        id1: [id6]
+        id2: [id6]
+        id3: [id6]
+        id4: [id6]
+        id5: [id6]
+        id6: [id6]
+CréationCommuneNouvelle:
+  mod: '32'
+  label: 'Création de commune nouvelle'
+  nb: 121 motifs
+  algo: |
+    chercher le nouveau chef-lieu qui est le seul type=='COM' à droite, je l'appelle id0
+    Chaque règle correspond à un des motifs suivants:
+      - id{i}: [id0, id{i}d]  <-> id{i} devient déléguée de id0, evt. elle-même
+      - id{i}: [id0]          <-> absorption dans id0 de id{i} qui était simple, evt. déléguante
+      - id{i}a: [id0, id{i}d] <-> id{i} était associée, elle devient déléguée de id0
+      - id{i}a: [id0]         <-> id{i} était associée, elle est absorbée par id0
+      - id{i}d: [id0, id{i}d] <-> id{i} était déléguée, elle reste/devient déléguée de id0
+
+        id1: [id1, id1d]  # id1 -> déléguante et déléguée d'elle-même
+        id2: [id1, id2d]  # id2 -> déléguée de id1
+        id3d: [id1, id3d] # id3 -> déléguée de id1
+        id4d: [id1, id4d] # id4 -> déléguée de id1
+        id4: [id1]        # id4 perd son rôle de déléguant au profit de id1
+        id5d: [id1, id5d] # id5 -> déléguée de id1
+        id6d: [id1, id6d] # id6 -> déléguée de id1
+        id7d: [id1, id7d] # id7 -> déléguée de id1
+  patterns:
+    - nb: 1
+      id: 192c4dc500cc51d7ffcaaacc5034c06c
+      règles:
+        id1: [id1, id1d]
+        id2: [id1]
+      example:
+        date: '2019-01-01'
+        $factAv:
+          33055:
+            COM:
+              name: Blaignan
+              après:
+                33055:
+                  COM: { name: Blaignan-Prignac }
+                  COMD: { name: Blaignan }
+          33338:
+            COM:
+              name: Prignac-en-Médoc
+              après:
+                33055:
+                  COM: { name: Blaignan-Prignac }
+    - nb: 178
+      id: 8f47f6857241680c93323976da3a875a
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+    - nb: 1
+      id: 08f2d41a8e9e3cbed3172521d8cf55b4
+      règles:
+        id1: [id1]
+        id2: [id1]
+        id3: [id1]
+    - nb: 51
+      id: 595f0bbb049780470d65069e8de4c819
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+    - nb: 1
+      id: 55315691502bb325d81880e8e3da26d5
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3a: [id1, id3d]
+    - nb: 1
+      id: d0696eef8fb1be2bb0c5d07b44b6f11b
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3d: [id1, id3d]
+    - nb: 5
+      id: 8bcaf12795ca534c5af44f2d896b7ba9
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3a: [id1]
+    - nb: 10
+      id: 41ec1d6fb5cdc4f99dd668495cd7fcb2
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+        id4: [id1, id4d]
+    - nb: 3
+      id: 081a905041665aab5b47046e96845663
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+        id4a: [id1]
+    - nb: 2
+      id: d6b0c313cd90f621f58cfd832a6e8abe
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3a: [id1, id3d]
+        id4a: [id1, id4d]
+    - nb: 1
+      id: 8a2f5ae083e485f09b7847020b56f2b8
+      règles:
+        id1: [id1]
+        id2: [id1]
+        id3: [id1]
+        id4: [id1]
+    - nb: 5
+      id: ec10237abe3d20c813fc4cd3fd3776b6
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+        id4: [id1, id4d]
+        id5: [id1, id5d]
+    - nb: 2
+      id: 1e1bdcd9a1fd8ccf7262bbd15873fbaa
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+        id4: [id1, id4d]
+        id5a: [id1]
+    - nb: 1
+      id: 153e691081bfce04a99927f2de2eb103
+      règles:
+        id1: [id1]
+        id2: [id1]
+        id3a: [id1]
+        id4a: [id1]
+        id5a: [id1]
+    - nb: 7
+      id: 91c5a3365bde75d0773ef549823a3f17
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+        id4: [id1, id4d]
+        id5: [id1, id5d]
+        id6: [id1, id6d]
+    - nb: 1
+      id: 9c5f2c57385523833b455d26e8957915
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+        id4: [id1, id4d]
+        id5a: [id1]
+        id6a: [id1]
+    - nb: 1
+      id: a78eb4dd4ebf050f334f8cb4b4f7dfed
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+        id4a: [id1]
+        id5a: [id1]
+        id6a: [id1]
+    - nb: 1
+      id: c66b9c6e742f37d116f9f9d9e068b56a
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3a: [id1]
+        id4a: [id1]
+        id5a: [id1]
+        id6a: [id1]
+    - nb: 2
+      id: c0e72c570c494e52d6c15e3ed46d2b3a
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+        id4: [id1, id4d]
+        id5: [id1, id5d]
+        id6: [id1, id6d]
+        id7: [id1, id7d]
+    - nb: 1
+      id: 72466a3574c859778ddb7165afa992ee
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+        id4: [id1, id4d]
+        id5: [id1, id5d]
+        id6: [id1, id6d]
+        id7a: [id1]
+    - nb: 1
+      id: 109a7acf3c6f28dc1057cf28da0c9fa3
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+        id4: [id1, id4d]
+        id5a: [id1]
+        id6a: [id1]
+        id7a: [id1]
+    - nb: 1
+      id: eca5af3010e51442f089a689adacbbf7
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+        id4: [id1, id4d]
+        id5: [id1, id5d]
+        id6: [id1, id6d]
+        id7: [id1, id7d]
+        id8: [id1, id8d]
+    - title: xx
+      nb: 1
+      id: 0c28276b8829b30e65aa5a7f994f401d
+      règles:
+        id1: [id1, id1d]  # id1 -> déléguante et déléguée d'elle-même
+        id2: [id1, id2d]  # id2 -> déléguée de id1
+        id3d: [id1, id3d] # id3 -> déléguée de id1
+        id4d: [id1, id4d] # id4 -> déléguée de id1
+        id4: [id1]        # id4 perd son rôle de déléguant au profit de id1
+        id5d: [id1, id5d] # id5 -> déléguée de id1
+        id6d: [id1, id6d] # id6 -> déléguée de id1
+        id7d: [id1, id7d] # id7 -> déléguée de id1
+      example:
+        date: '2018-01-01'
+        $factAv:
+          49261:
+            COM:
+              name: 'Les Rosiers-sur-Loire'
+              après:
+                49261:
+                  COM: { name: Gennes-Val-de-Loire }
+                  COMD: { name: 'Les Rosiers-sur-Loire' }
+          49304:
+            COM:
+              name: Saint-Martin-de-la-Place
+              après:
+                49261:
+                  COM: { name: Gennes-Val-de-Loire }
+                49304:
+                  COMD: { name: Saint-Martin-de-la-Place }
+          49094:
+            COMD:
+              name: Chênehutte-Trèves-Cunault
+              après:
+                49261:
+                  COM: { name: Gennes-Val-de-Loire }
+                49094:
+                  COMD: { name: Chênehutte-Trèves-Cunault }
+          49149:
+            COMD:
+              name: Gennes
+              après:
+                49261:
+                  COM: { name: Gennes-Val-de-Loire }
+                49149:
+                  COMD: { name: Gennes }
+            COM:
+              name: 'Gennes-Val de Loire'
+              après:
+                49261:
+                  COM: { name: Gennes-Val-de-Loire }
+          49154:
+            COMD:
+              name: Grézillé
+              après:
+                49261:
+                  COM: { name: Gennes-Val-de-Loire }
+                49154:
+                  COMD: { name: Grézillé }
+          49279:
+            COMD:
+              name: Saint-Georges-des-Sept-Voies
+              après:
+                49261:
+                  COM: { name: Gennes-Val-de-Loire }
+                49279:
+                  COMD: { name: Saint-Georges-des-Sept-Voies }
+          49346:
+            COMD:
+              name: 'Le Thoureil'
+              après:
+                49261:
+                  COM: { name: Gennes-Val-de-Loire }
+                49346:
+                  COMD: { name: 'Le Thoureil' }
+        cog:
+          01/01/2018:
+            - Grézillé reste déléguée au sein de Gennes-Val-de-Loire (49261) (commune nouvelle).
+            - Les Rosiers-sur-Loire devient commune déléguée (chef-lieu) au sein de Gennes-Val-de-Loire (49261) (commune nouvelle).
+            - Création de la commune nouvelle de Gennes-Val-de-Loire en lieu et place des communes de Gennes-Val de Loire (49149), des Rosiers-sur-Loire (49261) et de Saint-Martin-de-la-Place (49304).
+    - nb: 1
+      id: 1783e9ec836c419958539484829b7dc1
+      règles:
+        id1: [id1, id1d]
+        id2: [id1, id2d]
+        id3a: [id1, id3d]
+        id4a: [id1, id4d]
+        id5a: [id1, id5d]
+        id6a: [id1, id6d]
+        id7a: [id1, id7d]
+        id8a: [id1, id8d]
+        id9a: [id1, id9d]
+    - nb: 23
+      règles:
+        id1: [id1]
+        id2: [id1]
+      id: 453059ad6d4ae878f52fceb7002f6906
+    - nb: 1
+      règles:
+        id1: [id1d, id10]
+        id2: [id2d, id10]
+        id3: [id3d, id10]
+        id4: [id4d, id10]
+        id5: [id5d, id10]
+        id6: [id6d, id10]
+        id7: [id7d, id10]
+        id8: [id8d, id10]
+        id9: [id9d, id10]
+        id10: [id10, id10d]
+        id11: [id10, id11d]
+        id12: [id10, id12d]
+        id13: [id10, id13d]
+        id14: [id10, id14d]
+        id15: [id10, id15d]
+        id16: [id10, id16d]
+        id17: [id10, id17d]
+        id18: [id10, id18d]
+        id19: [id10, id19d]
+        id20: [id10, id20d]
+        id21: [id10, id21d]
+        id22: [id10, id22d]
+      id: 85bda2a6b6a3073a466f124cc1720ddf
+    - nb: 1
+      règles:
+        id1: [id1d, id10]
+        id2: [id2d, id10]
+        id3: [id3d, id10]
+        id4: [id4d, id10]
+        id5: [id5d, id10]
+        id6: [id6d, id10]
+        id7: [id7d, id10]
+        id8: [id8d, id10]
+        id9: [id9d, id10]
+        id10: [id10, id10d]
+        id11: [id10, id11d]
+        id12: [id10, id12d]
+        id13: [id10, id13d]
+        id14: [id10, id14d]
+        id15a: [id10]
+        id16a: [id10]
+        id17a: [id10]
+      id: 2023893bff10f164507207268887bd4e
+    - nb: 1
+      règles:
+        id1: [id1d, id10]
+        id2: [id2d, id10]
+        id3: [id3d, id10]
+        id4: [id4d, id10]
+        id5: [id5d, id10]
+        id6: [id6d, id10]
+        id7: [id7d, id10]
+        id8: [id8d, id10]
+        id9: [id9d, id10]
+        id10: [id10, id10d]
+        id11: [id10, id11d]
+        id12: [id10, id12d]
+        id13: [id10, id13d]
+        id14a: [id10]
+        id15a: [id10]
+        id16a: [id10]
+        id17a: [id10]
+        id18a: [id10]
+        id19a: [id10]
+        id20a: [id10]
+        id21a: [id10]
+        id22a: [id10]
+      id: 2bf3f6405a93065dd1507983069c0290
+    - nb: 1
+      règles:
+        id1: [id1d, id10]
+        id2: [id2d, id10]
+        id3: [id3d, id10]
+        id4: [id4d, id10]
+        id5: [id5d, id10]
+        id6: [id6d, id10]
+        id7: [id7d, id10]
+        id8: [id8d, id10]
+        id9: [id9d, id10]
+        id10: [id10, id10d]
+      id: c0146b62ac0c644bc5269101e5f1a486
+    - nb: 1
+      règles:
+        id1: [id1d, id11]
+        id2: [id2d, id11]
+        id3: [id3d, id11]
+        id4: [id4d, id11]
+        id5: [id5d, id11]
+        id6: [id6d, id11]
+        id7: [id7d, id11]
+        id8: [id8d, id11]
+        id9: [id9d, id11]
+        id10: [id10d, id11]
+        id11: [id11, id11d]
+        id12: [id11, id12d]
+        id13: [id11, id13d]
+        id14: [id11, id14d]
+      id: 81853b3027468135d22cc7a2f29586e6
+    - nb: 2
+      règles:
+        id1: [id1d, id13]
+        id2: [id2d, id13]
+        id3: [id3d, id13]
+        id4: [id4d, id13]
+        id5: [id5d, id13]
+        id6: [id6d, id13]
+        id7: [id7d, id13]
+        id8: [id8d, id13]
+        id9: [id9d, id13]
+        id10: [id10d, id13]
+        id11: [id11d, id13]
+        id12: [id12d, id13]
+        id13: [id13, id13d]
+        id14: [id13, id14d]
+      id: 1714b6cf8ecf7e9544ab520664bf9c13
+    - nb: 1
+      règles:
+        id1: [id1d, id15]
+        id2: [id2d, id15]
+        id3: [id3d, id15]
+        id4: [id4d, id15]
+        id5: [id5d, id15]
+        id6: [id6d, id15]
+        id7: [id7d, id15]
+        id8: [id8d, id15]
+        id9: [id9d, id15]
+        id10: [id10d, id15]
+        id11: [id11d, id15]
+        id12: [id12d, id15]
+        id13: [id13d, id15]
+        id14: [id14d, id15]
+        id15: [id15, id15d]
+        id16: [id15, id16d]
+        id17: [id15, id17d]
+        id18: [id15, id18d]
+      id: ff5d7ae82235749181ea365e8342e39f
+    - nb: 1
+      règles:
+        id1: [id1d, id15]
+        id2: [id2d, id15]
+        id3: [id3d, id15]
+        id4: [id4d, id15]
+        id5: [id5d, id15]
+        id6: [id6d, id15]
+        id7: [id7d, id15]
+        id8: [id8d, id15]
+        id9: [id9d, id15]
+        id10: [id10d, id15]
+        id11: [id11d, id15]
+        id12: [id12d, id15]
+        id13: [id13d, id15]
+        id14: [id14d, id15]
+        id15: [id15, id15d]
+      id: c86bd044e35091d1acf1459a9c62545a
+    - nb: 1
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4: [id2, id4d]
+        id5: [id2, id5d]
+        id6: [id2, id6d]
+        id7: [id2, id7d]
+        id8: [id2, id8d]
+        id9: [id2, id9d]
+        id10: [id2, id10d]
+        id11: [id2, id11d]
+        id12: [id2, id12d]
+        id13: [id2, id13d]
+        id14: [id2, id14d]
+        id15: [id2, id15d]
+        id16: [id2, id16d]
+        id17: [id2, id17d]
+        id18: [id2, id18d]
+        id19: [id2, id19d]
+        id20: [id2, id20d]
+        id21a: [id2]
+      id: ebecde0e99224cdebd10085aa6128d41
+    - nb: 1
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4: [id2, id4d]
+        id5: [id2, id5d]
+        id6: [id2, id6d]
+        id7: [id2, id7d]
+        id8: [id2, id8d]
+        id9: [id2, id9d]
+        id10: [id2, id10d]
+        id11: [id2, id11d]
+        id12: [id2, id12d]
+        id13: [id2, id13d]
+        id14: [id2, id14d]
+      id: 7429f066c94c3dc9c6b390a13b8a933a
+    - nb: 2
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4: [id2, id4d]
+        id5: [id2, id5d]
+        id6: [id2, id6d]
+        id7: [id2, id7d]
+        id8: [id2, id8d]
+        id9: [id2, id9d]
+        id10: [id2, id10d]
+      id: 3fd1f7d142ca9b422b1a5d9d5ff7b036
+    - nb: 1
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4: [id2, id4d]
+        id5: [id2, id5d]
+        id6: [id2, id6d]
+        id7: [id2, id7d]
+        id8: [id2, id8d]
+        id9: [id2, id9d]
+      id: dfd1de21af03d23c40c348faade3190b
+    - nb: 1
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4: [id2, id4d]
+        id5: [id2, id5d]
+        id6: [id2, id6d]
+        id7: [id2, id7d]
+        id8: [id2, id8d]
+      id: a85f4782fafba78254ec18c8e196b394
+    - nb: 3
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4: [id2, id4d]
+        id5: [id2, id5d]
+        id6: [id2, id6d]
+        id7: [id2, id7d]
+      id: 61f65a298c68604936423992b2f5ced7
+    - nb: 4
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4: [id2, id4d]
+        id5: [id2, id5d]
+        id6: [id2, id6d]
+      id: 3f4e52444b342f15f01c30db66439584
+    - nb: 1
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4: [id2, id4d]
+        id5: [id2, id5d]
+        id6a: [id2]
+      id: 5c86ee2b46e0c75d36d199f59b202a10
+    - nb: 9
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4: [id2, id4d]
+        id5: [id2, id5d]
+      id: a37d82bcba14c628aa8dce3e28e1e497
+    - nb: 1
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4: [id2, id4d]
+        id5a: [id2]
+      id: e3529b622be80d5b5aa36e6be76f620b
+    - nb: 18
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4: [id2, id4d]
+      id: b15fb44117d2debcddcbdc3db6fb881c
+    - nb: 1
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4a: [id2, id4d]
+      id: 522d3e3ac069d5ad2b494d8c0e87bf56
+    - nb: 1
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4a: [id2]
+        id5a: [id2]
+        id6a: [id2]
+        id7a: [id2]
+        id8a: [id2]
+        id9a: [id2]
+      id: 284698048e563f37584f3ce6266dd2fe
+    - nb: 3
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+        id4a: [id2]
+      id: 80f0276ebbb17b664d2c7c464b8ffe69
+    - nb: 46
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3: [id2, id3d]
+      id: 363164d8d7ae6bc42ad1716ba8864553
+    - nb: 2
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3a: [id2, id3d]
+      id: 410e4b58ac19ae898915f4a70eb00555
+    - nb: 1
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3a: [id2]
+        id4a: [id2]
+        id5a: [id2]
+      id: 1427bec633723fb760e4c3951f7853b5
+    - nb: 1
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3a: [id2]
+        id4a: [id2]
+      id: 322956a41b2d2216a1d210e8a8a2e10b
+    - nb: 2
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+        id3a: [id2]
+      id: 3b572ef5f7a002f1a5be6f7107d70ecf
+    - nb: 178
+      règles:
+        id1: [id1d, id2]
+        id2: [id2, id2d]
+      id: 6d005e1c8f00fbddd22f9fc74f27f152
+    - nb: 1
+      règles:
+        id1: [id1d, id2]
+        id2: [id2]
+        id3a: [id2]
+      id: bbd9cdc3002073b9861f2490015c79aa
+    - nb: 39
+      règles:
+        id1: [id1d, id2]
+        id2: [id2]
+      id: c4329e79cd4dd141c4eff8f2a2463151
+    - nb: 1
+      règles:
+        id1: [id1d, id3]
+        id2: [id2d, id3]
+        id3: [id3, id3d]
+        id4: [id3, id4d]
+        id5: [id3, id5d]
+        id6: [id3, id6d]
+        id7: [id3, id7d]
+        id8: [id3, id8d]
+        id9: [id3, id9d]
+        id10: [id3, id10d]
+        id11: [id3, id11d]
+        id12: [id3, id12d]
+        id13: [id3, id13d]
+        id14: [id3, id14d]
+        id15: [id3, id15d]
+        id16: [id3, id16d]
+        id17: [id3, id17d]
+        id18: [id3, id18d]
+        id19: [id3, id19d]
+      id: 442ef1d09b87b685745312c9672ed739
+    - nb: 1
+      règles:
+        id1: [id1d, id3]
+        id2: [id2d, id3]
+        id3: [id3, id3d]
+        id4: [id3, id4d]
+        id5: [id3, id5d]
+        id6: [id3, id6d]
+        id7: [id3, id7d]
+        id8: [id3, id8d]
+        id9: [id3, id9d]
+        id10: [id3, id10d]
+        id11: [id3, id11d]
+        id12: [id3, id12d]
+        id13: [id3, id13d]
+        id14: [id3, id14d]
+        id15: [id3, id15d]
+        id16: [id3, id16d]
+      id: 6875180b3822a81cbece0349a8139cd4
+    - nb: 1
+      règles:
+        id1: [id1d, id3]
+        id2: [id2d, id3]
+        id3: [id3, id3d]
+        id4: [id3, id4d]
+        id5: [id3, id5d]
+        id6: [id3, id6d]
+        id7: [id3, id7d]
+        id8: [id3, id8d]
+        id9: [id3, id9d]
+      id: 947d72467514906ca7021218dba204be
+    - nb: 1
+      règles:
+        id1: [id1d, id3]
+        id2: [id2d, id3]
+        id3: [id3, id3d]
+        id4: [id3, id4d]
+        id5: [id3, id5d]
+        id6: [id3, id6d]
+        id7: [id3, id7d]
+        id8: [id3, id8d]
+      id: 719c7f2804defdab52260d6bf8e3dde3
+    - nb: 2
+      règles:
+        id1: [id1d, id3]
+        id2: [id2d, id3]
+        id3: [id3, id3d]
+        id4: [id3, id4d]
+        id5: [id3, id5d]
+        id6: [id3, id6d]
+        id7: [id3, id7d]
+      id: f16c3454d47f923fc580bc9609a2d474
+    - nb: 6
+      règles:
+        id1: [id1d, id3]
+        id2: [id2d, id3]
+        id3: [id3, id3d]
+        id4: [id3, id4d]
+        id5: [id3, id5d]
+        id6: [id3, id6d]
+      id: d6491fe0d51f7c35f5eed9d28ec4b649
+    - nb: 5
+      règles:
+        id1: [id1d, id3]
+        id2: [id2d, id3]
+        id3: [id3, id3d]
+        id4: [id3, id4d]
+        id5: [id3, id5d]
+      id: f57c8cdb40a508279d62c73072dea75b
+    - nb: 13
+      règles:
+        id1: [id1d, id3]
+        id2: [id2d, id3]
+        id3: [id3, id3d]
+        id4: [id3, id4d]
+      id: 9753b0605334266c409b39dd8f105581
+    - nb: 1
+      règles:
+        id1: [id1d, id3]
+        id2: [id2d, id3]
+        id3: [id3, id3d]
+        id4a: [id3, id4d]
+        id5a: [id3, id5d]
+        id6a: [id3, id6d]
+        id7a: [id3, id7d]
+        id8a: [id3, id8d]
+      id: 958ce9ea26d43478c267b1fb55167548
+    - nb: 28
+      règles:
+        id1: [id1d, id3]
+        id2: [id2d, id3]
+        id3: [id3, id3d]
+      id: cc29bbbffabc342ff605c1d0db1838ae
+    - nb: 1
+      règles:
+        id1: [id1d, id3]
+        id2: [id2d, id3]
+        id3: [id3]
+      id: 8016a4bf967a9b57b050e9f32d8ac2fe
+    - nb: 1
+      règles:
+        id1: [id1d, id3]
+        id2a: [id2d, id3]
+        id3: [id3]
+      id: d8f83594d8780b8502cd4918e5a03008
+    - nb: 1
+      règles:
+        id1: [id1d, id3]
+        id2d: [id2d, id3]
+        id3: [id3]
+      id: a863b78526adc58d5fc69fc90bafdca6
+    - nb: 1
+      règles:
+        id1: [id1d, id4]
+        id2: [id2d, id4]
+        id3: [id3d, id4]
+        id4: [id4, id4d]
+        id5: [id4, id5d]
+        id6: [id4, id6d]
+        id7: [id4, id7d]
+        id8: [id4, id8d]
+        id9: [id4, id9d]
+        id10: [id4, id10d]
+      id: 7a8363637a1f6948271d7d25ed8e3c64
+    - nb: 1
+      règles:
+        id1: [id1d, id4]
+        id2: [id2d, id4]
+        id3: [id3d, id4]
+        id4: [id4, id4d]
+        id5: [id4, id5d]
+        id6: [id4, id6d]
+        id7: [id4, id7d]
+        id8: [id4, id8d]
+        id9: [id4, id9d]
+      id: 4193f9c8a2c50d71b2e11c12d8226952
+    - nb: 2
+      règles:
+        id1: [id1d, id4]
+        id2: [id2d, id4]
+        id3: [id3d, id4]
+        id4: [id4, id4d]
+        id5: [id4, id5d]
+        id6: [id4, id6d]
+        id7: [id4, id7d]
+      id: aa11eeaed3a5608b85ac124ce95e1bb9
+    - nb: 2
+      règles:
+        id1: [id1d, id4]
+        id2: [id2d, id4]
+        id3: [id3d, id4]
+        id4: [id4, id4d]
+        id5: [id4, id5d]
+        id6: [id4, id6d]
+      id: 16ee39f1e96768b88574b40135b01914
+    - nb: 2
+      règles:
+        id1: [id1d, id4]
+        id2: [id2d, id4]
+        id3: [id3d, id4]
+        id4: [id4, id4d]
+        id5: [id4, id5d]
+      id: 0a1de7ef666a4576ead53fc75bfd8f87
+    - nb: 22
+      règles:
+        id1: [id1d, id4]
+        id2: [id2d, id4]
+        id3: [id3d, id4]
+        id4: [id4, id4d]
+      id: 838c01cb21de201ccceafdb00014349d
+    - nb: 1
+      règles:
+        id1: [id1d, id4]
+        id2: [id2d, id4]
+        id3: [id3d, id4]
+        id4: [id4]
+        id5a: [id4]
+      id: 668fc4d03b943d2afdf48aa2452952ba
+    - nb: 3
+      règles:
+        id1: [id1d, id4]
+        id2: [id2d, id4]
+        id3: [id3d, id4]
+        id4: [id4]
+      id: 3361772d0468e6531adb59855e0a79bc
+    - nb: 1
+      règles:
+        id1: [id1d, id4]
+        id2: [id2d, id4]
+        id3d: [id3d, id4]
+        id4: [id4]
+      id: 7b30aff024d626026a2e964c0fb00a13
+    - nb: 2
+      règles:
+        id1: [id1d, id5]
+        id2: [id2d, id5]
+        id3: [id3d, id5]
+        id4: [id4d, id5]
+        id5: [id5, id5d]
+        id6: [id5, id6d]
+        id7: [id5, id7d]
+        id8: [id5, id8d]
+        id9: [id5, id9d]
+      id: e058120561c7d90b844a5455ba6ead4a
+    - nb: 2
+      règles:
+        id1: [id1d, id5]
+        id2: [id2d, id5]
+        id3: [id3d, id5]
+        id4: [id4d, id5]
+        id5: [id5, id5d]
+        id6: [id5, id6d]
+        id7: [id5, id7d]
+      id: 67964ed323bf6b7d4ea3e1c5b169ea54
+    - nb: 1
+      règles:
+        id1: [id1d, id5]
+        id2: [id2d, id5]
+        id3: [id3d, id5]
+        id4: [id4d, id5]
+        id5: [id5, id5d]
+        id6: [id5, id6d]
+      id: 540adbaba13151c0111acc073368dbfc
+    - nb: 11
+      règles:
+        id1: [id1d, id5]
+        id2: [id2d, id5]
+        id3: [id3d, id5]
+        id4: [id4d, id5]
+        id5: [id5, id5d]
+      id: f23eb5e0b6dfba9e3de3b7f744ae31b2
+    - nb: 1
+      règles:
+        id1: [id1d, id6]
+        id2: [id2d, id6]
+        id3: [id3d, id6]
+        id4: [id4d, id6]
+        id5: [id5d, id6]
+        id6: [id6, id6d]
+        id7: [id6, id7d]
+        id8: [id6, id8d]
+        id9: [id6, id9d]
+        id10: [id6, id10d]
+        id11: [id6, id11d]
+      id: 111f8eac3e70ce5e2b823ecfb9acd6c7
+    - nb: 1
+      règles:
+        id1: [id1d, id6]
+        id2: [id2d, id6]
+        id3: [id3d, id6]
+        id4: [id4d, id6]
+        id5: [id5d, id6]
+        id6: [id6, id6d]
+        id7: [id6, id7d]
+        id8: [id6, id8d]
+        id9: [id6, id9d]
+        id10: [id6, id10d]
+      id: 98158564669c130afd3ef576e268a30d
+    - nb: 2
+      règles:
+        id1: [id1d, id6]
+        id2: [id2d, id6]
+        id3: [id3d, id6]
+        id4: [id4d, id6]
+        id5: [id5d, id6]
+        id6: [id6, id6d]
+        id7: [id6, id7d]
+      id: 7bd4c8708fa24b265364de4ee18dec39
+    - nb: 1
+      règles:
+        id1: [id1d, id7]
+        id2: [id2d, id7]
+        id3: [id3d, id7]
+        id4: [id4d, id7]
+        id5: [id5d, id7]
+        id6: [id6d, id7]
+        id7: [id7, id7d]
+        id8: [id7, id8d]
+        id9: [id7, id9d]
+        id10: [id7, id10d]
+        id11: [id7, id11d]
+        id12: [id7, id12d]
+        id13: [id7, id13d]
+        id14: [id7, id14d]
+      id: 141dc2befee9b307a6ae57e850cfb2cf
+    - nb: 1
+      règles:
+        id1: [id1d, id7]
+        id2: [id2d, id7]
+        id3: [id3d, id7]
+        id4: [id4d, id7]
+        id5: [id5d, id7]
+        id6: [id6d, id7]
+        id7: [id7, id7d]
+        id8a: [id7, id8d]
+        id9a: [id7, id9d]
+      id: b440e5b33a067cbef57a6aca3aca4045
+    - nb: 1
+      règles:
+        id1: [id1d, id7]
+        id2: [id2d, id7]
+        id3: [id3d, id7]
+        id4: [id4d, id7]
+        id5: [id5d, id7]
+        id6: [id6d, id7]
+        id7: [id7, id7d]
+      id: 725382603f7372655d9c42764311d83b
+    - nb: 1
+      règles:
+        id1: [id1d, id8]
+        id2: [id2d, id8]
+        id3: [id3d, id8]
+        id4: [id4d, id8]
+        id5: [id5d, id8]
+        id6: [id6d, id8]
+        id7: [id7d, id8]
+        id8: [id8, id8d]
+        id9: [id8, id9d]
+        id10: [id8, id10d]
+        id11: [id8, id11d]
+      id: c74e7c2a11d8d52e83a906e2b217d766
+    - nb: 1
+      règles:
+        id1: [id1d, id8]
+        id2: [id2d, id8]
+        id3: [id3d, id8]
+        id4: [id4d, id8]
+        id5: [id5d, id8]
+        id6: [id6d, id8]
+        id7: [id7d, id8]
+        id8: [id8, id8d]
+        id9: [id8, id9d]
+        id10: [id8, id10d]
+      id: 4ab4497e795a0242d44bbb09105ae3ab
+    - nb: 1
+      règles:
+        id1: [id1d, id8]
+        id2: [id2d, id8]
+        id3: [id3d, id8]
+        id4: [id4d, id8]
+        id5: [id5d, id8]
+        id6: [id6d, id8]
+        id7: [id7d, id8]
+        id8: [id8, id8d]
+        id9a: [id8]
+      id: 3e57f1389d8617673aba8ef0805c9566
+    - nb: 1
+      règles:
+        id1: [id2]
+        id2: [id2]
+        id3: [id2]
+        id4: [id2]
+      id: c08b4d21ef5e8fd68b0a7a5e1eb9d778
+    - nb: 3
+      règles:
+        id1: [id2]
+        id2: [id2]
+        id3: [id2]
+      id: dddfb731658d4dee5a2d8b3bc3a1f92b
+    - nb: 1
+      règles:
+        id1: [id2]
+        id2: [id2]
+        id3a: [id2]
+      id: 93c63586d3c7e19298ab87c2d8c24d24
+    - nb: 23
+      règles:
+        id1: [id2]
+        id2: [id2]
+      id: cb7571b2e956af994ffc8ec90bcd9a94
+    - nb: 2
+      règles:
+        id1: [id3]
+        id2: [id3]
+        id3: [id3]
+        id4: [id3]
+      id: 0a379be8e61094af70b9a7594fb9401e
+    - nb: 2
+      règles:
+        id1: [id3]
+        id2: [id3]
+        id3: [id3]
+      id: 821f490a07b83a8bbac3013fdc1da806
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1, id1d]
+        id1d: [id1]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+        id4: [id1, id4d]
+        id5: [id1, id5d]
+        id6: [id1, id6d]
+        id7: [id1, id7d]
+        id8d: [id1]
+      md5: 995b6168b63fc4820ba02dd1aa04f92b
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1, id1d]
+        id1d: [id1]
+        id2: [id1, id2d]
+        id3: [id1, id3d]
+        id4: [id1, id4d]
+        id5d: [id1]
+        id6d: [id1]
+        id7d: [id1]
+        id8d: [id1]
+        id9d: [id1]
+      md5: 65a91e66b3d70ccf43d5b4c7bedd565e
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1, id1d]
+        id2d: [id1, id2d]
+        id3d: [id1, id3d]
+        id3: [id1]
+        id4d: [id1, id4d]
+        id5d: [id1, id5d]
+        id6d: [id1, id6d]
+        id7d: [id1, id7d]
+        id8d: [id1, id8d]
+      md5: 0523deeea66943aee30de904560a3df4
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id12]
+        id2: [id2d, id12]
+        id3: [id3d, id12]
+        id4: [id4d, id12]
+        id5: [id5d, id12]
+        id6: [id6d, id12]
+        id7: [id7d, id12]
+        id8: [id8d, id12]
+        id9: [id9d, id12]
+        id10: [id10d, id12]
+        id11: [id11d, id12]
+        id12d: [id12, id12d]
+        id12: [id12]
+        id13d: [id12, id13d]
+        id14a: [id12]
+      md5: 7cc123b1341f9dc4fb9436644df07622
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id2]
+        id2d: [id2, id2d]
+        id2: [id2]
+        id3d: [id2, id3d]
+        id4d: [id2, id4d]
+        id5d: [id2, id5d]
+      md5: 49c8e49fa76050e6c373cf250ba3855b
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id2]
+        id2d: [id2, id2d]
+        id2: [id2]
+        id3d: [id2, id3d]
+        id4d: [id2, id4d]
+      md5: a01ab51d304e059d25b5f45aa3ecdcd2
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 8
+      règles:
+        id1: [id1d, id2]
+        id2d: [id2, id2d]
+        id2: [id2]
+        id3d: [id2, id3d]
+      md5: f4a9ba73fa5b82efadfa2333a636c6a0
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 2
+      règles:
+        id1: [id1d, id3]
+        id2: [id2d, id3]
+        id3d: [id3, id3d]
+        id3: [id3]
+        id4d: [id3, id4d]
+      md5: 1b899a65a736af73f5dcbb1ed42afa1e
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 2
+      règles:
+        id1: [id1d, id3]
+        id2d: [id2d, id3]
+        id3d: [id3, id3d]
+        id3: [id3]
+        id4d: [id3, id4d]
+      md5: 810e08969915e4ec88ff1fbbf21bfdc5
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 3
+      règles:
+        id1: [id1d, id3]
+        id2d: [id2d, id3]
+        id3d: [id3, id3d]
+        id3: [id3]
+      md5: 06d70f8f6028bca2316814c634bdcbca
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id4]
+        id2: [id2d, id4]
+        id3: [id3d, id4]
+        id4d: [id4, id4d]
+        id4: [id4]
+        id5d: [id4, id5d]
+      md5: 2e4827e491d13ac1fc0a2609fa9775d2
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 2
+      règles:
+        id1: [id1d, id4]
+        id2: [id2d, id4]
+        id3d: [id3d, id4]
+        id4d: [id4, id4d]
+        id4: [id4]
+      md5: 94feb002733e9f9a1efcac9881ae82bb
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id4]
+        id2d: [id2d, id4]
+        id3d: [id3d, id4]
+        id4d: [id4, id4d]
+        id4: [id4]
+        id5d: [id4, id5d]
+        id6d: [id4, id6d]
+        id7d: [id4, id7d]
+      md5: 46d6fec7d4d0b3988af62df3b03266bc
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id4]
+        id2d: [id2d, id4]
+        id3d: [id3d, id4]
+        id4d: [id4, id4d]
+        id4: [id4]
+      md5: fe662c4a4445a4ffe7ca9fab935336a1
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id5]
+        id2: [id2d, id5]
+        id3: [id3d, id5]
+        id4d: [id4d, id5]
+        id5d: [id5, id5d]
+        id5: [id5]
+        id6d: [id5, id6d]
+        id7d: [id5, id7d]
+      md5: 6ecb37afecbf24833fb0e9485b20ee8e
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id5]
+        id2: [id2d, id5]
+        id3: [id3d, id5]
+        id4d: [id4d, id5]
+        id5d: [id5, id5d]
+        id5: [id5]
+      md5: 5c97251bfefb97428e79871ba20e1697
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 3
+      règles:
+        id1: [id1d, id5]
+        id2d: [id2d, id5]
+        id3d: [id3d, id5]
+        id4d: [id4d, id5]
+        id5d: [id5, id5d]
+        id5: [id5]
+      md5: 818bfde89f363325be0ae30329b688d9
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id6]
+        id2: [id2d, id6]
+        id3: [id3d, id6]
+        id4: [id4d, id6]
+        id5: [id5d, id6]
+        id6: [id6, id6d]
+      md5: de1abab9f60ca3e1d6e34f6afe365882
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id6]
+        id2: [id2d, id6]
+        id3: [id3d, id6]
+        id4: [id4d, id6]
+        id5d: [id5d, id6]
+        id6d: [id6, id6d]
+        id6: [id6]
+      md5: 66de1fc520b58ee4c00939990a764642
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id6]
+        id2: [id2d, id6]
+        id3d: [id3d, id6]
+        id4d: [id4d, id6]
+        id5d: [id5d, id6]
+        id6d: [id6, id6d]
+        id6: [id6]
+      md5: c390de1fdb291aa1e5a4f402c66f6cc0
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id6]
+        id2d: [id2d, id6]
+        id3d: [id3d, id6]
+        id4d: [id4d, id6]
+        id5d: [id5d, id6]
+        id6d: [id6, id6d]
+        id6: [id6]
+        id7d: [id6, id7d]
+      md5: 1c4ac54be4b050911e64b0547b5115a3
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id7]
+        id2: [id2d, id7]
+        id3d: [id3d, id7]
+        id4d: [id4d, id7]
+        id5d: [id5d, id7]
+        id6d: [id6d, id7]
+        id7d: [id7, id7d]
+        id7: [id7]
+      md5: 511dd4f8115d2eeb3b85db1cec728f4e
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id8]
+        id2: [id2d, id8]
+        id3: [id3d, id8]
+        id4: [id4d, id8]
+        id5: [id5d, id8]
+        id6d: [id6d, id8]
+        id7d: [id7d, id8]
+        id8d: [id8, id8d]
+        id8: [id8]
+        id9d: [id8, id9d]
+        id10d: [id8, id10d]
+        id11d: [id8, id11d]
+        id12d: [id8, id12d]
+      md5: ae4d57f796ce1601506d6e4f3832e9e0
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id9]
+        id2: [id2d, id9]
+        id3: [id3d, id9]
+        id4: [id4d, id9]
+        id5: [id5d, id9]
+        id6: [id6d, id9]
+        id7: [id7d, id9]
+        id8: [id8d, id9]
+        id9: [id9, id9d]
+        id10: [id9, id10d]
+      md5: cc96703c05a0e8c69fc56d50ddcc66ff
+    -
+      mod: '32'
+      label: 'Création de commune nouvelle'
+      nb: 1
+      règles:
+        id1: [id1d, id9]
+        id2: [id2d, id9]
+        id3: [id3d, id9]
+        id4: [id4d, id9]
+        id5: [id5d, id9]
+        id6: [id6d, id9]
+        id7: [id7d, id9]
+        id8: [id8d, id9]
+        id9d: [id9, id9d]
+        id9: [id9]
+        id10d: [id9, id10d]
+        id10: [id9]
+        id11d: [id9, id11d]
+        id12d: [id9, id12d]
+        id13d: [id9, id13d]
+        id14d: [id9, id14d]
+        id15d: [id9, id15d]
+      md5: 70d33d906b35d262833214e735ebf775
+FusionAssociation:
+  mod: '33'
+  label: 'Fusion association'
+  patterns:
+    - nb: 3
+      règles:
+        id1: [id1a, id10]
+        id2: [id2a, id10]
+        id3: [id3a, id10]
+        id4: [id4a, id10]
+        id5: [id5a, id10]
+        id6: [id6a, id10]
+        id7: [id7a, id10]
+        id8: [id8a, id10]
+        id9: [id9a, id10]
+        id10: [id10]
+      id: 809a3833d2c05100663f9bf1cf8aaf80
+    - nb: 1
+      règles:
+        id1: [id1a, id10]
+        id2a: [id2a, id10]
+        id3a: [id3a, id10]
+        id4a: [id4a, id10]
+        id5a: [id5a, id10]
+        id6a: [id6a, id10]
+        id7a: [id7a, id10]
+        id8a: [id8a, id10]
+        id9a: [id9a, id10]
+        id10: [id10]
+      id: 3a5d5919f2adb9e74a8690814639161c
+    - nb: 1
+      règles:
+        id1: [id1a, id12]
+        id2: [id2a, id12]
+        id3: [id3a, id12]
+        id4: [id4a, id12]
+        id5: [id5a, id12]
+        id6: [id6a, id12]
+        id7: [id7a, id12]
+        id8: [id8a, id12]
+        id9: [id9a, id12]
+        id10: [id10a, id12]
+        id11: [id11a, id12]
+        id12: [id12]
+      id: 28fc2b404033a5451fa88c581ff2b0d6
+    - nb: 1
+      règles:
+        id1: [id1a, id2]
+        id2: [id2]
+        id3: [id2]
+      id: 93d795a31edb0f60b5735982a37888c0
+    - nb: 459
+      règles:
+        id1: [id1a, id2]
+        id2: [id2]
+      id: eaeb7cd1b3404a885c718a04bdb98115
+    - nb: 128
+      règles:
+        id1: [id1a, id3]
+        id2: [id2a, id3]
+        id3: [id3]
+      id: f992f7b8fc0365ef15195856eead912a
+    - nb: 3
+      règles:
+        id1: [id1a, id3]
+        id2: [id3]
+        id3: [id3]
+      id: 5500ba273a090783584851f059f92ca2
+    - nb: 6
+      règles:
+        id1: [id1a, id3]
+        id2a: [id2a, id3]
+        id3: [id3]
+      id: 97c3e11c36cc5a720718e2df7d27d5a3
+    - nb: 45
+      règles:
+        id1: [id1a, id4]
+        id2: [id2a, id4]
+        id3: [id3a, id4]
+        id4: [id4]
+      id: 7305f89be1974d28c1b29d759b6fb9b0
+    - nb: 4
+      règles:
+        id1: [id1a, id4]
+        id2: [id2a, id4]
+        id3a: [id3a, id4]
+        id4: [id4]
+      id: 5f3f770213aef2dc16e6c0f424c24c08
+    - nb: 8
+      règles:
+        id1: [id1a, id4]
+        id2a: [id2a, id4]
+        id3a: [id3a, id4]
+        id4: [id4]
+      id: fdb62a197a575be4be89ae9eee982dff
+    - nb: 10
+      règles:
+        id1: [id1a, id5]
+        id2: [id2a, id5]
+        id3: [id3a, id5]
+        id4: [id4a, id5]
+        id5: [id5]
+      id: 65dc30c59c18ea0a861c812421a0d0ca
+    - nb: 1
+      règles:
+        id1: [id1a, id5]
+        id2: [id2a, id5]
+        id3: [id3a, id5]
+        id4a: [id4a, id5]
+        id5: [id5]
+      id: e458d49e840f4ca2b8089a053ccf6919
+    - nb: 6
+      règles:
+        id1: [id1a, id6]
+        id2: [id2a, id6]
+        id3: [id3a, id6]
+        id4: [id4a, id6]
+        id5: [id5a, id6]
+        id6: [id6]
+      id: 7cb540537bdfd6c8f4560d66944f8362
+    - nb: 3
+      règles:
+        id1: [id1a, id7]
+        id2: [id2a, id7]
+        id3: [id3a, id7]
+        id4: [id4a, id7]
+        id5: [id5a, id7]
+        id6: [id6a, id7]
+        id7: [id7]
+      id: 027437dc158faf77e26a8fd1f008f435
+    - nb: 1
+      règles:
+        id1: [id1a, id7]
+        id2a: [id2a, id7]
+        id3a: [id3a, id7]
+        id4a: [id4a, id7]
+        id5a: [id5a, id7]
+        id6a: [id6a, id7]
+        id7: [id7]
+      id: a8d4a22d1ae4b1af61f84a37e61bfdb8
+    - nb: 4
+      règles:
+        id1: [id1a, id8]
+        id2: [id2a, id8]
+        id3: [id3a, id8]
+        id4: [id4a, id8]
+        id5: [id5a, id8]
+        id6: [id6a, id8]
+        id7: [id7a, id8]
+        id8: [id8]
+      id: cf9715f7fb3ba7a7a8e6c676b35e76ec
+    - nb: 1
+      règles:
+        id1: [id1a, id9]
+        id2: [id2a, id9]
+        id3: [id3a, id9]
+        id4: [id4a, id9]
+        id5: [id5a, id9]
+        id6: [id6a, id9]
+        id7: [id7a, id9]
+        id8: [id8a, id9]
+        id9: [id9]
+      id: 39fa2e1a4e582c000c93fa20c830e0c6
+TransformationFusionAssociationEnFusionSimple:
+  mod: '34'
+  label: 'Transformation de fusion association en fusion simple ou suppression de communes déléguées'
+  patterns:
+    - nb: 1
+      règles:
+        id1: [id1, id2a, id3a]
+        id2a: [id1, id2a]
+        id3a: [id1, id3a]
+        id4a: [id1]
+      id: c3049e3018f89eaa82f645072a363c58
+    - nb: 9
+      règles:
+        id1: [id1, id2a]
+        id2a: [id1, id2a]
+        id3a: [id1]
+      id: db20fc179f45eb2b4f0d4bb8d125859f
+    - nb: 1
+      règles:
+        id1: [id1, id2d, id3d, id4d, id5d]
+        id2a: [id1, id2d]
+        id3a: [id1, id3d]
+        id4a: [id1, id4d]
+        id5a: [id1, id5d]
+      id: d3ea0928d0905e1bc953c18ff03412c6
+    - nb: 2
+      règles:
+        id1: [id1, id2d]
+        id2a: [id1, id2d]
+      id: 5d4007380ed0770f6279dc2fc5fb774f
+    - nb: 1
+      règles:
+        id1: [id1]
+        id2a: [id1]
+        id3a: [id1]
+        id4a: [id1]
+        id5a: [id1]
+        id6a: [id1]
+      id: 7922853b20c0a09d6fb33dd864f74eab
+    - nb: 2
+      règles:
+        id1: [id1]
+        id2a: [id1]
+        id3a: [id1]
+        id4a: [id1]
+      id: dd2deb2d047f4f3557ef5af0480e4117
+    - nb: 22
+      règles:
+        id1: [id1]
+        id2a: [id1]
+        id3a: [id1]
+      id: d995276cf243af545df2d0ad286f892a
+    - nb: 102
+      règles:
+        id1: [id1]
+        id2a: [id1]
+      id: 2a153a3a1f04a94ed2b89700fb7a1d24
+    - nb: 1
+      règles:
+        id1: [id1]
+        id2d: [id1]
+      id: 8b03637ae1cc4a7c4538bc8c9ca1fe78
+    - nb: 1
+      règles:
+        id1: [id3]
+        id2a: [id3]
+      id: 05d8571ee25a3f391f605647be331afc
+    -
+      mod: '34'
+      label: 'Transformation de fusion association en fusion simple ou suppression de communes déléguées'
+      nb: 1
+      règles:
+        id1: [id1, id2d]
+        id1d: [id1]
+        id2d: [id1, id2d]
+      md5: 00c0c245b39ac8175c53a940a375ae19
+    -
+      mod: '34'
+      label: 'Transformation de fusion association en fusion simple ou suppression de communes déléguées'
+      nb: 2
+      règles:
+        id1: [id1]
+        id1d: [id1]
+        id2d: [id1]
+        id3d: [id1]
+      md5: 67ca8de56591f482c91177fbe5bf66b5
+    -
+      mod: '34'
+      label: 'Transformation de fusion association en fusion simple ou suppression de communes déléguées'
+      nb: 6
+      règles:
+        id1: [id1]
+        id1d: [id1]
+        id2d: [id1]
+      md5: dc2cda9ac79b1bc0ed9690ae9ec10d6f
+ChangementDeCodeDuChgtDept:
+  mod: '41'
+  label: 'Changement de code dû à un changement de département'
+  patterns:
+    - nb: 903
+      id: 465bce07e9e3614c4dd5faa27a977bfb
+      règles:
+        id1: [id2]
+ChangementDeCodeDuTransfertChefLieu:
+  mod: '50'
+  label: 'Changement de code dû à un transfert de chef-lieu'
+  patterns:
+    - nb: 2
+      id: c8289f3806f88870a1c855119c4c8be5
+      règles:
+        id1: [id1a, id10]
+        id2a: [id2a, id10]
+        id3a: [id3a, id10]
+        id4a: [id4a, id10]
+        id5a: [id5a, id10]
+        id6a: [id6a, id10]
+        id7a: [id7a, id10]
+        id8a: [id8a, id10]
+        id9a: [id9a, id10]
+        id10a: [id10]
+TransformationCommuneAssociéeEnCommuneDéléguée:
+  mod: '70'
+  label: 'Transformation de commune associé en commune déléguée'
+  patterns:
+    - nb: 1
+      id: 24674d46763eb35579d897d24c4a3383
+      règles:
+        id1: [id2d]
+eof:

@@ -99,7 +99,6 @@ ydADscrBhv:
       $results = array_keys($item['result']);
       $result = count($results) == 1 ? $results[0] : '('.implode(', ', $results).')';
       return "$item[date] - $item[label] - $input -> $result";
-  writePserReally: true
 contents:
   - mod: '10'
     label: 'Changement de nom'

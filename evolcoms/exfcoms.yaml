@@ -4,7 +4,9 @@ $schema:
   title: schéma des fichiers donnant une photo instantanée des communes
   $id: http://id.georef.eu/mvtscommunes/exfcoms/$schema
   $schema: http://json-schema.org/draft-07/schema#
-  description: liste de communes, communes associées, communes déléguées et ardts m. chacun identfié par son code INSEE
+  description: |
+    Liste de communes, communes associées, communes déléguées et ardts m. chacun identfié par son code INSEE.
+    En option, on peut indiquer un renvoi des communes associées, déléguées et ardts m. vers leur commune parente.
   definitions:
     componentList:
       description: liste de composants d'une commune, chacun identifié par son code INSEE
@@ -108,7 +110,6 @@ ydADscrBhv:
         return "$skey associéeA $item[associéeA]";
       elseif (isset($item['déléguéeDe']))
         return "$skey déléguéeDe $item[déléguéeDe]";
-  writePserReally: true
 contents:
   '01001': {name: Abergement-Clémenciat}
   '01015':

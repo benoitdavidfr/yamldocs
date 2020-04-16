@@ -620,8 +620,10 @@ contents:
                     subOrganization:
                       SAD1:
                         name: bureau de l'administration exemplaire
-          SDSIE:
-            name: Service de défense, de sécurité et d'intelligence économique
+          SHFDS:
+            name: Service du haut fonctionnaire de défense et de sécurité
+            foundingDate: '2020-01-01'
+            ancestors: [{$ref: http://id.georef.eu/organizations/fr.gouv/SGPMET/SDSIE}]
             subOrganization:
               DIEPI:
                 name: Département de l'intelligence économique et de la protection de l'information
@@ -633,6 +635,10 @@ contents:
                 subOrganization:
                   PO:
                     name: Mission préparation opérationnelle
+          SDSIE:
+            name: Service de défense, de sécurité et d'intelligence économique
+            dissolutionDate: '2020-01-01'
+            successors: [{$ref: http://id.georef.eu/organizations/fr.gouv/SGPMET/SHFDS}]
           SNUM:
             name: Service du numérique
             subOrganization:
@@ -1317,6 +1323,15 @@ contents:
         name: direction des ressources humaines (DRH)
       DIRCOM:
         name: Direction de la communication (DIRCOM)
+  fr.meteofrance:
+    name: Météo France
+    url: http://www.meteofrance.fr/
+    address:
+      siege:
+        streetAddress: 73, avenue de Paris
+        postalCode: 94165
+        addressLocality: Saint-Mandé Cedex
+    telephone: 01 77 94 77 94
   fr.brgm:
     name: Bureau de Recherches Géologiques et Minières
     employee:

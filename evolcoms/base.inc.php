@@ -208,10 +208,12 @@ class Base {
         sinon affichage du Yaml
     */}
     // post-traitement, suppression des communes ayant uniq. un nom comme propriété pour faciliter la visualisation
-    ksort($this->base);
-    foreach ($this->base as $c => $com) {
-      if (isset($com['name']) && (count(array_keys($com))==1))
-        unset($this->base[$c]);
+    if (0) {
+      ksort($this->base);
+      foreach ($this->base as $c => $com) {
+        if (isset($com['name']) && (count(array_keys($com))==1))
+          unset($this->base[$c]);
+      }
     }
     if (!$metadata)
       $metadata = $this->metadata;

@@ -1,10 +1,23 @@
 # Utilisation du code INSEE des communes comme référentiel pivot
 
-L'objectif de ce projet est d'outiller l'utilisation du code INSEE des communes comme référentiel pivot.  
-Ces codes évoluant, lorsqu'une base les utilise pour localiser des informations, il est nécessaire de la modifier pour tenir
-compte de ces évolutions.  
-Pour cela je cherche à créer une liste d'évolutions des communes avec un sémantique adaptée pour effectuer
-les modifications d'une base utilisant les codes INSEE des communes.
+L'objectif de ce projet est d'améliorer l'utilisation comme référentiel pivot du code INSEE des communes.
+
+De nombreuses bases de données, par exemple une base de décisions administratives, utilise le code INSEE des communes pour
+localiser leur information, dans l'exemple les décisions administratives.
+
+Les codes INSEE des communes évoluant, ils devraient être modifiés dans la base pour tenir compte de ces évolutions.
+Ces modifications ne sont généralement pas faites et les codes INSEE ainsi contenus ne peuvent
+plus être croisés avec un référentiel à jour des communes par exemple pour géocoder les informations de la base.
+
+Pour traiter cette difficulté, l'idée est de créer un nouveau référentiel appelé référentiel pivot des codes INSEE des Communes
+(RPiCom) contenant tous les codes INSEE des communes ayant existé depuis le 1/1/1943.
+A chaque code INSEE sont asssociées des informations versionnées qui permettent de retrouver l'état de la commune à une date
+donnée.  
+Ainsi les codes INSEE intégrés un jour dans une base restent valables et peuvent être utilisés par exemple pour géocoder
+l'information ou pour .
+
+La première chose à faire est de comprendre et de reformaliser la liste des mouvements INSEE.
+Pour cela, l'idée est de partir d'un état au 1/1/1943 et de dériver des mouvements un état à différentes dates.
 
 Le fichier [conception.yaml](conception.yaml) détaille la logique suivie.
 

@@ -146,9 +146,9 @@ class Mvt {
 };
 
 if ($_GET['action'] == 'csvMvt2yaml') { // affichage Yaml des mouvements
-  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>mvts</title></head><body>\n";
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>mvts</title></head><body><pre>\n";
   $headersToDelete = ['tncc_av','ncc_av','nccenr_av','tncc_ap', 'ncc_ap', 'nccenr_ap'];
-  echo "<pre>";
+  $mvtsUniq = []; // Utilisé pour la vérification d'unicité des enregistrements
   echo "title: lecture du fichier $_GET[file]\n";
   $file = fopen($_GET['file'], 'r');
   $headers = fgetcsv($file);
@@ -156,6 +156,13 @@ if ($_GET['action'] == 'csvMvt2yaml') { // affichage Yaml des mouvements
   $nbrec = 0;
   while($record = fgetcsv($file)) {
     //print_r($record);
+    $json = json_encode($record, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+    //echo "record($nbrec)=$json\n";
+    if (isset($mvtsUniq[$json])) {
+      echo "<b>Erreur de doublon sur $json</b>\n";
+      continue;
+    }
+    $mvtsUniq[$json] = 1;
     $rec = [];
     foreach ($headers as $i => $header) {
       if (!in_array($header, $headersToDelete))
@@ -178,6 +185,7 @@ if ($_GET['action'] == 'csvMvt2yaml') { // affichage Yaml des mouvements
         'libelle'=> $rec['libelle_ap'],
       ],
     ];
+    $nbrec++;
     echo str_replace("-\n ", '-', Yaml::dump([0 => $yaml], 2, 2));
     /*if (!$mvt) {
       $mvt = new Mvt($rec);
@@ -399,6 +407,7 @@ if ($_GET['action'] == 'integrateState') { // intégration d'un état dans la ba
 name: addValToArray
 title: "function addValToArray($val, &$array): void - ajoute $val à $array, si $array existe alors $val est ajouté, sinon $array est créé à [ $val ]"
 doc: |
+  $array n'existe pas ou contient un array
   Le paramètre $array n'existe pas forcément. Par exemple si $a = [] on peut utiliser $a['key'] comme paramètre.
 */}
 function addValToArray($val, &$array): void {
@@ -406,6 +415,36 @@ function addValToArray($val, &$array): void {
     $array = [ $val ];
   else
     $array[] = $val;
+}
+
+{/*PhpDoc: functions
+name: addScalarToArrayOrScalar
+title: "function addScalarToArrayOrScalar($scalar, &$arrayOrScalar): void - ajoute $scalar à $arrayOrScalar"
+doc: |
+  Dans cette version, $scalar est un scalaire et $arrayOrScalar n'existe pas ou contient un scalaire ou un array
+  si $arrayOrScalar n'existe pas alors il prend la valeur $scalar
+  Sinon si $arrayOrScalar est un scalaire alors il devient un array contenant l'ancienne valeur et la nouvelle
+  sinon si $arrayOrScalar est un array alors $scalar lui est ajouté
+  sinon exception
+  Le paramètre $arrayOrScalar n'existe pas forcément. Par exemple si $a = [] on peut utiliser $a['key'] comme paramètre.
+*/}
+function addScalarToArrayOrScalar($scalar, &$arrayOrScalar): void {
+  if (!is_scalar($scalar))
+    throw new Exception("Erreur dans addScalarToArrayOrScalar(), le 1er paramètre doit être un scalaire");
+  if (!isset($arrayOrScalar))
+    $arrayOrScalar = $scalar;
+  elseif (is_scalar($arrayOrScalar))
+    $arrayOrScalar = [$arrayOrScalar, $scalar];
+  elseif (is_array($arrayOrScalar))
+    $arrayOrScalar[] = $scalar;
+  else
+    throw new Exception("Erreur dans addScalarToArrayOrScalar(), le 2e paramètre doit être indéfini, un scalaire ou un array");
+}
+if (0) { // Test addScalarToArrayOrScalar()
+  echo "<pre>\n";
+  addScalarToArrayOrScalar('val1', $array['key']); echo Yaml::dump(['addScalarToArrayOrScalar'=> $array]),"<br>\n";
+  addScalarToArrayOrScalar('val2', $array['key']); echo Yaml::dump(['addScalarToArrayOrScalar'=> $array]),"<br>\n";
+  die("Fin test addValToArrayOrScalar");
 }
 
 if ($_GET['action'] == 'buildUpdates') { // intègre les Mvts dans la base et affiche le résultat, sans sauver la base
@@ -505,50 +544,111 @@ if ($_GET['action'] == 'genCom1943') { // génération d'un fichier des communes
 
 require_once __DIR__.'/grpmvts.inc.php';
 
+if ($_GET['action'] == 'mvtsPatterns') { // génération des motifs de mouvements existants dans le fichier des mouvements
+  //$datefin = '2000-01-01';
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>mvtsPatterns</title></head><body><pre>\n";
+  $patterns = []; // liste des patterns produits avec comme clé le JSON du pattern sans example
+  //$trace = new Criteria([]); // full trace
+  $trace = new Criteria(['not']); // NO trace
+  $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms et tri par ordre chrono
+  //$mvtcoms = ['2019-01-01' => $mvtcoms['2019-01-01']];
+  //$mvtcoms = ['2018-01-01' => $mvtcoms['2018-01-01']];
+  foreach($mvtcoms as $date_eff => $mvtcomsD) {
+    if (isset($datefin) && (strcmp($date_eff, $datefin) > 0)) {
+      echo "Fin sur date_eff=$date_eff\n";
+      break;
+    }
+    foreach($mvtcomsD as $mod => $mvtcomsDM) {
+      foreach (GroupMvts::buildGroups($mvtcomsDM) as $group) {
+        if ($trace->is(['mod'=> $mod]))
+          echo Yaml::dump(['$group'=> $group->asArray()], 3, 2);
+        //if ($group->asArray()['mvts'][0]['avant']['id'] <> '49094') continue; // sélection pour debuggage
+        $pattern = $group->mvtsPattern($trace);
+        if ($trace->is(['mod'=> $mod]))
+          echo '<b>',Yaml::dump(['$pattern'=> $pattern], 3, 2),"</b>\n";
+        elseif (isset($pattern['ERREUR']) || isset($pattern['ALERTE']))
+          echo '<b>',Yaml::dump(['$pattern'=> $pattern], 5, 2),"</b>\n";
+        $patternWOEx = $pattern;
+        unset($patternWOEx['example']);
+        $key = json_encode($patternWOEx, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+        if (!isset($patterns[$key]))
+          $patterns[$key] = $pattern;
+        else
+          $patterns[$key]['nb']++;
+      }
+    }
+  }
+  ksort($patterns);
+  echo count($patterns)," motifs trouvés\n";
+  // Affichage de la liste des patterns
+  echo "<table border=1>";
+  //$trace = new Criteria([]); // full trace
+  foreach ($patterns as $json => $pattern) {
+    $example = $pattern['example'];
+    unset($pattern['example']);
+    $pattern['md5'] = md5($json);
+    echo '<tr><td>',Yaml::dump(['<b>$pattern</b>'=> $pattern], 3, 2),"</td>\n";
+    if (isset($_GET['example']))
+      echo '<td>',Yaml::dump(['factAvExample'=> $example['factAv']], 7, 2),"</td>";
+    echo "</tr>\n";
+    // Nouvelle exécution de mvtsPattern() éventuellement avec trace
+    if ($trace->is(['mod'=> $mod])) {
+      $group = $example['group'];
+      echo Yaml::dump(['$group'=> $group->asArray()], 7, 2),"\n";
+      $pattern = $group->mvtsPattern($trace);
+    }
+  }
+  echo "</table>\n";
+  die();
+}
+
+if ($_GET['action'] == 'diffPatterns') { // identif. des patterns périmés de patterns.yaml par comp. avec patterns-srce.yaml
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>diffPatterns</title></head><body><pre>\n";
+  $md5 = []; // liste des md5
+  $srce = Yaml::parse(file_get_contents('patterns-srce.yaml'));
+  //print_r($srce);
+  foreach($srce['patterns'] as $pattern) {
+    $md5[$pattern['md5']] = 1;
+  }
+  unset($srce);
+  $patterns = Yaml::parse(file_get_contents('patterns.yaml'));
+  //print_r($patterns);
+  echo "<h2>Liste des id des patterns périmés dans patterns.yaml</h2>\n";
+  foreach($patterns as $key => $patterns) {
+    if (isset($patterns['mod'])) {
+      //echo "$key reconnu comme sous-ensemble\n";
+      foreach ($patterns['patterns'] as $pattern) {
+        //echo '$pattern='; print_r($pattern);
+        $id = $pattern['id'] ?? $pattern['md5'];
+        if (!isset($md5[$id]))
+          echo "$pattern[id]\n";
+        else
+          unset($md5[$id]);
+      }
+    }
+  }
+  echo "<h2>Liste des patterns patterns-srce.yaml absents de patterns.yaml</h2>\n";
+  echo implode("\n", array_keys($md5)),"\n\n";
+  $srce = Yaml::parse(file_get_contents('patterns-srce.yaml'));
+  foreach($srce['patterns'] as $pattern) {
+    if (isset($md5[$pattern['md5']]))
+      echo Yaml::dump(['pattern'=> $pattern], 3, 2);
+  }
+  die();
+}
+
 {/*PhpDoc: screens
 name: genEvols
 title: genEvols - génération du fichier des évolutions et enregistrement d'un fichier d'état
 */}
 if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions et enregistrement d'un fichier d'état
-  $datefin = '2000-01-01';
+  //$datefin = '2000-01-01';
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>genEvols</title></head><body><pre>\n";
   $trace = new Criteria([]); // aucun critère, tout est affiché
   //$trace = new Criteria(['mod'=> ['not'=> ['10','20','21','30','31','33','34','41','50']]]);
   //$trace = new Criteria(['mod'=> ['21']]); 
-  if (1) { // lecture de mvtcommune2020.csv dans $mvtcoms et tri par ordre chronologique
-    $mvtcoms = []; // Liste des mvts retriée par ordre chronologique
-    $file = fopen(__DIR__.'/mvtcommune2020.csv', 'r');
-    $headers = fgetcsv($file);
-    $nbrec = 0;
-    while($record = fgetcsv($file)) { // lecture des mvts et structuration dans $mvtcoms par date d'effet
-      //print_r($record);
-      $rec = [];
-      foreach ($headers as $i => $header)
-        $rec[$header] = $record[$i];
-      //print_r($rec);
-      $yaml = [
-        'mod'=> $rec['mod'],
-        'label'=> GroupMvts::ModLabels[$rec['mod']],
-        'date_eff'=> $rec['date_eff'],
-        'avant'=> [
-          'type'=> $rec['typecom_av'],
-          'id'=> $rec['com_av'],
-          'name'=> $rec['libelle_av'],
-        ],
-        'après'=> [
-          'type'=> $rec['typecom_ap'],
-          'id'=> $rec['com_ap'],
-          'name'=> $rec['libelle_ap'],
-        ],
-      ];
-      addValToArray($yaml, $mvtcoms[$rec['date_eff']][$rec['mod']]);
-      //echo str_replace("-\n ", '-', Yaml::dump([0 => $rec], 99, 2));
-      //if (++$nbrec >= 100) break; //die("nbrec >= 100");
-    }
-    fclose($file);
-    ksort($mvtcoms); // tri sur la date d'effet
-    //echo Yaml::dump($mvtcoms, 99, 2);
-  }
+  $trace = new Criteria(['not']); // rien n'est affiché
+  $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms et tri par ordre chrono
   $coms = new Base(__DIR__.'/com1943', $trace); // Lecture de com1943.yaml dans $coms
   //$mvtcoms = ['1976-01-01' => $mvtcoms['1976-01-01']]; // Test de mod=21
   //$mvtcoms = ['1990-02-01' => $mvtcoms['1990-02-01']]; // Test de aggrMvtsCom()
@@ -556,7 +656,7 @@ if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions 
   foreach($mvtcoms as $date_eff => $mvtcomsD) {
     if (isset($datefin) && (strcmp($date_eff, $datefin) > 0)) {
       $coms->writeAsYaml(
-          __DIR__."/com${datefin}gen",
+          __DIR__."/com${datefin}gen2",
           [
             'title'=> "Fichier des communes reconstitué au $datefin",
             'created'=> date(DATE_ATOM),
@@ -574,6 +674,8 @@ if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions 
         $evol = $group->buildEvol($coms, $trace);
         if ($trace->is(['mod'=> $mod]))
           echo '<b>',Yaml::dump(['$evol'=> $evol], 3, 2),"</b>\n";
+        elseif (isset($evol['ERREUR']) || isset($evol['ALERTE']))
+          echo '<b>',Yaml::dump(['$evol'=> $evol], 5, 2),"</b>\n";
       }
     }
   }
@@ -631,9 +733,11 @@ if ($_GET['action'] == 'buildState') { // fabrication d'un fichier Yaml d'un ét
   }
   ksort($coms);
   // post-traitement - suppression des communes simples ayant uneiquement un nom
-  foreach ($coms as $c => $com) {
-    if (isset($com['name']) && (count(array_keys($com))==1))
-      unset($coms[$c]);
+  if (0) {
+    foreach ($coms as $c => $com) {
+      if (isset($com['name']) && (count(array_keys($com))==1))
+        unset($coms[$c]);
+    }
   }
   echo str_replace("-\n  ", "- ", Yaml::dump($coms, 99, 2));
   die();
@@ -790,7 +894,7 @@ if (0) { // Test de la fonction compare
 
 // Test si 2 noms de communes sont identiques en supprimant éventuellement l'article en début du nom
 function fneqArticle(?string $a, ?string $b): bool {
-  static $articles = ['Le ','La ','Les '];
+  static $articles = ['Le ','La ','Les ',"L'"];
   $a = str_replace('  ', ' ', $a);
   $b = str_replace('  ', ' ', $b);
   if ($a == $b)

@@ -5,13 +5,71 @@ title: grpmvts.inc.php - définition de la classe GroupMvts
 doc: |
   Définition de différentes actions accessibles par le Menu
 journal: |
+  14/4/2020:
+    - suppression de 6 doublons dans la lecture du CSV des mouvements INSEE
+    - modification de factorAvant() en introduisant des codes INSEE modifiés pour les communes déléguées
   11/4/2020:
     - extraction de la classe GroupMvts dans grpmvts.inc.php
 classes:
 */
 
+{/* Erreur de doublon sur
+["34","2014-04-01","COM","49328","0","SAUMUR","Saumur","Saumur","COM","49328","0","SAUMUR","Saumur","Saumur"]
+["34","2014-04-01","COM","49328","0","SAUMUR","Saumur","Saumur","COM","49328","0","SAUMUR","Saumur","Saumur"]
+["34","2014-04-01","COM","49328","0","SAUMUR","Saumur","Saumur","COM","49328","0","SAUMUR","Saumur","Saumur"]
+["21","1977-01-01","COM","89344","0","SAINT FARGEAU","Saint-Fargeau","Saint-Fargeau","COM","89344","0","SAINT FARGEAU","Saint-Fargeau","Saint-Fargeau"]
+["33","1973-01-01","COM","86160","0","MIREBEAU","Mirebeau","Mirebeau","COM","86160","0","MIREBEAU","Mirebeau","Mirebeau"]
+["31","1973-01-01","COM","89068","0","CHABLIS","Chablis","Chablis","COM","89068","0","CHABLIS","Chablis","Chablis"]
+*/}
+
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
+
+// intervertit l'ordre des 2 clés dans array en gardant les valeurs correspondantes
+function swapKeysInArray(string $key1, string $key2, array $array): array {
+  $result = [];
+  foreach ($array as $key => $value) {
+    if ($key == $key1)
+      $result[$key2] = $array[$key2];
+    elseif ($key == $key2)
+      $result[$key1] = $array[$key1];
+    else
+      $result[$key] = $value;
+  }
+  return $result;
+}
+if (0) { // Test swapKeysInArray
+  $array = [
+    'avant' => "avant",
+    '46251' => "Saint-Céré",
+    '46339' => "Saint-Jean-Lagineste",
+    'après' => "après",
+  ];
+  echo "<pre>\n";
+  print_r($array);
+  print_r(swapKeysInArray('46251', '46339', $array));
+  die("Fin test swap");
+}
+
+// compte le nombre de feuilles stockées dans $tree considéré comme un arbre où chaque array est un noeud intermédiaire
+function countLeaves(array $tree): int {
+  $count = 0;
+  foreach ($tree as $key => $child) {
+    if (is_array($child))
+      $count += countLeaves($child);
+    else
+      $count++;
+  }
+  return $count;
+}
+if (0) { // Test countLeaves() 
+  class TestForCountLeaves { };
+  echo countLeaves(['a'=> 1]),"<br>\n";
+  echo countLeaves(['a'=> 1, 'b'=> ['c'=> 2, 'd'=> 3]]),"<br>\n";
+  echo countLeaves(['a'=> null]),"<br>\n";
+  echo countLeaves(['a'=> new TestForCountLeaves]),"<br>\n";
+  die("Fin test countLeaves()");
+}
 
 {/*PhpDoc: classes
 name: GroupMvts
@@ -44,6 +102,49 @@ class GroupMvts {
   protected $date; // date d'effet des modifications
   protected $mvts; // [['avant/après'=>['type'=> type, 'id'=> id, 'name'=>name]]]
   
+  static function readMvtsInsee(string $filepath): array { // lecture du fichier CSV INSEE des mts et tri par ordre chronologique
+    $mvtcoms = []; // Liste des mvts retriée par ordre chronologique
+    $mvtsUniq = []; // Utilisé pour la vérification d'unicité des enregistrements
+    $file = fopen($filepath, 'r');
+    $headers = fgetcsv($file);
+    $nbrec = 0;
+    while($record = fgetcsv($file)) { // lecture des mvts et structuration dans $mvtcoms par date d'effet
+      //print_r($record);
+      $json = json_encode($record, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+      if (isset($mvtsUniq[$json])) {
+        //echo "Erreur de doublon sur $json\n";
+        continue;
+      }
+      $mvtsUniq[$json] = 1;
+      $rec = [];
+      foreach ($headers as $i => $header)
+        $rec[$header] = $record[$i];
+      //print_r($rec);
+      $yaml = [
+        'mod'=> $rec['mod'],
+        'label'=> GroupMvts::ModLabels[$rec['mod']],
+        'date_eff'=> $rec['date_eff'],
+        'avant'=> [
+          'type'=> $rec['typecom_av'],
+          'id'=> $rec['com_av'],
+          'name'=> $rec['libelle_av'],
+        ],
+        'après'=> [
+          'type'=> $rec['typecom_ap'],
+          'id'=> $rec['com_ap'],
+          'name'=> $rec['libelle_ap'],
+        ],
+      ];
+      addValToArray($yaml, $mvtcoms[$rec['date_eff']][$rec['mod']]);
+      //echo str_replace("-\n ", '-', Yaml::dump([0 => $rec], 99, 2));
+      //if (++$nbrec >= 100) break; //die("nbrec >= 100");
+    }
+    fclose($file);
+    ksort($mvtcoms); // tri sur la date d'effet
+    //echo Yaml::dump($mvtcoms, 99, 2);
+    return $mvtcoms;
+  }
+    
   static function buildGroups(array $mvtcoms): array {
     {/*PhpDoc: methods
     name: buildGroups
@@ -129,31 +230,180 @@ class GroupMvts {
     return $array;
   }
   
-  // factorisation des mvts sur l'avant
-  private function factorAvant(): array {
-    $result = []; // [ {id_avant}=> ['type'=> type_avant, 'name'=> name_avant, 'après'=> [après]]]
+  // factorisation des mvts sur l'avant utilisée par buildEvol()
+  private function factorAvant(Criteria $trace): array {
+    //echo Yaml::dump(['$this'=> $this->asArray()], 99, 2);
+    // dans les communes nouvelles, un même id est utilisé pour le chef-lieu et la commune déléguée
+    // Il faut donc intégrer le type dans la clé
+    $factAv = [];
+    /*[ {id_avant}=> [
+          {type_avant}=> [
+            'name'=> {name_avant},
+            'après'=> [
+              {id_après}=> [
+                {type_après}=> [
+                  'name'=> {name_après}
+                ]
+              ]
+            ]
+          ]
+      ]]
+    */
     foreach ($this->mvts as $mvt) {
-      if (!isset($result[$mvt['avant']['id']])) {
-        $result[$mvt['avant']['id']] = [
-          'type'=> $mvt['avant']['type'],
-          'name'=> $mvt['avant']['name'],
-          'après'=> [
-            $mvt['après']['id'] => [
-              'type'=> $mvt['après']['type'],
-              'name'=> $mvt['après']['name'],
-            ],
-          ],
-        ];
+      $typav = $mvt['avant']['type'];
+      $idav = $mvt['avant']['id'];
+      $factAv[$idav][$typav]['name'] = $mvt['avant']['name'];
+      $typap = $mvt['après']['type'];
+      $idap = $mvt['après']['id'];
+      if (isset($factAv[$idav][$typav]['après'][$idap][$typap])) {
+        echo Yaml::dump(['$this'=> $this->asArray()], 99, 2);
+        throw new Exception("Erreur d'écrasement dans factorAvant() sur $idav$typav/$idap$typap");
       }
-      else {
-        $result[$mvt['avant']['id']]['après'][$mvt['après']['id']] = [
-          'type'=> $mvt['après']['type'],
-          'name'=> $mvt['après']['name'],
-        ];
+      $factAv[$idav][$typav]['après'][$idap][$typap] = [ 'name'=> $mvt['après']['name'] ];
+    }
+    
+    if ($trace = $trace->is(['mod'=> $this->mod]))
+      echo Yaml::dump(['$factAv'=> $factAv], 4, 2);
+    //return $factAv;
+    
+    // standardisation
+    // je met en premier les règles ayant plusieurs après
+    // puis je met dans l'ordre les COM puis les COMA puis les COMD puis les ARM
+    $factAv2 = [];
+    foreach ($factAv as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2)
+        if ((countLeaves($avant2['après']) > 1) && ($typav == 'COM'))
+          $factAv2[$idav][$typav] = $avant2;
+    }
+    foreach ($factAv as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2)
+        if ((countLeaves($avant2['après']) > 1) && ($typav == 'COMA'))
+          $factAv2[$idav][$typav] = $avant2;
+    }
+    foreach ($factAv as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2)
+        if ((countLeaves($avant2['après']) > 1) && ($typav == 'COMD'))
+          $factAv2[$idav][$typav] = $avant2;
+    }
+    foreach ($factAv as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2)
+        if ((countLeaves($avant2['après']) > 1) && ($typav == 'ARM'))
+          $factAv2[$idav][$typav] = $avant2;
+    }
+    foreach ($factAv as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2)
+        if ((countLeaves($avant2['après']) > 1) && !in_array($typav, ['COM','COMA','COMD','ARM']))
+          $factAv2[$idav][$typav] = $avant2;
+    }
+    foreach ($factAv as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2)
+        if ((countLeaves($avant2['après']) == 1) && ($typav == 'COM'))
+          $factAv2[$idav][$typav] = $avant2;
+    }
+    foreach ($factAv as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2)
+        if ((countLeaves($avant2['après']) == 1) && ($typav == 'COMA'))
+          $factAv2[$idav][$typav] = $avant2;
+    }
+    foreach ($factAv as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2)
+        if ((countLeaves($avant2['après']) == 1) && ($typav == 'COMD'))
+          $factAv2[$idav][$typav] = $avant2;
+    }
+    foreach ($factAv as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2)
+        if ((countLeaves($avant2['après']) == 1) && ($typav == 'ARM'))
+          $factAv2[$idav][$typav] = $avant2;
+    }
+    foreach ($factAv as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2)
+        if ((countLeaves($avant2['après']) == 1) && !in_array($typav, ['COM','COMA','COMD','ARM']))
+          $factAv2[$idav][$typav] = $avant2;
+    }
+
+    // je met les variables après dans l'ordre des avants
+    // et dans chaque partie après de la règle j'ordonne les variables par no
+    $vars = []; // [ {id} => {no}]
+    $no = 0;
+    foreach ($factAv2 as $idav => $avant)
+      $vars[$idav] = ++$no;
+    foreach ($factAv2 as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2)
+        foreach (array_keys($avant2['après']) as $idap)
+          if (!isset($vars[$idap]))
+            $vars[$idap] = ++$no;
+    }
+    foreach ($factAv2 as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2) {
+        $done = false;
+        $compteur = 0;
+        while (!$done) {
+          $done = true;
+          foreach (array_keys($avant2['après']) as $no => $idap) {
+            if ($no <> 0) {
+              if ($vars[$idap] < $vars[$idapprev]) {
+                $avant2['après'] = swapKeysInArray($idapprev, $idap, $avant2['après']);
+                $done = false;
+                break;
+              }
+            }
+            $idapprev = $idap;
+          }
+          if ($compteur++ > 1000) die("compteur explosé 1000 ligne ".__LINE__);
+        }
+        $factAv2[$idav][$typav] = $avant2;
       }
     }
-    //echo Yaml::dump(['factorAvant()'=> $result], 3, 2);
-    return $result;
+    
+    if ($trace)
+      echo Yaml::dump(['$factAv2'=> $factAv2], 3, 2);
+
+    if ($trace)
+      echo "\n";
+    return $factAv2;
+  }
+  
+  // fabrique le motif correspondant au groupe
+  function mvtsPattern(Criteria $trace): array {
+    $factAv = $this->factorAvant($trace);
+    if ($trace->is(['mod'=> $this->mod]))
+      echo Yaml::dump(['factorAvant'=> $factAv], 6, 2);
+    $mvtsPat = [
+      'mod'=> $this->mod,
+      'label'=> $this->label,
+      'nb'=> 1, // utilisé pour lister les patterns et compter leur nbre d'occurence
+      'règles'=> [],
+      'example'=> [
+        'factAv'=> ['date'=> $this->date, '$factAv'=> $factAv],
+        'group'=> $this,
+      ],
+    ];
+    $vars = []; // [ {id} => {no}]
+    $no = 0;
+    foreach ($factAv as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2)
+        if (!isset($vars[$idav]))
+          $vars[$idav] = ++$no;
+    }
+    $suffix = ['COM'=>'', 'COMA'=>'a', 'COMD'=>'d', 'ARM'=>'m'];
+    foreach ($factAv as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant2) {
+        foreach($avant2['après'] as $idap => $après1) {
+          foreach($après1 as $typap => $après2) {
+            if (!isset($vars[$idap]))
+              $vars[$idap] = ++$no;
+            $idavf = 'id'.$vars[$idav].$suffix[$typav];
+            $idapf = 'id'.$vars[$idap].$suffix[$typap];
+            addValToArray(
+              $idapf,
+              $mvtsPat['règles'][$idavf]);
+          }
+        }
+      }
+    }
+    if ($trace->is(['mod'=> $this->mod]))
+      echo Yaml::dump(['$mvtsPat'=> $mvtsPat], 4, 2);
+    return $mvtsPat;
   }
   
   // Fabrique une évolution sémantique à partir d'un groupe de mvts et met à jour la base des communes
@@ -161,7 +411,7 @@ class GroupMvts {
     switch($this->mod) {
       case '10': { // Changement de nom
         if (count($this->mvts) <> 1) {
-          //throw new Exception("Erreur: Changement de nom sur plusieurs éléments - Je ne sais pas interpéter");
+          echo Yaml::dump(['factorAvant'=> $this->factorAvant($trace)]);
           return [
             'mod'=> $this->mod,
             'label'=> $this->label,
@@ -191,13 +441,13 @@ class GroupMvts {
           'input'=> [],
           'output'=> [],
         ];
-        foreach ($this->factorAvant() as $id_av => $avant) {
+        foreach ($this->factorAvant($trace) as $id_av => $avant) {
           $evol['input'][$id_av] = ['name'=> $avant['name']];
-          foreach ($avant['après'] as $id_ap => $après)
+          foreach ($avant['après'] as $id_ap => $après) {
             $evol['output'][$id_ap] = ['name'=> $après['name']];
+            $coms->$id_ap = $evol['output'][$id_ap];
+          }
         }
-        // création dans la base
-        //$coms[$mvt0['après']['id']] = ['name'=> $mvt0['après']['name']];
         return $evol;
       }
         
@@ -209,13 +459,23 @@ class GroupMvts {
           'input'=> [],
           'output'=> [],
         ];
-        echo Yaml::dump(['factorAvant'=> $this->factorAvant()]);
-        $factAv = $this->factorAvant();
+        //echo Yaml::dump(['factorAvant'=> $this->factorAvant()]);
+        $factAv = $this->factorAvant($trace);
+        $idChefLieuAv = null;
         foreach ($factAv as $id_av => $avant) {
           if ($avant['type']=='COM') {
             $idChefLieuAv = $id_av;
             $evol['input'][$id_av] = ['name'=> $avant['name']];
           }
+        }
+        if (!$idChefLieuAv) {
+          return [
+              'mod'=> $this->mod,
+              'label'=> $this->label,
+              'date'=> $this->date,
+              'ALERTE'=> "Erreur: idChefLieuAv non trouvé ligne ".__LINE__,
+              'input'=> $this->asArray(),
+            ];
         }
         foreach ($factAv as $id_av => $avant) {
           if ($avant['type']=='COMA') {
@@ -330,14 +590,14 @@ class GroupMvts {
           'output'=> [],
         ];
         //echo Yaml::dump(['factorAvant'=> $this->factorAvant()]);
-        foreach ($this->factorAvant() as $id_av => $avant) {
+        foreach ($this->factorAvant($trace) as $id_av => $avant) {
           $evol['input'][$id_av] = ['name'=> $avant['name']];
           if (count($avant['après']) == 1) { // ident du chefLieu
             $idChefLieu = array_keys($avant['après'])[0];
             $evol['output'][$idChefLieu] = ['name'=> $avant['après'][$idChefLieu]['name']];
           }
         }
-        foreach ($this->factorAvant() as $id_av => $avant) {
+        foreach ($this->factorAvant($trace) as $id_av => $avant) {
           if (count($avant['après']) <> 1) {
             foreach ($avant['après'] as $id_ap => $après) {
               if ($id_ap == $id_av) {
@@ -412,13 +672,13 @@ class GroupMvts {
           'output'=> [],
         ];
         //echo Yaml::dump(['factorAvant'=> $this->factorAvant()]);
-        foreach ($this->factorAvant() as $id_av => $avant) {
+        foreach ($this->factorAvant($trace) as $id_av => $avant) {
           if ($avant['type'] == 'COM') {
             $idChefLieu = $id_av;
             $evol['input'][$id_av] = ['name'=> $avant['name']];
           }
         }
-        foreach ($this->factorAvant() as $id_av => $avant) {
+        foreach ($this->factorAvant($trace) as $id_av => $avant) {
           if ($avant['type'] <> 'COM') {
             $evol['input'][$idChefLieu]['associées'][$id_av] = ['name'=> $avant['name']];
           }
