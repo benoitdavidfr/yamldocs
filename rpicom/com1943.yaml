@@ -1,6 +1,10 @@
 title: 'Fichier des communes de 1943'
-source: 'Fabriqué à partir de GéoHisto en utilisant http://localhost/yamldoc/pub/evolcoms/?action=genCom1943'
+source: |
+  Fabriqué à partir de GéoHisto en utilisant http://localhost/yamldoc/pub/evolcoms/?action=genCom1943
+  Suppression des 8e et 9e ardt de Lyon
+  
 created: '2020-04-10T15:40:54+00:00'
+modified: '2020-04-16'
 contents:
   '01001':
     name: 'L''Abergement-Clémenciat'
@@ -370,8 +374,9 @@ contents:
     name: Guéreins
   '01184':
     name: Hautecourt
-  '01185':
-    name: Hauteville
+  #'01185':
+    #name: Hauteville
+    #Wikipédia indique que Lompnes (01220) a fusionné le 1/8/1942 avec Hauteville pour former la commune d'Hauteville-Lompnes -> 01459.
   '01186':
     name: Hostias
   '01187':
@@ -440,8 +445,9 @@ contents:
     name: Lochieu
   '01219':
     name: Lompnas
-  '01220':
-    name: Lompnes
+  #'01220':
+    #name: Lompnes
+    #Wikipédia indique que Lompnes (01220) a fusionné le 1/8/1942 avec Hauteville pour former la commune d'Hauteville-Lompnes.
   '01221':
     name: Lompnieu
   '01222':
@@ -59390,10 +59396,6 @@ contents:
         name: 'Lyon 6e Arrondissement'
       69387:
         name: 'Lyon 7e Arrondissement'
-      69388:
-        name: 'Lyon 8e Arrondissement'
-      69389:
-        name: 'Lyon 9e Arrondissement'
   69124:
     name: Marchampt
   69125:

@@ -8,6 +8,9 @@ doc: |
 journal: |
   16/4/2020:
     - amélioration de la doc
+    - prise en compte du nv format de factorAvant() dans buildEvol()
+      - réécriture des mod 10, 21 et 31
+      - utilisation de l'evol par défaut pour les autres, à TESTER
   14/4/2020:
     - suppression de 6 doublons dans la lecture du CSV des mouvements INSEE
     - modification de factorAvant() en introduisant des codes INSEE modifiés pour les communes déléguées
@@ -244,23 +247,28 @@ class GroupMvts {
   
   // factorisation des mvts sur l'avant utilisée par buildEvol()
   private function factorAvant(Criteria $trace): array {
-    //echo Yaml::dump(['$this'=> $this->asArray()], 99, 2);
-    // dans les communes nouvelles, un même id est utilisé pour le chef-lieu et la commune déléguée
-    // Il faut donc intégrer le type dans la clé
-    $factAv = [];
-    /*[ {id_avant}=> [
-          {type_avant}=> [
-            'name'=> {name_avant},
-            'après'=> [
-              {id_après}=> [
-                {type_après}=> [
-                  'name'=> {name_après}
+    {/*PhpDoc: methods
+    name: factorAvant
+    title: "private function factorAvant(Criteria $trace): array - factorisation des mvts sur l'avant utilisée par buildEvol()"
+    doc: |
+      Dans les communes nouvelles, un même id est utilisé pour le chef-lieu et la commune déléguée
+      Il faut donc intégrer le type dans la clé
+      Le format de factorAvant est:
+        [ {id_avant}=> [
+            {type_avant}=> [
+              'name'=> {name_avant},
+              'après'=> [
+                {id_après}=> [
+                  {type_après}=> [
+                    'name'=> {name_après}
+                  ]
                 ]
               ]
             ]
-          ]
-      ]]
-    */
+        ]]
+    */}
+    //echo Yaml::dump(['$this'=> $this->asArray()], 99, 2);
+    $factAv = [];
     foreach ($this->mvts as $mvt) {
       $typav = $mvt['avant']['type'];
       $idav = $mvt['avant']['id'];
@@ -274,8 +282,7 @@ class GroupMvts {
       $factAv[$idav][$typav]['après'][$idap][$typap] = [ 'name'=> $mvt['après']['name'] ];
     }
     
-    if ($trace = $trace->is(['mod'=> $this->mod]))
-      echo Yaml::dump(['$factAv'=> $factAv], 4, 2);
+    //if (0 && $trace->is(['mod'=> $this->mod])) echo Yaml::dump(['$factAv'=> $factAv], 4, 2);
     //return $factAv;
     
     // standardisation
@@ -367,10 +374,10 @@ class GroupMvts {
       }
     }
     
-    if ($trace)
-      echo Yaml::dump(['$factAv2'=> $factAv2], 3, 2);
+    if ($trace->is(['mod'=> $this->mod]))
+      echo Yaml::dump(['$factAv2'=> $factAv2], 5, 2);
 
-    if ($trace)
+    if ($trace->is(['mod'=> $this->mod]))
       echo "\n";
     return $factAv2;
   }
@@ -421,311 +428,220 @@ class GroupMvts {
     return $mvtsPat;
   }
   
+  // evol par défaut
+  function defaultEvol(string $idChefLieuAv,string $idChefLieuAp, Base $coms, Criteria $trace): array {
+    foreach ($this->factorAvant($trace) as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant) {
+        if ($typav == 'COM')
+          $input[$idav]['name'] = $avant['name'];
+        elseif ($typav == 'COMA')
+          $input[$idChefLieuAv]['associées'][$idav]['name'] = $avant['name'];
+        elseif ($typav == 'COMD')
+          $input[$idChefLieuAv]['déléguées'][$idav]['name'] = $avant['name'];
+        elseif ($typav == 'ARM')
+          $input[$idChefLieuAv]['ardtMun'][$idav]['name'] = $avant['name'];
+        else
+          throw new Exception("Cas imprévu ligne ".__LINE__);
+        // première itération uniq. sur le nom pour qu'il apparaisse en premier
+        foreach ($avant['après'] as $idap => $après1) {
+          foreach ($après1 as $typap => $après) {
+            if ($typap == 'COM')
+              $output[$idap]['name'] = $après['name'];
+          }
+        }
+        foreach ($avant['après'] as $idap => $après1) {
+          foreach ($après1 as $typap => $après) {
+            if ($typap == 'COM')
+              $output[$idap]['name'] = $après['name'];
+            elseif ($typap == 'COMA')
+              $output[$idChefLieuAp]['associées'][$idap]['name'] = $après['name'];
+            elseif ($typap == 'COMD')
+              $output[$idChefLieuAp]['déléguées'][$idap]['name'] = $après['name'];
+            elseif ($typap == 'ARM')
+              $output[$idChefLieuAp]['ardtMun'][$idap]['name'] = $après['name'];
+            else
+              throw new Exception("Cas imprévu ligne ".__LINE__);
+          }
+        }
+      }
+    }
+    foreach (array_keys($input) as $idav) {
+      if (!isset($output[$idav]))
+        unset($coms->$idav);
+    }
+    foreach ($output as $idap => $com) {
+      if ($idap <> '69123')
+        $coms->$idap = $com;
+    }
+    return [
+      'mod'=> $this->mod,
+      'label'=> $this->label,
+      'date'=> $this->date,
+      'input'=> $input,
+      'output'=> $output,
+    ];
+  }
+  
   function buildEvol(Base $coms, Criteria $trace): array {
     {/*PhpDoc: methods
     name: buildEvol
     title: "function buildEvol(Base $coms, Criteria $trace): array - Fabrique une évolution sémantique à partir d'un groupe de mvts et met à jour la base des communes"
     */}
+    
     switch($this->mod) {
       case '10': { // Changement de nom
-        if (count($this->mvts) <> 1) {
-          echo Yaml::dump(['factorAvant'=> $this->factorAvant($trace)]);
-          return [
-            'mod'=> $this->mod,
-            'label'=> $this->label,
-            'date'=> $this->date,
-            'ALERTE'=> "Erreur: Changement de nom sur plusieurs éléments ligne ".__LINE__,
-            'input'=> $this->asArray(),
-          ];
-        }
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [ $this->mvts[0]['avant']['id']=> ['name'=> $this->mvts[0]['avant']['name']] ],
-          'output'=> [ $this->mvts[0]['après']['id']=> ['name'=> $this->mvts[0]['après']['name']] ],
-        ];
-        // Chgt de nom dans la base
-        $id_av = $this->mvts[0]['après']['id'];
-        $coms->$id_av = ['name' => $this->mvts[0]['après']['name']];
-        return $evol;
+        $factAv = $this->factorAvant($trace);
+        $idChefLieu = array_keys($factAv)[0];
+        return $this->defaultEvol($idChefLieu, $idChefLieu, $coms, $trace);
       }
 
       case '20': { // Création
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [],
-          'output'=> [],
-        ];
-        foreach ($this->factorAvant($trace) as $id_av => $avant) {
-          $evol['input'][$id_av] = ['name'=> $avant['name']];
-          foreach ($avant['après'] as $id_ap => $après) {
-            $evol['output'][$id_ap] = ['name'=> $après['name']];
-            $coms->$id_ap = $evol['output'][$id_ap];
-          }
-        }
-        return $evol;
+        return $this->defaultEvol('PasDeChefLieu', 'PasDeChefLieu', $coms, $trace);
       }
         
-      case '21': { // Rétablissement - je suppose qu'il s'agit d'une défusion
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [],
-          'output'=> [],
-        ];
-        //echo Yaml::dump(['factorAvant'=> $this->factorAvant()]);
-        $factAv = $this->factorAvant($trace);
-        $idChefLieuAv = null;
-        foreach ($factAv as $id_av => $avant) {
-          if ($avant['type']=='COM') {
-            $idChefLieuAv = $id_av;
-            $evol['input'][$id_av] = ['name'=> $avant['name']];
-          }
+      case '21': { // Rétablissement
+        $factAv = $this->factorAvant(new Criteria(['not']));
+        // J'utilise le principe que l'idChefLieu est clé de la première ligne et doit aussi être parmi les après
+        $idChefLieu = array_keys($factAv)[0];
+        $typChefLieu = array_keys($factAv[$idChefLieu])[0];
+        $après = $factAv[$idChefLieu][$typChefLieu]['après'];
+        if ($typChefLieu == 'ARM') { // cas particulier des scissions des ARM de Lyon (69123)
+          $idLyon = '69123';
+          $lyon = $coms->$idLyon;
+          foreach ($après as $idap => $après1)
+            foreach ($après1 as $typap => $après)
+              $lyon['ardtMun'][$idap]['name'] = $après['name'];
+          $coms->$idLyon = $lyon;
+          return $this->defaultEvol('69123', '69123', $coms, $trace);
         }
-        if (!$idChefLieuAv) {
+        if (!in_array($idChefLieu, array_keys($après))) {
           return [
               'mod'=> $this->mod,
               'label'=> $this->label,
               'date'=> $this->date,
-              'ALERTE'=> "Erreur: idChefLieuAv non trouvé ligne ".__LINE__,
+              'ALERTE'=> "Erreur: idChefLieu non trouvé ligne ".__LINE__,
               'input'=> $this->asArray(),
             ];
         }
-        foreach ($factAv as $id_av => $avant) {
-          if ($avant['type']=='COMA') {
-            $evol['input'][$idChefLieuAv]['associées'][$id_av] = ['name'=> $avant['name']];
-          }
-          foreach ($avant['après'] as $id_ap => $après) {
-            if ($après['type']=='COM')
-              $evol['output'][$id_ap] = ['name'=> $après['name']];
-            else
-              $evol['output'][$idChefLieuAv]['associées'][$id_ap] = ['name'=> $après['name']];
-          }
-          foreach ($avant['après'] as $id_ap => $après) {
-            if ($après['type']=='COM')
-              $coms->$id_ap = $evol['output'][$id_ap];
-            else
-              $coms->$id_ap = ['associéeA'=> $idChefLieuAv];
-          }
-        }
-        return $evol;
+        return $this->defaultEvol($idChefLieu, $idChefLieu, $coms, $trace);
       }
  
       case '30': { // Suppression
-        // ex de Pierrelez (77362) supprimée en 1949 et son territoire a été partagé entre de Cerneux et Sancy-lès-Provins.  
-        // https://fr.wikipedia.org/wiki/Pierrelez
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [],
-          'output'=> [],
-        ];
-        $deleted = [];
-        foreach ($this->mvts as $mvt) {
-          $id_av = $mvt['avant']['id'];
-          $evol['input'][$id_av] = ['name'=> $mvt['avant']['name']];
-          if ($id_av <> $mvt['après']['id']) {
-            $evol['output'][$mvt['après']['id']] = ['name'=> $mvt['après']['name']];
-            if (!isset($deleted[$id_av])) {
-              unset($coms->$id_av);
-              $deleted[$id_av] = 1;
-            }
-          }
-        }
-        return $evol;
+        return $this->defaultEvol('PasDeChefLieu', 'PasDeChefLieu', $coms, $trace);
       }
     
       case '31': { // Fusion simple
-        if (count($this->mvts) == 1)
-          throw new Exception("Erreur: Fusion simple sur un seul élément ligne ".__LINE__);
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [],
-          'output'=> [ $this->mvts[0]['après']['id']=> ['name'=> $this->mvts[0]['après']['name']] ],
-        ];
-        foreach ($this->mvts as $mvt) {
-          $id_av = $mvt['avant']['id'];
-          $evol['input'][$id_av] = ['name'=> $mvt['avant']['name']];
-          // Suppressions dans la base des communes fusionnées sauf celle résultant de la fusion
-          if ($id_av <> $mvt['après']['id'])
-            unset($coms->$id_av);
-        }
-        //echo Yaml::dump(['$evol'=> $evol], 99, 2);
-        return $evol;
+        // Ttes les règles sont de la forme {id{i}=> id0} où id0 est le la commune fusionnée
+        return $this->defaultEvol('PasDeChefLieu', 'PasDeChefLieu', $coms, $trace);
       }
 
       case '32': { // Création de commune nouvelle
-        if (count($grpMvtsCom) == 1)
-          throw new Exception("Erreur: Création de commune nouvelle sur un seul élément");
-        $evol = [
-          'mod'=> $mvt0['mod'],
-          'label'=> $mvt0['label'],
-          'date'=> $mvt0['date_eff'],
-          'input'=> [],
-          'output'=> [],
-        ];
-        foreach ($grpMvtsCom as $mvt) {
-          if ($mvt['avant']['type'] == 'COM') {
-            $idChefLieu['avant'] = $mvt['avant']['id'];
-            $evol['input'][$idChefLieu['avant']] = ['name'=> $mvt['avant']['name']];
-          }
-          if ($mvt['après']['type'] == 'COM') {
-            $idChefLieu['après'] = $mvt['après']['id'];
-            $evol['output'][$idChefLieu['après']] = ['name'=> $mvt['après']['name']];
-          }
-        }
-      
-        foreach ($grpMvtsCom as $mvt) {
-          if ($mvt['avant']['type'] == 'COMD') {
-            $evol['input'][$idChefLieu['avant']]['déléguées'][$mvt['avant']['id']] = ['name'=> $mvt['avant']['name']];
-          }
-          if ($mvt['après']['type'] == 'COMD') {
-            $evol['output'][$idChefLieu['après']]['déléguées'][$mvt['après']['id']] = ['name'=> $mvt['après']['name']];
-            $coms[$mvt['après']['id']] = ['déléguéeDe' => $idChefLieu['après']];
-          }
-        }
-        //echo Yaml::dump(['$evol'=> $evol], 99, 2);
-        unset($coms[$idChefLieu['avant']]);
-        $coms[$idChefLieu['après']] = $evol['output'][$idChefLieu['après']];
-        return $evol;
-      }
-    
-      case '33': { // Fusion association
-        if (count($this->mvts) == 1)
-          throw new Exception("Erreur: Fusion association sur un seul élément ligne ".__LINE__);
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [],
-          'output'=> [],
-        ];
-        //echo Yaml::dump(['factorAvant'=> $this->factorAvant()]);
-        foreach ($this->factorAvant($trace) as $id_av => $avant) {
-          $evol['input'][$id_av] = ['name'=> $avant['name']];
-          if (count($avant['après']) == 1) { // ident du chefLieu
-            $idChefLieu = array_keys($avant['après'])[0];
-            $evol['output'][$idChefLieu] = ['name'=> $avant['après'][$idChefLieu]['name']];
-          }
-        }
-        foreach ($this->factorAvant($trace) as $id_av => $avant) {
-          if (count($avant['après']) <> 1) {
-            foreach ($avant['après'] as $id_ap => $après) {
-              if ($id_ap == $id_av) {
-                $evol['output'][$idChefLieu]['associées'][$id_ap] = ['name'=> $après['name']];
-                $coms->$id_ap = ['associéeA'=> $idChefLieu];
+        // Le ChefLieuAp est le seul id d'arrivée qui est de type COM
+        $idChefLieuAp = null;
+        foreach ($this->factorAvant($trace) as $idav => $avant1) {
+          foreach ($avant1 as $typav => $avant) {
+            foreach ($avant['après'] as $idap => $après1) {
+              foreach ($après1 as $typap => $après) {
+                if ($typap == 'COM') {
+                  $idChefLieuAp = $idap;
+                  break 4;
+                }
               }
             }
           }
         }
-        $coms->$idChefLieu = $evol['output'][$idChefLieu];
-        //die(Yaml::dump(['evol'=> $evol], 3));
-        return $evol;
+        if (!$idChefLieuAp)
+          return [
+              'mod'=> $this->mod,
+              'label'=> $this->label,
+              'date'=> $this->date,
+              'ALERTE'=> "Erreur: idChefLieu non trouvé ligne ".__LINE__,
+              'input'=> $this->asArray(),
+            ];
+        return $this->defaultEvol('PasDeChefLieu', $idChefLieuAp, $coms, $trace);
       }
-
+    
+      case '33': // Fusion association
       case '34': { // Transformation de fusion association en fusion simple ou suppression de communes déléguées
-        // trouver la commune de rattachement
-        $rttchmnt = []; // mvt correspondant à la commune de rattachement
-        foreach ($this->mvts as $mvt) {
-          if ($mvt['avant']['type']=='COM')
-            $rttchmnt = $mvt;
-        }
-        if (!$rttchmnt)
-          throw new Exception("Erreur ligne ".__LINE__);
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [ $rttchmnt['avant']['id'] => ['name'=> $rttchmnt['avant']['name']]],
-          'output'=> [ $rttchmnt['après']['id'] => ['name'=> $rttchmnt['après']['name']]],
-        ];
-        foreach ($this->mvts as $mvt) {
-          $id_av = $mvt['avant']['id'];
-          if ($mvt['avant']['type'] == 'COMA') {
-            $evol['input'][$rttchmnt['avant']['id']]['associés'] = [$mvt['avant']['id'] => ['name'=> $mvt['avant']['name']]];
-            unset($coms->$id_av);
-          }
-          elseif ($mvt['avant']['type'] == 'COMD') {
-            $evol['input'][$rttchmnt['avant']['id']]['délégués'] = [$mvt['avant']['id'] => ['name'=> $mvt['avant']['name']]];
-            unset($coms->$id_av);
+        // Le ChefLieu est le seul id d'arrivée qui est de type COM
+        $idChefLieu = null;
+        foreach ($this->factorAvant($trace) as $idav => $avant1) {
+          foreach ($avant1 as $typav => $avant) {
+            foreach ($avant['après'] as $idap => $après1) {
+              foreach ($après1 as $typap => $après) {
+                if ($typap == 'COM') {
+                  $idChefLieu = $idap;
+                  break 4;
+                }
+              }
+            }
           }
         }
-        $id_rttchmnt = $rttchmnt['après']['id'];
-        $coms->$id_rttchmnt = ['name'=> $rttchmnt['après']['name']];
-        return $evol;
+        if (!$idChefLieu)
+          return [
+              'mod'=> $this->mod,
+              'label'=> $this->label,
+              'date'=> $this->date,
+              'ALERTE'=> "Erreur: idChefLieu non trouvé ligne ".__LINE__,
+              'input'=> $this->asArray(),
+            ];
+        return $this->defaultEvol($idChefLieu, $idChefLieu, $coms, $trace);
       }
 
       case '41': { // Changement de code dû à un changement de département
-        if (count($this->mvts) <> 1)
-          throw new Exception("Erreur: Changement de code (41) sur plusieurs éléments ligne ".__LINE__);
-        $mvt0 = $this->mvts[0];
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [ $mvt0['avant']['id']=> ['name'=> $mvt0['avant']['name']] ],
-          'output'=> [ $mvt0['après']['id']=> ['name'=> $mvt0['après']['name']] ],
-        ];
-        // Chgt de du code dans la base
-        $id_av = $mvt0['avant']['id'];
-        unset($coms->$id_av);
-        $id_ap = $mvt0['après']['id'];
-        $coms->$id_ap = ['name' => $mvt0['après']['name']];
-        return $evol;
+        return $this->defaultEvol('PasDeChefLieu', 'PasDeChefLieu', $coms, $trace);
       }
 
       case '50': { // Changement de code dû à un transfert de chef-lieu
-        $evol = [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'input'=> [],
-          'output'=> [],
-        ];
-        //echo Yaml::dump(['factorAvant'=> $this->factorAvant()]);
-        foreach ($this->factorAvant($trace) as $id_av => $avant) {
-          if ($avant['type'] == 'COM') {
-            $idChefLieu = $id_av;
-            $evol['input'][$id_av] = ['name'=> $avant['name']];
+        // Le ChefLieuAv est le seul id avant qui est de type COM
+        $idChefLieuAv = null;
+        foreach ($this->factorAvant($trace) as $idav => $avant1) {
+          foreach ($avant1 as $typav => $avant) {
+            if ($typav == 'COM') {
+              $idChefLieuAv = $idav;
+                break 2;
+            }
           }
         }
-        foreach ($this->factorAvant($trace) as $id_av => $avant) {
-          if ($avant['type'] <> 'COM') {
-            $evol['input'][$idChefLieu]['associées'][$id_av] = ['name'=> $avant['name']];
-          }
-          foreach ($avant['après'] as $id_ap => $après) {
-            if ($après['type']=='COM')
-              $chefLieu_ap = ['id'=> $id_ap, 'name'=> $après['name']];
-            else
-              $assoc_ap = ['id'=> $id_ap, 'name'=> $après['name']];
-          }
-          $evol['output'][$chefLieu_ap['id']]['name'] = $chefLieu_ap['name'];
-          $evol['output'][$chefLieu_ap['id']]['associées'][$assoc_ap['id']] = ['name'=> $assoc_ap['name']];
-        }
-        foreach ($evol['output'] as $idChefLieu => $chefLieu) {
-          $coms->$idChefLieu = $chefLieu;
-          foreach ($chefLieu['associées'] as $ida => $noma) {
-            $coms->$ida = ['associéeA'=> $idChefLieu];
+        // Le ChefLieuAp est le seul id d'arrivée qui est de type COM
+        $idChefLieuAp = null;
+        foreach ($this->factorAvant($trace) as $idav => $avant1) {
+          foreach ($avant1 as $typav => $avant) {
+            foreach ($avant['après'] as $idap => $après1) {
+              foreach ($après1 as $typap => $après) {
+                if ($typap == 'COM') {
+                  $idChefLieuAp = $idap;
+                  break 4;
+                }
+              }
+            }
           }
         }
-        return $evol;
+        if (!$idChefLieuAv || !$idChefLieuAp)
+          return [
+              'mod'=> $this->mod,
+              'label'=> $this->label,
+              'date'=> $this->date,
+              'ALERTE'=> "Erreur: idChefLieu non trouvé ligne ".__LINE__,
+              'input'=> $this->asArray(),
+            ];
+        return $this->defaultEvol($idChefLieuAv, $idChefLieuAp, $coms, $trace);
       }
     
       case '70': { // Transformation de commune associée en commune déléguée
-        return [
-          'mod'=> $this->mod,
-          'label'=> $this->label,
-          'date'=> $this->date,
-          'ALERTE'=> "Erreur ".__LINE__,
-          'input'=> $this->asArray(),
-        ];
+        if (($this->date == '2020-01-01') && ($this->mvts[0]['avant']['id'] == '52064')) {
+          /*$factAv:
+            52064:
+              COM:
+                name: Bourmont-entre-Meuse-et-Mouzon
+                après:
+                  52224: { COMD: { name: Gonaincourt } }
+            Je considère que c'est une erreur INSEE, 
+            n'existe pas sur le COG du web https://www.insee.fr/fr/metadonnees/cog/commune/COM52224-gonaincourt
+          */
+          return [];
+        }
+        return $this->defaultEvol('PasDeChefLieu', 'PasDeChefLieu', $coms, $trace);
       }
     
       default:

@@ -664,12 +664,14 @@ doc: |
   Si ${datefin} est défini génère un fichier com${datefin}gen
 */}
 if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions et enregistrement d'un fichier d'état
-  //$datefin = '2000-01-01';
+  $datefin = '2000-01-01';
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>genEvols</title></head><body><pre>\n";
   $trace = new Criteria([]); // aucun critère, tout est affiché
+  //$trace = new Criteria(['not']); // rien n'est affiché
   //$trace = new Criteria(['mod'=> ['not'=> ['10','20','21','30','31','33','34','41','50']]]);
-  //$trace = new Criteria(['mod'=> ['21']]); 
-  $trace = new Criteria(['not']); // rien n'est affiché
+  //$trace = new Criteria(['mod'=> ['not'=> ['10','21','31','20','30','41','33','34','50','32']]]); 
+  $trace = new Criteria(['mod'=> ['21']]); 
+
   $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms et tri par ordre chrono
   $coms = new Base(__DIR__.'/com1943', $trace); // Lecture de com1943.yaml dans $coms
   //$mvtcoms = ['1976-01-01' => $mvtcoms['1976-01-01']]; // Test de mod=21
@@ -996,7 +998,7 @@ if ($_GET['action'] == 'compare') { // comparaison de 2 fichiers et affichage d'
   echo "<b>Comparaison de $_GET[file1] et $_GET[file2]</b><br>\n";
   $file1 = Yaml::parse(file_get_contents(__DIR__."/$_GET[file1]"));
   $file2 = Yaml::parse(file_get_contents(__DIR__."/$_GET[file2]"));
-  compare($file1, $file2, 'fneqArticle');
+  compareYaml($file1, $file2, 'fneqArticle');
   die("Fin de compare");
 }
 

@@ -64,28 +64,12 @@ idéeCodeInsee:
   - créer un référentiel avec tous les codes INSEE qui ont été valides depuis 1943
     - associer à chaque code INSEE une succession de versions
     - associer à chaque version un nom, un statut et une localisation géographique
-structuration:
-  {codeInsee}: // tous les codes ayant existé
-    // {date} est la date d'une version d'une propriété ou 1/1/1943 pour la propriété initiale
-    // propriétés versionnées d'une commune S/A/D correspondant au code INSEE
-    name: { {date}: {nom} } // versions des noms, si S+D le nom de la déléguante
-    geo: { {date}: {east: {latitude}, north: {longitude}} } // un point dans son territoire, idéalement son chef-lieu
-    spatial: { {date}: {northlimit: {lat}, southlimit: {lat}, westlimit: {lon}, eastlimit: {lon}} } // son emprise spatiale
-    population: { {date}: {population}} // population officielle à une date donnée
-    associéeA?: { {date}: {codeInsee}} // si la c. est associée alors le c. INSEE de la commune à laquelle elle est associée
-    déléguéeDe?: { {date}: {codeInsee}} // si la c. est déléguée alors le c. INSEE de la c. dont elle l'est, evt elle-même
-    commeDéléguée?: // si la commune est déléguée d'elle même cette partie comprend les propriétés de la c. déléguée
-      name: { {date}: {nom} }
-      geo: {{date}: {latitude} {longitude}} // un point dans son territoire de déléguée, idéalement son chef-lieu
-      spatial: {{date}: {northlimit: {lat}, southlimit: {lat}, westlimit: {lon}, eastlimit: {lon}}} // l'emp. s. de déléguée
-    // propriétés indiquant la disparition ou la recréation de l'entité
-    status:
-      {date}:
-        absorbéePar?: {codeInsee} // si la c. a été absorbée dans une fusion simple ou une c. nouvelle sans c. déléguée
-        dissouteDans?: [{codeInsee}] // si la c. a été supprimée alors les c. dans lesquelles son territoire a été réparti
-        rétablie?: {codeInsee} // si la c. S/A/D a été rétablie alors la c. dont elle est issue
-examples:
-  
+  - schéma défini dans exrpicom.yaml
+2020-04-16:
+  - nlle génération d'evols, 69/37551 différents soit 0 %
+  - un certain nombre de différences proviennent d'erreurs INSEE corrigées début 2019
+  - voir s'il faut modifier la version du 1/1/1943
+
 idéeEmboitementDePartitions:
   - autre idée - formaliser comme emboitement de partitions
   - le territoire Met+DOM correspond à 2 partitions emboitées

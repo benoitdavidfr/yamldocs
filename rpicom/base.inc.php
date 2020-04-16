@@ -76,16 +76,9 @@ class Criteria {
         ['var2'=>'xxx']] as $params)
           echo Yaml::dump($params),"-> ",$trace->is($params) ? 'vrai' : 'faux', "<br>\n";
     }
-    if (0) {
-      $trace = new self(['mod'=> ['not'=> ['31']]]); // affichage mod <> 31
-      foreach([
-        ['mod'=>'31'],
-        ['mod'=>'XXX'],
-        ['var2'=>'xxx']] as $params)
-          echo Yaml::dump($params),"-> ",$trace->is($params) ? 'vrai' : 'faux', "<br>\n";
-    }
     if (1) {
-      $trace = new self([]);
+      //$trace = new self(['mod'=> ['not'=> ['31']]]); // affichage mod <> 31
+      $trace = new self(['mod'=> ['31']]); // affichage mod == 31
       foreach([
         ['mod'=>'31'],
         ['mod'=>'XXX'],
