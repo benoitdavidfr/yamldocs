@@ -9,12 +9,18 @@ Les codes INSEE des communes évoluant, ils devraient être modifiés dans la ba
 Ces modifications ne sont généralement pas faites et les codes INSEE ainsi contenus ne peuvent plus être croisés
 avec un référentiel à jour des communes par exemple pour géocoder les informations de la base.
 
-Pour traiter cette difficulté, l'idée est de créer un nouveau référentiel appelé référentiel pivot des codes INSEE
-des Communes (RPiCom) contenant tous les codes INSEE des communes ayant existé depuis le 1/1/1943.
+Pour traiter cette difficulté, l'idée est de créer un nouveau référentiel appelé "référentiel pivot des codes INSEE
+des Communes" (RPiCom) contenant tous les codes INSEE des communes ayant existé depuis le 1/1/1943.
 A chaque code INSEE sont asssociées des informations versionnées qui permettent de retrouver l'état de la commune à une date
 donnée.  
 Ainsi les codes INSEE intégrés un jour dans une base restent valables et peuvent être utilisés par exemple pour géocoder
 l'information ou pour la croiser avec un référentiel à jour des communes.
+
+## Cible
+Le fichier [exrpicom.yaml](exrpicom.yaml) spécifie le schéma du référentiel ;
+le champ $schema définit le schéma JSON des données et le champ contents donne un exemple de contenu.
+
+## Démarche
 
 La première chose à faire est de comprendre et de reformaliser la liste des mouvements INSEE.
 Pour cela, l'idée est de partir d'un état au 1/1/1943 et de dériver des mouvements un état à différentes dates.
