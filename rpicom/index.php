@@ -670,7 +670,7 @@ if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions 
   //$trace = new Criteria(['not']); // rien n'est affiché
   //$trace = new Criteria(['mod'=> ['not'=> ['10','20','21','30','31','33','34','41','50']]]);
   //$trace = new Criteria(['mod'=> ['not'=> ['10','21','31','20','30','41','33','34','50','32']]]); 
-  $trace = new Criteria(['mod'=> ['21']]); 
+  //$trace = new Criteria(['mod'=> ['21']]); 
 
   $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms et tri par ordre chrono
   $coms = new Base(__DIR__.'/com1943', $trace); // Lecture de com1943.yaml dans $coms

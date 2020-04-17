@@ -1,0 +1,203 @@
+title: définition du schéma du référentiel pivot des codes INSEE des communes avec exemple imaginaire d'un tel référentiel
+description: |
+  Version initiale das l'ordre l'ordre choronologique direct
+modified: '2020-04-16'
+$schema:
+  title: schéma du référentiel pivot des codes INSEE des communes
+  $id: http://id.georef.eu/mvtscommunes/exrpicom/$schema
+  $schema: http://json-schema.org/draft-07/schema#
+  description: Liste de tous les codes INSEE de commune ayant existé depuis le 1/1/1943 avec infos versionnées associées
+  definitions:
+    rpicom:
+      description: propriétés associées à chaque code INSEE du référentiel
+      type: object
+      required: [name]
+      properties:
+        name:
+          description: versions succ. du nom, si S+D le nom de la déléguante, objet de string indexé sur la date de début
+          type: object
+          patternProperties:
+            '^\d\d\d\d-\d\d-\d\d$': # date
+              oneOf:
+                - description: le nom valide à partir de la date définie comme clé
+                  type: string
+                - description: indication de fin de validité
+                  type: 'null'
+        geo:
+          description: versions succ. d'un point indexé sur la date de début
+          type: object
+          patternProperties:
+            '^\d\d\d\d-\d\d-\d\d$': # date
+              oneOf:
+                - description: point utilisant le schéma de codage http://dublincore.org/documents/dcmi-point/
+                  $ref: http://id.georef.eu/dcmi#/definitions/Point
+                - description: indication de fin de validité
+                  type: 'null'
+        spatial:
+          description: versions succ. indexé sur la date de début de l'emprise spatiale
+          type: object
+          patternProperties:
+            '^\d\d\d\d-\d\d-\d\d$': # date
+              oneOf:
+                - description: emprise spatiale utilisant le schéma de codage http://dublincore.org/documents/dcmi-box/
+                  $ref: http://id.georef.eu/dcmi#/definitions/Box
+                - description: indication de fin de validité
+                  type: 'null'
+        population:
+          description: valeur de population indexée sur la date de validité
+          type: object
+          patternProperties:
+            '^\d\d\d\d-\d\d-\d\d$': # date
+              description: population
+              type: number
+        associéeA:
+          description: si c'est c. associée alors c. INSEE de c. à laquelle elle est associée, indexé sur date de début
+          type: object
+          patternProperties:
+            '^\d\d\d\d-\d\d-\d\d$': # date
+              oneOf:
+                - description: c. INSEE de la commune à laquelle elle est associée
+                  type: [string, number]
+                  format: '^\d[\dAB]\d\d\d$'
+                - description: indication de fin de validité
+                  type: 'null'
+        déléguéeDe:
+          description: si c'est c. déléguée alors c. INSEE de c. dont elle est déléguée, indexé sur date de début
+          type: object
+          patternProperties:
+            '^\d\d\d\d-\d\d-\d\d$': # date
+              oneOf:
+                - description: c. INSEE de la commune dont elle est déléguée
+                  type: [string, number]
+                  format: '^\d[\dAB]\d\d\d$'
+                - description: indication de fin de validité
+                  type: 'null'
+        commeDéléguée:
+          description: si la commune est déléguée d'elle même cette partie comprend les propriétés de la c. déléguée
+          type: object
+          required: [name]
+          properties:
+            name:
+              description: versions succ. du nom, objet de string indexé sur la date de début
+              type: object
+              patternProperties:
+                '^\d\d\d\d-\d\d-\d\d$': # date
+                  oneOf:
+                    - description: le nom valide à partir de la date définie comme clé
+                      type: string
+                    - description: indication de fin de validité
+                      type: 'null'
+            geo:
+              description: versions succ. d'un point indexé sur la date de début
+              type: object
+              patternProperties:
+                '^\d\d\d\d-\d\d-\d\d$': # date
+                  oneOf:
+                    - description: point utilisant le schéma de codage http://dublincore.org/documents/dcmi-point/
+                      $ref: http://id.georef.eu/dcmi#Point
+                    - description: indication de fin de validité
+                      type: 'null'
+            spatial:
+              description: versions succ. indexé sur la date de début de l'emprise spatiale
+              type: object
+              patternProperties:
+                '^\d\d\d\d-\d\d-\d\d$': # date
+                  oneOf:
+                    - description: emprise spatiale utilisant le sch. de codage http://dublincore.org/documents/dcmi-box/
+                      $ref: http://id.georef.eu/dcmi#Box
+                    - description: indication de fin de validité
+                      type: 'null'
+            population:
+              description: valeur de population indexée sur la date de validité
+              type: object
+              patternProperties:
+                '^\d\d\d\d-\d\d-\d\d$': # date
+                  description: population
+                  type: number
+        absorbéePar:
+          description: si la c. a été absorbée dans une fusion simple ou une c. nouvelle sans c. déléguée alors c. INSEE de la commune l'ayant absorbée avec comme clé la date d'absorption
+          type: object
+          patternProperties:
+            '^\d\d\d\d-\d\d-\d\d$': # date
+              type: [string, number]
+              format: '^\d[\dAB]\d\d\d$'
+        dissouteDans:
+          description: si la c. a été supprimée alors les c. dans lesquelles son territoire a été réparti
+          type: object
+          patternProperties:
+            '^\d\d\d\d-\d\d-\d\d$': # date
+              type: array
+              items:
+                type: [string, number]
+                format: '^\d[\dAB]\d\d\d$'
+        rétablieDe:
+          description: si la c. S/A/D a été rétablie alors la c. dont elle est issue
+          type: object
+          patternProperties:
+            '^\d\d\d\d-\d\d-\d\d$': # date
+              type: [string, number]
+              format: '^\d[\dAB]\d\d\d$'
+  type: object
+  properties:
+    title:
+      type: string
+    modified:
+      type: string
+    $schema:
+      oneOf:
+        - $ref: http://json-schema.org/draft-07/schema#
+        - type: string
+    ydADscrBhv:
+      description: paramètres de comportement utilisés par le code Php de la classe AutoDescribed
+      type: object
+      additionalProperties: false
+      properties:
+        jsonLdContext:
+          description: contexte JSON-LD à ajouter
+          type: string
+        firstLevelType:
+          description: type des enregistrements de premier niveau dans contents
+          type: string
+        buildName:
+          description: définition de l'affichage réduit par type d'objet, code Php par type défini dans definitions
+          type: object
+          additionalProperties:
+            description: Pour chaque type le code Php d'affichage réduit est défini comme chaine
+            type: string
+        writePserReally:
+          description: si défini alors le doc est stocké en pser
+          type: boolean
+    contents:
+      description: la liste des codes INSEE avec propriétés associées
+      type: object
+      patternProperties:
+        '^\d[\dAB]\d\d\d$': # code INSEE
+          $ref: '#/definitions/rpicom'
+    eof:
+      type: 'null'
+ydADscrBhv:
+  jsonLdContext: http://schema.org
+  firstLevelType: AdministrativeArea
+  buildName: # définition de l'affichage réduit par type d'objet, code Php par type
+    AdministrativeArea: |
+      if (isset($item['name']))
+        return array_values($item['name'])[count($item['name'])-1]." ($skey)";
+      else
+        return $skey;
+contents:
+  27153:
+    name:
+      '1943-01-01': Chauvincourt
+      '1975-01-01': Chauvincourt-Provemont
+    geo:
+      '1943-01-01': {east: 0.5678, north: 45.5768 }
+      '1975-01-01': null
+    spatial:
+      '1943-01-01': {westlimit: 0.5678, southlimit: 45.5768, eastlimit: 0.5678, northlimit: 45.5768 }
+      '1975-01-01': null
+    population:
+      '2010-01-01': 3456
+    associéeA:
+      '1975-01-01': 27351
+      
+eof:

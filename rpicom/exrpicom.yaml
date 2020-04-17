@@ -1,140 +1,132 @@
-title: définition du schéma du référentiel pivot des codes INSEE des communes avec exemple imaginaire d'un tel référentiel
-modified: '2020-04-16'
+title: définition du schéma du référentiel pivot des codes INSEE des communes avec illustration
+modified: '2020-04-17'
+description: |
+  Le champ contents fournit un exemple illustratif du référentiel pour faciliter la compréhension du schéma.
+  2nd version dans l'ordre chronologique inverse.
 $schema:
   title: schéma du référentiel pivot des codes INSEE des communes
   $id: http://id.georef.eu/mvtscommunes/exrpicom/$schema
   $schema: http://json-schema.org/draft-07/schema#
-  description: Liste de tous les codes INSEE de commune ayant existé depuis le 1/1/1943 avec infos versionnées associées
+  description: Les codes INSEE de commune ayant existé avec infos versionnées associées en ordre chrono inverse
   definitions:
-    rpicom:
-      description: propriétés associées à chaque code INSEE du référentiel
+    commeDéléguée:
+      description: si la c. est déléguée d'elle même alors cette partie définit les prop. de la c. déléguée
       type: object
       required: [name]
       properties:
         name:
-          description: versions succ. du nom, si S+D le nom de la déléguante, objet de string indexé sur la date de début
-          type: object
-          patternProperties:
-            '^\d\d\d\d-\d\d-\d\d$': # date
-              oneOf:
-                - description: le nom valide à partir de la date définie comme clé
-                  type: string
-                - description: indication de fin de validité
-                  type: 'null'
+          description: nom de la commune déléguée portant ce code INSEE
+          type: string
         geo:
-          description: versions succ. d'un point indexé sur la date de début
-          type: object
-          patternProperties:
-            '^\d\d\d\d-\d\d-\d\d$': # date
-              oneOf:
-                - description: point utilisant le schéma de codage http://dublincore.org/documents/dcmi-point/
-                  $ref: http://id.georef.eu/dcmi#/definitions/Point
-                - description: indication de fin de validité
-                  type: 'null'
+          description: point utilisant le schéma de codage http://dublincore.org/documents/dcmi-point/
+          $ref: http://id.georef.eu/dcmi#Point
         spatial:
-          description: versions succ. indexé sur la date de début de l'emprise spatiale
+          description: emprise spatiale utilisant le sch. de codage http://dublincore.org/documents/dcmi-box/
+          $ref: http://id.georef.eu/dcmi#Box
+    rpicom:
+      description: |
+        Dictionnaire associant à chaque code INSEE les différentes versions identifiées par une date
+        ou par le mot-clé 'now' identifiant la dernière version connue.
+      type: object
+      additionalProperties: false
+      patternProperties:
+        '^\d[\dAB]\d\d\d$': # code INSEE
+          description: |
+            Le mot-clé 'now' identifie la dernière version connue avec les propriétés actuellement valides.
+            Une date identifie une version historique qui peut être:
+              - soit un ensemble de propriétés périmées qui ont été valides avant la date de la version
+                plus éventuellement une action de disparition (absorbéePar|dissouteDans) à la date de la version
+              - soit ue action d'apparition (rétablieDe|crééeAPartirDe)
           type: object
+          additionalProperties: false
           patternProperties:
-            '^\d\d\d\d-\d\d-\d\d$': # date
-              oneOf:
-                - description: emprise spatiale utilisant le schéma de codage http://dublincore.org/documents/dcmi-box/
+            '^now$':
+              description: propriétés de la dernière version connue
+              type: object
+              required: [name]
+              additionalProperties: false
+              properties:
+                name:
+                  description: soit dernier nom connu, soit nom valide jusqu'à la date définie comme clé
+                  type: string
+                geo:
+                  description: point utilisant le schéma de codage http://dublincore.org/documents/dcmi-point/
+                  $ref: http://id.georef.eu/dcmi#/definitions/Point
+                spatial:
+                  description: emprise spatiale utilisant le schéma de codage http://dublincore.org/documents/dcmi-box/
                   $ref: http://id.georef.eu/dcmi#/definitions/Box
-                - description: indication de fin de validité
-                  type: 'null'
-        population:
-          description: valeur de population indexée sur la date de validité
-          type: object
-          patternProperties:
-            '^\d\d\d\d-\d\d-\d\d$': # date
-              description: population
-              type: number
-        associéeA:
-          description: si c'est c. associée alors c. INSEE de c. à laquelle elle est associée, indexé sur date de début
-          type: object
-          patternProperties:
-            '^\d\d\d\d-\d\d-\d\d$': # date
-              oneOf:
-                - description: c. INSEE de la commune à laquelle elle est associée
+                associéeA:
+                  description: si c. associée alors c. INSEE de la commune à laquelle elle est associée
                   type: [string, number]
                   format: '^\d[\dAB]\d\d\d$'
-                - description: indication de fin de validité
-                  type: 'null'
-        déléguéeDe:
-          description: si c'est c. déléguée alors c. INSEE de c. dont elle est déléguée, indexé sur date de début
-          type: object
-          patternProperties:
-            '^\d\d\d\d-\d\d-\d\d$': # date
-              oneOf:
-                - description: c. INSEE de la commune dont elle est déléguée
+                déléguéeDe:
+                  description: si c'est c. déléguée alors c. INSEE de la commune dont elle est déléguée
                   type: [string, number]
                   format: '^\d[\dAB]\d\d\d$'
-                - description: indication de fin de validité
-                  type: 'null'
-        commeDéléguée:
-          description: si la commune est déléguée d'elle même cette partie comprend les propriétés de la c. déléguée
-          type: object
-          required: [name]
-          properties:
-            name:
-              description: versions succ. du nom, objet de string indexé sur la date de début
-              type: object
-              patternProperties:
-                '^\d\d\d\d-\d\d-\d\d$': # date
-                  oneOf:
-                    - description: le nom valide à partir de la date définie comme clé
+                ardtMunDe:
+                  description: si c'est un ardt mun. alors c. INSEE de la commune parente
+                  type: [string, number]
+                  format: '^\d[\dAB]\d\d\d$'
+                commeDéléguée:
+                  description: si la c. est déléguée d'elle même alors cette partie définit les prop. de la c. déléguée
+                  $ref: '#/definitions/commeDéléguée'
+            '^\d\d\d\d-\d\d-\d\d$': # date
+              description: version historique datée
+              oneOf:
+                - description: propriétés périmées plus évent. action de disparition à cette date
+                  type: object
+                  required: [name]
+                  additionalProperties: false
+                  properties:
+                    name:
+                      description: soit dernier nom connu, soit nom valide jusqu'à la date définie comme clé
                       type: string
-                    - description: indication de fin de validité
-                      type: 'null'
-            geo:
-              description: versions succ. d'un point indexé sur la date de début
-              type: object
-              patternProperties:
-                '^\d\d\d\d-\d\d-\d\d$': # date
-                  oneOf:
-                    - description: point utilisant le schéma de codage http://dublincore.org/documents/dcmi-point/
-                      $ref: http://id.georef.eu/dcmi#Point
-                    - description: indication de fin de validité
-                      type: 'null'
-            spatial:
-              description: versions succ. indexé sur la date de début de l'emprise spatiale
-              type: object
-              patternProperties:
-                '^\d\d\d\d-\d\d-\d\d$': # date
-                  oneOf:
-                    - description: emprise spatiale utilisant le sch. de codage http://dublincore.org/documents/dcmi-box/
-                      $ref: http://id.georef.eu/dcmi#Box
-                    - description: indication de fin de validité
-                      type: 'null'
-            population:
-              description: valeur de population indexée sur la date de validité
-              type: object
-              patternProperties:
-                '^\d\d\d\d-\d\d-\d\d$': # date
-                  description: population
-                  type: number
-        absorbéePar:
-          description: si la c. a été absorbée dans une fusion simple ou une c. nouvelle sans c. déléguée alors c. INSEE de la commune l'ayant absorbée avec comme clé la date d'absorption
-          type: object
-          patternProperties:
-            '^\d\d\d\d-\d\d-\d\d$': # date
-              type: [string, number]
-              format: '^\d[\dAB]\d\d\d$'
-        dissouteDans:
-          description: si la c. a été supprimée alors les c. dans lesquelles son territoire a été réparti
-          type: object
-          patternProperties:
-            '^\d\d\d\d-\d\d-\d\d$': # date
-              type: array
-              items:
-                type: [string, number]
-                format: '^\d[\dAB]\d\d\d$'
-        rétablieDe:
-          description: si la c. S/A/D a été rétablie alors la c. dont elle est issue
-          type: object
-          patternProperties:
-            '^\d\d\d\d-\d\d-\d\d$': # date
-              type: [string, number]
-              format: '^\d[\dAB]\d\d\d$'
+                    geo:
+                      description: point utilisant le schéma de codage http://dublincore.org/documents/dcmi-point/
+                      $ref: http://id.georef.eu/dcmi#/definitions/Point
+                    spatial:
+                      description: emprise spatiale utilisant le schéma de codage http://dublincore.org/documents/dcmi-box/
+                      $ref: http://id.georef.eu/dcmi#/definitions/Box
+                    associéeA:
+                      description: si c. associée alors c. INSEE de la commune à laquelle elle est associée
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    déléguéeDe:
+                      description: si c'est c. déléguée alors c. INSEE de la commune dont elle est déléguée
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    ardtMunDe:
+                      description: si c'est un ardt mun. alors c. INSEE de la commune parente
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    commeDéléguée:
+                      description: si la c. est déléguée d'elle même alors cette partie définit les prop. de la c. déléguée
+                      $ref: '#/definitions/commeDéléguée'
+                    absorbéePar:
+                      description: >
+                        si la c. a été absorbée dans une fusion simple ou une c. nouvelle sans c. déléguée alors c. INSEE de la commune l'ayant absorbée, la date est celle de l'absorption
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    dissouteDans:
+                      description: si la c. a été supprimée alors les c. dans lesquelles son territoire a été réparti
+                      type: array
+                      items:
+                        type: [string, number]
+                        format: '^\d[\dAB]\d\d\d$'
+                - description: action d'apparition à cette date
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    rétablieDe:
+                      description: si la c. S/A/D a été rétablie alors la c. dont elle est issue
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    crééeAPartirDe:
+                      description: si la c. a été créée à cette date alors les communes dont proviennent son territoire
+                      type: array
+                      items:
+                        type: [string, number]
+                        format: '^\d[\dAB]\d\d\d$'
   type: object
   properties:
     title:
@@ -166,11 +158,8 @@ $schema:
           description: si défini alors le doc est stocké en pser
           type: boolean
     contents:
-      description: la liste des codes INSEE avec propriétés associées
-      type: object
-      patternProperties:
-        '^\d[\dAB]\d\d\d$': # code INSEE
-          $ref: '#/definitions/rpicom'
+      description: dictionnaire associant à chaque code INSEE ses différentes versions
+      $ref: '#/definitions/rpicom'
     eof:
       type: 'null'
 ydADscrBhv:
@@ -183,19 +172,101 @@ ydADscrBhv:
       else
         return $skey;
 contents:
-  27153:
-    name:
-      '1943-01-01': Chauvincourt
-      '1975-01-01': Chauvincourt-Provemont
-    geo:
-      '1943-01-01': {east: 0.5678, north: 45.5768 }
-      '1975-01-01': null
-    spatial:
-      '1943-01-01': {westlimit: 0.5678, southlimit: 45.5768, eastlimit: 0.5678, northlimit: 45.5768 }
-      '1975-01-01': null
-    population:
-      '2010-01-01': 3456
-    associéeA:
-      '1975-01-01': 27351
-      
+  44131: # exemple d'une commune ayant continué d'exister sans changement même si des communes lui ont été associées
+    now:
+      name: Pornic
+  44177: # exemple d'une commune associée à 44131 depuis le 1/6/1973 et qui était simple avant
+    now:
+      name: Sainte-Marie
+      associéeA: 44131 # depuis le 1/6/1973 associée au Pornic
+    '1973-06-01': # était avant le 1/6/1973 commune simple
+      name: Sainte-Marie
+  44042: # exemple d'une commune qui a été absorbée le 8/9/1987 et qui état associée avant depuis le 1/6/1973
+    '1987-09-08':
+      name: Le Clion-sur-Mer # dénommée jusqu'au 8/9/1987
+      associéeA: 44131 # jusqu'au 8/9/1987 elle était associée à 44131
+      absorbéePar: 44131 # le 8/9/1987 elle a été absorbée par 44131
+    '1973-06-01': # était avant le 1/6/1973 commune simple
+      name: Le Clion-sur-Mer # dénommée jusqu'au 1/6/1973
+
+  55438:
+    now:
+      name: Romagne-sous-Montfaucon # nom depuis le rétablissement du 1/1/1987
+    '1987-01-01':
+      name: Romagne-Gesnes # nom pendant la fusion-asssociation entre le 1/7/1973 et le 1/1/1987
+    '1973-07-01':
+      name: Romagne-sous-Montfaucon # nom avant la fusion-association du 1/7/1973
+  55208:
+    now:
+      name: Gesnes-en-Argonne
+    '1987-01-01':
+      name: Gesnes-en-Argonne
+      associéeA: 55438 # a été associée entre le 1/7/1973 et le 1/1/1987
+    '1973-07-01':
+      name: Gesnes-en-Argonne
+  
+  27701: # exemple de création d'une commune
+    now:
+      name: 'Vaudreuil-Ex-Ensemble Urbain'
+    '1981-09-28':
+      crééeAPartirDe: [27351, 27365, 27471, 27474, 27528, 27537, 27598, 27651]
+  
+evols:
+  - mod: '33'
+    label: 'Fusion association'
+    date: '1973-06-01'
+    input:
+      44042: { name: 'Le Clion-sur-Mer' }
+      44177: { name: Sainte-Marie }
+      44131: { name: Pornic }
+    result:
+      44131: { name: Pornic, associées: { 44042: { name: 'Le Clion-sur-Mer' }, 44177: { name: Sainte-Marie } } }
+  - mod: '34'
+    label: 'Transformation de fusion association en fusion simple ou suppression de communes déléguées'
+    date: '1987-09-08'
+    input:
+      44131: { name: Pornic, associées: { 44177: { name: Sainte-Marie }, 44042: { name: 'Le Clion-sur-Mer' } } }
+    result:
+      44131: { name: Pornic, associées: { 44177: { name: Sainte-Marie } } }
+  
+  - mod: '21'
+    label: Rétablissement
+    date: '1987-01-01'
+    input:
+      55438: { name: Romagne-Gesnes, associées: { 55208: { name: Gesnes-en-Argonne } } }
+    result:
+      55438: { name: Romagne-sous-Montfaucon }
+      55208: { name: Gesnes-en-Argonne }
+  - mod: '33'
+    label: 'Fusion association'
+    date: '1973-07-01'
+    input:
+      55208: { name: Gesnes-en-Argonne }
+      55438: { name: Romagne-sous-Montfaucon }
+    result:
+      55438: { name: Romagne-Gesnes, associées: { 55208: { name: Gesnes-en-Argonne } } }
+  
+  - mod: '20'
+    label: Création
+    date: '1981-09-28'
+    input:
+      27351: { name: Incarville }
+      27365: { name: Léry }
+      27471: { name: Porte-Joie }
+      27474: { name: Poses }
+      27528: { name: 'Le Vaudreuil' }
+      27537: { name: Saint-Étienne-du-Vauvray }
+      27598: { name: Saint-Pierre-du-Vauvray }
+      27651: { name: Tournedos-sur-Seine }
+    result:
+      27351: { name: Incarville }
+      27701: { name: 'Vaudreuil-Ex-Ensemble Urbain' }
+      27365: { name: Léry }
+      27471: { name: Porte-Joie }
+      27474: { name: Poses }
+      27528: { name: 'Le Vaudreuil' }
+      27537: { name: Saint-Étienne-du-Vauvray }
+      27598: { name: Saint-Pierre-du-Vauvray }
+      27651: { name: Tournedos-sur-Seine }
+  
 eof:

@@ -1,7 +1,7 @@
 title: définition du schéma des fichiers d'évolutions des communes avec exemple d'un tel fichier imaginaire
 $schema:
   title: schéma des fichiers d'évolutions des communes
-  $id: http://id.georef.eu/mvtscommunes/exevolcoms/$schema
+  $id: http://id.georef.eu/rpicom/exevolcoms/$schema
   $schema: http://json-schema.org/draft-07/schema#
   description: liste d'évolutions' de communes
   definitions:
@@ -22,8 +22,8 @@ $schema:
             déléguées:
               description: liste éventuelle des communes déléguées, chacune indexée par son code INSEE
               $ref: '#/definitions/componentList'
-            ardtCom:
-              description: liste éventuelle des arrondissements communaux, chacun indexé par son code INSEE
+            ardtMun:
+              description: liste éventuelle des arrondissements municipaux, chacun indexé par son code INSEE
               $ref: '#/definitions/componentList'
           additionalProperties: false
       additionalProperties: false
@@ -44,7 +44,9 @@ $schema:
     title:
       type: string
     $schema:
-      $ref: http://json-schema.org/draft-07/schema#
+      oneOf:
+        - $ref: http://json-schema.org/draft-07/schema#
+        - type: string
     ydADscrBhv:
       description: paramètres de comportement utilisés par le code Php de la classe AutoDescribed
       type: object

@@ -68,6 +68,7 @@ idéeCodeInsee:
 2020-04-16:
   - nlle génération d'evols, 69/37551 différents soit 0 %
   - un certain nombre de différences proviennent d'erreurs INSEE corrigées début 2019
+    - http://localhost/yamldoc/pub/rpicom/?action=compare&file1=com2000-01-01insee.yaml&file2=com2000-01-01gen.yaml
   - voir s'il faut modifier la version du 1/1/1943
 
 idéeEmboitementDePartitions:
@@ -98,4 +99,10 @@ représentation:
     ardMun: # liste des arrondissements municipaux de {idComS}
       {idArdMun}:
         name: {nom}
+2020-04-17:
+  - ordre chronologique inverse
+  - au lieu de partir du 1/1/1943, je peux partir du 1/1/2020 et traiter les mvts dans l'ordre chronologique inverse
+  - cela a l'avantage de partir des fichiers du 1/1/2020 normalement cohérents et corrigés des erreurs détectées
+  - le rpicom peut aussi être défini en ordre chronologique inverse
+  - schéma défini dans exrpicom.yaml
 eof:

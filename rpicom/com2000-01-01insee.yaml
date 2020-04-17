@@ -4155,7 +4155,9 @@ contents:
   '06105':
     name: Roquefort-les-Pins
   '06106':
-    name: Roquesteron
+    #name: Roquesteron
+    name: Roquestéron
+    # Erreur dans le fichier INSEE https://www.insee.fr/fr/metadonnees/cog/commune/COM06106-roquesteron
   '06107':
     name: Roquestéron-Grasse
   '06108':
@@ -10851,9 +10853,11 @@ contents:
     name: Meuvaines
   14431:
     name: Mézidon-Canon
-    associées:
-      14133:
-        name: Canon
+    #associées:
+      #14133:
+        #name: Canon
+    # Erreur dans le fichier INSEE du 1/1/2000, 
+    # 01/01/2000 : Le rattachement de Canon à Mézidon-Canon (14431) est transformé en fusion simple.
   14432:
     name: Missy
   14433:

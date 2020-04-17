@@ -374,9 +374,10 @@ contents:
     name: Guéreins
   '01184':
     name: Hautecourt
-  #'01185':
+  '01185':
     #name: Hauteville
-    #Wikipédia indique que Lompnes (01220) a fusionné le 1/8/1942 avec Hauteville pour former la commune d'Hauteville-Lompnes -> 01459.
+    name: Hauteville-Lompnes
+    #Wikipédia indique que Lompnes (01220) a fusionné le 1/8/1942 avec Hauteville pour former la commune d'Hauteville-Lompnes
   '01186':
     name: Hostias
   '01187':
@@ -924,8 +925,9 @@ contents:
     name: Vonnas
   '01458':
     name: Vouvray
-  '01459':
-    name: Hauteville-Lompnés
+  #'01459':
+    #name: Hauteville-Lompnés
+    # semble une erreur
   '02001':
     name: Abbécourt
   '02002':
@@ -6802,18 +6804,19 @@ contents:
     name: Vira
   '09341':
     name: Viviès
-  2A237:
-    name: Poggio-di-Tallano
-  2A294:
-    name: 'Sant''Andréa-di-Tallano'
-  2A325:
-    name: Tivolaggio
-  2B044:
-    name: Brustico
-  2B076:
-    name: Cassano
-  2B151:
-    name: Lunghignano
+  #2A237:
+    #name: Poggio-di-Tallano
+  #2A294:
+    #name: 'Sant''Andréa-di-Tallano'
+  #2A325:
+    #name: Tivolaggio
+  #2B044:
+    #name: Brustico
+  #2B076:
+    #name: Cassano
+  #2B151:
+    #name: Lunghignano
+    # Erreurs du fichier GéoHisto
   10001:
     name: 'L''Abbaye-sous-Plancy'
   10002:
