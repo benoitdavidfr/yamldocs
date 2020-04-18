@@ -1,10 +1,13 @@
 title: 'Fichier des communes de 1943'
-source: |
-  Fabriqué à partir de GéoHisto en utilisant http://localhost/yamldoc/pub/evolcoms/?action=genCom1943
-  Suppression des 8e et 9e ardt de Lyon
-  
-created: '2020-04-10T15:40:54+00:00'
-modified: '2020-04-16'
+created: '2020-04-18T19:29:13+00:00'
+source: 'Fabriqué à partir de GéoHisto en utilisant http://localhost/yamldoc/pub/evolcoms/?action=genCom1943'
+$schema: 'http://id.georef.eu/rpicom/exfcoms/$schema'
+ydADscrBhv:
+  jsonLdContext: 'http://schema.org'
+  firstLevelType: AdministrativeArea
+  buildName:
+    AdministrativeArea: "            if (isset($item['name']))\n              return \"$item[name] ($skey)\";\n            elseif (isset($item['associéeA']))\n              return \"$skey associéeA $item[associéeA]\";\n            elseif (isset($item['déléguéeDe']))\n              return \"$skey déléguéeDe $item[déléguéeDe]\";\n            else\n              return \"none\";"
+  writePserReally: true
 contents:
   '01001':
     name: 'L''Abergement-Clémenciat'
@@ -375,9 +378,7 @@ contents:
   '01184':
     name: Hautecourt
   '01185':
-    #name: Hauteville
-    name: Hauteville-Lompnes
-    #Wikipédia indique que Lompnes (01220) a fusionné le 1/8/1942 avec Hauteville pour former la commune d'Hauteville-Lompnes
+    name: Hauteville
   '01186':
     name: Hostias
   '01187':
@@ -446,9 +447,8 @@ contents:
     name: Lochieu
   '01219':
     name: Lompnas
-  #'01220':
-    #name: Lompnes
-    #Wikipédia indique que Lompnes (01220) a fusionné le 1/8/1942 avec Hauteville pour former la commune d'Hauteville-Lompnes.
+  '01220':
+    name: Lompnes
   '01221':
     name: Lompnieu
   '01222':
@@ -925,9 +925,8 @@ contents:
     name: Vonnas
   '01458':
     name: Vouvray
-  #'01459':
-    #name: Hauteville-Lompnés
-    # semble une erreur
+  '01459':
+    name: Hauteville-Lompnés
   '02001':
     name: Abbécourt
   '02002':
@@ -6804,19 +6803,18 @@ contents:
     name: Vira
   '09341':
     name: Viviès
-  #2A237:
-    #name: Poggio-di-Tallano
-  #2A294:
-    #name: 'Sant''Andréa-di-Tallano'
-  #2A325:
-    #name: Tivolaggio
-  #2B044:
-    #name: Brustico
-  #2B076:
-    #name: Cassano
-  #2B151:
-    #name: Lunghignano
-    # Erreurs du fichier GéoHisto
+  2A237:
+    name: Poggio-di-Tallano
+  2A294:
+    name: 'Sant''Andréa-di-Tallano'
+  2A325:
+    name: Tivolaggio
+  2B044:
+    name: Brustico
+  2B076:
+    name: Cassano
+  2B151:
+    name: Lunghignano
   10001:
     name: 'L''Abbaye-sous-Plancy'
   10002:
@@ -59399,6 +59397,10 @@ contents:
         name: 'Lyon 6e Arrondissement'
       69387:
         name: 'Lyon 7e Arrondissement'
+      69388:
+        name: 'Lyon 8e Arrondissement'
+      69389:
+        name: 'Lyon 9e Arrondissement'
   69124:
     name: Marchampt
   69125:

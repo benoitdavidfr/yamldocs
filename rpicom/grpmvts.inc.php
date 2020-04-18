@@ -446,19 +446,19 @@ class GroupMvts {
         foreach ($avant['après'] as $idap => $après1) {
           foreach ($après1 as $typap => $après) {
             if ($typap == 'COM')
-              $output[$idap]['name'] = $après['name'];
+              $result[$idap]['name'] = $après['name'];
           }
         }
         foreach ($avant['après'] as $idap => $après1) {
           foreach ($après1 as $typap => $après) {
             if ($typap == 'COM')
-              $output[$idap]['name'] = $après['name'];
+              $result[$idap]['name'] = $après['name'];
             elseif ($typap == 'COMA')
-              $output[$idChefLieuAp]['associées'][$idap]['name'] = $après['name'];
+              $result[$idChefLieuAp]['associées'][$idap]['name'] = $après['name'];
             elseif ($typap == 'COMD')
-              $output[$idChefLieuAp]['déléguées'][$idap]['name'] = $après['name'];
+              $result[$idChefLieuAp]['déléguées'][$idap]['name'] = $après['name'];
             elseif ($typap == 'ARM')
-              $output[$idChefLieuAp]['ardtMun'][$idap]['name'] = $après['name'];
+              $result[$idChefLieuAp]['ardtMun'][$idap]['name'] = $après['name'];
             else
               throw new Exception("Cas imprévu ligne ".__LINE__);
           }
@@ -466,10 +466,10 @@ class GroupMvts {
       }
     }
     foreach (array_keys($input) as $idav) {
-      if (!isset($output[$idav]))
+      if (!isset($result[$idav]))
         unset($coms->$idav);
     }
-    foreach ($output as $idap => $com) {
+    foreach ($result as $idap => $com) {
       if ($idap <> '69123')
         $coms->$idap = $com;
     }
@@ -478,7 +478,7 @@ class GroupMvts {
       'label'=> $this->label,
       'date'=> $this->date,
       'input'=> $input,
-      'output'=> $output,
+      'result'=> $result,
     ];
   }
   
@@ -565,7 +565,7 @@ class GroupMvts {
       case '34': { // Transformation de fusion association en fusion simple ou suppression de communes déléguées
         // Le ChefLieu est le seul id d'arrivée qui est de type COM
         $idChefLieu = null;
-        foreach ($this->factorAvant($trace) as $idav => $avant1) {
+        foreach ($this->factorAvant(new Criteria(['not'])) as $idav => $avant1) {
           foreach ($avant1 as $typav => $avant) {
             foreach ($avant['après'] as $idap => $après1) {
               foreach ($après1 as $typap => $après) {
@@ -644,6 +644,160 @@ class GroupMvts {
         return $this->defaultEvol('PasDeChefLieu', 'PasDeChefLieu', $coms, $trace);
       }
     
+      default:
+        throw new Exception("mod $this->mod non traité ligne ".__LINE__);
+    }
+  }
+
+  // traduit en étiquette pour Rpicom le type issu du fichier INSEE
+  private static function linkLabel(string $type) {
+    switch ($type) {
+      case 'COM': return '';
+      case 'COMA': return 'associéeA';
+      case 'COMD': return 'déléguéeDe';
+      case 'ARM': return 'ardtMunDe';
+      default:
+        throw new Exception("Erreur type=$type ligne ".__LINE__);
+    }
+  }
+    
+  function addToRpicom(Base $rpicom, Criteria $trace): void {
+    {/*PhpDoc: methods
+    name: rpicom
+    title: "function addToRpicom(Base $$rpicom, Criteria $trace): void - Ajoute au RPICOM le groupe"
+    */}
+    $factAv = $this->factorAvant($trace);
+    //$evol = $this->buildEvol(new Base('', new Criteria(['not'])), $trace);
+    //echo Yaml::dump(['evol'=> $evol]);
+    $rpicom->startExtractAsYaml();
+    switch($this->mod) {
+      case '21': { // Rétablissement
+        if ($this->mvts[0]['avant']['type']=='ARM') {
+          // cas des ARM de Lyon A VOIR PLUS TARD
+          throw new Exception("mod $this->mod non traité ligne ".__LINE__);
+        }
+        foreach ($factAv as $idav => $avant1) {
+          foreach ($avant1 as $typav => $avant) {
+            if ($typav == 'COM') {
+              $idCom = $idav;
+              $nameCom = $avant['name'];
+            }
+            elseif ($idav <> $idCom) {
+              $rpicom->mergeToRecord($idav, [
+                $this->date => [
+                  'name'=> $avant['name'],
+                  self::linkLabel($typav) => $idCom,
+                ]
+              ]);
+            }
+            else { // com. dél. ayant même code que sa mère
+              $rpicom->mergeToRecord($idav, [
+                $this->date => [
+                  'name'=> $nameCom,
+                  'commeDéléguée' => [
+                    'name'=> $avant['name'],
+                  ]
+                ]
+              ]);
+            }
+          }
+        }
+        foreach ($factAv as $idav => $avant1) {
+          foreach ($avant1 as $typav => $avant) {
+            foreach ($avant['après'] as $idap => $après1) {
+              foreach($après1 as $typap => $après) {
+                if (!isset($factAv[$idap])) { // $idap apparait sans être présente dans les avants
+                  $rpicom->mergeToRecord($idap, [ $this->date => ['rétablieDe'=> $idCom] ]);
+                }
+              }
+            }
+          }
+        }
+        $rpicom->showExtractAsYaml(5, 2);
+        return;
+      }
+      
+      case '32': { // Création de commune nouvelle
+        // chercher le nouveau chef-lieu qui est le seul type=='COM' à droite, je l'appelle $idChefLieu
+        $idChefLieu = null;
+        foreach ($factAv as $idav => $avant1) {
+          foreach ($avant1 as $typav => $avant) {
+            foreach ($avant['après'] as $idap => $après1) {
+              foreach ($après1 as $typap => $après) {
+                if ($typap == 'COM') { $idChefLieu = $idap; break 4; }
+              }
+            }
+          }
+        }
+        if (!$idChefLieu)
+          throw new Exception("idChefLieu non trouvé ligne ".__LINE__);
+ 
+        foreach ($factAv as $idav => $avant1) {
+          foreach ($avant1 as $typav => $avant) {
+            if (($idav == $idChefLieu) && ($typav == 'COM')) {
+              $rpicom->mergeToRecord($idav, [
+                $this->date => [
+                  'name'=> $avant['name']
+                ]
+              ]);
+            }
+            else {
+              $rpicom->mergeToRecord($idav, [
+                $this->date => [
+                  'name'=> $avant['name']
+                ]
+              ]);
+            }
+          }
+        }
+        $rpicom->showExtractAsYaml(5, 2);
+        $rpicom->writeAsYaml('rpicom'); die("Fin ligne ".__LINE__);
+        return;
+      }
+      
+      case '34': { // Suppression associée ou déléguée
+        foreach ($factAv as $idav => $avant1) {
+          foreach ($avant1 as $typav => $avant) {
+            if ($typav == 'COM') {
+              $idCom = $idav;
+              $nameCom = $avant['name'];
+            }
+            elseif ($idav <> $idCom) {
+              $rpicom->mergeToRecord($idav, [
+                $this->date => [
+                  'name'=> $avant['name'],
+                  self::linkLabel($typav) => $idCom,
+                  'absorbéePar'=> $idCom,
+                ]
+              ]);
+            }
+            else {
+              $rpicom->mergeToRecord($idav, [
+                $this->date => [
+                  'name'=> $nameCom,
+                  'commeDéléguée' => [
+                    'name'=> $avant['name'],
+                  ]
+                ]
+              ]);
+            }
+          }
+        }
+        $rpicom->showExtractAsYaml(5, 2);
+        return;
+      }
+      
+      case '70': { // Transformation de commune associée en commune déléguée
+        /*
+          date: '2020-01-01'
+          mvts:
+            - avant: { type: COM, id: '52064', name: Bourmont-entre-Meuse-et-Mouzon }
+              après: { type: COMD, id: '52224', name: Gonaincourt }
+          Je considère que c'est une erreur INSEE.
+        */
+        return;
+      }
+      
       default:
         throw new Exception("mod $this->mod non traité ligne ".__LINE__);
     }

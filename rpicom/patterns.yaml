@@ -126,13 +126,80 @@ Rétablissement:
       règles:
         id1: [id1, id2]
         id2a: [id2]
-    -
+    - title: une c. nouvelle (14712) avec 2 c. dél. (14712+14666) donne 2 c. simples (14712+14666) + 1 c. assoc. (14114)
       nb: 1
       md5: 1da7ed7aaf86f48836585e1e60513ccf
       règles:
         id1: [id1, id2, id3a]
         id1d: [id1]
         id2d: [id2]
+      example:
+        enClair: >
+          La c. nouvelle de Saline (14712) avec 2 c. dél. (Troarn (14712) et Sannerville (14666))
+          donne les 2 communes simples de Troarn (14712) et Sannerville (14666)
+          et la c. associée de Bures-sur-Dives (14114), associée à Troarn (14712)
+        group:
+          mod: '21'
+          label: Rétablissement
+          date: '2019-12-31'
+          mvts:
+            - avant: { type: COM, id: '14712', name: Saline }
+              après: { type: COMA, id: '14114', name: Bures-sur-Dives }
+            - avant: { type: COMD, id: '14712', name: Troarn }
+              après: { type: COM, id: '14712', name: Troarn }
+            - avant: { type: COM, id: '14712', name: Saline }
+              après: { type: COM, id: '14666', name: Sannerville }
+            - avant: { type: COM, id: '14712', name: Saline }
+              après: { type: COM, id: '14712', name: Troarn }
+            - avant: { type: COMD, id: '14666', name: Sannerville }
+              après: { type: COM, id: '14666', name: Sannerville } }
+        factAv:
+          14712:
+            COM:
+              name: Saline
+              après:
+                14712: { COM: { name: Troarn } }
+                14666: { COM: { name: Sannerville } }
+                14114: { COMA: { name: Bures-sur-Dives } }
+            COMD:
+              name: Troarn
+              après:
+                14712: { COM: { name: Troarn } }
+          14666:
+            COMD:
+              name: Sannerville
+              après:
+                14666: { COM: { name: Sannerville } }
+        étatAprès(1/1/2020):
+          14712:
+            name: Troarn
+            associées:
+              14114:
+                name: Bures-sur-Dives
+          14114:
+            associéeA: '14712'
+          14666:
+            name: Sannerville
+        rpicom:
+          14712:
+            now:
+              name: Troarn
+            '2019-12-31':
+              name: Saline
+              commeDéléguée:
+                name: Troarn
+          14114:
+            now:
+              name: Bures-sur-Dives
+              associéeA: '14712'
+            '2019-12-31':
+              rétablieDe: 14712
+          14666:
+            now:
+              name: Sannerville
+            '2019-12-31':
+              name: Sannerville
+              déléguéeDe: 14712
     - title: id2 associée est rétablie, id3a reste associée
       nb: 12
       id: 3dd5c6307127b20dfed178f78e2b81b2
@@ -475,6 +542,38 @@ CréationCommuneNouvelle:
         id6d: [id1, id6d] # id6 -> déléguée de id1
         id7d: [id1, id7d] # id7 -> déléguée de id1
   patterns:
+    - nb: 23
+      règles:
+        id1: [id1]
+        id2: [id1]
+      id: 453059ad6d4ae878f52fceb7002f6906
+    - nb: 39
+      id: c4329e79cd4dd141c4eff8f2a2463151
+      règles:
+        id1: [id1d, id2]
+        id2: [id2]
+      example:
+        $group:
+          mod: '32'
+          label: 'Création de commune nouvelle'
+          date: '2019-03-01'
+        $factAv2:
+          45287:
+            COM:
+              name: Saint-Loup-de-Gonois
+              après:
+                45287: { COMD: { name: Saint-Loup-de-Gonois } }
+                45307: { COM: { name: 'La Selle-sur-le-Bied' } }
+          45307:
+            COM:
+              name: 'La Selle-sur-le-Bied'
+              après:
+                45307: { COM: { name: 'La Selle-sur-le-Bied' } }
+        rpicom:
+          45287:
+            '2019-03-01':
+              name: Saint-Loup-de-Gonois
+          45307:
     - nb: 1
       id: 192c4dc500cc51d7ffcaaacc5034c06c
       règles:
@@ -752,11 +851,6 @@ CréationCommuneNouvelle:
         id7a: [id1, id7d]
         id8a: [id1, id8d]
         id9a: [id1, id9d]
-    - nb: 23
-      règles:
-        id1: [id1]
-        id2: [id1]
-      id: 453059ad6d4ae878f52fceb7002f6906
     - nb: 1
       règles:
         id1: [id1d, id10]
@@ -1111,11 +1205,6 @@ CréationCommuneNouvelle:
         id2: [id2]
         id3a: [id2]
       id: bbd9cdc3002073b9861f2490015c79aa
-    - nb: 39
-      règles:
-        id1: [id1d, id2]
-        id2: [id2]
-      id: c4329e79cd4dd141c4eff8f2a2463151
     - nb: 1
       règles:
         id1: [id1d, id3]
@@ -2026,7 +2115,7 @@ FusionAssociation:
         id8: [id8a, id9]
         id9: [id9]
       id: 39fa2e1a4e582c000c93fa20c830e0c6
-TransformationFusionAssociationEnFusionSimple:
+SuppressionAssociéeOuDéléguée:
   mod: '34'
   label: 'Transformation de fusion association en fusion simple ou suppression de communes déléguées'
   patterns:

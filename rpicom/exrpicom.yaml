@@ -58,15 +58,15 @@ $schema:
                 associéeA:
                   description: si c. associée alors c. INSEE de la commune à laquelle elle est associée
                   type: [string, number]
-                  format: '^\d[\dAB]\d\d\d$'
+                  pattern: '^\d[\dAB]\d\d\d$'
                 déléguéeDe:
                   description: si c'est c. déléguée alors c. INSEE de la commune dont elle est déléguée
                   type: [string, number]
-                  format: '^\d[\dAB]\d\d\d$'
+                  pattern: '^\d[\dAB]\d\d\d$'
                 ardtMunDe:
                   description: si c'est un ardt mun. alors c. INSEE de la commune parente
                   type: [string, number]
-                  format: '^\d[\dAB]\d\d\d$'
+                  pattern: '^\d[\dAB]\d\d\d$'
                 commeDéléguée:
                   description: si la c. est déléguée d'elle même alors cette partie définit les prop. de la c. déléguée
                   $ref: '#/definitions/commeDéléguée'
@@ -120,13 +120,13 @@ $schema:
                     rétablieDe:
                       description: si la c. S/A/D a été rétablie alors la c. dont elle est issue
                       type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
+                      pattern: '^\d[\dAB]\d\d\d$'
                     crééeAPartirDe:
                       description: si la c. a été créée à cette date alors les communes dont proviennent son territoire
                       type: array
                       items:
                         type: [string, number]
-                        format: '^\d[\dAB]\d\d\d$'
+                        pattern: '^\d[\dAB]\d\d\d$'
   type: object
   properties:
     title:

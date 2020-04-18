@@ -74,13 +74,13 @@ communes2020:
       8: Article = LOS, charnière = DE LOS
   NCC:
     longueur: 200
-    libellé: Nom en clair (majuscules)
+    libellé: Nom en majuscules sans article
   NCCENR:
     longueur: 200
-    libellé: Nom en clair (typographie riche)
+    libellé: Nom en minucules avec typographie riche sans article
   LIBELLE:
     longueur: 200
-    libellé: Nom en clair (typographie riche) avec article
+    libellé: Nom en minucules avec typographie riche avec article
   CAN:
     longueur: 5
     libellé: Code canton. Pour les communes « multi-cantonales » code décliné de 99 à 90 (pseudo-canton) ou de 89 à 80 (communes nouvelles)

@@ -112,47 +112,64 @@ class Base {
   protected $metadata; // [ {key} => {val} ] - liste des métadata, si possible DublinCore
   protected $trace; // Criteria - critères de trace
   protected $traceVars = []; // [string] - variables utilisées pour tester si la trace est active ou non
+  protected $extractAsYaml; // [string => 1] ou null - utilisé par startExtractAsYaml() / showExtractAsYaml()
   
   // affectation d'une des variables utilisées pour tester la verbosité
   function setTraceVar(string $var, $val) { $this->traceVars[$var] = $val; }
   
-  function __construct(string $fpath='', Criteria $trace=null) {
+  function __construct($data='', Criteria $trace=null) {
     {/*PhpDoc: methods
     name: __construct
-    title: function __construct(string $fpath='', Criteria $trace=null) - Initialisation de la base
+    title: function __construct($data='', Criteria $trace=null) - Initialisation de la base
     doc: |
-      Si $fpath=='' alors la base est initialisée à vide ;
-      Sinon si le fichier $fpath.pser existe et est plus récent qu'un éventuel fichier yaml alors ce fichier pser est utilisé ;
-      Sinon si le fichier yaml existe alors il est utilisé et enregistré en pser (pour accélérer une prochaine utilisation) ;
-      Sinon la base est initialisée à vide.
-      Si $fpath n'est pas vide mais que les fichiers n'existent pas alors ce $fpath sera utilisé lors d'un save().
-      La base correspond au champ contents du fichier Yaml/pser ; les autres champs sont considérés comme les métadonnées
+      La base est initialisée à partir soit d'un Yaml, soit d'un fichier, soit de rien.
+      Si $data est un string alors
+        Si $data=='' alors la base est initialisée à vide ;
+        SinonSi le fichier $data.pser existe et est plus récent qu'un éventuel fichier yaml
+          alors ce fichier pser est utilisé ;
+        Sinonsi le fichier yaml existe
+          alors il est utilisé et enregistré en pser (pour accélérer une prochaine utilisation) ;
+        Sinon la base est initialisée à vide.
+      SinonSi $data est un array alors la base est initailisée à partir de cet array
+      Sinon exception
+      
+      Si $data est un string <> '' mais que les fichiers n'existent pas alors ce $data sera utilisé lors d'un save().
+      La base correspond au champ 'contents' du fichier Yaml/pser ; les autres champs sont considérés comme les métadonnées
       de la base.
     */}
-    $this->filepath = $fpath;
-    if (!$fpath) {
-      $base = ['contents'=> []];
+    $this->filepath = ''; // initialisation de $this->filepath pour le cas où $data est un array
+    if (is_string($data)) { // si string alors le chemin du fichier contenant les données
+      $fpath = $data;
+      $this->filepath = $fpath;
+      if (!$fpath) {
+        $data = ['contents'=> []];
+      }
+      elseif (is_file("$fpath.pser") && (is_file("$fpath.yaml") && (filemtime("$fpath.pser") > filemtime("$fpath.yaml")))) {
+        $data = unserialize(file_get_contents("$fpath.pser"));
+      }
+      elseif (is_file("$fpath.yaml")) {
+        $data = Yaml::parse(file_get_contents("$fpath.yaml"));
+        file_put_contents("$fpath.pser", serialize($data));
+      }
+      else {
+        $data = ['contents'=> []];
+      }
     }
-    elseif (is_file("$fpath.pser") && (is_file("$fpath.yaml") && (filemtime("$fpath.pser") > filemtime("$fpath.yaml")))) {
-      $base = unserialize(file_get_contents("$fpath.pser"));
-    }
-    elseif (is_file("$fpath.yaml")) {
-      $base = Yaml::parse(file_get_contents("$fpath.yaml"));
-      file_put_contents("$fpath.pser", serialize($base));
-    }
-    else {
-      $base = ['contents'=> []];
-    }
-    $this->base = $base['contents'];
-    unset($base['contents']);
-    $this->metadata = $base;
+    elseif (!is_array($data))
+      throw new Exception("Dans Base::__construct() le paramètre data doit avoir comme type soit string soit array");
+    $this->base = $data['contents'];
+    unset($data['contents']);
+    $this->metadata = $data;
     $this->trace = $trace ?? new Criteria([]);
+    $this->extractAsYaml = null; // == null signifie que extract n'est pas en cours de constitution
   }
   
   function __set(string $key, $record): void {
     if ($this->trace->is($this->traceVars))
       echo "Base::__set($key, ",json_encode($record, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE),")\n";
     $this->base[$key] = $record;
+    if ($this->extractAsYaml !== null)
+      $this->extractAsYaml[$key] = 1;
   }
   
   function __get(string $key) {
@@ -173,11 +190,25 @@ class Base {
     unset($this->base[$key]);
   }
   
+  // ajoute à l'enregistrement $key l'array $merge
+  function mergeToRecord(string $key, array $merge): void {
+    if (!isset($this->$key)) {
+      $this->$key = $merge;
+    }
+    else {
+      $record = $this->$key;
+      $this->$key = array_merge($record, $merge);
+    }
+  }
+
   function __toString(): string {
     return json_encode(
       array_merge($this->metadata, ['contents'=> $this->base]),
       JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
   }
+  
+  // retourne le contenu comme array
+  function contents(): array { return $this->base; }
   
   function save(string $filepath='', array $metadata=[]) {
     {/*PhpDoc: methods
@@ -227,9 +258,22 @@ class Base {
       echo Yaml::dump(array_merge($metadata, ['contents'=> $this->base]), 99, 2);
   }
 
+  // démarre la constitution avec les enr. modifiés d'un extrait qui sera terminé et affiché par showExtractAsYaml()
+  function startExtractAsYaml(): void { $this->extractAsYaml = []; }
+  
+  // affiche l'extrait démarré par startExtractAsYaml() et termine l'extrait
+  function showExtractAsYaml(int $level=1, int $spaces=2) {
+    $extract = [];
+    foreach (array_keys($this->extractAsYaml) as $id) {
+      $extract[$id] = $this->$id;
+    }
+    echo Yaml::dump(['showExtractAsYaml()'=> $extract], $level, $spaces);
+    $this->extractAsYaml = null;
+  }
+  
   static function test() {
     echo '<pre>';
-    if (1) {
+    if (0) {
       //$base = new Base(__DIR__.'/basetest');
       $base = new Base;
       echo '$base='; print_r($base);
@@ -240,17 +284,26 @@ class Base {
       $base->save(__DIR__.'/basetest', ['title'=> "Base test"]);
       //$base->save();
     }
-    if (1) {
+    if (0) {
       $base = new Base('', new Criteria(['not']));
       $base->key = ['valeur test créée le '.date(DATE_ATOM)];
       $base->writeAsYaml();
       echo "$base\n";
     }
-    if (1) {
+    if (0) {
       $base = new Base;
       $key = 256;
       $base->$key = ['valeur test créée le '.date(DATE_ATOM)];
       $base->writeAsYaml();
+    }
+    if (1) {
+      $base = new Base;
+      $key = 256;
+      $base->$key = ['valeur test créée le '.date(DATE_ATOM)];
+      $base->mergeToRecord($key, ['autre valeur à merger']);
+      $key2 = 257;
+      $base->mergeToRecord($key2, ['autre valeur à merger']);
+      echo "$base\n";
     }
   }
 };

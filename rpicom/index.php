@@ -5,6 +5,8 @@ title: index.php - diverses actions rpicom
 doc: |
   Définition de différentes actions accessibles par le Menu
 journal: |
+  18/4/2020:
+    - possibilité d'utiliser le script en cli permettant ainsi de générer les fichiers avec Makefile
   11/4/2020:
     - extraction des classes Base et Criteria dans base.inc.php
     - correction de la définition de l'encodage des anciens ficheirs INSEE en Windows-1252
@@ -31,6 +33,176 @@ require_once __DIR__.'/base.inc.php';
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
 
+{/*PhpDoc: classes
+name: Menu
+title: class Menu - affiche le menu en CLI ou en HTML et traduit les paramètres CLI en $_GET en fonction du menu
+doc: |
+  Doit être initialisé avec le Menu dans le format
+    [{action} => [
+      'argNames' => [{argName}], // liste des noms des paramètres de la commande utilisés en HTTP
+      'actions'=> [  // liste d'actions proposées
+        {label}=> [{argValue}] // étiquette de chaque action et liste des paramètres de la commande
+      ]
+    ]]
+*/}
+class Menu {
+  protected $cmdes; // [{action} => [ 'argNames' => [{argName}], 'actions'=> [{label}=> [{argValue}]] ]]
+  protected $argv0; // == $argv[0]
+  
+  function __construct(array $cmdes) {
+    $this->cmdes = $cmdes;
+    foreach ($cmdes as $action => $cmde) {
+      if (!isset($cmde['argNames']))
+        die("Erreur pas de champ 'argNames' pour l'action '$action'");
+      if (!is_array($cmde['argNames']))
+        die("Erreur 'argNames' pour l'action '$action' n'est pas un array");
+      if (!isset($cmde['actions']))
+        die("Erreur pas de champ 'actions' pour l'action '$action'");
+      if (!is_array($cmde['actions']))
+        die("Erreur 'actions' pour l'action '$action' n'est pas un array");
+      foreach ($cmde['actions'] as $label => $argValues)
+        if (count($argValues) <> count($cmde['argNames']))
+          die("Erreur pour action='$action', l'action \"$label\" est mal définie");
+    }
+  }
+  
+  // cas d'utilisation en cli, traduit les args CLI en $_GET en fonction de $this->actions
+  function cli(int $argc, array $argv): array {
+    //echo "argc=$argc, argv="; print_r($argv);
+    $this->argv0 = array_shift($argv); // le nom du fichier php
+    if ($argc == 1) {
+      return [];
+    }
+    $_GET = ['action' => array_shift($argv)];
+    if (!isset($this->cmdes[$_GET['action']]))
+      die("Erreur action '$_GET[action]' non définie dans le Menu\n");
+    foreach ($argv as $i => $arg) {
+      $pname = $this->cmdes[$_GET['action']]['argNames'][$i];
+      $_GET[$pname] = $arg;
+    }
+    //print_r($_GET); die();
+    return $_GET;
+  }
+  
+  // affiche le menu en CLI ou en HTML
+  function show() {
+    if (php_sapi_name() == 'cli') {
+      echo "Actions possibles:\n";
+      foreach($this->cmdes as $action => $cmde) {
+        echo "  php $this->argv0 $action",
+          $cmde['argNames'] ? " {".implode('} {', $cmde['argNames'])."}" : '',"\n";
+        foreach ($cmde['actions'] as $label => $argValues)
+          echo "   # $label\n    php $this->argv0 $action ",implode(' ', $argValues),"\n";
+      }
+    }
+    else {
+      echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>menu</title></head><body>Menu:<ul>\n";
+      foreach($this->cmdes as $action => $cmde) {
+        echo "<li>$action<ul>\n";
+        $href = "?action=$action";
+        foreach ($cmde['actions'] as $label => $argValues) {
+          foreach ($cmde['argNames'] as $argNo => $argName)
+            $href .= "&amp;$argName=".urlencode($argValues[$argNo]);
+          echo "<li><a href='$href'>$label</a></li>\n";
+        }
+        echo "</ul>\n";
+      }
+      echo "</ul>\n";
+    }
+  }
+};
+
+$menu = new Menu([
+  // [{action} => [ 'argNames' => [{argName}], 'actions'=> [{label}=> [{argValue}]] ]]
+  'csvMvt2yaml'=> [
+    // affichage Yaml des mouvements
+    'argNames'=> ['file'], // liste des noms des arguments en plus de action
+    'actions'=> [
+      "Affiche mvtcommune2020.csv"=> ['mvtcommune2020.csv'],
+    ],
+  ],
+  'csvCom2html'=> [
+    // affichage d'un instantané des communes
+    'argNames'=> ['file', 'format'], // liste des noms des arguments en plus de action
+    'actions'=> [
+      "Affiche communes2020.csv"=> ['communes2020.csv', 'csv'],
+      "Affiche les communes au 1/1/2019"=> ['communes-01012019.csv', 'csv'],
+      "Affiche France2018.txt"=> ['France2018.txt', 'txt'],
+      "Affiche France2000.txt"=> ['France2000.txt', 'txt'],
+    ],
+  ],
+  'delBase'=> [
+    'argNames'=> [],
+    'actions'=> [
+      "effacement de la base"=> [],
+    ],
+  ],
+  'integrateState'=> [
+    // intégration d'un état dans la base
+    'argNames'=> ['state', 'file', 'format'], // liste des noms des arguments en plus de action
+     // actions prédéfinies
+    'actions'=> [
+      "intégration dans la base de l'état au 1/1/2000"=> [ '2000-01-01', 'France2000.txt', 'txt'],
+    ],
+  ],
+  'integrateUpdates'=> [
+    // intègre les Mvts dans la base et affiche le résultat, sans sauver la base
+    'argNames'=> ['file'],
+    'actions'=> [
+      "affichage de la base avec les maj"=> [ 'mvtcommune2020.csv' ],
+    ],
+  ],
+  'genCom1943'=> [
+    // génération d'un fichier des communes au 1/1/1943 à partir de GéoHisto
+    'argNames'=> [],
+    'actions'=> [
+      "génération du fichier des communes au 1/1/1943"=> [],
+    ],
+  ],
+  'check'=> [
+    // vérifie la conformité du fichier à son schéma
+    'argNames'=> ['file'],
+     // actions prédéfinies
+    'actions'=> [
+      "conformité com20200101.yaml à son schema"=> [ 'com20200101.yaml'],
+    ],
+  ],
+  'buildState'=> [
+    // affichage Yaml de l'état des communes par traduction du fichier INSEE
+    'argNames'=> ['state', 'file', 'format'], // liste des noms des arguments en plus de action
+     // actions prédéfinies
+    'actions'=> [
+      "affichage de l'état au 1/1/2020"=> [ '2020-01-01', 'communes2020.csv', 'csv'],
+      "affichage de l'état au 1/1/2019"=> [ '2019-01-01', 'communes-01012019.csv', 'csv'],
+      "affichage de l'état au 1/1/2018"=> [ '2018-01-01', 'France2018.txt', 'txt'],
+      "affichage de l'état au 1/1/2010"=> [ '2010-01-01', 'France2010.txt', 'txt'],
+      "affichage Yaml des communes au 1/1/2000 à partir du fichier INSEE"=> [ '2000-01-01', 'France2000.txt', 'txt']
+    ],
+  ],
+  'genEvols'=> [
+    'argNames'=> [],
+    'actions'=> [
+      "génération du fichier des évolutions"=> [],
+    ],
+  ],
+  'comp'=> [
+    'argNames'=> ['date'],
+    'actions'=> [
+      "comparaison entre l'état généré au 1/1/2000 et celui de l'INSEE"=> ['2000-01-01'],
+    ],
+  ],
+  'compare'=> [
+    'argNames'=> [],
+    'actions'=> [
+      "Compare 2 fichiers entre eux"=> [],
+    ],
+  ],
+]
+);
+
+if (php_sapi_name() == 'cli') { // traite le cas d'utilisation en cli, traduit les args CLI en $_GET en fonction de $menu
+  $_GET = $menu->cli($argc, $argv);
+}
 
 if (($_GET['action'] ?? null) == 'delBase') { // suppression de la base
   if (is_file(__DIR__.'/base.pser')) {
@@ -45,37 +217,7 @@ name: Menu
 title: Menu - permet d'exécuter différentes actions définies
 */}
 if (!isset($_GET['action'])) { // Menu
-  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>menu</title></head><body>\n";
-  echo "<a href='?action=csvMvt2yaml&amp;file=mvtcommune2020.csv'>Affiche mvtcommune2020.csv</a><br>\n";
-  echo "<a href='?action=csvCom2html&amp;file=communes2020.csv&amp;format=csv'>",
-    "Affiche communes2020.csv</a><br>\n";
-  echo "<a href='?action=csvCom2html&amp;file=communes-01012019.csv&amp;format=csv'>",
-    "Affiche les communes au 1/1/2019</a><br>\n";
-  echo "<a href='?action=csvCom2html&amp;file=France2018.txt&amp;format=txt'>",
-    "Affiche France2018.txt</a><br>\n";
-  echo "<a href='?action=csvCom2html&amp;file=France2010.txt&amp;format=txt'>",
-    "Affiche France2010.txt</a><br>\n";
-  echo "<a href='?action=csvCom2html&amp;file=France2000.txt&amp;format=txt'>",
-    "Affiche France2000.txt</a><br>\n";
-  echo "<a href='?action=delBase'>effacement de la base</a><br>\n";
-  echo "<a href='?action=buildState&amp;state=2020-01-01&amp;file=communes2020.csv&amp;format=csv'>",
-    "intégration dans la base de l'état au 1/1/2020</a><br>\n";
-  echo "<a href='?action=buildState&amp;state=2019-01-01&amp;file=communes-01012019.csv&amp;format=csv'>",
-    "intégration dans la base de l'état au 1/1/2019</a><br>\n";
-  echo "<a href='?action=buildState&amp;state=2018-01-01&amp;file=France2018.txt&amp;format=txt'>",
-    "intégration dans la base de l'état au 1/1/2018</a><br>\n";
-  echo "<a href='?action=buildState&amp;state=2010-01-01&amp;file=France2010.txt&amp;format=txt'>",
-    "intégration dans la base de l'état au 1/1/2010</a><br>\n";
-  echo "<a href='?action=integrateState&amp;state=2000-01-01&amp;file=France2000.txt&amp;format=txt'>",
-    "intégration dans la base de l'état au 1/1/2000</a><br>\n";
-  echo "<a href='?action=buildUpdates&amp;file=mvtcommune2020.csv'>","affichage de la base avec les maj</a><br>\n";
-  echo "<br>\n";
-  echo "<a href='?action=genCom1943'>génération du fichier des communes au 1/1/1943</a><br>\n";
-  echo "<a href='?action=genEvols'>génération du fichier des évolutions</a><br>\n";
-  echo "<a href='?action=comp&amp;date=2000-01-01'>comparaison entre l'état généré au 1/1/2000 et celui de l'INSEE</a><br>\n";
-  echo "<a href='?action=buildState&amp;state=2000-01-01&amp;file=France2000.txt&amp;format=txt'>",
-    "création du fichier Yaml des communes au 1/1/2000 à partir du fichier INSEE</a><br>\n";
-    echo "<a href='?action=compare'>Compare 2 fichiers entre eux</a>\n";
+  $menu->show();
   die();
 }
 
@@ -305,35 +447,7 @@ if ($_GET['action'] == 'csvCom2html') { // affichage d'un instantané des commun
   die();
 }
 
-if ($_GET['action'] == 'extrait') { // extrait
-  $file = fopen($_GET['file'], 'r');
-  $sep = $_GET['format'] == 'csv' ? ',' : "\t";
-  $headers = fgetcsv($file, 0, $sep);
-  // un des fichiers comporte des caractères parasites au début ce qui perturbe la détection des headers
-  foreach ($headers as $i => $header)
-    if (preg_match('!"([^"]+)"!', $header, $matches))
-      $headers[$i] = $matches[1];
-  echo "<pre>headers="; print_r($headers); echo "</pre>\n";
-  //echo "<table border=1><th>",implode('</th><th>', $headers),"</th>\n";
-  //echo "</table>\n";
-  while($record = fgetcsv($file, 0, $sep)) {
-    $rec = [];
-    foreach ($headers as $i => $header) {
-      $rec[strtolower($header)] = $_GET['format'] == 'csv' ? $record[$i] : utf8_encode($record[$i]);
-    }
-    $cinsee = $_GET['format'] == 'csv' ? $rec['com'] : "$rec[dep]$rec[com]";
-    if ($cinsee == $_GET['insee']) {
-      echo "<pre>rec="; print_r($rec); echo "</pre>\n";
-      echo "<table border=1><th>",implode('</th><th>', $headers),"</th>\n";
-      echo "<tr><td>",implode('</td><td>', $record);
-      echo "</table>\n";
-      die();
-    }
-  }
-  die("Aucun enregistrement trouvé");
-}
-
-// convertit un enregistrement txt en csv, cad de l'ancien frmat INSEE dans le nouveau
+// convertit un enregistrement txt en csv, cad de l'ancien format INSEE dans le nouveau
 function conv2Csv(array $rec): array {
   switch($rec['actual']) {
     case '1': // commune simple
@@ -348,6 +462,14 @@ function conv2Csv(array $rec): array {
       $rec['typecom'] = 'X'; break;
   }
   $rec['com'] = "$rec[dep]$rec[com]";
+  $artmin = '';
+  if ($rec['artmin']) {
+    $artmin = substr($rec['artmin'], 1, strlen($rec['artmin'])-2); // supp ()
+    if (!in_array($artmin, ["L'"]))
+      $artmin .= ' ';
+  }
+  $rec['libelle'] = $artmin.$rec['nccenr'];
+  
   $rec['comparent'] = $rec['pole'];
   return $rec;
 }
@@ -450,7 +572,7 @@ if (0) { // Test addScalarToArrayOrScalar()
   die("Fin test addValToArrayOrScalar");
 }
 
-if ($_GET['action'] == 'buildUpdates') { // intègre les Mvts dans la base et affiche le résultat, sans sauver la base
+if ($_GET['action'] == 'integrateUpdates') { // intègre les Mvts dans la base et affiche le résultat, sans sauver la base
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>mvts</title></head><body>\n";
   $base = is_file(__DIR__.'/base.pser') ? unserialize(file_get_contents(__DIR__.'/base.pser')) : [];
   $file = fopen($_GET['file'], 'r');
@@ -496,7 +618,8 @@ if ($_GET['action'] == 'buildUpdates') { // intègre les Mvts dans la base et af
 
 if ($_GET['action'] == 'genCom1943') { // génération d'un fichier des communes au 1/1/1943 à partir de GéoHisto
   $ardtsM = [];
-  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>genCom1943</title></head><body><pre>\n";
+  if (php_sapi_name() <> 'cli')
+    echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>genCom1943</title></head><body><pre>\n";
   $fcom = fopen(__DIR__.'/../../geohisto/communess.csv','r');
   $headers = fgetcsv($fcom);
   //echo "headers="; print_r($headers);
@@ -536,12 +659,40 @@ if ($_GET['action'] == 'genCom1943') { // génération d'un fichier des communes
     }
   }
   ksort($yaml);
+  $buildNameAdministrativeArea = <<<'EOT'
+            if (isset($item['name']))
+              return "$item[name] ($skey)";
+            elseif (isset($item['associéeA']))
+              return "$skey associéeA $item[associéeA]";
+            elseif (isset($item['déléguéeDe']))
+              return "$skey déléguéeDe $item[déléguéeDe]";
+            else
+              return "none";
+EOT;
   echo Yaml::dump([
       'title'=> "Fichier des communes de 1943",
-      'source'=> "Fabriqué à partir de GéoHisto en utilisant http://localhost/yamldoc/pub/evolcoms/?action=genCom1943",
       'created'=> date(DATE_ATOM),
+      'source'=> "Fabriqué à partir de GéoHisto en utilisant http://localhost/yamldoc/pub/evolcoms/?action=genCom1943",
+      '$schema'=> 'http://id.georef.eu/rpicom/exfcoms/$schema',
+      'ydADscrBhv'=> [
+        'jsonLdContext'=> 'http://schema.org',
+        'firstLevelType'=> 'AdministrativeArea',
+        'buildName'=> [ # définition de l'affichage réduit par type d'objet, code Php par type
+          'AdministrativeArea'=> $buildNameAdministrativeArea,
+        ],
+        'writePserReally'=> true,
+      ],
       'contents'=> $yaml,
     ], 99, 2);
+  die();
+}
+
+if ($_GET['action'] == 'check') { // vérifie la conformité du fichier à son schéma
+  require_once __DIR__.'/../../inc.php';
+  $docid = 'rpicom/'.substr($_GET['file'], 0, strrpos($_GET['file'], '.'));
+  //echo "docid=$docid\n";
+  $doc = new_doc($docid, 'pub');
+  $doc->checkSchemaConformity('/');
   die();
 }
 
@@ -706,13 +857,15 @@ if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions 
   die();
 }
 
-if ($_GET['action'] == 'buildState') { // fabrication d'un fichier Yaml d'un état des communes
-  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>buildState $_GET[file]</title></head><body>\n";
-  echo "<h3>lecture du fichier $_GET[file]</h3><pre>\n";
+if ($_GET['action'] == 'buildState') { // affichage Yaml de l'état des communes par traduction du fichier INSEE
+  if (php_sapi_name() <> 'cli')
+    echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>buildState $_GET[file]</title></head><body>\n",
+         "<h3>lecture du fichier $_GET[file]</h3><pre>\n";
   //die("Fin ligne ".__LINE__);
   $coms = []; // [cinsee => record + children] 
   $enfants = []; // [cinsee => record] 
-  $file = fopen($_GET['file'], 'r');
+  if (!($file = @fopen($_GET['file'], 'r')))
+    die("Erreur sur l'ouverture du fichier '$_GET[file]'\n");
   $sep = $_GET['format'] == 'csv' ? ',' : "\t";
   $headers = fgetcsv($file, 0, $sep);
   // un des fichiers comporte des caractères parasites au début ce qui perturbe la détection des headers
@@ -728,15 +881,16 @@ if ($_GET['action'] == 'buildState') { // fabrication d'un fichier Yaml d'un ét
           $record[$i] :
             mb_convert_encoding ($record[$i], 'UTF-8', 'Windows-1252');
     }
-    //echo "<pre>rec="; print_r($rec); echo "</pre>\n";
     if ($_GET['format'] == 'txt') {
       $rec = conv2Csv($rec);
       if ($rec['typecom'] == 'X')
         continue;
     }
+    //if ($rec['com'] == '45307') { echo "<pre>rec="; print_r($rec); echo "</pre>\n"; }
     //echo "$rec[nccenr] ($typecom $rec[com])<br>\n";
     if (!$rec['comparent']) {
-      $coms[$rec['com']] = ['name'=> $rec['nccenr']];
+      //$coms[$rec['com']] = ['name'=> $rec['nccenr']];
+      $coms[$rec['com']] = ['name'=> $rec['libelle']];
     }
     else {
       $enfants[$rec['com']] = $rec;
@@ -756,14 +910,38 @@ if ($_GET['action'] == 'buildState') { // fabrication d'un fichier Yaml d'un ét
       $coms[$c] = [$childrenTag[1] => $comparent];
   }
   ksort($coms);
-  // post-traitement - suppression des communes simples ayant uneiquement un nom
-  if (0) {
+  if (0) { // post-traitement - suppression des communes simples ayant uniquement un nom
     foreach ($coms as $c => $com) {
       if (isset($com['name']) && (count(array_keys($com))==1))
         unset($coms[$c]);
     }
   }
-  echo str_replace("-\n  ", "- ", Yaml::dump($coms, 99, 2));
+  $buildNameAdministrativeArea = <<<'EOT'
+            if (isset($item['name']))
+              return "$item[name] ($skey)";
+            elseif (isset($item['associéeA']))
+              return "$skey associéeA $item[associéeA]";
+            elseif (isset($item['déléguéeDe']))
+              return "$skey déléguéeDe $item[déléguéeDe]";
+            else
+              return "none";
+EOT;
+  echo Yaml::dump([
+      'title'=> "Fichier des communes au $_GET[state] avec entrée par code INSEE des communes associées ou déléguées et des ardt. mun.",
+      'created'=> date(DATE_ATOM),
+      'source'=> "création par traduction du fichier communes2020.csv de l'INSEE  \n"
+."en utilisant la commande 'index.php ".implode(' ', $_GET)."'\n",
+      '$schema'=> 'http://id.georef.eu/rpicom/exfcoms/$schema',
+      'ydADscrBhv'=> [
+        'jsonLdContext'=> 'http://schema.org',
+        'firstLevelType'=> 'AdministrativeArea',
+        'buildName'=> [ # définition de l'affichage réduit par type d'objet, code Php par type
+          'AdministrativeArea'=> $buildNameAdministrativeArea,
+        ],
+        'writePserReally'=> true,
+      ],
+      'contents'=> $coms
+    ], 99, 2);
   die();
 }
 
@@ -1021,6 +1199,80 @@ if ($_GET['action'] == 'ypath') {
           )
       ],
       99, 2);
+  die();
+}
+
+// Initialisation du RPICOM avec les communes du 1/1/2020 comme 'now'
+function initRpicomFrom(string $compath, Criteria $trace): Base {
+  $rpicom = [
+    'title'=> "Référentiel rpicom",
+    'created'=> date(DATE_ATOM),
+    'contents'=> [],
+  ];
+  $rpicom = new Base($rpicom, $trace);
+  $coms = new Base($compath, new Criteria(['not'])); // Lecture de com20200101.yaml dans $coms
+  foreach ($coms->contents() as $idS => $comS) {
+    //echo Yaml::dump([$id => $com]);
+    if (!isset($comS['name'])) continue;
+    foreach ($comS['associées'] ?? [] as $id => $com) {
+      $rpicom->$id = ['now'=> [
+        'name'=> $com['name'],
+        'associéeA'=> $idS,
+      ]];
+    }
+    unset($comS['associées']);
+    foreach ($comS['déléguées'] ?? [] as $id => $com) {
+      if ($id <> $idS)
+        $rpicom->$id = ['now'=> [
+          'name'=> $com['name'],
+          'déléguéeDe'=> $idS,
+        ]];
+      else
+        $comS['commeDéléguée'] = ['name'=> $com['name']];
+    }
+    unset($comS['déléguées']);
+    foreach ($com['ardtMun'] ?? [] as $id => $com) {
+      $rpicom->$id = ['now'=> [
+        'name'=> $com['name'],
+        'ardtMunDe'=> $idS,
+      ]];
+    }
+    unset($comS['ardtMun']);
+    $rpicom->$idS = ['now'=> $comS];
+    unset($coms->$idS);
+  }
+  unset($coms);
+  return $rpicom;
+}
+
+if ($_GET['action'] == 'brpicom') {
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>brpicom</title></head><body><pre>\n";
+  $trace = new Criteria([]); // aucun critère, tout est affiché
+  //$trace = new Criteria(['not']); // rien n'est affiché
+  //$trace = new Criteria(['mod'=> ['not'=> ['10','20','21','30','31','33','34','41','50']]]);
+  //$trace = new Criteria(['mod'=> ['not'=> ['10','21','31','20','30','41','33','34','50','32']]]); 
+  //$trace = new Criteria(['mod'=> ['21']]); 
+
+  // fabrication de la version initiale du RPICOM avec les communes du 1/1/2020 comme 'now'
+  $rpicom = initRpicomFrom(__DIR__.'/com20200101', new Criteria(['not']));
+  //$rpicom->writeAsYaml('rpicom'); die("Fin ligne ".__LINE__);
+  
+  $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms
+  krsort($mvtcoms); // tri par ordre chrono inverse
+  foreach($mvtcoms as $date_eff => $mvtcomsD) {
+    foreach($mvtcomsD as $mod => $mvtcomsDM) {
+      foreach (GroupMvts::buildGroups($mvtcomsDM) as $group) {
+        if ($trace->is(['mod'=> $mod]))
+          echo Yaml::dump(['$group'=> $group->asArray()], 3, 2);
+        $group->addToRpicom($rpicom, $trace);
+        /*if ($trace->is(['mod'=> $mod]))
+          echo '<b>',Yaml::dump(['$evol'=> $evol], 3, 2),"</b>\n";
+        elseif (isset($evol['ERREUR']) || isset($evol['ALERTE']))
+          echo '<b>',Yaml::dump(['$evol'=> $evol], 5, 2),"</b>\n";
+        */
+      }
+    }
+  }
   die();
 }
 
