@@ -20,6 +20,7 @@ journal: |
 includes:
   - base.inc.php
   - grpmvts.inc.php
+  - ../inc.php
 screens:
 classes:
 functions:
@@ -28,7 +29,6 @@ functions:
 ini_set('memory_limit', '2048M');
 
 require_once __DIR__.'/../../vendor/autoload.php';
-require_once __DIR__.'/base.inc.php';
 
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -696,6 +696,8 @@ if ($_GET['action'] == 'check') { // vérifie la conformité du fichier à son s
   die();
 }
 
+// Attention base.inc.php et YamDoc sont incompatibles
+require_once __DIR__.'/base.inc.php';
 require_once __DIR__.'/grpmvts.inc.php';
 
 {/*PhpDoc: screens
@@ -1207,6 +1209,7 @@ function initRpicomFrom(string $compath, Criteria $trace): Base {
   $rpicom = [
     'title'=> "Référentiel rpicom",
     'created'=> date(DATE_ATOM),
+    '$schema'=> 'http://id.georef.eu/rpicom/exrpicom/$schema',
     'contents'=> [],
   ];
   $rpicom = new Base($rpicom, $trace);
@@ -1231,7 +1234,7 @@ function initRpicomFrom(string $compath, Criteria $trace): Base {
         $comS['commeDéléguée'] = ['name'=> $com['name']];
     }
     unset($comS['déléguées']);
-    foreach ($com['ardtMun'] ?? [] as $id => $com) {
+    foreach ($comS['ardtMun'] ?? [] as $id => $com) {
       $rpicom->$id = ['now'=> [
         'name'=> $com['name'],
         'ardtMunDe'=> $idS,
@@ -1245,10 +1248,10 @@ function initRpicomFrom(string $compath, Criteria $trace): Base {
   return $rpicom;
 }
 
-if ($_GET['action'] == 'brpicom') {
+if ($_GET['action'] == 'brpicom') { // construction du Rpicom
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>brpicom</title></head><body><pre>\n";
-  $trace = new Criteria([]); // aucun critère, tout est affiché
-  //$trace = new Criteria(['not']); // rien n'est affiché
+  //$trace = new Criteria([]); // aucun critère, tout est affiché
+  $trace = new Criteria(['not']); // rien n'est affiché
   //$trace = new Criteria(['mod'=> ['not'=> ['10','20','21','30','31','33','34','41','50']]]);
   //$trace = new Criteria(['mod'=> ['not'=> ['10','21','31','20','30','41','33','34','50','32']]]); 
   //$trace = new Criteria(['mod'=> ['21']]); 
@@ -1265,15 +1268,11 @@ if ($_GET['action'] == 'brpicom') {
         if ($trace->is(['mod'=> $mod]))
           echo Yaml::dump(['$group'=> $group->asArray()], 3, 2);
         $group->addToRpicom($rpicom, $trace);
-        /*if ($trace->is(['mod'=> $mod]))
-          echo '<b>',Yaml::dump(['$evol'=> $evol], 3, 2),"</b>\n";
-        elseif (isset($evol['ERREUR']) || isset($evol['ALERTE']))
-          echo '<b>',Yaml::dump(['$evol'=> $evol], 5, 2),"</b>\n";
-        */
       }
     }
   }
-  die();
+  $rpicom->writeAsYaml('rpicom');
+  die("Fin brpicom ok, rpicom sauvé dans rpicom.yaml");
 }
 
 die("Aucune commande $_GET[action]\n");

@@ -65,6 +65,8 @@ ChangementDeNom:
 Création:
   mod: '20'
   label: Création
+  algo: |
+    règles {idi: [idi, id0]}
   patterns:
     - nb: 3
       id: b53f45ee8e9206e733c2e940a066d1e8
@@ -1955,71 +1957,36 @@ CréationCommuneNouvelle:
 FusionAssociation:
   mod: '33'
   label: 'Fusion association'
+  algo: |
+    Trouver le chef-lieu id0 qui correspond à la seule règle {id0: [id0]}
+    Les autres règles sont alors de la forme:
+      {idi: [idia, id0]} <=> idi devient commune associée de id0
+      {idi: [id0]} <=> idi est fusionnée avec id0
+      {idia: [idia, id0]} <=> idi reste associée avec id0
   patterns:
-    - nb: 3
+    - nb: 459
+      id: eaeb7cd1b3404a885c718a04bdb98115
       règles:
-        id1: [id1a, id10]
-        id2: [id2a, id10]
-        id3: [id3a, id10]
-        id4: [id4a, id10]
-        id5: [id5a, id10]
-        id6: [id6a, id10]
-        id7: [id7a, id10]
-        id8: [id8a, id10]
-        id9: [id9a, id10]
-        id10: [id10]
-      id: 809a3833d2c05100663f9bf1cf8aaf80
+        id1: [id1a, id2]
+        id2: [id2]
     - nb: 1
-      règles:
-        id1: [id1a, id10]
-        id2a: [id2a, id10]
-        id3a: [id3a, id10]
-        id4a: [id4a, id10]
-        id5a: [id5a, id10]
-        id6a: [id6a, id10]
-        id7a: [id7a, id10]
-        id8a: [id8a, id10]
-        id9a: [id9a, id10]
-        id10: [id10]
-      id: 3a5d5919f2adb9e74a8690814639161c
-    - nb: 1
-      règles:
-        id1: [id1a, id12]
-        id2: [id2a, id12]
-        id3: [id3a, id12]
-        id4: [id4a, id12]
-        id5: [id5a, id12]
-        id6: [id6a, id12]
-        id7: [id7a, id12]
-        id8: [id8a, id12]
-        id9: [id9a, id12]
-        id10: [id10a, id12]
-        id11: [id11a, id12]
-        id12: [id12]
-      id: 28fc2b404033a5451fa88c581ff2b0d6
-    - nb: 1
+      id: 93d795a31edb0f60b5735982a37888c0
       règles:
         id1: [id1a, id2]
         id2: [id2]
         id3: [id2]
-      id: 93d795a31edb0f60b5735982a37888c0
-    - nb: 459
+    - nb: 3
+      id: 5500ba273a090783584851f059f92ca2
       règles:
-        id1: [id1a, id2]
-        id2: [id2]
-      id: eaeb7cd1b3404a885c718a04bdb98115
+        id1: [id1a, id3]
+        id2: [id3]
+        id3: [id3]
     - nb: 128
       règles:
         id1: [id1a, id3]
         id2: [id2a, id3]
         id3: [id3]
       id: f992f7b8fc0365ef15195856eead912a
-    - nb: 3
-      règles:
-        id1: [id1a, id3]
-        id2: [id3]
-        id3: [id3]
-      id: 5500ba273a090783584851f059f92ca2
     - nb: 6
       règles:
         id1: [id1a, id3]
@@ -2115,6 +2082,47 @@ FusionAssociation:
         id8: [id8a, id9]
         id9: [id9]
       id: 39fa2e1a4e582c000c93fa20c830e0c6
+    - nb: 3
+      règles:
+        id1: [id1a, id10]
+        id2: [id2a, id10]
+        id3: [id3a, id10]
+        id4: [id4a, id10]
+        id5: [id5a, id10]
+        id6: [id6a, id10]
+        id7: [id7a, id10]
+        id8: [id8a, id10]
+        id9: [id9a, id10]
+        id10: [id10]
+      id: 809a3833d2c05100663f9bf1cf8aaf80
+    - nb: 1
+      règles:
+        id1: [id1a, id10]
+        id2a: [id2a, id10]
+        id3a: [id3a, id10]
+        id4a: [id4a, id10]
+        id5a: [id5a, id10]
+        id6a: [id6a, id10]
+        id7a: [id7a, id10]
+        id8a: [id8a, id10]
+        id9a: [id9a, id10]
+        id10: [id10]
+      id: 3a5d5919f2adb9e74a8690814639161c
+    - nb: 1
+      règles:
+        id1: [id1a, id12]
+        id2: [id2a, id12]
+        id3: [id3a, id12]
+        id4: [id4a, id12]
+        id5: [id5a, id12]
+        id6: [id6a, id12]
+        id7: [id7a, id12]
+        id8: [id8a, id12]
+        id9: [id9a, id12]
+        id10: [id10a, id12]
+        id11: [id11a, id12]
+        id12: [id12]
+      id: 28fc2b404033a5451fa88c581ff2b0d6
 SuppressionAssociéeOuDéléguée:
   mod: '34'
   label: 'Transformation de fusion association en fusion simple ou suppression de communes déléguées'

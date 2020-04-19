@@ -36,7 +36,7 @@ $schema:
             Une date identifie une version historique qui peut être:
               - soit un ensemble de propriétés périmées qui ont été valides avant la date de la version
                 plus éventuellement une action de disparition (absorbéePar|dissouteDans) à la date de la version
-              - soit ue action d'apparition (rétablieDe|crééeAPartirDe)
+              - soit une action d'apparition (rétablieDe|crééeAPartirDe)
           type: object
           additionalProperties: false
           patternProperties:
@@ -167,8 +167,8 @@ ydADscrBhv:
   firstLevelType: AdministrativeArea
   buildName: # définition de l'affichage réduit par type d'objet, code Php par type
     AdministrativeArea: |
-      if (isset($item['name']))
-        return array_values($item['name'])[count($item['name'])-1]." ($skey)";
+      if (isset($item['now']['name']))
+        return $item['now']['name']." ($skey)";
       else
         return $skey;
 contents:
@@ -211,6 +211,16 @@ contents:
     '1981-09-28':
       crééeAPartirDe: [27351, 27365, 27471, 27474, 27528, 27537, 27598, 27651]
   
+  44225: # Exemple de Changement de code dû à un changement de département
+    now:
+      name: Freigné
+    '2018-01-01':
+      changeDeDépartementEtAvaitPourCode: 49144
+  49144:
+    '2018-01-01':
+      changeDeDépartementEtPrendLeCode: 44225
+      name: Freigné
+
 evols:
   - mod: '33'
     label: 'Fusion association'

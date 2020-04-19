@@ -3,9 +3,11 @@
 name: base.inc.php
 title: base.inc.php - Gestion d'une base en mémoire + Gestion de critères utile pour gérer la trace
 doc: |
-  La classe Base gère une base d'objets en mémoire enregistrée en pser.
+  La classe Base gère une base d'objets en mémoire enregistrée en pser de manière compatble avec YamlDoc.
   La classe Criteria gère des critères utilisés pour afficher une trace dans la classe Base.
 journal: |
+  18/4/2020:
+    - chgt du format du pser de Base pour assurer la compatibilité avec YamlDoc
   16/4/2020:
     - amélioration de la doc
   11/4/2020:
@@ -89,6 +91,15 @@ class Criteria {
   }
 };
 
+// Pour garder une compatibilité avec YamlDoc, le pser est enregistré comme objet AutoDescribed
+class AutoDescribed {
+  protected $_id;
+  protected $_c;
+
+  function __construct(array $c, string $docid) { $this->_c = $c; $this->_id = $docid; }
+  function asArray() { return $this->_c; }
+};
+
 {/*PhpDoc: classes
 name: Base
 title: class Base - Gestion d'une base en mémoire
@@ -104,6 +115,8 @@ doc: |
   La méthode writeAsYaml() enregistre la base dans un fichier Yaml
   Les méthodes de gestion de la base affichent un message en fonction des critères trace définis par le paramètre $trace
   lors de la création et les variables de trace définies par setTraceVar()
+  
+  Pour que le pser soit compatible avec YamlDoc, il est stocké comme objet AutoDescribed, définie de manière simplifiée
 methods:
 */}
 class Base {
@@ -139,17 +152,25 @@ class Base {
     */}
     $this->filepath = ''; // initialisation de $this->filepath pour le cas où $data est un array
     if (is_string($data)) { // si string alors le chemin du fichier contenant les données
+      //echo "création de Base(data='$data', trace)<br>\n";
       $fpath = $data;
       $this->filepath = $fpath;
       if (!$fpath) {
         $data = ['contents'=> []];
       }
       elseif (is_file("$fpath.pser") && (is_file("$fpath.yaml") && (filemtime("$fpath.pser") > filemtime("$fpath.yaml")))) {
+        //echo "Lecture du pser<br>\n";
         $data = unserialize(file_get_contents("$fpath.pser"));
+        //print_r($data);
+        if (is_object($data)) { // le pser est enregistré comme objet AutoDescribed pour compatibilité avec YamlDoc
+          //echo "data est un objet<br>\n";
+          $data = $data->asArray();
+        }
       }
       elseif (is_file("$fpath.yaml")) {
         $data = Yaml::parse(file_get_contents("$fpath.yaml"));
-        file_put_contents("$fpath.pser", serialize($data));
+        $docid = 'rpicom/'.basename($fpath);
+        file_put_contents("$fpath.pser", serialize(new AutoDescribed($data, $docid)));
       }
       else {
         $data = ['contents'=> []];
