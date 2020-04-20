@@ -1612,7 +1612,7 @@ class GroupMvts {
         $ratap = array_pop($fav2);
         $rpicom->mergeToRecord($ratap['id'], [
           $this->date => [
-            'évènement'=> "devient commune de rattachement",
+            'évènement'=> "Devient commune de rattachement",
             'name'=> $ratap['name'],
           ]
         ]);

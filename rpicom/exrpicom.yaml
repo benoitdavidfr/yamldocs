@@ -114,8 +114,7 @@ $schema:
                         - Commune rétablissante
                         - Commune associée rétablie comme commune simple
                         - Commune déléguée rétablie comme commune simple
-                        #- Transfert de chef-lieu
-                        #- Devient nouveau chef-lieu
+                        - Devient commune de rattachement
                     seDissoutDans:
                       description: c. supprimée avec liste des c. dans lesquelles son territoire a été réparti
                       type: array
@@ -167,6 +166,12 @@ $schema:
                       type: [string, number]
                       format: '^\d[\dAB]\d\d\d$'
                     changeDeDépartementEtPrendLeCode:
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    perdRattachementPour:
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    changeDeRattachementPour:
                       type: [string, number]
                       format: '^\d[\dAB]\d\d\d$'
                     après:

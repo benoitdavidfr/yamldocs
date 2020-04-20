@@ -1,5 +1,5 @@
 title: 'Référentiel rpicom'
-created: '2020-04-20T16:53:11+00:00'
+created: '2020-04-20T16:55:26+00:00'
 $schema: 'http://id.georef.eu/rpicom/exrpicom/$schema'
 ydADscrBhv:
   jsonLdContext: 'http://schema.org'
@@ -20949,7 +20949,7 @@ contents:
       devientDéléguéeDe: 14654
       name: 'L''Oudon'
     '2014-01-07':
-      évènement: 'devient commune de rattachement'
+      évènement: 'Devient commune de rattachement'
       name: Notre-Dame-de-Fresnay
     '1990-02-01':
       changeDeRattachementPour: 14697
@@ -22103,7 +22103,7 @@ contents:
       perdRattachementPour: 14472
       name: 'L''Oudon'
     '1990-02-01':
-      évènement: 'devient commune de rattachement'
+      évènement: 'Devient commune de rattachement'
       name: Tôtes
     '1973-01-01':
       sAssocieA: 14624
