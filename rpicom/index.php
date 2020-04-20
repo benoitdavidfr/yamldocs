@@ -1312,7 +1312,7 @@ if ($_GET['action'] == 'brpicom') { // construction du Rpicom v1
   //$trace = new Criteria(['not']); // rien n'est affiché
   //$trace = new Criteria(['mod'=> ['not'=> ['10','20','21','30','31','33','34','41','50']]]);
   //$trace = new Criteria(['mod'=> ['not'=> ['10','21','31','20','30','41','33','34','50','32']]]); 
-  $trace = new Criteria(['mod'=> ['21']]); 
+  $trace = new Criteria(['mod'=> ['50']]); 
 
   // fabrication de la version initiale du RPICOM avec les communes du 1/1/2020 comme 'now'
   $rpicom = initRpicomFrom(__DIR__.'/com20200101', new Criteria(['not']));

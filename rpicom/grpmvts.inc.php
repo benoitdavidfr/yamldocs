@@ -6,6 +6,8 @@ doc: |
   La classe GroupMvts permet de regrouper des mouvements élémentaires correspondant à une évolution sémantique
   et de les exploiter.
 journal: |
+  20/4/2020:
+    - réécriture de GroupMvts::addToRpicom()
   19/4/2020:
     - première version traitant tous les cas de addToRpicom()
   16/4/2020:
@@ -141,12 +143,12 @@ class GroupMvts {
   const ModLabels = [
     '10'=> "Changement de nom",
     '20'=> "Création",
-    '21'=> "Rétablissement",
+    '21'=> "Rétablissement", // = dé-fusion
     '30'=> "Suppression",
     '31'=> "Fusion simple",
     '32'=> "Création de commune nouvelle",
     '33'=> "Fusion association",
-    '34'=> "Absorption de certaines de ses c. rattachées ou certaines c. associées deviennent déléguées",
+    '34'=> "Absorption par une c. de certaines de ses c. rattachées ou transf. de certaines c. associées en déléguées",
       // labelINSEE: Transformation de fusion association en fusion simple
     '41'=> "Changement de code dû à un changement de département",
     '50'=> "Changement de code dû à un transfert de chef-lieu",
@@ -1257,7 +1259,7 @@ class GroupMvts {
     name: rpicom
     title: "function addToRpicom(Base $$rpicom, Criteria $trace): void - Ajoute au RPICOM le groupe"
     doc: |
-      Nlle version démarrée le 20/4/2020
+      Nlle version démarrée le 20/4/2020 s'appuyant sur factAvant2() pour simplifier le code.
     */}
     if ($trace->is(['mod'=> $this->mod]))
       $rpicom->startExtractAsYaml();
@@ -1307,7 +1309,6 @@ class GroupMvts {
             De plus des c. dans la partie droite de la règle 1 indique de nouvelles entités
         */
         $fav2 = $this->factAvant2();
-        echo Yaml::dump(['fav2'=> $fav2], 3, 2);
         if ($fav2[0]['type'] == 'ARM') { // cas particuliers {id1m: [id1m, id2m]}
           $ardtMcréé = $fav2[0]['après'][1];
           $rpicom->mergeToRecord($ardtMcréé['id'], [
@@ -1584,10 +1585,68 @@ class GroupMvts {
         //die("Arrêt ligne ".__LINE__);
       }
       
-      case '41': break; // Changement de code dû à un changement de département
-      case '50': break; // Changement de code dû à un transfert de chef-lieu
-      case '70': break; // Transformation de commune associé en commune déléguée // A VOIR
+      case '41': { // Changement de code dû à un changement de département
+        // motif {id1: [id2]}
+        $fav2 = $this->factAvant2();
+        // Le code avant est créé
+        $rpicom->mergeToRecord($fav2[0]['id'], [
+          $this->date => [
+            'changeDeDépartementEtPrendLeCode'=> $fav2[0]['après'][0]['id'],
+            'name'=> $fav2[0]['name'],
+          ]
+        ]);
+        // le code après disparait
+        $rpicom->mergeToRecord($fav2[0]['après'][0]['id'], [
+          $this->date => [
+            'changeDeDépartementEtAvaitPourCode'=> $fav2[0]['id'],
+          ]
+        ]);
+        break;
+      }
       
+      case '50': { // Changement de code dû à un transfert de chef-lieu
+        $fav2 = $this->factAvant2();
+        echo Yaml::dump(['$fav2'=> $fav2], 4, 2);
+        
+        // nouveau chef-lieu
+        $ratap = array_pop($fav2);
+        $rpicom->mergeToRecord($ratap['id'], [
+          $this->date => [
+            'évènement'=> "devient commune de rattachement",
+            'name'=> $ratap['name'],
+          ]
+        ]);
+        // ancien chef-lieu
+        $ratav = array_shift($fav2);
+        $rpicom->mergeToRecord($ratav['id'], [
+          $this->date => [
+            'perdRattachementPour'=> $ratav['après'][1]['id'],
+            'name'=> $ratav['name'],
+          ]
+        ]);
+        // ttes les autres c. associées
+        foreach($fav2 as $avant) {
+          $rpicom->mergeToRecord($avant['id'], [
+            $this->date => [
+              'changeDeRattachementPour'=> $avant['après'][1]['id'],
+              'name'=> $avant['name'],
+              'associéeA'=> $ratav['id'],
+            ]
+          ]);
+        }
+        break;
+      }
+      
+      case '70': { // Transformation de commune associé en commune déléguée 
+        /*
+          date: '2020-01-01'
+          mvts:
+            - avant: { type: COM, id: '52064', name: Bourmont-entre-Meuse-et-Mouzon }
+              après: { type: COMD, id: '52224', name: Gonaincourt }
+          Je considère que c'est une erreur INSEE.
+        */
+        break;
+      }
       
       default: {
         echo Yaml::dump(['$group'=> $this->asArray()], 3, 2);

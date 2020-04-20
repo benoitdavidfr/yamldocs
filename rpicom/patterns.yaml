@@ -2318,6 +2318,11 @@ mod41:
         group: { mod: '41', label: 'Changement de code dû à un changement de département', date: '1967-12-31', mvts: [{ avant: { type: COM, id: '38079', name: Chaponnay }, après: { type: COM, id: '69270', name: Chaponnay } }] }
 mod50:
   label: 'Changement de code dû à un transfert de chef-lieu'
+  algo: |
+    idrav = id1
+    idrap = dernière idi
+    ttes les autres règles de la forme 
+      idia: [idia, idrap]
   nbpatterns: 1
   patterns:
     - nb: 2
@@ -2333,8 +2338,42 @@ mod50:
         id9a: [id9a, id10]
         id10a: [id10]
       example:
-        factAv: { date: '1990-02-01', $factAv: { 14624: { COM: { name: 'L''Oudon', après: { 14624: { COMA: { name: Saint-Martin-de-Fresnay } }, 14697: { COM: { name: 'L''Oudon' } } } } }, 14010: { COMA: { name: Ammeville, après: { 14010: { COMA: { name: Ammeville } }, 14697: { COM: { name: 'L''Oudon' } } } } }, 14067: { COMA: { name: Berville, après: { 14067: { COMA: { name: Berville } }, 14697: { COM: { name: 'L''Oudon' } } } } }, 14234: { COMA: { name: Écots, après: { 14234: { COMA: { name: Écots } }, 14697: { COM: { name: 'L''Oudon' } } } } }, 14295: { COMA: { name: Garnetot, après: { 14295: { COMA: { name: Garnetot } }, 14697: { COM: { name: 'L''Oudon' } } } } }, 14314: { COMA: { name: Grandmesnil, après: { 14314: { COMA: { name: Grandmesnil } }, 14697: { COM: { name: 'L''Oudon' } } } } }, 14363: { COMA: { name: Lieury, après: { 14363: { COMA: { name: Lieury } }, 14697: { COM: { name: 'L''Oudon' } } } } }, 14447: { COMA: { name: Montpinçon, après: { 14447: { COMA: { name: Montpinçon } }, 14697: { COM: { name: 'L''Oudon' } } } } }, 14472: { COMA: { name: Notre-Dame-de-Fresnay, après: { 14472: { COMA: { name: Notre-Dame-de-Fresnay } }, 14697: { COM: { name: 'L''Oudon' } } } } }, 14697: { COMA: { name: Tôtes, après: { 14697: { COM: { name: 'L''Oudon' } } } } } } }
-        group: { mod: '50', label: 'Changement de code dû à un transfert de chef-lieu', date: '1990-02-01', mvts: [{ avant: { type: COMA, id: '14010', name: Ammeville }, après: { type: COMA, id: '14010', name: Ammeville } }, { avant: { type: COMA, id: '14010', name: Ammeville }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14067', name: Berville }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14234', name: Écots }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14295', name: Garnetot }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14314', name: Grandmesnil }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14363', name: Lieury }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14447', name: Montpinçon }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14472', name: Notre-Dame-de-Fresnay }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COM, id: '14624', name: 'L''Oudon' }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14697', name: Tôtes }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14067', name: Berville }, après: { type: COMA, id: '14067', name: Berville } }, { avant: { type: COMA, id: '14234', name: Écots }, après: { type: COMA, id: '14234', name: Écots } }, { avant: { type: COMA, id: '14295', name: Garnetot }, après: { type: COMA, id: '14295', name: Garnetot } }, { avant: { type: COMA, id: '14314', name: Grandmesnil }, après: { type: COMA, id: '14314', name: Grandmesnil } }, { avant: { type: COMA, id: '14363', name: Lieury }, après: { type: COMA, id: '14363', name: Lieury } }, { avant: { type: COMA, id: '14447', name: Montpinçon }, après: { type: COMA, id: '14447', name: Montpinçon } }, { avant: { type: COMA, id: '14472', name: Notre-Dame-de-Fresnay }, après: { type: COMA, id: '14472', name: Notre-Dame-de-Fresnay } }, { avant: { type: COM, id: '14624', name: 'L''Oudon' }, après: { type: COMA, id: '14624', name: Saint-Martin-de-Fresnay } }] }
+        factAv:
+          date: '1990-02-01'
+          $factAv:
+            14624: { COM: { name: 'L''Oudon'
+              après:
+                14624: { COMA: { name: Saint-Martin-de-Fresnay } }
+                14697: { COM: { name: 'L''Oudon' } } } }
+            14010: { COMA: { name: Ammeville
+              après:
+                14010: { COMA: { name: Ammeville } },
+                14697: { COM: { name: 'L''Oudon' } } } }
+            14067: { COMA: { name: Berville
+              après:
+                14067: { COMA: { name: Berville } }
+                14697: { COM: { name: 'L''Oudon' } } } }
+            14234: { COMA: { name: Écots
+              après:
+                14234: { COMA: { name: Écots } }
+                14697: { COM: { name: 'L''Oudon' } } } } }
+            14295: { COMA: { name: Garnetot
+              après: { 14295: { COMA: { name: Garnetot } }, 14697: { COM: { name: 'L''Oudon' } } } } }
+            14314: { COMA: { name: Grandmesnil
+              après: { 14314: { COMA: { name: Grandmesnil } }, 14697: { COM: { name: 'L''Oudon' } } } } }
+            14363: { COMA: { name: Lieury
+              après: { 14363: { COMA: { name: Lieury } }, 14697: { COM: { name: 'L''Oudon' } } } } }
+            14447: { COMA: { name: Montpinçon
+              après: { 14447: { COMA: { name: Montpinçon } }, 14697: { COM: { name: 'L''Oudon' } } } } }
+            14472: { COMA: { name: Notre-Dame-de-Fresnay
+              après: { 14472: { COMA: { name: Notre-Dame-de-Fresnay } }, 14697: { COM: { name: 'L''Oudon' } } } } }
+            14697: { COMA: { name: Tôtes
+              après: { 14697: { COM: { name: 'L''Oudon' } } } } }
+        group:
+          mod: '50'
+          label: 'Changement de code dû à un transfert de chef-lieu'
+          date: '1990-02-01'
+          mvts: [{ avant: { type: COMA, id: '14010', name: Ammeville }, après: { type: COMA, id: '14010', name: Ammeville } }, { avant: { type: COMA, id: '14010', name: Ammeville }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14067', name: Berville }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14234', name: Écots }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14295', name: Garnetot }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14314', name: Grandmesnil }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14363', name: Lieury }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14447', name: Montpinçon }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14472', name: Notre-Dame-de-Fresnay }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COM, id: '14624', name: 'L''Oudon' }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14697', name: Tôtes }, après: { type: COM, id: '14697', name: 'L''Oudon' } }, { avant: { type: COMA, id: '14067', name: Berville }, après: { type: COMA, id: '14067', name: Berville } }, { avant: { type: COMA, id: '14234', name: Écots }, après: { type: COMA, id: '14234', name: Écots } }, { avant: { type: COMA, id: '14295', name: Garnetot }, après: { type: COMA, id: '14295', name: Garnetot } }, { avant: { type: COMA, id: '14314', name: Grandmesnil }, après: { type: COMA, id: '14314', name: Grandmesnil } }, { avant: { type: COMA, id: '14363', name: Lieury }, après: { type: COMA, id: '14363', name: Lieury } }, { avant: { type: COMA, id: '14447', name: Montpinçon }, après: { type: COMA, id: '14447', name: Montpinçon } }, { avant: { type: COMA, id: '14472', name: Notre-Dame-de-Fresnay }, après: { type: COMA, id: '14472', name: Notre-Dame-de-Fresnay } }, { avant: { type: COM, id: '14624', name: 'L''Oudon' }, après: { type: COMA, id: '14624', name: Saint-Martin-de-Fresnay } }] }
 mod70:
   label: 'Transformation de commune associé en commune déléguée'
   nbpatterns: 1
