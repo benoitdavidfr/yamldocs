@@ -73,7 +73,7 @@ $schema:
             '^\d\d\d\d-\d\d-\d\d$': # date
               description: version historique datée
               oneOf:
-                - description: propriétés périmées plus évent. action de disparition à cette date
+                - description: propriétés périmées plus évent. action d'évolution ou de de disparition à cette date
                   type: object
                   required: [name]
                   additionalProperties: false
@@ -102,23 +102,89 @@ $schema:
                     commeDéléguée:
                       description: si la c. est déléguée d'elle même alors cette partie définit les prop. de la c. déléguée
                       $ref: '#/definitions/commeDéléguée'
-                    absorbéePar:
-                      description: >
-                        si la c. a été absorbée dans une fusion simple ou une c. nouvelle sans c. déléguée alors c. INSEE de la commune l'ayant absorbée, la date est celle de l'absorption
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
-                    dissouteDans:
-                      description: si la c. a été supprimée alors les c. dans lesquelles son territoire a été réparti
+                    # évènements de modification ou de disparition
+                    évènement:
+                      description: description de l'évènement ayant conduit au changement de version
+                      enum:
+                        - Change de nom
+                        - Devient commune fusionnée
+                        - Devient commune nouvelle
+                        - Devient commune nouvelle avec déléguée propre
+                        - Absorbe certaines de ses c. rattachées ou certaines de ses c. associées deviennent déléguées
+                        - Commune rétablissante
+                        - Commune associée rétablie comme commune simple
+                        - Commune déléguée rétablie comme commune simple
+                        #- Transfert de chef-lieu
+                        #- Devient nouveau chef-lieu
+                    seDissoutDans:
+                      description: c. supprimée avec liste des c. dans lesquelles son territoire a été réparti
                       type: array
                       items:
                         type: [string, number]
                         format: '^\d[\dAB]\d\d\d$'
+                    reçoitUnePartieDe:
+                      description: c. recevant un territoire d'une commune supprimée avec l'id de la c. supprimée
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    contribueA:
+                      description: c. contribuant à une c. créée avec l'id de la c. créée
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    absorbe:
+                      description: >
+                        c. absorbante dans une fusion simple ou c. nouv. sans c. dél. avec liste des id des c. absorbées
+                      type: array
+                      items:
+                        type: [string, number]
+                        format: '^\d[\dAB]\d\d\d$'
+                    sAbsorbeDans:
+                      description: >
+                        c. absorbée dans une fusion simple ou une c. nouv. sans c. dél. avec id de la c. aborbante
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    sAssocieA:
+                      description: c. s'associant par fusion-association à une commune de rattachement
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    fusionneDans:
+                      description: c. fusionnant par fusion-association dans une commune de rattachement
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    resteAssociéeA:
+                      description: c. restant associée à l'occasion d'une absorption
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    devientDéléguéeDe:
+                      description: c. devenant déléguée à l'occasion de la création d'une c. nouvelle
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    resteDéléguéeDe:
+                      description: c. restant déléguée à l'occasion d'une absorption
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    changedAssociéeEnDéléguéeDe:
+                      description: c. associée devient déléguée 
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    changeDeDépartementEtPrendLeCode:
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    après:
+                      description: propriété temporaire pour vérifier la cohérence
                 - description: action d'apparition à cette date
                   type: object
                   additionalProperties: false
                   properties:
-                    rétablieDe:
-                      description: si la c. S/A/D a été rétablie alors la c. dont elle est issue
+                    rétablieCommeSimpleDe:
+                      description: c. simple rétablie avec la c. dont elle est issue
+                      type: [string, number]
+                      pattern: '^\d[\dAB]\d\d\d$'
+                    rétablieCommeAssociéeDe:
+                      description: c. associée rétablie avec la c. dont elle est issue
+                      type: [string, number]
+                      pattern: '^\d[\dAB]\d\d\d$'
+                    rétablieCommeArdtMunDe:
+                      description: arrondissement municipal rétablie avec celui dont il est issu
                       type: [string, number]
                       pattern: '^\d[\dAB]\d\d\d$'
                     crééeAPartirDe:
@@ -127,6 +193,16 @@ $schema:
                       items:
                         type: [string, number]
                         pattern: '^\d[\dAB]\d\d\d$'
+                    changeDeDépartementEtAvaitPourCode:
+                      type: [string, number]
+                      format: '^\d[\dAB]\d\d\d$'
+                    crééeParFusionSimpleDe:
+                      type: array
+                      items:
+                        type: [string, number]
+                        pattern: '^\d[\dAB]\d\d\d$'
+                    après:
+                      description: propriété temporaire pour vérifier la cohérence
   type: object
   properties:
     title:

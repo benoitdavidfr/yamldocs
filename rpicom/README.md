@@ -23,3 +23,14 @@ le champ $schema définit le schéma JSON des données et le champ contents donn
 
 Le fichier [rpicom.yaml](rpicom.yaml) contient le référentiel produit à partir du COG au 1/1/2020.
 
+## Utilisation
+### Localisation d'une information à l'intérieur d'une commune
+Par exemple, localisation d'une autorisation de travaux dans une commune.
+Si le code INSEE associé à l'information ne correspond plus à une commune simple alors plusieurs cas:
+
+  - l'identifiant correspond à une commune associée -> prendre la commune de rattachement à laquelle elle a été associée ;
+  - l'identifiant correspond à une commune déléguée -> prendre la commune de rattachement dont elle est déléguée ;
+  - l'identifiant correspond à un arrondissement municipal -> prendre la commune de rattachement ;
+  - l'identifiant correspond à une commune périmée -> ???.
+
+### Identification d'une commune

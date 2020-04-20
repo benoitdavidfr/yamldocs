@@ -142,6 +142,8 @@ $menu = new Menu([
     'argNames'=> ['state', 'file', 'format'], // liste des noms des arguments en plus de action
      // actions prédéfinies
     'actions'=> [
+      "intégration dans la base de l'état au 1/1/2020"=> [ '2020-01-01', 'communes2020.csv', 'csv'],
+      "intégration dans la base de l'état au 1/1/2010"=> [ '2010-01-01', 'France2010.txt', 'txt'],
       "intégration dans la base de l'état au 1/1/2000"=> [ '2000-01-01', 'France2000.txt', 'txt'],
     ],
   ],
@@ -195,6 +197,12 @@ $menu = new Menu([
     'argNames'=> [],
     'actions'=> [
       "Compare 2 fichiers entre eux"=> [],
+    ],
+  ],
+  'brpicom'=> [
+    'argNames'=> [],
+    'actions'=> [
+      "Fabrication du Rpicom"=> [],
     ],
   ],
 ]
@@ -299,12 +307,13 @@ if ($_GET['action'] == 'csvMvt2yaml') { // affichage Yaml des mouvements
   $headers = fgetcsv($file);
   $mvt = null;
   $nbrec = 0;
+  echo "<table border=1>\n";
   while($record = fgetcsv($file)) {
     //print_r($record);
     $json = json_encode($record, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
     //echo "record($nbrec)=$json\n";
     if (isset($mvtsUniq[$json])) {
-      echo "<b>Erreur de doublon sur $json</b>\n";
+      //echo "<tr><td colspan=8><b>Erreur de doublon sur $json</b></td></tr>\n";
       continue;
     }
     $mvtsUniq[$json] = 1;
@@ -315,6 +324,9 @@ if ($_GET['action'] == 'csvMvt2yaml') { // affichage Yaml des mouvements
     }
     //print_r($rec);
     //echo str_replace("-\n ", '-', Yaml::dump([0 => $rec], 99, 2));
+    if ($nbrec == 0)
+      echo "<th>",implode('</th><th>', array_keys($rec)),"</th>\n";
+    echo "<tr><td>",implode('</td><td>', $rec),"</td><td>",Mvt::ModVals[$rec['mod']],"</td></tr>\n";
     $yaml = [
       'mod'=> $rec['mod'],
       'modVal'=> Mvt::ModVals[$rec['mod']],
@@ -331,7 +343,7 @@ if ($_GET['action'] == 'csvMvt2yaml') { // affichage Yaml des mouvements
       ],
     ];
     $nbrec++;
-    echo str_replace("-\n ", '-', Yaml::dump([0 => $yaml], 2, 2));
+    //echo str_replace("-\n ", '-', Yaml::dump([0 => $yaml], 2, 2));
     /*if (!$mvt) {
       $mvt = new Mvt($rec);
       echo Yaml::dump([0 => $rec]);
@@ -708,7 +720,6 @@ doc: |
   Si le paramètre example est défini alors pour caque motif un exemple est fourni pour faciliter la compréhension.
 */}
 if ($_GET['action'] == 'mvtsPatterns') { // génération des motifs de mouvements existants dans le fichier des mouvements
-  //$datefin = '2000-01-01';
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>mvtsPatterns</title></head><body><pre>\n";
   $patterns = []; // liste des patterns produits avec comme clé le JSON du pattern sans example
   //$trace = new Criteria([]); // full trace
@@ -716,11 +727,8 @@ if ($_GET['action'] == 'mvtsPatterns') { // génération des motifs de mouvement
   $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms et tri par ordre chrono
   //$mvtcoms = ['2019-01-01' => $mvtcoms['2019-01-01']];
   //$mvtcoms = ['2018-01-01' => $mvtcoms['2018-01-01']];
+  $nbpatterns = 0;
   foreach($mvtcoms as $date_eff => $mvtcomsD) {
-    if (isset($datefin) && (strcmp($date_eff, $datefin) > 0)) {
-      echo "Fin sur date_eff=$date_eff\n";
-      break;
-    }
     foreach($mvtcomsD as $mod => $mvtcomsDM) {
       foreach (GroupMvts::buildGroups($mvtcomsDM) as $group) {
         if ($trace->is(['mod'=> $mod]))
@@ -734,14 +742,17 @@ if ($_GET['action'] == 'mvtsPatterns') { // génération des motifs de mouvement
         $patternWOEx = $pattern;
         unset($patternWOEx['example']);
         $key = json_encode($patternWOEx, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
-        if (!isset($patterns[$key]))
-          $patterns[$key] = $pattern;
+        if (!isset($patterns[$mod][$key])) {
+          $patterns[$mod][$key] = $pattern;
+          $nbpatterns++;
+        }
         else
-          $patterns[$key]['nb']++;
+          $patterns[$mod][$key]['nb']++;
       }
     }
   }
   ksort($patterns);
+  {/* Affichage sous la forme d'une table, abandonné, le format de $patterns a été modifié
   echo count($patterns)," motifs trouvés\n";
   // Affichage de la liste des patterns
   echo "<table border=1>";
@@ -762,6 +773,31 @@ if ($_GET['action'] == 'mvtsPatterns') { // génération des motifs de mouvement
     }
   }
   echo "</table>\n";
+  */}
+    
+  $yaml = [
+    'title'=> "liste des $nbpatterns motifs issus de GroupMvts::mvtsPattern()",
+    'created'=> date(DATE_ATOM),
+  ];
+  echo preg_replace('!-\n +!', '- ', Yaml::dump($yaml, 5, 2));
+  foreach ($patterns as $mod => $patternMods) {
+    $yaml = [
+      'label'=> GroupMvts::ModLabels[$mod],
+      'nbpatterns'=> count($patternMods),
+      'patterns'=> [],
+    ];
+    foreach ($patternMods as $json => $pattern) {
+      $yaml['patterns'][] = [
+        'nb'=> $pattern['nb'],
+        'règles'=> $pattern['règles'],
+        'example'=> [
+          'factAv'=> $pattern['example']['factAv'],
+          'group'=> $pattern['example']['group']->asArray(),
+        ],
+      ];
+    }
+    echo preg_replace('!-\n +!', '- ', Yaml::dump(["mod$mod" => $yaml], 5, 2));
+  }
   die();
 }
 
@@ -1206,10 +1242,23 @@ if ($_GET['action'] == 'ypath') {
 
 // Initialisation du RPICOM avec les communes du 1/1/2020 comme 'now'
 function initRpicomFrom(string $compath, Criteria $trace): Base {
+  $buildNameAdministrativeArea = <<<'EOT'
+if (isset($item['now']['name']))
+  return $item['now']['name']." ($skey)";
+else
+  return $skey;
+EOT;
   $rpicom = [
     'title'=> "Référentiel rpicom",
     'created'=> date(DATE_ATOM),
     '$schema'=> 'http://id.georef.eu/rpicom/exrpicom/$schema',
+    'ydADscrBhv'=> [
+      'jsonLdContext'=> 'http://schema.org',
+      'firstLevelType'=> 'AdministrativeArea',
+      'buildName'=> [ // définition de l'affichage réduit par type d'objet, code Php par type
+        'AdministrativeArea'=> $buildNameAdministrativeArea,
+      ],
+    ],
     'contents'=> [],
   ];
   $rpicom = new Base($rpicom, $trace);
@@ -1248,13 +1297,22 @@ function initRpicomFrom(string $compath, Criteria $trace): Base {
   return $rpicom;
 }
 
-if ($_GET['action'] == 'brpicom') { // construction du Rpicom
-  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>brpicom</title></head><body><pre>\n";
-  //$trace = new Criteria([]); // aucun critère, tout est affiché
-  $trace = new Criteria(['not']); // rien n'est affiché
+{/*PhpDoc: screens
+name: brpicom1
+title: brpicom1 - construction du Rpicom v1
+doc: |
+  v1 de la construction Rpicom fondée sur initRpicomFrom() + GroupMvts::addToRpicom()
+  En raison du nbre de motifs (206) de factorAvant() le code de GroupMvts::addToRpicom() est trop complexe et buggué
+  J'abandonne le 19/4/2020 19:00 cette solution pour tester une factorisation sur après
+*/}
+if ($_GET['action'] == 'brpicom') { // construction du Rpicom v1
+  if (php_sapi_name() <> 'cli')
+    echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>brpicom</title></head><body><pre>\n";
+  $trace = new Criteria([]); // aucun critère, tout est affiché
+  //$trace = new Criteria(['not']); // rien n'est affiché
   //$trace = new Criteria(['mod'=> ['not'=> ['10','20','21','30','31','33','34','41','50']]]);
   //$trace = new Criteria(['mod'=> ['not'=> ['10','21','31','20','30','41','33','34','50','32']]]); 
-  //$trace = new Criteria(['mod'=> ['21']]); 
+  $trace = new Criteria(['mod'=> ['21']]); 
 
   // fabrication de la version initiale du RPICOM avec les communes du 1/1/2020 comme 'now'
   $rpicom = initRpicomFrom(__DIR__.'/com20200101', new Criteria(['not']));
@@ -1265,14 +1323,86 @@ if ($_GET['action'] == 'brpicom') { // construction du Rpicom
   foreach($mvtcoms as $date_eff => $mvtcomsD) {
     foreach($mvtcomsD as $mod => $mvtcomsDM) {
       foreach (GroupMvts::buildGroups($mvtcomsDM) as $group) {
+        $group = $group->factAvDefact();
         if ($trace->is(['mod'=> $mod]))
           echo Yaml::dump(['$group'=> $group->asArray()], 3, 2);
         $group->addToRpicom($rpicom, $trace);
       }
     }
   }
+  $rpicom->ksort();
   $rpicom->writeAsYaml('rpicom');
-  die("Fin brpicom ok, rpicom sauvé dans rpicom.yaml");
+  die("Fin brpicom ok, rpicom sauvé dans rpicom.yaml\n");
 }
 
+
+{/*PhpDoc: screens
+name: patterns
+title: patterns - listage des motifs gMvtsP
+doc: |
+  v2 de la construction Rpicom fondée sur initRpicomFrom() + GroupMvts::xx()
+  Nlle solution démarrée le 19/4/2020 19:00
+  Je démarre par le litage des motifs. Je n'arrive pas à les interpréter !!!
+*/}
+if ($_GET['action'] == 'patterns') {
+  if (php_sapi_name() <> 'cli')
+    echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>patterns</title></head><body><pre>\n";
+
+  // définition de la classe GMvtsP
+  require_once __DIR__.'/gmvtsp.inc.php';
+
+  $trace = new Criteria([]); // aucun critère, tout est affiché
+  $trace = new Criteria(['not']); // rien n'est affiché
+  //$trace = new Criteria(['mod'=> ['not'=> ['10','20','21','30','31','33','34','41','50']]]);
+  //$trace = new Criteria(['mod'=> ['not'=> ['10','21','31','20','30','41','33','34','50','32']]]); 
+  //$trace = new Criteria(['mod'=> ['21']]); 
+  
+  $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms
+  krsort($mvtcoms); // tri par ordre chrono inverse
+  $nbpatterns = 0;
+  foreach($mvtcoms as $date_eff => $mvtcomsD) {
+    foreach($mvtcomsD as $mod => $mvtcomsDM) {
+      foreach (GMvtsP::buildGroups($mvtcomsDM) as $group) {
+        if ($trace->is(['mod'=> $mod]))
+          echo Yaml::dump(['$group'=> $group->asArray()], 3, 2);
+        $pattern = $group->pattern();
+        if ($trace->is(['mod'=> $mod]))
+          echo Yaml::dump(['$pattern'=> $pattern], 3, 2);
+        $patternWOEx = $pattern;
+        unset($patternWOEx['example']);
+        $key = json_encode($patternWOEx, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+        if (!isset($patterns[$mod][$key])) {
+          $patterns[$mod][$key] = array_merge($pattern, ['nb'=> 1]);
+          $nbpatterns++;
+        }
+        else
+          $patterns[$mod][$key]['nb']++;
+      }
+    }
+  }
+  ksort($patterns);
+  $yamls = [
+    'title'=> "$nbpatterns motifs trouvés avec GMvtsP",
+    'created'=> date(DATE_ATOM),
+  ];
+  foreach ($patterns as $mod => $patternMods) {
+    $yamls['mod'.$mod]= [
+      'label' => '',
+      'patterns' => [],
+    ];
+    foreach ($patternMods as $key => $pattern) {
+      $md5 = md5($key);
+      $example = $pattern['example'];
+      $yamls['mod'.$mod]['label'] = $pattern['label'];
+      $yamls['mod'.$mod]['patterns'][] = [
+        'nb'=> $pattern['nb'],
+        'md5'=> $md5,
+        'factAp'=> $pattern['factAp'],
+        'example'=> $pattern['example'],
+      ];
+    }
+  }
+  echo Yaml::dump($yamls, 6, 2),"\n";
+  die("Fin GMvtsP::patterns() ok\n");
+}
 die("Aucune commande $_GET[action]\n");

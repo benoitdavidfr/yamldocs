@@ -86,6 +86,43 @@ if ('TestCountLeaves' == $_GET['action'] ?? null) { // Test countLeaves()
   die("Fin test countLeaves()");
 }
 
+{/*Terminologie:
+Fusion:
+  actions:
+    - r est commune de rattachement
+    - a s'associe à r
+    - r associe a
+    - a fusionne dans r {a: {fusionneDans: r}}
+    - r absorbe a
+  état:
+    - a est associée à r {a: {associéeA: r}}
+    - r a pour associée a
+CommuneNouvelle:
+  actions:
+    - r est commune de rattachement
+    - d devient déléguée de r {d: {devientDéléguéeDe: r}}
+    - r délègue à d
+    - d s'absorbe dans r {d: {sAbsorbeDans: r}}
+    - r absorbe d qd pas de commune déléguée
+  état:
+    - d est déléguée de r {d: {déléguéeDe: r}}
+    - r a pour déléguée d
+général:
+  absorption/absorbe =
+    soit fusion simple d'un c. s. dans une autre
+    soit disparition d'une commune rattachée au profit de la c. de rattachement
+  sa propre déléguée = qd une commune nouvelle a une commune déléguée et qu'elles ont ttes les 2 le même c. INSEE
+  commune
+    +- simple
+      +- commune nouvelle - résultat de la création d'une commune nouvelle
+        +- commune déléguante - ayant des déléguées
+      +- commune fusionnée - résultat d'une fusion en appli. de cette législation
+        +- commune associante - ayant des associées
+    +- rattachée
+      +- associée
+      +- déléguée
+*/}
+
 {/*PhpDoc: classes
 name: GroupMvts
 title: GroupMvts - Groupe de mvts, chacun correspond à une évolution sémantique distincte
@@ -109,7 +146,8 @@ class GroupMvts {
     '31'=> "Fusion simple",
     '32'=> "Création de commune nouvelle",
     '33'=> "Fusion association",
-    '34'=> "Transformation de fusion association en fusion simple ou suppression de communes déléguées",
+    '34'=> "Absorption de certaines de ses c. rattachées ou certaines c. associées deviennent déléguées",
+      // labelINSEE: Transformation de fusion association en fusion simple
     '41'=> "Changement de code dû à un changement de département",
     '50'=> "Changement de code dû à un transfert de chef-lieu",
     '70'=> "Transformation de commune associé en commune déléguée",
@@ -248,7 +286,7 @@ class GroupMvts {
   }
   
   // factorisation des mvts sur l'avant utilisée par buildEvol()
-  private function factorAvant(Criteria $trace): array {
+  private function factorAvant(): array {
     {/*PhpDoc: methods
     name: factorAvant
     title: "private function factorAvant(Criteria $trace): array - factorisation des mvts sur l'avant utilisée par buildEvol()"
@@ -375,13 +413,55 @@ class GroupMvts {
         $factAv2[$idav][$typav] = $avant2;
       }
     }
-    
-    if ($trace->is(['mod'=> $this->mod]))
-      echo Yaml::dump(['$factAv2'=> $factAv2], 5, 2);
-
-    if ($trace->is(['mod'=> $this->mod]))
-      echo "\n";
     return $factAv2;
+  }
+  
+  // structuration en [['id'=>id, ,'type'=>type, 'name'=>name, 'après'=> [['id'=>id, ,'type'=>type, 'name'=>name]]]]
+  function factAvant2(): array {
+    $fav2 = [];
+    foreach ($this->factorAvant() as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant) {
+        $sfav2 = [];
+        foreach ($avant['après'] as $idap => $après1) {
+          foreach ($après1 as $typap => $après) {
+            $sfav2[] = ['id'=> $idap, 'type'=> $typap, 'name'=> $après['name']];
+          }
+        }
+        $fav2[] = ['id'=> $idav, 'type'=> $typav, 'name'=> $avant['name'], 'après'=> $sfav2];
+      }
+    }
+    return $fav2;
+  }
+  
+  // fabrique un nouvel objet GroupMvts en utilisant l'ordre de factorAvant
+  function factAvDefact(array $factAv=[]): GroupMvts {
+    if (!$factAv)
+      $factAv = $this->factorAvant();
+    $groupOfMvts = [];
+    foreach ($factAv as $idav => $avant1) {
+      foreach ($avant1 as $typav => $avant) {
+        foreach ($avant['après'] as $idap => $après1) {
+          foreach ($après1 as $typap => $après) {
+            $groupOfMvts[] = [
+              'mod'=> $this->mod,
+              'label'=> $this->label,
+              'date_eff'=> $this->date,
+              'avant'=> [
+                'type'=> $typav,
+                'id'=> $idav,
+                'name'=> $avant['name'],
+              ],
+              'après'=> [
+                'type'=> $typap,
+                'id'=> $idap,
+                'name'=> $après['name'],
+              ],
+            ];
+          }
+        }
+      }
+    }
+    return new self($groupOfMvts);
   }
   
   function mvtsPattern(Criteria $trace): array {
@@ -663,9 +743,9 @@ class GroupMvts {
     }
   }
     
-  function addToRpicom(Base $rpicom, Criteria $trace): void {
+  function addToRpicom1(Base $rpicom, Criteria $trace): void {
     {/*PhpDoc: methods
-    name: rpicom
+    name: rpicom1
     title: "function addToRpicom(Base $$rpicom, Criteria $trace): void - Ajoute au RPICOM le groupe"
     */}
     $factAv = $this->factorAvant($trace);
@@ -678,7 +758,7 @@ class GroupMvts {
           foreach ($avant1 as $typav => $avant) {
             $rpicom->mergeToRecord($idav, [
               $this->date => [
-                'évènement'=> "Changement de nom",
+                'évènement'=> "Change de nom",
                 'name'=> $avant['name'],
               ]
             ]);
@@ -898,7 +978,7 @@ class GroupMvts {
             else {
               $rpicom->mergeToRecord($idav, [
                 $this->date => [
-                  'évènement'=> "Devient commune déléguée",
+                  'adhèreCommeCommuneDéléguéeA'=> $idChefLieu,
                   'name'=> $avant['name']
                 ]
               ]);
@@ -937,7 +1017,7 @@ class GroupMvts {
             if ($idav <> $idChefLieu) {
               $rpicom->mergeToRecord($idav, [
                 $this->date => [
-                  'fusionneDans'=> $idChefLieu,
+                  'absorbéePar'=> $idChefLieu,
                   'name'=> $avant['name'],
                 ]
               ]);
@@ -948,7 +1028,7 @@ class GroupMvts {
         if (isset($factAv[$idChefLieu])) // cas où la commune fusionnée reprend l'id d'une des c. d'origine
           $rpicom->mergeToRecord($idChefLieu, [
             $this->date => [
-              'reçoitEnFusionSimple'=> $fusionnées,
+              'absorbe'=> $fusionnées,
               'name'=> (array_values($factAv[$idChefLieu])[0])['name'],
             ]
           ]);
@@ -987,7 +1067,7 @@ class GroupMvts {
             elseif (($typav == 'COM') && (count($avant['après'])==1)) { // fusion ss association
               $rpicom->mergeToRecord($idav, [
                 $this->date => [
-                  'fusionneAvec'=> $idChefLieu,
+                  'absorbéePar'=> $idChefLieu,
                   'name'=> $avant['name'],
                 ]
               ]);
@@ -1019,12 +1099,59 @@ class GroupMvts {
       }
       
       case '34': { // Suppression associée ou déléguée
+        /* Bug signalé
+        $factAv2:
+          '01165':
+            COM:
+              name: Amareins-Francheleins-Cesseins
+              après:
+                '01165': { COM: { name: Amareins-Francheleins-Cesseins } }
+                '01070': { COMA: { name: Cesseins } }
+          '01070':
+            COMA:
+              name: Cesseins
+              après:
+                '01165': { COM: { name: Amareins-Francheleins-Cesseins } }
+                '01070': { COMA: { name: Cesseins } }
+          '01003':
+            COMA:
+              name: Amareins
+              après:
+                '01165': { COM: { name: Amareins-Francheleins-Cesseins } }
+        showExtractAsYaml():
+          '01070':
+            '1996-08-01':
+              absorbéePar: '01165'
+              name: Cesseins
+              associéeA: '01165'
+            '1983-01-01':
+              absorbéePar: '01165'
+              name: Cesseins
+              associéeA: '01165'
+          '01003':
+            '1983-01-01':
+              absorbéePar: '01165'
+              name: Amareins
+              associéeA: '01165'
+          '01165':
+            now:
+              name: Francheleins
+            '1998-12-09':
+              évènement: 'Change de nom'
+              name: Amareins-Francheleins-Cesseins
+            '1996-08-01':
+              évènement: 'Absorbe certaines de ses c. associées ou déléguées'
+              name: Amareins-Francheleins-Cesseins
+            '1983-01-01':
+              évènement: 'Absorbe certaines de ses c. associées ou déléguées'
+              name: Amareins-Francheleins-Cesseins
+        */
         foreach ($factAv as $idav => $avant1) {
           foreach ($avant1 as $typav => $avant) {
             if ($typav == 'COM') {
               $idCom = $idav;
               $com = [
-                'évènement'=> "absorbe certaibes de ses c. associées ou déléguées",
+                'évènement'=> "Absorbe certaines de ses c. associées ou déléguées",
                 'name'=> $avant['name']
               ];
             }
@@ -1121,6 +1248,352 @@ class GroupMvts {
       }
     }
     
+    if ($trace->is(['mod'=> $this->mod]))
+      $rpicom->showExtractAsYaml(5, 2);
+  }
+  
+  function addToRpicom(Base $rpicom, Criteria $trace): void {
+    {/*PhpDoc: methods
+    name: rpicom
+    title: "function addToRpicom(Base $$rpicom, Criteria $trace): void - Ajoute au RPICOM le groupe"
+    doc: |
+      Nlle version démarrée le 20/4/2020
+    */}
+    if ($trace->is(['mod'=> $this->mod]))
+      $rpicom->startExtractAsYaml();
+    switch($this->mod) {
+      case '10': { // Changement de nom
+        $fav2 = $this->factAvant2();
+        $rpicom->mergeToRecord($fav2[0]['id'], [
+          $this->date => [
+            'évènement'=> "Change de nom",
+            'name'=> $fav2[0]['name'],
+          ]
+        ]);
+        break;
+      }
+      
+      case '20': { // Création
+        $fav2 = $this->factAvant2();
+        $idcréé = $fav2[0]['après'][1]['id'];
+        $crééeAPartirDe = [];
+        foreach ($fav2 as $avant)
+          $crééeAPartirDe[] = $avant['id'];
+        $rpicom->mergeToRecord($idcréé, [
+          $this->date => [
+            'crééeAPartirDe'=> $crééeAPartirDe,
+          ]
+        ]);
+        foreach ($fav2 as $avant) {
+          $rpicom->mergeToRecord($avant['id'], [
+            $this->date => [
+              'contribueA'=> $idcréé,
+              'name'=> $avant['name'],
+            ]
+          ]);
+        }
+        break;
+      }
+      
+      case '21': { // Rétablissement
+        /*Cas particulier des 2 ARM créés
+          Sinon
+            La commune de rattachement est toujours id1 définie dans la 1ère règle
+            Le reste de la première règle donne les entités créées
+            Les autres règles sont de la forme:
+              {idia: [idi]}   <=> la c.a. $idia est rétablie comme c.s.
+              {idia: [idia]}  <=> la c.a. $idia reste associée
+              {idid: [idi]}   <=> la c.d. $idid est rétablie comme c.s.
+            De plus des c. dans la partie droite de la règle 1 indique de nouvelles entités
+        */
+        $fav2 = $this->factAvant2();
+        echo Yaml::dump(['fav2'=> $fav2], 3, 2);
+        if ($fav2[0]['type'] == 'ARM') { // cas particuliers {id1m: [id1m, id2m]}
+          $ardtMcréé = $fav2[0]['après'][1];
+          $rpicom->mergeToRecord($ardtMcréé['id'], [
+            $this->date => [
+              'après'=> ['name' => $ardtMcréé['name']],
+              'rétablieCommeArdtMunDe'=> $fav2[0]['id'],
+            ]
+          ]);
+          break;
+        }
+        $idr = $fav2[0]['id']; // La c. de rattachement
+        $rpicom->mergeToRecord($idr, [
+          $this->date => [
+            'évènement'=> "Commune rétablissante",
+            'name'=> $fav2[0]['name'],
+          ]
+        ]);
+        $rétablies = []; // identifiants des entités rétablies définies par la 1ère règle
+        foreach ($fav2[0]['après'] as $après) {
+          if ($après['id'] <> $idr)
+            $rétablies[$après['id']] = $après;
+        }
+        array_shift($fav2);
+        foreach ($fav2 as $avant) {
+          if ($avant['type'] == 'COMD') { // {idid: [idi]} <=> la c.d. $idid est rétablie comme c.s.
+            if ($avant['id'] <> $idr) {
+              $rpicom->mergeToRecord($avant['id'], [
+                $this->date => [
+                  'évènement'=> "Commune déléguée rétablie comme commune simple",
+                  'name'=> $avant['name'],
+                  'déléguéeDe'=> $idr,
+                ]
+              ]);
+            }
+            unset($rétablies[$avant['id']]);
+          }
+          elseif ($avant['après'][0]['type'] == 'COM') { // cas {idia: [idi]}   <=> la c.a. $idia est rétablie comme c.s.
+            $rpicom->mergeToRecord($avant['id'], [
+              $this->date => [
+                'évènement'=> "Commune associée rétablie comme commune simple",
+                'name'=> $avant['name'],
+                'associéeA'=> $idr,
+              ]
+            ]);
+            unset($rétablies[$avant['id']]);
+          }
+          elseif ($avant['après'][0]['type'] == 'COMA') { // cas {idia: [idia]}  <=> la c.a. $idia reste associée
+            $rpicom->mergeToRecord($avant['id'], [
+              $this->date => [
+                'resteAssociéeA'=> $idr,
+                'name'=> $avant['name'],
+                'associéeA'=> $idr,
+              ]
+            ]);
+            unset($rétablies[$avant['id']]);
+          }
+        }
+        foreach ($rétablies as $rétablie) { // les autres entités rétablies
+          if ($rétablie['type'] == 'COM') {
+            $rpicom->mergeToRecord($rétablie['id'], [
+              $this->date => [
+                'rétablieCommeSimpleDe'=> $idr,
+              ]
+            ]);
+          }
+          else {
+            $rpicom->mergeToRecord($rétablie['id'], [
+              $this->date => [
+                'rétablieCommeAssociéeDe'=> $idr,
+              ]
+            ]);
+          }
+        }
+        break;
+      }
+      
+      case '30': { // Suppression
+        $fav2 = $this->factAvant2();
+        $idsup = $fav2[0]['id'];
+        $seDissoutDans = [];
+        foreach ($fav2[0]['après'] as $après)
+          $seDissoutDans[] = $après['id'];
+        $rpicom->mergeToRecord($idsup, [
+          $this->date => [
+            'seDissoutDans'=> $seDissoutDans,
+            'name'=> $fav2[0]['name'],
+          ]
+        ]);
+        foreach ($fav2[0]['après'] as $après) {
+          $rpicom->mergeToRecord($après['id'], [
+            $this->date => [
+              'reçoitUnePartieDe'=> $idsup,
+              'name'=> $après['name'],
+            ]
+          ]);
+        }
+        break;
+      }
+      
+      case '32': { // Création de commune nouvelle
+        /* la c. nouvelle créée est la seule c. simple à droite, je l'apelle idr
+          chaque règle est de la forme:
+            {idr: [idr]} <=> idr devient commune nouvelle sans c. déléguée propre
+            {idr: [idr, idrd]} <=> idr devient commune nouvelle avec c. déléguée propre
+            {idi: [idr]} / i<>r <=> idi est absorbée dans idr
+            {idi: [idid, idr]} / i<>r <=> idi devient déléguée de idr
+            {idia: [idr]} / i<>r <=> est absorbée dans idr
+            {idia: [idid, idr]} / i<>r <=> idia devient déléguée de idr
+        */
+        //$factAv = $this->factorAvant($trace);
+        $fav2 = $this->factAvant2();
+        // identif. de la c. de rettachement
+        if ($fav2[0]['après'][0]['type'] == 'COM')
+          $idr = $fav2[0]['après'][0]['id'];
+        else
+          $idr = $fav2[0]['après'][1]['id'];
+        foreach ($fav2 as $noav => $avant) {
+          if ($avant['id'] == $idr) { // cas { idr ... }
+            if (count($avant['après']) == 1) { // cas { idr: [idr] } <=> idr devient c. nouvelle sans c. déléguée propre
+              $comr = [
+                'évènement' => "Devient commune nouvelle",
+                'name' => $avant['name'],
+              ];
+            }
+            else { // cas {idr: [idr, idrd]}
+              $comr = [
+                'évènement' => "Devient commune nouvelle avec déléguée propre",
+                'name' => $avant['name'],
+              ];
+            }
+          }
+          elseif (count($avant['après']) == 1) { // cas {idi: [idr]} ou {idia: [idr]}
+            $com = [
+              'sAbsorbeDans' => $idr,
+              'name'=> $avant['name'],
+            ];
+            if ($avant['type'] == 'COMA')
+              $com['associéeA'] = 'unknown';
+            $rpicom->mergeToRecord($avant['id'], [ $this->date => $com ]);
+          }
+          else { // {idi: [idid, idr]} ou {idia: [idid, idr]}
+            $com = [
+              'devientDéléguéeDe' => $idr,
+              'name'=> $avant['name'],
+            ];
+            if ($avant['type'] == 'COMA')
+              $com['associéeA'] = 'unknown';
+            $rpicom->mergeToRecord($avant['id'], [ $this->date => $com ]);
+          }
+        }
+        $rpicom->mergeToRecord($idr, [ $this->date => $comr ]);
+        break;
+      }
+      
+      case '31': // Fusion simple
+      case '33': { // Fusion association
+        /* la c. de rattachement est définie par la seule règle {idr: [idr]}
+          Les autres règles sont de la forme:
+            {idi: [idia,  idr]} <=> idi s'associe à idr
+            {idi: [idr]} <=> idi fusionneDans idr
+        */
+        $fav2 = $this->factAvant2();
+        //echo Yaml::dump(['$fav2'=> $fav2], 4, 2);
+        // identif. de la c. de rettachement - définie par la seule règle {idr: [idr]}
+        foreach ($fav2 as $no => $avant) {
+          if ((count($avant['après']) == 1) && ($avant['après'][0]['id'] == $avant['id'])) {
+            $idr = $avant['id'];
+            $rpicom->mergeToRecord($idr, [
+              $this->date => [
+                'évènement' => "Devient commune fusionnée",
+                'name' => $avant['name'],
+              ]
+            ]);
+            unset($fav2[$no]);
+            break;
+          }
+        }
+        if (!isset($idr)) { // cas particulier de création d'un nouvel id dans le cas d'une Fusion simple
+          $idr = $fav2[0]['après'][0]['id'];
+          $fusionnées = [];
+          foreach ($fav2 as $no => $avant) {
+            $fusionnées[] = $avant['id'];
+          }
+          $rpicom->mergeToRecord($idr, [
+            $this->date => [
+              'crééeParFusionSimpleDe' => $fusionnées,
+            ]
+          ]);
+        }
+        // balaie les c. associées ou fusionnées
+        foreach ($fav2 as $no => $avant) {
+          if (count($avant['après']) == 1) { // cas {idi: [idr]} <=> idi fusionneDans idr
+            $rpicom->mergeToRecord($avant['id'], [
+              $this->date => [
+                'fusionneDans' => $idr,
+                'name' => $avant['name'],
+              ]
+            ]);
+          }
+          else { // {idi: [idia,  idr]} <=> idi s'associe à idr
+            $rpicom->mergeToRecord($avant['id'], [
+              $this->date => [
+                'sAssocieA' => $idr,
+                'name' => $avant['name'],
+              ]
+            ]);
+          }
+        }
+        break;
+      }
+
+      case '34': { // Absorption de certaines c. associées ou déléguées
+        $factAv = $this->factorAvant($trace);
+        $fav2 = $this->factAvant2();
+        foreach ($fav2 as $noav => $avant) {
+          if ($noav == 0) { // Commune de rattachement
+            $idr = $avant['id'];
+            $comr = [
+              'après'=> [ 'name'=> $avant['après'][0]['name'] ],
+              'évènement'=> "Absorbe certaines de ses c. rattachées ou certaines de ses c. associées deviennent déléguées",
+              'name'=> $avant['name']
+            ];
+          }
+          elseif (count($avant['après']) == 1) { // la c. avant fusionne dans idr
+            if (($avant['id'] == $idr) && ($avant['type']=='COMD')) { // cas {i1d: [id1]}
+              $comr['commeDéléguée'] = [
+                'name'=> $avant['name'],
+              ];
+            }
+            else { // cas {idi: [id1]}
+              $état = $avant['type']=='COMA' ? 'associéeA' : ($avant['type']=='COMD' ? 'déléguéeDe' : $avant['type']);
+              $rpicom->mergeToRecord($avant['id'], [
+                $this->date => [
+                  'fusionneDans'=> $idr,
+                  'name'=> $avant['name'],
+                   $état=> $idr,
+                ]
+              ]);
+            }
+          }
+          elseif ($avant['après'][1]['type'] == $avant['type']) { // cas {idi: [id1, idi]}
+            $action = $avant['type']=='COMA' ? 'resteAssociéeA' :
+               ($avant['type']=='COMD' ? 'resteDéléguéeDe' : $avant['type']);
+            $état = $avant['type']=='COMA' ? 'associéeA' : ($avant['type']=='COMD' ? 'déléguéeDe' : $avant['type']);
+            $rpicom->mergeToRecord($avant['id'], [
+              $this->date => [
+                $action => $idr,
+                'name' => $avant['name'],
+                 $état => $idr,
+              ]
+            ]);
+          }
+          elseif (($avant['après'][1]['type'] == 'COMD') && ($avant['type'] == 'COMA')) { // cas {idia: [id1, idid]}
+            // example: 39256
+            $action = $avant['type']=='COMA' ? 'resteAssociéeA' :
+               ($avant['type']=='COMD' ? 'resteDéléguéeDe' : $avant['type']);
+            $état = $avant['type']=='COMA' ? 'associéeA' : ($avant['type']=='COMD' ? 'déléguéeDe' : $avant['type']);
+            $rpicom->mergeToRecord($avant['id'], [
+              $this->date => [
+                'changedAssociéeEnDéléguéeDe' => $idr,
+                'name' => $avant['name'],
+                 $état => $idr,
+              ]
+            ]);
+          }
+          else {
+            echo Yaml::dump([$noav => $avant]);
+            throw new Exception("mod $this->mod non traité ligne ".__LINE__);
+          }
+        }
+        $rpicom->mergeToRecord($idr, [ $this->date => $comr ]);
+        $rpicom->showExtractAsYaml(5, 2);
+        return;
+        //die("Arrêt ligne ".__LINE__);
+      }
+      
+      case '41': break; // Changement de code dû à un changement de département
+      case '50': break; // Changement de code dû à un transfert de chef-lieu
+      case '70': break; // Transformation de commune associé en commune déléguée // A VOIR
+      
+      
+      default: {
+        echo Yaml::dump(['$group'=> $this->asArray()], 3, 2);
+        throw new Exception("mod $this->mod non traité ligne ".__LINE__);
+      }
+    }
     if ($trace->is(['mod'=> $this->mod]))
       $rpicom->showExtractAsYaml(5, 2);
   }

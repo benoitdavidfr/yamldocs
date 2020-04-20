@@ -1,0 +1,123 @@
+title: Schéma contenant des définitions dérivées des schémas de codage du DCMI
+$id: http://id.georef.eu/dcmi
+$schema: http://json-schema.org/draft-07/schema#
+definitions:
+  W3CDTF:
+    $id: http://purl.org/dc/terms/W3CDTF
+    description: spécification des formats de dates et d'heures du W3C
+    oneOf:
+      - description: Year (YYYY)
+        type: [string, number]
+        pattern: '^\d\d\d\d$'
+      - description: Year and month (YYYY-MM) or complete date (YYYY-MM-DD)
+        type: string
+        pattern: '^\d\d\d\d-\d\d(-\d\d)?$'
+      - description: Complete date plus hours minutes, seconds and fraction of second (YYYY-MM-DDThh:mm:ssTZD)
+        type: string
+        pattern: '^\d\d\d\d-\d\d-\d\dT\d\d:\d\d(:\d\d(\.\d+)?)?[+-]\d\d:\d\d$'
+    examples:
+      - '1997'
+      - 1997
+      - '1997-07'
+      - '1997-07-16'
+      - 1997-07-16
+      - '1997-07-16T19:20+01:00'
+      - '1997-07-16T19:20:30+01:00'
+      - '1997-07-16T19:20:30.45+01:00'
+  Period:
+    $id: https://www.dublincore.org/specifications/dublin-core/dcmi-period/
+    description: DCMI Period Encoding Scheme
+    type: object
+    required: [start, end]
+    properties:
+      name: {type: string}
+      start: {$ref: '#/definitions/W3CDTF'}
+      end: {$ref: '#/definitions/W3CDTF'}
+      scheme: { const: W3C-DTF}
+    additionalProperties: false
+    examples:
+      - {name: The Great Depression, start: 1929, end: 1939}
+      - {name: "Perth International Arts Festival, 2000", start: '2000-01-26', end: '2000-02-20'}
+      - {start: '1999-09-25T14:20+10:00', end: '1999-09-25T16:40+10:00', scheme: W3C-DTF}
+  Point:
+    $id: https://dublincore.org/specifications/dublin-core/dcmi-point/
+    description: DCMI Point Encoding Scheme 
+    type: object
+    properties:
+      name: {type: string}
+      north:
+        description: latitude en degrés décimaux, positif au Nord et négatif au Sud de l'équateur
+        type: number
+        minimum: -90
+        maximum: +90
+      east:
+        description: longitude en degrés décimaux / méridien de GreenWich, positif à l'Est et négatif à l'Ouest
+        type: number
+        minimum: -180
+        maximum: 180
+      elevation:
+        description: altitude en mètres au dessus du niveau de la mer
+        type: number
+    additionalProperties: false
+    examples:
+      - {name: 'Perth, W.A.', east: 115.85717, north: -31.95301}
+      - {east: 148.26218, north: -36.45746, elevation: 2228, name: Mt. Kosciusko}
+  Box:
+    $id: https://www.dublincore.org/specifications/dublin-core/dcmi-box/
+    description: DCMI Box Encoding Scheme
+    type: object
+    properties:
+      name: {type: string}
+      southlimit:
+        description: latitude minimum en degrés décimaux
+        type: number
+        minimum: -90
+        maximum: +90
+      westlimit:
+        description: longitude minimum en degrés décimaux
+        type: number
+        minimum: -180
+        maximum: 180
+      northlimit:
+        description: latitude maximum en degrés décimaux, > southlimit
+        type: number
+        minimum: -90
+        maximum: +90
+      eastlimit:
+        description: longitude maximum, > westlimit sauf si la boite est à cheval sur l'anti-méridien
+        type: number
+        minimum: -180
+        maximum: 180
+      uplimit:
+        description: hauteur maximum au dessus du niveau de la mer en mètres
+        type: number
+      downlimit:
+        description: hauteur maximum au dessus du niveau de la mer en mètres
+        type: number
+    additionalProperties: false
+    examples:
+      - {name: Western Australia, northlimit: -13.5, southlimit: -35.5, westlimit: 112.5, eastlimit: 129}
+      - {name: The Western Hemisphere, westlimit: 180, eastlimit: 0}
+      - {name: The Tropics, northlimit: 23.5, southlimit: -23.5}
+      - name: 'Duchess copper mine, illustrating the use of 3-D coordinates'
+        northlimit: -21.3
+        southlimit: -21.4
+        westlimit: 139.8
+        eastlimit: 139.9
+        uplimit: 400
+        downlimit: -100
+      - name: ZEE de Wallis-et-Futuna (ZEE), ex. à cheval sur l'anti-méridien
+        westlimit: 179.50
+        southlimit: -15.93
+        eastlimit: -174.28
+        northlimit: -9.81
+type: object
+properties:
+  period: {$ref: '#/definitions/Period'}
+  point: {$ref: '#/definitions/Point'}
+additionalProperties: false
+examples:
+  - point: {east: 148.26218, north: -36.45746, elevation: 2228, name: Mt. Kosciusko}
+  
+
+

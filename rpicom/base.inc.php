@@ -231,6 +231,9 @@ class Base {
   // retourne le contenu comme array
   function contents(): array { return $this->base; }
   
+  // tri les enregistrements sur leur clé
+  function ksort(): void { ksort($this->base); }
+  
   function save(string $filepath='', array $metadata=[]) {
     {/*PhpDoc: methods
     name: save
@@ -285,6 +288,8 @@ class Base {
   // affiche l'extrait démarré par startExtractAsYaml() et termine l'extrait
   function showExtractAsYaml(int $level=1, int $spaces=2) {
     $extract = [];
+    if (!$this->extractAsYaml)
+      return;
     foreach (array_keys($this->extractAsYaml) as $id) {
       $extract[$id] = $this->$id;
     }

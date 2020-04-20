@@ -1,5 +1,5 @@
 title: 'Fichier des communes reconstitué au 2000-01-01'
-created: '2020-04-16T22:34:16+00:00'
+created: '2020-04-20T06:44:36+00:00'
 contents:
   '01001':
     name: 'L''Abergement-Clémenciat'
@@ -403,6 +403,8 @@ contents:
     name: Lochieu
   '01219':
     name: Lompnas
+  '01220':
+    name: Lompnes
   '01221':
     name: Lompnieu
   '01224':
@@ -851,6 +853,8 @@ contents:
     name: Vongnes
   '01457':
     name: Vonnas
+  '01459':
+    name: Hauteville-Lompnés
   '02001':
     name: Abbécourt
   '02002':
@@ -6570,6 +6574,18 @@ contents:
     name: Vira
   '09341':
     name: Viviès
+  2A237:
+    name: Poggio-di-Tallano
+  2A294:
+    name: 'Sant''Andréa-di-Tallano'
+  2A325:
+    name: Tivolaggio
+  2B044:
+    name: Brustico
+  2B076:
+    name: Cassano
+  2B151:
+    name: Lunghignano
   10002:
     name: Ailleville
   10003:
