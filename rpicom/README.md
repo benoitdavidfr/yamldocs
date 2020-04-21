@@ -117,15 +117,15 @@ On peut regrouper ces opérations dans les 6 opérations suivantes :
 
 ### Dénombrement
 
-Le tableau ci-dessous fournit un dénombrement des communes et de leurs évolutions :
+Le tableau ci-dessous fournit un dénombrement des communes simples et de leurs évolutions :
 
   - d'une part en distinguant les modifications au 1er janvier de celles en cours d'année,
   - d'autre part en fournissant
     - T : le nbre de communes simples à la fin de la période
     - \+ : le nbre d'identifiants créés sauf chgt de département,
     - \- : le nbre d'identifiants supprimés sauf chgt de département,
-    - D- : le nbre d'identifiants créés et supprimés par chgt de département de communes,
-    - M : le nbre d'identifiants en dehors des précédents dont la localisation a changée.
+    - CD : le nbre d'identifiants créés et supprimés par chgt de département de communes,
+    - M : le nbre d'identifiants en dehors des précédents dont la localisation a changé.
   
 | année | T | + | - | CD | M | commentaire |
 | - | - | - | - | - | - | - |
