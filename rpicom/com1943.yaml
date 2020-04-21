@@ -1,5 +1,5 @@
 title: 'Fichier des communes de 1943'
-created: '2020-04-21T01:29:32+00:00'
+created: '2020-04-21T19:03:01+00:00'
 source: 'Fabriqué à partir de GéoHisto en utilisant http://localhost/yamldoc/pub/evolcoms/?action=genCom1943'
 $schema: 'http://id.georef.eu/rpicom/exfcoms/$schema'
 ydADscrBhv:
@@ -6803,18 +6803,6 @@ contents:
     name: Vira
   '09341':
     name: Viviès
-  2A237:
-    name: Poggio-di-Tallano
-  2A294:
-    name: 'Sant''Andréa-di-Tallano'
-  2A325:
-    name: Tivolaggio
-  2B044:
-    name: Brustico
-  2B076:
-    name: Cassano
-  2B151:
-    name: Lunghignano
   10001:
     name: 'L''Abbaye-sous-Plancy'
   10002:

@@ -102,8 +102,8 @@ class Menu {
       echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>menu</title></head><body>Menu:<ul>\n";
       foreach($this->cmdes as $action => $cmde) {
         echo "<li>$action<ul>\n";
-        $href = "?action=$action";
         foreach ($cmde['actions'] as $label => $argValues) {
+          $href = "?action=$action";
           foreach ($cmde['argNames'] as $argNo => $argName)
             $href .= "&amp;$argName=".urlencode($argValues[$argNo]);
           echo "<li><a href='$href'>$label</a></li>\n";
@@ -180,8 +180,9 @@ $menu = new Menu([
       "affichage de l'état au 1/1/2020"=> [ '2020-01-01', 'communes2020.csv', 'csv'],
       "affichage de l'état au 1/1/2019"=> [ '2019-01-01', 'communes-01012019.csv', 'csv'],
       "affichage de l'état au 1/1/2018"=> [ '2018-01-01', 'France2018.txt', 'txt'],
+      "affichage de l'état au 1/1/2017"=> [ '2017-01-01', 'France2017.txt', 'txt'],
       "affichage de l'état au 1/1/2010"=> [ '2010-01-01', 'France2010.txt', 'txt'],
-      "affichage Yaml des communes au 1/1/2000 à partir du fichier INSEE"=> [ '2000-01-01', 'France2000.txt', 'txt']
+      "affichage de l'état au 1/1/2000"=> [ '2000-01-01', 'France2000.txt', 'txt']
     ],
   ],
   'genEvols'=> [
@@ -206,6 +207,12 @@ $menu = new Menu([
     'argNames'=> [],
     'actions'=> [
       "Fabrication du Rpicom"=> [],
+    ],
+  ],
+  'nombres'=> [
+    'argNames'=> [],
+    'actions'=> [
+      "Dénombrement des communes simples et de leurs évolutions"=> [],
     ],
   ],
 ]
@@ -645,6 +652,8 @@ if ($_GET['action'] == 'genCom1943') { // génération d'un fichier des communes
       $rec[$header] = $record[$i];
     if ($rec['start_datetime'] <> '1942-01-01 00:00:00')
       continue;
+    if (in_array(substr($rec['insee_code'], 0, 2), ['2A','2B'])) // Erreurs manifestes
+      continue;
     //echo "rec="; print_r($rec);
     // Gestion des arrdts communaux
     if (preg_match('!Arrondissement!', $rec['name']))
@@ -858,10 +867,10 @@ doc: |
   Si ${datefin} est défini génère un fichier com${datefin}gen
 */}
 if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions et enregistrement d'un fichier d'état
-  $datefin = '2000-01-01';
+  //$datefin = '2000-01-01';
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>genEvols</title></head><body><pre>\n";
-  $trace = new Criteria([]); // aucun critère, tout est affiché
-  //$trace = new Criteria(['not']); // rien n'est affiché
+  //$trace = new Criteria([]); // aucun critère, tout est affiché
+  $trace = new Criteria(['not']); // rien n'est affiché
   //$trace = new Criteria(['mod'=> ['not'=> ['10','20','21','30','31','33','34','41','50']]]);
   //$trace = new Criteria(['mod'=> ['not'=> ['10','21','31','20','30','41','33','34','50','32']]]); 
   //$trace = new Criteria(['mod'=> ['21']]); 
@@ -876,7 +885,7 @@ if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions 
       $coms->writeAsYaml(
           __DIR__."/com${datefin}gen",
           [
-            'title'=> "Fichier des communes reconstitué au $datefin",
+            'title'=> "Fichier des communes reconstitué au $datefin à partir de l'état au 1/1/1943 et des évolutions",
             'created'=> date(DATE_ATOM),
           ]
       );
@@ -890,7 +899,7 @@ if ($_GET['action'] == 'genEvols') { // génération du fichier des évolutions 
         if ($trace->is(['mod'=> $mod]))
           echo Yaml::dump(['$group'=> $group->asArray()], 3, 2);
         $evol = $group->buildEvol($coms, $trace);
-        if ($trace->is(['mod'=> $mod]))
+        if (1 || $trace->is(['mod'=> $mod]))
           echo '<b>',Yaml::dump(['$evol'=> $evol], 3, 2),"</b>\n";
         elseif (isset($evol['ERREUR']) || isset($evol['ALERTE']))
           echo '<b>',Yaml::dump(['$evol'=> $evol], 5, 2),"</b>\n";
@@ -915,7 +924,7 @@ if ($_GET['action'] == 'buildState') { // affichage Yaml de l'état des communes
   foreach ($headers as $i => $header)
     if (preg_match('!"([^"]+)"!', $header, $matches))
       $headers[$i] = $matches[1];
-  //echo "<pre>headers="; print_r($headers); echo "</pre>\n";
+  echo "<pre>headers="; print_r($headers); echo "</pre>\n";
   while($record = fgetcsv($file, 0, $sep)) {
     //echo "<pre>record="; print_r($record); echo "</pre>\n";
     $rec = [];
@@ -1314,7 +1323,7 @@ doc: |
   En raison du nbre de motifs (206) de factorAvant() le code de GroupMvts::addToRpicom() est trop complexe et buggué
   J'abandonne le 19/4/2020 19:00 cette solution pour tester une factorisation sur après
 */}
-if ($_GET['action'] == 'brpicom') { // construction du Rpicom v1
+if ($_GET['action'] == 'brpicom') { // construction du Rpicom v2
   if (php_sapi_name() <> 'cli')
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>brpicom</title></head><body><pre>\n";
   //$trace = new Criteria([]); // aucun critère, tout est affiché
@@ -1341,6 +1350,112 @@ if ($_GET['action'] == 'brpicom') { // construction du Rpicom v1
   die("Fin brpicom ok, rpicom sauvé dans rpicom.yaml\n");
 }
 
+// dénombrement des communes simples dans le fichier
+function compteFrom(string $compath, Criteria $trace): int {
+  $coms = new Base($compath, new Criteria(['not'])); // Lecture de com20200101.yaml dans $coms
+  $nbComS = 0;
+  foreach ($coms->contents() as $idS => $comS) {
+    if (isset($comS['name'])) $nbComS++;
+  }
+  //echo "nbComS=$nbComS\n";
+  return $nbComS;
+}
+
+// ajoute $cI à $cT ts les 2 en fmt [ {date} => ['T'=> nbrTotal, '+'=> nbrAjout, '-'=> nbrSuppr, 'M'=> nbrModif] ]
+function ajoutComptes(array $cT, array $cI): array {
+  if (!$cI) return $cT;
+  foreach ($cI as $date => $cidate) {
+    foreach ($cidate as $k => $v) {
+      if (isset($cT[$date][$k]))
+        $cT[$date][$k] += $v;
+      else
+        $cT[$date][$k] = $v;
+    }
+  }
+  return $cT;
+}
+
+if ($_GET['action'] == 'nombres') { // dénombrement
+  if (php_sapi_name() <> 'cli')
+    echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>dénombrement</title></head><body><pre>\n";
+  //$trace = new Criteria([]); // aucun critère, tout est affiché
+  $trace = new Criteria(['not']); // rien n'est affiché
+  //$trace = new Criteria(['mod'=> ['not'=> ['34','70','21','10','41','32','50','33','31','20','30']]]); 
+
+  $comptes = []; // [ {date} => ['T'=> nbre total, '+'=> nbre ajoutées, '-'=> nbre supprimées, 'M'=> nbre modifiées] ];
+  $comptes['2020-01-01']['T'] = compteFrom(__DIR__.'/com20200101', new Criteria(['not']));
+  $comptes['2019-01-01']['T'] = compteFrom(__DIR__.'/com20190101', new Criteria(['not']));
+  $comptes['2018-01-01']['T'] = compteFrom(__DIR__.'/com20180101', new Criteria(['not']));
+  $comptes['2017-01-01']['T'] = compteFrom(__DIR__.'/com20170101', new Criteria(['not']));
+  $comptes['2010-01-01']['T'] = compteFrom(__DIR__.'/com20100101', new Criteria(['not']));
+  $comptes['2000-01-01']['T'] = compteFrom(__DIR__.'/com20000101', new Criteria(['not']));
+  $comptes['1943-01-01']['T'] = compteFrom(__DIR__.'/com1943', new Criteria(['not']));
+  
+  $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms
+  krsort($mvtcoms); // tri par ordre chrono inverse
+  foreach($mvtcoms as $date_eff => $mvtcomsD) {
+    foreach($mvtcomsD as $mod => $mvtcomsDM) {
+      foreach (GroupMvts::buildGroups($mvtcomsDM) as $group) {
+        $group = $group->factAvDefact();
+        $comptGrpe = $group->compte($trace);
+        if ($trace->is(['mod'=> $mod]))
+          echo Yaml::dump(['$comptGrpe'=> $comptGrpe]);
+        $comptes = ajoutComptes($comptes, $comptGrpe);
+        if ($trace->is(['mod'=> $mod]))
+          echo Yaml::dump(['$comptes'=> $comptes]);
+      }
+    }
+  }
+  //print_r($comptes);
+  $comptesParAnnee = [];
+  foreach ($comptes as $date => $compteD) {
+    preg_match('!^(\d\d\d\d)-(\d\d-\d\d)$!', $date, $matches);
+    if ($matches[2] == '01-01')
+      $annee = $date;
+    else
+      $annee = "$matches[1]-Z";
+    $comptesParAnnee = ajoutComptes($comptesParAnnee, [$annee => $compteD]);
+  }
+  //print_r($comptesParAnnee);
+  krsort($comptesParAnnee);
+  $comments = [
+    '2019-01-01'=> "Incitations financières à la création de communes nouvelles",
+    '2017-01-01'=> "Incitations financières à la création de communes nouvelles",
+    '2016-Z'=> "Incitations financières à la création de communes nouvelles",
+    '2016-01-01'=> "Incitations financières à la création de communes nouvelles",
+    '2015-Z'=> "Incitations financières à la création de communes nouvelles",
+    '2015-01-01'=> "Incitations financières à la création de communes nouvelles",
+    '1976-01-01'=> "Bi-départementalisation de la Corse",
+    '1968-01-01'=> "Création des départements 91, 92, 93, 94 et 95",
+  ];
+  $headers = ['année','T','+','D+','-','D-','M',"T'",'commentaire'];
+  if (1) { // en html
+    echo "</pre><table border=1>\n","<th>",implode('</th><th>', $headers),"</th>\n";
+    foreach ($comptesParAnnee as $annee => $ca) {
+      if (isset($ca['T']))
+        $total = $ca['T'];
+      $total -= ($ca['+'] ?? 0) - ($ca['-'] ?? 0);
+      echo "<tr><td>$annee</td><td>",$ca['T'] ?? '',"</td>",
+        "<td>",$ca['+'] ?? '',"</td><td>",$ca['D+'] ?? '',"</td><td>",$ca['-'] ?? '',"</td><td>",$ca['D-'] ?? '',"</td>",
+        "<td>",$ca['M'] ?? '',"</td>",
+        "<td>$total</td><td>",$comments[$annee] ?? '',"</td></tr>\n";
+    }
+    echo "</table><pre>\n";
+  }
+  if (1) { // en Markdown
+    echo "<h2>Markdown</h2>\n";
+    $headers = ['année','T','+','D+','-','D-','M','commentaire'];
+    echo "| ",implode(' | ', $headers)," |\n";
+    foreach ($headers as $header) echo "| - "; echo "|\n";
+    foreach ($comptesParAnnee as $annee => $ca) {
+      echo "| $annee | ",$ca['T'] ?? '',
+        " | ",$ca['+'] ?? ''," | ",$ca['D+'] ?? ''," | ",$ca['-'] ?? ''," | ",$ca['D-'] ?? '',
+        " | ",$ca['M'] ?? '',
+        " | ",$comments[$annee] ?? '',"|\n";
+    }
+  }
+  die("\nFin nombres ok\n");
+}
 
 {/*PhpDoc: screens
 name: patterns

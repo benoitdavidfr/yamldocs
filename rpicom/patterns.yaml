@@ -505,7 +505,7 @@ mod31:
 mod32:
   label: 'Création de commune nouvelle'
   algo: |
-    la c. nouvelle créée est la seule c. simple à droite, je l'apelle idr
+    la c. nouvelle créée est la seule c. simple à droite, je l'appele idr
     chaque règle est de la forme:
       {idr: [idr]} <=> idr devient commune nouvelle sans c. déléguée propre
       {idr: [idr, idrd]} <=> idr devient commune nouvelle avec c. déléguée propre

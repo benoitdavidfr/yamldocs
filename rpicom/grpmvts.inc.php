@@ -1136,6 +1136,88 @@ class GroupMvts {
     if ($trace->is(['mod'=> $this->mod]))
       $rpicom->showExtractAsYaml(5, 2);
   }
+  
+  function compte(Criteria $trace): array {
+    {/*PhpDoc: methods
+    name: compte
+    title: "compte(array $comptes, Criteria $trace): array - compte"
+    doc: |
+    */}
+    if ($trace->is(['mod'=> $this->mod]))
+      echo Yaml::dump(['$group'=> $this->asArray()], 3, 2);
+    $fav2 = $this->factAvant2();
+    if ($trace->is(['mod'=> $this->mod]))
+      echo Yaml::dump(['$fav2'=> $fav2], 4, 2);
+    switch($this->mod) {
+      case '21': { // Rétablissement
+        /*Cas particulier des 2 ARM créés
+          Sinon
+            La commune de rattachement est toujours id1 définie dans la 1ère règle
+            Le reste de la première règle donne les entités créées
+            Les autres règles sont de la forme:
+              {idia: [idi]}   <=> la c.a. $idia est rétablie comme c.s.
+              {idia: [idia]}  <=> la c.a. $idia reste associée
+              {idid: [idi]}   <=> la c.d. $idid est rétablie comme c.s.
+            De plus des c. dans la partie droite de la règle 1 indique de nouvelles entités
+        */
+        if ($fav2[0]['type'] == 'ARM') return [];
+        $nbcomSortie = 0;
+        foreach ($fav2[0]['après'] as $après) {
+          if ($après['type'] == 'COM')
+            $nbcomSortie++;
+        }
+        return [$this->date => ['+'=> $nbcomSortie-1, 'M'=> 1]];
+      }
+      
+      case '20': { // Création
+        return [$this->date => ['M'=> count($fav2), '+'=> 1]];
+      }
+      
+      case '30': { // Suppression
+        return [$this->date => ['M'=> count($fav2)-1, '-'=> 1]];
+      }
+      
+      case '31': // Fusion simple
+      case '33': // Fusion association
+      case '32': { // Création de commune nouvelle
+        /*La c. nouvelle créée est la seule c. simple à droite, je l'appele idr
+          chaque règle est de la forme:
+            {idr: [idr]} <=> idr devient commune nouvelle sans c. déléguée propre
+            {idr: [idr, idrd]} <=> idr devient commune nouvelle avec c. déléguée propre
+            {idi: [idr]} / i<>r <=> idi est absorbée dans idr
+            {idi: [idid, idr]} / i<>r <=> idi devient déléguée de idr
+            {idia: [idr]} / i<>r <=> est absorbée dans idr
+            {idia: [idid, idr]} / i<>r <=> idia devient déléguée de idr
+          -> Compter le nbre de COM en entrée
+        */
+        $nbcomEntrée = 0;
+        foreach ($fav2 as $entrée) {
+          if ($entrée['type']=='COM') $nbcomEntrée++;
+        }
+        return [$this->date => ['-'=> $nbcomEntrée-1, 'M'=> 1]];
+      }
+
+      case '41': { // Changement de code dû à un changement de département'
+        return [$this->date => ['D-'=> 1, 'D+'=> 1]];
+      }
+      
+      case '50': { // Changement de code dû à un transfert de chef-lieu
+        return [$this->date => ['-'=> 1, '+'=> 1]];
+      }
+      
+      // aucune incidence
+      case '10': // Changement de nom
+      case '70': // Transformation de commune associé en commune déléguée
+      case '34': {// Absorption de certaines c. associées ou déléguées
+        return [];
+      }
+      
+      default: {
+        echo Yaml::dump(['$group'=> $this->asArray()], 3, 2);
+        throw new Exception("mod $this->mod non traité ligne ".__LINE__);
+      }
+    }
+  }
 };
 
 
