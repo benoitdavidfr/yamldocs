@@ -55,16 +55,16 @@ $schema:
                 spatial:
                   description: emprise spatiale utilisant le schéma de codage http://dublincore.org/documents/dcmi-box/
                   $ref: http://id.georef.eu/dcmi#/definitions/Box
-                associéeA:
+                estAssociéeA:
                   description: si c. associée alors c. INSEE de la commune à laquelle elle est associée
                   type: [string, number]
                   pattern: '^\d[\dAB]\d\d\d$'
-                déléguéeDe:
+                estDéléguéeDe:
                   description: si c'est c. déléguée alors c. INSEE de la commune dont elle est déléguée
                   type: [string, number]
                   pattern: '^\d[\dAB]\d\d\d$'
-                ardtMunDe:
-                  description: si c'est un ardt mun. alors c. INSEE de la commune parente
+                estArrondissementMunicipalDe:
+                  description: si c'est un ardt mun. alors c. INSEE de la commune de rattachement
                   type: [string, number]
                   pattern: '^\d[\dAB]\d\d\d$'
                 commeDéléguée:
@@ -87,15 +87,15 @@ $schema:
                     spatial:
                       description: emprise spatiale utilisant le schéma de codage http://dublincore.org/documents/dcmi-box/
                       $ref: http://id.georef.eu/dcmi#/definitions/Box
-                    associéeA:
+                    estAssociéeA:
                       description: si c. associée alors c. INSEE de la commune à laquelle elle est associée
                       type: [string, number]
                       format: '^\d[\dAB]\d\d\d$'
-                    déléguéeDe:
+                    estDéléguéeDe:
                       description: si c'est c. déléguée alors c. INSEE de la commune dont elle est déléguée
                       type: [string, number]
                       format: '^\d[\dAB]\d\d\d$'
-                    ardtMunDe:
+                    estArrondissementMunicipalDe:
                       description: si c'est un ardt mun. alors c. INSEE de la commune parente
                       type: [string, number]
                       format: '^\d[\dAB]\d\d\d$'
@@ -253,111 +253,4 @@ ydADscrBhv:
       else
         return $skey;
 contents:
-  44131: # exemple d'une commune ayant continué d'exister sans changement même si des communes lui ont été associées
-    now:
-      name: Pornic
-  44177: # exemple d'une commune associée à 44131 depuis le 1/6/1973 et qui était simple avant
-    now:
-      name: Sainte-Marie
-      associéeA: 44131 # depuis le 1/6/1973 associée au Pornic
-    '1973-06-01': # était avant le 1/6/1973 commune simple
-      name: Sainte-Marie
-  44042: # exemple d'une commune qui a été absorbée le 8/9/1987 et qui état associée avant depuis le 1/6/1973
-    '1987-09-08':
-      name: Le Clion-sur-Mer # dénommée jusqu'au 8/9/1987
-      associéeA: 44131 # jusqu'au 8/9/1987 elle était associée à 44131
-      absorbéePar: 44131 # le 8/9/1987 elle a été absorbée par 44131
-    '1973-06-01': # était avant le 1/6/1973 commune simple
-      name: Le Clion-sur-Mer # dénommée jusqu'au 1/6/1973
-
-  55438:
-    now:
-      name: Romagne-sous-Montfaucon # nom depuis le rétablissement du 1/1/1987
-    '1987-01-01':
-      name: Romagne-Gesnes # nom pendant la fusion-asssociation entre le 1/7/1973 et le 1/1/1987
-    '1973-07-01':
-      name: Romagne-sous-Montfaucon # nom avant la fusion-association du 1/7/1973
-  55208:
-    now:
-      name: Gesnes-en-Argonne
-    '1987-01-01':
-      name: Gesnes-en-Argonne
-      associéeA: 55438 # a été associée entre le 1/7/1973 et le 1/1/1987
-    '1973-07-01':
-      name: Gesnes-en-Argonne
-  
-  27701: # exemple de création d'une commune
-    now:
-      name: 'Vaudreuil-Ex-Ensemble Urbain'
-    '1981-09-28':
-      crééeAPartirDe: [27351, 27365, 27471, 27474, 27528, 27537, 27598, 27651]
-  
-  44225: # Exemple de Changement de code dû à un changement de département
-    now:
-      name: Freigné
-    '2018-01-01':
-      changeDeDépartementEtAvaitPourCode: 49144
-  49144:
-    '2018-01-01':
-      changeDeDépartementEtPrendLeCode: 44225
-      name: Freigné
-
-evols:
-  - mod: '33'
-    label: 'Fusion association'
-    date: '1973-06-01'
-    input:
-      44042: { name: 'Le Clion-sur-Mer' }
-      44177: { name: Sainte-Marie }
-      44131: { name: Pornic }
-    result:
-      44131: { name: Pornic, associées: { 44042: { name: 'Le Clion-sur-Mer' }, 44177: { name: Sainte-Marie } } }
-  - mod: '34'
-    label: 'Transformation de fusion association en fusion simple ou suppression de communes déléguées'
-    date: '1987-09-08'
-    input:
-      44131: { name: Pornic, associées: { 44177: { name: Sainte-Marie }, 44042: { name: 'Le Clion-sur-Mer' } } }
-    result:
-      44131: { name: Pornic, associées: { 44177: { name: Sainte-Marie } } }
-  
-  - mod: '21'
-    label: Rétablissement
-    date: '1987-01-01'
-    input:
-      55438: { name: Romagne-Gesnes, associées: { 55208: { name: Gesnes-en-Argonne } } }
-    result:
-      55438: { name: Romagne-sous-Montfaucon }
-      55208: { name: Gesnes-en-Argonne }
-  - mod: '33'
-    label: 'Fusion association'
-    date: '1973-07-01'
-    input:
-      55208: { name: Gesnes-en-Argonne }
-      55438: { name: Romagne-sous-Montfaucon }
-    result:
-      55438: { name: Romagne-Gesnes, associées: { 55208: { name: Gesnes-en-Argonne } } }
-  
-  - mod: '20'
-    label: Création
-    date: '1981-09-28'
-    input:
-      27351: { name: Incarville }
-      27365: { name: Léry }
-      27471: { name: Porte-Joie }
-      27474: { name: Poses }
-      27528: { name: 'Le Vaudreuil' }
-      27537: { name: Saint-Étienne-du-Vauvray }
-      27598: { name: Saint-Pierre-du-Vauvray }
-      27651: { name: Tournedos-sur-Seine }
-    result:
-      27351: { name: Incarville }
-      27701: { name: 'Vaudreuil-Ex-Ensemble Urbain' }
-      27365: { name: Léry }
-      27471: { name: Porte-Joie }
-      27474: { name: Poses }
-      27528: { name: 'Le Vaudreuil' }
-      27537: { name: Saint-Étienne-du-Vauvray }
-      27598: { name: Saint-Pierre-du-Vauvray }
-      27651: { name: Tournedos-sur-Seine }
-  
 eof:

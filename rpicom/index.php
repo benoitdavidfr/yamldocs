@@ -5,6 +5,9 @@ title: index.php - diverses actions rpicom
 doc: |
   Définition de différentes actions accessibles par le Menu
 journal: |
+  21/4/2020:
+    - modif schéma exfcoms.yaml et génération correspondante dans buidState
+    - modif schema exrpicom.yaml et génération correspondante
   18/4/2020:
     - possibilité d'utiliser le script en cli permettant ainsi de générer les fichiers avec Makefile
   11/4/2020:
@@ -938,11 +941,11 @@ if ($_GET['action'] == 'buildState') { // affichage Yaml de l'état des communes
   foreach ($enfants as $c => $enfant) {
     $comparent = $enfant['comparent'];
     if ($enfant['typecom'] == 'COMA')
-      $childrenTag = ['associées','associéeA']; 
+      $childrenTag = ['aPourAssociées','estAssociéeA']; 
     elseif ($enfant['typecom'] == 'COMD')
-      $childrenTag = ['déléguées', 'déléguéeDe']; 
+      $childrenTag = ['aPourDéléguées', 'estDéléguéeDe']; 
     elseif ($enfant['typecom'] == 'ARM')
-      $childrenTag = ['ardtMun', 'ardtMunDe']; 
+      $childrenTag = ['aPourArrondissementsMunicipaux', 'estArrondissementMunicipalDe']; 
     $coms[$comparent][$childrenTag[0]][$c] = ['name'=> $enfant['nccenr']];
     if ($c <> $comparent)
       $coms[$c] = [$childrenTag[1] => $comparent];
@@ -955,19 +958,21 @@ if ($_GET['action'] == 'buildState') { // affichage Yaml de l'état des communes
     }
   }
   $buildNameAdministrativeArea = <<<'EOT'
-            if (isset($item['name']))
-              return "$item[name] ($skey)";
-            elseif (isset($item['associéeA']))
-              return "$skey associéeA $item[associéeA]";
-            elseif (isset($item['déléguéeDe']))
-              return "$skey déléguéeDe $item[déléguéeDe]";
-            else
-              return "none";
+    if (isset($item['name']))
+      return "$item[name] ($skey)";
+    elseif (isset($item['estAssociéeA']))
+      return "$skey estAssociéeA $item[estAssociéeA]";
+    elseif (isset($item['estDéléguéeDe']))
+      return "$skey estDéléguéeDe $item[estDéléguéeDe]";
+    elseif (isset($item['estArrondissementMunicipalDe']))
+      return "$skey estArrondissementMunicipalDe $item[estArrondissementMunicipalDe]";
+    else
+      return "none";
 EOT;
   echo Yaml::dump([
       'title'=> "Fichier des communes au $_GET[state] avec entrée par code INSEE des communes associées ou déléguées et des ardt. mun.",
       'created'=> date(DATE_ATOM),
-      'source'=> "création par traduction du fichier communes2020.csv de l'INSEE  \n"
+      'source'=> "création par traduction du fichier $_GET[file] de l'INSEE  \n"
 ."en utilisant la commande 'index.php ".implode(' ', $_GET)."'\n",
       '$schema'=> 'http://id.georef.eu/rpicom/exfcoms/$schema',
       'ydADscrBhv'=> [
@@ -1266,30 +1271,30 @@ EOT;
   foreach ($coms->contents() as $idS => $comS) {
     //echo Yaml::dump([$id => $com]);
     if (!isset($comS['name'])) continue;
-    foreach ($comS['associées'] ?? [] as $id => $com) {
+    foreach ($comS['aPourAssociées'] ?? [] as $id => $com) {
       $rpicom->$id = ['now'=> [
         'name'=> $com['name'],
-        'associéeA'=> $idS,
+        'estAssociéeA'=> $idS,
       ]];
     }
-    unset($comS['associées']);
-    foreach ($comS['déléguées'] ?? [] as $id => $com) {
+    unset($comS['aPourAssociées']);
+    foreach ($comS['aPourDéléguées'] ?? [] as $id => $com) {
       if ($id <> $idS)
         $rpicom->$id = ['now'=> [
           'name'=> $com['name'],
-          'déléguéeDe'=> $idS,
+          'estDéléguéeDe'=> $idS,
         ]];
       else
         $comS['commeDéléguée'] = ['name'=> $com['name']];
     }
-    unset($comS['déléguées']);
-    foreach ($comS['ardtMun'] ?? [] as $id => $com) {
+    unset($comS['aPourDéléguées']);
+    foreach ($comS['aPourArrondissementsMunicipaux'] ?? [] as $id => $com) {
       $rpicom->$id = ['now'=> [
         'name'=> $com['name'],
-        'ardtMunDe'=> $idS,
+        'estArrondissementMunicipalDe'=> $idS,
       ]];
     }
-    unset($comS['ardtMun']);
+    unset($comS['aPourArrondissementsMunicipaux']);
     $rpicom->$idS = ['now'=> $comS];
     unset($coms->$idS);
   }

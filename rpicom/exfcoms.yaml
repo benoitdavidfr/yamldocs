@@ -1,5 +1,5 @@
 title: définition du schéma des fichiers de communes avec exemple d'un tel fichier imaginaire
-modified: '2020-04-09'
+modified: '2020-04-21'
 $schema:
   title: schéma des fichiers donnant une photo instantanée des communes
   $id: http://id.georef.eu/mvtscommunes/exfcoms/$schema
@@ -62,37 +62,37 @@ $schema:
                 name:
                   description: nom de la commune en typographie riche en minuscules sans article
                   type: string
-                associées:
+                aPourAssociées:
                   description: liste éventuelle des communes associées, chacune indexée par son code INSEE
                   $ref: '#/definitions/componentList'
-                déléguées:
+                aPourDéléguées:
                   description: liste éventuelle des communes déléguées, chacune indexée par son code INSEE
                   $ref: '#/definitions/componentList'
-                ardtMun:
+                aPourArrondissementsMunicipaux:
                   description: liste éventuelle des arrondissements mun., chacun indexé par son code INSEE
                   $ref: '#/definitions/componentList'
               additionalProperties: false
             - description: commune associée, renvoi vers la commune de rattachement
               type: object
-              required: [associéeA]
+              required: [estAssociéeA]
               properties:
-                associéeA:
+                estAssociéeA:
                   description: indique la commune de rattachement
                   type: [string, number]
               additionalProperties: false
             - description: commune déléguée, renvoi vers la commune de rattachement
               type: object
-              required: [déléguéeDe]
+              required: [estDéléguéeDe]
               properties:
-                déléguéeDe:
+                estDéléguéeDe:
                   description: indique la commune de rattachement
                   type: [string, number]
               additionalProperties: false
             - description: arrondissement municipal, renvoi vers la commune de rattachement
               type: object
-              required: [ardtMunDe]
+              required: [estArrondissementMunicipalDe]
               properties:
-                ardtMunDe:
+                estArrondissementMunicipalDe:
                   description: indique la commune de rattachement
                   type: [string, number]
               additionalProperties: false
@@ -106,27 +106,31 @@ ydADscrBhv:
     AdministrativeArea: |
       if (isset($item['name']))
         return "$item[name] ($skey)";
-      elseif (isset($item['associéeA']))
-        return "$skey associéeA $item[associéeA]";
-      elseif (isset($item['déléguéeDe']))
-        return "$skey déléguéeDe $item[déléguéeDe]";
+      elseif (isset($item['estAssociéeA']))
+        return "$skey estAssociéeA $item[estAssociéeA]";
+      elseif (isset($item['estDéléguéeDe']))
+        return "$skey estDéléguéeDe $item[estDéléguéeDe]";
+      elseif (isset($item['estArrondissementMunicipalDe']))
+        return "$skey estArrondissementMunicipalDe $item[estArrondissementMunicipalDe]";
+      else
+        return "none";
 contents:
   '01001': {name: Abergement-Clémenciat}
   '01015':
     name: Arboys en Bugey
-    déléguées:
+    aPourDéléguées:
       '01015': {name: Arbignieu}
       '01340': {name: Saint-Bois}
   '01245':
     name: Bohas-Meyriat-Rignat
-    associées:
+    aPourAssociées:
       '01324': {name: Rignat}
   '01324':
-    associéeA: '01245'
-  '01340': {déléguéeDe: '01015'}
+    estAssociéeA: '01245'
+  '01340': {estDéléguéeDe: '01015'}
   69123:
     name: Lyon
-    ardtMun:
+    aPourArrondissementsMunicipaux:
       69381: {name: Lyon 1er Arrondissement}
       69382: {name: Lyon 2e Arrondissement}
       69383: {name: Lyon 3e Arrondissement}
@@ -136,5 +140,5 @@ contents:
       69387: {name: Lyon 7e Arrondissement}
       69388: {name: Lyon 8e Arrondissement}
       69389: {name: Lyon 9e Arrondissement}
-  69381: {ardtMunDe: 69123}
+  69381: {estArrondissementMunicipalDe: 69123}
 eof:
