@@ -1,8 +1,8 @@
 title: définition du schéma du référentiel pivot des codes INSEE des communes avec illustration
-modified: '2020-04-17'
+modified: '2020-04-21'
 description: |
-  Le champ contents fournit un exemple illustratif du référentiel pour faciliter la compréhension du schéma.
-  2nd version dans l'ordre chronologique inverse.
+  Le champ $schema contient le schéma du Rpicom.
+  Le champ contents fournit un exemple illustratif de ce référentiel pour faciliter la compréhension du schéma.
 $schema:
   title: schéma du référentiel pivot des codes INSEE des communes
   $id: http://id.georef.eu/mvtscommunes/exrpicom/$schema
@@ -23,6 +23,16 @@ $schema:
         spatial:
           description: emprise spatiale utilisant le sch. de codage http://dublincore.org/documents/dcmi-box/
           $ref: http://id.georef.eu/dcmi#Box
+    sansSesAssociées:
+      description: si la c. a des c. associées alors cette partie définit les prop. de la c. sans ses c. associées
+      type: object
+      properties:
+        geo:
+          description: point utilisant le schéma de codage http://dublincore.org/documents/dcmi-point/
+          $ref: http://id.georef.eu/dcmi#Point
+        spatial:
+          description: emprise spatiale utilisant le sch. de codage http://dublincore.org/documents/dcmi-box/
+          $ref: http://id.georef.eu/dcmi#Box
     rpicom:
       description: |
         Dictionnaire associant à chaque code INSEE les différentes versions identifiées par une date
@@ -32,11 +42,11 @@ $schema:
       patternProperties:
         '^\d[\dAB]\d\d\d$': # code INSEE
           description: |
-            Le mot-clé 'now' identifie la dernière version connue avec les propriétés actuellement valides.
+            Le mot-clé 'now' identifie la dernière version connue avec les dernières propriétés valides.
             Une date identifie une version historique qui peut être:
-              - soit un ensemble de propriétés périmées qui ont été valides avant la date de la version
-                plus éventuellement une action de disparition (absorbéePar|dissouteDans) à la date de la version
-              - soit une action d'apparition (rétablieDe|crééeAPartirDe)
+              - soit une action d'évolution ou de disparition à la date de la version
+                plus un ensemble de propriétés périmées qui ont été valides avant la date de la version
+              - soit une action d'apparition de l'entité à la date de la version
           type: object
           additionalProperties: false
           patternProperties:
@@ -47,7 +57,7 @@ $schema:
               additionalProperties: false
               properties:
                 name:
-                  description: soit dernier nom connu, soit nom valide jusqu'à la date définie comme clé
+                  description: dernier nom connu
                   type: string
                 geo:
                   description: point utilisant le schéma de codage http://dublincore.org/documents/dcmi-point/
@@ -56,30 +66,33 @@ $schema:
                   description: emprise spatiale utilisant le schéma de codage http://dublincore.org/documents/dcmi-box/
                   $ref: http://id.georef.eu/dcmi#/definitions/Box
                 estAssociéeA:
-                  description: si c. associée alors c. INSEE de la commune à laquelle elle est associée
+                  description: si c. associée alors id de la commune de rattachement
                   type: [string, number]
                   pattern: '^\d[\dAB]\d\d\d$'
                 estDéléguéeDe:
-                  description: si c'est c. déléguée alors c. INSEE de la commune dont elle est déléguée
+                  description: si c. déléguée alors id de la commune de rattachement
                   type: [string, number]
                   pattern: '^\d[\dAB]\d\d\d$'
                 estArrondissementMunicipalDe:
-                  description: si c'est un ardt mun. alors c. INSEE de la commune de rattachement
+                  description: si arrondissement municipal alors id de la commune de rattachement
                   type: [string, number]
                   pattern: '^\d[\dAB]\d\d\d$'
                 commeDéléguée:
-                  description: si la c. est déléguée d'elle même alors cette partie définit les prop. de la c. déléguée
+                  description: si c. déléguée d'elle même alors cette partie définit les prop. de la c. déléguée
                   $ref: '#/definitions/commeDéléguée'
+                sansSesAssociées:
+                  description: si la c. a des c. associées alors cette partie définit les prop. de la c. sans ses associées
+                  $ref: '#/definitions/sansSesAssociées'
             '^\d\d\d\d-\d\d-\d\d$': # date
               description: version historique datée
               oneOf:
-                - description: propriétés périmées plus évent. action d'évolution ou de de disparition à cette date
+                - description: action d'évolution ou de disparition à cette date plus propriétés périmées après cette date 
                   type: object
                   required: [name]
                   additionalProperties: false
                   properties:
                     name:
-                      description: soit dernier nom connu, soit nom valide jusqu'à la date définie comme clé
+                      description: nom valide jusqu'à la date de la version
                       type: string
                     geo:
                       description: point utilisant le schéma de codage http://dublincore.org/documents/dcmi-point/
@@ -88,35 +101,37 @@ $schema:
                       description: emprise spatiale utilisant le schéma de codage http://dublincore.org/documents/dcmi-box/
                       $ref: http://id.georef.eu/dcmi#/definitions/Box
                     estAssociéeA:
-                      description: si c. associée alors c. INSEE de la commune à laquelle elle est associée
+                      description: si c. associée alors id de la commune de rattachement
                       type: [string, number]
                       format: '^\d[\dAB]\d\d\d$'
                     estDéléguéeDe:
-                      description: si c'est c. déléguée alors c. INSEE de la commune dont elle est déléguée
+                      description: si c'est c. déléguée alors id de la commune de rattachement
                       type: [string, number]
                       format: '^\d[\dAB]\d\d\d$'
                     estArrondissementMunicipalDe:
-                      description: si c'est un ardt mun. alors c. INSEE de la commune parente
+                      description: si arrondissement municipal alors id de la commune de rattachement
                       type: [string, number]
                       format: '^\d[\dAB]\d\d\d$'
                     commeDéléguée:
-                      description: si la c. est déléguée d'elle même alors cette partie définit les prop. de la c. déléguée
+                      description: si c. déléguée d'elle même alors cette partie définit les prop. de la c. déléguée
                       $ref: '#/definitions/commeDéléguée'
-                    # évènements de modification ou de disparition
+                    sansSesAssociées:
+                      description: si la c. a des associées alors cette partie définit les prop. de la c. sans elles
+                      $ref: '#/definitions/sansSesAssociées'
+                    # évènements d'évolution ou de disparition
                     évènement:
                       description: description de l'évènement ayant conduit au changement de version
                       enum:
                         - Change de nom
-                        - Devient commune fusionnée
+                        - Prend des c. associées et/ou absorbe des c. fusionnées
                         - Devient commune nouvelle
-                        - Devient commune nouvelle avec déléguée propre
                         - Absorbe certaines de ses c. rattachées ou certaines de ses c. associées deviennent déléguées
-                        - Commune rétablissante
+                        - Commune rétablissant des c. rattachées ou fusionnées
                         - Commune associée rétablie comme commune simple
                         - Commune déléguée rétablie comme commune simple
-                        - Devient commune de rattachement
+                        - Commune rattachée devient commune de rattachement
                     seDissoutDans:
-                      description: c. supprimée avec liste des c. dans lesquelles son territoire a été réparti
+                      description: c. supprimée avec liste des id des c. dans lesquelles son territoire a été réparti
                       type: array
                       items:
                         type: [string, number]
@@ -166,12 +181,15 @@ $schema:
                       type: [string, number]
                       format: '^\d[\dAB]\d\d\d$'
                     changeDeDépartementEtPrendLeCode:
+                      description: c. changeant d'id lors d'un changement de département avec nouvel id
                       type: [string, number]
                       format: '^\d[\dAB]\d\d\d$'
                     perdRattachementPour:
+                      description: c. de rattachement perdant son statut au profit de la c. dont l'id est indiqué
                       type: [string, number]
                       format: '^\d[\dAB]\d\d\d$'
                     changeDeRattachementPour:
+                      description: c. rattachée changeant de c. de rattachement au profit de la c. dont l'id est indiqué
                       type: [string, number]
                       format: '^\d[\dAB]\d\d\d$'
                     après:
@@ -181,27 +199,31 @@ $schema:
                   additionalProperties: false
                   properties:
                     rétablieCommeSimpleDe:
-                      description: c. simple rétablie avec la c. dont elle est issue
+                      description: c. simple rétablie avec id de la c. dont elle est issue
                       type: [string, number]
                       pattern: '^\d[\dAB]\d\d\d$'
                     rétablieCommeAssociéeDe:
-                      description: c. associée rétablie avec la c. dont elle est issue
+                      description: c. associée rétablie avec id de la c. dont elle est issue
                       type: [string, number]
                       pattern: '^\d[\dAB]\d\d\d$'
-                    rétablieCommeArdtMunDe:
-                      description: arrondissement municipal rétablie avec celui dont il est issu
+                    rétabliCommeArrondissementMunicipalDe:
+                      description: arrondissement municipal rétabli avec id de celui dont il est issu
                       type: [string, number]
                       pattern: '^\d[\dAB]\d\d\d$'
                     crééeAPartirDe:
-                      description: si la c. a été créée à cette date alors les communes dont proviennent son territoire
+                      description: c. créée à cette date avec liste des id des communes dont provient son territoire
                       type: array
                       items:
                         type: [string, number]
                         pattern: '^\d[\dAB]\d\d\d$'
                     changeDeDépartementEtAvaitPourCode:
+                      description: c. changeant de département avec précédent id
                       type: [string, number]
                       format: '^\d[\dAB]\d\d\d$'
                     crééeParFusionSimpleDe:
+                      description: >
+                        c. créée par fusion simple à l'occasion de laquelle un nouvel id est créé avec liste des id
+                        des c. à partir desquelles cette fusion a été effectuée
                       type: array
                       items:
                         type: [string, number]
@@ -211,10 +233,16 @@ $schema:
   type: object
   properties:
     title:
+      description: titre du document contenant le référentiel
+      type: string
+    created:
+      description: date de création du document
       type: string
     modified:
+      description: date de mise à jour du document
       type: string
     $schema:
+      description: soit le schéma du document soit un lien vers ce schéma
       oneOf:
         - $ref: http://json-schema.org/draft-07/schema#
         - type: string
@@ -239,7 +267,7 @@ $schema:
           description: si défini alors le doc est stocké en pser
           type: boolean
     contents:
-      description: dictionnaire associant à chaque code INSEE ses différentes versions
+      description: contenu du référentiel comme dictionnaire associant à chaque code INSEE ses différentes versions
       $ref: '#/definitions/rpicom'
     eof:
       type: 'null'
@@ -253,4 +281,98 @@ ydADscrBhv:
       else
         return $skey;
 contents:
+  '01015':
+    now:
+      name: 'Arboys en Bugey'
+      commeDéléguée:
+        name: Arbignieu
+    '2016-01-01':
+      évènement: 'Devient commune nouvelle'
+      name: Arbignieu
+  '01340':
+    now:
+      name: Saint-Bois
+      estDéléguéeDe: '01015'
+    '2016-01-01':
+      devientDéléguéeDe: '01015'
+      name: Saint-Bois
+
+  '01033':
+    now:
+      name: Valserhône
+      commeDéléguée:
+        name: Bellegarde-sur-Valserine
+    '2019-01-01':
+      évènement: 'Devient commune nouvelle'
+      name: Bellegarde-sur-Valserine
+    '1971-01-01':
+      évènement: 'Prend des c. associées et/ou absorbe des c. fusionnées'
+      name: Bellegarde-sur-Valserine
+    '1966-03-23':
+      évènement: 'Prend des c. associées et/ou absorbe des c. fusionnées'
+      name: Bellegarde-sur-Valserine
+    '1956-10-19':
+      évènement: 'Change de nom'
+      name: Bellegarde
+  '01018':
+    '1971-01-01':
+      fusionneDans: '01033'
+      name: Arlod
+  '01091':
+    now:
+      name: Châtillon-en-Michaille
+      estDéléguéeDe: '01033'
+    '2019-01-01':
+      devientDéléguéeDe: '01033'
+      name: Châtillon-en-Michaille
+    '1985-02-01':
+      après:
+        name: Châtillon-en-Michaille
+      évènement: 'Absorbe certaines de ses c. rattachées ou certaines de ses c. associées deviennent déléguées'
+      name: Châtillon-en-Michaille
+    '1973-11-01':
+      évènement: 'Prend des c. associées et/ou absorbe des c. fusionnées'
+      name: Châtillon-de-Michaille
+  '01278':
+    '1985-02-01':
+      fusionneDans: '01091'
+      name: Ochiaz
+      estAssociéeA: '01091'
+    '1973-11-01':
+      sAssocieA: '01091'
+      name: Ochiaz
+
+  '02524':
+    now:
+      name: Mont-Saint-Père
+    '1979-06-15':
+      évènement: 'Change de nom'
+      name: Charmont-sur-Marne
+    '1978-01-01':
+      évènement: 'Commune rétablissant des c. rattachées ou fusionnées'
+      name: Charmont-sur-Marne
+    '1974-10-01':
+      évènement: 'Prend des c. associées et/ou absorbe des c. fusionnées'
+      name: Mont-Saint-Père
+  '02166':
+    now:
+      name: Chartèves
+    '1978-01-01':
+      évènement: 'Commune associée rétablie comme commune simple'
+      name: Chartèves
+      estAssociéeA: '02524'
+    '1974-10-01':
+      sAssocieA: '02524'
+      name: Chartèves
+
+  2A004:
+    now:
+      name: Ajaccio
+    '1976-01-01':
+      changeDeDépartementEtAvaitPourCode: 20004
+  20004:
+    '1976-01-01':
+      changeDeDépartementEtPrendLeCode: 2A004
+      name: Ajaccio
+
 eof:

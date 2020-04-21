@@ -2,7 +2,18 @@ title: Référentiel pivot des codes INSEE des communes (RPiCom)
 path: /yamldoc/pub/rpicom
 doc: |
   Voir <a href='http://localhost/markdown/?file=/yamldoc/pub/rpicom/README.md'>README.md</a>.
+  A faire:
+    - comparer un état à une date donnée issu de Rpicom avec les états fournis par l'INSEE
+      - permet de vérifier la logique de génération du Rpicom
+    - ajouter une composante géographique en intégrant au moins à partir d'AdminExpress l'emprise spatiale des c. simples
+      au 1/1/2020
+    - rédiger une méthodo d'utilisation du Rpicom
+    - écrire une API pour connaitre la signification d'un code INSEE à une date donnée et sa localisation
+    - publier le Rpicom en JSON-LD
+    - améliorer la doc
 journal: |
+  21/4/2020:
+    - génération d'un Rpicom à tester
   16/4/2020:
     - changement du nom du projet de evolcoms en rpicom
     - changement d'objectif du projet, il ne s'agit plus de permettre de mettre à jour les codes INSEE dans une base
@@ -27,4 +38,5 @@ htmlFiles:
   - /yamldoc/pub/rpicom/conception.yaml
   - /yamldoc/pub/rpicom/dessin.yaml
   - /yamldoc/pub/rpicom/exfcoms.yaml
+  - /yamldoc/pub/rpicom/exrpicom.yaml
   - /yamldoc/pub/rpicom/exevolcoms.yaml

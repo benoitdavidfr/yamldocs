@@ -794,7 +794,7 @@ class GroupMvts {
           $rpicom->mergeToRecord($ardtMcréé['id'], [
             $this->date => [
               'après'=> ['name' => $ardtMcréé['name']],
-              'rétablieCommeArdtMunDe'=> $fav2[0]['id'],
+              'rétabliCommeArrondissementMunicipalDe'=> $fav2[0]['id'],
             ]
           ]);
           break;
@@ -802,7 +802,7 @@ class GroupMvts {
         $idr = $fav2[0]['id']; // La c. de rattachement
         $rpicom->mergeToRecord($idr, [
           $this->date => [
-            'évènement'=> "Commune rétablissante",
+            'évènement'=> "Commune rétablissant des c. rattachées ou fusionnées",
             'name'=> $fav2[0]['name'],
           ]
         ]);
@@ -915,7 +915,7 @@ class GroupMvts {
             }
             else { // cas {idr: [idr, idrd]}
               $comr = [
-                'évènement' => "Devient commune nouvelle avec déléguée propre",
+                'évènement' => "Devient commune nouvelle",
                 'name' => $avant['name'],
               ];
             }
@@ -958,7 +958,7 @@ class GroupMvts {
             $idr = $avant['id'];
             $rpicom->mergeToRecord($idr, [
               $this->date => [
-                'évènement' => "Devient commune fusionnée",
+                'évènement' => "Prend des c. associées et/ou absorbe des c. fusionnées",
                 'name' => $avant['name'],
               ]
             ]);
@@ -1086,13 +1086,13 @@ class GroupMvts {
       
       case '50': { // Changement de code dû à un transfert de chef-lieu
         $fav2 = $this->factAvant2();
-        echo Yaml::dump(['$fav2'=> $fav2], 4, 2);
+        //echo Yaml::dump(['$fav2'=> $fav2], 4, 2);
         
         // nouveau chef-lieu
         $ratap = array_pop($fav2);
         $rpicom->mergeToRecord($ratap['id'], [
           $this->date => [
-            'évènement'=> "Devient commune de rattachement",
+            'évènement'=> "Commune rattachée devient commune de rattachement",
             'name'=> $ratap['name'],
           ]
         ]);

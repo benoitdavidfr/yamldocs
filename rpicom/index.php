@@ -1249,11 +1249,12 @@ if ($_GET['action'] == 'ypath') {
 
 // Initialisation du RPICOM avec les communes du 1/1/2020 comme 'now'
 function initRpicomFrom(string $compath, Criteria $trace): Base {
+  // code Php intégré dans le document pour définir l'affichage résumé de la commune
   $buildNameAdministrativeArea = <<<'EOT'
 if (isset($item['now']['name']))
   return $item['now']['name']." ($skey)";
 else
-  return $skey;
+  return '<s>'.array_values($item)[0]['name']." ($skey)</s>";
 EOT;
   $rpicom = [
     'title'=> "Référentiel rpicom",
@@ -1265,6 +1266,7 @@ EOT;
       'buildName'=> [ // définition de l'affichage réduit par type d'objet, code Php par type
         'AdministrativeArea'=> $buildNameAdministrativeArea,
       ],
+      'writePserReally'=> true,
     ],
     'contents'=> [],
   ];
@@ -1315,15 +1317,12 @@ doc: |
 if ($_GET['action'] == 'brpicom') { // construction du Rpicom v1
   if (php_sapi_name() <> 'cli')
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>brpicom</title></head><body><pre>\n";
-  $trace = new Criteria([]); // aucun critère, tout est affiché
-  //$trace = new Criteria(['not']); // rien n'est affiché
-  //$trace = new Criteria(['mod'=> ['not'=> ['10','20','21','30','31','33','34','41','50']]]);
+  //$trace = new Criteria([]); // aucun critère, tout est affiché
+  $trace = new Criteria(['not']); // rien n'est affiché
   //$trace = new Criteria(['mod'=> ['not'=> ['10','21','31','20','30','41','33','34','50','32']]]); 
-  $trace = new Criteria(['mod'=> ['50']]); 
 
   // fabrication de la version initiale du RPICOM avec les communes du 1/1/2020 comme 'now'
   $rpicom = initRpicomFrom(__DIR__.'/com20200101', new Criteria(['not']));
-  //$rpicom->writeAsYaml('rpicom'); die("Fin ligne ".__LINE__);
   
   $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms
   krsort($mvtcoms); // tri par ordre chrono inverse
@@ -1337,7 +1336,7 @@ if ($_GET['action'] == 'brpicom') { // construction du Rpicom v1
       }
     }
   }
-  $rpicom->ksort();
+  $rpicom->ksort(); // tri du Yaml sur le code INSEE de commune
   $rpicom->writeAsYaml('rpicom');
   die("Fin brpicom ok, rpicom sauvé dans rpicom.yaml\n");
 }
