@@ -21,9 +21,9 @@ De plus, il peut être préférable de conserver un code INSEE périmé car en c
 et la conservation du code périmé dans la base évite des erreurs de localisation.
 
 L'idée est donc de créer un nouveau référentiel appelé "référentiel pivot des codes INSEE des Communes" (RPiCom)
-contenant tous les codes INSEE des communes ayant existé depuis le 1/1/1943.
-A chaque code INSEE sont asssociées des informations versionnées permettant de retrouver l'état de la commune à une date
-donnée.  
+contenant tous les codes INSEE des communes ayant existé depuis le 1/1/1943
+et en associant à chacun des informations versionnées permettant de retrouver l'état de la commune
+à une date donnée.  
 Ainsi les codes INSEE intégrés un jour dans une base restent valables et peuvent être utilisés par exemple pour géocoder
 l'information ou pour la croiser avec un référentiel à jour des communes.
 Ce référentiel peut être généré à partir des informations du COG publiées par l'INSEE
@@ -36,7 +36,7 @@ le champ $schema définit le schéma JSON des données et le champ contents donn
 Le fichier [rpicom.yaml](rpicom.yaml) contient le référentiel produit à partir du COG au 1/1/2020.
 
 ## Contexte juridique
-Depuis quelques années, la liste des communes évolue en raison principalement des textes suivants:
+Depuis quelques années, la liste des communes évolue conformément principalement aux textes suivants :
 
   - La loi « Marcellin » du 16 juillet 1971 créait la possibilité de fusionner des communes avec une possibilité,
     appelée fusion-association, de conserver des communes associées.
@@ -55,11 +55,12 @@ Depuis quelques années, la liste des communes évolue en raison principalement 
 L'INSEE attribue dans le COG à chaque commune et arrondissement municipal un identifiant, appelé code INSEE,
 qui identifie des objets qui peuvent varier dans le temps.
 Ainsi par exemple lorsque 2 communes fusionnent, le résultat réutilise généralement un des 2 identifiants.
-De plus, en cas de rétablissement, la commune rétablie reprend le code qu'elle avait avant la fusion.
+De plus, en cas de rétablissement (c'est à dire dé-fusion),
+la commune rétablie reprend le code qu'elle avait avant la fusion.
 
 Par ailleurs, il est important de noter qu'à une date donnée, le même code INSEE peut identifier à la fois
-une commune nouvelle et une de ses communes déléguées qui ne portent pas le même nom.
-Par exemple la commune d'Arbignieu (01015) est devenue au 1/1/2016 commune nouvelle en prenant le nom de 'Arboys en Bugey',
+une commune nouvelle et une de ses communes déléguées qui ne porte pas le même nom.
+Par exemple la commune d'Arbignieu (01015) est devenue le 1/1/2016 commune nouvelle en prenant le nom de 'Arboys en Bugey',
 en gardant le code 01015 et en ayant notamment une commune déléguée s'appellant 'Arbignieu' et portant le même code 01015.
 Dans ce cas, il y a une ambigüité sur la localisation définie par un tel code INSEE.
 Pour lever cette ambigüité, il est donc important de définir précisément le référentiel auquel on fait référence.
@@ -71,11 +72,11 @@ En effet, plusieurs référentiels sont définis par l'utilisation des codes INS
     d'une fusion-association, l'union des territoires des anciennes communes avant leur association.
   - On peut définir une seconde partition en gérant à part les communes associées.
   - Parmi les communes simples, certaines sont issues de la création d'une commune nouvelle et parmi ces dernières,
-    certaines, que j'appelle **communes composites**, sont composées de communes déléguées.
-    En substituant aux communes composites leurs communes déléguées et aux communes PLM leurs arrondissements communaux,
+    certaines, que j'appelle **communes composites**, sont composées de communes déléguées qui en forment une partition.
+    En substituant à ces communes composites leurs communes déléguées et aux communes PLM leurs arrondissements communaux,
     on définit une troisième partition.
   
-Il existe donc en fait 3 référentiels qui sont chacun une partition du territoire que j'appelle:
+Il existe donc en fait 3 référentiels qui forment chacun une partition du territoire :
     
   - celui des communes simples, cad en intégrant les communes associées à leur commune de rattachement,
   - celui des communes simples et associées, cad en distinguant les communes associées de leur commune de  rattachement,
@@ -88,28 +89,30 @@ C'est donc une variante du référentiel des communes simples qui n'est pas une 
 Dans la suite je m'intéresse principalement au référentiel des communes simples.
 
 ### Formalisation des évolutions
-En tant que localisant un code INSEE correspond dans un référentiel donné et à une date donnée à un certain territoire.
-Plusieurs évènements ont pour conséquence de modifier le territoire d'une commune simple
+En tant que localisant un code INSEE correspond, dans un référentiel donné, et à une date donnée, à un certain territoire.
+Plusieurs évènements ont pour conséquence de modifier ce territoire associé à une commune simple
 et donc de changer la localisation associée à son code INSEE ;
 il s'agit de :
 
-  - création d'une commune nouvelle à partir de plusieurs communes existantes
-  - fusion de plusieurs communes en une seule
-  - rétablissement de certaines communes ayant précédemment été fusionnées
-  - association de plusieurs communes à une commune de rattachement
-  - rétablissement de certaines communes ayant précédemment été associées
-  - suppression d'une commune par répartition de son territoire dans plusieurs autres
-  - création d'une commune par contribution de territoire de plusieurs autres
-  - transfert de territoire d'une commune à une autre
-  - changement de rattachement conduisant au changement d'identifiant de la commune simple
-  - changement de département d'une commune conduisant au changement d'identifiant de la commune simple
+  - création d'une commune nouvelle à partir de plusieurs communes existantes,
+  - fusion de plusieurs communes en une seule,
+  - rétablissement de certaines communes ayant précédemment été fusionnées,
+  - association de plusieurs communes à une commune de rattachement,
+  - rétablissement de certaines communes ayant précédemment été associées,
+  - suppression d'une commune par répartition de son territoire dans plusieurs autres,
+  - création d'une commune par contribution de territoire de plusieurs autres,
+  - transfert de territoire d'une commune à une autre,
+  - changement de rattachement conduisant au changement d'identifiant de la commune simple,
+  - changement de département d'une commune conduisant au changement d'identifiant de la commune simple.
   
 On peut formaliser ces opérations par :
 
-  - agrégation / désagrégation - Set(Id) <-> Id
-  - suppression / création - Id <-> Set(Id)
-  - changement d'identifiant - IdAncien -> IdNouveau
-  - transfert de territoire d'une commune à une autre - IdSource -> IdDestination
+  - l'opération d'agrégation qui associe un Id à un ens. d'Id (Set(Id) -> Id)
+  - l'opération inverse de désagrégation (Set(Id) <- Id)
+  - l'opération de suppression qui prend un Id et un ens. d'Id (Id, Set(Id) -> )
+  - l'opération inverse de création (Set(Id) -> Id)
+  - l'opération de changement d'identifiant (IdAncien -> IdNouveau)
+  - l'opération de transfert de territoire d'une commune à une autre (IdSource -> IdDestination)
   
 ## Cas d'utilisation
 
