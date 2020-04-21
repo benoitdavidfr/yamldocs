@@ -2,7 +2,7 @@ title: définition du schéma du référentiel pivot des codes INSEE des commune
 modified: '2020-04-21'
 description: |
   Le champ $schema contient le schéma du Rpicom.
-  Le champ contents fournit un exemple illustratif de ce référentiel pour faciliter la compréhension du schéma.
+  Le champ contents fournit des exemples illustratifs d'éléments de ce référentiel pour faciliter la compréhension du schéma.
 $schema:
   title: schéma du référentiel pivot des codes INSEE des communes
   $id: http://id.georef.eu/mvtscommunes/exrpicom/$schema
