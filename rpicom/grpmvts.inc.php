@@ -1198,7 +1198,7 @@ class GroupMvts {
       }
 
       case '41': { // Changement de code dû à un changement de département'
-        return [$this->date => ['D-'=> 1, 'D+'=> 1]];
+        return [$this->date => ['CD'=> 1]];
       }
       
       case '50': { // Changement de code dû à un transfert de chef-lieu

@@ -1428,7 +1428,7 @@ if ($_GET['action'] == 'nombres') { // dénombrement
     '1976-01-01'=> "Bi-départementalisation de la Corse",
     '1968-01-01'=> "Création des départements 91, 92, 93, 94 et 95",
   ];
-  $headers = ['année','T','+','D+','-','D-','M',"T'",'commentaire'];
+  $headers = ['année','T','+','-','CD','M',"T'",'commentaire'];
   if (1) { // en html
     echo "</pre><table border=1>\n","<th>",implode('</th><th>', $headers),"</th>\n";
     foreach ($comptesParAnnee as $annee => $ca) {
@@ -1436,7 +1436,7 @@ if ($_GET['action'] == 'nombres') { // dénombrement
         $total = $ca['T'];
       $total -= ($ca['+'] ?? 0) - ($ca['-'] ?? 0);
       echo "<tr><td>$annee</td><td>",$ca['T'] ?? '',"</td>",
-        "<td>",$ca['+'] ?? '',"</td><td>",$ca['D+'] ?? '',"</td><td>",$ca['-'] ?? '',"</td><td>",$ca['D-'] ?? '',"</td>",
+        "<td>",$ca['+'] ?? '',"</td><td>",$ca['-'] ?? '',"</td><td>",$ca['CD'] ?? '',"</td>",
         "<td>",$ca['M'] ?? '',"</td>",
         "<td>$total</td><td>",$comments[$annee] ?? '',"</td></tr>\n";
     }
@@ -1444,12 +1444,12 @@ if ($_GET['action'] == 'nombres') { // dénombrement
   }
   if (1) { // en Markdown
     echo "<h2>Markdown</h2>\n";
-    $headers = ['année','T','+','D+','-','D-','M','commentaire'];
+    $headers = ['année','T','+','-','CD','M','commentaire'];
     echo "| ",implode(' | ', $headers)," |\n";
     foreach ($headers as $header) echo "| - "; echo "|\n";
     foreach ($comptesParAnnee as $annee => $ca) {
       echo "| $annee | ",$ca['T'] ?? '',
-        " | ",$ca['+'] ?? ''," | ",$ca['D+'] ?? ''," | ",$ca['-'] ?? ''," | ",$ca['D-'] ?? '',
+        " | ",$ca['+'] ?? ''," | ",$ca['-'] ?? ''," | ",$ca['CD'] ?? '',
         " | ",$ca['M'] ?? '',
         " | ",$comments[$annee] ?? '',"|\n";
     }
