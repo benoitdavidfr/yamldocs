@@ -661,28 +661,30 @@ if ($_GET['action'] == 'genCom1943') { // génération d'un fichier des communes
   // Rattachement des arrdts communaux à leur commune de rattachement
   foreach ($ardtsM as $cinsee => $ardtM) {
     if (substr($cinsee, 0, 2)=='13') {
-      $yaml['13055']['ardtMun'][$cinsee] = $ardtM;
-      $yaml[$cinsee]['ardtMunDe'] = '13055';
+      $yaml['13055']['aPourArrondissementsMunicipaux'][$cinsee] = $ardtM;
+      $yaml[$cinsee]['estArrondissementMunicipalDe'] = '13055';
     }
     elseif (substr($cinsee, 0, 2)=='69') {
-      $yaml['69123']['ardtMun'][$cinsee] = $ardtM;
-      $yaml[$cinsee]['ardtMunDe'] = '69123';
+      $yaml['69123']['aPourArrondissementsMunicipaux'][$cinsee] = $ardtM;
+      $yaml[$cinsee]['estArrondissementMunicipalDe'] = '69123';
     }
     elseif (substr($cinsee, 0, 2)=='75') {
-      $yaml['75056']['ardtMun'][$cinsee] = $ardtM;
-      $yaml[$cinsee]['ardtMunDe'] = '75056';
+      $yaml['75056']['aPourArrondissementsMunicipaux'][$cinsee] = $ardtM;
+      $yaml[$cinsee]['estArrondissementMunicipalDe'] = '75056';
     }
   }
   ksort($yaml);
   $buildNameAdministrativeArea = <<<'EOT'
-            if (isset($item['name']))
-              return "$item[name] ($skey)";
-            elseif (isset($item['associéeA']))
-              return "$skey associéeA $item[associéeA]";
-            elseif (isset($item['déléguéeDe']))
-              return "$skey déléguéeDe $item[déléguéeDe]";
-            else
-              return "none";
+    if (isset($item['name']))
+      return "$item[name] ($skey)";
+    elseif (isset($item['estAssociéeA']))
+      return "$skey estAssociéeA $item[estAssociéeA]";
+    elseif (isset($item['estDéléguéeDe']))
+      return "$skey estDéléguéeDe $item[estDéléguéeDe]";
+    elseif (isset($item['estArrondissementMunicipalDe']))
+      return "$skey estArrondissementMunicipalDe $item[estArrondissementMunicipalDe]";
+    else
+      return "none";
 EOT;
   echo Yaml::dump([
       'title'=> "Fichier des communes de 1943",

@@ -1,12 +1,12 @@
 title: 'Fichier des communes de 1943'
-created: '2020-04-20T13:34:27+00:00'
+created: '2020-04-21T01:29:32+00:00'
 source: 'Fabriqué à partir de GéoHisto en utilisant http://localhost/yamldoc/pub/evolcoms/?action=genCom1943'
 $schema: 'http://id.georef.eu/rpicom/exfcoms/$schema'
 ydADscrBhv:
   jsonLdContext: 'http://schema.org'
   firstLevelType: AdministrativeArea
   buildName:
-    AdministrativeArea: "            if (isset($item['name']))\n              return \"$item[name] ($skey)\";\n            elseif (isset($item['associéeA']))\n              return \"$skey associéeA $item[associéeA]\";\n            elseif (isset($item['déléguéeDe']))\n              return \"$skey déléguéeDe $item[déléguéeDe]\";\n            else\n              return \"none\";"
+    AdministrativeArea: "    if (isset($item['name']))\n      return \"$item[name] ($skey)\";\n    elseif (isset($item['estAssociéeA']))\n      return \"$skey estAssociéeA $item[estAssociéeA]\";\n    elseif (isset($item['estDéléguéeDe']))\n      return \"$skey estDéléguéeDe $item[estDéléguéeDe]\";\n    elseif (isset($item['estArrondissementMunicipalDe']))\n      return \"$skey estArrondissementMunicipalDe $item[estArrondissementMunicipalDe]\";\n    else\n      return \"none\";"
   writePserReally: true
 contents:
   '01001':
@@ -9309,7 +9309,7 @@ contents:
     name: Marignane
   13055:
     name: Marseille
-    ardtMun:
+    aPourArrondissementsMunicipaux:
       13201:
         name: 'Marseille 1er Arrondissement'
       13202:
@@ -9467,37 +9467,37 @@ contents:
   13117:
     name: Vitrolles
   13201:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13202:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13203:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13204:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13205:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13206:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13207:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13208:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13209:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13210:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13211:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13212:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13213:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13214:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13215:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   13216:
-    ardtMunDe: '13055'
+    estArrondissementMunicipalDe: '13055'
   14001:
     name: Ablon
   14002:
@@ -59382,7 +59382,7 @@ contents:
     name: Lucenay
   69123:
     name: Lyon
-    ardtMun:
+    aPourArrondissementsMunicipaux:
       69381:
         name: 'Lyon 1er Arrondissement'
       69382:
@@ -59694,23 +59694,23 @@ contents:
   69269:
     name: Yzeron
   69381:
-    ardtMunDe: '69123'
+    estArrondissementMunicipalDe: '69123'
   69382:
-    ardtMunDe: '69123'
+    estArrondissementMunicipalDe: '69123'
   69383:
-    ardtMunDe: '69123'
+    estArrondissementMunicipalDe: '69123'
   69384:
-    ardtMunDe: '69123'
+    estArrondissementMunicipalDe: '69123'
   69385:
-    ardtMunDe: '69123'
+    estArrondissementMunicipalDe: '69123'
   69386:
-    ardtMunDe: '69123'
+    estArrondissementMunicipalDe: '69123'
   69387:
-    ardtMunDe: '69123'
+    estArrondissementMunicipalDe: '69123'
   69388:
-    ardtMunDe: '69123'
+    estArrondissementMunicipalDe: '69123'
   69389:
-    ardtMunDe: '69123'
+    estArrondissementMunicipalDe: '69123'
   70001:
     name: Abelcourt
   70002:
@@ -64231,7 +64231,7 @@ contents:
     name: Pantin
   75056:
     name: Paris
-    ardtMun:
+    aPourArrondissementsMunicipaux:
       75101:
         name: 'Paris 1er Arrondissement'
       75102:
@@ -64323,45 +64323,45 @@ contents:
   75081:
     name: Vitry-sur-Seine
   75101:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75102:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75103:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75104:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75105:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75106:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75107:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75108:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75109:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75110:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75111:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75112:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75113:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75114:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75115:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75116:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75117:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75118:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75119:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   75120:
-    ardtMunDe: '75056'
+    estArrondissementMunicipalDe: '75056'
   76001:
     name: Allouville-Bellefosse
   76002:
