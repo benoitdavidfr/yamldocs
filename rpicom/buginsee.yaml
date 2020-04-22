@@ -1,0 +1,78 @@
+title: recensement des bugs dans les fichiers INSEE du COG
+16299:
+  title: Saint-André (16299) selon le rpicom fusionne le 1/9/2018. Il est pourtant présent dans com2019-01-01 !
+  rpicom:
+    '2018-09-01':
+      fusionneDans: 16193
+      name: Saint-André
+      estAssociéeA: 16193
+    '1973-01-01':
+      sAssocieA: 16193
+      name: Saint-André
+  com2020-01-01: absent
+  com2019-01-01:
+    16299:
+      name: Saint-André
+      estAssociéeA: '16193'
+25080:
+  title: Boujeons (25080) selon le rpicom fusionne le 1/1/2013. Il est pourtant présent dans com2019-01-01 !
+  rpicom:
+    '2013-01-01':
+      fusionneDans: 25486
+      name: Boujeons
+      estAssociéeA: 25486
+    '1973-01-01':
+      sAssocieA: 25486
+      name: Boujeons
+  com2020-01-01: absent
+  com2019-01-01:
+    25080:
+      name: Boujeons
+      estAssociéeA: '25486'
+25603:
+  title: selon le rpicom fusionne le 1/1/2013. Il est pourtant présent dans com2019-01-01 !
+  rpicom:
+    '2013-01-01':
+      fusionneDans: 25463
+      name: Vermondans
+      estAssociéeA: 25463
+    '1973-01-01':
+      sAssocieA: 25463
+      name: Vermondans
+28069:
+  title: selon le rpicom absorbée le 1/1/2015. Il est pourtant présent dans com2019-01-01 !
+  rpicom:
+    '2015-01-01':
+      sAbsorbeDans: 28185
+      name: Champagne
+28185:
+  title: selon rpicom n'a pas de c. déléguée. Selon com2019-01-01 en a 2 !
+  rpicom:
+    now:
+      name: Goussainville
+    '2015-01-01':
+      évènement: 'Devient commune nouvelle'
+      name: Goussainville
+  com2020-01-01:
+    name: Goussainville
+  com2019-01-01:
+    name: Goussainville
+    aPourDéléguées:
+      28069:
+        name: Champagne
+      28185:
+        name: Goussainville
+50649:
+  title: existe en 2020, n'existe pas en 2010
+  rpicom:
+    now:
+      name: Pont-Farcy
+      estDéléguéeDe: 50592
+    '2018-01-01':
+      devientDéléguéeDe: 50592
+      name: Pont-Farcy
+  wikipédia: |
+    Pont-Farcy est une ancienne commune française, devenue le 1er janvier 2018 une commune déléguée au sein de la commune
+    nouvelle de Tessy-Bocage. Elle est située à compter de cette date dans le département de la Manche en région Normandie
+    et est peuplée de 532 habitants.
+    Elle était de la Révolution à 2017 dans le département du Calvados.

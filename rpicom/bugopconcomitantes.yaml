@@ -1,0 +1,41 @@
+title: bug opérations concomitantes
+created: '2020-04-22'
+abstract: |
+  Je constate qu'un id peut faire l'objet de plusieurs GroupMvts à la même date.
+  C'est quelque chose que je n'avais pas prévu dans mon code de brpicom et qui fait qu'un des GroupMvts est écrasé
+Combinaisons:
+  10+30:
+    title: devrait être gérable
+    10: Changement de nom
+    30: Suppression
+    51440:
+      - GroupMvts:{mod: 10, date: 1950-06-17, ids: [51440]}
+      - GroupMvts:{mod: 30, date: 1950-06-17, ids: [51385,51440,51487,51503]}
+    51369:
+      - GroupMvts:{mod: 10, date: 1966-12-12, ids: [51369]}
+      - GroupMvts:{mod: 30, date: 1966-12-12, ids: [51235,51606,51313,51369]}
+  33+21:
+    title: pas clair
+    33: Fusion association
+    21: Rétablissement
+    55273+55386:
+      - GroupMvts:{mod: 33, date: 1983-01-01, ids: [55273,55386]}
+      - GroupMvts:{mod: 21, date: 1983-01-01, ids: [55245,55273,55386]}
+  41+32:
+    title: devrait être gérable
+    41: Changement de code dû à un changement de département
+    32: Création de commune nouvelle
+    49382:
+      - GroupMvts:{mod: 41, date: 2016-01-01, ids: [44060,49382]}
+      - GroupMvts:{mod: 32, date: 2016-01-01, ids: [49160,49382]}
+    44225:
+      - GroupMvts:{mod: 41, date: 2018-01-01, ids: [49144,44225]}
+      - GroupMvts:{mod: 32, date: 2018-01-01, ids: [44017,44180,44093,44191,44219,44225]}
+  34+32:
+    title: complexe mais faisable
+    32: Création de commune nouvelle
+    34: Absorption de certaines c. rattachées et/ou transf. de leur statut
+    50649:
+      - GroupMvts:{mod: 34, date: 2018-01-01, ids: [14507,50649,14513]}
+      - GroupMvts:{mod: 32, date: 2018-01-01, ids: [50180,50592,50649]}
+
