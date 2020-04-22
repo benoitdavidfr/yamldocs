@@ -149,7 +149,7 @@ class GroupMvts {
     '31'=> "Fusion simple",
     '32'=> "Création de commune nouvelle",
     '33'=> "Fusion association",
-    '34'=> "Absorption par une c. de certaines de ses c. rattachées ou transf. de certaines c. associées en déléguées",
+    '34'=> "Absorption de certaines c. rattachées et/ou transf. de leur statut",
       // labelINSEE: Transformation de fusion association en fusion simple
     '41'=> "Changement de code dû à un changement de département",
     '50'=> "Changement de code dû à un transfert de chef-lieu",
@@ -286,6 +286,44 @@ class GroupMvts {
       ];
     }
     return $array;
+  }
+  
+  // liste des ids concernés
+  function ids(): array {
+    $ids = [];
+    foreach($this->mvts as $mvt) {
+      $ids[$mvt['avant']['id']] = 1;
+      $ids[$mvt['après']['id']] = 1;
+    }
+    return array_keys($ids);
+  }
+  
+  function __toString(): string {
+    return "GroupMvts:{mod: $this->mod, date: $this->date, ids: [".implode(',', $this->ids())."]}";
+  }
+  
+  // liste des names concernés
+  function names(): array {
+    $names = [];
+    foreach($this->mvts as $mvt) {
+      $names[$mvt['avant']['name']] = 1;
+      $names[$mvt['après']['name']] = 1;
+    }
+    return array_keys($names);
+  }
+  
+  function show(): void {
+    echo "<table border=1>\n";
+    echo "<tr><td><i>mod</i></td><td colspan=5>$this->mod</td></tr>\n";
+    echo "<tr><td><i>label</i></td><td colspan=5>$this->label</td></tr>\n";
+    echo "<tr><td><i>date</i></td><td colspan=5>$this->date</td></tr>\n";
+    echo "<tr><td><b>type</b></td><td><b>id</b></td><td><b>name</b></td>",
+      "<td><b>type</b></td><td><b>id</b></td><td><b>name</b></td></tr>\n";
+    foreach($this->mvts as $mvt) {
+      echo "<tr><td>",$mvt['avant']['type'],"</td><td>",$mvt['avant']['id'],"</td><td>",$mvt['avant']['name'],"</td>",
+       "<td>",$mvt['après']['type'],"</td><td>",$mvt['après']['id'],"</td><td>",$mvt['après']['name'],"</td></tr>\n";
+    }
+    echo "</table>\n";
   }
   
   // factorisation des mvts sur l'avant utilisée par buildEvol()
@@ -800,13 +838,11 @@ class GroupMvts {
           break;
         }
         $idr = $fav2[0]['id']; // La c. de rattachement
-        $rpicom->mergeToRecord($idr, [
-          $this->date => [
-            'évènement'=> "Commune rétablissant des c. rattachées ou fusionnées",
-            'name'=> $fav2[0]['name'],
-          ]
-        ]);
-        $rétablies = []; // identifiants des entités rétablies définies par la 1ère règle
+        $comr = [
+          'évènement'=> "Commune rétablissant des c. rattachées ou fusionnées",
+          'name'=> $fav2[0]['name'],
+        ];
+        $rétablies = []; // identifiants et après des entités rétablies définies par la 1ère règle
         foreach ($fav2[0]['après'] as $après) {
           if ($après['id'] <> $idr)
             $rétablies[$après['id']] = $après;
@@ -822,6 +858,9 @@ class GroupMvts {
                   'estDéléguéeDe'=> $idr,
                 ]
               ]);
+            }
+            else { // cas {idrd: [idr]}
+              $comr['commeDéléguée'] = ['name'=> $avant['name']];
             }
             unset($rétablies[$avant['id']]);
           }
@@ -846,6 +885,9 @@ class GroupMvts {
             unset($rétablies[$avant['id']]);
           }
         }
+        $rpicom->mergeToRecord($idr, [
+          $this->date => $comr
+        ]);
         foreach ($rétablies as $rétablie) { // les autres entités rétablies
           if ($rétablie['type'] == 'COM') {
             $rpicom->mergeToRecord($rétablie['id'], [

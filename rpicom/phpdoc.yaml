@@ -11,7 +11,16 @@ doc: |
     - écrire une API pour connaitre la signification d'un code INSEE à une date donnée et sa localisation
     - publier le Rpicom en JSON-LD
     - améliorer la doc
+    
+  Mayotte:
+    Le 31 mars 2011, le Département de Mayotte est devenu officiellement le cent-unième département de France
+    et son cinquième département d’outre-mer.
+    Cet évt n'est pas explicité correctement dans le COG !
 journal: |
+  22/4/2020:
+    - l'interpolation d'un état à une date à partir de rpicom fonctionne et met en lumière des bugs INSEE
+      qui sont sur des c. associées ou déléguées qui ne semblent pas gérées très précisément par l'INSEE !
+    - détection d'un bug dans brpicom du à la possible concomitance de plusieurs GroupMvts à la même date
   21/4/2020:
     - génération d'un Rpicom à tester
   16/4/2020:

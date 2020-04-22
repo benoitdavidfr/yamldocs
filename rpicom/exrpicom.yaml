@@ -198,6 +198,10 @@ $schema:
                   type: object
                   additionalProperties: false
                   properties:
+                    évènement:
+                      description: description de l'évènement ayant conduit l'apparition de l'entité
+                      enum:
+                        - Mayotte devient un DOM
                     rétablieCommeSimpleDe:
                       description: c. simple rétablie avec id de la c. dont elle est issue
                       type: [string, number]

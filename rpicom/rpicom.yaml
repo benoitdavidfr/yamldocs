@@ -1,5 +1,5 @@
 title: 'Référentiel rpicom'
-created: '2020-04-21T08:18:51+00:00'
+created: '2020-04-22T18:31:34+00:00'
 $schema: 'http://id.georef.eu/rpicom/exrpicom/$schema'
 ydADscrBhv:
   jsonLdContext: 'http://schema.org'
@@ -580,7 +580,7 @@ contents:
     '2016-01-01':
       devientDéléguéeDe: '01426'
       name: Cuisiat
-      estAssociéeA: unknown
+      estAssociéeA: '01426'
     '1972-12-01':
       sAssocieA: '01426'
       name: Cuisiat
@@ -9516,7 +9516,7 @@ contents:
     '2016-06-01':
       sAbsorbeDans: '08490'
       name: Blaise
-      estAssociéeA: unknown
+      estAssociéeA: '08490'
     '1973-01-01':
       sAssocieA: '08490'
       name: Blaise
@@ -18678,7 +18678,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14654
       name: Ammeville
-      estAssociéeA: unknown
+      estAssociéeA: 14697
     '2014-01-07':
       changeDeRattachementPour: 14472
       name: Ammeville
@@ -18944,7 +18944,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14654
       name: Berville
-      estAssociéeA: unknown
+      estAssociéeA: 14697
     '2014-01-07':
       changeDeRattachementPour: 14472
       name: Berville
@@ -19171,7 +19171,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14712
       name: Bures-sur-Dives
-      estAssociéeA: unknown
+      estAssociéeA: 14712
     '1972-07-01':
       sAssocieA: 14712
       name: Bures-sur-Dives
@@ -19754,7 +19754,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14431
       name: Écajeul
-      estAssociéeA: unknown
+      estAssociéeA: 14422
     '1973-01-01':
       sAssocieA: 14422
       name: Écajeul
@@ -19762,7 +19762,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14654
       name: Écots
-      estAssociéeA: unknown
+      estAssociéeA: 14697
     '2014-01-07':
       changeDeRattachementPour: 14472
       name: Écots
@@ -19879,7 +19879,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 14061
       name: 'La Ferrière-au-Doyen'
-      estAssociéeA: unknown
+      estAssociéeA: 14629
     '1973-01-01':
       sAssocieA: 14629
       name: 'La Ferrière-au-Doyen'
@@ -19915,7 +19915,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14011
       name: Feuguerolles-sur-Seulles
-      estAssociéeA: unknown
+      estAssociéeA: 14011
     '1973-01-01':
       sAssocieA: 14011
       name: Feuguerolles-sur-Seulles
@@ -20033,7 +20033,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14654
       name: Garnetot
-      estAssociéeA: unknown
+      estAssociéeA: 14697
     '2014-01-07':
       changeDeRattachementPour: 14472
       name: Garnetot
@@ -20126,7 +20126,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14654
       name: Grandmesnil
-      estAssociéeA: unknown
+      estAssociéeA: 14697
     '2014-01-07':
       changeDeRattachementPour: 14472
       name: Grandmesnil
@@ -20142,7 +20142,7 @@ contents:
     '2019-01-01':
       sAbsorbeDans: 14126
       name: Grandouet
-      estAssociéeA: unknown
+      estAssociéeA: 14126
     '1973-01-01':
       sAssocieA: 14126
       name: Grandouet
@@ -20393,7 +20393,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14654
       name: Lieury
-      estAssociéeA: unknown
+      estAssociéeA: 14697
     '2014-01-07':
       changeDeRattachementPour: 14472
       name: Lieury
@@ -20824,7 +20824,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14654
       name: Montpinçon
-      estAssociéeA: unknown
+      estAssociéeA: 14697
     '2014-01-07':
       changeDeRattachementPour: 14472
       name: Montpinçon
@@ -21001,7 +21001,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14011
       name: Orbois
-      estAssociéeA: unknown
+      estAssociéeA: 14011
     '1973-01-01':
       sAssocieA: 14011
       name: Orbois
@@ -21055,7 +21055,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14143
       name: 'Parfouru-l''Éclin'
-      estAssociéeA: unknown
+      estAssociéeA: 14372
     '1973-01-01':
       sAssocieA: 14372
       name: 'Parfouru-l''Éclin'
@@ -21396,7 +21396,7 @@ contents:
     '2019-01-01':
       sAbsorbeDans: 14126
       name: Saint-Aubin-sur-Algot
-      estAssociéeA: unknown
+      estAssociéeA: 14126
     '1973-01-01':
       sAssocieA: 14126
       name: Saint-Aubin-sur-Algot
@@ -21423,7 +21423,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14431
       name: Saint-Crespin
-      estAssociéeA: unknown
+      estAssociéeA: 14422
     '1973-01-01':
       sAssocieA: 14422
       name: Saint-Crespin
@@ -21688,7 +21688,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14431
       name: Sainte-Marie-aux-Anglais
-      estAssociéeA: unknown
+      estAssociéeA: 14422
     '1973-01-01':
       sAssocieA: 14422
       name: Sainte-Marie-aux-Anglais
@@ -21726,7 +21726,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14654
       name: Saint-Martin-de-Fresnay
-      estAssociéeA: unknown
+      estAssociéeA: 14697
     '2014-01-07':
       changeDeRattachementPour: 14472
       name: Saint-Martin-de-Fresnay
@@ -21770,7 +21770,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 14762
       name: Saint-Martin-de-Tallevende
-      estAssociéeA: unknown
+      estAssociéeA: 14762
     '1972-07-01':
       sAssocieA: 14762
       name: Saint-Martin-de-Tallevende
@@ -21825,7 +21825,7 @@ contents:
     '2019-01-01':
       sAbsorbeDans: 14126
       name: Saint-Pair-du-Mont
-      estAssociéeA: unknown
+      estAssociéeA: 14126
     '1973-01-01':
       sAssocieA: 14126
       name: Saint-Pair-du-Mont
@@ -21979,7 +21979,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14011
       name: Sermentot
-      estAssociéeA: unknown
+      estAssociéeA: 14011
     '1973-01-01':
       sAssocieA: 14011
       name: Sermentot
@@ -22099,7 +22099,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 14654
       name: Tôtes
-      estAssociéeA: unknown
+      estAssociéeA: 14624
     '2014-01-07':
       perdRattachementPour: 14472
       name: 'L''Oudon'
@@ -22172,6 +22172,8 @@ contents:
     '2019-12-31':
       évènement: 'Commune rétablissant des c. rattachées ou fusionnées'
       name: Saline
+      commeDéléguée:
+        name: Troarn
     '2017-01-01':
       évènement: 'Devient commune nouvelle'
       name: Troarn
@@ -22508,7 +22510,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 15108
       name: Bournoncles
-      estAssociéeA: unknown
+      estAssociéeA: 15108
     '1973-01-01':
       sAssocieA: 15108
       name: Bournoncles
@@ -24527,7 +24529,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 16046
       name: Porcheresse
-      estAssociéeA: unknown
+      estAssociéeA: 16046
     '1973-01-01':
       sAssocieA: 16046
       name: Porcheresse
@@ -33172,7 +33174,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 22093
       name: Maroué
-      estAssociéeA: unknown
+      estAssociéeA: 22093
     '1973-01-01':
       sAssocieA: 22093
       name: Maroué
@@ -33644,7 +33646,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 22093
       name: 'La Poterie'
-      estAssociéeA: unknown
+      estAssociéeA: 22093
     '1973-01-01':
       sAssocieA: 22093
       name: 'La Poterie'
@@ -33722,7 +33724,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 22093
       name: Saint-Aaron
-      estAssociéeA: unknown
+      estAssociéeA: 22093
     '1973-01-01':
       sAssocieA: 22093
       name: Saint-Aaron
@@ -34027,7 +34029,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 22093
       name: Trégomar
-      estAssociéeA: unknown
+      estAssociéeA: 22093
     '1973-01-01':
       sAssocieA: 22093
       name: Trégomar
@@ -35252,7 +35254,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 24028
       name: Born-de-Champs
-      estAssociéeA: unknown
+      estAssociéeA: 24497
     '1974-01-01':
       sAssocieA: 24497
       name: Born-de-Champs
@@ -35830,7 +35832,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 24035
       name: Fongalop
-      estAssociéeA: unknown
+      estAssociéeA: 24035
     '1973-01-01':
       sAssocieA: 24035
       name: Fongalop
@@ -37239,7 +37241,7 @@ contents:
     '2019-01-01':
       sAbsorbeDans: 24172
       name: Sireuil
-      estAssociéeA: unknown
+      estAssociéeA: 24172
     '1973-01-01':
       sAssocieA: 24172
       name: Sireuil
@@ -38529,7 +38531,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 25334
       name: Granges-Maillot
-      estAssociéeA: unknown
+      estAssociéeA: 25334
     '1974-04-01':
       sAssocieA: 25334
       name: Granges-Maillot
@@ -44961,7 +44963,7 @@ contents:
     '2019-01-01':
       sAbsorbeDans: 28199
       name: Mervilliers
-      estAssociéeA: unknown
+      estAssociéeA: 28002
     '1972-12-28':
       sAssocieA: 28002
       name: Mervilliers
@@ -59260,7 +59262,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 38022
       name: Thuellin
-      estAssociéeA: unknown
+      estAssociéeA: 38541
     '1973-01-01':
       sAssocieA: 38541
       name: Thuellin
@@ -66985,6 +66987,9 @@ contents:
       name: Freigné
       estDéléguéeDe: 44180
     '2018-01-01':
+      devientDéléguéeDe: 44180
+      name: Freigné
+    2018-01-01-bis:
       changeDeDépartementEtAvaitPourCode: 49144
   45001:
     now:
@@ -71907,6 +71912,9 @@ contents:
       name: Champigné
       estDéléguéeDe: 49080
     '2019-01-01':
+      devientDéléguéeDe: 49080
+      name: Champigné
+    2019-01-01-bis:
       sAbsorbeDans: 49080
       name: 'Les Hauts d''Anjou'
     '2016-12-15':
@@ -72159,6 +72167,9 @@ contents:
       name: Clefs
       estDéléguéeDe: 49018
     '2016-01-01':
+      devientDéléguéeDe: 49018
+      name: Clefs
+    2016-01-01-bis:
       sAbsorbeDans: 49018
       name: 'Clefs-Val d''Anjou'
     '2013-01-01':
@@ -72417,7 +72428,7 @@ contents:
     '2015-12-15':
       sAbsorbeDans: 49092
       name: 'Les Gardes'
-      estAssociéeA: unknown
+      estAssociéeA: 49281
     '1973-01-01':
       sAssocieA: 49281
       name: 'Les Gardes'
@@ -72440,6 +72451,9 @@ contents:
       name: Gennes
       estDéléguéeDe: 49261
     '2018-01-01':
+      devientDéléguéeDe: 49261
+      name: Gennes
+    2018-01-01-bis:
       sAbsorbeDans: 49261
       name: 'Gennes-Val de Loire'
     '2016-01-01':
@@ -73281,7 +73295,7 @@ contents:
     '2016-01-01':
       devientDéléguéeDe: 49373
       name: Saint-Hilaire-du-Bois
-      estAssociéeA: unknown
+      estAssociéeA: 49373
     '1974-01-01':
       sAssocieA: 49373
       name: Saint-Hilaire-du-Bois
@@ -73706,7 +73720,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 49149
       name: Trèves-Cunault
-      estAssociéeA: unknown
+      estAssociéeA: 49094
     '1974-01-01':
       sAssocieA: 49094
       name: Trèves-Cunault
@@ -73835,7 +73849,7 @@ contents:
     '2016-01-01':
       devientDéléguéeDe: 49373
       name: 'Le Voide'
-      estAssociéeA: unknown
+      estAssociéeA: 49373
     '1974-01-01':
       sAssocieA: 49373
       name: 'Le Voide'
@@ -73860,6 +73874,9 @@ contents:
       name: Fresne-sur-Loire
       estDéléguéeDe: 49160
     '2016-01-01':
+      devientDéléguéeDe: 49160
+      name: 'Le Fresne-sur-Loire'
+    2016-01-01-bis:
       changeDeDépartementEtAvaitPourCode: 44060
   50001:
     now:
@@ -73930,7 +73947,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 50142
       name: Angoville-en-Saire
-      estAssociéeA: unknown
+      estAssociéeA: 50142
     '1973-04-01':
       sAssocieA: 50142
       name: Angoville-en-Saire
@@ -73964,7 +73981,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 50410
       name: Ardevon
-      estAssociéeA: unknown
+      estAssociéeA: 50410
     '1989-01-01':
       resteAssociéeA: 50410
       name: Ardevon
@@ -74216,7 +74233,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 50410
       name: Boucey
-      estAssociéeA: unknown
+      estAssociéeA: 50410
     '1989-01-01':
       resteAssociéeA: 50410
       name: Boucey
@@ -74517,7 +74534,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 50444
       name: 'La Chapelle-du-Fest'
-      estAssociéeA: unknown
+      estAssociéeA: 50444
     '1973-02-15':
       sAssocieA: 50444
       name: 'La Chapelle-du-Fest'
@@ -74638,7 +74655,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 50410
       name: Cormeray
-      estAssociéeA: unknown
+      estAssociéeA: 50410
     '1989-01-01':
       resteAssociéeA: 50410
       name: Cormeray
@@ -74720,7 +74737,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 50410
       name: Curey
-      estAssociéeA: unknown
+      estAssociéeA: 50410
     '1989-01-01':
       resteAssociéeA: 50410
       name: Curey
@@ -75535,7 +75552,7 @@ contents:
     '2019-01-01':
       sAbsorbeDans: 50197
       name: 'Le Mesnil-Hue'
-      estAssociéeA: unknown
+      estAssociéeA: 50197
     '1988-08-01':
       resteAssociéeA: 50197
       name: 'Le Mesnil-Hue'
@@ -75641,7 +75658,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 50410
       name: Moidrey
-      estAssociéeA: unknown
+      estAssociéeA: 50410
     '1989-01-01':
       resteAssociéeA: 50410
       name: Moidrey
@@ -75935,7 +75952,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 50410
       name: 'Les Pas'
-      estAssociéeA: unknown
+      estAssociéeA: 50410
     '1989-01-01':
       resteAssociéeA: 50410
       name: 'Les Pas'
@@ -76809,7 +76826,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 50444
       name: Saint-Symphorien-les-Buttes
-      estAssociéeA: unknown
+      estAssociéeA: 50444
     '1973-02-15':
       sAssocieA: 50444
       name: Saint-Symphorien-les-Buttes
@@ -77271,7 +77288,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 50142
       name: Vrasville
-      estAssociéeA: unknown
+      estAssociéeA: 50142
     '1973-04-01':
       sAssocieA: 50142
       name: Vrasville
@@ -78594,6 +78611,9 @@ contents:
     now:
       name: Mœurs-Verdey
     '1966-12-12':
+      reçoitUnePartieDe: 51606
+      name: Mœurs-Verdey
+    1966-12-12-bis:
       évènement: 'Change de nom'
       name: Mœurs
   51370:
@@ -78851,6 +78871,9 @@ contents:
     now:
       name: Pontfaverger-Moronvilliers
     '1950-06-17':
+      reçoitUnePartieDe: 51385
+      name: Pontfaverger-Moronvilliers
+    1950-06-17-bis:
       évènement: 'Change de nom'
       name: Pontfaverger
   51441:
@@ -79703,7 +79726,7 @@ contents:
     '2017-01-01':
       devientDéléguéeDe: 52140
       name: Argentolles
-      estAssociéeA: unknown
+      estAssociéeA: 52140
     '1973-01-01':
       sAssocieA: 52140
       name: Argentolles
@@ -79871,7 +79894,7 @@ contents:
     '2013-02-28':
       sAbsorbeDans: 52187
       name: Bettoncourt-le-Haut
-      estAssociéeA: unknown
+      estAssociéeA: 52187
     '1972-06-09':
       sAssocieA: 52187
       name: Bettoncourt-le-Haut
@@ -79893,7 +79916,7 @@ contents:
     '2017-01-01':
       devientDéléguéeDe: 52140
       name: Biernes
-      estAssociéeA: unknown
+      estAssociéeA: 52140
     '1973-01-01':
       sAssocieA: 52140
       name: Biernes
@@ -79913,7 +79936,7 @@ contents:
     '2017-01-01':
       devientDéléguéeDe: 52140
       name: Blaise
-      estAssociéeA: unknown
+      estAssociéeA: 52140
     '1973-01-01':
       sAssocieA: 52140
       name: Blaise
@@ -80156,7 +80179,7 @@ contents:
     '2017-01-01':
       devientDéléguéeDe: 52140
       name: Champcourt
-      estAssociéeA: unknown
+      estAssociéeA: 52140
     '1973-01-01':
       sAssocieA: 52140
       name: Champcourt
@@ -80825,7 +80848,7 @@ contents:
     '2016-06-01':
       sAbsorbeDans: 52064
       name: Gonaincourt
-      estAssociéeA: unknown
+      estAssociéeA: 52064
     '1973-02-01':
       sAssocieA: 52064
       name: Gonaincourt
@@ -80897,7 +80920,7 @@ contents:
     '2017-01-01':
       devientDéléguéeDe: 52140
       name: Harricourt
-      estAssociéeA: unknown
+      estAssociéeA: 52140
     '1973-01-01':
       sAssocieA: 52140
       name: Harricourt
@@ -81117,7 +81140,7 @@ contents:
     '2017-01-01':
       devientDéléguéeDe: 52140
       name: Lavilleneuve-aux-Fresnes
-      estAssociéeA: unknown
+      estAssociéeA: 52140
     '1973-01-01':
       sAssocieA: 52140
       name: Lavilleneuve-aux-Fresnes
@@ -81674,7 +81697,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 52529
       name: Piépape
-      estAssociéeA: unknown
+      estAssociéeA: 52529
     '1972-08-01':
       sAssocieA: 52529
       name: Piépape
@@ -81762,7 +81785,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 52529
       name: Prangey
-      estAssociéeA: unknown
+      estAssociéeA: 52529
     '1972-08-01':
       sAssocieA: 52529
       name: Prangey
@@ -81776,7 +81799,7 @@ contents:
     '2017-01-01':
       devientDéléguéeDe: 52140
       name: Pratz
-      estAssociéeA: unknown
+      estAssociéeA: 52140
     '1973-01-01':
       sAssocieA: 52140
       name: Pratz
@@ -82077,7 +82100,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 52529
       name: Saint-Michel
-      estAssociéeA: unknown
+      estAssociéeA: 52529
     '1972-08-01':
       sAssocieA: 52529
       name: Saint-Michel
@@ -86928,6 +86951,10 @@ contents:
       name: Lamarche-en-Woëvre
       estAssociéeA: 55386
     '1983-01-01':
+      évènement: 'Commune associée rétablie comme commune simple'
+      name: Lamarche-en-Woëvre
+      estAssociéeA: 55245
+    1983-01-01-bis:
       sAssocieA: 55386
       name: Lamarche-en-Woëvre
     '1973-01-01':
@@ -87392,6 +87419,10 @@ contents:
     now:
       name: Nonsard-Lamarche
     '1983-01-01':
+      évènement: 'Commune associée rétablie comme commune simple'
+      name: Nonsard
+      estAssociéeA: 55245
+    1983-01-01-bis:
       évènement: 'Prend des c. associées et/ou absorbe des c. fusionnées'
       name: Nonsard
     '1973-01-01':
@@ -108850,7 +108881,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 67495
       name: Behlenheim
-      estAssociéeA: unknown
+      estAssociéeA: 67495
     '1974-07-15':
       sAssocieA: 67495
       name: Behlenheim
@@ -113217,7 +113248,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 69066
       name: 'La Ville'
-      estAssociéeA: unknown
+      estAssociéeA: 69066
     '1974-03-01':
       sAssocieA: 69066
       name: 'La Ville'
@@ -113825,7 +113856,7 @@ contents:
     '2019-01-01':
       devientDéléguéeDe: 70285
       name: Bussurel
-      estAssociéeA: unknown
+      estAssociéeA: 70285
     '1972-12-31':
       sAssocieA: 70285
       name: Bussurel
@@ -119054,7 +119085,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 73010
       name: Ansigny
-      estAssociéeA: unknown
+      estAssociéeA: 73010
     '1972-09-29':
       sAssocieA: 73010
       name: Ansigny
@@ -119229,7 +119260,7 @@ contents:
     '2019-01-01':
       devientDéléguéeDe: 73187
       name: Celliers
-      estAssociéeA: unknown
+      estAssociéeA: 73187
     '1972-06-30':
       sAssocieA: 73187
       name: Celliers
@@ -119385,7 +119416,7 @@ contents:
     '2019-01-01':
       devientDéléguéeDe: 73187
       name: Doucy
-      estAssociéeA: unknown
+      estAssociéeA: 73187
     '1972-06-30':
       sAssocieA: 73187
       name: Doucy
@@ -119578,7 +119609,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 73006
       name: Longefoy
-      estAssociéeA: unknown
+      estAssociéeA: 73006
     '1973-02-12':
       sAssocieA: 73006
       name: Longefoy
@@ -119688,7 +119719,7 @@ contents:
     '2019-01-01':
       sAbsorbeDans: 73135
       name: Montpascal
-      estAssociéeA: unknown
+      estAssociéeA: 73203
     '1972-11-21':
       sAssocieA: 73203
       name: Montpascal
@@ -119745,7 +119776,7 @@ contents:
     '2019-01-01':
       devientDéléguéeDe: 73187
       name: Naves
-      estAssociéeA: unknown
+      estAssociéeA: 73187
     '1972-06-30':
       sAssocieA: 73187
       name: Naves
@@ -119808,7 +119839,7 @@ contents:
     '2019-01-01':
       devientDéléguéeDe: 73187
       name: Petit-Cœur
-      estAssociéeA: unknown
+      estAssociéeA: 73187
     '1972-06-30':
       sAssocieA: 73187
       name: Petit-Cœur
@@ -119853,7 +119884,7 @@ contents:
     '2019-01-01':
       devientDéléguéeDe: 73187
       name: Pussy
-      estAssociéeA: unknown
+      estAssociéeA: 73187
     '1972-06-30':
       sAssocieA: 73187
       name: Pussy
@@ -120209,7 +120240,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 73006
       name: Tessens
-      estAssociéeA: unknown
+      estAssociéeA: 73006
     '1973-02-12':
       sAssocieA: 73006
       name: Tessens
@@ -120344,7 +120375,7 @@ contents:
     '2016-01-01':
       sAbsorbeDans: 73006
       name: Villette
-      estAssociéeA: unknown
+      estAssociéeA: 73006
     '1973-02-12':
       sAssocieA: 73006
       name: Villette
@@ -129410,7 +129441,7 @@ contents:
     '2019-01-01':
       devientDéléguéeDe: 79014
       name: Bagneux
-      estAssociéeA: unknown
+      estAssociéeA: 79014
     '1973-01-01':
       sAssocieA: 79014
       name: Bagneux
@@ -129522,7 +129553,7 @@ contents:
     '2019-01-01':
       devientDéléguéeDe: 79005
       name: Borcq-sur-Airvault
-      estAssociéeA: unknown
+      estAssociéeA: 79005
     '1985-01-01':
       resteAssociéeA: 79005
       name: Borcq-sur-Airvault
@@ -130107,7 +130138,7 @@ contents:
     '2017-01-01':
       sAbsorbeDans: 79136
       name: Loizé
-      estAssociéeA: unknown
+      estAssociéeA: 79136
     '1973-01-01':
       sAssocieA: 79136
       name: Loizé
@@ -130250,7 +130281,7 @@ contents:
     '2019-01-01':
       devientDéléguéeDe: 79061
       name: Montigné
-      estAssociéeA: unknown
+      estAssociéeA: 79061
     '1973-01-01':
       sAssocieA: 79061
       name: Montigné
@@ -130517,7 +130548,7 @@ contents:
     '2019-01-01':
       sAbsorbeDans: 79329
       name: Rigné
-      estAssociéeA: unknown
+      estAssociéeA: 79171
     '1973-01-01':
       sAssocieA: 79171
       name: Rigné
@@ -130809,7 +130840,7 @@ contents:
     '2017-01-01':
       devientDéléguéeDe: 79063
       name: Saint-Pierre-à-Champ
-      estAssociéeA: unknown
+      estAssociéeA: 79063
     '1973-01-01':
       sAssocieA: 79063
       name: Saint-Pierre-à-Champ
@@ -130930,7 +130961,7 @@ contents:
     '2019-01-01':
       devientDéléguéeDe: 79005
       name: Soulièvres
-      estAssociéeA: unknown
+      estAssociéeA: 79005
     '1985-01-01':
       resteAssociéeA: 79005
       name: Soulièvres
@@ -131095,7 +131126,7 @@ contents:
     '2019-01-01':
       devientDéléguéeDe: 79061
       name: Verrines-sous-Celles
-      estAssociéeA: unknown
+      estAssociéeA: 79061
     '1973-01-01':
       sAssocieA: 79061
       name: Verrines-sous-Celles
@@ -142930,7 +142961,7 @@ contents:
     '2019-01-01':
       devientDéléguéeDe: 89420
       name: Perreuse
-      estAssociéeA: unknown
+      estAssociéeA: 89420
     '1977-01-01':
       resteAssociéeA: 89420
       name: Perreuse
@@ -147253,51 +147284,85 @@ contents:
   97601:
     now:
       name: Acoua
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97602:
     now:
       name: Bandraboua
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97603:
     now:
       name: Bandrele
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97604:
     now:
       name: Bouéni
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97605:
     now:
       name: Chiconi
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97606:
     now:
       name: Chirongui
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97607:
     now:
       name: Dembeni
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97608:
     now:
       name: Dzaoudzi
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97609:
     now:
       name: Kani-Kéli
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97610:
     now:
       name: Koungou
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97611:
     now:
       name: Mamoudzou
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97612:
     now:
       name: Mtsamboro
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97613:
     now:
       name: 'M''Tsangamouji'
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97614:
     now:
       name: Ouangani
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97615:
     now:
       name: Pamandzi
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97616:
     now:
       name: Sada
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'
   97617:
     now:
       name: Tsingoni
+    '2011-03-31':
+      évènement: 'Mayotte devient un DOM'

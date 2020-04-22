@@ -218,7 +218,17 @@ class Base {
     }
     else {
       $record = $this->$key;
-      $this->$key = array_merge($record, $merge);
+      echo "key=$key, record="; print_r($record); echo 'merge='; print_r($merge);
+      foreach ($merge as $key2 => $val) {
+        if (isset($record[$key2])) {
+          echo "création d'un bis sur $key/$key2\n";
+          $key2 .= '-bis';
+          if (isset($record[$key2]))
+            throw new Exception("Carambolage sur $key/$key2");
+        }
+        $record[$key2] = $val;
+      }
+      $this->$key = $record;
     }
   }
 

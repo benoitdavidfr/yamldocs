@@ -5,9 +5,16 @@ title: index.php - diverses actions rpicom
 doc: |
   Définition de différentes actions accessibles par le Menu
 journal: |
+  22/4/2018:
+    - bug identifié dans brpicom sur Pont-Farcy qui subit 2 opérations le 1/1/2018:
+      1) en tant que 14513 absorbe 14507 (mod=34) et change de département pour prendre l'id 50649
+      2) en tant que 50649 devient déléguée de Tessy-Bocage (50592)
+    - bug identifié dans brpicom, plusieurs opérations peuvent intervenir à la même date sur un id donné
+    - cela remet en cause le schéma de rpicom
   21/4/2020:
     - modif schéma exfcoms.yaml et génération correspondante dans buidState
     - modif schema exrpicom.yaml et génération correspondante
+    - comtage du nbre d'évolutions sur les communes simples
   18/4/2020:
     - possibilité d'utiliser le script en cli permettant ainsi de générer les fichiers avec Makefile
   11/4/2020:
@@ -124,6 +131,12 @@ $menu = new Menu([
       "Affiche mvtcommune2020.csv"=> ['mvtcommune2020.csv'],
     ],
   ],
+  'showGrpMvts'=> [
+    'argNames'=> [], // liste des noms des arguments en plus de action
+    'actions'=> [
+      "Affiche les groupes de mouvements avec possibilité de sélection"=> [],
+    ],
+  ],
   'csvCom2html'=> [
     // affichage d'un instantané des communes
     'argNames'=> ['file', 'format'], // liste des noms des arguments en plus de action
@@ -203,6 +216,12 @@ $menu = new Menu([
       "Compare 2 fichiers entre eux"=> [],
     ],
   ],
+  'test_hypothèse_brpicom'=> [
+    'argNames'=> [],
+    'actions'=> [
+      "Test d'hypothèses / fabrication du Rpicom"=> [],
+    ],
+  ],
   'brpicom'=> [
     'argNames'=> [],
     'actions'=> [
@@ -213,6 +232,13 @@ $menu = new Menu([
     'argNames'=> [],
     'actions'=> [
       "Dénombrement des communes simples et de leurs évolutions"=> [],
+    ],
+  ],
+  'interpolRpicom'=> [
+    'argNames'=> ['state'],
+    'actions'=> [
+      "interpolation dans le rpicom de l'état au 1/1/2010"=> [ '2010-01-01'],
+      "interpolation dans le rpicom de l'état au 1/1/2000"=> [ '2000-01-01'],
     ],
   ],
 ]
@@ -924,7 +950,7 @@ if ($_GET['action'] == 'buildState') { // affichage Yaml de l'état des communes
   foreach ($headers as $i => $header)
     if (preg_match('!"([^"]+)"!', $header, $matches))
       $headers[$i] = $matches[1];
-  echo "<pre>headers="; print_r($headers); echo "</pre>\n";
+  //echo "<pre>headers="; print_r($headers); echo "</pre>\n";
   while($record = fgetcsv($file, 0, $sep)) {
     //echo "<pre>record="; print_r($record); echo "</pre>\n";
     $rec = [];
@@ -1071,7 +1097,7 @@ function compareShowOneElt(string $key, array $file, array $keypath, string $fil
   elseif (is_scalar($file[$key]))
     echo $file[$key];
   elseif (is_array($file[$key])
-    && (strlen($json = json_encode($file[$key], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE)) < 60))
+    && (strlen($json = json_encode($file[$key], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE)) < 80))
       echo "<code>$json</code>";
   else {
     $href = "?action=ypath&amp;file=$filepath&amp;ypath=".urlencode(implode('/',array_merge($keypath,[$key])));
@@ -1114,7 +1140,7 @@ function compareYaml(array $file1, array $file2, callable $fneq=null, array $pat
   }
   if (!$path) {
     echo "</table>\n";
-    printf("%d/%d différents soit %.0f %%<br>\n", $stat['diff'], $stat['tot'], $stat['diff']/$stat['tot']*100);
+    printf("%d/%d différents soit %.2f %%<br>\n", $stat['diff'], $stat['tot'], $stat['diff']/$stat['tot']*100);
   }
   return $stat;
 }
@@ -1256,6 +1282,27 @@ if ($_GET['action'] == 'ypath') {
   die();
 }
 
+// Teste un présupposé de brpicom qui est qu'une commune ne peut subire qu'un seul GroupMvts à une date donnée
+if ($_GET['action'] == 'test_hypothèse_brpicom') {
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>test_hypothèse_rpicom</title></head><body><pre>\n";
+  $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms
+  foreach($mvtcoms as $date_eff => $mvtcomsD) {
+    $ids = []; // ids impactés par un GroupMvts ss la forme [{id} => {groupe}]
+    foreach($mvtcomsD as $mod => $mvtcomsDM) {
+      foreach (GroupMvts::buildGroups($mvtcomsDM) as $group) {
+        $gpids = $group->ids();
+        foreach ($gpids as $id) {
+          if (isset($ids[$id])) {
+            echo "id $id dans $group et ",$ids[$id],"\n";
+          }
+          $ids[$id] = $group;
+        }
+      }
+    }
+  }
+  die("Fin test_hypothèse_rpicom\n");
+}
+
 // Initialisation du RPICOM avec les communes du 1/1/2020 comme 'now'
 function initRpicomFrom(string $compath, Criteria $trace): Base {
   // code Php intégré dans le document pour définir l'affichage résumé de la commune
@@ -1328,10 +1375,11 @@ if ($_GET['action'] == 'brpicom') { // construction du Rpicom v2
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>brpicom</title></head><body><pre>\n";
   //$trace = new Criteria([]); // aucun critère, tout est affiché
   $trace = new Criteria(['not']); // rien n'est affiché
+  //$trace = new Criteria(['mod'=> ['21']]);
   //$trace = new Criteria(['mod'=> ['not'=> ['10','21','31','20','30','41','33','34','50','32']]]); 
 
   // fabrication de la version initiale du RPICOM avec les communes du 1/1/2020 comme 'now'
-  $rpicom = initRpicomFrom(__DIR__.'/com20200101', new Criteria(['not']));
+  $rpicoms = initRpicomFrom(__DIR__.'/com20200101', new Criteria(['not']));
   
   $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms
   krsort($mvtcoms); // tri par ordre chrono inverse
@@ -1341,12 +1389,43 @@ if ($_GET['action'] == 'brpicom') { // construction du Rpicom v2
         $group = $group->factAvDefact();
         if ($trace->is(['mod'=> $mod]))
           echo Yaml::dump(['$group'=> $group->asArray()], 3, 2);
-        $group->addToRpicom($rpicom, $trace);
+        $group->addToRpicom($rpicoms, $trace);
       }
     }
   }
-  $rpicom->ksort(); // tri du Yaml sur le code INSEE de commune
-  $rpicom->writeAsYaml('rpicom');
+  // Post-traitements
+  if (0)
+    $rpicoms->startExtractAsYaml();
+  foreach ($rpicoms->contents() as $id => $rpicom) {
+    // Post-traitement no 1 pour remplacer les associées unknown à partir des associations effectuées précédemment
+    $unknownAssosVdate = null;
+    foreach ($rpicom as $datev => $vcom) {
+      if (isset($vcom['estAssociéeA']) && ($vcom['estAssociéeA'] == 'unknown')) {
+        $unknownAssosVdate = $datev;
+      }
+      elseif ($unknownAssosVdate && isset($vcom['sAssocieA'])) {
+        $rpicom[$unknownAssosVdate]['estAssociéeA'] = $vcom['sAssocieA'];
+        $rpicoms->$id = $rpicom;
+        $unknownAssosVdate = null;
+        break;
+      }
+      elseif ($unknownAssosVdate && isset($vcom['estAssociéeA']) && ($vcom['estAssociéeA'] <> 'unknown')) {
+        $rpicom[$unknownAssosVdate]['estAssociéeA'] = $vcom['estAssociéeA'];
+        $rpicoms->$id = $rpicom;
+        $unknownAssosVdate = null;
+        break;
+      }
+    }
+    // Post-traitement no 2 pour indiquer que Mayote est devenu DOM le 31 mars 2011
+    if (substr($id, 0, 3) == '976') {
+      $rpicom['2011-03-31'] = ['évènement' => "Mayotte devient un DOM"];
+      $rpicoms->$id = $rpicom;
+    }
+  }
+  if (0)
+    $rpicoms->showExtractAsYaml(5, 2);
+  $rpicoms->ksort(); // tri du Yaml sur le code INSEE de commune
+  $rpicoms->writeAsYaml('rpicom');
   die("Fin brpicom ok, rpicom sauvé dans rpicom.yaml\n");
 }
 
@@ -1459,13 +1538,13 @@ if ($_GET['action'] == 'nombres') { // dénombrement
 
 {/*PhpDoc: screens
 name: patterns
-title: patterns - listage des motifs gMvtsP
+title: patterns - listage des motifs gMvtsP - ABANDONNE
 doc: |
   v2 de la construction Rpicom fondée sur initRpicomFrom() + GroupMvts::xx()
   Nlle solution démarrée le 19/4/2020 19:00
   Je démarre par le litage des motifs. Je n'arrive pas à les interpréter !!!
 */}
-if ($_GET['action'] == 'patterns') {
+if ($_GET['action'] == 'patterns') { // listage des motifs gMvtsP - ABANDONNE 
   if (php_sapi_name() <> 'cli')
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>patterns</title></head><body><pre>\n";
 
@@ -1526,4 +1605,157 @@ if ($_GET['action'] == 'patterns') {
   echo Yaml::dump($yamls, 6, 2),"\n";
   die("Fin GMvtsP::patterns() ok\n");
 }
+
+if ($_GET['action'] == 'showGrpMvts') { // consultation des GroupMvts avec possibilité de sélection
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>viewGrpMvts</title></head><body>\n";
+  echo "<form><table border=1><tr>\n",
+  "<input type='hidden' name='action' value='$_GET[action]'>\n",
+  "<td>mod:<input type='text' name='mod' size=3 value=",$_GET['mod'] ?? '',"></td>",
+  "<td>date:<input type='text' name='date' size=10 value=",$_GET['date'] ?? '',"></td>",
+  "<td>id:<input type='text' name='id' size=5 value=",$_GET['id'] ?? '',"></td>",
+  "<td>name:<input type='text' name='name' size=20 value=",$_GET['name'] ?? '',"></td>",
+  "<td><input type='submit'></td>",
+  "</tr></table></form>\n";
+    
+  $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms
+  krsort($mvtcoms); // tri par ordre chrono inverse
+  foreach($mvtcoms as $date_eff => $mvtcomsD) {
+    if (isset($_GET['date']) && (substr($date_eff, 0, strlen($_GET['date'])) <> $_GET['date']))
+      continue;
+    foreach($mvtcomsD as $mod => $mvtcomsDM) {
+      if (isset($_GET['mod']) && $_GET['mod'] && ($mod <> $_GET['mod']))
+        continue;
+      foreach (GroupMvts::buildGroups($mvtcomsDM) as $group) {
+        $group = $group->factAvDefact();
+        //echo '<pre>',Yaml::dump(['$group'=> $group->asArray()], 3, 2),"</pre>\n";
+        if (isset($_GET['id']) && $_GET['id'] && !in_array($_GET['id'], $group->ids()))
+          continue;
+        if (isset($_GET['name']) && $_GET['name'] && !in_array($_GET['name'], $group->names()))
+          continue;
+        $group->show();
+      }
+    }
+  }
+  die();
+}
+
+// retrouve dans la structure des versions celle qui correspond à une date donnée avec l'événement en premier champ
+function interpolRpicom(array $rpicom, string $state): array {
+  if (isset($rpicom['now']) && (count($rpicom)==1)) { // s'il n'y a que la version actuelle alors je la sélectionne
+    return array_merge(['évènement'=> 'aucun'], $rpicom['now']);
+  }
+  else { // sinon je cherche la date la plus ancienne postérieure à la date demandée
+    $datevprec = null;
+    foreach ($rpicom as $datev => $com) {
+      //echo Yaml::dump([$id => [$datev => $com]]);
+      if (strcmp($datev, $state) <= 0) { // $datev < $state
+        //echo "Arrêt sur datev=$datev\n";
+        break;
+      }
+      $datevprec = $datev;
+    }
+    if (!$datevprec)
+      return [];
+    if ($datevprec == 'now')
+      return array_merge(['évènement'=> 'aucun'], $rpicom['now']);
+    unset($rpicom[$datevprec]['après']);
+    return $rpicom[$datevprec];
+  }
+}
+if (0) { // Test interpolRpicom()
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>interpolRpicom</title></head><body><pre>\n";
+  $states = ['2020-01-01', '2015-01-01', '2010-01-01', '2003-01-01', '1990-01-01'];
+  $states = ['2015-01-01'];
+  $rpicoms = new Base([
+    'contents'=>[
+      '22222'=> [ // a toujours existé sans changer de nom
+        'now'=> [ 'name'=> "nom 22222 maintenant"],
+      ],
+      '33333'=> [ // a changé de nom et a toujours existé
+        'now'=> [ 'name'=> "nom 33333 maintenant"],
+        '2015-01-01'=> [ 'evt'=> "evt", 'name'=> "nom 33333 avant 1/1/2015"],
+        '2010-01-01'=> [ 'evt'=> "evt", 'name'=> "nom 33333 avant 1/1/2010"],
+        '2005-01-01'=> [ 'evt'=> "evt", 'name'=> "nom 33333 avant 1/1/2005"],
+        '2000-01-01'=> [ 'evt'=> "evt", 'name'=> "nom 33333 avant 1/1/2000"],
+      ],
+      '44444'=> [ // n'existe que pendant un certain intervalle de temps
+        '2015-01-01'=> [ 'evt'=> "evt", 'name'=> "nom 44444 avant 1/1/2015"],
+        '2010-01-01'=> [ 'evt'=> "evt", 'name'=> "nom 44444 avant 1/1/2010"],
+        '2005-01-01'=> [ 'evt'=> "evt", 'name'=> "nom 44444 avant 1/1/2005"],
+        '2000-01-01'=> [ 'evt'=> "evt", 'name'=> "nom 44444 avant 1/1/2000"],
+        '1995-01-01'=> [ 'evt'=> "Création"],
+      ],
+    ]
+  ]);
+  foreach ($rpicoms->contents() as $id => $rpicom) {
+    foreach ($states as $state) {
+      $vcom = interpolRpicom($rpicom, $state);
+      $evt = array_shift($vcom);
+      echo Yaml::dump(["$id@$state" => [$evt, $vcom]]);
+    }
+  }
+  die("Arrêt ligne ".__LINE__);
+}
+
+if ($_GET['action'] == 'interpolRpicom') { // interpolation d'un état dans le Rpicom
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>interpolRpicom</title></head><body><pre>\n";
+  $state = $_GET['state'];
+  $rpicoms = new Base(__DIR__.'/rpicom');
+  $coms = []; // l'état à la date
+  foreach ($rpicoms->contents() as $id => $rpicom) {
+    //if (!in_array($id, ['01283'])) continue;
+    //echo Yaml::dump([$id => $rpicom], 7, 2);
+    $vcom = interpolRpicom($rpicom, $state);
+    $evt = array_shift($vcom);
+    //echo Yaml::dump(["$id@$state" => [$evt, $vcom]]);
+    if($vcom)
+      $coms[$id] = $vcom;
+  }
+  // chgt de format
+  /*foreach ($coms as $id => $com) {
+    if (isset($com['estAssociéeA'])) {
+      $coms[$com['estAssociéeA']]['aPourAssociées'][$id] = ['name'=> $com['name']];
+      unset($com['name']);
+    }
+  }*/
+  //echo Yaml::dump($coms); die();
+  $fcoms = [
+    'title'=> "Fichier interpolé au $state",
+    'contents'=> $coms,
+  ];
+  $frefname = 'com'.str_replace('-','',$state);
+  $fref = new base($frefname);
+  $frefcoms = $fref->contents();
+  // chgt de format - transfert des noms des communes rattachées stockés dans la commune de rattachement
+  foreach ($frefcoms as $id => $com) {
+    if (isset($com['estAssociéeA'])) // ajout du nom des communes associées
+      $frefcoms[$id]['name'] = $frefcoms[$com['estAssociéeA']]['aPourAssociées'][$id]['name'];
+    if (isset($com['estDéléguéeDe'])) // ajout du nom des communes déléguées
+      $frefcoms[$id]['name'] = $frefcoms[$com['estDéléguéeDe']]['aPourDéléguées'][$id]['name'];
+    if (isset($com['estArrondissementMunicipalDe'])) // ajout du nom des ARM
+      $frefcoms[$id]['name'] =
+          $frefcoms[$com['estArrondissementMunicipalDe']]['aPourArrondissementsMunicipaux'][$id]['name'];
+  }
+  foreach ($frefcoms as $id => $com) { // suppression des 'aPourAssociées', aPourDéléguées et aPourARM
+    unset($frefcoms[$id]['aPourAssociées']);
+    if (isset($com['aPourDéléguées'])) {
+      foreach ($com['aPourDéléguées'] as $idd => $comd) {
+        if ($idd == $id)
+          $frefcoms[$id]['commeDéléguée'] = ['name'=> $comd['name']];
+      }
+    }
+    unset($frefcoms[$id]['aPourDéléguées']);
+    unset($frefcoms[$id]['aPourArrondissementsMunicipaux']);
+  }
+  $fref = [
+    'title'=> "Fichier de référence $frefname",
+    'contents'=> $frefcoms,
+  ];
+  $_GET['file1'] = "interpolé";
+  $_GET['file2'] = "$frefname.yaml";
+  compareYaml($fcoms, $fref, 'fneqArticle');
+  echo Yaml::dump($coms);
+  die();
+}
+
 die("Aucune commande $_GET[action]\n");
