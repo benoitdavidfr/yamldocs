@@ -160,7 +160,7 @@ class GroupMvts {
   protected $date; // date d'effet des modifications
   protected $mvts; // [['avant/après'=>['type'=> type, 'id'=> id, 'name'=>name]]]
   
-  static function readMvtsInsee(string $filepath): array { // lecture du fichier CSV INSEE des mts et tri par ordre chronologique
+  static function readMvtsInseePerDate(string $filepath): array { // lecture du fichier CSV INSEE des mts et tri par ordre chronologique
     $mvtcoms = []; // Liste des mvts retriée par ordre chronologique
     $mvtsUniq = []; // Utilisé pour la vérification d'unicité des enregistrements
     $file = fopen($filepath, 'r');
@@ -193,7 +193,7 @@ class GroupMvts {
           'name'=> $rec['libelle_ap'],
         ],
       ];
-      addValToArray($yaml, $mvtcoms[$rec['date_eff']][$rec['mod']]);
+      addValToArray($yaml, $mvtcoms[$rec['date_eff']]);
       //echo str_replace("-\n ", '-', Yaml::dump([0 => $rec], 99, 2));
       //if (++$nbrec >= 100) break; //die("nbrec >= 100");
     }
@@ -253,9 +253,18 @@ class GroupMvts {
         }
       }
       //echo Yaml::dump(['GroupMvts::buildGroups'=> $groupOfMvts], 4, 2);
-      $result[] = new GroupMvts($groupOfMvts);
+      $result[] = self::newGroupMvts($groupOfMvts);
     }
     return $result;
+  }
+  
+  static function newGroupMvts(array $groupOfMvts) {
+    $mod = $groupOfMvts[0]['mod'];
+    foreach ($groupOfMvts as $mvt) {
+      if ($mvt['mod'] <> $mod)
+        return new MultiGroupMvts($groupOfMvts);
+    }
+    return new GroupMvts($groupOfMvts);
   }
   
   function __construct(array $groupOfMvts) {
@@ -271,6 +280,8 @@ class GroupMvts {
       ];
     }
   }
+  
+  function mod(): string { return $this->mod; }
   
   function asArray(): array {
     $array = [
@@ -310,6 +321,24 @@ class GroupMvts {
       $names[$mvt['après']['name']] = 1;
     }
     return array_keys($names);
+  }
+  
+  // Teste si $this est avant $after cad au moins un (type,id,name) de $this[après] est commun avec $after[avant]
+  // Ce test ne marche pas pour un 21 suivi d'un 33 qui corespond à un cas
+  function isBefore(GroupMvts $after): bool {
+    if (($this->mod == '21') && ($after->mod == '33'))
+      return true;
+    if (($this->mod == '33') && ($after->mod == '21'))
+      return false;
+    foreach ($this->mvts as $mvtBefore) {
+      foreach ($after->mvts as $mvtAfter) {
+        if (($mvtBefore['après']['type'] == $mvtAfter['avant']['type'])
+          && ($mvtBefore['après']['id'] == $mvtAfter['avant']['id'])
+          && ($mvtBefore['après']['name'] == $mvtAfter['avant']['name']))
+            return true;
+      }
+    }
+    return false;
   }
   
   function show(): void {

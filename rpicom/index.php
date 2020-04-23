@@ -751,6 +751,7 @@ if ($_GET['action'] == 'check') { // vérifie la conformité du fichier à son s
 // Attention base.inc.php et YamDoc sont incompatibles
 require_once __DIR__.'/base.inc.php';
 require_once __DIR__.'/grpmvts.inc.php';
+require_once __DIR__.'/mgrpmvts.inc.php';
 
 {/*PhpDoc: screens
 name: mvtsPatterns
@@ -1381,16 +1382,14 @@ if ($_GET['action'] == 'brpicom') { // construction du Rpicom v2
   // fabrication de la version initiale du RPICOM avec les communes du 1/1/2020 comme 'now'
   $rpicoms = initRpicomFrom(__DIR__.'/com20200101', new Criteria(['not']));
   
-  $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms
+  $mvtcoms = GroupMvts::readMvtsInseePerDate(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms
   krsort($mvtcoms); // tri par ordre chrono inverse
   foreach($mvtcoms as $date_eff => $mvtcomsD) {
-    foreach($mvtcomsD as $mod => $mvtcomsDM) {
-      foreach (GroupMvts::buildGroups($mvtcomsDM) as $group) {
-        $group = $group->factAvDefact();
-        if ($trace->is(['mod'=> $mod]))
-          echo Yaml::dump(['$group'=> $group->asArray()], 3, 2);
-        $group->addToRpicom($rpicoms, $trace);
-      }
+    foreach (GroupMvts::buildGroups($mvtcomsD) as $group) {
+      $group = $group->factAvDefact();
+      if ($trace->is(['mod'=> $group->mod()]))
+        echo Yaml::dump(['$group'=> $group->asArray()], 3, 2);
+      $group->addToRpicom($rpicoms, $trace);
     }
   }
   // Post-traitements
@@ -1610,30 +1609,33 @@ if ($_GET['action'] == 'showGrpMvts') { // consultation des GroupMvts avec possi
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>viewGrpMvts</title></head><body>\n";
   echo "<form><table border=1><tr>\n",
   "<input type='hidden' name='action' value='$_GET[action]'>\n",
-  "<td>mod:<input type='text' name='mod' size=3 value=",$_GET['mod'] ?? '',"></td>",
+  "<td>mod:<input type='text' name='mod' size=8 value=",$_GET['mod'] ?? '',"></td>",
   "<td>date:<input type='text' name='date' size=10 value=",$_GET['date'] ?? '',"></td>",
   "<td>id:<input type='text' name='id' size=5 value=",$_GET['id'] ?? '',"></td>",
   "<td>name:<input type='text' name='name' size=20 value=",$_GET['name'] ?? '',"></td>",
   "<td><input type='submit'></td>",
   "</tr></table></form>\n";
     
-  $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms
+  $mvtcoms = GroupMvts::readMvtsInseePerDate(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms
   krsort($mvtcoms); // tri par ordre chrono inverse
   foreach($mvtcoms as $date_eff => $mvtcomsD) {
     if (isset($_GET['date']) && (substr($date_eff, 0, strlen($_GET['date'])) <> $_GET['date']))
       continue;
-    foreach($mvtcomsD as $mod => $mvtcomsDM) {
-      if (isset($_GET['mod']) && $_GET['mod'] && ($mod <> $_GET['mod']))
-        continue;
-      foreach (GroupMvts::buildGroups($mvtcomsDM) as $group) {
-        $group = $group->factAvDefact();
-        //echo '<pre>',Yaml::dump(['$group'=> $group->asArray()], 3, 2),"</pre>\n";
-        if (isset($_GET['id']) && $_GET['id'] && !in_array($_GET['id'], $group->ids()))
+    foreach (GroupMvts::buildGroups($mvtcomsD) as $group) {
+      if (isset($_GET['mod']) && $_GET['mod']) {
+        if (($_GET['mod'] == 'M')) {
+          if (get_class($group) <> 'MultiGroupMvts')
+            continue;
+        }
+        elseif (($group->mod() <> $_GET['mod']))
           continue;
-        if (isset($_GET['name']) && $_GET['name'] && !in_array($_GET['name'], $group->names()))
-          continue;
-        $group->show();
       }
+      //$group = $group->factAvDefact();
+      if (isset($_GET['id']) && $_GET['id'] && !in_array($_GET['id'], $group->ids()))
+        continue;
+      if (isset($_GET['name']) && $_GET['name'] && !in_array($_GET['name'], $group->names()))
+        continue;
+      $group->show();
     }
   }
   die();

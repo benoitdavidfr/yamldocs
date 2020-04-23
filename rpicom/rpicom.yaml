@@ -1,5 +1,5 @@
 title: 'Référentiel rpicom'
-created: '2020-04-22T18:31:34+00:00'
+created: '2020-04-23T04:19:36+00:00'
 $schema: 'http://id.georef.eu/rpicom/exrpicom/$schema'
 ydADscrBhv:
   jsonLdContext: 'http://schema.org'
@@ -86951,12 +86951,12 @@ contents:
       name: Lamarche-en-Woëvre
       estAssociéeA: 55386
     '1983-01-01':
+      sAssocieA: 55386
+      name: Lamarche-en-Woëvre
+    1983-01-01-bis:
       évènement: 'Commune associée rétablie comme commune simple'
       name: Lamarche-en-Woëvre
       estAssociéeA: 55245
-    1983-01-01-bis:
-      sAssocieA: 55386
-      name: Lamarche-en-Woëvre
     '1973-01-01':
       sAssocieA: 55245
       name: Lamarche-en-Woëvre
@@ -87419,12 +87419,12 @@ contents:
     now:
       name: Nonsard-Lamarche
     '1983-01-01':
+      évènement: 'Prend des c. associées et/ou absorbe des c. fusionnées'
+      name: Nonsard
+    1983-01-01-bis:
       évènement: 'Commune associée rétablie comme commune simple'
       name: Nonsard
       estAssociéeA: 55245
-    1983-01-01-bis:
-      évènement: 'Prend des c. associées et/ou absorbe des c. fusionnées'
-      name: Nonsard
     '1973-01-01':
       sAssocieA: 55245
       name: Nonsard

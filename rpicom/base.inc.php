@@ -218,7 +218,7 @@ class Base {
     }
     else {
       $record = $this->$key;
-      echo "key=$key, record="; print_r($record); echo 'merge='; print_r($merge);
+      //echo "key=$key, record="; print_r($record); echo 'merge='; print_r($merge);
       foreach ($merge as $key2 => $val) {
         if (isset($record[$key2])) {
           echo "création d'un bis sur $key/$key2\n";
