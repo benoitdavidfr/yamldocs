@@ -6,6 +6,15 @@ doc: |
   La classe MultiGroupMvts gère les qqs cas où sur une même entité 2 GroupMvts sont concomitants.
   Si on ne détecte pas ces cas, dans addToRpicom() les effets d'un des 2 GroupMvts sont écrasés par l'autre.
   addToRpicom() génère dans rpicom.yam des dates bis non conformes au schéma
+
+  Il y a 6 MultiGroupMvts dans le fichier des mvts de 2020 qui génèrent des entrées bis dans le Rpicom:
+    création d'un bis sur 44225/2018-01-01
+    création d'un bis sur 49382/2016-01-01
+    création d'un bis sur 55273/1983-01-01
+    création d'un bis sur 55386/1983-01-01
+    création d'un bis sur 51369/1966-12-12
+    création d'un bis sur 51440/1950-06-17
+
 journal: |
   23/4/2020:
     - création

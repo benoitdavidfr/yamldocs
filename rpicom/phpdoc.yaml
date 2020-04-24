@@ -64,7 +64,6 @@ phpIncludes:
   - /yamldoc/pub/rpicom/grpmvts.inc.php
   - /yamldoc/pub/rpicom/mgrpmvts.inc.php
 htmlFiles:
-  - /yamldoc/pub/rpicom/conception.yaml
   - /yamldoc/pub/rpicom/dessin.yaml
   - /yamldoc/pub/rpicom/exfcoms.yaml
   - /yamldoc/pub/rpicom/exrpicom.yaml

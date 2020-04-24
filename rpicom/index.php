@@ -30,6 +30,7 @@ journal: |
 includes:
   - base.inc.php
   - grpmvts.inc.php
+  - mgrpmvts.inc.php
   - ../inc.php
 screens:
 classes:
