@@ -128,17 +128,21 @@ $schema:
                       anyOf: # le vérificateur n'arrive pas à détecter que les sous-schémas sont exclusifs
                         - description: libellé de l'évènement
                           enum:
-                            - Change de nom
                             - Prend des c. associées et/ou absorbe des c. fusionnées
-                            - Devient commune nouvelle
-                            - Devient commune nouvelle avec commune déléguée propre
-                            - Devient ou évolue comme commune nouvelle
-                            - Devient ou évolue comme commune nouvelle avec commune déléguée propre
+                            - Se crée en commune nouvelle
+                            - Se crée en commune nouvelle avec commune déléguée propre
                             - Absorbe certaines de ses c. rattachées ou certaines de ses c. associées deviennent déléguées
                             - Commune rétablissant des c. rattachées ou fusionnées
                             - Commune associée rétablie comme commune simple
                             - Commune déléguée rétablie comme commune simple
                             - Commune rattachée devient commune de rattachement
+                        - description: commune change de nom avec indication du nouveau nom
+                          type: object
+                          additionalProperties: false
+                          required: [changeDeNomPour]
+                          properties:
+                            changeDeNomPour:
+                              type: string
                         - description: c. supprimée avec ids des c. dans lesquelles son territoire a été réparti
                           type: object
                           additionalProperties: false
@@ -165,17 +169,6 @@ $schema:
                             contribueA:
                               type: [string, number]
                               format: '^\d[\dAB]\d\d\d$'
-                        - description: >
-                            c. absorbante dans une fusion simple ou c. nouv. sans c. dél. avec liste des id des c. absorbées
-                          type: object
-                          additionalProperties: false
-                          required: [absorbe]
-                          properties:
-                            absorbe:
-                              type: array
-                              items:
-                                type: [string, number]
-                                format: '^\d[\dAB]\d\d\d$'
                         - description: c. absorbée par une c. nouv. sans c. dél. avec id de la c. aborbante
                           type: object
                           additionalProperties: false
@@ -329,6 +322,9 @@ $schema:
     title:
       description: titre du document contenant le référentiel
       type: string
+    description:
+      description: explication sur le document contenant le référentiel
+      type: string
     created:
       description: date de création du document
       type: string
@@ -381,7 +377,7 @@ contents:
       commeDéléguée:
         name: Arbignieu
     '2016-01-01':
-      évènement: 'Devient commune nouvelle'
+      évènement: 'Se crée en commune nouvelle'
       name: Arbignieu
   '01340':
     now:
@@ -401,7 +397,7 @@ contents:
       commeDéléguée:
         name: Bellegarde-sur-Valserine
     '2019-01-01':
-      évènement: 'Devient commune nouvelle'
+      évènement: 'Se crée en commune nouvelle'
       name: Bellegarde-sur-Valserine
     '1971-01-01':
       évènement: 'Prend des c. associées et/ou absorbe des c. fusionnées'
@@ -410,7 +406,8 @@ contents:
       évènement: 'Prend des c. associées et/ou absorbe des c. fusionnées'
       name: Bellegarde-sur-Valserine
     '1956-10-19':
-      évènement: 'Change de nom'
+      évènement:
+        changeDeNomPour: Bellegarde-sur-Valserine
       name: Bellegarde
   '01018':
     '1971-01-01':
@@ -448,7 +445,8 @@ contents:
     now:
       name: Mont-Saint-Père
     '1979-06-15':
-      évènement: 'Change de nom'
+      évènement:
+        changeDeNomPour: Mont-Saint-Père
       name: Charmont-sur-Marne
     '1978-01-01':
       évènement: 'Commune rétablissant des c. rattachées ou fusionnées'

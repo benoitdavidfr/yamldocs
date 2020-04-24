@@ -994,9 +994,10 @@ EOT;
     switch($this->mod) {
       case '10': { // Changement de nom
         $fav2 = $this->factAvant2();
+        //echo Yaml::dump(['$fav2'=> $fav2]);
         $rpicom->mergeToRecord($fav2[0]['id'], [
           $this->date => [
-            'évènement'=> "Change de nom",
+            'évènement'=> ['changeDeNomPour'=> $fav2[0]['après'][0]['name']],
             'name'=> $fav2[0]['name'],
           ]
         ]);
@@ -1175,11 +1176,11 @@ EOT;
         if (!$pcrat) {
           $comrat = [
             'après'=> [ 'name'=> $ncrat['name'] ],
-            'évènement' => "Devient ou évolue comme commune nouvelle",
+            'évènement' => "Se crée en commune nouvelle",
             'name' => $ncrat['prevName'],
           ];
           if ($ana32['transformations'][$ncrat['id']]['après']) {
-            $comrat['évènement'] = "Devient ou évolue comme commune nouvelle avec commune déléguée propre";
+            $comrat['évènement'] = "Se crée en commune nouvelle avec commune déléguée propre";
             $comrat['après']['commeDéléguée'] = ['name'=> $ana32['transformations'][$ncrat['id']]['après']['name']];
           }
           $rpicom->mergeToRecord($ncrat['id'], [ $this->date => $comrat ]);
@@ -1193,7 +1194,7 @@ EOT;
             'name' => $ncrat['prevName'],
           ];
           if ($ana32['transformations'][$ncrat['id']]['après']) {
-            $comrat['évènement'] = "Devient commune nouvelle avec commune déléguée propre";
+            $comrat['évènement'] = "Se crée en commune nouvelle avec commune déléguée propre";
             $comrat['après']['commeDéléguée'] = ['name'=> $ana32['transformations'][$ncrat['id']]['après']['name']];
           }
           $rpicom->mergeToRecord($ncrat['id'], [ $this->date => $comrat ]);
@@ -1281,21 +1282,20 @@ EOT;
         // balaie les c. associées ou fusionnées
         foreach ($fav2 as $no => $avant) {
           if (count($avant['après']) == 1) { // cas {idi: [idr]} <=> idi fusionneDans idr
-            $rpicom->mergeToRecord($avant['id'], [
-              $this->date => [
-                'évènement'=> ['fusionneDans' => $idr],
-                'name' => $avant['name'],
-              ]
-            ]);
+            $com = [
+              'évènement'=> ['fusionneDans' => $idr],
+              'name' => $avant['name'],
+            ];
           }
           else { // {idi: [idia,  idr]} <=> idi s'associe à idr
-            $rpicom->mergeToRecord($avant['id'], [
-              $this->date => [
-                'évènement'=> ['sAssocieA' => $idr],
-                'name' => $avant['name'],
-              ]
-            ]);
+            $com = [
+              'évènement'=> ['sAssocieA' => $idr],
+              'name' => $avant['name'],
+            ];
           }
+          if ($avant['type'] == 'COMA')
+            $com['estAssociéeA'] = 'unknown';
+          $rpicom->mergeToRecord($avant['id'], [ $this->date => $com ]);
         }
         break;
       }

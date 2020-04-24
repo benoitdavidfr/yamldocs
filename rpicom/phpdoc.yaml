@@ -2,7 +2,13 @@ title: Référentiel pivot des codes INSEE des communes (RPiCom)
 path: /yamldoc/pub/rpicom
 doc: |
   Voir <a href='http://localhost/markdown/?file=/yamldoc/pub/rpicom/README.md'>README.md</a>.
+  Réflexions d'améliorations:
+    - ajouter une description au Rpicom renvoyant vers https://github.com/benoitdavidfr/yamldocs/tree/master/rpicom
+    - l'évt 'Change de nom' pourrait indiquer le nouveau nom -> changeDeNomPour: 
+    - évènement: 'Devient ou évolue comme commune nouvelle avec commune déléguée propre' -> 'Se crée comme c. nouvelle'
+
   A faire:
+    - revoir l'interpolation avec le bis
     - comparer un état à une date donnée issu de Rpicom avec les états fournis par l'INSEE
       - permet de vérifier la logique de génération du Rpicom
     - ajouter une composante géographique en intégrant au moins à partir d'AdminExpress l'emprise spatiale des c. simples

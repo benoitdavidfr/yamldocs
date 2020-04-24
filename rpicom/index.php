@@ -137,6 +137,16 @@ $menu = new Menu([
       "Affiche les groupes de mouvements avec possibilité de sélection"=> [],
     ],
   ],
+  'csvCom2Tab'=> [
+    // affichage d'un instantané des communes en tab
+    'argNames'=> ['file', 'format'], // liste des noms des arguments en plus de action
+    'actions'=> [
+      "Affiche communes2020.csv en tab"=> ['communes2020.csv', 'csv'],
+      "Affiche lcommunes-01012019.csv en tab"=> ['communes-01012019.csv', 'csv'],
+      "Affiche France2018.txt en tab"=> ['France2018.txt', 'txt'],
+      "Affiche France2000.txt en tab"=> ['France2000.txt', 'txt'],
+    ],
+  ],
   'csvCom2html'=> [
     // affichage d'un instantané des communes
     'argNames'=> ['file', 'format'], // liste des noms des arguments en plus de action
@@ -409,6 +419,25 @@ if ($_GET['action'] == 'csvMvt2yaml') { // affichage Yaml des mouvements
     }*/
     //if (++$nbrec >= 100) die("nbrec >= 100");
   }
+  die();
+}
+
+if ($_GET['action'] == 'csvCom2Tab') { // affichage tabulaire d'un fichier des communes
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>etat $_GET[file]</title></head><body>\n";
+  echo "<h3>Fichier $_GET[file]</h3>\n";
+  $file = fopen($_GET['file'], 'r');
+  $sep = $_GET['format'] == 'csv' ? ',' : "\t";
+  $headers = fgetcsv($file, 0, $sep);
+  // un des fichiers comporte des caractères parasites au début ce qui perturbe la détection des headers
+  foreach ($headers as $i => $header)
+    if (preg_match('!"([^"]+)"!', $header, $matches))
+      $headers[$i] = $matches[1];
+  echo "<table border=1>\n",
+    '<th>',implode('</th><th>', $headers),"</th>\n";
+  while($record = fgetcsv($file, 0, $sep)) {
+    echo "<tr><td>",implode('</td><td>', $record),"</td></tr>\n";
+  }
+  echo "</table>\n";
   die();
 }
 
@@ -1014,7 +1043,7 @@ if ($_GET['action'] == 'buildState') { // affichage Yaml de l'état des communes
       $childrenTag = ['aPourDéléguées', 'estDéléguéeDe']; 
     elseif ($enfant['typecom'] == 'ARM')
       $childrenTag = ['aPourArrondissementsMunicipaux', 'estArrondissementMunicipalDe']; 
-    $coms[$comparent][$childrenTag[0]][$c] = ['name'=> $enfant['nccenr']];
+    $coms[$comparent][$childrenTag[0]][$c] = ['name'=> $enfant['libelle']];
     if ($c <> $comparent)
       $coms[$c] = [$childrenTag[1] => $comparent];
   }
@@ -1345,6 +1374,7 @@ else
 EOT;
   $rpicom = [
     'title'=> "Référentiel rpicom",
+    'description'=> "Voir la documentation sur https://github.com/benoitdavidfr/yamldocs/tree/master/rpicom",
     'created'=> date(DATE_ATOM),
     '$schema'=> 'http://id.georef.eu/rpicom/exrpicom/$schema',
     'ydADscrBhv'=> [
@@ -1432,8 +1462,8 @@ if ($_GET['action'] == 'brpicom') { // construction du Rpicom v2
       if (isset($vcom['estAssociéeA']) && ($vcom['estAssociéeA'] == 'unknown')) {
         $unknownAssosVdate = $datev;
       }
-      elseif ($unknownAssosVdate && isset($vcom['sAssocieA'])) {
-        $rpicom[$unknownAssosVdate]['estAssociéeA'] = $vcom['sAssocieA'];
+      elseif ($unknownAssosVdate && isset($vcom['évènement']['sAssocieA'])) {
+        $rpicom[$unknownAssosVdate]['estAssociéeA'] = $vcom['évènement']['sAssocieA'];
         $rpicoms->$id = $rpicom;
         $unknownAssosVdate = null;
         break;
