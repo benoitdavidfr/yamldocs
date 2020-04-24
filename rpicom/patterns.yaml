@@ -506,13 +506,30 @@ mod32:
   label: 'Création de commune nouvelle'
   algo: |
     la c. nouvelle créée est la seule c. simple à droite, je l'appele idr
-    chaque règle est de la forme:
+    3 cas:
+      - création initiale d'une c. nouvelle
+      - modif d'une c. nouvelle par absorption de nlle c. ou prise de déléguées ss chgt d'id de rattachement
+      - transformation d'une c. nouvelle par absorption de nlle c. ou prise de déléguées avec chgt d'id de rattachement
+    
+    Le cas 3 est identifiable par l'existence simultanée des 2 règles:
+      {idrp: [idr]} et {idrpd: [idr, idrpd]} pour un rp qui est alors la précédente c. de rattachement
+      
+    Dans les cas 1 et 2 chaque règle est de la forme:
       {idr: [idr]} <=> idr devient commune nouvelle sans c. déléguée propre
+       ou
       {idr: [idr, idrd]} <=> idr devient commune nouvelle avec c. déléguée propre
+      
       {idi: [idr]} / i<>r <=> idi est absorbée dans idr
+       ou
       {idi: [idid, idr]} / i<>r <=> idi devient déléguée de idr
+      
       {idia: [idr]} / i<>r <=> est absorbée dans idr
+       ou
       {idia: [idid, idr]} / i<>r <=> idia devient déléguée de idr
+    
+    Dans le cas 3 chaque règle est de la forme:
+      {idrp: [idr]} et {idrpd: [idr, idrpd]} <=> chgt de c. de rattachement rp -> r
+      {idid: [idr, idid]} <=> chgt de c. rattachement de idid
   nbpatterns: 121
   patterns:
     - nb: 23

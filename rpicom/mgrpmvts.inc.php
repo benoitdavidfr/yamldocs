@@ -87,6 +87,14 @@ class MultiGroupMvts {
     echo "</table>\n";
   }
   
+  function mvtsPattern(Criteria $trace): array {
+    $pattern = [];
+    foreach ($this->groups as $mod => $group) {
+      $pattern[$mod] = $group->mvtsPattern($trace);
+    }
+    return $pattern;
+  }
+  
   // génère un nouvel objet contenant les factAvDefact() des 2 GroupMvts
   function factAvDefact(array $factAv=[]): MultiGroupMvts {
     $factAvDefact = new MultiGroupMvts();

@@ -1,8 +1,13 @@
 title: définition du schéma du référentiel pivot des codes INSEE des communes avec illustration
-modified: '2020-04-21'
+modified: '2020-04-24'
 description: |
   Le champ $schema contient le schéma du Rpicom.
   Le champ contents fournit des exemples illustratifs d'éléments de ce référentiel pour faciliter la compréhension du schéma.
+  Journal:
+    24/4/2020:
+      Modification importante du schéma pour intégrer les opérations dans un objet évènement.
+      Cela permet notamment facilement de supprimer de champ pour obtenir l'état avant l'évènement.
+      Intégration de la possibilité d'avoir 2 versions à une même date pour traiter le cas des opérations concomitantes.
 $schema:
   title: schéma du référentiel pivot des codes INSEE des communes
   $id: http://id.georef.eu/mvtscommunes/exrpicom/$schema
@@ -83,12 +88,12 @@ $schema:
                 sansSesAssociées:
                   description: si la c. a des c. associées alors cette partie définit les prop. de la c. sans ses associées
                   $ref: '#/definitions/sansSesAssociées'
-            '^\d\d\d\d-\d\d-\d\d$': # date
+            '^\d\d\d\d-\d\d-\d\d(-bis)?$': # date
               description: version historique datée
               oneOf:
-                - description: action d'évolution ou de disparition à cette date plus propriétés périmées après cette date 
+                - description: évt. d'évolution ou de disparition à cette date plus propriétés valides avant cette date 
                   type: object
-                  required: [name]
+                  required: [name, évènement]
                   additionalProperties: false
                   properties:
                     name:
@@ -118,122 +123,207 @@ $schema:
                     sansSesAssociées:
                       description: si la c. a des associées alors cette partie définit les prop. de la c. sans elles
                       $ref: '#/definitions/sansSesAssociées'
-                    # évènements d'évolution ou de disparition
                     évènement:
                       description: description de l'évènement ayant conduit au changement de version
-                      enum:
-                        - Change de nom
-                        - Prend des c. associées et/ou absorbe des c. fusionnées
-                        - Devient commune nouvelle
-                        - Absorbe certaines de ses c. rattachées ou certaines de ses c. associées deviennent déléguées
-                        - Commune rétablissant des c. rattachées ou fusionnées
-                        - Commune associée rétablie comme commune simple
-                        - Commune déléguée rétablie comme commune simple
-                        - Commune rattachée devient commune de rattachement
-                    seDissoutDans:
-                      description: c. supprimée avec liste des id des c. dans lesquelles son territoire a été réparti
-                      type: array
-                      items:
-                        type: [string, number]
-                        format: '^\d[\dAB]\d\d\d$'
-                    reçoitUnePartieDe:
-                      description: c. recevant un territoire d'une commune supprimée avec l'id de la c. supprimée
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
-                    contribueA:
-                      description: c. contribuant à une c. créée avec l'id de la c. créée
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
-                    absorbe:
-                      description: >
-                        c. absorbante dans une fusion simple ou c. nouv. sans c. dél. avec liste des id des c. absorbées
-                      type: array
-                      items:
-                        type: [string, number]
-                        format: '^\d[\dAB]\d\d\d$'
-                    sAbsorbeDans:
-                      description: >
-                        c. absorbée dans une fusion simple ou une c. nouv. sans c. dél. avec id de la c. aborbante
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
-                    sAssocieA:
-                      description: c. s'associant par fusion-association à une commune de rattachement
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
-                    fusionneDans:
-                      description: c. fusionnant par fusion-association dans une commune de rattachement
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
-                    resteAssociéeA:
-                      description: c. restant associée à l'occasion d'une absorption
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
-                    devientDéléguéeDe:
-                      description: c. devenant déléguée à l'occasion de la création d'une c. nouvelle
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
-                    resteDéléguéeDe:
-                      description: c. restant déléguée à l'occasion d'une absorption
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
-                    changedAssociéeEnDéléguéeDe:
-                      description: c. associée devient déléguée 
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
-                    changeDeDépartementEtPrendLeCode:
-                      description: c. changeant d'id lors d'un changement de département avec nouvel id
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
-                    perdRattachementPour:
-                      description: c. de rattachement perdant son statut au profit de la c. dont l'id est indiqué
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
-                    changeDeRattachementPour:
-                      description: c. rattachée changeant de c. de rattachement au profit de la c. dont l'id est indiqué
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
+                      anyOf: # le vérificateur n'arrive pas à détecter que les sous-schémas sont exclusifs
+                        - description: libellé de l'évènement
+                          enum:
+                            - Change de nom
+                            - Prend des c. associées et/ou absorbe des c. fusionnées
+                            - Devient commune nouvelle
+                            - Devient commune nouvelle avec commune déléguée propre
+                            - Devient ou évolue comme commune nouvelle
+                            - Devient ou évolue comme commune nouvelle avec commune déléguée propre
+                            - Absorbe certaines de ses c. rattachées ou certaines de ses c. associées deviennent déléguées
+                            - Commune rétablissant des c. rattachées ou fusionnées
+                            - Commune associée rétablie comme commune simple
+                            - Commune déléguée rétablie comme commune simple
+                            - Commune rattachée devient commune de rattachement
+                        - description: c. supprimée avec ids des c. dans lesquelles son territoire a été réparti
+                          type: object
+                          additionalProperties: false
+                          required: [seDissoutDans]
+                          properties:
+                            seDissoutDans:
+                              type: array
+                              items:
+                                type: [string, number]
+                                format: '^\d[\dAB]\d\d\d$'
+                        - description: c. recevant un territoire d'une commune supprimée avec l'id de la c. supprimée
+                          type: object
+                          additionalProperties: false
+                          required: [reçoitUnePartieDe]
+                          properties:
+                            reçoitUnePartieDe:
+                              type: [string, number]
+                              format: '^\d[\dAB]\d\d\d$'
+                        - description: commune contribuant à la création d'une commune avec l'id de la c. créée
+                          type: object
+                          additionalProperties: false
+                          required: [contribueA]
+                          properties:
+                            contribueA:
+                              type: [string, number]
+                              format: '^\d[\dAB]\d\d\d$'
+                        - description: >
+                            c. absorbante dans une fusion simple ou c. nouv. sans c. dél. avec liste des id des c. absorbées
+                          type: object
+                          additionalProperties: false
+                          required: [absorbe]
+                          properties:
+                            absorbe:
+                              type: array
+                              items:
+                                type: [string, number]
+                                format: '^\d[\dAB]\d\d\d$'
+                        - description: c. absorbée par une c. nouv. sans c. dél. avec id de la c. aborbante
+                          type: object
+                          additionalProperties: false
+                          required: [seFondDans]
+                          properties:
+                            seFondDans:
+                              type: [string, number]
+                              format: '^\d[\dAB]\d\d\d$'
+                        - description: c. s'associant par fusion-association à une commune de rattachement
+                          type: object
+                          additionalProperties: false
+                          required: [sAssocieA]
+                          properties:
+                            sAssocieA:
+                              type: [string, number]
+                              format: '^\d[\dAB]\d\d\d$'
+                        - description: c. fusionnant par fusion-association dans une commune dans laquelle elle fusionne
+                          type: object
+                          additionalProperties: false
+                          required: [fusionneDans]
+                          properties:
+                            fusionneDans:
+                              type: [string, number]
+                              format: '^\d[\dAB]\d\d\d$'
+                        - description: c. restant associée à l'occasion d'une absorption
+                          type: object
+                          additionalProperties: false
+                          required: [resteAssociéeA]
+                          properties:
+                            resteAssociéeA:
+                              type: [string, number]
+                              format: '^\d[\dAB]\d\d\d$'
+                        - description: c. devenant déléguée lors de la création d'une c. nouv. avec id de la c. déléguante
+                          type: object
+                          additionalProperties: false
+                          required: [devientDéléguéeDe]
+                          properties:
+                            devientDéléguéeDe:
+                              type: [string, number]
+                              format: '^\d[\dAB]\d\d\d$'
+                        - description: c. restant déléguée lors d'une absorption avec id de la c. déléguante
+                          type: object
+                          additionalProperties: false
+                          required: [resteDéléguéeDe]
+                          properties:
+                            resteDéléguéeDe:
+                              type: [string, number]
+                              format: '^\d[\dAB]\d\d\d$'
+                        - description: c. associée devient déléguée avec id de la c. déléguante
+                          type: object
+                          additionalProperties: false
+                          required: [changedAssociéeEnDéléguéeDe]
+                          properties:
+                            changedAssociéeEnDéléguéeDe:
+                              type: [string, number]
+                              format: '^\d[\dAB]\d\d\d$'
+                        - description: c. changeant d'id lors d'un changement de département avec nouvel id
+                          type: object
+                          additionalProperties: false
+                          required: [changeDeDépartementEtPrendLeCode]
+                          properties:
+                            changeDeDépartementEtPrendLeCode:
+                              type: [string, number]
+                              format: '^\d[\dAB]\d\d\d$'
+                        - description: c. de rattachement perdant son statut au profit de la c. dont l'id est indiqué
+                          type: object
+                          additionalProperties: false
+                          required: [perdRattachementPour]
+                          properties:
+                            perdRattachementPour:
+                              type: [string, number]
+                              format: '^\d[\dAB]\d\d\d$'
+                        - description: c. rattachée changeant de c. de rattachement au profit de la c. dont l'id est indiqué
+                          type: object
+                          additionalProperties: false
+                          required: [changeDeRattachementPour]
+                          properties:
+                            changeDeRattachementPour:
+                              type: [string, number]
+                              format: '^\d[\dAB]\d\d\d$'
                     après:
-                      description: propriété temporaire pour vérifier la cohérence
-                - description: action d'apparition à cette date
+                      description: propriétés valables après l'évènement
+                - description: évt. d'apparition à cette date
                   type: object
                   additionalProperties: false
                   properties:
                     évènement:
                       description: description de l'évènement ayant conduit l'apparition de l'entité
-                      enum:
-                        - Mayotte devient un DOM
-                    rétablieCommeSimpleDe:
-                      description: c. simple rétablie avec id de la c. dont elle est issue
-                      type: [string, number]
-                      pattern: '^\d[\dAB]\d\d\d$'
-                    rétablieCommeAssociéeDe:
-                      description: c. associée rétablie avec id de la c. dont elle est issue
-                      type: [string, number]
-                      pattern: '^\d[\dAB]\d\d\d$'
-                    rétabliCommeArrondissementMunicipalDe:
-                      description: arrondissement municipal rétabli avec id de celui dont il est issu
-                      type: [string, number]
-                      pattern: '^\d[\dAB]\d\d\d$'
-                    crééeAPartirDe:
-                      description: c. créée à cette date avec liste des id des communes dont provient son territoire
-                      type: array
-                      items:
-                        type: [string, number]
-                        pattern: '^\d[\dAB]\d\d\d$'
-                    changeDeDépartementEtAvaitPourCode:
-                      description: c. changeant de département avec précédent id
-                      type: [string, number]
-                      format: '^\d[\dAB]\d\d\d$'
-                    crééeParFusionSimpleDe:
-                      description: >
-                        c. créée par fusion simple à l'occasion de laquelle un nouvel id est créé avec liste des id
-                        des c. à partir desquelles cette fusion a été effectuée
-                      type: array
-                      items:
-                        type: [string, number]
-                        pattern: '^\d[\dAB]\d\d\d$'
+                      anyOf: # Le vérificateur n'arrive pas à voir que les possibilités sont exclusives
+                        - description: libellé de l'évènement
+                          enum:
+                            - entrée dans le périmètre du Rpicom
+                        - description: c. simple rétablie avec id de la c. dont elle est issue
+                          type: object
+                          additionalProperties: false
+                          required: [rétablieCommeSimpleDe]
+                          properties:
+                            rétablieCommeSimpleDe:
+                              type: [string, number]
+                              pattern: '^\d[\dAB]\d\d\d$'
+                        - description: c. associée rétablie avec id de la c. dont elle est issue
+                          type: object
+                          additionalProperties: false
+                          required: [rétablieCommeAssociéeDe]
+                          properties:
+                            rétablieCommeAssociéeDe:
+                              type: [string, number]
+                              pattern: '^\d[\dAB]\d\d\d$'
+                        - description: arrondissement municipal rétabli avec id de celui dont il est issu
+                          type: object
+                          additionalProperties: false
+                          required: [rétabliCommeArrondissementMunicipalDe]
+                          properties:
+                            rétabliCommeArrondissementMunicipalDe:
+                              type: [string, number]
+                              pattern: '^\d[\dAB]\d\d\d$'
+                        - description: c. créée avec liste des id des communes dont provient son territoire
+                          type: object
+                          additionalProperties: false
+                          required: [crééeAPartirDe]
+                          properties:
+                            crééeAPartirDe:
+                              type: array
+                              items:
+                                type: [string, number]
+                                pattern: '^\d[\dAB]\d\d\d$'
+                        - description: c. changeant de département avec précédent id
+                          type: object
+                          additionalProperties: false
+                          required: [changeDeDépartementEtAvaitPourCode]
+                          properties:
+                            changeDeDépartementEtAvaitPourCode:
+                              type: [string, number]
+                              format: '^\d[\dAB]\d\d\d$'
+                        - description: >
+                            c. créée par fusion simple à l'occasion de laquelle un nouvel id est créé avec liste des id
+                            des c. à partir desquelles cette fusion a été effectuée
+                          type: object
+                          additionalProperties: false
+                          required: [crééeParFusionSimpleDe]
+                          properties:
+                            crééeParFusionSimpleDe:
+                              type: array
+                              items:
+                                type: [string, number]
+                                pattern: '^\d[\dAB]\d\d\d$'
                     après:
-                      description: propriété temporaire pour vérifier la cohérence
+                      description: propriétés valables après l'évènement
   type: object
   properties:
     title:
@@ -298,7 +388,11 @@ contents:
       name: Saint-Bois
       estDéléguéeDe: '01015'
     '2016-01-01':
-      devientDéléguéeDe: '01015'
+      après:
+        name: Saint-Bois
+        estDéléguéeDe: '01015'
+      évènement:
+        devientDéléguéeDe: '01015'
       name: Saint-Bois
 
   '01033':
@@ -320,14 +414,16 @@ contents:
       name: Bellegarde
   '01018':
     '1971-01-01':
-      fusionneDans: '01033'
+      évènement:
+        fusionneDans: '01033'
       name: Arlod
   '01091':
     now:
       name: Châtillon-en-Michaille
       estDéléguéeDe: '01033'
     '2019-01-01':
-      devientDéléguéeDe: '01033'
+      évènement:
+        devientDéléguéeDe: '01033'
       name: Châtillon-en-Michaille
     '1985-02-01':
       après:
@@ -339,11 +435,13 @@ contents:
       name: Châtillon-de-Michaille
   '01278':
     '1985-02-01':
-      fusionneDans: '01091'
+      évènement:
+        fusionneDans: '01091'
       name: Ochiaz
       estAssociéeA: '01091'
     '1973-11-01':
-      sAssocieA: '01091'
+      évènement:
+        sAssocieA: '01091'
       name: Ochiaz
 
   '02524':
@@ -366,17 +464,20 @@ contents:
       name: Chartèves
       estAssociéeA: '02524'
     '1974-10-01':
-      sAssocieA: '02524'
+      évènement:
+        sAssocieA: '02524'
       name: Chartèves
 
   2A004:
     now:
       name: Ajaccio
     '1976-01-01':
-      changeDeDépartementEtAvaitPourCode: 20004
+      évènement:
+        changeDeDépartementEtAvaitPourCode: 20004
   20004:
     '1976-01-01':
-      changeDeDépartementEtPrendLeCode: 2A004
+      évènement:
+        changeDeDépartementEtPrendLeCode: 2A004
       name: Ajaccio
 
 eof:

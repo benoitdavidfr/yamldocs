@@ -6,6 +6,11 @@ doc: |
   La classe GroupMvts permet de regrouper des mouvements élémentaires correspondant à une évolution sémantique
   et de les exploiter.
 journal: |
+  24/4/2020:
+    - nlle version avec
+      - gestion des groupes de mvts concomitants avec MultiGroupMvts
+      - réécriture de addToRpicom() dans le cas 32 pour traiter le changement de c. nouvelle de rattachement
+      - modification du schéma pour isoler les évènements
   20/4/2020:
     - réécriture de GroupMvts::addToRpicom()
   19/4/2020:
@@ -93,23 +98,23 @@ Fusion:
   actions:
     - r est commune de rattachement
     - a s'associe à r {a: {sAssocieA: a}}
-    - r associe a
+    - r prend comme c. associée a
     - a fusionne dans r {a: {fusionneDans: r}}
     - r absorbe a
-    - r "Devient commune fusionnée"
+    - r "Prend des c. associées et/ou absorbe des c. fusionnées"
   état:
     - a est associée à r {a: {estAssociéeA: r}}
-    - r a pour associée a
+    - r a pour associée a {r: {aPourAssociées: [a]}}
 CommuneNouvelle:
   actions:
     - r est commune de rattachement
     - d devient déléguée de r {d: {devientDéléguéeDe: r}}
     - r délègue à d
-    - d s'absorbe dans r {d: {sAbsorbeDans: r}}
+    - d s'absorbe dans r {d: {sAbsorbeDans: r}} // ou se fond dans {d: {seFondDans: r}}
     - r absorbe d qd pas de commune déléguée
   état:
     - d est déléguée de r {d: {estDéléguéeDe: r}}
-    - r a pour déléguée d
+    - r a pour déléguée d {r: {aPourDéléguées: [d]}}
 général:
   absorption/absorbe =
     soit fusion simple d'un c. s. dans une autre
@@ -125,6 +130,8 @@ général:
       +- associée
       +- déléguée
 */}
+
+require_once __DIR__.'/../../../schema/jsonschema.inc.php';
 
 {/*PhpDoc: classes
 name: GroupMvts
@@ -355,7 +362,7 @@ class GroupMvts {
     echo "</table>\n";
   }
   
-  // factorisation des mvts sur l'avant utilisée par buildEvol()
+  // factorisation des mvts sur la partie avant et standardisation de cette factorisation en changeant l'ordre des mvts
   private function factorAvant(): array {
     {/*PhpDoc: methods
     name: factorAvant
@@ -486,7 +493,8 @@ class GroupMvts {
     return $factAv2;
   }
   
-  // structuration en [['id'=>id, ,'type'=>type, 'name'=>name, 'après'=> [['id'=>id, ,'type'=>type, 'name'=>name]]]]
+  // restructuration en [['id'=>id, ,'type'=>type, 'name'=>name, 'après'=> [['id'=>id, ,'type'=>type, 'name'=>name]]]]
+  // plus facile à utiliser dans addToRpicom()
   function factAvant2(): array {
     $fav2 = [];
     foreach ($this->factorAvant() as $idav => $avant1) {
@@ -801,6 +809,179 @@ class GroupMvts {
     }
   }
 
+  function analyzeMod32(): array { // analyse des GpMvts mode 32 et retourne une structure adhoc
+    // recherche de la nouvelle c. de rattachement
+    //echo "Appel de analyzeMod32()\n";
+    foreach ($this->mvts as $mvt) {
+      if ($mvt['après']['type'] == 'COM') {
+        $ncrat = $mvt['après'];
+        break;
+      }
+    }
+    if (!isset($ncrat)) {
+      die("<b>Erreur ncrat non trouvé</b>\n");
+    }
+    //echo Yaml::dump(['$ncrat'=> $ncrat], 1, 2);
+    $graphe = []; // [idav => [typav => avant + ['après'=> [typidap => après]]]
+    $mvts = []; // recopie des mvts non traités
+    foreach ($this->mvts as $mvt) {
+      if (($mvt['après']['type'] == 'COM') && ($mvt['après']['id'] == $ncrat['id'])) {
+        $graphe[$mvt['avant']['id']][$mvt['avant']['type']] = array_merge($mvt['avant'], ['après'=> []]);
+      }
+      else
+        $mvts[] = $mvt;
+    }
+    foreach ($mvts as $mvt) {
+      if (!isset($graphe[$mvt['avant']['id']][$mvt['avant']['type']]))
+        die("<b>entrée dans graphe non trouvée</b>\n");
+      $graphe[$mvt['avant']['id']][$mvt['avant']['type']]
+        ['après'][$mvt['après']['type'].$mvt['après']['id']] = $mvt['après'];
+    }
+    // $graphe : [idav => [typav => avant + ['après'=> [typidap => après]]]
+    if (1) { // vérification du schéma de $graphe
+      $schemaSrce = <<<'EOT'
+type: object
+additionalProperties: false
+patternProperties:
+  '^\d[\dAB]\d\d\d$': # idav
+    type: object
+    additionalProperties: false
+    patternProperties:
+      '^(COM|COMD|COMA)$': # typav
+        type: object
+        additionalProperties: false
+        properties:
+          type: {enum: [COM, COMD, COMA]}
+          id: {type: [string, integer]}
+          name: {type: string}
+          après:
+            type: object
+            additionalProperties: false
+            patternProperties:
+              '^(COM|COMD)\d[\dAB]\d\d\d$': # typidap
+                type: object
+                additionalProperties: false
+                properties:
+                  type: {enum: [COM, COMD]}
+                  id: {type: [string, integer]}
+                  name: {type: string}
+
+EOT;
+      $schema = new JsonSchema(Yaml::parse($schemaSrce));
+      $status = $schema->check($graphe);
+      if (!$status->ok()) {
+        echo Yaml::dump(['$graphe'=> $graphe], 3, 2);
+        $status->showErrors();
+        die("Arrêt ligne ".__LINE__);
+      }
+    }
+    $pcrat = null;
+    foreach ($graphe as $idav => $avant1) {
+      //echo Yaml::dump(['$graphe: $idav => $avant1'=> [$idav => $avant1]], 4, 2);
+      if ($idav == $ncrat['id']) { // ncrat
+        $ncrat['prevName'] = $avant1['COM']['name'];
+        //unset($graphe[$idav]['COM']);
+        //if (isset($graphe[$idav]['COMD']))
+          //$graphe[$idav] = $graphe[$idav]['COMD'];
+        $graphe[$idav] = array_values($avant1)[0];
+      }
+      elseif (count($avant1) > 1) {
+        echo "<b>Dans analyzeMod32() chgt de c. de rattachement de $idav pour $ncrat[id]</b>\n";
+        if ($pcrat) {
+          die("Erreur de 2nde précédente c. de rattachement\n");
+        }
+        $pcrat = $avant1['COM'];
+        unset($pcrat['après']);
+        //unset($graphe[$idav]['COM']);
+        $graphe[$idav] = $graphe[$idav]['COMD'];
+      }
+      else {
+        $graphe[$idav] = array_values($avant1)[0];
+      }
+      // $graphe : [ idav => avant + ['après'=> [typidap => après]]]
+      //echo Yaml::dump(['$graphe[$idav]'=> $graphe[$idav]], 4, 2);
+      if ($graphe[$idav]['après'])
+        $graphe[$idav]['après'] = array_values($graphe[$idav]['après'])[0];
+      // $graphe : [ idav => avant + ['après'=> après]]
+    }
+    if ($pcrat) {
+      //$this->show();
+      $result = [
+        'ncrat'=> $ncrat,
+        'pcrat'=> $pcrat,
+        'transformations'=> $graphe,
+      ];
+      //echo Yaml::dump(['$result'=> $result], 4, 2);
+    }
+    else {
+      //$this->show();
+      $result = [
+        'ncrat'=> $ncrat,
+        'transformations'=> $graphe,
+      ];
+      //echo Yaml::dump(['$result'=> $result], 4, 2);
+    }
+    /* Format du résultat
+    'ncrat' => ['type'=> type, 'id'=> id, 'name'=> name, 'prevName'=> prevName] // nlle commune de rattachement
+    ('pcrat' => ['type'=> type, 'id'=> id, 'name'=> name])? // évent. précédente c. de rattachement
+    'transformations' => [ // ens. de règles id -> id
+      id => ['type'=> type, 'id'=> id, 'name'=> name, 'après'=> ['type'=> type, 'id'=> id, 'name'=> name]]
+    ]
+    */
+    if (1) { // vérification du schéma du résultat
+      $schemaSrce = <<<'EOT'
+type: object
+additionalProperties: false
+required: [ncrat, transformations]
+properties:
+  ncrat:
+    type: object
+    additionalProperties: false
+    required: [type, id, name, prevName]
+    properties:
+      type: {enum: [COM]}
+      id: {type: [string, integer]}
+      name: {type: string}
+      prevName: {type: string}
+  pcrat:
+    type: object
+    additionalProperties: false
+    required: [type, id, name]
+    properties:
+      type: {enum: [COM]}
+      id: {type: [string, integer]}
+      name: {type: string}
+  transformations:
+    type: object
+    additionalProperties: false
+    patternProperties:
+      '^\d[\dAB]\d\d\d$': # id
+        type: object
+        additionalProperties: false
+        properties:
+          type: {enum: [COM, COMD, COMA]}
+          id: {type: [string, integer]}
+          name: {type: string}
+          après:
+            type: object
+            additionalProperties: false
+            properties:
+              type: {enum: [COMD]}
+              id: {type: [string, integer]}
+              name: {type: string}
+
+EOT;
+      $schema = new JsonSchema(Yaml::parse($schemaSrce));
+      $status = $schema->check($result);
+      if (!$status->ok()) {
+        echo Yaml::dump(['analyzeMod32():$result'=> $result], 6, 2);
+        $status->showErrors();
+        die("Arrêt ligne ".__LINE__);
+      }
+    }
+    return $result;
+  }
+
   function addToRpicom(Base $rpicom, Criteria $trace): void {
     {/*PhpDoc: methods
     name: rpicom
@@ -830,13 +1011,13 @@ class GroupMvts {
           $crééeAPartirDe[] = $avant['id'];
         $rpicom->mergeToRecord($idcréé, [
           $this->date => [
-            'crééeAPartirDe'=> $crééeAPartirDe,
+            'évènement'=> ['crééeAPartirDe'=> $crééeAPartirDe]
           ]
         ]);
         foreach ($fav2 as $avant) {
           $rpicom->mergeToRecord($avant['id'], [
             $this->date => [
-              'contribueA'=> $idcréé,
+              'évènement'=> ['contribueA'=> $idcréé],
               'name'=> $avant['name'],
             ]
           ]);
@@ -861,7 +1042,7 @@ class GroupMvts {
           $rpicom->mergeToRecord($ardtMcréé['id'], [
             $this->date => [
               'après'=> ['name' => $ardtMcréé['name']],
-              'rétabliCommeArrondissementMunicipalDe'=> $fav2[0]['id'],
+              'évènement'=> ['rétabliCommeArrondissementMunicipalDe'=> $fav2[0]['id']],
             ]
           ]);
           break;
@@ -906,7 +1087,7 @@ class GroupMvts {
           elseif ($avant['après'][0]['type'] == 'COMA') { // cas {idia: [idia]}  <=> la c.a. $idia reste associée
             $rpicom->mergeToRecord($avant['id'], [
               $this->date => [
-                'resteAssociéeA'=> $idr,
+                'évènement'=> ['resteAssociéeA'=> $idr],
                 'name'=> $avant['name'],
                 'estAssociéeA'=> $idr,
               ]
@@ -921,14 +1102,14 @@ class GroupMvts {
           if ($rétablie['type'] == 'COM') {
             $rpicom->mergeToRecord($rétablie['id'], [
               $this->date => [
-                'rétablieCommeSimpleDe'=> $idr,
+                'évènement'=> ['rétablieCommeSimpleDe'=> $idr],
               ]
             ]);
           }
           else {
             $rpicom->mergeToRecord($rétablie['id'], [
               $this->date => [
-                'rétablieCommeAssociéeDe'=> $idr,
+                'évènement'=> ['rétablieCommeAssociéeDe'=> $idr],
               ]
             ]);
           }
@@ -944,14 +1125,14 @@ class GroupMvts {
           $seDissoutDans[] = $après['id'];
         $rpicom->mergeToRecord($idsup, [
           $this->date => [
-            'seDissoutDans'=> $seDissoutDans,
+            'évènement'=> ['seDissoutDans'=> $seDissoutDans],
             'name'=> $fav2[0]['name'],
           ]
         ]);
         foreach ($fav2[0]['après'] as $après) {
           $rpicom->mergeToRecord($après['id'], [
             $this->date => [
-              'reçoitUnePartieDe'=> $idsup,
+              'évènement'=> ['reçoitUnePartieDe'=> $idsup],
               'name'=> $après['name'],
             ]
           ]);
@@ -960,57 +1141,105 @@ class GroupMvts {
       }
       
       case '32': { // Création de commune nouvelle
-        /* la c. nouvelle créée est la seule c. simple à droite, je l'apelle idr
-          chaque règle est de la forme:
-            {idr: [idr]} <=> idr devient commune nouvelle sans c. déléguée propre
-            {idr: [idr, idrd]} <=> idr devient commune nouvelle avec c. déléguée propre
-            {idi: [idr]} / i<>r <=> idi est absorbée dans idr
-            {idi: [idid, idr]} / i<>r <=> idi devient déléguée de idr
-            {idia: [idr]} / i<>r <=> est absorbée dans idr
-            {idia: [idid, idr]} / i<>r <=> idia devient déléguée de idr
+        // Il faut identifier un jeu test avec les différents cas type pour vérifier dessus le résultat
+        $jeutest = [
+          '49018', // chgt de c. de rattachement de 49101 pour 49018
+          '49101', // chgt de c. de rattachement de 49101 pour 49018
+          '49149', // chgt de c. de rattachement de 49149 pour 49261
+          '49261', // chgt de c. de rattachement de 49149 pour 49261
+          '49065', // chgt de c. de rattachement de 49065 pour 49080
+          '49080', // chgt de c. de rattachement de 49065 pour 49080
+          '21183', // avec 2 déléguées
+          '01033', // avec 3 déléguées
+          '14126', // avec absorption des déléguées et COMA en entrée
+          '14514', // simple sans déléguée
+        ];
+        $jeutest = [];
+        
+        $ana32 = $this->analyzeMod32();
+        /* Format analyzeMod32()
+        'ncrat' => ['type'=> type, 'id'=> id, 'name'=> name, 'prevName'=> prevName] // nlle commune de rattachement
+        ('pcrat' => ['type'=> type, 'id'=> id, 'name'=> name])? // évent. précédente c. de rattachement
+        'transformations' => [ // ens. de règles id -> id
+          id => ['type'=> type, 'id'=> id, 'name'=> name, 'après'=> ['type'=> type, 'id'=> id, 'name'=> name]]
+        ]
         */
-        //$factAv = $this->factorAvant($trace);
-        $fav2 = $this->factAvant2();
-        // identif. de la c. de rettachement
-        if ($fav2[0]['après'][0]['type'] == 'COM')
-          $idr = $fav2[0]['après'][0]['id'];
-        else
-          $idr = $fav2[0]['après'][1]['id'];
-        foreach ($fav2 as $noav => $avant) {
-          if ($avant['id'] == $idr) { // cas { idr ... }
-            if (count($avant['après']) == 1) { // cas { idr: [idr] } <=> idr devient c. nouvelle sans c. déléguée propre
-              $comr = [
-                'évènement' => "Devient commune nouvelle",
-                'name' => $avant['name'],
+        $ncrat = $ana32['ncrat'];
+        if (in_array($ncrat['id'], $jeutest)) {
+          $this->show();
+          echo Yaml::dump(['$ana32'=> $ana32], 4, 2);
+          $rpicom->startExtractAsYaml();
+        }
+        
+        $pcrat = $ana32['pcrat'] ?? null;
+        if (!$pcrat) {
+          $comrat = [
+            'après'=> [ 'name'=> $ncrat['name'] ],
+            'évènement' => "Devient ou évolue comme commune nouvelle",
+            'name' => $ncrat['prevName'],
+          ];
+          if ($ana32['transformations'][$ncrat['id']]['après']) {
+            $comrat['évènement'] = "Devient ou évolue comme commune nouvelle avec commune déléguée propre";
+            $comrat['après']['commeDéléguée'] = ['name'=> $ana32['transformations'][$ncrat['id']]['après']['name']];
+          }
+          $rpicom->mergeToRecord($ncrat['id'], [ $this->date => $comrat ]);
+        }
+        else {
+          $comrat = [
+            'après'=> [
+              'name'=> $ncrat['name']
+            ],
+            'évènement' => "Devient commune nouvelle",
+            'name' => $ncrat['prevName'],
+          ];
+          if ($ana32['transformations'][$ncrat['id']]['après']) {
+            $comrat['évènement'] = "Devient commune nouvelle avec commune déléguée propre";
+            $comrat['après']['commeDéléguée'] = ['name'=> $ana32['transformations'][$ncrat['id']]['après']['name']];
+          }
+          $rpicom->mergeToRecord($ncrat['id'], [ $this->date => $comrat ]);
+          $compcrat = [
+            'évènement'=> ['perdLeStatutDeCommuneNouvelleAuProfitDe' => $ncrat['id']],
+            'name' => $pcrat['name'],
+          ];
+          if ($ana32['transformations'][$pcrat['id']]) {
+            $compcrat['commeDéléguée'] = ['name'=> $ana32['transformations'][$pcrat['id']]['name']];
+          }
+          $rpicom->mergeToRecord($pcrat['id'], [ $this->date => $compcrat ]);
+        }
+        // expression de l'évolution du statut des communes autres que ncrat et pcrat ainsi que leur ancien état
+        foreach ($ana32['transformations'] as $id => $transfo) {
+          // $transfo : ['type'=> type, 'id'=> id, 'name'=> name, 'après'=> ['type'=> type, 'id'=> id, 'name'=> name]]
+          if (($id <> $ncrat['id']) && (!$pcrat || ($id <> $pcrat['id']))) {
+            if ($transfo['après']) {
+              $comd = [
+                'après'=> [
+                  'name'=> $transfo['après']['name'],
+                  'estDéléguéeDe'=> $ncrat['id'],
+                ],
+              ];
+              if (($transfo['type'] <> 'COMD') || $pcrat)
+                $comd['évènement'] = ['devientDéléguéeDe'=> $ncrat['id']];
+              else
+                $comd['évènement'] = ['resteDéléguéeDe'=> $ncrat['id']];
+              $comd['name'] = $transfo['name'];
+            }
+            else {
+              $comd = [
+                'après'=> [], // signifie qu'elle disparait
+                'évènement'=> ['seFondDans'=> $ncrat['id']],
+                'name'=> $transfo['name'],
               ];
             }
-            else { // cas {idr: [idr, idrd]}
-              $comr = [
-                'évènement' => "Devient commune nouvelle",
-                'name' => $avant['name'],
-              ];
-            }
-          }
-          elseif (count($avant['après']) == 1) { // cas {idi: [idr]} ou {idia: [idr]}
-            $com = [
-              'sAbsorbeDans' => $idr,
-              'name'=> $avant['name'],
-            ];
-            if ($avant['type'] == 'COMA')
-              $com['estAssociéeA'] = 'unknown';
-            $rpicom->mergeToRecord($avant['id'], [ $this->date => $com ]);
-          }
-          else { // {idi: [idid, idr]} ou {idia: [idid, idr]}
-            $com = [
-              'devientDéléguéeDe' => $idr,
-              'name'=> $avant['name'],
-            ];
-            if ($avant['type'] == 'COMA')
-              $com['estAssociéeA'] = 'unknown';
-            $rpicom->mergeToRecord($avant['id'], [ $this->date => $com ]);
+            if ($transfo['type'] == 'COMA')
+              $comd['estAssociéeA'] = 'unknown';
+            elseif ($transfo['type'] == 'COMD')
+              $comd['estDéléguéeDe'] = 'unknown';
+            $rpicom->mergeToRecord($id, [ $this->date => $comd ]);
           }
         }
-        $rpicom->mergeToRecord($idr, [ $this->date => $comr ]);
+        if (in_array($ncrat['id'], $jeutest)) {
+          $rpicom->showExtractAsYaml(5, 2);
+        }
         break;
       }
       
@@ -1045,7 +1274,7 @@ class GroupMvts {
           }
           $rpicom->mergeToRecord($idr, [
             $this->date => [
-              'crééeParFusionSimpleDe' => $fusionnées,
+              'évènement'=> ['crééeParFusionSimpleDe' => $fusionnées],
             ]
           ]);
         }
@@ -1054,7 +1283,7 @@ class GroupMvts {
           if (count($avant['après']) == 1) { // cas {idi: [idr]} <=> idi fusionneDans idr
             $rpicom->mergeToRecord($avant['id'], [
               $this->date => [
-                'fusionneDans' => $idr,
+                'évènement'=> ['fusionneDans' => $idr],
                 'name' => $avant['name'],
               ]
             ]);
@@ -1062,7 +1291,7 @@ class GroupMvts {
           else { // {idi: [idia,  idr]} <=> idi s'associe à idr
             $rpicom->mergeToRecord($avant['id'], [
               $this->date => [
-                'sAssocieA' => $idr,
+                'évènement'=> ['sAssocieA' => $idr],
                 'name' => $avant['name'],
               ]
             ]);
@@ -1093,7 +1322,7 @@ class GroupMvts {
               $état = $avant['type']=='COMA' ? 'estAssociéeA' : ($avant['type']=='COMD' ? 'estDéléguéeDe' : $avant['type']);
               $rpicom->mergeToRecord($avant['id'], [
                 $this->date => [
-                  'fusionneDans'=> $idr,
+                  'évènement'=> ['fusionneDans'=> $idr],
                   'name'=> $avant['name'],
                    $état=> $idr,
                 ]
@@ -1106,7 +1335,7 @@ class GroupMvts {
             $état = $avant['type']=='COMA' ? 'estAssociéeA' : ($avant['type']=='COMD' ? 'estDéléguéeDe' : $avant['type']);
             $rpicom->mergeToRecord($avant['id'], [
               $this->date => [
-                $action => $idr,
+                'évènement'=> [$action => $idr],
                 'name' => $avant['name'],
                  $état => $idr,
               ]
@@ -1119,7 +1348,7 @@ class GroupMvts {
             $état = $avant['type']=='COMA' ? 'estAssociéeA' : ($avant['type']=='COMD' ? 'estDéléguéeDe' : $avant['type']);
             $rpicom->mergeToRecord($avant['id'], [
               $this->date => [
-                'changedAssociéeEnDéléguéeDe' => $idr,
+                'évènement'=> ['changedAssociéeEnDéléguéeDe' => $idr],
                 'name' => $avant['name'],
                  $état => $idr,
               ]
@@ -1142,14 +1371,14 @@ class GroupMvts {
         // Le code avant est créé
         $rpicom->mergeToRecord($fav2[0]['id'], [
           $this->date => [
-            'changeDeDépartementEtPrendLeCode'=> $fav2[0]['après'][0]['id'],
+            'évènement'=> ['changeDeDépartementEtPrendLeCode'=> $fav2[0]['après'][0]['id']],
             'name'=> $fav2[0]['name'],
           ]
         ]);
         // le code après disparait
         $rpicom->mergeToRecord($fav2[0]['après'][0]['id'], [
           $this->date => [
-            'changeDeDépartementEtAvaitPourCode'=> $fav2[0]['id'],
+            'évènement'=> ['changeDeDépartementEtAvaitPourCode'=> $fav2[0]['id']],
           ]
         ]);
         break;
@@ -1171,7 +1400,7 @@ class GroupMvts {
         $ratav = array_shift($fav2);
         $rpicom->mergeToRecord($ratav['id'], [
           $this->date => [
-            'perdRattachementPour'=> $ratav['après'][1]['id'],
+            'évènement'=> ['perdRattachementPour'=> $ratav['après'][1]['id']],
             'name'=> $ratav['name'],
           ]
         ]);
@@ -1179,7 +1408,7 @@ class GroupMvts {
         foreach($fav2 as $avant) {
           $rpicom->mergeToRecord($avant['id'], [
             $this->date => [
-              'changeDeRattachementPour'=> $avant['après'][1]['id'],
+              'évènement'=> ['changeDeRattachementPour'=> $avant['après'][1]['id']],
               'name'=> $avant['name'],
               'estAssociéeA'=> $ratav['id'],
             ]

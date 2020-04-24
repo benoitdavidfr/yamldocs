@@ -198,6 +198,18 @@ $menu = new Menu([
       "affichage de l'état au 1/1/2000"=> [ '2000-01-01', 'France2000.txt', 'txt']
     ],
   ],
+  'mvtsPatterns'=> [
+    'argNames'=> [],
+    'actions'=> [
+      "génération des motifs des gpes de mouvements existants dans le fichier des mouvements"=> [],
+    ],
+  ],
+  'analyzeMod32'=> [
+    'argNames'=> [],
+    'actions'=> [
+      "analyse des mouvements de création de commune nouvelle (32)"=> [],
+    ],
+  ],
   'genEvols'=> [
     'argNames'=> [],
     'actions'=> [
@@ -765,31 +777,30 @@ if ($_GET['action'] == 'mvtsPatterns') { // génération des motifs de mouvement
   $patterns = []; // liste des patterns produits avec comme clé le JSON du pattern sans example
   //$trace = new Criteria([]); // full trace
   $trace = new Criteria(['not']); // NO trace
-  $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms et tri par ordre chrono
+  $mvtcoms = GroupMvts::readMvtsInseePerDate(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms et tri par ordre chrono
   //$mvtcoms = ['2019-01-01' => $mvtcoms['2019-01-01']];
   //$mvtcoms = ['2018-01-01' => $mvtcoms['2018-01-01']];
   $nbpatterns = 0;
   foreach($mvtcoms as $date_eff => $mvtcomsD) {
-    foreach($mvtcomsD as $mod => $mvtcomsDM) {
-      foreach (GroupMvts::buildGroups($mvtcomsDM) as $group) {
-        if ($trace->is(['mod'=> $mod]))
-          echo Yaml::dump(['$group'=> $group->asArray()], 3, 2);
-        //if ($group->asArray()['mvts'][0]['avant']['id'] <> '49094') continue; // sélection pour debuggage
-        $pattern = $group->mvtsPattern($trace);
-        if ($trace->is(['mod'=> $mod]))
-          echo '<b>',Yaml::dump(['$pattern'=> $pattern], 3, 2),"</b>\n";
-        elseif (isset($pattern['ERREUR']) || isset($pattern['ALERTE']))
-          echo '<b>',Yaml::dump(['$pattern'=> $pattern], 5, 2),"</b>\n";
-        $patternWOEx = $pattern;
-        unset($patternWOEx['example']);
-        $key = json_encode($patternWOEx, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
-        if (!isset($patterns[$mod][$key])) {
-          $patterns[$mod][$key] = $pattern;
-          $nbpatterns++;
-        }
-        else
-          $patterns[$mod][$key]['nb']++;
+    foreach (GroupMvts::buildGroups($mvtcomsD) as $group) {
+      $mod = $group->mod();
+      if ($trace->is(['mod'=> $mod]))
+        echo Yaml::dump(['$group'=> $group->asArray()], 3, 2);
+      //if ($group->asArray()['mvts'][0]['avant']['id'] <> '49094') continue; // sélection pour debuggage
+      $pattern = $group->mvtsPattern($trace);
+      if ($trace->is(['mod'=> $mod]))
+        echo '<b>',Yaml::dump(['$pattern'=> $pattern], 3, 2),"</b>\n";
+      elseif (isset($pattern['ERREUR']) || isset($pattern['ALERTE']))
+        echo '<b>',Yaml::dump(['$pattern'=> $pattern], 5, 2),"</b>\n";
+      $patternWOEx = $pattern;
+      unset($patternWOEx['example']);
+      $key = json_encode($patternWOEx, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+      if (!isset($patterns[$mod][$key])) {
+        $patterns[$mod][$key] = $pattern;
+        $nbpatterns++;
       }
+      else
+        $patterns[$mod][$key]['nb']++;
     }
   }
   ksort($patterns);
@@ -820,24 +831,43 @@ if ($_GET['action'] == 'mvtsPatterns') { // génération des motifs de mouvement
     'title'=> "liste des $nbpatterns motifs issus de GroupMvts::mvtsPattern()",
     'created'=> date(DATE_ATOM),
   ];
-  echo preg_replace('!-\n +!', '- ', Yaml::dump($yaml, 5, 2));
+  echo Yaml::dump($yaml, 5, 2);
   foreach ($patterns as $mod => $patternMods) {
-    $yaml = [
-      'label'=> GroupMvts::ModLabels[$mod],
-      'nbpatterns'=> count($patternMods),
-      'patterns'=> [],
-    ];
-    foreach ($patternMods as $json => $pattern) {
-      $yaml['patterns'][] = [
-        'nb'=> $pattern['nb'],
-        'règles'=> $pattern['règles'],
-        'example'=> [
-          'factAv'=> $pattern['example']['factAv'],
-          'group'=> $pattern['example']['group']->asArray(),
-        ],
-      ];
+    if (!isset(GroupMvts::ModLabels[$mod])) {
+      echo "mod$mod: MultiGroupMvts\n";
     }
-    echo preg_replace('!-\n +!', '- ', Yaml::dump(["mod$mod" => $yaml], 5, 2));
+    else {
+      $yaml = [
+        'label'=> GroupMvts::ModLabels[$mod],
+        'nbpatterns'=> count($patternMods),
+        'patterns'=> [],
+      ];
+      foreach ($patternMods as $json => $pattern) {
+        $yaml['patterns'][] = [
+          'nb'=> $pattern['nb'],
+          'règles'=> $pattern['règles'],
+          'example'=> [
+            'factAv'=> $pattern['example']['factAv'],
+            'group'=> $pattern['example']['group']->asArray(),
+          ],
+        ];
+      }
+      echo preg_replace('!-\n +!', '- ', Yaml::dump(["mod$mod" => $yaml], 5, 2));
+    }
+  }
+  die();
+}
+
+if ($_GET['action'] == 'analyzeMod32') { // analyse des motifs de mouvements existants pour mod=32
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>mvtsPat32</title></head><body><pre>\n";
+  $mvtcoms = GroupMvts::readMvtsInseePerDate(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms et tri par ordre chrono
+  $nbpatterns = 0;
+  foreach($mvtcoms as $date_eff => $mvtcomsD) {
+    foreach (GroupMvts::buildGroups($mvtcomsD) as $group) {
+      $mod = $group->mod();
+      if ($mod <> '32') continue;
+      $group->analyzeMod32();
+    }
   }
   die();
 }
@@ -1376,7 +1406,7 @@ if ($_GET['action'] == 'brpicom') { // construction du Rpicom v2
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>brpicom</title></head><body><pre>\n";
   //$trace = new Criteria([]); // aucun critère, tout est affiché
   $trace = new Criteria(['not']); // rien n'est affiché
-  //$trace = new Criteria(['mod'=> ['21']]);
+  //$trace = new Criteria(['mod'=> ['32']]);
   //$trace = new Criteria(['mod'=> ['not'=> ['10','21','31','20','30','41','33','34','50','32']]]); 
 
   // fabrication de la version initiale du RPICOM avec les communes du 1/1/2020 comme 'now'
@@ -1417,7 +1447,7 @@ if ($_GET['action'] == 'brpicom') { // construction du Rpicom v2
     }
     // Post-traitement no 2 pour indiquer que Mayote est devenu DOM le 31 mars 2011
     if (substr($id, 0, 3) == '976') {
-      $rpicom['2011-03-31'] = ['évènement' => "Mayotte devient un DOM"];
+      $rpicom['2011-03-31'] = ['évènement' => "entrée dans le périmètre du Rpicom"];
       $rpicoms->$id = $rpicom;
     }
   }
@@ -1630,11 +1660,11 @@ if ($_GET['action'] == 'showGrpMvts') { // consultation des GroupMvts avec possi
         elseif (($group->mod() <> $_GET['mod']))
           continue;
       }
-      //$group = $group->factAvDefact();
       if (isset($_GET['id']) && $_GET['id'] && !in_array($_GET['id'], $group->ids()))
         continue;
       if (isset($_GET['name']) && $_GET['name'] && !in_array($_GET['name'], $group->names()))
         continue;
+      $group = $group->factAvDefact();
       $group->show();
     }
   }
