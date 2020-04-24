@@ -3,9 +3,8 @@
 name: mgrpmvts.inc.php
 title: mgrpmvts.inc.php - définition de la classe MultiGroupMvts
 doc: |
-  La classe MultiGroupMvts gère les qqs cas où sur une même entité 2 GroupMvts sont concomitants.
-  Si on ne détecte pas ces cas, dans addToRpicom() les effets d'un des 2 GroupMvts sont écrasés par l'autre.
-  addToRpicom() génère dans rpicom.yam des dates bis non conformes au schéma
+  La classe MultiGroupMvts gère les 6 cas où sur une même entité 2 GroupMvts sont concomitants.
+  Si on ne traite pas ces cas, dans addToRpicom() les effets d'un des 2 GroupMvts sont écrasés par l'autre.
 
   Il y a 6 MultiGroupMvts dans le fichier des mvts de 2020 qui génèrent des entrées bis dans le Rpicom:
     création d'un bis sur 44225/2018-01-01

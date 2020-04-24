@@ -1577,6 +1577,7 @@ if ($_GET['action'] == 'nombres') { // dénombrement
   //print_r($comptesParAnnee);
   krsort($comptesParAnnee);
   $comments = [
+    '2020-01-01'=> "Limitation du nbre de modifications en raison des élections municipales de 2020",
     '2019-01-01'=> "Incitations financières à la création de communes nouvelles",
     '2017-01-01'=> "Incitations financières à la création de communes nouvelles",
     '2016-Z'=> "Incitations financières à la création de communes nouvelles",
@@ -1584,17 +1585,19 @@ if ($_GET['action'] == 'nombres') { // dénombrement
     '2015-Z'=> "Incitations financières à la création de communes nouvelles",
     '2015-01-01'=> "Incitations financières à la création de communes nouvelles",
     '2010-Z'=> "Entrée dans le Rpicom le 31 mars 2011 des 17 communes de Mayotte",
-    '2007-Z'=> "Sortie du Rpicom le 15 juillet 2007 de Saint-Barthélémy et de Saint-Martin",
+    '2007-Z'=> "Sortie du Rpicom le 15 juillet 2007 de Saint-Barthélemy et de Saint-Martin",
     '1976-01-01'=> "Bi-départementalisation de la Corse",
     '1968-01-01'=> "Création des départements 91, 92, 93, 94 et 95",
   ];
+  $comModif['2007-Z'] = -2;
+  $comModif['2010-Z'] = 17;
   $headers = ['année','T','+','-','CD','M',"T'",'commentaire'];
   if (1) { // en html
     echo "</pre><table border=1>\n","<th>",implode('</th><th>', $headers),"</th>\n";
     foreach ($comptesParAnnee as $annee => $ca) {
       if (isset($ca['T']))
         $total = $ca['T'];
-      $total -= ($ca['+'] ?? 0) - ($ca['-'] ?? 0);
+      $total -= ($ca['+'] ?? 0) - ($ca['-'] ?? 0) + ($comModif[$annee] ?? 0);
       echo "<tr><td>$annee</td><td>",$ca['T'] ?? '',"</td>",
         "<td>",$ca['+'] ?? '',"</td><td>",$ca['-'] ?? '',"</td><td>",$ca['CD'] ?? '',"</td>",
         "<td>",$ca['M'] ?? '',"</td>",
@@ -1604,14 +1607,17 @@ if ($_GET['action'] == 'nombres') { // dénombrement
   }
   if (1) { // en Markdown
     echo "<h2>Markdown</h2>\n";
-    $headers = ['année','T','+','-','CD','M','commentaire'];
+    $headers = ['année','T','+','-','CD','M',"T'",'commentaire'];
     echo "| ",implode(' | ', $headers)," |\n";
     foreach ($headers as $header) echo "| - "; echo "|\n";
     foreach ($comptesParAnnee as $annee => $ca) {
+      if (isset($ca['T']))
+        $total = $ca['T'];
+      $total -= ($ca['+'] ?? 0) - ($ca['-'] ?? 0);
       echo "| $annee | ",$ca['T'] ?? '',
         " | ",$ca['+'] ?? ''," | ",$ca['-'] ?? ''," | ",$ca['CD'] ?? '',
         " | ",$ca['M'] ?? '',
-        " | ",$comments[$annee] ?? '',"|\n";
+        " | ",$total," | ",$comments[$annee] ?? '',"|\n";
     }
   }
   die("\nFin nombres ok\n");
