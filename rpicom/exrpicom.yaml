@@ -10,7 +10,7 @@ description: |
       Intégration de la possibilité d'avoir 2 versions à une même date pour traiter le cas des opérations concomitantes.
 $schema:
   title: schéma du référentiel pivot des codes INSEE des communes
-  $id: http://id.georef.eu/mvtscommunes/exrpicom/$schema
+  $id: http://id.georef.eu/rpicom/exrpicom/$schema
   $schema: http://json-schema.org/draft-07/schema#
   description: Les codes INSEE de commune ayant existé avec infos versionnées associées en ordre chrono inverse
   definitions:

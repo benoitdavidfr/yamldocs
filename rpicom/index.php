@@ -1591,7 +1591,7 @@ if ($_GET['action'] == 'nombres') { // dénombrement
   ];
   $comModif['2007-Z'] = -2;
   $comModif['2010-Z'] = 17;
-  $headers = ['année','T','+','-','CD','M',"T'",'commentaire'];
+  $headers = ['date','T','+','-','CD','M',"T'",'commentaire'];
   if (1) { // en html
     echo "</pre><table border=1>\n","<th>",implode('</th><th>', $headers),"</th>\n";
     foreach ($comptesParAnnee as $annee => $ca) {
@@ -1607,7 +1607,7 @@ if ($_GET['action'] == 'nombres') { // dénombrement
   }
   if (1) { // en Markdown
     echo "<h2>Markdown</h2>\n";
-    $headers = ['année','T','+','-','CD','M',"T'",'commentaire'];
+    $headers = ['date','T','+','-','CD','M',"T'",'commentaire'];
     echo "| ",implode(' | ', $headers)," |\n";
     foreach ($headers as $header) echo "| - "; echo "|\n";
     foreach ($comptesParAnnee as $annee => $ca) {

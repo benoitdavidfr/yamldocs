@@ -117,7 +117,7 @@ On peut regrouper ces opérations dans les 6 opérations suivantes :
 
 ### Dénombrement
 
-Le tableau ci-dessous fournit un dénombrement des communes simples et de leurs évolutions :
+Le tableau ci-dessous fournit un dénombrement des communes simples et de leur évolution :
 
   - d'une part en distinguant les modifications au 1er janvier de celles en cours d'année,
   - d'autre part en fournissant
@@ -128,7 +128,7 @@ Le tableau ci-dessous fournit un dénombrement des communes simples et de leurs 
     - M : le nbre d'identifiants en dehors des précédents dont la localisation a changé,
     - T' : le nbre de communes simples au début de la période calculé par T' = T - '+' + '-'.
   
-| année | T | + | - | CD | M | T' | commentaire |
+| date | T | + | - | CD | M | T' | commentaire |
 | - | - | - | - | - | - | - | - |
 | 2020-01-01 | 34968 |  |  |  |  | 34968 | Limitation du nbre de modifications en raison des élections municipales de 2020|
 | 2019-Z |  | 1 | 3 |  | 4 | 34970 | |

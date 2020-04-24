@@ -2,7 +2,7 @@ title: définition du schéma des fichiers de communes avec exemple d'un tel fic
 modified: '2020-04-21'
 $schema:
   title: schéma des fichiers donnant une photo instantanée des communes
-  $id: http://id.georef.eu/mvtscommunes/exfcoms/$schema
+  $id: http://id.georef.eu/rpicom/exfcoms/$schema
   $schema: http://json-schema.org/draft-07/schema#
   description: |
     Liste de communes, communes associées, communes déléguées et ardts m. chacun identfié par son code INSEE.
