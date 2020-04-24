@@ -136,6 +136,7 @@ $schema:
                             - Commune associée rétablie comme commune simple
                             - Commune déléguée rétablie comme commune simple
                             - Commune rattachée devient commune de rattachement
+                            - Sort du périmètre du Rpicom # Cas de Saint-Martin et Saint-Barthélémy
                         - description: commune change de nom avec indication du nouveau nom
                           type: object
                           additionalProperties: false
@@ -260,7 +261,7 @@ $schema:
                       anyOf: # Le vérificateur n'arrive pas à voir que les possibilités sont exclusives
                         - description: libellé de l'évènement
                           enum:
-                            - entrée dans le périmètre du Rpicom
+                            - Entre dans le périmètre du Rpicom # Cas de Mayotte qui devient DOM le 31/03/2011
                         - description: c. simple rétablie avec id de la c. dont elle est issue
                           type: object
                           additionalProperties: false

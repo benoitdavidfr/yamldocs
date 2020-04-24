@@ -5,8 +5,8 @@
 all: rpicom fcoms
 clean:
 	rm -f rpicom.yaml com20200101.yaml com20190101.yaml com20180101.yaml com20170101.yaml \
-      com20100101.yaml com20000101.yaml com1943.yaml
-fcoms: com20200101 com20190101 com20180101 com20170101 com20100101 com20000101 com1943
+      com20100101.yaml com20000101.yaml com19430101.yaml
+fcoms: com20200101 com20190101 com20180101 com20170101 com20100101 com20000101 com19430101
 # Vérif. de rpicom / son schéma
 rpicom: rpicom.yaml exrpicom
 	php index.php check rpicom.yaml
@@ -56,7 +56,7 @@ com20000101: com20000101.yaml exfcoms
 com20000101.yaml: France2000.txt index.php
 	php index.php buildState 2000-01-01 France2000.txt txt > $@
 # 1943
-com1943: com1943.yaml exfcoms
-	php index.php check com1943.yaml
-com1943.yaml: index.php
+com19430101: com19430101.yaml exfcoms
+	php index.php check com19430101.yaml
+com19430101.yaml: index.php
 	php index.php genCom1943 > $@

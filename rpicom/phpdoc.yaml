@@ -3,14 +3,8 @@ path: /yamldoc/pub/rpicom
 doc: |
   Voir <a href='http://localhost/markdown/?file=/yamldoc/pub/rpicom/README.md'>README.md</a>.
   Réflexions d'améliorations:
-    - ajouter une description au Rpicom renvoyant vers https://github.com/benoitdavidfr/yamldocs/tree/master/rpicom
-    - l'évt 'Change de nom' pourrait indiquer le nouveau nom -> changeDeNomPour: 
-    - évènement: 'Devient ou évolue comme commune nouvelle avec commune déléguée propre' -> 'Se crée comme c. nouvelle'
 
   A faire:
-    - revoir l'interpolation avec le bis
-    - comparer un état à une date donnée issu de Rpicom avec les états fournis par l'INSEE
-      - permet de vérifier la logique de génération du Rpicom
     - ajouter une composante géographique en intégrant au moins à partir d'AdminExpress l'emprise spatiale des c. simples
       au 1/1/2020
     - rédiger une méthodo d'utilisation du Rpicom
@@ -22,10 +16,21 @@ doc: |
     Le 31 mars 2011, le Département de Mayotte est devenu officiellement le cent-unième département de France
     et son cinquième département d’outre-mer.
     Cet évt n'est pas explicité correctement dans le COG !
+    
+  Saint-Barthélémy:
+    Saint-Barthélemy est une île française des petites Antilles et une collectivité d'outre-mer (COM) au sens de l'article
+    74 de la Constitution depuis le 15 juillet 2007. Avant cette date, à laquelle le changement de statut a pris effet
+    lors de la réunion du conseil territorial nouvellement élu, elle était une commune et un arrondissement,
+    dépendant du département d’outre-mer de la Guadeloupe. 
+  Saint-Martin:
+    Saint-Martin est un territoire français situé dans les Caraïbes, dans la partie nord de l’île de Saint-Martin,
+    dans les Antilles, portant le statut de collectivité d'outre-mer française depuis le 15 juillet 2007. Avant cette date,
+    elle faisait partie intégrante du département d'outre-mer de la Guadeloupe. 
 journal: |
   24/4/2020:
     - modification du schéma de rpicom
     - réécriture de addToRpicom() dans le cas 32 pour traiter le changement de c. nouvelle de rattachement
+    - l'interpolation d'un état à une date à partir de rpicom fonctionne et met en lumière des bugs INSEE
   23/4/2020:
     - gestion de la concomitance de plusieurs GroupMvts sur une même entité
       - définition de la classe MultiGroupMvts qui gère cette concomitance

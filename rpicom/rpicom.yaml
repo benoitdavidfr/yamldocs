@@ -1,6 +1,6 @@
 title: 'Référentiel rpicom'
 description: 'Voir la documentation sur https://github.com/benoitdavidfr/yamldocs/tree/master/rpicom'
-created: '2020-04-24T10:31:41+00:00'
+created: '2020-04-24T15:16:18+00:00'
 $schema: 'http://id.georef.eu/rpicom/exrpicom/$schema'
 ydADscrBhv:
   jsonLdContext: 'http://schema.org'
@@ -20209,7 +20209,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Ammeville
-      estAssociéeA: 14697
+      estAssociéeA: 14624
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -20540,7 +20540,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Berville
-      estAssociéeA: 14697
+      estAssociéeA: 14624
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -21295,7 +21295,7 @@ contents:
       évènement:
         resteDéléguéeDe: 14579
       name: Coulvain
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 14579
     '2016-01-01':
       après:
         name: Coulvain
@@ -21581,7 +21581,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Écots
-      estAssociéeA: 14697
+      estAssociéeA: 14624
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -21910,7 +21910,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Garnetot
-      estAssociéeA: 14697
+      estAssociéeA: 14624
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -22020,7 +22020,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Grandmesnil
-      estAssociéeA: 14697
+      estAssociéeA: 14624
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -22360,7 +22360,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Lieury
-      estAssociéeA: 14697
+      estAssociéeA: 14624
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -22819,7 +22819,7 @@ contents:
       évènement:
         resteDéléguéeDe: 14475
       name: Missy
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 14475
     '2016-01-01':
       après:
         name: Missy
@@ -22925,7 +22925,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Montpinçon
-      estAssociéeA: 14697
+      estAssociéeA: 14624
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -24096,7 +24096,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Saint-Martin-de-Fresnay
-      estAssociéeA: 14697
+      estAssociéeA: unknown
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -26681,7 +26681,7 @@ contents:
       évènement:
         resteDéléguéeDe: 16046
       name: Cressac-Saint-Genis
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 16046
     '2017-01-01':
       après:
         name: Cressac-Saint-Genis
@@ -27369,7 +27369,7 @@ contents:
       évènement:
         resteDéléguéeDe: 16286
       name: Plaizac
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 16286
     '2016-01-01':
       après:
         name: Plaizac
@@ -27941,7 +27941,7 @@ contents:
       évènement:
         resteDéléguéeDe: 16286
       name: Sonneville
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 16286
     '2016-01-01':
       après:
         name: Sonneville
@@ -36922,7 +36922,7 @@ contents:
       évènement:
         resteDéléguéeDe: 22093
       name: Meslin
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 22093
     '2016-01-01':
       après:
         name: Meslin
@@ -38988,7 +38988,7 @@ contents:
       évènement:
         resteDéléguéeDe: 24053
       name: Atur
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 24053
     '2016-01-01':
       après:
         name: Atur
@@ -41011,7 +41011,7 @@ contents:
       évènement:
         seFondDans: 24064
       name: Saint-Julien-de-Bourdeilles
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 24064
     '2016-01-01':
       après:
         name: Saint-Julien-de-Bourdeilles
@@ -41058,7 +41058,7 @@ contents:
       évènement:
         resteDéléguéeDe: 24362
       name: Saint-Laurent-des-Bâtons
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 24362
     '2016-01-01':
       après:
         name: Saint-Laurent-des-Bâtons
@@ -41086,7 +41086,7 @@ contents:
       évènement:
         resteDéléguéeDe: 24053
       name: Saint-Laurent-sur-Manoire
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 24053
     '2016-01-01':
       après:
         name: Saint-Laurent-sur-Manoire
@@ -45751,7 +45751,7 @@ contents:
       évènement:
         seFondDans: 27198
       name: 'Le Roncenay-Authenay'
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 27198
     '2016-01-01':
       après:
         name: 'Le Roncenay-Authenay'
@@ -46497,7 +46497,7 @@ contents:
       évènement:
         seFondDans: 27198
       name: Condé-sur-Iton
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 27198
     '2016-01-01':
       après:
         name: Condé-sur-Iton
@@ -47153,7 +47153,7 @@ contents:
       évènement:
         seFondDans: 27198
       name: Gouville
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 27198
     '2016-01-01':
       après:
         name: Gouville
@@ -47561,7 +47561,7 @@ contents:
       évènement:
         seFondDans: 27198
       name: Manthelon
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 27198
     '2016-01-01':
       après:
         name: Manthelon
@@ -48088,7 +48088,7 @@ contents:
       évènement:
         seFondDans: 27198
       name: 'Le Sacq'
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 27198
     '2016-01-01':
       après:
         name: 'Le Sacq'
@@ -48707,7 +48707,7 @@ contents:
       évènement:
         resteDéléguéeDe: 27089
       name: Theillement
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 27089
     '2017-01-01':
       après:
         name: Theillement
@@ -49227,7 +49227,7 @@ contents:
       évènement:
         resteDéléguéeDe: 28406
       name: Baignolet
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 28406
     '2016-01-01':
       après:
         name: Baignolet
@@ -49765,7 +49765,7 @@ contents:
       évènement:
         resteDéléguéeDe: 28406
       name: Fains-la-Folie
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 28406
     '2016-01-01':
       après:
         name: Fains-la-Folie
@@ -49924,7 +49924,7 @@ contents:
       évènement:
         resteDéléguéeDe: 28406
       name: Germignonville
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 28406
     '2016-01-01':
       après:
         name: Germignonville
@@ -62230,7 +62230,7 @@ contents:
       évènement:
         resteDéléguéeDe: 36093
       name: Saint-Martin-de-Lamps
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 36093
     '2016-01-01':
       après:
         name: Saint-Martin-de-Lamps
@@ -65767,7 +65767,7 @@ contents:
       évènement:
         resteDéléguéeDe: 39378
       name: 'L''Aubépin'
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 39378
     '2016-04-01':
       après:
         name: 'L''Aubépin'
@@ -66242,7 +66242,7 @@ contents:
       évènement:
         resteDéléguéeDe: 39378
       name: Chazelles
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 39378
     '2016-04-01':
       après:
         name: Chazelles
@@ -66682,7 +66682,7 @@ contents:
       évènement:
         resteDéléguéeDe: 39209
       name: Florentia
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 39209
     '2016-01-01':
       après:
         name: Florentia
@@ -67462,7 +67462,7 @@ contents:
       évènement:
         resteDéléguéeDe: 39209
       name: Nantey
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 39209
     '2016-01-01':
       après:
         name: Nantey
@@ -67716,7 +67716,7 @@ contents:
       évènement:
         resteDéléguéeDe: 39286
       name: Ponthoux
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 39286
     '2016-01-01':
       après:
         name: Ponthoux
@@ -67758,7 +67758,7 @@ contents:
       évènement:
         resteDéléguéeDe: 39130
       name: Prénovel
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 39130
     '2016-01-01':
       après:
         name: Prénovel
@@ -68055,7 +68055,7 @@ contents:
       évènement:
         resteDéléguéeDe: 39209
       name: Senaud
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 39209
     '2016-01-01':
       après:
         name: Senaud
@@ -70273,7 +70273,7 @@ contents:
       évènement:
         resteDéléguéeDe: 41142
       name: Orchaise
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 41142
     '2016-01-01':
       après:
         name: Orchaise
@@ -79427,7 +79427,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49080
       name: Brissarthe
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49065
     '2016-12-15':
       après:
         name: Brissarthe
@@ -79807,7 +79807,7 @@ contents:
       évènement:
         resteDéléguéeDe: 49220
       name: Chemiré-sur-Sarthe
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49220
     '2016-01-01':
       après:
         name: Chemiré-sur-Sarthe
@@ -79826,7 +79826,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49261
       name: Chênehutte-Trèves-Cunault
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49149
     '2016-01-01':
       après:
         name: Chênehutte-Trèves-Cunault
@@ -79859,7 +79859,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49080
       name: Cherré
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49065
     '2016-12-15':
       après:
         name: Cherré
@@ -79951,7 +79951,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49080
       name: Contigné
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49065
     '2016-12-15':
       après:
         name: Contigné
@@ -80377,7 +80377,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49261
       name: Grézillé
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49149
     '2016-01-01':
       après:
         name: Grézillé
@@ -80701,7 +80701,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49080
       name: Marigné
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49065
     '2016-12-15':
       après:
         name: Marigné
@@ -80796,7 +80796,7 @@ contents:
       évènement:
         resteDéléguéeDe: 49092
       name: Melay
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49092
     '2013-01-01':
       après:
         name: Melay
@@ -80926,7 +80926,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49018
       name: Montpollin
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49018
     '2013-01-01':
       après:
         name: Montpollin
@@ -81186,7 +81186,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49018
       name: Pontigné
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49018
     '2013-01-01':
       après:
         name: Pontigné
@@ -81270,7 +81270,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49080
       name: Querré
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49065
     '2016-12-15':
       après:
         name: Querré
@@ -81466,7 +81466,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49261
       name: Saint-Georges-des-Sept-Voies
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49149
     '2016-01-01':
       après:
         name: Saint-Georges-des-Sept-Voies
@@ -81697,7 +81697,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49018
       name: 'Saint-Martin-d''Arcé'
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49018
     '2013-01-01':
       après:
         name: 'Saint-Martin-d''Arcé'
@@ -81976,7 +81976,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49080
       name: Sœurdres
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49065
     '2016-12-15':
       après:
         name: Sœurdres
@@ -82052,7 +82052,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49261
       name: 'Le Thoureil'
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49149
     '2016-01-01':
       après:
         name: 'Le Thoureil'
@@ -82255,7 +82255,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49018
       name: 'Le Vieil-Baugé'
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49018
     '2013-01-01':
       après:
         name: 'Le Vieil-Baugé'
@@ -82345,7 +82345,7 @@ contents:
       évènement:
         devientDéléguéeDe: 49018
       name: Vaulandry
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 49101
     '2013-01-01':
       après:
         name: Vaulandry
@@ -82409,7 +82409,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50400
       name: Amfreville
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50400
     '2016-01-01':
       après:
         name: Amfreville
@@ -82468,7 +82468,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50099
       name: Angoville-au-Plain
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50099
     '2016-01-01':
       après:
         name: Angoville-au-Plain
@@ -82738,7 +82738,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50523
       name: Beuzeville-au-Plain
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50523
     '2016-01-01':
       après:
         name: Beuzeville-au-Plain
@@ -82805,7 +82805,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50215
       name: Boisroger
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50215
     '2016-01-01':
       après:
         name: Boisroger
@@ -82956,7 +82956,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50099
       name: Brévands
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50099
     '2017-01-01':
       après:
         name: Brévands
@@ -83280,7 +83280,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50523
       name: Chef-du-Pont
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50523
     '2016-01-01':
       après:
         name: Chef-du-Pont
@@ -83490,7 +83490,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50400
       name: Cretteville
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50400
     '2016-01-01':
       après:
         name: Cretteville
@@ -83619,7 +83619,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50523
       name: Écoquenéauville
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50523
     '2016-01-01':
       après:
         name: Écoquenéauville
@@ -83700,7 +83700,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50592
       name: Fervaches
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50592
     '2016-01-01':
       après:
         name: Fervaches
@@ -83768,7 +83768,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50523
       name: Foucarville
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50523
     '2016-01-01':
       après:
         name: Foucarville
@@ -83925,7 +83925,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50400
       name: Gourbesville
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50400
     '2016-01-01':
       après:
         name: Gourbesville
@@ -83944,7 +83944,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50546
       name: Gourfaleur
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50546
     '2016-01-01':
       après:
         name: Gourfaleur
@@ -84186,7 +84186,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50099
       name: Houesville
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50099
     '2016-01-01':
       après:
         name: Houesville
@@ -84205,7 +84205,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50400
       name: Houtteville
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50400
     '2016-01-01':
       après:
         name: Houtteville
@@ -84244,7 +84244,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50419
       name: Hyenville
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50419
     '2016-01-01':
       après:
         name: Hyenville
@@ -84440,7 +84440,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50546
       name: 'La Mancellière-sur-Vire'
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50546
     '2016-01-01':
       après:
         name: 'La Mancellière-sur-Vire'
@@ -84653,7 +84653,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50139
       name: 'Le Mesnil-Raoult'
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50139
     '2016-01-01':
       après:
         name: 'Le Mesnil-Raoult'
@@ -85602,7 +85602,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50099
       name: Saint-Côme-du-Mont
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50099
     '2016-01-01':
       après:
         name: Saint-Côme-du-Mont
@@ -86071,7 +86071,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50099
       name: Saint-Pellerin
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50099
     '2017-01-01':
       après:
         name: Saint-Pellerin
@@ -86133,7 +86133,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50546
       name: Saint-Romphaire
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50546
     '2016-01-01':
       après:
         name: Saint-Romphaire
@@ -86733,7 +86733,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50099
       name: 'Les Veys'
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50099
     '2017-01-01':
       après:
         name: 'Les Veys'
@@ -86839,7 +86839,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50400
       name: Vindefontaine
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50400
     '2016-01-01':
       après:
         name: Vindefontaine
@@ -91434,7 +91434,7 @@ contents:
       évènement:
         resteDéléguéeDe: 52064
       name: Nijon
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 52064
     '2016-06-01':
       après:
         name: Nijon
@@ -93654,7 +93654,7 @@ contents:
       évènement:
         resteDéléguéeDe: 53161
       name: Saint-Céneré
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 53161
     '2017-01-01':
       après:
         name: Saint-Céneré
@@ -108716,7 +108716,7 @@ contents:
       évènement:
         resteDéléguéeDe: 61153
       name: Batilly
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 61153
     '2016-01-01':
       après:
         name: Batilly
@@ -109219,7 +109219,7 @@ contents:
       évènement:
         resteDéléguéeDe: 61153
       name: 'La Courbe'
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 61153
     '2016-01-01':
       après:
         name: 'La Courbe'
@@ -109886,7 +109886,7 @@ contents:
       évènement:
         resteDéléguéeDe: 61153
       name: Loucé
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 61153
     '2016-01-01':
       après:
         name: Loucé
@@ -110987,7 +110987,7 @@ contents:
       évènement:
         resteDéléguéeDe: 61153
       name: Saint-Ouen-sur-Maire
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 61153
     '2016-01-01':
       après:
         name: Saint-Ouen-sur-Maire
@@ -111156,7 +111156,7 @@ contents:
       évènement:
         resteDéléguéeDe: 61153
       name: Serans
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 61153
     '2016-01-01':
       après:
         name: Serans
@@ -122607,7 +122607,7 @@ contents:
       évènement:
         resteDéléguéeDe: 67372
       name: Uberach
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 67372
     '2016-01-01':
       après:
         name: Uberach
@@ -122675,7 +122675,7 @@ contents:
       évènement:
         resteDéléguéeDe: 67372
       name: 'La Walck'
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 67372
     '2016-01-01':
       après:
         name: 'La Walck'
@@ -124766,7 +124766,7 @@ contents:
       évènement:
         resteDéléguéeDe: 69159
       name: Liergues
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 69159
     '2017-01-01':
       après:
         name: Liergues
@@ -133119,7 +133119,7 @@ contents:
       évènement:
         seFondDans: 73006
       name: Tessens
-      estAssociéeA: unknown
+      estAssociéeA: 73006
     '1973-02-12':
       évènement:
         sAssocieA: 73006
@@ -133252,7 +133252,7 @@ contents:
       évènement:
         resteDéléguéeDe: 73257
       name: Villarlurin
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 73257
     '2016-01-01':
       après:
         name: Villarlurin
@@ -133275,7 +133275,7 @@ contents:
       évènement:
         seFondDans: 73006
       name: Villette
-      estAssociéeA: unknown
+      estAssociéeA: 73006
     '1973-02-12':
       évènement:
         sAssocieA: 73006
@@ -138745,7 +138745,7 @@ contents:
       évènement:
         resteDéléguéeDe: 77316
       name: Écuelles
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 77316
     '2015-01-01':
       après:
         name: Écuelles
@@ -138773,7 +138773,7 @@ contents:
       évènement:
         resteDéléguéeDe: 77316
       name: Épisy
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 77316
     '2016-01-01':
       après:
         name: Épisy
@@ -139226,7 +139226,7 @@ contents:
       évènement:
         resteDéléguéeDe: 77316
       name: Montarlot
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 77316
     '2016-01-01':
       après:
         name: Montarlot
@@ -145374,7 +145374,7 @@ contents:
       évènement:
         resteDéléguéeDe: 79185
       name: Thorigné
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 79185
     '2017-01-01':
       après:
         name: Thorigné
@@ -152981,7 +152981,7 @@ contents:
       évènement:
         resteDéléguéeDe: 86281
       name: Blaslay
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 86281
     '2017-01-01':
       après:
         name: Blaslay
@@ -153138,7 +153138,7 @@ contents:
       évènement:
         resteDéléguéeDe: 86281
       name: Charrais
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 86281
     '2017-01-01':
       après:
         name: Charrais
@@ -153204,7 +153204,7 @@ contents:
       évènement:
         resteDéléguéeDe: 86281
       name: Cheneché
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 86281
     '2017-01-01':
       après:
         name: Cheneché
@@ -162794,6 +162794,10 @@ contents:
   97122:
     now:
       name: Port-Louis
+  97123:
+    '2007-07-15':
+      évènement: 'Sort du périmètre du Rpicom'
+      name: Saint-Barthélemy
   97124:
     now:
       name: Saint-Claude
@@ -162803,6 +162807,10 @@ contents:
   97126:
     now:
       name: Saint-Louis
+  97127:
+    '2007-07-15':
+      évènement: 'Sort du périmètre du Rpicom'
+      name: Saint-Martin
   97128:
     now:
       name: Sainte-Anne
@@ -163204,84 +163212,84 @@ contents:
     now:
       name: Acoua
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97602:
     now:
       name: Bandraboua
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97603:
     now:
       name: Bandrele
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97604:
     now:
       name: Bouéni
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97605:
     now:
       name: Chiconi
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97606:
     now:
       name: Chirongui
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97607:
     now:
       name: Dembeni
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97608:
     now:
       name: Dzaoudzi
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97609:
     now:
       name: Kani-Kéli
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97610:
     now:
       name: Koungou
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97611:
     now:
       name: Mamoudzou
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97612:
     now:
       name: Mtsamboro
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97613:
     now:
       name: 'M''Tsangamouji'
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97614:
     now:
       name: Ouangani
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97615:
     now:
       name: Pamandzi
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97616:
     now:
       name: Sada
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'
   97617:
     now:
       name: Tsingoni
     '2011-03-31':
-      évènement: 'entrée dans le périmètre du Rpicom'
+      évènement: 'Entre dans le périmètre du Rpicom'

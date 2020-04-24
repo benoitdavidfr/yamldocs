@@ -108,4 +108,25 @@ class MultiGroupMvts {
     foreach (array_reverse($this->groups) as $mod => $group)
       $group->addToRpicom($rpicom, $trace);
   }
+  
+  function compte(Criteria $trace): array {
+    {/*PhpDoc: methods
+    name: compte
+    title: "compte(array $comptes, Criteria $trace): array - compte"
+    doc: |
+    */}
+    $groups = $this->groups;
+    $group0 = array_shift($groups);
+    $compte = $group0->compte($trace);
+    foreach ($groups as $group) {
+      $compte2 = $group->compte($trace);
+      foreach ($compte2 as $k => $v) {
+        if (isset($compte[$k]))
+          $compte[$k] += $v;
+        else
+          $compte[$k] = $v;
+      }
+    }
+    return $compte;
+  }
 };

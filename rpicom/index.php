@@ -749,6 +749,14 @@ if ($_GET['action'] == 'genCom1943') { // génération d'un fichier des communes
       $yaml[$cinsee]['estArrondissementMunicipalDe'] = '75056';
     }
   }
+  // Suppression des communes de Mayotte qui n'étaient pas en 1943 dans périmètre du Rpicom
+  foreach ($yaml as $id => $com) {
+    if (substr($id, 0, 3) == '976')
+      unset($yaml[$id]);
+  }
+  // Ajout des communes de Saint-Martin et de Saint-Barthlémy qui étaient dans le périmètre en 1943
+  $yaml['97123'] = ['name'=> "Saint-Barthélemy"];
+  $yaml['97127'] = ['name'=> "Saint-Martin"];
   ksort($yaml);
   $buildNameAdministrativeArea = <<<'EOT'
     if (isset($item['name']))
@@ -1457,29 +1465,41 @@ if ($_GET['action'] == 'brpicom') { // construction du Rpicom v2
     $rpicoms->startExtractAsYaml();
   foreach ($rpicoms->contents() as $id => $rpicom) {
     // Post-traitement no 1 pour remplacer les associées unknown à partir des associations effectuées précédemment
+    // + idem pour les déléguées
     $unknownAssosVdate = null;
+    $unknownDelegVdate = null;
     foreach ($rpicom as $datev => $vcom) {
-      if (isset($vcom['estAssociéeA']) && ($vcom['estAssociéeA'] == 'unknown')) {
-        $unknownAssosVdate = $datev;
-      }
-      elseif ($unknownAssosVdate && isset($vcom['évènement']['sAssocieA'])) {
+      if ($unknownAssosVdate && isset($vcom['évènement']['sAssocieA'])) {
         $rpicom[$unknownAssosVdate]['estAssociéeA'] = $vcom['évènement']['sAssocieA'];
         $rpicoms->$id = $rpicom;
         $unknownAssosVdate = null;
-        break;
       }
-      elseif ($unknownAssosVdate && isset($vcom['estAssociéeA']) && ($vcom['estAssociéeA'] <> 'unknown')) {
-        $rpicom[$unknownAssosVdate]['estAssociéeA'] = $vcom['estAssociéeA'];
+      if (isset($vcom['estAssociéeA']) && ($vcom['estAssociéeA'] == 'unknown')) {
+        $unknownAssosVdate = $datev;
+      }
+      if ($unknownDelegVdate && isset($vcom['évènement']['devientDéléguéeDe'])) {
+        $rpicom[$unknownDelegVdate]['estDéléguéeDe'] = $vcom['évènement']['devientDéléguéeDe'];
         $rpicoms->$id = $rpicom;
-        $unknownAssosVdate = null;
-        break;
+        $unknownDelegVdate = null;
+      }
+      if (isset($vcom['estDéléguéeDe']) && ($vcom['estDéléguéeDe'] == 'unknown')) {
+        $unknownDelegVdate = $datev;
       }
     }
     // Post-traitement no 2 pour indiquer que Mayote est devenu DOM le 31 mars 2011
     if (substr($id, 0, 3) == '976') {
-      $rpicom['2011-03-31'] = ['évènement' => "entrée dans le périmètre du Rpicom"];
+      $rpicom['2011-03-31'] = ['évènement' => "Entre dans le périmètre du Rpicom"];
       $rpicoms->$id = $rpicom;
     }
+  }
+  // Post-traitement no 3 pour indiquer que Saint-Martin et Saint-Barthélemy ont été DOM jusqu'au 15 juillet 2007
+  foreach (['97123'=> "Saint-Barthélemy", '97127'=> "Saint-Martin"] as $id => $name) {
+    $rpicoms->$id = [
+      '2007-07-15' => [
+        'évènement' => "Sort du périmètre du Rpicom",
+        'name'=> $name,
+      ]
+    ];
   }
   if (0)
     $rpicoms->showExtractAsYaml(5, 2);
@@ -1527,21 +1547,20 @@ if ($_GET['action'] == 'nombres') { // dénombrement
   $comptes['2017-01-01']['T'] = compteFrom(__DIR__.'/com20170101', new Criteria(['not']));
   $comptes['2010-01-01']['T'] = compteFrom(__DIR__.'/com20100101', new Criteria(['not']));
   $comptes['2000-01-01']['T'] = compteFrom(__DIR__.'/com20000101', new Criteria(['not']));
-  $comptes['1943-01-01']['T'] = compteFrom(__DIR__.'/com1943', new Criteria(['not']));
+  $comptes['1943-01-01']['T'] = compteFrom(__DIR__.'/com19430101', new Criteria(['not']));
   
-  $mvtcoms = GroupMvts::readMvtsInsee(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms
+  $mvtcoms = GroupMvts::readMvtsInseePerDate(__DIR__.'/mvtcommune2020.csv'); // lecture csv ds $mvtcoms
   krsort($mvtcoms); // tri par ordre chrono inverse
   foreach($mvtcoms as $date_eff => $mvtcomsD) {
-    foreach($mvtcomsD as $mod => $mvtcomsDM) {
-      foreach (GroupMvts::buildGroups($mvtcomsDM) as $group) {
-        $group = $group->factAvDefact();
-        $comptGrpe = $group->compte($trace);
-        if ($trace->is(['mod'=> $mod]))
-          echo Yaml::dump(['$comptGrpe'=> $comptGrpe]);
-        $comptes = ajoutComptes($comptes, $comptGrpe);
-        if ($trace->is(['mod'=> $mod]))
-          echo Yaml::dump(['$comptes'=> $comptes]);
-      }
+    foreach (GroupMvts::buildGroups($mvtcomsD) as $group) {
+      $mod = $group->mod();
+      $group = $group->factAvDefact();
+      $comptGrpe = $group->compte($trace);
+      if ($trace->is(['mod'=> $mod]))
+        echo Yaml::dump(['$comptGrpe'=> $comptGrpe]);
+      $comptes = ajoutComptes($comptes, $comptGrpe);
+      if ($trace->is(['mod'=> $mod]))
+        echo Yaml::dump(['$comptes'=> $comptes]);
     }
   }
   //print_r($comptes);
@@ -1563,6 +1582,8 @@ if ($_GET['action'] == 'nombres') { // dénombrement
     '2016-01-01'=> "Incitations financières à la création de communes nouvelles",
     '2015-Z'=> "Incitations financières à la création de communes nouvelles",
     '2015-01-01'=> "Incitations financières à la création de communes nouvelles",
+    '2010-Z'=> "Entrée dans le Rpicom le 31 mars 2011 des 17 communes de Mayotte",
+    '2007-Z'=> "Sortie du Rpicom le 15 juillet 2007 de Saint-Barthélémy et de Saint-Martin",
     '1976-01-01'=> "Bi-départementalisation de la Corse",
     '1968-01-01'=> "Création des départements 91, 92, 93, 94 et 95",
   ];
@@ -1726,8 +1747,8 @@ function interpolRpicom(array $rpicom, string $state): array {
 }
 if (0) { // Test interpolRpicom()
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>interpolRpicom</title></head><body><pre>\n";
-  $states = ['2020-01-01', '2015-01-01', '2010-01-01', '2003-01-01', '1990-01-01'];
-  $states = ['2015-01-01'];
+  $states = ['2020-01-01', '2015-01-01', '2010-01-01', '2009-01-01', '2003-01-01', '1990-01-01'];
+  //$states = ['2015-01-01'];
   $rpicoms = new Base([
     'contents'=>[
       '22222'=> [ // a toujours existé sans changer de nom
@@ -1736,7 +1757,8 @@ if (0) { // Test interpolRpicom()
       '33333'=> [ // a changé de nom et a toujours existé
         'now'=> [ 'name'=> "nom 33333 maintenant"],
         '2015-01-01'=> [ 'evt'=> "evt", 'name'=> "nom 33333 avant 1/1/2015"],
-        '2010-01-01'=> [ 'evt'=> "evt", 'name'=> "nom 33333 avant 1/1/2010"],
+        '2010-01-01'=> [ 'evt'=> "evt", 'name'=> "nom 33333 jamais 1/1/2010"],
+        '2010-01-01-bis'=> [ 'evt'=> "evt", 'name'=> "nom 33333 avant 1/1/2010 bis"],
         '2005-01-01'=> [ 'evt'=> "evt", 'name'=> "nom 33333 avant 1/1/2005"],
         '2000-01-01'=> [ 'evt'=> "evt", 'name'=> "nom 33333 avant 1/1/2000"],
       ],
@@ -1815,7 +1837,9 @@ if ($_GET['action'] == 'interpolRpicom') { // interpolation d'un état dans le R
   ];
   $_GET['file1'] = "interpolé";
   $_GET['file2'] = "$frefname.yaml";
+  echo "<h2>Comparaison</h2>\n";
   compareYaml($fcoms, $fref, 'fneqArticle');
+  echo "<h2>Contenu du fichier interpolé</h2>\n";
   echo Yaml::dump($coms);
   die();
 }
