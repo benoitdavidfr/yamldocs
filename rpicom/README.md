@@ -146,7 +146,7 @@ Le tableau ci-dessous fournit un dénombrement des communes simples et de leurs 
 | 2013-Z |  |  | 1 |  | 1 | 36681 | |
 | 2013-01-01 |  |  | 19 |  | 10 | 36700 | |
 | 2012-01-01 |  | 5 | 2 |  | 6 | 36697 | |
-| 2010-Z |  |  | 2 |  | 1 | 36699 | Entrée dans le Rpicom le 31 mars 2011 des 17 communes de Mayotte|
+| 2010-Z |  |  | 2 |  | 1 | 36682 | Entrée dans le Rpicom le 31 mars 2011 des 17 communes de Mayotte|
 | 2010-01-01 | 36682 |  |  |  |  | 36682 | |
 | 2009-01-01 |  |  | 1 |  | 1 | 36683 | |
 | 2008-Z |  | 2 |  |  | 2 | 36681 | |
