@@ -12,7 +12,15 @@ $schema:
   title: schéma du référentiel pivot des codes INSEE des communes
   $id: http://id.georef.eu/rpicom/exrpicom/$schema
   $schema: http://json-schema.org/draft-07/schema#
-  description: Les codes INSEE de commune ayant existé avec infos versionnées associées en ordre chrono inverse
+  description: |
+    Le référentiel pivot des codes INSEE des communes (Rpicom) est principalement constitué d'un dictionnaire
+    des codes INSEE des communes ayant existé depuis le 1/1/1943 fournissant pour chaque code des infos versionnées
+    associées à l'entité associée à ce code.
+    Si l'entité existe encore à la date de validité du référentiel alors une version 'now' est définie et fournit
+    les infos valides à cette date.
+    Les autres versions sont identifiées par une date et fournissent l'historique de l'entité ; elles correspondent,
+    d'une part, à une action d'évolution de l'entité ayant eu lieu à cette date plus, s'il ne s'agit pas d'une action
+    d'apparition, des propriétés qui étaient valides avant la date de la version.
   definitions:
     commeDéléguée:
       description: si la c. est déléguée d'elle même alors cette partie définit les prop. de la c. déléguée
@@ -40,18 +48,19 @@ $schema:
           $ref: http://id.georef.eu/dcmi#Box
     rpicom:
       description: |
-        Dictionnaire associant à chaque code INSEE les différentes versions identifiées par une date
-        ou par le mot-clé 'now' identifiant la dernière version connue.
+        Dictionnaire associant à chaque code INSEE les différentes versions identifiées soit par le mot-clé 'now'
+        identifiant la dernière version connue, soit par une date identifiant les versions historiques.
       type: object
       additionalProperties: false
       patternProperties:
         '^\d[\dAB]\d\d\d$': # code INSEE
           description: |
             Le mot-clé 'now' identifie la dernière version connue avec les dernières propriétés valides.
-            Une date identifie une version historique qui peut être:
+            Une date identifie une version dite historique qui peut être:
               - soit une action d'évolution ou de disparition à la date de la version
-                plus un ensemble de propriétés périmées qui ont été valides avant la date de la version
-              - soit une action d'apparition de l'entité à la date de la version
+                plus un ensemble de propriétés périmées qui ont été valides avant la date de la version,
+              - soit une action d'apparition de l'entité à la date de la version.
+            Les versions sont listées dans l'ordre chronologique inverse.
           type: object
           additionalProperties: false
           patternProperties:
@@ -89,9 +98,11 @@ $schema:
                   description: si la c. a des c. associées alors cette partie définit les prop. de la c. sans ses associées
                   $ref: '#/definitions/sansSesAssociées'
             '^\d\d\d\d-\d\d-\d\d(-bis)?$': # date
-              description: version historique datée
+              description: |
+                version historique datée avec possibilité de 2 actions successives pour une date. Dans ce dernier cas la 
+                date de la deuxième version, dans l'ordre chronologique inverse, est complétée comme clé par la chaine -bis.
               oneOf:
-                - description: évt. d'évolution ou de disparition à cette date plus propriétés valides avant cette date 
+                - description: action d'évolution ou de disparition à cette date plus propriétés valides jusqu'à cette date 
                   type: object
                   required: [name, évènement]
                   additionalProperties: false
@@ -124,9 +135,12 @@ $schema:
                       description: si la c. a des associées alors cette partie définit les prop. de la c. sans elles
                       $ref: '#/definitions/sansSesAssociées'
                     évènement:
-                      description: description de l'évènement ayant conduit au changement de version
+                      description: |
+                        description de l'action à l'origine changement de version. Une action peut être soit
+                        définie par son libellé, soit par un mot-clé associé à un ou plusieurs paramètres.
                       anyOf: # le vérificateur n'arrive pas à détecter que les sous-schémas sont exclusifs
-                        - description: libellé de l'évènement
+                        - description: cas où l'action est définie par son libellé
+                          type: string
                           enum:
                             - Prend des c. associées et/ou absorbe des c. fusionnées
                             - Se crée en commune nouvelle
@@ -251,17 +265,19 @@ $schema:
                               type: [string, number]
                               format: '^\d[\dAB]\d\d\d$'
                     après:
-                      description: propriétés valables après l'évènement
+                      description: propriétés valables après l'évènement, info redondante
                 - description: évt. d'apparition à cette date
                   type: object
                   additionalProperties: false
+                  required: [évènement]
                   properties:
                     évènement:
                       description: description de l'évènement ayant conduit l'apparition de l'entité
                       anyOf: # Le vérificateur n'arrive pas à voir que les possibilités sont exclusives
                         - description: libellé de l'évènement
+                          type: string
                           enum:
-                            - Entre dans le périmètre du Rpicom # Cas de Mayotte qui devient DOM le 31/03/2011
+                            - Entre dans le périmètre du Rpicom # Cas des c. de Mayotte qui devient DOM le 31/03/2011
                         - description: c. simple rétablie avec id de la c. dont elle est issue
                           type: object
                           additionalProperties: false
@@ -317,7 +333,7 @@ $schema:
                                 type: [string, number]
                                 pattern: '^\d[\dAB]\d\d\d$'
                     après:
-                      description: propriétés valables après l'évènement
+                      description: propriétés valables après l'évènement, info redondante
   type: object
   properties:
     title:
@@ -331,6 +347,9 @@ $schema:
       type: string
     modified:
       description: date de mise à jour du document
+      type: string
+    valid:
+      description: date de validité du référentiel
       type: string
     $schema:
       description: soit le schéma du document soit un lien vers ce schéma
@@ -478,5 +497,23 @@ contents:
       évènement:
         changeDeDépartementEtPrendLeCode: 2A004
       name: Ajaccio
+
+  49149:
+    now:
+      name: Gennes
+      estDéléguéeDe: 49261
+    '2018-01-01':
+      évènement:
+        perdRattachementPour: 49261
+      name: 'Gennes-Val de Loire'
+      commeDéléguée:
+        name: Gennes
+    '2016-01-01':
+      après:
+        name: 'Gennes-Val de Loire'
+        commeDéléguée:
+          name: Gennes
+      évènement: 'Se crée en commune nouvelle avec commune déléguée propre'
+      name: Gennes
 
 eof:

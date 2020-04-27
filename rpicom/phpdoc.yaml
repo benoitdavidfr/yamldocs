@@ -27,6 +27,8 @@ doc: |
     dans les Antilles, portant le statut de collectivité d'outre-mer française depuis le 15 juillet 2007. Avant cette date,
     elle faisait partie intégrante du département d'outre-mer de la Guadeloupe. 
 journal: |
+  25-26/4/2020:
+    - étude AE et GéoFLA pour voir quelles versions peuvent être géolocalisées
   24/4/2020:
     - modification du schéma de rpicom
     - réécriture de addToRpicom() dans le cas 32 pour traiter le changement de c. nouvelle de rattachement
@@ -63,6 +65,8 @@ phpIncludes:
   - /yamldoc/pub/rpicom/base.inc.php
   - /yamldoc/pub/rpicom/grpmvts.inc.php
   - /yamldoc/pub/rpicom/mgrpmvts.inc.php
+  - /yamldoc/pub/rpicom/geojfile.inc.php
+  - /yamldoc/pub/rpicom/rect.inc.php
 htmlFiles:
   - /yamldoc/pub/rpicom/dessin.yaml
   - /yamldoc/pub/rpicom/exfcoms.yaml

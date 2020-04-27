@@ -94,13 +94,21 @@ if ('TestCountLeaves' == $_GET['action'] ?? null) { // Test countLeaves()
 }
 
 {/*Terminologie:
-Fusion:
+Création:
+  actions:
+    - n crééeAPartirDe [c1, c2, c3]
+    - ci contribueA n
+Suppression:
+  actions:
+    - sup seDissoutDans [d1, d2, d3]
+    - di reçoitUnePartieDe sup
+FusionOuAssociation:
   actions:
     - r est commune de rattachement
-    - a s'associe à r {a: {sAssocieA: a}}
-    - r prend comme c. associée a
-    - a fusionne dans r {a: {fusionneDans: r}}
-    - r absorbe a
+    - a: {sAssocieA: a}
+    - r {prendCommeAssociée: a}
+    - f: {fusionneDans: r}
+    - r {absorbe: f}
     - r "Prend des c. associées et/ou absorbe des c. fusionnées"
   état:
     - a est associée à r {a: {estAssociéeA: r}}
@@ -108,13 +116,13 @@ Fusion:
 CommuneNouvelle:
   actions:
     - r est commune de rattachement
-    - d devient déléguée de r {d: {devientDéléguéeDe: r}}
-    - r délègue à d
-    - d s'absorbe dans r {d: {sAbsorbeDans: r}} // ou se fond dans {d: {seFondDans: r}}
-    - r absorbe d qd pas de commune déléguée
+    - d: {devientDéléguéeDe: r}
+    - r: {délègueA: d}
+    - d: {seFondDans: r}
+    - r: {absorbe: d} // qd pas de commune déléguée
   état:
-    - d est déléguée de r {d: {estDéléguéeDe: r}}
-    - r a pour déléguée d {r: {aPourDéléguées: [d]}}
+    - d: {estDéléguéeDe: r}
+    - r: {aPourDéléguées: [d]}
 général:
   absorption/absorbe =
     soit fusion simple d'un c. s. dans une autre
@@ -1199,7 +1207,7 @@ EOT;
           }
           $rpicom->mergeToRecord($ncrat['id'], [ $this->date => $comrat ]);
           $compcrat = [
-            'évènement'=> ['perdLeStatutDeCommuneNouvelleAuProfitDe' => $ncrat['id']],
+            'évènement'=> ['perdRattachementPour' => $ncrat['id']],
             'name' => $pcrat['name'],
           ];
           if ($ana32['transformations'][$pcrat['id']]) {
