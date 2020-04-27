@@ -16,7 +16,6 @@ doc: |
     Le 31 mars 2011, le Département de Mayotte est devenu officiellement le cent-unième département de France
     et son cinquième département d’outre-mer.
     Cet évt n'est pas explicité correctement dans le COG !
-    
   Saint-Barthélémy:
     Saint-Barthélemy est une île française des petites Antilles et une collectivité d'outre-mer (COM) au sens de l'article
     74 de la Constitution depuis le 15 juillet 2007. Avant cette date, à laquelle le changement de statut a pris effet
@@ -27,6 +26,9 @@ doc: |
     dans les Antilles, portant le statut de collectivité d'outre-mer française depuis le 15 juillet 2007. Avant cette date,
     elle faisait partie intégrante du département d'outre-mer de la Guadeloupe. 
 journal: |
+  27/4/2020:
+    - gestion spécifique dans GroupMvts::addToRpicom() d'un cas particulier de mvts 34 suivi d'un chgt de dépt non signalé
+      je crée de ce fait une date bis
   25-26/4/2020:
     - étude AE et GéoFLA pour voir quelles versions peuvent être géolocalisées
   24/4/2020:

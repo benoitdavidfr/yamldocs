@@ -65,55 +65,32 @@ en gardant le code 01015 et en ayant notamment une commune déléguée s'appella
 Dans ce cas, il y a une ambigüité sur la localisation définie par un tel code INSEE.
 Pour lever cette ambigüité, il est donc important de définir précisément le référentiel auquel on fait référence.
 
-En effet, plusieurs référentiels sont définis par l'utilisation des codes INSEE :
+En effet, différents référentiels sont définis par l'utilisation des codes INSEE :
 
   - On appelle **commune simple** une commune qui n'est ni associée, ni déléguée.
     Ces communes simples forment une partition du territoire, à condition de prendre comme territoire d'une communes issue
     d'une fusion-association, l'union des territoires des anciennes communes avant leur association.
-  - On peut définir une seconde partition en gérant à part les communes associées.
-  - Parmi les communes simples, certaines sont issues de la création d'une commune nouvelle et parmi ces dernières,
-    certaines, que j'appelle **communes composites**, sont composées de communes déléguées qui en forment une partition.
-    En substituant à ces communes composites leurs communes déléguées et aux communes PLM leurs arrondissements communaux,
-    on définit une troisième partition.
+  - On peut définir une autre partition d'une part en gérant à part les communes associées et,
+    d'autre part, en substituant aux communes composées de communes déléguées ces dernières et aux communes PLM leurs arrondissements municipaux.
   
-Il existe donc en fait 3 référentiels qui forment chacun une partition du territoire :
+On peut donc en fait définir 2 référentiels qui forment chacun une partition du territoire :
     
   - celui des communes simples, cad en intégrant le territoire des communes associées
     à celui de leur commune de rattachement,
-  - celui des communes simples et associées, cad en distinguant les communes associées de leur commune de rattachement,
-  - celui des communes élémentaires, cad en remplacant les communes composites par leurs communes déléguées et
-    les communes PLM par leurs arrondissements communaux.
+  - celui des entités élémentaires qui sont :
+    - les communes associées et déléguées,
+    - les arrondissements municipaux dans les communes PLM,
+    - un éventuel complément quand les communes associées et déléguées ne couvrent pas la totalité du territoire
+      d'une commune simple,
+    - les communes simples qui ne comportent ni communes associées ni communes déléguées.
     
-Admin-Express de l'IGN gère les communes simples plus les arrondissements communaux.
-C'est donc une variante du référentiel des communes simples, qui n'est pas une partition.
+La solution retenue par l'IGN dans Admin-Express (AE) est assez confuse.
+La version COG comporte une couche COMMUNE correspondant aux communes simples et une couche ENTITE_RATTACHEE correspondant aux communes associées ou déléguées et aux arrondissements municipaux ; cependant cette dernière couche n'est pas documentée.
+De son côté, la version non COG ne gère pas de couche ENTITE_RATTACHEE mais la couche COMMUNE contient les arrondissements
+municipaux.
 
 Dans la suite je m'intéresse principalement au référentiel des communes simples.
-
-### Formalisation des évolutions
-En tant que localisant un code INSEE correspond, pour un référentiel donné, et à une date donnée, à un certain territoire.
-Plusieurs évènements ont pour conséquence de modifier ce territoire associé à une commune simple
-et donc de changer la localisation associée à son code INSEE ;
-il s'agit de :
-
-  - création d'une commune nouvelle à partir de plusieurs communes existantes,
-  - fusion de plusieurs communes en une seule,
-  - rétablissement de certaines communes ayant précédemment été fusionnées,
-  - association de plusieurs communes à une commune de rattachement,
-  - rétablissement de certaines communes ayant précédemment été associées,
-  - suppression d'une commune par répartition de son territoire dans plusieurs autres,
-  - création d'une commune par contribution de territoire de plusieurs autres,
-  - transfert de territoire d'une commune à une autre,
-  - changement de rattachement conduisant au changement d'identifiant de la commune simple,
-  - changement de département d'une commune conduisant au changement d'identifiant de la commune simple.
-  
-On peut regrouper ces opérations dans les 6 opérations suivantes :
-
-  - l'agrégation qui associe un Id à un ens. d'Id (Set(Id) -> Id)
-  - l'opération inverse de désagrégation (Set(Id) <- Id)
-  - la suppression qui prend un Id et un ens. d'Id (Id, Set(Id) -> )
-  - l'opération inverse de création (Set(Id) -> Id)
-  - le changement d'identifiant (IdAncien -> IdNouveau)
-  - le transfert de territoire d'une commune à une autre (IdSource -> IdDestination)
+La connaissance des communes rattachées est importante car elles correspondent à d'anciennes communes simples.
 
 ### Dénombrement
 
@@ -261,24 +238,21 @@ Le tableau ci-dessous fournit un dénombrement des communes simples et de leur �
 | 1943-Z |  |  | 8 |  | 4 | 38124 | |
 | 1943-01-01 |  |  |  |  |  | 38124 | |
 
-  
 ## Cas d'utilisation
 
-### Localisation d'un objet à l'intérieur d'une commune
-On prend le cas de localisation d'une autorisation de travaux dans une commune.
-Si le code INSEE associé à l'information ne correspond plus à une commune simple alors plusieurs cas:
+### Actualisation d'un code INSEE périmé
+Le cas d'utilisation le plus simple est l'utilisation dans une base métier d'un code INSEE qui correspondait
+à une date donnée à une commune simple et qui maintenant n'y correspond plus.
+Ce code n'existe plus dans la couche COMMUNE d'AE et l'utilisateur a besoin de le géocoder.
+Le Rpicom fournit d'une part le code INSEE, valide à la date du référentiel, de la commune simple dans laquelle la commune
+est localisée et, d'autre part, éventuellement, le code INSEE valide de l'entité rattachée dans laquelle la commune
+est localisée.
+Les 2 cas typiques sont ceux de la fusion et de l'association de communes : si une commune A est fusionné avec la commune B
+alors le code A est remplacé par le code B. De même, si une commune A s'associe à une commune B alors le code A
+est remplacé comme commune simple par le code B et reste le code A comme entité rattachée.
 
-  - l'identifiant correspond à une commune rattachée (associée ou déléguée) -> prendre la commune de rattachement ;
-  - l'identifiant correspond à un arrondissement municipal -> prendre la commune de rattachement ;
-  - l'identifiant correspond à une commune fusionnée -> c. dans laquelle elle a été fusionnée.
-  - l'identifiant correspond à une commune supprimée -> son territoire a été réparti dans plusieurs c. ;
-    il est impossible de savoir a priori dans laquelle se situe l'objet. Prendre la première en créant un risque d'erreur.
-  - l'identifiant correspond à une commune à l'origine de rétablissement ;
-    il est impossible de savoir a priori dans quelle commune rétablie se situe l'objet.
-    Garder l'id. d'origine de la commune en créant un risque d'erreur.
+Ce mécanisme d'actualisation est fourni sous la forme d'une table de transcodage facilement utilisable
+par exemple avec un SGBD relationnel par une jointure. [Elle est disponible ici](transcode.csv).
 
-### Association d'une information quantitative à une commune
-On prend le cas d'association à une commune du nombre de permis de construire délivrés dans cette commune.
+### Géocodage d'un code INSEE à une date donnée
 
-### Association d'une information qualitative à une commune
-Exemple du classement d'une commune, par exemple classement d'une commune en zone vulnérable aux nitrates.

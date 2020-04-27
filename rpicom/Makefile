@@ -60,3 +60,6 @@ com19430101: com19430101.yaml exfcoms
 	php index.php check com19430101.yaml
 com19430101.yaml: index.php
 	php index.php genCom1943 > $@
+# table de transcodage
+transcode.csv: index.php
+	php index.php transcode > $@

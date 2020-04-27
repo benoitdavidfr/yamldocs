@@ -8,6 +8,9 @@ journal: |
   25-26/4/2020:
     - étude AE et GéoFLA pour voir quelles versions peuvent être géolocalisées
     - écriture des setGéoloc
+    - soulèvent plusieurs problèmes
+      - GéoFla n'a que les communes simples, pas les rattachées
+      - AeCog n'a pas la géométrie du territoire sans associés, il faudrait faire la différence avec les associés
   24/4/2020:
     - modification du schéma de rpicom
     - réécriture de addToRpicom() dans le cas 32 pour traiter le changement de c. nouvelle de rattachement
@@ -300,6 +303,12 @@ $menu = new Menu([
         'data/GEOFLA_1-1_SHP_LAMB93_FR-ED111/GEOFLA/1_DONNEES_LIVRAISON_2013-12-00225/'
           .'GEOFLA_1-1_SHP_LAMB93_FR-ED111/COMMUNES/COMMUNE.geojson'
       ],
+    ],
+  ],
+  'transcode'=> [
+    'argNames'=> [],
+    'actions'=> [
+      "Génération de la table de transcodage"=> [],
     ],
   ],
 ]
@@ -1888,6 +1897,75 @@ if ($_GET['action'] == 'interpolRpicom') { // interpolation d'un état dans le R
   compareYaml($fcoms, $fref, 'fneqArticle');
   echo "<h2>Contenu du fichier interpolé</h2>\n";
   echo Yaml::dump($coms);
+  die();
+}
+
+// transcode un code INSEE au moins valide à un instant en un code de C. simple valide à la date de validité du référentiel
+function trcodeCSimple(string $id, array $rpicoms): string {
+  $rpicom = $rpicoms[$id];
+  // commune simple valide, pas de trancodage
+  if (isset($rpicom['now']) && !isset($rpicom['now']['estAssociéeA']) && !isset($rpicom['now']['estDéléguéeDe']))
+    return $id;
+  if (isset($rpicom['now']['estAssociéeA'])) // entité associée existante
+    return $rpicom['now']['estAssociéeA'];
+  if (isset($rpicom['now']['estDéléguéeDe'])) // entité déléguée existante
+    return $rpicom['now']['estDéléguéeDe'];
+  // $id correspond à une entité périmée
+  $evt = array_values($rpicom)[0]['évènement'];
+  $evtLabel = is_array($evt) ? array_keys($evt)[0] : $evt; // soit le label soit la clé
+  if (in_array($evtLabel, ['fusionneDans','sAssocieA','seFondDans','devientDéléguéeDe',
+      'changeDeDépartementEtPrendLeCode']))
+    return trcodeCSimple($evt[$evtLabel], $rpicoms);
+  elseif ($evtLabel == 'seDissoutDans')
+    return trcodeCSimple($evt['seDissoutDans'][0], $rpicoms);
+  elseif ($evtLabel == 'Sort du périmètre du Rpicom')
+    return '';
+  else {
+    echo "<tr><td>",Yaml::dump($rpicom),"</td></tr>\n";
+  }
+}
+
+function trcodeERatt(string $id, array $rpicoms): string {
+  $rpicom = $rpicoms[$id];
+  // entité valide, pas de trancodage
+  if (isset($rpicom['now']))
+    return $id;
+  // $id correspond à une entité périmée
+  $evt = array_values($rpicom)[0]['évènement'];
+  $evtLabel = is_array($evt) ? array_keys($evt)[0] : $evt; // soit le label soit la clé
+  if (in_array($evtLabel, ['fusionneDans','seFondDans','changeDeDépartementEtPrendLeCode']))
+    return trcodeCSimple($evt[$evtLabel], $rpicoms);
+  elseif ($evtLabel == 'seDissoutDans')
+    return trcodeCSimple($evt['seDissoutDans'][0], $rpicoms);
+  elseif ($evtLabel == 'Sort du périmètre du Rpicom')
+    return '';
+  else {
+    echo "<tr><td>",Yaml::dump($rpicom),"</td></tr>\n";
+  }
+}
+
+if ($_GET['action'] == 'transcode') { // production d'une table de transcodage
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>transcodage</title></head><body><pre>\n";
+  $rpicoms = new Base(__DIR__.'/rpicom');
+  $nbtr = 0;
+  $headers = ['ancien','simple','rattachée'];
+  if (php_sapi_name()<>'cli')
+    echo "<table border=1><th>",implode('</th><th>', $headers),"</th>\n";
+  else
+    echo implode(';', $headers),"\n";
+  foreach ($rpicoms->contents() as $id => $rpicom) {
+    $csid = trcodeCSimple($id, $rpicoms->contents());
+    if ($csid == $id)
+      continue;
+    $erid = trcodeERatt($id, $rpicoms->contents());
+    if (php_sapi_name()<>'cli')
+      echo "<tr><td>$id</td><td>$csid</td><td>$erid</td></tr>\n";
+    else
+      echo "$id;$csid;$erid\n";
+    $nbtr++;
+  }
+  if (php_sapi_name()<>'cli')
+    echo "</table>\n$nbtr lignes écrites\nfin transcodage\n";
   die();
 }
 

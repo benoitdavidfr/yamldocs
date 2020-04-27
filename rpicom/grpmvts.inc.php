@@ -6,6 +6,9 @@ doc: |
   La classe GroupMvts permet de regrouper des mouvements élémentaires correspondant à une évolution sémantique
   et de les exploiter.
 journal: |
+  27/4/2020:
+    - gestion spécifique du cas particulier de l'absorption le 1/1/2018 de 14507 par Pont-Farcy (14513)
+      dans lequel Pont-Farcy change de département pour prendre le code 50649.
   24/4/2020:
     - nlle version avec
       - gestion des groupes de mvts concomitants avec MultiGroupMvts
@@ -1314,6 +1317,23 @@ EOT;
         foreach ($fav2 as $noav => $avant) {
           if ($noav == 0) { // Commune de rattachement
             $idr = $avant['id'];
+            // cas particulier de chgt de département consécutif à l'absorption
+            if ((count($avant['après'])==1) && ($avant['après'][0]['id'] <> $idr)) {
+              echo "cas particulier détecté de chgt de département consécutif à l'absorption sur $idr\n";
+              // le code $idr disparait
+              $rpicom->mergeToRecord($idr, [
+                $this->date => [
+                  'évènement'=> ['changeDeDépartementEtPrendLeCode'=> $avant['après'][0]['id']],
+                  'name'=> $avant['après'][0]['name'],
+                ]
+              ]);
+              // le code après disparait
+              $rpicom->mergeToRecord($avant['après'][0]['id'], [
+                $this->date => [
+                  'évènement'=> ['changeDeDépartementEtAvaitPourCode'=> $idr],
+                ]
+              ]);
+            }
             $comr = [
               'après'=> [ 'name'=> $avant['après'][0]['name'] ],
               'évènement'=> "Absorbe certaines de ses c. rattachées ou certaines de ses c. associées deviennent déléguées",
