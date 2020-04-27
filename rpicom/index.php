@@ -1945,12 +1945,12 @@ function trcodeERatt(string $id, array $rpicoms): string {
 }
 
 if ($_GET['action'] == 'transcode') { // production d'une table de transcodage
-  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>transcodage</title></head><body><pre>\n";
   $rpicoms = new Base(__DIR__.'/rpicom');
   $nbtr = 0;
   $headers = ['ancien','simple','rattachée'];
   if (php_sapi_name()<>'cli')
-    echo "<table border=1><th>",implode('</th><th>', $headers),"</th>\n";
+    echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>transcodage</title></head><body><pre>\n",
+         "<table border=1><th>",implode('</th><th>', $headers),"</th>\n";
   else
     echo implode(';', $headers),"\n";
   foreach ($rpicoms->contents() as $id => $rpicom) {
