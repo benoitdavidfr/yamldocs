@@ -247,12 +247,22 @@ Ce code n'existe plus dans la couche COMMUNE d'AE et l'utilisateur a besoin de l
 Le Rpicom fournit d'une part le code INSEE, valide à la date du référentiel, de la commune simple dans laquelle la commune
 est localisée et, d'autre part, éventuellement, le code INSEE valide de l'entité rattachée dans laquelle la commune
 est localisée.
-Les 2 cas typiques sont ceux de la fusion et de l'association de communes : si une commune A est fusionné avec la commune B
-alors le code A est remplacé par le code B. De même, si une commune A s'associe à une commune B alors le code A
-est remplacé comme commune simple par le code B et reste le code A comme entité rattachée.
+Les 2 cas typiques sont ceux de la fusion et de l'association de communes : si une commune A fusionne dans la commune B
+alors le code de A est remplacé par celui de B.
+Par contre, si une commune A s'associe à une commune B alors le code de A est remplacé comme commune simple par celui de B
+et reste le code A comme entité rattachée.
 
 Ce mécanisme d'actualisation est fourni sous la forme d'une table de transcodage facilement utilisable
-par exemple avec un SGBD relationnel par une jointure. [Elle est disponible ici](transcode.csv).
+par exemple avec un SGBD relationnel par une semi-jointure. [Elle est disponible ici](transcode.csv).
 
 ### Géocodage d'un code INSEE à une date donnée
+L'actualisation du code fournit le code d'une entité existante dont la localisation peut être plus grande que
+la localisation initiale associée au code.
+Dans certains cas, la localisation peut être retrouvée dans un ancien référentiel et peut alors être fournie à la demande.
+C'est un 2ème cas d'utilisation où pour un code INSEE et une date donnée, les infos sur ce code sont retournées
+ainsi que la géolocalisation associée.
+
+Ce traitement est affectué par une api disponible à l'URL http://rpicom.geoapi.fr/
+Pour retrouver la géolocalisation d'un code INSEE à une date utiliser l'appel http://rpicom.geoapi.fr/{code}/{date}
+Un appel à un URL de la forme http://rpicom.geoapi.fr/api/{code} fournit la liste des versions que prend le code.
 

@@ -63,7 +63,9 @@ journal: |
 submodules:
 phpScripts:
   - /yamldoc/pub/rpicom/index.php
+  - /yamldoc/pub/rpicom/api.php
 phpIncludes:
+  - /yamldoc/pub/rpicom/rpicom.inc.php
   - /yamldoc/pub/rpicom/base.inc.php
   - /yamldoc/pub/rpicom/grpmvts.inc.php
   - /yamldoc/pub/rpicom/mgrpmvts.inc.php

@@ -178,6 +178,8 @@ class Base {
     }
     elseif (!is_array($data))
       throw new Exception("Dans Base::__construct() le paramètre data doit avoir comme type soit string soit array");
+    elseif (!array_key_exists('contents', $data))
+      throw new Exception("Dans Base::__construct() le paramètre data s'il est array doit contenir un champ contents");
     $this->base = $data['contents'];
     unset($data['contents']);
     $this->metadata = $data;
@@ -238,6 +240,12 @@ class Base {
       JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
   }
   
+  // retourne les métadonnées comme array
+  function metadata(): array { return $this->metadata; }
+  
+  // stocke des MD
+  function storeMetadata(array $metadata): void { $this->metadata = $metadata; }
+  
   // retourne le contenu comme array
   function contents(): array { return $this->base; }
   
@@ -286,6 +294,8 @@ class Base {
       $metadata = $this->metadata;
     if (!$filepath)
       $filepath = $this->filepath;
+    else
+      $this->filepath = $filepath;
     if ($filepath)
       return file_put_contents("$filepath.yaml", Yaml::dump(array_merge($metadata, ['contents'=> $this->base]), 99, 2));
     else

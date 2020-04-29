@@ -243,9 +243,9 @@ $schema:
                         - description: c. changeant d'id lors d'un changement de département avec nouvel id
                           type: object
                           additionalProperties: false
-                          required: [changeDeDépartementEtPrendLeCode]
+                          required: [quitteLeDépartementEtPrendLeCode]
                           properties:
-                            changeDeDépartementEtPrendLeCode:
+                            quitteLeDépartementEtPrendLeCode:
                               type: [string, number]
                               format: '^\d[\dAB]\d\d\d$'
                         - description: c. de rattachement perdant son statut au profit de la c. dont l'id est indiqué
@@ -315,9 +315,9 @@ $schema:
                         - description: c. changeant de département avec précédent id
                           type: object
                           additionalProperties: false
-                          required: [changeDeDépartementEtAvaitPourCode]
+                          required: [arriveDansLeDépartementAvecLeCode]
                           properties:
-                            changeDeDépartementEtAvaitPourCode:
+                            arriveDansLeDépartementAvecLeCode:
                               type: [string, number]
                               format: '^\d[\dAB]\d\d\d$'
                         - description: >
@@ -491,11 +491,11 @@ contents:
       name: Ajaccio
     '1976-01-01':
       évènement:
-        changeDeDépartementEtAvaitPourCode: 20004
+        arriveDansLeDépartementAvecLeCode: 20004
   20004:
     '1976-01-01':
       évènement:
-        changeDeDépartementEtPrendLeCode: 2A004
+        quitteLeDépartementEtPrendLeCode: 2A004
       name: Ajaccio
 
   49149:

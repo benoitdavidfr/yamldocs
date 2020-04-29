@@ -60,7 +60,7 @@ function swapKeysInArray(string $key1, string $key2, array $array): array {
   }
   return $result;
 }
-if ('TestSwapKeysInArray' == $_GET['action'] ?? null) { // Test swapKeysInArray
+if ('TestSwapKeysInArray' == ($_GET['action'] ?? null)) { // Test swapKeysInArray
   $array = [
     'avant' => "avant",
     '46251' => "Saint-Céré",
@@ -87,7 +87,7 @@ function countLeaves(array $tree): int {
   }
   return $count;
 }
-if ('TestCountLeaves' == $_GET['action'] ?? null) { // Test countLeaves() 
+if ('TestCountLeaves' == ($_GET['action'] ?? null)) { // Test countLeaves() 
   class TestForCountLeaves { };
   echo countLeaves(['a'=> 1]),"<br>\n";
   echo countLeaves(['a'=> 1, 'b'=> ['c'=> 2, 'd'=> 3]]),"<br>\n";
@@ -1323,14 +1323,14 @@ EOT;
               // le code $idr disparait
               $rpicom->mergeToRecord($idr, [
                 $this->date => [
-                  'évènement'=> ['changeDeDépartementEtPrendLeCode'=> $avant['après'][0]['id']],
+                  'évènement'=> ['quitteLeDépartementEtPrendLeCode'=> $avant['après'][0]['id']],
                   'name'=> $avant['après'][0]['name'],
                 ]
               ]);
               // le code après disparait
               $rpicom->mergeToRecord($avant['après'][0]['id'], [
                 $this->date => [
-                  'évènement'=> ['changeDeDépartementEtAvaitPourCode'=> $idr],
+                  'évènement'=> ['arriveDansLeDépartementAvecLeCode'=> $idr],
                 ]
               ]);
             }
@@ -1399,14 +1399,14 @@ EOT;
         // Le code avant est créé
         $rpicom->mergeToRecord($fav2[0]['id'], [
           $this->date => [
-            'évènement'=> ['changeDeDépartementEtPrendLeCode'=> $fav2[0]['après'][0]['id']],
+            'évènement'=> ['quitteLeDépartementEtPrendLeCode'=> $fav2[0]['après'][0]['id']],
             'name'=> $fav2[0]['name'],
           ]
         ]);
         // le code après disparait
         $rpicom->mergeToRecord($fav2[0]['après'][0]['id'], [
           $this->date => [
-            'évènement'=> ['changeDeDépartementEtAvaitPourCode'=> $fav2[0]['id']],
+            'évènement'=> ['arriveDansLeDépartementAvecLeCode'=> $fav2[0]['id']],
           ]
         ]);
         break;

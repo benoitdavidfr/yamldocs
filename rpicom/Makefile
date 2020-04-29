@@ -16,6 +16,11 @@ exrpicom: exrpicom.yaml
 # génération de rpicom.yaml
 rpicom.yaml: com20200101.yaml index.php grpmvts.inc.php base.inc.php
 	php index.php brpicom
+# génération de rpicomtest.yaml
+rpicomtest: rpicomtest.yaml
+	php index.php check rpicomtest.yaml
+rpicomtest.yaml: rpicom.yaml index.php
+	php index.php bbtest
 # Vérif. de exfcoms
 exfcoms: exfcoms.yaml
 	php index.php check exfcoms.yaml
