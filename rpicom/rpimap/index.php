@@ -82,7 +82,7 @@ var baseLayers = {
 };
 
 var popup = function (layer) {
-  return layer.feature.properties.description;
+  return layer.feature.description;
 };
 
 <?php
@@ -103,9 +103,7 @@ var overlays = {
       wmtsurl + '&layer=GEOGRAPHICALGRIDSYSTEMS.MAPS.BDUNI.J1&format=image/png&style=normal',
       {"format":"image/png","minZoom":0,"maxZoom":18,"attribution":attrIGN}
   ),
-<?php
-  foreach ($geojsonLayers as $name) echo "  '$name' : $name,\n";
-?>
+  <?php foreach ($geojsonLayers as $name) echo "  '$name' : $name,\n"; ?>
 };
 
 map.addLayer(baseLayers["Plan IGN V2"]);

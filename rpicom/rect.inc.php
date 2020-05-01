@@ -4,6 +4,9 @@ name: rect.inc.php
 title: rect.inc.php.php - définition de la classe Rect
 classes:
 doc: |
+journal: |
+  1/5/2020:
+    - amélioration de Rect::geomBbox()
 */
 
 /*PhpDoc: classes
@@ -61,6 +64,8 @@ class Rect {
   private $ne; // couple de coord. (lat,lng) NE
   
   function __construct(array $coords) { // construction à partir d'un array [latmin, lngmin, latmax, lngmax]
+    if (!is_numeric($coords[0]))
+      throw new Exception("Erreur dans le paramètre de Rect::__construct(".json_encode($coords).")");
     $this->sw = [$coords[0], $coords[1]];
     $this->ne = [$coords[2], $coords[3]];
   }
@@ -171,6 +176,8 @@ class Rect {
   static function bboxOfListOfGeoJSONPoints(array $coords): Rect {
     $bbox = null;
     foreach ($coords as $lngLat) {
+      if (!is_numeric($lngLat[0]))
+        throw new Exception("Erreur dans bboxOfListOfGeoJSONPoints() sur lngLat=".json_encode($lngLat));
       $bbox = $bbox ? $bbox->bound($lngLat) : new Rect([$lngLat[1], $lngLat[0], $lngLat[1], $lngLat[0]]);
     }
     return $bbox;
@@ -179,10 +186,31 @@ class Rect {
   // fabrique le bbox de la géométrie GeoJSON donc (lng,lat)
   static function geomBbox(array $geom): Rect {
     switch ($geom['type']) {
-      case 'LineString':
+      case 'LineString': {
         return Rect::bboxOfListOfGeoJSONPoints($geom['coordinates']);
-      default:
+      }
+      case 'MultiLineString': {
+        $bbox = null;
+        foreach ($geom['coordinates'] as $ls) {
+          $lsBbox = Rect::bboxOfListOfGeoJSONPoints($ls);
+          $bbox = $bbox ? $bbox->union($lsBbox) : $lsBbox;
+        }
+        return $bbox;
+      }
+      case 'Polygon': {
+        return Rect::bboxOfListOfGeoJSONPoints($geom['coordinates'][0]);
+      }
+      case 'MultiPolygon': {
+        $bbox = null;
+        foreach ($geom['coordinates'] as $polygon) {
+          $polygBbox = Rect::bboxOfListOfGeoJSONPoints($polygon[0]);
+          $bbox = $bbox ? $bbox->union($polygBbox) : $polygBbox;
+        }
+        return $bbox;
+      }
+      default: {
         throw new Exception("Erreur sur Rect::geomBbox(".json_encode($geom).")");
+      }
     }
   }
   

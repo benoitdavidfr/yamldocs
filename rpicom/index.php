@@ -2574,6 +2574,7 @@ if ($_GET['action'] == 'setGeoloc') {
         new GeoLoc('GeoFla2013', '2013-01-01', false),
         new GeoLoc('GeoFla2012', '2012-01-01', false),
         new GeoLoc('GeoFla2011', '2011-01-01', false),
+        new GeoLoc('GeoFla2010', '2010-01-01', false),
       ] as $geoloc) {
     $state = $geoloc->state();
     if (0) { // lecture de GéoFLA dans $geofla
