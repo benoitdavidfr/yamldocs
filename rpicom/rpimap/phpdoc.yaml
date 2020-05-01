@@ -1,0 +1,11 @@
+title: Affichage carto des versions d'une commune
+path: /yamldoc/pub/rpicom/rpimap
+doc: |
+  Permet de créer un index des communes dans les différentes couches disponibles
+  puis d'afficher une carte des différentes versions d'une commune dans chacune des couches.
+submodules:
+phpScripts:
+  - /yamldoc/pub/rpicom/rpimap/index.php
+phpIncludes:
+  - /yamldoc/pub/rpicom/rpimap/igeojfile.inc.php
+htmlFiles:

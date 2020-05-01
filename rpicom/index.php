@@ -2599,22 +2599,48 @@ if ($_GET['action'] == 'setGeoloc') {
   $rpicomBase->save();
   
   // setGeolocInfo
-  $nogeoloc = 0;
-  $dlaplusrécente = '0000';
-  foreach ($rpicomBase->contents() as $id => $rpicom) {
-    foreach ($rpicom as $dv => $version) {
-      if (!isset($version['geoloc'])) {
-        $nogeoloc++;
-        if (strcmp($dv, $dlaplusrécente) > 0)
-          $dlaplusrécente = $dv;
-        break;
+  if (0) { // nbre  de versions non géolocalisées et date la plus récente
+    $nogeoloc = 0;
+    $dlaplusrécente = '0000';
+    foreach ($rpicomBase->contents() as $id => $rpicom) {
+      foreach ($rpicom as $dv => $version) {
+        if (!isset($version['geoloc'])) {
+          $nogeoloc++;
+          if (strcmp($dv, $dlaplusrécente) > 0)
+            $dlaplusrécente = $dv;
+          break;
+        }
       }
     }
+    echo $nogeoloc," entités au moins partiellement non géolocalisées sur ",count($rpicomBase->contents()),"\n";
+    echo "Date la plus récente $dlaplusrécente\n";
   }
-  echo $nogeoloc," entités au moins partiellement non géolocalisées sur ",count($rpicomBase->contents()),"\n";
-  echo "Date la plus récente $dlaplusrécente\n";
+  
+  if (1) { // versions de c. simples non géolocalisées et date la plus récente 
+    /*
+    1730 rpicom ayant une version de commune simple non géolocalisée
+    Date la plus récente 2011-01-01
+    Cela signifie que tte version de c.simple après le 1/1/2011 peut être géolocalisée
+    */
+    $nogeoloc = 0;
+    $dlaplusrécente = '0000';
+    foreach ($rpicomBase->contents() as $id => $rpicom) {
+      foreach ($rpicom as $dv => $version) {
+        if (!isset($version['geoloc']) && (EvtType::type($version['évènement'])['type'] <> 'Création')
+            && !isset($version['estAssociéeA']) && !isset($version['estDéléguéeDe'])) {
+          echo "dv=$dv, rpicom=",Yaml::dump([$id => $rpicom], 1, 2);
+          if (strcmp($dv, $dlaplusrécente) > 0)
+            $dlaplusrécente = $dv;
+          $nogeoloc++;
+          break;
+        }
+      }
+    }
+    echo $nogeoloc," rpicom ayant une version de commune simple non géolocalisée\n";
+    echo "Date la plus récente $dlaplusrécente\n";
+  }
 
-  if (1) // affiche les entités au moins partiellement non géolocalisées
+  if (0) // affiche les entités au moins partiellement non géolocalisées
   foreach ($rpicomBase->contents() as $id => $rpicom) {
     foreach ($rpicom as $dv => $version) {
       if (!isset($version['geoloc']) && (EvtType::type($version['évènement'])['type'] <> 'Création')) {
