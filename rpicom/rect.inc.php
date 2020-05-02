@@ -73,7 +73,14 @@ class Rect {
   function sw(): array { return $this->sw; } // couple de coord. (lat,lng) SW
   function ne(): array { return $this->ne; } // couple de coord. (lat,lng) NE
   
-  function __toString() { return '['.$this->sw[0].','.$this->sw[1].','.$this->ne[0].','.$this->ne[1].']'; }
+  function __toString(): string { return '['.$this->sw[0].','.$this->sw[1].','.$this->ne[0].','.$this->ne[1].']'; }
+  
+  function round(int $precision): Rect {
+    return new Rect([
+      round($this->sw[0], $precision), round($this->sw[1], $precision),
+      round($this->ne[0], $precision), round($this->ne[1], $precision)
+    ]);
+  }
   
   function centre(): array { // centre du rectangle comme couple de coords (lat,lng) 
     return [($this->sw[0]+$this->ne[0])/2, ($this->sw[1]+$this->ne[1])/2];

@@ -36,14 +36,25 @@ class IndGeoJFile {
       return $this->features[$id]['bbox'];
   }
   
-  /*function features(string $id): array {
-    $features = [];
-    foreach ($this->features[$id]['files'] as $geojfileName => $position) {
-      $geojfile = new GeoJFile($this->dirpath.'/'.$this->geojfiles[$geojfileName]);
-      $features[] = $geojfile->quickReadOneFeature($position);
+  // liste des datasets contenant l'id
+  function datasets(string $id): array {
+    if (!isset($this->features[$id]))
+      return [];
+    else
+      return array_keys($this->features[$id]['files']);
+  }
+  
+  // Retourne la géométrie pour un dataset
+  function feature(string $id, string $dataset): array {
+    if (!($feature = $this->features[$id] ?? null))
+      return [];
+    elseif (!($offset = $feature['files'][$dataset] ?? null))
+      return [];
+    else {
+      $geojfile = new GeoJFile($this->dirpath.'/'.$this->geojfiles[$dataset]);
+      return $geojfile->quickReadOneFeature($offset);
     }
-    return $features;
-  }*/
+  }
   
   // retourne la structure attendue par la carte
   function layers(string $id) : array {
@@ -65,16 +76,46 @@ class IndGeoJFile {
 if (basename(__FILE__) <> basename($_SERVER['PHP_SELF'])) return;
 
 require_once __DIR__.'/../../../vendor/autoload.php';
+require_once __DIR__.'/../menu.inc.php';
 
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
 
-echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>igeojfile</title></head><body><pre>\n";
+$menu = new Menu([
+  // [{action} => [ 'argNames' => [{argName}], 'actions'=> [{label}=> [{argValue}]] ]]
+  'build'=> [
+    'argNames'=> [],
+    'actions'=> [
+      "construit l'index"=> [],
+    ],
+  ],
+  'show'=> [
+    'argNames'=> [],
+    'actions'=> [
+      "affiche l'index"=> [],
+    ],
+  ],
+  'show1F'=> [
+    'argNames'=> ['id'], // liste des noms des arguments en plus de action
+    'actions'=> [
+      "affiche un feature"=> ['44001'],
+    ],
+  ],
+  'show1FwNames'=> [
+    'argNames'=> ['id'], // liste des noms des arguments en plus de action
+    'actions'=> [
+      "affiche un feature à partir d'un index des noms par département"=> ['44'],
+    ],
+  ],
+],
+$argc ?? 0, $argv ?? []);
 
-if (!isset($_GET['action'])) {
-  echo "<a href='?action=build'>construit l'index</a>\n";
-  echo "<a href='?action=show'>affiche l'index</a>\n";
-  echo "<a href='?action=show1F'>affiche un feature</a>\n";
+if (php_sapi_name() <> 'cli') { // traite le cas d'utilisation en cli, traduit les args CLI en $_GET en fonction de $menu
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>igeojfile</title></head><body><pre>\n";
+}
+
+if (!isset($_GET['action'])) { // Menu
+  $menu->show();
   die();
 }
 
@@ -82,10 +123,21 @@ if (!isset($_GET['action'])) {
 $aegeoflaroot = __DIR__.'/../data/aegeofla';
 
 if ($_GET['action'] == 'build') {
-  // liste des datasets intégrés dans l'index
-  $aedatasets = [
-    'AE2020COG',
-    'AE2017COG',
+  // liste des datasets intégrés dans l'index [name => path]
+  $datasets = [
+    'Ae2020Cog' => 'AE2020COG/FRA/COMMUNE_CARTO',
+    'Ae2020CogR' => 'AE2020COG/FRA/ENTITE_RATTACHEE_CARTO',
+    'Ae2019Cog' => 'AE2019COG/FRA/COMMUNE_CARTO',
+    'Ae2018Cog' => 'AE2018COG/FRA/COMMUNE_CARTO',
+    'Ae2017Cog' => 'AE2017COG/FRA/COMMUNE_CARTO',
+    'geofla2016' => 'geofla2016/FXX/COMMUNE',
+    'geofla2015' => 'geofla2015/FXX/COMMUNE',
+    'geofla2014' => 'geofla2014/FRA/COMMUNE',
+    'geofla2013' => 'geofla2013/FRA/COMMUNE',
+    'geofla2012' => 'geofla2012/FXX/COMMUNE',
+    'geofla2011' => 'geofla2011/FXX/COMMUNE',
+    'geofla2010' => 'geofla2010/FXX/COMMUNE',
+    'geofla2003' => 'geofla2003/FXX/COMMUNE',
   ];
 
   /*[ 'geojfiles'=> [
@@ -103,28 +155,27 @@ if ($_GET['action'] == 'build') {
   */
   $data = []; 
 
-  foreach ($aedatasets as $aedataset) {
-    echo "$aedataset=$aedataset\n";
-    $data['geojfiles'][$aedataset] = "$aedataset/FRA/COMMUNE_CARTO.geojson";
-    $geojfile = new GeoJFile("$aegeoflaroot/$aedataset/FRA/COMMUNE_CARTO.geojson");
+  foreach ($datasets as $dsName => $path) {
+    echo Yaml::dump([$dsName=> $path]);
+    $data['geojfiles'][$dsName] = "$path.geojson";
+    $geojfile = new GeoJFile("$aegeoflaroot/$path.geojson");
     foreach ($geojfile->quickReadFeatures() as $feature) {
-      $id = $feature['properties']['INSEE_COM'];
+      //echo Yaml::dump($feature); die();
+      $id = $feature['properties']['INSEE_COM'] ?? $feature['properties']['CODE_DEPT'].$feature['properties']['CODE_COMM'];
       //if (substr($id, 0, 2) <> '44') continue;
       //if ($id <> '86161') continue;
-      //echo Yaml::dump($feature);
       $bbox = Rect::geomBbox($feature['geometry']);
+      $bbox = $bbox->round(2);
       if (!isset($data['features'][$id])) {
         $data['features'][$id] = [
           'bbox'=> $bbox,
-          'files'=> [
-            $aedataset => $feature['ftell'],
-          ],
+          'files'=> [ $dsName => $feature['ftell'] ],
         ];
       }
       else {
         //print_r($data['features'][$id]['bbox']->union($bbox));
         $data['features'][$id]['bbox'] = $data['features'][$id]['bbox']->union($bbox);
-        $data['features'][$id]['files'][$aedataset] = $feature['ftell'];
+        $data['features'][$id]['files'][$dsName] = $feature['ftell'];
       }
       //echo '$data='; print_r($data);
       //die("Fin ligne ".__LINE__);
@@ -149,7 +200,6 @@ if ($_GET['action'] == 'show') {
 if ($_GET['action'] == 'show1F') { // Affichage d'un feature particulier à partir de son id
   $data = unserialize(file_get_contents("$aegeoflaroot/index.igf"));
   if (!isset($_GET['id']) && !isset($_GET['options'])) { // liste uniq des id
-    echo "<a href='?action=show1FwNames'>avec noms</a>\n";
     foreach ($data['features'] as $id => $fInd) {
       echo "<a href='?action=$_GET[action]&amp;id=$id'>$id</a>\n";
     }
@@ -190,7 +240,8 @@ if ($_GET['action'] == 'show1FwNames') { // affichage d'un index des noms
       foreach ($fInd['files'] as $geojfname => $offset) {
         $igeofile = new IndGeoJFile("$aegeoflaroot/index.igf");
         $layers = $igeofile->layers($id);
-        $names[$geojfname] = $layers[$geojfname]['data']['properties']['NOM_COM'];
+        $prop = $layers[$geojfname]['data']['properties'];
+        $names[$geojfname] = $prop['NOM_COM'] ?? $prop['NOM_COMM'];
       }
       echo "<a href='?action=show1F&amp;id=$id'>";
       echo Yaml::dump([$id => $names], 3),"</a>\n";

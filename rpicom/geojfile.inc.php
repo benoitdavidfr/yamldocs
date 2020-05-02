@@ -90,7 +90,6 @@ class GeoJFile {
   /*PhpDoc: methods
   name:  meetCriteria
   title: static function meetCriteria($criteria, $feature) - teste si des critères sont satisfaits par un feature
-  methods:
   */
   static function meetCriteria($criteria, $feature) {
     if (!$criteria)

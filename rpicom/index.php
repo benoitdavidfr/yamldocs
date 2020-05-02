@@ -5,6 +5,9 @@ title: index.php - diverses actions rpicom
 doc: |
   Définition de différentes actions accessibles par le Menu
 journal: |
+  2/5/2020:
+    - abandon de setGeoloc
+    - 1ère version aboutie de geoloc, 46953 objets traités dont 11 erreurs et 7001 à voir
   27-19/4/2020:
     - suite setGéoloc
     - correction de 2 erreurs probables dans com20200101 et rpicom
@@ -63,88 +66,10 @@ changeDeDépartementEtAvaitPourCode -> arriveDansLeDépartementAvecLeCode
 ini_set('memory_limit', '2048M');
 
 require_once __DIR__.'/../../vendor/autoload.php';
+require_once __DIR__.'/menu.inc.php';
 
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
-
-{/*PhpDoc: classes
-name: Menu
-title: class Menu - affiche le menu en CLI ou en HTML et traduit les paramètres CLI en $_GET en fonction du menu
-doc: |
-  Doit être initialisé avec le Menu dans le format
-    [{action} => [
-      'argNames' => [{argName}], // liste des noms des paramètres de la commande utilisés en HTTP
-      'actions'=> [  // liste d'actions proposées
-        {label}=> [{argValue}] // étiquette de chaque action et liste des paramètres de la commande
-      ]
-    ]]
-*/}
-class Menu {
-  protected $cmdes; // [{action} => [ 'argNames' => [{argName}], 'actions'=> [{label}=> [{argValue}]] ]]
-  protected $argv0; // == $argv[0]
-  
-  function __construct(array $cmdes) {
-    $this->cmdes = $cmdes;
-    foreach ($cmdes as $action => $cmde) {
-      if (!isset($cmde['argNames']))
-        die("Erreur pas de champ 'argNames' pour l'action '$action'");
-      if (!is_array($cmde['argNames']))
-        die("Erreur 'argNames' pour l'action '$action' n'est pas un array");
-      if (!isset($cmde['actions']))
-        die("Erreur pas de champ 'actions' pour l'action '$action'");
-      if (!is_array($cmde['actions']))
-        die("Erreur 'actions' pour l'action '$action' n'est pas un array");
-      foreach ($cmde['actions'] as $label => $argValues)
-        if (count($argValues) <> count($cmde['argNames']))
-          die("Erreur pour action='$action', l'action \"$label\" est mal définie");
-    }
-  }
-  
-  // cas d'utilisation en cli, traduit les args CLI en $_GET en fonction de $this->actions
-  function cli(int $argc, array $argv): array {
-    //echo "argc=$argc, argv="; print_r($argv);
-    $this->argv0 = array_shift($argv); // le nom du fichier php
-    if ($argc == 1) {
-      return [];
-    }
-    $_GET = ['action' => array_shift($argv)];
-    if (!isset($this->cmdes[$_GET['action']]))
-      die("Erreur action '$_GET[action]' non définie dans le Menu\n");
-    foreach ($argv as $i => $arg) {
-      $pname = $this->cmdes[$_GET['action']]['argNames'][$i];
-      $_GET[$pname] = $arg;
-    }
-    //print_r($_GET); die();
-    return $_GET;
-  }
-  
-  // affiche le menu en CLI ou en HTML
-  function show() {
-    if (php_sapi_name() == 'cli') {
-      echo "Actions possibles:\n";
-      foreach($this->cmdes as $action => $cmde) {
-        echo "  php $this->argv0 $action",
-          $cmde['argNames'] ? " {".implode('} {', $cmde['argNames'])."}" : '',"\n";
-        foreach ($cmde['actions'] as $label => $argValues)
-          echo "   # $label\n    php $this->argv0 $action ",implode(' ', $argValues),"\n";
-      }
-    }
-    else {
-      echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>menu</title></head><body>Menu:<ul>\n";
-      foreach($this->cmdes as $action => $cmde) {
-        echo "<li>$action<ul>\n";
-        foreach ($cmde['actions'] as $label => $argValues) {
-          $href = "?action=$action";
-          foreach ($cmde['argNames'] as $argNo => $argName)
-            $href .= "&amp;$argName=".urlencode($argValues[$argNo]);
-          echo "<li><a href='$href'>$label</a></li>\n";
-        }
-        echo "</ul>\n";
-      }
-      echo "</ul>\n";
-    }
-  }
-};
 
 $menu = new Menu([
   // [{action} => [ 'argNames' => [{argName}], 'actions'=> [{label}=> [{argValue}]] ]]
@@ -324,12 +249,7 @@ $menu = new Menu([
       "Génération de la table de transcodage"=> [],
     ],
   ],
-]
-);
-
-if (php_sapi_name() == 'cli') { // traite le cas d'utilisation en cli, traduit les args CLI en $_GET en fonction de $menu
-  $_GET = $menu->cli($argc, $argv);
-}
+], $argc ?? 0, $argv ?? []);
 
 if (($_GET['action'] ?? null) == 'delBase') { // suppression de la base
   if (is_file(__DIR__.'/base.pser')) {
@@ -2416,6 +2336,18 @@ class Version {
          || isset($version['estArrondissementMunicipalDe']));
   }
   
+  // définit un type d'entité
+  static function type(array $version): string {
+    return isset($version['estAssociéeA']) ? 'COMA' :
+        (isset($version['estDéléguéeDe']) ? 'COMD' :
+          (isset($version['estArrondissementMunicipalDe']) ? 'ARM' : 'COMS'));
+  }
+  
+  // la c de rattachement ou '
+  static function parent(array $version): string {
+    return $version['estAssociéeA'] ?? ($version['estDéléguéeDe'] ?? ($version['estArrondissementMunicipalDe'] ?? ''));
+  }
+  
   // retourne '' si aucun évt n'est associé à la version, soit la clé de l'evt soit le libellé
   static function evt(array $version): string {
     if (!($evt = ($version['évènement'] ?? null)))
@@ -2424,6 +2356,26 @@ class Version {
       return array_keys($evt)[0];
     else
       return $evt;
+  }
+
+  // encodage court de l'évènement
+  static function shortEvt(array $version): string {
+    $simples = [
+      "Se crée en commune nouvelle avec commune déléguée propre" => 'seCréeEnComNouvAvecDélPropre',
+      "Se crée en commune nouvelle" => 'seCréeEnComNouvelle',
+      "Prend des c. associées et/ou absorbe des c. fusionnées" => 'PrendAssocOuAbsorbe',
+    ];
+    if (!($evt = ($version['évènement'] ?? null)))
+      return '';
+    elseif (is_array($evt)) {
+      $key = array_keys($evt)[0];
+      if ($key == 'changeDeNomPour')
+        return 'changeDeNom';
+      else
+        return str_replace(['"',':'], ['', ': '], json_encode($evt, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE));
+    }
+    else
+      return $simples[$evt] ?? $evt;
   }
 };
 
@@ -2651,6 +2603,274 @@ if ($_GET['action'] == 'setGeoloc') {
     }
   }
   die("Fin setGeoloc\n");
+}
+
+require_once __DIR__.'/rpimap/igeojfile.inc.php';
+
+// fichier GeoJSON en écriture
+class GeoJFileW {
+  protected $file = null;
+  protected $first;
+  
+  // création
+  function __construct(string $filename) {
+    $this->file = fopen($filename, 'w');
+    $start = <<<'EOT'
+{
+"type": "FeatureCollection",
+"name": "Rpicom",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+EOT;
+    fwrite($this->file, "$start\n");
+    $this->first = true;
+  }
+  
+  // fermeture
+  function close() {
+    fwrite($this->file, "\n]\n}\n");
+    fclose($this->file);
+    $this->file = null;
+  }
+  
+  // écriture d'un feature
+  function write(array $geojson): void {
+    if (!$this->first) fwrite($this->file, ",\n");
+    $this->first = false;
+    fwrite($this->file, json_encode($geojson, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE));
+  }
+  
+  // fabrication et enregistrement d'un feature à partir d'un enregistrement $record
+  function geoloc(IndGeoJFile $igeojfile, array $record): bool {
+    if ($record['dataset'] == 'A VOIR') { // géométrie en mer pour retrouver facilement ces objets
+      $geometry = ['type'=> 'Polygon', 'coordinates'=> [[[-4,46],[-4,47],[-3,47],[-3,46],[-4,46]]]];
+    }
+    else {
+      $comid = $record['overEstim'] ? $record['overEstim'] : $record['comid'];
+      if (!($georef = $igeojfile->feature($comid, $record['dataset'])))
+        return false;
+      $geometry = $georef['geometry'];
+    }
+    $this->write(['type'=> 'Feature', 'properties'=> $record, 'geometry'=> $geometry]);
+    return true;
+  }
+};
+
+// retourne le dataset dans lequel je trouve un majorant de id ainsi que l'id majorant défini dans ce dataset
+// $overEstimId en entrée est celui de la c. absorbante ou d'un majorant
+// retourne [datasetId, overEstimId] avec overEstimId défini dans datasetId
+function overEstim(array $rpicoms, string $overEstimId, string $dv): array {
+  //echo yaml::dump(['majorant'=> ['$id'=> $id]]);
+  //echo yaml::dump(['$id'=> $rpicoms[$id]]);
+  $overEstim = $rpicoms[$overEstimId];
+  if (isset($overEstim['now'])) { // si le majorant existe actuellement j'utilise cette version
+    return Version::estRattachee($overEstim['now']) ? ['Ae2020CogR', $overEstimId] : ['Ae2020Cog', $overEstimId];
+  }
+  $vLaPlusRecente = Rpicom::versionLaPlusRecente($overEstim);
+  if (isset($vLaPlusRecente['évènement']['fusionneDans'])) { // si la c. absorbante a elle même été fusionnée alors récursion
+    return overEstim($rpicoms, $vLaPlusRecente['évènement']['fusionneDans'], $dv);
+  }
+  elseif (isset($vLaPlusRecente['évènement']['seFondDans'])) { // si la c. absorbante a elle même été fusionnée alors récursion
+    return overEstim($rpicoms, $vLaPlusRecente['évènement']['seFondDans'], $dv);
+  }
+  elseif (isset($vLaPlusRecente['évènement']['quitteLeDépartementEtPrendLeCode'])) { // si la c. abs. a changé de code alors récursion
+    return overEstim($rpicoms, $vLaPlusRecente['évènement']['quitteLeDépartementEtPrendLeCode'], $dv);
+  }
+  echo Yaml::dump([
+    'overEstim'=>[
+      '$overEstimId'=> $overEstimId,
+      '$overEstim'=> $overEstim,
+      '$dv'=> $dv,
+      '$vLaPlusRecente'=> $vLaPlusRecente
+    ]], 3);
+  throw new Exception("Cas non traité");
+}
+
+// retourne la provenance et le type de la géométrie sous la forme ['S'+'R'=> [datasetId, overEstim]]
+//  / datasetId est un identifiant de dataset défini dans IndGeoJFile
+//  / overEstim vaut '' si la géoLoc est disponible, sinon l'id d'un majorant
+// $previous est le retour effectué pour une version ultérieure du même id
+function defDataset(array $rpicoms, string $id, string $dvref, array $datasets, array $previous): array {
+  $rpicom = $rpicoms[$id];
+  $version = $rpicom[$dvref];
+  $endevt = Version::shortEvt($version);
+  if ($dvref == 'now') { // si la version existe alors la géométrie est définie dans Ae2020Cog ou Ae2020CogR
+    // je traite de plus le bug IGN des entités absentes par du Cog en utilisant alors la v. Ae2019
+    return [
+      'S'=> in_array('Ae2020Cog', $datasets) ? ['Ae2020Cog', '']
+          : (in_array('Ae2019Cog', $datasets) ? ['Ae2019Cog', ''] : ['Erreur', '']),
+      'R'=> in_array('Ae2020CogR', $datasets) ? ['Ae2020CogR', ''] : ['Erreur', ''],
+    ];
+  }
+  elseif ($endevt == 'changeDeNom') { // pas de chgt de géométrie
+    return $previous;
+  }
+  if (Version::evt($version) == 'fusionneDans') { // cas d'une entité qui fusionne
+    if (!isset($version['estAssociéeA']) && !isset($version['estDéléguéeDe'])) { // cas d'une COM qui fusionne
+      if (strcmp($dvref, '2003-01-01') < 0) { // date de fusion avant 2003 => pas de référentiel => majorant
+        return ['S'=> overEstim($rpicoms, $version['évènement']['fusionneDans'], $dvref)];
+      }
+      else { // COM qui fusionne après 2003 => géométrie présente dans un référentiel, je choisis le plus récent
+        /*
+          $id: '21551'
+          $dvref: '2009-01-01'
+          $rpicom:
+            '2009-01-01':
+              évènement: { fusionneDans: 21084 }
+              name: Saint-Germain-Source-Seine
+        */
+        return ['S'=> [$datasets[0], '']];
+      }
+    }
+    elseif (strcmp($dvref, '2003-01-01') < 0) { // cas d'une COMA/COMD qui fusionne avant 2003 => pas de réf. => majorant
+      /*
+        $dvref: '1983-01-01'
+        $rpicom:
+            '1983-01-01':
+                évènement: { fusionneDans: '01165' }
+                name: Amareins
+                estAssociéeA: '01165'
+            '1974-01-01':
+                évènement: { sAssocieA: '01165' }
+                name: Amareins
+      */
+      return ['R'=> overEstim($rpicoms, $version['évènement']['fusionneDans'], $dvref)];
+    }
+    else { // date de fusion après 2003
+      // recherche une éventuelle version précédente correspondant à l'association ou devenueDéléguée
+      $dvprec = null;
+      foreach ($rpicom as $dv => $v) { // recherche de la version précédente à $dvref
+        if ((strcmp($dv, $dvref) < 0) && (Version::evt($v) <> 'resteAssociéeA')) {
+          // première version antérieure à $dvref <> resteAssociéeA
+          $dvprec = $dv;
+          break;
+        }
+      }
+      if (!$dvprec) // si pas de version précédente, ex association avant 1943
+        return ['R'=> overEstim($rpicoms, $version['évènement']['fusionneDans'], $dvref)]; // => majorant
+      elseif (isset($rpicom[$dvprec]['évènement']['sAssocieA']) || isset($rpicom[$dvprec]['évènement']['devientDéléguéeDe'])) {
+        // si la version précédente est une sAssocieA ou une devientDéléguéeDe
+        if (strcmp($dvprec, '2003-01-01') < 0) { // et que cette association/déléguée est d'avant 2003 => majorant
+          /*
+            $dvref: '2015-01-01'
+            $rpicom:
+                '2015-01-01':
+                    évènement: { fusionneDans: '01283' }
+                    name: Veyziat
+                    estAssociéeA: '01283'
+                '1973-01-01':
+                    évènement: { sAssocieA: '01283' }
+                    name: Veyziat
+          */
+          return ['R'=> overEstim($rpicoms, $version['évènement']['fusionneDans'], $dvref)];
+        }
+        else { // association/déléguée d'après 2003 => sa géométrie est définie dans un des référentiels disponibles
+          /*
+            $id: '16296'
+            $dvref: '2020-01-01'
+            $rpicom:
+                '2020-01-01':
+                    évènement: { fusionneDans: 16300 }
+                    name: Saint-Amant-de-Bonnieure
+                    estDéléguéeDe: 16300
+                '2018-01-01':
+                    après: { name: Saint-Amant-de-Bonnieure, estDéléguéeDe: 16300 }
+                    évènement: { devientDéléguéeDe: 16300 }
+                    name: Saint-Amant-de-Bonnieure
+          */
+          return ['R'=> [$datasets[0], 'DEF']];
+        }
+      }
+    }
+    echo Yaml::dump(['defDataset'=> ['$id'=> $id, '$dvref'=> $dvref, '$rpicom'=> $rpicom]], 4);
+  }
+  else {
+    return ['S'=> ['A VOIR',''], 'R'=> ['A VOIR','']];
+  }
+}
+
+if ($_GET['action'] == 'geoloc') { // génération d'un fichier géolocalisé de chaque version
+  {/* structuration:
+    vid: identifiant unique de la version de la forme comid@start avec la lettre en plus afin de distinguer les déléguées propres
+    comid: code INSEE
+    type: COMS, COMA, COMD ou ARM
+    parent: si non COMS alors id de la COMS de rattachement
+    start: date de début de la version, 1943-01-01 par défaut
+    end: lendemain de la date de fin de la version, 9999-12-31 pour les entités actuelles
+    startEvt: codification de l'évènement de début de la version, '' pour les e. existantes au 1/1/1943
+    endEvt: codification de l'évènement de fin de la version, '' pour les e. actuelles
+    name: nom en minuscules accentuées
+    overEstim: si la géom est celle d'un majorant alors id du majorant sinon ''
+    dataset: source de la géométrie
+    geom: géolocalisation, dans un premier temps non rempli
+  */}
+  set_time_limit(5*60);
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>geoloc</title></head><body><pre>\n";
+  $rpicomBase = new Base(__DIR__.'/rpicom', new Criteria(['not']));
+  //$rpicomBase = new Base(__DIR__.'/rpicomtest', new Criteria(['not']));
+  $rpicoms = $rpicomBase->contents();
+  $igeojfile = new IndGeoJFile(__DIR__.'/data/aegeofla/index.igf');
+  $geojfilew = new GeoJFileW(__DIR__.'/rpicom.geojson');
+  $nbrecords = 0;
+  $nbAVoirs = 0;
+  $nbErreurs = 0;
+  foreach ($rpicoms as $id => $rpicom) {
+    $dvs = array_keys($rpicom);
+    $datasets = $igeojfile->datasets($id);
+    $dataset = []; // ['S'+'R'=> [datasetId, overEstim]]
+    foreach ($dvs as $nodv => $dv) {
+      $version = $rpicom[$dv];
+      if (!isset($version['name'])) continue; // si pas de nom alors ce n'est pas une version mais uniq. un évt.
+      $start = $dvs[$nodv+1] ?? '1943-01-01';
+      $idv = "$id@$start";
+      $endEvt = Version::shortEvt($version);
+      $dataset = defDataset($rpicoms, $id, $dv, $datasets, $dataset);
+      $record = [
+        'vid'=> $idv,
+        'comid'=> $id,
+        'type'=> Version::type($version),
+        'parent'=> Version::parent($version),
+        'start'=> $start,
+        'startEvt'=> isset($dvs[$nodv+1]) ? Version::shortEvt($rpicom[$dvs[$nodv+1]]) : '',
+        'end'=> ($dv == 'now') ? '9999-12-31' : $dv,
+        'endEvt'=> $endEvt,
+        'name'=> $version['name'],
+        'overEstim'=> Version::type($version) == 'COMS' ? $dataset['S'][1] : $dataset['R'][1],
+        'dataset'=> Version::type($version) == 'COMS' ? $dataset['S'][0] : $dataset['R'][0],
+      ];
+      echo Yaml::dump([$idv => $record]);
+      if (!$geojfilew->geoloc($igeojfile, $record))
+        $nbErreurs++;
+      if ($record['dataset'] == 'A VOIR')
+        $nbAVoirs++;
+      $nbrecords++;
+      if (isset($version['commeDéléguée'])) {
+        $idv = "${id}D@$start";
+        $record = [
+          'vid'=> $idv,
+          'comid'=> $id,
+          'type'=> 'COMD',
+          'parent'=> $id,
+          'start'=> $start,
+          'startEvt'=> isset($dvs[$nodv+1]) ? Version::shortEvt($rpicom[$dvs[$nodv+1]]) : '',
+          'end'=> ($dv == 'now') ? '9999-12-31' : $dv,
+          'endEvt'=> Version::shortEvt($version),
+          'name'=> $version['commeDéléguée']['name'],
+          'overEstim'=> $dataset['R'][1],
+          'dataset'=> $dataset['R'][0],
+        ];
+        echo Yaml::dump([$idv => $record]);
+        if (!$geojfilew->geoloc($igeojfile, $record))
+          $nbErreurs++;
+        if ($record['dataset'] == 'A VOIR')
+          $nbAVoirs++;
+        $nbrecords++;
+      }
+      //if ($nbrecords >= 1000) break 2;
+    }
+  }
+  $geojfilew->close();
+  die("Fin geoloc, $nbrecords objets traités dont $nbErreurs erreurs et $nbAVoirs à voir\n");
 }
 
 die("Aucune commande $_GET[action]\n");

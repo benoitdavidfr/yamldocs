@@ -1,6 +1,6 @@
 <?php
 /*PhpDoc:
-name: index.php
+name: api.php
 title: api.php - API d'accès au Rpicom
 doc: |
   http://rpicom.geoapi.fr/{code}/{date} est transformé en http://geoapi.fr/rpicom/api.php/{code}/{date}

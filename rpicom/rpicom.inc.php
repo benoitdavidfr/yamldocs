@@ -21,6 +21,15 @@ class Rpicom {
   static function versionLaPlusRecente(array $rpicom): array { return array_values($rpicom)[0]; }
   
   static function dateLaPlusRecente(array $rpicom): string { return array_keys($rpicom)[0]; }
+  
+  // date de la version précédente à dvref ou ''
+  static function dateVersionPrecedente(array $rpicom, string $dvref): string {
+    foreach ($rpicom as $dv => $v) { // recherche de la version précédente à $dvref
+      if (strcmp($dv, $dvref) < 0) // première version antérieure à $dvref
+        return $dv;
+    }
+    return '';
+  }
 };
 
 // retrouve dans la structure des versions celle qui correspond à une date donnée avec l'événement en premier champ
