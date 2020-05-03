@@ -5,9 +5,13 @@ title: index.php - diverses actions rpicom
 doc: |
   Définition de différentes actions accessibles par le Menu
 journal: |
+  3/5/2020:
+    - dév de geoloc2
+    - correction d'un bug dans brpicom pour finir d'éliminer les unknown
   2/5/2020:
     - abandon de setGeoloc
     - 1ère version aboutie de geoloc, 46953 objets traités dont 11 erreurs et 7001 à voir
+    - abandon de geoloc
   27-19/4/2020:
     - suite setGéoloc
     - correction de 2 erreurs probables dans com20200101 et rpicom
@@ -1467,11 +1471,21 @@ if ($_GET['action'] == 'brpicom') { // construction du Rpicom v2
         $rpicoms->$id = $rpicom;
         $unknownAssosVdate = null;
       }
+      if ($unknownAssosVdate && isset($vcom['évènement']['changeDeRattachementPour'])) {
+        $rpicom[$unknownAssosVdate]['estAssociéeA'] = $vcom['évènement']['changeDeRattachementPour'];
+        $rpicoms->$id = $rpicom;
+        $unknownAssosVdate = null;
+      }
       if (isset($vcom['estAssociéeA']) && ($vcom['estAssociéeA'] == 'unknown')) {
         $unknownAssosVdate = $datev;
       }
       if ($unknownDelegVdate && isset($vcom['évènement']['devientDéléguéeDe'])) {
         $rpicom[$unknownDelegVdate]['estDéléguéeDe'] = $vcom['évènement']['devientDéléguéeDe'];
+        $rpicoms->$id = $rpicom;
+        $unknownDelegVdate = null;
+      }
+      if ($unknownDelegVdate && isset($vcom['évènement']['resteDéléguéeDe'])) {
+        $rpicom[$unknownDelegVdate]['estDéléguéeDe'] = $vcom['évènement']['resteDéléguéeDe'];
         $rpicoms->$id = $rpicom;
         $unknownDelegVdate = null;
       }
@@ -2361,9 +2375,12 @@ class Version {
   // encodage court de l'évènement
   static function shortEvt(array $version): string {
     $simples = [
+      "Entre dans le périmètre du Rpicom" => "entreDansRpicom",
+      "Sort du périmètre du Rpicom" => "sortDuRpicom",
       "Se crée en commune nouvelle avec commune déléguée propre" => 'seCréeEnComNouvAvecDélPropre',
       "Se crée en commune nouvelle" => 'seCréeEnComNouvelle',
       "Prend des c. associées et/ou absorbe des c. fusionnées" => 'PrendAssocOuAbsorbe',
+      "Commune rétablissant des c. rattachées ou fusionnées" => "rétablitCommunesRattachéesOuFusionnées",
     ];
     if (!($evt = ($version['évènement'] ?? null)))
       return '';
@@ -2379,6 +2396,7 @@ class Version {
   }
 };
 
+{/*
 // caractéristique d'un géolocalisant
 class GeoLoc {
   protected $label; // string - l'identifiant du GéoLoc
@@ -2491,7 +2509,7 @@ if ($_GET['action'] == 'setGeoloc') {
   GeoFla2011 -> 2745 entités au moins partiellement non géolocalisées sur 39162
   AeCog2019+GeoFla2011 -> 2738 entités au moins partiellement non géolocalisées sur 39162, Date la plus récente 2020-01-01
   AeCog2019+GeoFla2011-16 -> 2734 entités au moins partiellement non géolocalisées sur 39162, Date la plus récente 2020-01-01
-  */
+  *//*
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>setGeoloc</title></head><body><pre>\n";
   $rpicomBase = new Base(__DIR__.'/rpicom', new Criteria(['not']));
   //$rpicomBase = new Base(__DIR__.'/rpicomtest', new Criteria(['not']));
@@ -2574,7 +2592,7 @@ if ($_GET['action'] == 'setGeoloc') {
     1730 rpicom ayant une version de commune simple non géolocalisée
     Date la plus récente 2011-01-01
     Cela signifie que tte version de c.simple après le 1/1/2011 peut être géolocalisée
-    */
+    *//*
     $nogeoloc = 0;
     $dlaplusrécente = '0000';
     foreach ($rpicomBase->contents() as $id => $rpicom) {
@@ -2604,6 +2622,7 @@ if ($_GET['action'] == 'setGeoloc') {
   }
   die("Fin setGeoloc\n");
 }
+*/}
 
 require_once __DIR__.'/rpimap/igeojfile.inc.php';
 
@@ -2659,6 +2678,7 @@ EOT;
 // retourne le dataset dans lequel je trouve un majorant de id ainsi que l'id majorant défini dans ce dataset
 // $overEstimId en entrée est celui de la c. absorbante ou d'un majorant
 // retourne [datasetId, overEstimId] avec overEstimId défini dans datasetId
+// PB n'utilise pas $dv !!!'
 function overEstim(array $rpicoms, string $overEstimId, string $dv): array {
   //echo yaml::dump(['majorant'=> ['$id'=> $id]]);
   //echo yaml::dump(['$id'=> $rpicoms[$id]]);
@@ -2686,9 +2706,11 @@ function overEstim(array $rpicoms, string $overEstimId, string $dv): array {
   throw new Exception("Cas non traité");
 }
 
+require_once __DIR__.'/rpimap/datasets.inc.php';
+
 // retourne la provenance et le type de la géométrie sous la forme ['S'+'R'=> [datasetId, overEstim]]
-//  / datasetId est un identifiant de dataset défini dans IndGeoJFile
-//  / overEstim vaut '' si la géoLoc est disponible, sinon l'id d'un majorant
+//  / datasetId est l'un des identifiants de dataset définis dans IndGeoJFile
+//  / overEstim vaut '' si la géométrie est disponible, sinon l'id d'un majorant dans le dataset
 // $previous est le retour effectué pour une version ultérieure du même id
 function defDataset(array $rpicoms, string $id, string $dvref, array $datasets, array $previous): array {
   $rpicom = $rpicoms[$id];
@@ -2707,20 +2729,10 @@ function defDataset(array $rpicoms, string $id, string $dvref, array $datasets, 
   }
   if (Version::evt($version) == 'fusionneDans') { // cas d'une entité qui fusionne
     if (!isset($version['estAssociéeA']) && !isset($version['estDéléguéeDe'])) { // cas d'une COM qui fusionne
-      if (strcmp($dvref, '2003-01-01') < 0) { // date de fusion avant 2003 => pas de référentiel => majorant
+      if ($dataset = Datasets::mostRecentEarlierCSDataset($dvref, $datasets))
+        return ['S'=> [$dataset, '']];
+      else
         return ['S'=> overEstim($rpicoms, $version['évènement']['fusionneDans'], $dvref)];
-      }
-      else { // COM qui fusionne après 2003 => géométrie présente dans un référentiel, je choisis le plus récent
-        /*
-          $id: '21551'
-          $dvref: '2009-01-01'
-          $rpicom:
-            '2009-01-01':
-              évènement: { fusionneDans: 21084 }
-              name: Saint-Germain-Source-Seine
-        */
-        return ['S'=> [$datasets[0], '']];
-      }
     }
     elseif (strcmp($dvref, '2003-01-01') < 0) { // cas d'une COMA/COMD qui fusionne avant 2003 => pas de réf. => majorant
       /*
@@ -2750,42 +2762,33 @@ function defDataset(array $rpicoms, string $id, string $dvref, array $datasets, 
         return ['R'=> overEstim($rpicoms, $version['évènement']['fusionneDans'], $dvref)]; // => majorant
       elseif (isset($rpicom[$dvprec]['évènement']['sAssocieA']) || isset($rpicom[$dvprec]['évènement']['devientDéléguéeDe'])) {
         // si la version précédente est une sAssocieA ou une devientDéléguéeDe
-        if (strcmp($dvprec, '2003-01-01') < 0) { // et que cette association/déléguée est d'avant 2003 => majorant
-          /*
-            $dvref: '2015-01-01'
-            $rpicom:
-                '2015-01-01':
-                    évènement: { fusionneDans: '01283' }
-                    name: Veyziat
-                    estAssociéeA: '01283'
-                '1973-01-01':
-                    évènement: { sAssocieA: '01283' }
-                    name: Veyziat
-          */
+        if ($dataset = Datasets::mostRecentEarlierCSDataset($dvprec, $datasets))
+          return ['R'=> [$dataset, '']];
+        else
           return ['R'=> overEstim($rpicoms, $version['évènement']['fusionneDans'], $dvref)];
-        }
-        else { // association/déléguée d'après 2003 => sa géométrie est définie dans un des référentiels disponibles
-          /*
-            $id: '16296'
-            $dvref: '2020-01-01'
-            $rpicom:
-                '2020-01-01':
-                    évènement: { fusionneDans: 16300 }
-                    name: Saint-Amant-de-Bonnieure
-                    estDéléguéeDe: 16300
-                '2018-01-01':
-                    après: { name: Saint-Amant-de-Bonnieure, estDéléguéeDe: 16300 }
-                    évènement: { devientDéléguéeDe: 16300 }
-                    name: Saint-Amant-de-Bonnieure
-          */
-          return ['R'=> [$datasets[0], 'DEF']];
-        }
       }
     }
-    echo Yaml::dump(['defDataset'=> ['$id'=> $id, '$dvref'=> $dvref, '$rpicom'=> $rpicom]], 4);
+  }
+  elseif (Version::evt($version) == 'sAssocieA') { // cas d'une COMS qui s'associe à une autre
+    if ($dataset = Datasets::mostRecentEarlierCSDataset($dvref, $datasets))
+      return ['S'=> [$dataset, '']];
+    else // date d'assos avant 2003 => pas de référentiel => majorant
+      return ['S'=> overEstim($rpicoms, $version['évènement']['sAssocieA'], $dvref)];
+  }
+  elseif (Version::evt($version) == 'Se crée en commune nouvelle avec commune déléguée propre') {
+    if ($dataset = Datasets::mostRecentEarlierCSDataset($dvref, $datasets))
+      return ['S'=> [$dataset, '']];
+  }
+  elseif (Version::evt($version) == 'Prend des c. associées et/ou absorbe des c. fusionnées') {
+    if ($dataset = Datasets::mostRecentEarlierCSDataset($dvref, $datasets))
+      return ['S'=> [$dataset, '']];
+    else
+      return ['S'=> overEstim($rpicoms, $id, $dvref)];
   }
   else {
-    return ['S'=> ['A VOIR',''], 'R'=> ['A VOIR','']];
+    echo Yaml::dump(['defDataset'=> ['$id'=> $id, '$dvref'=> $dvref, '$rpicom'=> $rpicom]], 4);
+    throw new Exception("A VOIR");
+    //return ['S'=> ['A VOIR',''], 'R'=> ['A VOIR','']];
   }
 }
 
@@ -2871,6 +2874,28 @@ if ($_GET['action'] == 'geoloc') { // génération d'un fichier géolocalisé de
   }
   $geojfilew->close();
   die("Fin geoloc, $nbrecords objets traités dont $nbErreurs erreurs et $nbAVoirs à voir\n");
+}
+
+require_once __DIR__.'/rpicom2.inc.php';
+
+if ($_GET['action'] == 'geoloc2') { // génération d'un fichier géolocalisé de chaque version, essai d'utiliser une struction en classes
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>geoloc</title></head><body><pre>\n";
+  $rpicomBase = new Base(__DIR__.'/rpicom', new Criteria(['not']));
+  //$rpicomBase = new Base(__DIR__.'/rpicomtest', new Criteria(['not']));
+  $rpicoms = new Rpicoms($rpicomBase->contents());
+  $rpicoms->buildInclusionGraph();
+  $igeojfile = new IndGeoJFile(__DIR__.'/data/aegeofla/index.igf');
+  //$geojfilew = new GeoJFileW(__DIR__.'/rpicom.geojson'); // fichier en écriture
+  //print_r($rpicoms);
+  //$rpicoms->dump(4, 2);
+  $nbs   = [
+    'records' => 0,
+    'aVoirs' => 0,
+    'erreurs' => 0,
+  ];
+  //$rpicoms->geoloc($igeojfile, $geojfilew, $nbs);
+  //$geojfilew->close();
+  die("Fin geoloc2, $nbs[records] objets traités dont $nbs[erreurs] erreurs et $nbs[aVoirs] à voir\n");
 }
 
 die("Aucune commande $_GET[action]\n");

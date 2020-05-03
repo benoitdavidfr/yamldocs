@@ -1,6 +1,6 @@
 title: 'Référentiel rpicom'
 description: 'Voir la documentation sur https://github.com/benoitdavidfr/yamldocs/tree/master/rpicom'
-created: '2020-05-02T03:52:11+00:00'
+created: '2020-05-03T21:46:56+00:00'
 valid: '2020-01-01'
 $schema: 'http://id.georef.eu/rpicom/exrpicom/$schema'
 ydADscrBhv:
@@ -20210,7 +20210,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Ammeville
-      estAssociéeA: 14624
+      estAssociéeA: 14472
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -20541,7 +20541,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Berville
-      estAssociéeA: 14624
+      estAssociéeA: 14472
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -21576,7 +21576,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Écots
-      estAssociéeA: 14624
+      estAssociéeA: 14472
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -21905,7 +21905,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Garnetot
-      estAssociéeA: 14624
+      estAssociéeA: 14472
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -22015,7 +22015,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Grandmesnil
-      estAssociéeA: 14624
+      estAssociéeA: 14472
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -22355,7 +22355,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Lieury
-      estAssociéeA: 14624
+      estAssociéeA: 14472
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -22920,7 +22920,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Montpinçon
-      estAssociéeA: 14624
+      estAssociéeA: 14472
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -24095,7 +24095,7 @@ contents:
       évènement:
         seFondDans: 14654
       name: Saint-Martin-de-Fresnay
-      estAssociéeA: unknown
+      estAssociéeA: 14472
     '2014-01-07':
       évènement:
         changeDeRattachementPour: 14472
@@ -82459,7 +82459,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50099
       name: Angoville-au-Plain
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50099
     '2017-01-01':
       après:
         name: Angoville-au-Plain
@@ -84177,7 +84177,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50099
       name: Houesville
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50099
     '2017-01-01':
       après:
         name: Houesville
@@ -85593,7 +85593,7 @@ contents:
       évènement:
         resteDéléguéeDe: 50099
       name: Saint-Côme-du-Mont
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 50099
     '2017-01-01':
       après:
         name: Saint-Côme-du-Mont
@@ -138736,7 +138736,7 @@ contents:
       évènement:
         resteDéléguéeDe: 77316
       name: Écuelles
-      estDéléguéeDe: unknown
+      estDéléguéeDe: 77316
     '2016-01-01':
       après:
         name: Écuelles

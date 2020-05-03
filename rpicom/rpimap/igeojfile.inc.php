@@ -77,6 +77,7 @@ if (basename(__FILE__) <> basename($_SERVER['PHP_SELF'])) return;
 
 require_once __DIR__.'/../../../vendor/autoload.php';
 require_once __DIR__.'/../menu.inc.php';
+require_once __DIR__.'/datasets.inc.php';
 
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -123,23 +124,6 @@ if (!isset($_GET['action'])) { // Menu
 $aegeoflaroot = __DIR__.'/../data/aegeofla';
 
 if ($_GET['action'] == 'build') {
-  // liste des datasets intégrés dans l'index [name => path]
-  $datasets = [
-    'Ae2020Cog' => 'AE2020COG/FRA/COMMUNE_CARTO',
-    'Ae2020CogR' => 'AE2020COG/FRA/ENTITE_RATTACHEE_CARTO',
-    'Ae2019Cog' => 'AE2019COG/FRA/COMMUNE_CARTO',
-    'Ae2018Cog' => 'AE2018COG/FRA/COMMUNE_CARTO',
-    'Ae2017Cog' => 'AE2017COG/FRA/COMMUNE_CARTO',
-    'geofla2016' => 'geofla2016/FXX/COMMUNE',
-    'geofla2015' => 'geofla2015/FXX/COMMUNE',
-    'geofla2014' => 'geofla2014/FRA/COMMUNE',
-    'geofla2013' => 'geofla2013/FRA/COMMUNE',
-    'geofla2012' => 'geofla2012/FXX/COMMUNE',
-    'geofla2011' => 'geofla2011/FXX/COMMUNE',
-    'geofla2010' => 'geofla2010/FXX/COMMUNE',
-    'geofla2003' => 'geofla2003/FXX/COMMUNE',
-  ];
-
   /*[ 'geojfiles'=> [
         name => path, // chemin du fichier geojson en relatif par rapport au répertoire dans lequel est stocké l'index
       ],
@@ -155,7 +139,7 @@ if ($_GET['action'] == 'build') {
   */
   $data = []; 
 
-  foreach ($datasets as $dsName => $path) {
+  foreach (Datasets::paths() as $dsName => $path) {
     echo Yaml::dump([$dsName=> $path]);
     $data['geojfiles'][$dsName] = "$path.geojson";
     $geojfile = new GeoJFile("$aegeoflaroot/$path.geojson");

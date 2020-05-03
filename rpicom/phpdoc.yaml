@@ -67,6 +67,8 @@ phpScripts:
   - /yamldoc/pub/rpicom/api.php
 phpIncludes:
   - /yamldoc/pub/rpicom/rpicom.inc.php
+  - /yamldoc/pub/rpicom/rpicom2.inc.php
+  - /yamldoc/pub/rpicom/node.inc.php
   - /yamldoc/pub/rpicom/menu.inc.php
   - /yamldoc/pub/rpicom/base.inc.php
   - /yamldoc/pub/rpicom/grpmvts.inc.php
