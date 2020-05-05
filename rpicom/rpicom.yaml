@@ -1,6 +1,6 @@
 title: 'Référentiel rpicom'
 description: 'Voir la documentation sur https://github.com/benoitdavidfr/yamldocs/tree/master/rpicom'
-created: '2020-05-03T21:46:56+00:00'
+created: '2020-05-05T07:25:37+00:00'
 valid: '2020-01-01'
 $schema: 'http://id.georef.eu/rpicom/exrpicom/$schema'
 ydADscrBhv:
@@ -158326,7 +158326,7 @@ contents:
         rétablieCommeAssociéeDe: 89344
     '1972-12-01':
       évènement:
-        sAssocieA: 89344
+        fusionneDans: 89344
       name: Ronchères
   89326:
     now:
@@ -158703,7 +158703,7 @@ contents:
         rétablieCommeAssociéeDe: 89344
     '1972-12-01':
       évènement:
-        sAssocieA: 89344
+        fusionneDans: 89344
       name: Septfonds
   89390:
     now:

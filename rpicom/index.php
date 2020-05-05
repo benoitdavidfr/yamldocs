@@ -1517,7 +1517,25 @@ if ($_GET['action'] == 'brpicom') { // construction du Rpicom v2
     unset($rpicom['2019-12-31']);
     $rpicoms->$id = $rpicom;
   }
-  
+  if (1) {
+    // Post-traitement no 5 pour corriger un Bug INSEE sur 89325 Ronchères
+    // L'évènement d'association du 1972-12-01 et suivi d'un rétablieCommeAssociéeDe de 1977-01-01, c'est impossible !
+    // Le site INSEE confirme ces évènements dont l'enchainement est interdit.
+    // Je transforme donc l'association (sAssocieA) du 1972-12-01 en fusion (fusionneDans)
+    echo "Sur Ronchères (89325), sAssocieA@1972-12-01 incompatible avec rétablieCommeAssociéeDe@1977-01-01 est changée en fusionneDans\n";
+    $id = '89325';
+    $rpicom = $rpicoms->$id;
+    $rpicom['1972-12-01']['évènement'] = ['fusionneDans' => $rpicom['1972-12-01']['évènement']['sAssocieA']];
+    $rpicoms->$id = $rpicom;
+  }
+  if (1) {
+    // Idem pour Septfonds (89389)
+    echo "Sur Septfonds (89389), sAssocieA@1972-12-01 incompatible avec rétablieCommeAssociéeDe@1977-01-01 est changée en fusionneDans\n";
+    $id = '89389';
+    $rpicom = $rpicoms->$id;
+    $rpicom['1972-12-01']['évènement'] = ['fusionneDans' => $rpicom['1972-12-01']['évènement']['sAssocieA']];
+    $rpicoms->$id = $rpicom;
+  }
   if (0)
     $rpicoms->showExtractAsYaml(5, 2);
   $rpicoms->ksort(); // tri du Yaml sur le code INSEE de commune
@@ -2878,6 +2896,15 @@ if ($_GET['action'] == 'geoloc') { // génération d'un fichier géolocalisé de
 
 require_once __DIR__.'/rpicom2.inc.php';
 
+if ($_GET['action'] == 'showIncGraph') {
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>showIncGraph</title></head><body><pre>\n";
+  $rpicomBase = new Base(__DIR__.'/rpicom', new Criteria(['not']));
+  $rpicoms = new Rpicoms($rpicomBase->contents());
+  $rpicoms->buildInclusionGraph();
+  echo Yaml::dump(['graph'=> Node::allAsArray()]);
+  die("Fin showIncGraph\n");
+}
+
 if ($_GET['action'] == 'geoloc2') { // génération d'un fichier géolocalisé de chaque version, essai d'utiliser une struction en classes
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>geoloc</title></head><body><pre>\n";
   $rpicomBase = new Base(__DIR__.'/rpicom', new Criteria(['not']));
@@ -2885,9 +2912,12 @@ if ($_GET['action'] == 'geoloc2') { // génération d'un fichier géolocalisé d
   $rpicoms = new Rpicoms($rpicomBase->contents());
   $rpicoms->buildInclusionGraph();
   $igeojfile = new IndGeoJFile(__DIR__.'/data/aegeofla/index.igf');
+  $stats = ['geolocalisé'=> 0, 'majoré'=> 0, 'erreur'=> 0];
+  $rpicoms->testGeoloc($igeojfile, $stats);
+  echo Yaml::dump(['$stats'=> $stats]);
   //$geojfilew = new GeoJFileW(__DIR__.'/rpicom.geojson'); // fichier en écriture
   //print_r($rpicoms);
-  //$rpicoms->dump(4, 2);
+  $rpicoms->dump(4, 2);
   $nbs   = [
     'records' => 0,
     'aVoirs' => 0,

@@ -6,6 +6,11 @@ doc: |
   buildInclusionGraph() en cours d'écriture
   defDataset() à adapter pour utiliser le graphe
 journal: |
+  5/5/2020:
+    - $stats:
+        geolocalisé: 40016
+        majoré: 5802
+        erreur: 1467
   2/5/2020:
     - création
 includes:
@@ -95,16 +100,25 @@ class Rpicoms {
         //if (++$nbre > 100) break;
       }
     }
-    foreach ($this->rpicoms as $rpicom)
-      $rpicom->setChildren($this);
+    //foreach ($this->rpicoms as $rpicom)
+      //$rpicom->setChildren($this);
     foreach ($this->rpicoms as $rpicom)
       $rpicom->buildInclusionGraph($this);
-    echo count($this->rpicoms)," codes INSEE dans Rpicoms\n";
-    $nbreFeatures = 0;
+    
+    if (0) { // stats
+      echo count($this->rpicoms)," codes INSEE dans Rpicoms\n";
+      $nbreFeatures = ['Features'=> 0, 'codeInseeAvec1Feature'=> 0];
+      foreach ($this->rpicoms as $rpicom)
+        $nbreFeatures = $rpicom->nbreFeatures($nbreFeatures);
+      echo Yaml::dump(['$nbreFeatures'=> $nbreFeatures]);
+      Node::showStats();
+    }
+  }
+  
+  function testGeoLoc(IndGeoJFile $igeojfile, array &$stats): void {
+    // Test de la la geolocalisabilité
     foreach ($this->rpicoms as $rpicom)
-      $nbreFeatures += $rpicom->nbreFeatures();
-    echo "$nbreFeatures Features\n";
-    Node::showStats();
+      $rpicom->testGeoLoc($igeojfile, $this, $stats);
   }
   
   function geoloc(IndGeoJFile $igeojfile, GeoJFileW $geojfilew, array &$nbs): void {
@@ -158,10 +172,29 @@ class Rpicom2 {
         $version->finalize($rpicoms);
   }
   
-  function mostRecent() { return array_values($this->versions)[0]; }
+  function mostRecent(): Version2 { return array_values($this->versions)[0]; }
   
+  // retourne la date de la version précédent la version $startRef
+  function previousVersionDate(string $startRef): string {
+    $keys = array_keys($this->versions);
+    foreach ($keys as $no => $start) {
+      if (($start == $startRef) && isset($keys[$no+1]))
+        return $keys[$no+1];
+    }
+    return '';
+  }
+  
+  // retourne la date de début de la version finissant à la date indiquée
+  function startOfVersionEnding(string $endRef): string {
+    foreach ($this->versions as $start => $version) {
+      if ($version->end() == $endRef)
+        return $start;
+    }
+    return '';
+  }
+    
   // affichage du dernier nom barré s'il n'est plus valide
-  function __toString() {
+  function __toString(): start {
     $mostRecent = $this->mostRecent();
     $end = $mostRecent->end();
     return (($end<>'now') ? '<s>' : '').$mostRecent->name()." ($this->id)".(($end<>'now') ? '</s>' : '');
@@ -193,12 +226,16 @@ class Rpicom2 {
       echo "<b>Création après 1943</b>\n";
   }
   
-  function nbreFeatures(): int {
-    $nbreFeatures = 0;
-    foreach ($this->versions as $dv => $version)
+  function nbreFeatures(array $nbres): array {
+    $nbFeatures = 0;
+    foreach ($this->versions as $dv => $version) {
       if (get_class($version) == 'Version2')
-        $nbreFeatures++;
-    return $nbreFeatures;
+        $nbFeatures++;
+    }
+    $nbres['Features'] += $nbFeatures;
+    if ($nbFeatures == 1)
+      $nbres['codeInseeAvec1Feature'] += 1;
+    return $nbres;
   }
   
   function setChildren(Rpicoms $rpicoms) {
@@ -207,8 +244,19 @@ class Rpicom2 {
   }
   
   function buildInclusionGraph(Rpicoms $rpicoms) {
+    // n'intègre pas dans le graphe les Rpicom n'ayant qu'une version courante
+    if ((count($this->versions) == 1) && ($this->versions[0]->end() == 'now')) {
+      //echo "exclut $this->id du graphe\n";
+      //echo Yaml::dump([$this->id => $this->asArray()]);
+      return;
+    }
     foreach ($this->versions as $dv => $version)
       $version->buildInclusionGraph($rpicoms);
+  }
+  
+  function testGeoLoc(IndGeoJFile $igeojfile, Rpicoms $rpicoms, array &$stats): void {
+    foreach ($this->versions as $start => $version)
+      $version->testGeoloc($igeojfile, $rpicoms, $stats);
   }
   
   function geoloc(Rpicoms $rpicoms, IndGeoJFile $igeojfile, GeoJFileW $geojfilew, array &$nbs): void {
@@ -291,8 +339,8 @@ class Evt2 {
   
   function __construct($evt) { $this->evt = $evt; }
   
-  // dans le cas d'un array la valeur contenue, sinon ''
-  function cible(): string { return is_array($this->evt) ? array_values($this->evt)[0] : ''; }
+  // dans le cas d'un array la valeur contenue, sinon '', peut être un string ou un array
+  function cible() { return is_array($this->evt) ? array_values($this->evt)[0] : ''; }
     
   function value() { return $this->evt; }
  
@@ -320,6 +368,8 @@ class Evt2 {
   }
 };
 
+//abstract class VersionOrCreationEvt {};
+
 {/*PhpDoc:
 name: Version2
 title: class Version2 - une version courante ou historique avec un intervalle durant lequel les infos sont valides
@@ -334,16 +384,17 @@ doc: |
     - l'inclusion entre versions 
 */}
 class Version2 {
-  protected $id; // string - id du rpicom
+  protected $id; // string - id du rpicom (code INSEE)
   protected $start; // string - date de début ou '' si valide depuis le début du référentiel
   protected $startEvt; // evt de début ou null si valide depuis le début du référentiel
   protected $end; // string - date de fin ou 'now' si version courante
   protected $endEvt; // evt de fin ou null si version courante
   protected $name; // string
   protected $type; // string - {'COMA'|'COMD'|'ARM'|'COMS'}
-  protected $parent; // string
+  protected $parent; // string - l'id du parent
   protected $children; // [ string ]
   protected $commeDéléguée; // VComDP ou null
+  protected $geolocDataset;
 
   // construit partiellement à partir du Yaml et de la date de fin
   function __construct(string $id, string $end, array $version) {
@@ -374,7 +425,7 @@ class Version2 {
       $this->commeDéléguée = new VComDP($this, $id.'D', $this->end, $this->endEvt, $version['commeDéléguée']);
   }
   
-  // complète avec la date et l'evt de début
+  // complète l'objet avec la date et l'evt de début
   function setStart(string $start, ?Evt2 $startEvt) {
     $this->start = $start;
     $this->startEvt = $startEvt;
@@ -398,89 +449,170 @@ class Version2 {
     if ($this->parent) $array['parent'] = $this->parent;
     if ($this->children) $array['children'] = $this->children;
     if ($this->commeDéléguée) $array['commeDéléguée'] = $this->commeDéléguée->asArray();
+    if ($node = Node::get("$this->id@$this->start")) $array['spatialRelations'] = $node->asArray();
+    $array['geolocDataset'] = $this->geolocDataset;
     if ($this->startEvt) $array['startEvt'] = $this->startEvt->value();
     //if ($this->start) $array['start'] = $this->start;
     return $array;
   }
 
-  function setChildren(Rpicoms $rpicoms) {
-    if ($this->parent) {
+  function ABANDONNEE_setChildren(Rpicoms $rpicoms) { // ABANDONNEE
+    /*if ($this->parent) {
       $parentId = $this->parent.'@'.$this->start;
       $parent = $rpicoms->$parentId;
       $parent->children[] = $this->id;
-    }
+    }*/
   }
   
   function buildInclusionGraph(Rpicoms $rpicoms) {
+    // je gère les relations spatiales entre codes INSEE au travers des états
+    $vn = Node::goc("$this->id@$this->start"); // le noeud correspondant à cette version
+    if ($this->parent) {
+      $parentVid = $this->parent.'@'.$this->start; // hypothèse qu'il y a toujours une version parent à la même date
+      $parent = $rpicoms->$parentVid;
+      if ($parent)
+        $vn->within($parentVid);
+    }
+    
+    // j'utilise l'endEvt pour gérer les relations spatiales entre versions successives dans le rpicom
     if ($this->endEvt) {
       switch ($this->endEvt->type()) {
         // ne change pas la géométrie
         case 'reçoitUnePartieDe': // simplification
-        case 'seDissoutDans': // simplification
         case 'contribueA': // simplification
         
-        case 'quitteLeDépartementEtPrendLeCode':
         case 'resteAssociéeA':
         case 'resteDéléguéeDe':
         case 'changedAssociéeEnDéléguéeDe':
         case 'Absorbe certaines de ses c. rattachées ou certaines de ses c. associées deviennent déléguées':
         case 'changeDeNom': {
-          $vn = new Node("$this->id@$this->start");
-          $vn->equals("$this->id@$this->end");
+          $vn->equals("$this->id@$this->end"); // l'entité avant est identique à celle d'après
           return;
         }
         case 'seFondDans':
         case 'fusionneDans': {
-          $vn = new Node("$this->id@$this->start");
           $vn->within($this->endEvt->cible().'@'.$this->end); // la fusionnée est dans la fusionnante
           return;
         }
         case 'devientDéléguéeDe':
         case 'sAssocieA': {
-          $vn = new Node("$this->id@$this->start");
           $vn->equals("$this->id@$this->end"); // une association ne change pas la géométrie de l'associée
           $vn->within($this->endEvt->cible().'@'.$this->end); // l'associée est dans l'associante
           return;
         }
         case 'seCréeEnComNouvelle': {
-          $vn = new Node("$this->id@$this->start");
           $vn->within("$this->id@$this->end"); // l'ancienne commune est dans la nouvelle
           return;
         }
         case 'seCréeEnComNouvAvecDélPropre': {
-          $vn = new Node("$this->id@$this->start");
           $vn->within("$this->id@$this->end"); // l'ancienne commune est dans la nouvelle
           $vn->equals($this->id."D@$this->end"); // l'ancienne commune equals la commune déléguée propre
           return;
         }
         case 'PrendAssocOuAbsorbe': {
-          $vn = new Node("$this->id@$this->start");
           $vn->within("$this->id@$this->end"); // l'ancienne commune est dans la nouvelle
           return;
         }
         case 'Commune déléguée rétablie comme commune simple':
         case 'Commune associée rétablie comme commune simple': {
-          $vn = new Node("$this->id@$this->start");
           $vn->equals("$this->id@$this->end");
           return;
         }
-        case 'sortDuRpicom': {
+        case 'sortDuRpicom': return; // ne rien faire
+        
+        case 'rétablitCommunesRattachéesOuFusionnées': {
+          $vn->contains("$this->id@$this->end"); // l'ancienne commune contient la nouvelle
           return;
         }
+        
         case 'changeDeRattachementPour':
         case 'perdRattachementPour':
-        case 'Commune rattachée devient commune de rattachement':
-        case 'rétablitCommunesRattachéesOuFusionnées': {
+        case 'Commune rattachée devient commune de rattachement': {
           // A VOIR
           return;
         }
+        case 'quitteLeDépartementEtPrendLeCode': {
+          $vn->equals($this->endEvt->cible().'@'.$this->end); // même feature entre les 2 départements
+          //echo "$this->id@$this->start equals ",$this->endEvt->cible(),"@$this->end\n";
+          return;
+        }
+        case 'seDissoutDans': return; // je ne sais pas le traiter
+        
         default: {
-          echo Yaml::dump(Node::allAsArray());
+          //echo Yaml::dump(Node::allAsArray());
           echo "<b>A faire buildInclusionGraph pour type=".$this->endEvt->type()." :</b>\n";
           echo Yaml::dump(['$id'=> $this->id, '$start'=> $this->start, 'rpicom'=> $rpicoms->{$this->id}->asArray()], 3, 2);
           throw new Exception("A faire buildInclusionGraph pour type=".$this->endEvt->type());
         }
       }
+    }
+  }
+  
+  // retourne le nom du dataset le plus récent géolocalisant cet objet ou '' s'il n'y en a pas
+  function possibleDataset(IndGeoJFile $igeojfile): string {
+    $validDatasets = Datasets::validBetween($this->start, $this->end); // les datasets pertinents du point de vue date
+    if ($validDatasets) {
+      $indexDatasets = $igeojfile->datasets($this->id); // les datasets dans lesquels l'id est défini
+      if ($possibleDatasets = array_intersect($validDatasets, $indexDatasets)) {
+        //echo Yaml::dump(['$possibleDatasets'=> $possibleDatasets]);
+        return array_values($possibleDatasets)[0];
+      }
+    }
+    return '';
+  }
+  
+  // recherche d'un majorant de $this
+  // retourne le dataset dans lequel je trouve un majorant de $this ainsi que le vid majorant défini dans ce dataset
+  // retourne [datasetId, overEstimVid] avec overEstimVid défini dans datasetId
+  function overEstim(IndGeoJFile $igeojfile, Rpicoms $rpicoms, int $recursiveCounter=0): array {
+    //echo str_repeat("* ", $recursiveCounter),"$this->id@$this->start ->overEstim()\n";
+    if (!($n = Node::get("$this->id@$this->start"))) {
+      echo "$this->id@$this->start absent du graphe d'inclusion\n";
+      return [];
+    }
+    foreach ($n->ids() as $vid) { // les vid equals $this
+      if (!($eq = $rpicoms->$vid))
+        throw new Exception("Erreur d'utilisation de $vid");
+      if (get_class($eq) <> 'Version2')
+        throw new Exception("Erreur d'appel de possibleDataset() sur $vid qui n'est pas Version2");
+      if ($possibleDataset = $eq->possibleDataset($igeojfile))
+        return [$possibleDataset, $vid];
+    }
+    if (!($containings = $n->containing())) { // si aucun objet ne contient $this
+      echo str_repeat("* ", $recursiveCounter), "aucun objet ne contient $this->id@$this->start\n";
+      //if ($recursiveCounter==0) die();
+      return [];
+    }
+    foreach ($containings as $containing) // les noeuds contenant $this
+      foreach ($containing->ids() as $containingVid) // les vid contenant $this
+        if ($possibleDataset = $rpicoms->$containingVid->possibleDataset($igeojfile))
+          return [$possibleDataset, $containingVid];
+    if ($recursiveCounter > 100)
+      throw new Exception("Erreur de boucle dans Version2::overEstim()");
+    foreach ($containings as $containing) // les noeuds contenant $this
+      foreach ($containing->ids() as $containingVid) // les vid contenant $this
+        if ($overEstim = $rpicoms->$containingVid->overEstim($igeojfile, $rpicoms, $recursiveCounter+1))
+          return $overEstim;
+    return [];
+  }
+
+  function testGeoLoc(IndGeoJFile $igeojfile, Rpicoms $rpicoms, array &$stats): void {
+    //echo "$this->id@$this->start ->testGeoLoc()\n";
+    if ($this->end == 'now') {
+      $this->geolocDataset = ($this->type == 'COMS') ? 'Ae2020Cog' : 'Ae2020CogR';
+      $stats['geolocalisé']++;
+    }
+    elseif ($possibleDataset = $this->possibleDataset($igeojfile)) {
+      $this->geolocDataset = $possibleDataset;
+      $stats['geolocalisé']++;
+    }
+    elseif ($overEstim = $this->overEstim($igeojfile, $rpicoms)) {
+      $this->geolocDataset = $overEstim;
+      $stats['majoré']++;
+    }
+    else {
+      $this->geolocDataset = '<b>AUCUN</b>';
+      $stats['erreur']++;
     }
   }
   
@@ -675,12 +807,14 @@ class VComDP {
 
 // Evt de création
 class EvtCreation {
+  protected $id; // le code INSEE
   protected $start; // string - date de destruction précédente ou ''
   protected $startEvt; // evt de destruction ou null
   protected $end; // string - date de création ou de fin d'interruption
   protected $endEvt; // evt de création ou de fin d'interruption
 
   function __construct(string $id, string $end, array $version) {
+    $this->id = $id;
     $this->end = $end;
     $this->endEvt = new Evt2($version['évènement']);
   }
@@ -706,7 +840,51 @@ class EvtCreation {
     return $array;
   }
 
-  function setChildren(Rpicoms $rpicoms) {}
-  function buildInclusionGraph(Rpicoms $rpicoms) {}
+  function setChildren(Rpicoms $rpicoms) {} // pas applicable
+  
+  function buildInclusionGraph(Rpicoms $rpicoms) {
+    if ($this->endEvt) {
+      switch ($this->endEvt->type()) {
+        case 'entreDansRpicom': return; // ne rien à faire
+        
+        case 'arriveDansLeDépartementAvecLeCode': return; // ne rien à faire, géré par quitteLeDépartementEtPrendLeCode
+        
+        case 'rétablieCommeSimpleDe':
+        case 'rétablieCommeAssociéeDe': {
+          // la commune qui est rétablie $this->id@$this->end est dans la commune dont elle provient
+          Node::goc("$this->id@$this->end")->within($this->endEvt->cible().'@'.$this->start);
+          if ($this->startEvt) { // si évt antérieur de supression, la version avant supression et après rétablissement sont identiques
+            if ($previousVersionDate = $rpicoms->{$this->id}->previousVersionDate($this->start))
+            //echo "$this->id@$this->end equals $this->id@$previousVersionDate\n";
+              Node::goc("$this->id@$this->end")->equals("$this->id@$previousVersionDate");
+          }
+          return;
+        }
+        case 'crééeParFusionSimpleDe': {
+          $vEnd = Node::goc("$this->id@$this->end");
+          foreach ($this->endEvt->cible() as $cible) {
+            if ('' !== ($start = $rpicoms->$cible->startOfVersionEnding($this->end))) {
+              //echo "$this->id@$this->end contains $cible@$start\n";
+              Node::goc("$this->id@$this->end")->contains("$cible@$start");
+            }
+          }
+          return;
+        }
+        case 'crééeAPartirDe': {
+          return;
+        }
+        case 'rétabliCommeArrondissementMunicipalDe': {
+          return;
+        }
+        default: {
+          echo "<b>A faire buildInclusionGraph pour type=".$this->endEvt->type()." :</b>\n";
+          echo Yaml::dump(['$id'=> $this->id, '$start'=> $this->start, 'rpicom'=> $rpicoms->{$this->id}->asArray()], 3, 2);
+          throw new Exception("A faire buildInclusionGraph pour type=".$this->endEvt->type());
+        }
+      }
+    }
+  }
+  
+  function testGeoLoc(IndGeoJFile $igeojfile, Rpicoms $rpicoms, array &$stats): void { $stats['erreur']++; } // pas applicable
 };
 

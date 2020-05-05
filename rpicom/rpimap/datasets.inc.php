@@ -83,7 +83,7 @@ class Datasets {
   }
   
   // retourne le référentiel de COMS de $datasets le plus récent valide entre 2 dates $begin et $end, $end non compris
-  static function between(array $datasets, string $begin, string $end): string {
+  /*static function between(array $datasets, string $begin, string $end): string {
     foreach ($datasets as $dataset) {
       $years = self::yearsNotR();
       if (!($year = $years[$dataset] ?? null)) continue;
@@ -91,10 +91,20 @@ class Datasets {
         return $dataset;
     }
     return '';
+  }*/
+  
+  // retourne les référentiels de COMS valides entre 2 dates $start et $end, $end non compris
+  static function validBetween(string $start, string $end): array {
+    $datasets = [];
+    foreach (self::yearsNotR() as $dataset => $year) {
+      if ((strcmp($start, "$year-01-01") <= 0) && (strcmp("$year-01-01", $end) < 0))
+        $datasets[] = $dataset;
+    }
+    return $datasets;
   }
   
   // retourne le référentiel de communes simples le plus récent antérieur à $dvref ou daté de $dvref
-  static function mostRecentEarlierCSDataset(string $dref, array $datasets): string {
+  /*static function mostRecentEarlierCSDataset(string $dref, array $datasets): string {
     foreach ($datasets as $dataset) {
       $years = self::yearsNotR();
       if (!($year = $years[$dataset] ?? null)) continue;
@@ -102,7 +112,7 @@ class Datasets {
         return $dataset;
     }
     return '';
-  }
+  }*/
 };
 
 //print_r(Datasets::years());
