@@ -21,8 +21,8 @@ use Symfony\Component\Yaml\Exception\ParseException;
 
 class Node {
   static protected $all; // [id => Node]
-  static protected $tracedIds = ['01132@0', '69274@1967-12-31'];
-  static protected $alertIds = ['89325@1972-12-01'];
+  static protected $tracedIds = []; // ['01132@0', '69274@1967-12-31'];
+  static protected $alertIds = []; // ['89325@1972-12-01'];
   protected $ids; // liste triée des ids des objets correspondant au noeud
   protected $contains=[]; // liste des ids quotient géométriquement inclus dans le noeud sous la forme [id => 1]
   protected $within=[]; // liste des ids quotient contenants le noeud sous la forme [id => 1]

@@ -50,7 +50,7 @@ class Menu {
     }
     $_GET = ['action' => array_shift($argv)];
     if (!isset($this->cmdes[$_GET['action']]))
-      die("Erreur action '$_GET[action]' non définie dans le Menu\n");
+      return $_GET;
     foreach ($argv as $i => $arg) {
       $pname = $this->cmdes[$_GET['action']]['argNames'][$i];
       $_GET[$pname] = $arg;

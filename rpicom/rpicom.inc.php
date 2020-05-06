@@ -17,48 +17,6 @@ require_once __DIR__.'/base.inc.php';
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
 
-class Rpicom {
-  static function versionLaPlusRecente(array $rpicom): array { return array_values($rpicom)[0]; }
-  
-  static function dateLaPlusRecente(array $rpicom): string { return array_keys($rpicom)[0]; }
-  
-  // date de la version précédente à dvref ou ''
-  static function dateVersionPrecedente(array $rpicom, string $dvref): string {
-    foreach ($rpicom as $dv => $v) { // recherche de la version précédente à $dvref
-      if (strcmp($dv, $dvref) < 0) // première version antérieure à $dvref
-        return $dv;
-    }
-    return '';
-  }
-};
-
-// retrouve dans la structure des versions celle qui correspond à une date donnée avec l'événement en premier champ
-// si l'entité existait à cette date alors retourne un array composé d'un champ date et d'un autre version
-// sinon retourne []
-function interpolRpicom(array $rpicom, string $state): array {
-  if (isset($rpicom['now']) && (count($rpicom)==1)) { // s'il n'y a que la version actuelle alors je la sélectionne
-    return ['date'=> 'now', 'version'=> array_merge(['évènement'=> 'aucun'], $rpicom['now'])];
-  }
-  else { // sinon je cherche la date la plus ancienne postérieure à la date demandée
-    $datevprec = null;
-    foreach ($rpicom as $datev => $com) {
-      //echo Yaml::dump([$id => [$datev => $com]]);
-      if (strcmp($datev, $state) <= 0) { // $datev < $state
-        //echo "Arrêt sur datev=$datev\n";
-        break;
-      }
-      $datevprec = $datev;
-    }
-    if (!$datevprec)
-      return [];
-    if ($datevprec == 'now')
-      return ['date'=>$datevprec, 'version'=> array_merge(['évènement'=> 'aucun'], $rpicom['now'])];
-    unset($rpicom[$datevprec]['après']);
-    if (EvtType::type($rpicom[$datevprec]['évènement'])['type'] == 'Création')
-      return [];
-    return ['date'=>$datevprec, 'version'=> $rpicom[$datevprec]];
-  }
-}
 
 if (($_GET['action'] ?? null) == 'testInterpolRpicom') { // Test interpolRpicom()
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>testInterpolRpicom</title></head><body><pre>\n";

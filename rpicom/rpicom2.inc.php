@@ -1,16 +1,22 @@
 <?php
 /*PhpDoc:
 name: rpicom2.inc.php
-title: rpicom2.inc.php - structuration des Rpicom en classes
+title: rpicom2.inc.php - structuration des Rpicom en classes pour produire une version géolocalisée du Rpicom
 doc: |
-  buildInclusionGraph() en cours d'écriture
-  defDataset() à adapter pour utiliser le graphe
+
 journal: |
-  5/5/2020:
-    - $stats:
-        geolocalisé: 40016
-        majoré: 5802
-        erreur: 1467
+  6/5/2020:
+    - dév. V2 de geoloc
+      - géocoder les versions pour lesquelles un référentiel est disponible
+        et les versions géom. identiques aux précédentes (40015 + 3464 / 46274 = 94%)
+      - trouver un majorant (2339 / 46274 = 5%)
+      - erreurs (456 / 46274 = 1%)
+    - génération d'un fichier SHP avec QGis
+    - améliorations à étudier
+      - qqs libellés d'évts à raccourcir
+      - rajouter la génération des déléguées propres
+      - traiter certaines erreurs de géocodage en construisant la géométrie des unions
+      - relire le code et mieux le documenter
   2/5/2020:
     - création
 includes:
@@ -115,20 +121,26 @@ class Rpicoms {
     }
   }
   
-  function testGeoLoc(IndGeoJFile $igeojfile, array &$stats): void {
-    // Test de la la geolocalisabilité
+  function testGeoLoc(IndGeoJFile $igeojfile): void {
+    // Estimation du nbre de features geolocalisables
+    $stats = ['exact'=> 0, 'substitut'=> 0, 'majoré'=> 0, 'nonGéoloc'=> 0, 'notAFeature'=> 0];
     foreach ($this->rpicoms as $rpicom)
       $rpicom->testGeoLoc($igeojfile, $this, $stats);
+    echo Yaml::dump(['$stats'=> $stats]);
   }
   
-  function geoloc(IndGeoJFile $igeojfile, GeoJFileW $geojfilew, array &$nbs): void {
-    $nbrecords = 0;
-    $nbAVoirs = 0;
-    $nbErreurs = 0;
+  function geoloc(IndGeoJFile $igeojfile, GeoJFileW $geojfilew): array {
+    $nbs = [
+      'records' => 0,
+      'aVoirs' => 0,
+      'erreurs' => 0,
+      'nbreFeatures' => 0,
+    ];
     foreach ($this->rpicoms as $id => $rpicom) {
       $rpicom->geoloc($this, $igeojfile, $geojfilew, $nbs);
-      if ($nbs['records'] > 100) break;
+      //if ($nbs['records'] > 1000) break;
     }
+    return $nbs;
   }
 };
 
@@ -158,7 +170,7 @@ class Rpicom2 {
         $startEvt = $versions[$start]->endEvt();
       }
       else {
-        $start = '0';
+        $start = '1943';
         $startEvt = null;
       }
       $versions[$end]->setStart($start, $startEvt);
@@ -245,7 +257,7 @@ class Rpicom2 {
   
   function buildInclusionGraph(Rpicoms $rpicoms) {
     // n'intègre pas dans le graphe les Rpicom n'ayant qu'une version courante
-    if ((count($this->versions) == 1) && ($this->versions[0]->end() == 'now')) {
+    if ((count($this->versions) == 1) && (array_values($this->versions)[0]->end() == 'now')) {
       //echo "exclut $this->id du graphe\n";
       //echo Yaml::dump([$this->id => $this->asArray()]);
       return;
@@ -315,11 +327,8 @@ class Rpicom2 {
       //if ($nbrecords >= 1000) break 2;
     }
     */}
-    $datasets = $igeojfile->datasets($this->id);
-    $dataset = []; // ['S'+'R'=> [datasetId, overEstim]]
     foreach ($this->versions as $version) {
-      $version->geoloc($rpicoms, $igeojfile, $geojfilew, $nbs, $datasets, $dataset);
-      if ($nbs['records'] > 100) break;
+      $version->geoloc($rpicoms, $igeojfile, $geojfilew, $nbs);
     }
   }
 };
@@ -394,7 +403,7 @@ class Version2 {
   protected $parent; // string - l'id du parent
   protected $children; // [ string ]
   protected $commeDéléguée; // VComDP ou null
-  protected $geolocDataset;
+  protected $geolocDataset; // rempli par testGeoLoc(), vaut AUCUN si objet non géolocalisé
 
   // construit partiellement à partir du Yaml et de la date de fin
   function __construct(string $id, string $end, array $version) {
@@ -549,8 +558,13 @@ class Version2 {
   }
   
   // retourne le nom du dataset le plus récent géolocalisant cet objet ou '' s'il n'y en a pas
-  function possibleDataset(IndGeoJFile $igeojfile): string {
-    $validDatasets = Datasets::validBetween($this->start, $this->end); // les datasets pertinents du point de vue date
+  function bestDataset(IndGeoJFile $igeojfile): string {
+    if ($this->type == 'COMS')
+      $validDatasets = Datasets::validBetween($this->start, $this->end); // les datasets pertinents du point de vue date
+    elseif ($this->end == 'now') // un seul référentiel des COMA/COMD
+      $validDatasets = ['Ae2020CogR'];
+    else
+      $validDatasets = [];
     if ($validDatasets) {
       $indexDatasets = $igeojfile->datasets($this->id); // les datasets dans lesquels l'id est défini
       if ($possibleDatasets = array_intersect($validDatasets, $indexDatasets)) {
@@ -559,6 +573,23 @@ class Version2 {
       }
     }
     return '';
+  }
+  
+  // Recherche d'un objet géographique identique géolocalisable
+  function substitut(IndGeoJFile $igeojfile, Rpicoms $rpicoms) {
+    if (!($n = Node::get("$this->id@$this->start"))) {
+      echo "$this->id@$this->start absent du graphe d'inclusion\n";
+      return [];
+    }
+    foreach ($n->ids() as $vid) { // les vid equals $this
+      if (!($eq = $rpicoms->$vid))
+        throw new Exception("Erreur d'utilisation de $vid");
+      if (get_class($eq) <> 'Version2')
+        throw new Exception("Erreur d'appel de possibleDataset() sur $vid qui n'est pas Version2");
+      if ($bestDataset = $eq->bestDataset($igeojfile))
+        return [$bestDataset, $vid];
+    }
+    return [];
   }
   
   // recherche d'un majorant de $this
@@ -575,18 +606,18 @@ class Version2 {
         throw new Exception("Erreur d'utilisation de $vid");
       if (get_class($eq) <> 'Version2')
         throw new Exception("Erreur d'appel de possibleDataset() sur $vid qui n'est pas Version2");
-      if ($possibleDataset = $eq->possibleDataset($igeojfile))
+      if ($bestDataset = $eq->bestDataset($igeojfile))
         return [$possibleDataset, $vid];
     }
     if (!($containings = $n->containing())) { // si aucun objet ne contient $this
-      echo str_repeat("* ", $recursiveCounter), "aucun objet ne contient $this->id@$this->start\n";
+      //echo str_repeat("* ", $recursiveCounter), "aucun objet ne contient $this->id@$this->start\n";
       //if ($recursiveCounter==0) die();
       return [];
     }
     foreach ($containings as $containing) // les noeuds contenant $this
       foreach ($containing->ids() as $containingVid) // les vid contenant $this
-        if ($possibleDataset = $rpicoms->$containingVid->possibleDataset($igeojfile))
-          return [$possibleDataset, $containingVid];
+        if ($bestDataset = $rpicoms->$containingVid->bestDataset($igeojfile))
+          return [$bestDataset, $containingVid];
     if ($recursiveCounter > 100)
       throw new Exception("Erreur de boucle dans Version2::overEstim()");
     foreach ($containings as $containing) // les noeuds contenant $this
@@ -600,11 +631,15 @@ class Version2 {
     //echo "$this->id@$this->start ->testGeoLoc()\n";
     if ($this->end == 'now') {
       $this->geolocDataset = ($this->type == 'COMS') ? 'Ae2020Cog' : 'Ae2020CogR';
-      $stats['geolocalisé']++;
+      $stats['exact']++;
     }
-    elseif ($possibleDataset = $this->possibleDataset($igeojfile)) {
-      $this->geolocDataset = $possibleDataset;
-      $stats['geolocalisé']++;
+    elseif ($bestDataset = $this->bestDataset($igeojfile)) {
+      $this->geolocDataset = $bestDataset;
+      $stats['exact']++;
+    }
+    elseif ($substitut = $this->substitut($igeojfile, $rpicoms)) {
+      $this->geolocDataset = $substitut;
+      $stats['substitut']++;
     }
     elseif ($overEstim = $this->overEstim($igeojfile, $rpicoms)) {
       $this->geolocDataset = $overEstim;
@@ -612,159 +647,64 @@ class Version2 {
     }
     else {
       $this->geolocDataset = '<b>AUCUN</b>';
-      $stats['erreur']++;
+      $stats['nonGéoloc']++;
     }
   }
   
-  // retourne la provenance et le type de la géométrie sous la forme ['S'+'R'=> [datasetId, overEstim]]
-  //  / datasetId est l'un des identifiants de dataset définis dans IndGeoJFile
-  //  / overEstim vaut '' si la géométrie est disponible, sinon l'id d'un majorant dans le dataset
-  // $previous est le retour effectué pour une version ultérieure du même id
-  function defDataset(Rpicoms $rpicoms, array $datasets, array $previous): array {
-    if ($this->end == 'now') { // si la version existe alors la géométrie est définie dans Ae2020Cog ou Ae2020CogR
-      // je traite de plus le bug IGN des entités absentes par du Cog en utilisant alors la v. Ae2019
-      return [
-        'S'=> in_array('Ae2020Cog', $datasets) ? ['Ae2020Cog', '']
-            : (in_array('Ae2019Cog', $datasets) ? ['Ae2019Cog', ''] : ['Erreur', '']),
-        'R'=> in_array('Ae2020CogR', $datasets) ? ['Ae2020CogR', ''] : ['Erreur', ''],
-      ];
-    }
-    elseif ($this->endEvt->type() == 'changeDeNom') { // pas de chgt de géométrie
-      return $previous;
-    }
-    elseif ($this->endEvt->type() == 'fusionneDans') { // cas d'une entité qui fusionne
-      if ($this->type == 'COMS') { // cas d'une COMS qui fusionne
-        
-      }
-      elseif (strcmp($this->end, '2003-01-01') < 0) { // cas d'une COMA/COMD qui fusionne avant 2003 => pas de réf. => majorant
-        return ['S'=> ['A VOIR',''], 'R'=> ['A VOIR','']];
-      }
-      else { // cas d'une COMA/COMD qui fusionne après 2003
-        
+  function geoloc(Rpicoms $rpicoms, IndGeoJFile $igeojfile, GeoJFileW $geojfilew, array &$nbs): void {
+    $ref = null; // l'objet provenant du référentiel
+    if ($this->end == 'now') {
+      $source = ($this->type == 'COMS') ? 'Ae2020Cog' : 'Ae2020CogR';
+      $gtype = '';
+      $id = $this->id;
+      if (!($ref = $igeojfile->feature($id, $source))) {
+        $ref = $igeojfile->feature($id, 'Ae2019Cog'); // traitement des 4 objets absents du Cog2920
       }
     }
-    elseif ($this->endEvt->type() == 'sAssocieA') { // cas d'une COMS qui sAssocieA
-      if (strcmp($this->end, '2003-01-01') < 0) { // association avant 2003 => pas de réf. => majorant
-        return ['S'=> ['A VOIR',''], 'R'=> ['A VOIR','']];
-      }
-      else { // association après 2003
-        
-      }
+    elseif ($bestDataset = $this->bestDataset($igeojfile)) {
+      $source = $bestDataset;
+      $gtype = '';
+      $id = $this->id;
     }
-    elseif ($this->endEvt->type() == 'seCréeEnComNouvAvecDélPropre') {
-      if ($dataset = Datasets::between($datasets, $this->start, $this->end)) {
-        return ['S'=> [$dataset, '']];
-      }
-      else { // avant 2003 => pas de réf. => majorant
-        return ['S'=> ['A VOIR',''], 'R'=> ['A VOIR','']];
-      }
+    elseif ($substitut = $this->substitut($igeojfile, $rpicoms)) {
+      $source = $substitut[0];
+      $gtype = '';
+      $id = substr($substitut[1], 0, strpos($substitut[1], '@'));
+    }
+    elseif ($overEstim = $this->overEstim($igeojfile, $rpicoms)) {
+      $source = $overEstim[0];
+      $gtype = 'MAJ';
+      $id = substr($overEstim[1], 0, strpos($overEstim[1], '@'));
     }
     else {
-      //return ['S'=> ['A VOIR',''], 'R'=> ['A VOIR','']];
+      $nbs['erreurs']++;
+      return;
     }
-    $id = $this->id;
-    $rpicom = $rpicoms->$id->asArray();
-    echo Yaml::dump(['defDataset'=> ['$id'=> $id, '$end'=> $this->end, '$rpicom'=> $rpicom, '$datasets'=> $datasets]], 4);
-    throw new Exception("A VOIR");
-
-    {/*
-    if (Version::evt($version) == 'fusionneDans') { // cas d'une entité qui fusionne
-      if (!isset($version['estAssociéeA']) && !isset($version['estDéléguéeDe'])) { // cas d'une COM qui fusionne
-        if ($dataset = Datasets::mostRecentEarlierCSDataset($dvref, $datasets))
-          return ['S'=> [$dataset, '']];
-        else
-          return ['S'=> overEstim($rpicoms, $version['évènement']['fusionneDans'], $dvref)];
-      }
-      elseif (strcmp($dvref, '2003-01-01') < 0) { // cas d'une COMA/COMD qui fusionne avant 2003 => pas de réf. => majorant
-        return ['R'=> overEstim($rpicoms, $version['évènement']['fusionneDans'], $dvref)];
-      }
-      else { // date de fusion après 2003
-        // recherche une éventuelle version précédente correspondant à l'association ou devenueDéléguée
-        $dvprec = null;
-        foreach ($rpicom as $dv => $v) { // recherche de la version précédente à $dvref
-          if ((strcmp($dv, $dvref) < 0) && (Version::evt($v) <> 'resteAssociéeA')) {
-            // première version antérieure à $dvref <> resteAssociéeA
-            $dvprec = $dv;
-            break;
-          }
-        }
-        if (!$dvprec) // si pas de version précédente, ex association avant 1943
-          return ['R'=> overEstim($rpicoms, $version['évènement']['fusionneDans'], $dvref)]; // => majorant
-        elseif (isset($rpicom[$dvprec]['évènement']['sAssocieA']) || isset($rpicom[$dvprec]['évènement']['devientDéléguéeDe'])) {
-          // si la version précédente est une sAssocieA ou une devientDéléguéeDe
-          if ($dataset = Datasets::mostRecentEarlierCSDataset($dvprec, $datasets))
-            return ['R'=> [$dataset, '']];
-          else
-            return ['R'=> overEstim($rpicoms, $version['évènement']['fusionneDans'], $dvref)];
-        }
-      }
-    }
-    elseif (Version::evt($version) == 'sAssocieA') { // cas d'une COMS qui s'associe à une autre
-      if ($dataset = Datasets::mostRecentEarlierCSDataset($dvref, $datasets))
-        return ['S'=> [$dataset, '']];
-      else // date d'assos avant 2003 => pas de référentiel => majorant
-        return ['S'=> overEstim($rpicoms, $version['évènement']['sAssocieA'], $dvref)];
-    }
-    elseif (Version::evt($version) == 'Se crée en commune nouvelle avec commune déléguée propre') {
-      if ($dataset = Datasets::mostRecentEarlierCSDataset($dvref, $datasets))
-        return ['S'=> [$dataset, '']];
-    }
-    elseif (Version::evt($version) == 'Prend des c. associées et/ou absorbe des c. fusionnées') {
-      if ($dataset = Datasets::mostRecentEarlierCSDataset($dvref, $datasets))
-        return ['S'=> [$dataset, '']];
-      else
-        return ['S'=> overEstim($rpicoms, $id, $dvref)];
-    }
-    else {
-      echo Yaml::dump(['defDataset'=> ['$id'=> $id, '$dvref'=> $dvref, '$rpicom'=> $rpicom]], 4);
-      throw new Exception("A VOIR");
-      //return ['S'=> ['A VOIR',''], 'R'=> ['A VOIR','']];
-    }
-    */}
-  }
-  
-  function geoloc(Rpicoms $rpicoms, IndGeoJFile $igeojfile, GeoJFileW $geojfilew, array &$nbs, array $datasets, array &$dataset): void {
-    $start = $this->start ? $this->start : '1943-01-01';
-    $dataset = $this->defDataset($rpicoms, $datasets, $dataset);
-    $record = [
-      'vid'=> "$this->id@$start",
-      'comid'=> $this->id,
+    $properties = [
+      'vid'=> "$this->id@$this->start",
+      'id'=> $this->id,
+      'name'=> $this->name,
       'type'=> $this->type,
       'parent'=> $this->parent,
-      'start'=> $start,
-      'startEvt'=> $this->startEvt ? $this->startEvt->__toString() : '',
-      'end'=> ($this->end == 'now') ? '9999-12-31' : $this->end,
-      'endEvt'=> $this->endEvt ? $this->endEvt->__toString() : '',
-      'name'=> $this->name,
-      'overEstim'=> ($this->type == 'COMS') ? $dataset['S'][1] : $dataset['R'][1],
-      'dataset'=> ($this->type == 'COMS') ? $dataset['S'][0] : $dataset['R'][0],
+      'start'=> $this->start,
+      'startEvt'=> $this->startEvt ? $this->startEvt->str() : '',
+      'end'=> ($this->end == 'now') ? '9999' : $this->end,
+      'endEvt'=> $this->endEvt ? $this->endEvt->str() : '',
+      'gtype'=> $gtype,
+      'source'=> $source,
     ];
-    echo Yaml::dump([$record['vid'] => $record]);
-    if (!$geojfilew->geoloc($igeojfile, $record))
-      $nbs['erreurs']++;
-    if ($record['dataset'] == 'A VOIR')
-      $nbs['aVoirs']++;
-    $nbs['records']++;
-    if ($this->commeDéléguée) {
-      $record = [
-        'vid'=> $this->id."D@$start",
-        'comid'=> $this->id,
-        'type'=> 'COMD',
-        'parent'=> $this->id,
-        'start'=> $start,
-        'startEvt'=> $this->startEvt ? $this->startEvt->__toString() : '',
-        'end'=> ($this->end == 'now') ? '9999-12-31' : $this->end,
-        'endEvt'=> $this->endEvt ? $this->endEvt->__toString() : '',
-        'name'=> $this->commeDéléguée['name'],
-        'overEstim'=> $dataset['R'][1],
-        'dataset'=> $dataset['R'][0],
-      ];
-      echo Yaml::dump([$record['vid'] => $record]);
-      if (!$geojfilew->geoloc($igeojfile, $record))
-        $nbs['erreurs']++;
-      if ($record['dataset'] == 'A VOIR')
-        $nbs['AVoirs']++;
+    if ($ref || ($ref = $igeojfile->feature($id, $source))) {
+      //echo Yaml::dump([$properties]);
+      $geojfilew->write([
+        'type'=> 'Feature',
+        'properties'=> $properties,
+        'geometry'=> $ref['geometry'],
+      ]);
       $nbs['records']++;
+    }
+    else {
+      echo Yaml::dump(['erreur'=> $properties]);
+     $nbs['erreurs']++;
     }
   }
 };
@@ -885,6 +825,8 @@ class EvtCreation {
     }
   }
   
-  function testGeoLoc(IndGeoJFile $igeojfile, Rpicoms $rpicoms, array &$stats): void { $stats['erreur']++; } // pas applicable
+  function testGeoLoc(IndGeoJFile $igeojfile, Rpicoms $rpicoms, array &$stats): void { $stats['notAFeature']++; } // pas applicable
+
+  function geoloc(Rpicoms $rpicoms, IndGeoJFile $igeojfile, GeoJFileW $geojfilew, array &$nbs): void {}
 };
 
