@@ -2245,41 +2245,7 @@ if ($_GET['action'] == 'détailleEvt') {
 };*/
 
 require_once __DIR__.'/rpimap/igeojfile.inc.php';
-
-// fichier GeoJSON en écriture
-class GeoJFileW {
-  protected $file = null;
-  protected $first;
-  
-  // création
-  function __construct(string $filename) {
-    $this->file = fopen($filename, 'w');
-    $start = <<<'EOT'
-{
-"type": "FeatureCollection",
-"name": "Rpicom",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-EOT;
-    fwrite($this->file, "$start\n");
-    $this->first = true;
-  }
-  
-  // fermeture
-  function close() {
-    fwrite($this->file, "\n]\n}\n");
-    fclose($this->file);
-    $this->file = null;
-  }
-  
-  // écriture d'un feature
-  function write(array $geojson): void {
-    if (!$this->first) fwrite($this->file, ",\n");
-    $this->first = false;
-    fwrite($this->file, json_encode($geojson, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE));
-  }
-};
-
+require_once __DIR__.'/geojfilew.inc.php';
 require_once __DIR__.'/rpimap/datasets.inc.php';
 require_once __DIR__.'/rpicom2.inc.php';
 

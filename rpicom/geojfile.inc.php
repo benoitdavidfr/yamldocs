@@ -8,8 +8,8 @@ doc: |
   L'algo de ce fichier devrait remplacer celui de /geovect/fcoll/fcoll.inc.php
 classes:
 journal: |
-  25/5/2020:
-    - création du fichier par éclatement de select.php pour isoler l'iétration des Feature sur un fichier GeoJSON
+  25/4/2020:
+    - création du fichier par éclatement de select.php pour isoler l'itération des Feature sur un fichier GeoJSON
     - amélioration du code de GeoJFile::readFeatures() pour prendre en compte différents cas de figure
 */
 require_once __DIR__.'/rect.inc.php';
@@ -22,6 +22,7 @@ methods:
 class GeoJFile {
   const BUFFLENGTH = 1024 * 1024;
   private $path; // soit URL http soit chemin absolu du fichier
+  private $file=null; // le descripteur utilisé pour quickReadOneFeature()
   private $encoding; // encodage des caractères du fichier GeoJSON
   private $no; // num. d'objet retourné à partir de 0
   
@@ -158,13 +159,15 @@ class GeoJFile {
       $ftell = ftell($file);
       yield $feature;
     }
+    fclose($file);
   }
   
   // lit un feature à la position indiquée
   function quickReadOneFeature(int $pos): array {
-    $file = fopen($this->path, 'r');
-    fseek($file, $pos);
-    $buff = fgets($file);
+    if (!$this->file)
+      $this->file = fopen($this->path, 'r');
+    fseek($this->file, $pos);
+    $buff = fgets($this->file);
     $buff = rtrim($buff);
     if (substr($buff, -1) == ',')
       $buff = substr($buff, 0, -1); // supp de la , en fin de ligne
@@ -175,6 +178,8 @@ class GeoJFile {
       die("Dans GeoJFile::quickReadOneFeature() erreur de décodage de $buff");
     return $feature;
   }
+  
+  function close() { fclose($this->file); }
 };
 
 
