@@ -51,7 +51,8 @@ journal: |
     - agrandissement des dalles
     - utilisation des segments à la place des positions dans le test d'adjacence
     - exécution complète le 10/5 19:00 en 44'
-    - plus aucun bug constaté
+    - bugs constatés
+      - lim 66181 / 66025
   9/5/2020:
     - exécution lancée sur tte la France dans la nuit du 8 au 9/5
       - @08:41: 12280 / 35100 traités dans buildAllBlades en 454.1 min.
