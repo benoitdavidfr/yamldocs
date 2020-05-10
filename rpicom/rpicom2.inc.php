@@ -426,7 +426,7 @@ class Evt2 {
 
 //abstract class VersionOrCreationEvt {};
 
-{/*PhpDoc:
+{/*PhpDoc: classes
 name: Version2
 title: class Version2 - une version courante ou historique avec un intervalle durant lequel les infos sont valides
 doc: |

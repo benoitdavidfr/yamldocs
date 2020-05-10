@@ -8,11 +8,74 @@ doc: |
   L'algo de ce fichier devrait remplacer celui de /geovect/fcoll/fcoll.inc.php
 classes:
 journal: |
+  9/5/2020:
+    - optimisation de GeoJFile::quickReadOneFeature()
+    - ajout d'un cache pour GeoJFile::quickReadOneFeature()
   25/4/2020:
     - création du fichier par éclatement de select.php pour isoler l'itération des Feature sur un fichier GeoJSON
     - amélioration du code de GeoJFile::readFeatures() pour prendre en compte différents cas de figure
 */
+require_once __DIR__.'/../../vendor/autoload.php';
 require_once __DIR__.'/rect.inc.php';
+
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Exception\ParseException;
+
+/*PhpDoc: classes
+name:  CacheGeoJFile
+title: class CacheGeoJFile - un cache pour GeoJFile::quickReadOneFeature()
+methods:
+*/
+class CacheGeoJFile {
+  protected $size; // taille du cache en nbre d'objets
+  protected $nbputs=0; // nbre de requêtes put reçues
+  protected $nbgets=0; // nbre de requêtes get reçues
+  protected $miss=0; // nbre de requêtes get en échec
+  protected $cache = []; // [key => object]
+  
+  function __construct(int $size) { $this->size = $size; }
+  
+  // ajout d'un objet dans le cache
+  function put(string $key, $object): void {
+    $this->cache[$key] = $object;
+    if (count($this->cache) > $this->size)
+      array_shift($this->cache);
+    $this->nbputs++;
+  }
+  
+  function get(string $key) {
+    $this->nbgets++;
+    if (isset($this->cache[$key])) {
+      return $this->cache[$key];
+    }
+    else {
+      $this->miss++;
+      return null;
+    }
+  }
+  
+  function stats(): array {
+    return [
+      'nbputs'=> $this->nbputs,
+      'nbgets'=> $this->nbgets,
+      'miss'=> $this->miss,
+    ];
+  }
+};
+
+if (0) { // Test de la classe CacheGeoJFile
+  $cache = new CacheGeoJFile(4);
+  for($i=0; $i< 30; $i++) {
+    $cache->put("objet$i", "objet $i");
+    if ($i % 5 == 0)
+      $cache->get("objet$i");
+    elseif ($i % 5 == 1)
+      $cache->get("objet".($i+1));
+    print_r($cache);
+  }
+  echo Yaml::dump(['stats'=> $cache->stats()]);
+  die("Fin Test du cache\n");
+}
 
 /*PhpDoc: classes
 name:  GeoJFile
@@ -23,6 +86,7 @@ class GeoJFile {
   const BUFFLENGTH = 1024 * 1024;
   private $path; // soit URL http soit chemin absolu du fichier
   private $file=null; // le descripteur utilisé pour quickReadOneFeature()
+  private $cache=null; // le cache utilisé pour quickReadOneFeature()
   private $encoding; // encodage des caractères du fichier GeoJSON
   private $no; // num. d'objet retourné à partir de 0
   
@@ -163,9 +227,13 @@ class GeoJFile {
   }
   
   // lit un feature à la position indiquée
-  function quickReadOneFeature(int $pos): array {
+  function quickReadOneFeature(int $pos, int $cacheSize=500): array {
     if (!$this->file)
       $this->file = fopen($this->path, 'r');
+    if (!$this->cache)
+      $this->cache = new CacheGeoJFile($cacheSize);
+    if ($result = $this->cache->get("feature$pos"))
+      return $result;
     fseek($this->file, $pos);
     $buff = fgets($this->file);
     $buff = rtrim($buff);
@@ -176,10 +244,13 @@ class GeoJFile {
     $feature = json_decode($buff, true);
     if ($feature === null)
       die("Dans GeoJFile::quickReadOneFeature() erreur de décodage de $buff");
+    $this->cache->put("feature$pos", $feature);
     return $feature;
   }
   
-  function close() { fclose($this->file); }
+  function close() { fclose($this->file); } // fermeture du descripteur de fichier utilisé dans quickReadOneFeature()
+
+  function cacheStats(): array { return $this->cache->stats(); }
 };
 
 

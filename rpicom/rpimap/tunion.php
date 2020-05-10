@@ -1,4 +1,8 @@
 <?php
+/*PhpDoc:
+name: tunion.php
+title: test du calcul de l'union d'objets de AeCog
+*/
 // exprFonc: 21331@1973-06-01 = ((21331 + 21074) + 21268)
 /*
 21331:

@@ -1,21 +1,26 @@
 <?php
 /*PhpDoc:
 name: topomap.php
-title: génération du fichier des limites entre communes à partir de Ae2020Cog par construction d'un graphe d'adjacence
+title: génération du fichier des limites entre communes à partir de Ae2020Cog par construction d'un graphe d'adjacence entre communes
 doc: |
   Algo:
     1) Lecture du fichier Ae2020Cog et construction des faces dans Face::$all stockées par département utilisé comme index spatial
     2) confrontation de chaque face avec les autres pour en déduire une éventuelle limite commune,
        stockage des limites dans DirectBlade
     3) confrontation de chaque face avec les limites ainsi générées pour en déduire les limites restantes qui sont celles de l'extérieur
+    Le résultat n'est pas une carte topologique mais un graphe d'adjacence permettant de construire les limites communes
   Contraintes:
-    - algo en carré du nbre de faces
-    - utilisation des rectangles englobants pour réduire la durée des tests d'adjacence
+    - temps de traitement en carré du nbre de faces
+      - utilisation des rectangles englobants pour réduire la durée des tests d'adjacence
+      - gesstion d'un index géométrique très simple par département
     - la géométrie des faces ne peut être gérée en mémoire
       - chaque face renvoie vers le fichier GeoJSON en entrée dans lequel je recherche la géométrie
       - optimisation pour ne pas réouvrir le fichier GeoJSON à chaque demande
   Stats:
     - 35100 faces
+  Perf:
+    - sans cache sur 02+60 14'
+    - avec cache de 500 objets
 journal: |
   9/5/2020:
     - exécution lancée sur tte la France dans la nuit du 8 au 9/5
@@ -25,11 +30,15 @@ journal: |
       - les géométries des limites pourraient être écrites au fur et à mesure et pas à la fin
         afin notamment de libérer la mémoire correspondant au stockage 
         - pb la géométrie des limites est utilisée à la fin pour calculer les limites extérieures
-      - les trous dans les communes ne sont pas gérés
+        - stocker les intervalles au lieu de refaire les tests
       - il y a parfois 2 limites qd il pourrait y en avoir qu'une
       - la face extérieure pourrait être gérée comme null et non stockée dans Face:$all
+    - améliorations:
       - afficher l'heure d'estimation de fin
-      - je pourrais gérer un buffer des géométries des communes pour garder en mémoire celles fréquemment utilisées
+      - possibilité de restreindre à plusieurs départements pour effectuer les tests sur les limites aux départements
+      - gestion des trous dans les polygones des communes
+      - mise en place d'un cache dans GeoJFile::quickReadOneFeature() qui exploite le fait que j'effectue la création des brins par dépt
+    - relance France entière à 11:30, fin estimée 21:36
   8/5/2020:
     - première version proto testée sur les dépts 21 et 29
 */
@@ -45,11 +54,11 @@ use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
 
 $geojfilePath = __DIR__.'/../data/aegeofla/AE2020COG/FRA/COMMUNE_CARTO.geojson';
-//$dept = '21';
-//$dept = '29';
-$dept = '';
+//$depts = ['02','60'];
+$depts = ['97'];
+//$depts = [];
 
-// Permet d'identifier les intervalles non couverts
+// Permet d'identifier les intervalles de positions non couverts
 class Intervals {
   protected $min; // min global
   protected $max; // max global
@@ -66,56 +75,6 @@ class Intervals {
   function dump(string $label) {
     ksort($this->subs);
     echo Yaml::dump([$label=> ['min'=>$this->min, 'int'=> $this->subs, 'max'=>$this->max]], 3, 2);
-  }
-  
-  /*function std(): self {
-    ksort($this->subs);
-    // suppression des intervalles en début
-    $min = $this->min;
-    while (isset($this->subs[$min])) {
-      $this->min = $this->subs[$min];
-      unset($this->subs[$min]);
-      $min = $this->min;
-    }
-    
-    // fusion des intervalles consécutifs
-    $precmin = null;
-    foreach ($this->subs as $min => $max) {
-      if (($precmin !== null) && ($this->subs[$precmin]==$min)) {
-        $this->subs[$precmin] = $max;
-        unset($this->subs[$min]);
-      }
-      else
-        $precmin = $min;
-    }
-    //return $this;
-    
-    $this->dump('avant supp. fin');
-    // suppression des intervalles en fin
-    foreach (array_reverse(array_keys($this->subs)) as $min) {
-      $max = $this->subs[$min];
-      if ($max == $this->max) {
-        echo "$min -> $max oui\n";
-        $this->max = $min;
-        unset($this->subs[$min]);
-      }
-      else
-        echo "$min -> $max non\n";
-    }
-    return $this;
-  }*/
-  
-  function NONremaining(): array { // [min => max]
-    $this->std();
-    if ($this->min == $this->max) return [];
-    $remaining = [];
-    $precmax = $this->min;
-    foreach ($this->subs as $min => $max) {
-      $remaining[$precmax] = $min;
-      $precmax = $max;
-    }
-    $remaining[$precmax] = $this->max;
-    return $remaining;
   }
   
   function remaining(): array { // [min => max]
@@ -157,95 +116,20 @@ if (0) { // test de la classe Intervals
   die();
 }
 
-abstract class Blade {};
-
-class DirectBlade extends Blade {
-  static protected $all=[]; // [ numBlade => Blade ]
-  protected $num;
-  protected $right; // Face
-  protected $left; // Face
-  protected $start; // no du premier point dans l'extérieur du polygone $right
-  protected $end; // no du dernier point dans l'extérieur du polygone $right
-  protected $coords; // [Pos]
-
-  static function create(Face $rightFace, Face $leftFace, int $start, int $end, array $coords): int {
-    $num = count(self::$all) + 1; // le premier numéro est 1
-    self::$all[$num] = new self($num, $rightFace, $leftFace, $start, $end, $coords);
-    return $num;
-  }
-  
-  static function get(int $num): Blade {
-    if ($num < 0)
-      return new InvBlade(self::$all[-$num]);
-    else
-      return self::$all[$num];
-  }
-  
-  static function dump(): void {
-    foreach (self::$all as $num => $blade) {
-      echo Yaml::dump([$num => $blade->asArray()]);
-    }
-  }
-  
-  static function writeGeoFile(string $path): void {
-    $file = new GeoJFileW($path);
-    foreach (self::$all as $blade) {
-      $file->write($blade->asGeojson());
-    }
-    $file->close();
-    echo "Fichier $path écrit\n";
-  }
-  
-  function __construct(int $num, Face $right, Face $left, int $start, int $end, array $coords) {
-    $this->num = $num;
-    $this->right = $right;
-    $this->left = $left;
-    $this->start = $start;
-    $this->end = $end;
-    $this->coords = $coords;
-  }
-  
-  function num(): int { return $this->num; }
-  function rightId(): string { return $this->right->id(); }
-  function leftId(): string { return $this->left->id(); }
-  function coords(): array { return $this->coords; }
-  
-  function asArray(): array {
-    return [
-      'num'=> $this->num,
-      'right'=> $this->right->asArray(),
-      'left'=> $this->left->asArray(),
-      'coords'=> $this->coords,
-    ];
-  }
-
-  function asGeojson(): array {
-    return [
-      'type'=> 'Feature',
-      'properties'=> [
-        'num'=> $this->num,
-        'right'=> $this->right->id(),
-        'left'=> $this->left->id(),
-      ],
-      'geometry'=> [
-        'type'=> 'LineString',
-        'coordinates'=> $this->coords,
-      ],
-    ];
-  }
-};
-
-class InvBlade extends Blade {
-  protected $inv;
-  
-  function __construct(DirectBlade $dblade) { $this->inv = $dblade; }
-  
-  function num() { return - $this->inv->num(); }
-  function rightId() { return $this->inv->leftId(); }
-  function leftId() { return $this->inv->rightId(); }
-  function __toString(): string { return $this->num().': {rightId: '.$this->rightId().', leftId: '.$this->leftId().'}'; }
-  function coords(): array { return array_reverse($this->inv->coords()); }
-};
+function writeLimit(Face $rightFace, ?Face $leftFace, GeoJFileW $limGeoJFile, array $coords): void {
+   $geojson = [
+    'type'=> 'Feature',
+    'properties'=> [
+      'right'=> $rightFace->id(),
+      'left'=> $leftFace ? $leftFace->id() : '',
+    ],
+    'geometry'=> [
+      'type'=> 'LineString',
+      'coordinates'=> $coords,
+    ],
+  ];
+  $limGeoJFile->write($geojson);
+}
 
 class Face {
   static $geojfilePath; // chemin du fichier geojson des objets
@@ -255,13 +139,13 @@ class Face {
   protected $bbox = null;
   //protected $coords;
   protected $ftell;
-  protected $blades=[]; // liste des nums de Blade
+  protected $intervals = []; // liste d'objets Intervals, 1 par ring, pour enregistrer les intervalles de positions convertis en brins
   
   /*static function get(string $id): Face {
     return self::$all[$id] ?? [];
   }*/
 
-  static function allFaces(): array {
+  static function allFaces(): array { // retourne ttes les faces
     $all = [];
     foreach (self::$all as $dept => $facesOfDept) {
       $all = array_merge($all, $facesOfDept['faces']);
@@ -269,7 +153,7 @@ class Face {
     return $all;
   }
   
-  static function select(gegeom\GBox $box) {
+  static function select(gegeom\GBox $box): array { // retourne les faces intersectant la box
     $select = [];
     foreach (self::$all as $dept => $facesOfDept) {
       if (!isset($facesOfDept['bbox'])) continue;
@@ -283,12 +167,19 @@ class Face {
     return $select;
   }
   
-  static function dump() {
+  static function dump(string $path=null) {
+    if ($path)
+      $file = fopen($path, 'w');
     $all = self::allFaces();
     ksort($all);
     foreach($all as $id => $face) {
-      echo Yaml::dump([$id => $face->asArray()]);
+      if ($file)
+        fwrite($file, Yaml::dump([$id => $face->asArray()]));
+      else
+        echo Yaml::dump([$id => $face->asArray()]);
     }
+    if ($file)
+      fclose($file);
   }
 
   static function serialize(): string {
@@ -309,6 +200,9 @@ class Face {
       $this->bbox = $polygon->bbox();
     }
     //print_r($this->bbox);
+    foreach ($coords as $ringno => $listOfPos) {
+      $this->intervals[$ringno] = new Intervals(0, count($listOfPos));
+    }
     
     $dept = substr($this->id, 0, 2);
     self::$all[$dept]['faces'][$this->id] = $this;
@@ -318,7 +212,7 @@ class Face {
   
   function id() { return $this->id; }
   
-  function coords(): array {
+  function coords(): array { // retourne les coordonnées du polygone associée à la face
     if (!self::$geojfile)
       self::$geojfile = new GeoJFile(self::$geojfilePath);
     $feature = self::$geojfile->quickReadOneFeature($this->ftell);
@@ -340,32 +234,44 @@ class Face {
     ];
   }
   
-  static function buildAllBlades(float $debut) { // Fabrique les brins de chaque face
-    $counter=0;
+  static function buildAllBlades(GeoJFileW $limGeoJFile, float $debut): void { // Fabrique les brins de chaque face
+    $counter = 0;
     $all = self::allFaces();
-    $nbre = count($all);
+    $totalNbre = count($all);
     foreach ($all as $id => $face) {
-      $face->buildBlades();
-      if (++$counter % 10 == 0)
-        printf("$counter / $nbre traités dans buildAllBlades en %.1f min.\n", (time()-$debut)/60);
+      $face->buildBlades($limGeoJFile);
+      if (++$counter % 25 == 0) {
+        printf("$counter / $totalNbre traités dans buildAllBlades en %.1f min., ", (time()-$debut)/60);
+        printf("fin estimée à %s\n", date('H:i', $debut + ((time()-$debut) / $counter * $totalNbre)));
+      }
       //if ($counter > 20) break;
     }
     echo "Fin de buildAllBlades\n";
   }
 
-  function buildBlades() { // fabrique les brins de la face
+  function buildBlades(GeoJFileW $limGeoJFile): void { // fabrique les brins de la face
     //echo "buildBlades@$this->id\n";
-    $thisCoords = $this->coords()[0];
+    $thisPolCoords = $this->coords();
     foreach (self::select($this->bbox) as $id => $face) {
       if ($face->id >= $this->id) continue;
       //echo "$this->id touches? $face->id\n";
-      foreach ($this->touches($thisCoords, $face->coords()[0]) as $touches) {
-        //echo "$this->id touches $face->id, "; echo "touches= [$touches[0], $touches[1]]\n";
-        //array_slice ( array $array , int $offset [, int $length = NULL [, bool $preserve_keys = FALSE ]] ) : array
-        $bladeCoords = array_slice($thisCoords, $touches[0], $touches[1]-$touches[0]+1);
-        $bladeNum = DirectBlade::create($this, $face, $touches[0], $touches[1], $bladeCoords);
-        $this->blades[] = $bladeNum;
-        $face->blades[] = - $bladeNum;
+      foreach ($thisPolCoords as $thisRingno => $thisRingCoords) {
+        foreach ($face->coords() as $faceRingno => $faceRingCoords) {
+          if ($listOfTouches = $this->touches($thisRingCoords, $faceRingCoords)) {
+            foreach ($listOfTouches as $touches) {
+              if ($touches[0] == $touches[1]) continue;
+              $bladeCoords = array_slice($thisRingCoords, $touches[0], $touches[1]-$touches[0]+1);
+              $bladeNum = writeLimit($this, $face, $limGeoJFile, $bladeCoords);
+              $this->blades[] = $bladeNum;
+              $face->blades[] = - $bladeNum;
+              $this->intervals[$thisRingno]->add($touches[0], $touches[1]);
+            }
+            foreach ($this->touches($faceRingCoords, $thisRingCoords) as $touches) {
+              if ($touches[0] == $touches[1]) continue;
+              $face->intervals[$faceRingno]->add($touches[0], $touches[1]);
+            }
+          }
+        }
       }
     }
   }
@@ -396,35 +302,20 @@ class Face {
     return $ltouches;
   }
 
-  // fabrique une psudo-face exterior qui rassemble tous les blades extérieurs, cad dont seul un c^oté est sinon défini
-  static function buildAllExterior(): void {
-    $exterior = new Face('exterior', [], -1);
-    foreach (self::allFaces() as $id => $face) {
-      if ($id != 'exterior')
-        $face->buildExterior($exterior);
-    }
+  // fabrique une pseudo-face exterior qui rassemble tous les blades extérieurs, cad ceux dont seul un côté est sinon défini
+  static function buildAllExterior(GeoJFileW $limGeoJFile): void {
+    foreach (self::allFaces() as $id => $face)
+      $face->buildExterior($limGeoJFile);
   }
   
-  function buildExterior(Face $exterior) {
-    //echo "<b>buildExterior @ $this->id</b>\n";
-    $thisCoords = $this->coords()[0];
-    $int = new Intervals(0, count($thisCoords));
-    foreach ($this->blades as $numBlade) {
-      //echo "numBlade = $numBlade\n";
-      $blade = DirectBlade::get($numBlade);
-      //echo "blade: $blade\n";
-      foreach ($this->touches($thisCoords, $blade->coords()) as $touches)
-        if ($touches[0] <> $touches[1])
-          $int->add($touches[0], $touches[1]);
-    }
-    //$int->dump($this->id);
-    foreach ($int->remaining() as $min => $max) {
-      if ($max <> $min + 1) {
-        //echo "exterior $this->id $min $max\n";
-        $bladeCoords = array_slice($thisCoords, $min, $max-$min+1);
-        $bladeNum = DirectBlade::create($this, $exterior, $min, $max, $bladeCoords);
-        $this->blades[] = $bladeNum;
-        $exterior->blades[] = - $bladeNum;
+  function buildExterior(GeoJFileW $limGeoJFile): void {
+    foreach ($this->coords() as $ringno => $thisCoords) {
+      foreach ($this->intervals[$ringno]->remaining() as $min => $max) {
+        if ($max <> $min + 1) {
+          //echo "exterior $this->id $min $max\n";
+          $bladeCoords = array_slice($thisCoords, $min, $max-$min+1);
+          writeLimit($this, null, $limGeoJFile, $bladeCoords);
+        }
       }
     }
   }
@@ -433,6 +324,7 @@ class Face {
 echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>topomap</title></head><body><pre>\n";
 
 if (0) { // Test in_array()
+  // vérification de la possibilité de tester qu'une position appartient à une LineString en utilisant in_array()
   echo in_array('a', ['a']) ? 'oui' : 'non',"\n";
   echo in_array([0,1], [[0,1],[1,1]]) ? 'oui' : 'non',"\n";
   echo in_array([0,1], [[1,1]]) ? 'oui' : 'non',"\n";
@@ -480,8 +372,9 @@ if (0) { // fabrication du fichier de positions
 
 $debut = time();
 
-if (is_file(__DIR__."/topomap$dept.pser")) {
-  Face::unserialize(file_get_contents(__DIR__."/topomap$dept.pser"));
+$psername = __DIR__."/topomap".implode('-',$depts).".pser";
+if (is_file($psername)) {
+  Face::unserialize(file_get_contents($psername));
 }
 else {
   Face::$geojfilePath = $geojfilePath;
@@ -490,7 +383,8 @@ else {
   foreach ($geojfile->quickReadFeatures() as $feature) {
     //print_r($feature);
     $id = $feature['properties']['INSEE_COM'];
-    if ($dept && (substr($id, 0, 2) <> $dept)) continue;
+    if ($depts && !in_array(substr($id, 0, 2), $depts)) continue;
+    if (substr($id, 0, 3) <> '974') continue;
     $geom = $feature['geometry'];
     if ($geom['type'] == 'Polygon')
       new Face("$id/u", $geom['coordinates'], $feature['ftell']);
@@ -503,14 +397,15 @@ else {
     if ($counter % 1000 == 0) echo "counter=$counter\n";
     //if (++$counter >= 100) break;
   }
-  file_put_contents(__DIR__."/topomap$dept.pser", Face::serialize());
+  file_put_contents($psername, Face::serialize());
 }
 
-Face::buildAllBlades($debut);
+$limGeoJFile = new GeoJFileW(__DIR__.'/lim'.implode('-',$depts).'.geojson');
 
-Face::buildAllExterior();
-//print_r(Face::get('exterior'));
+Face::buildAllBlades($limGeoJFile, $debut);
 
-Face::dump();
-//Blade::dump();
-DirectBlade::writeGeoFile(__DIR__."/lim$dept.geojson");
+Face::buildAllExterior($limGeoJFile);
+
+$limGeoJFile->close();
+
+echo Yaml::dump(['cacheStats'=> Face::$geojfile->cacheStats()]);

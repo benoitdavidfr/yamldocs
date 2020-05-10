@@ -1,12 +1,14 @@
-title: rpimap - Affichage carto des versions d'une commune
+title: rpimap - Affichage carto des versions d'une commune + génération des limites
 path: /yamldoc/pub/rpicom/rpimap
 doc: |
   igeofile.inc.php permet de créer un index des communes dans les différentes couches disponibles,
   index.php affiche une carte des différentes versions d'une commune dans chacune des couches.
-  Utilisent les données de /data/aegeofla et génère un fichier d'index dans ce répertoire
+  Utilisent les données de ../data/aegeofla et génère un fichier d'index dans ce répertoire
 submodules:
 phpScripts:
   - /yamldoc/pub/rpicom/rpimap/index.php
+  - /yamldoc/pub/rpicom/rpimap/tunion.php
+  - /yamldoc/pub/rpicom/rpimap/topomap.php
 phpIncludes:
   - /yamldoc/pub/rpicom/rpimap/igeojfile.inc.php
 htmlFiles:
