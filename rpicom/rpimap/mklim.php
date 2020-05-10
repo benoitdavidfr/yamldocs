@@ -21,6 +21,22 @@ doc: |
     - sans cache sur 02+60 14'
     - avec cache de 500 objets
 journal: |
+  10/5/2020:
+    - restructuration importante
+    - le traitement est effectué par dalle (tile) de 1° X 1°, il y en a 121
+      - cela permet de ne plus être en n2 du nbre de faces
+    - pour chaque dalle
+      - lecture de fichier des communes et sélection de celles intersectant la dalle
+      - test d'adjacence entre les ring des communes 2 à 2 pour identifier les limites entre ces rings
+        - enregistrement de la (des) limite(s) ainsi identifiée(s)
+          - seules sont enregistrées les limites
+            - qui intersectent la tuile et
+            - qui n'intersectent pas les bords N et E de la tuile
+        - marquage de cette limite dans le polygone sous la forme d'intervalles de positions
+      - identification des intervalles de positions non marqués qui sont les limites extérieures
+      - enregistrement avec les mêmes conditions
+    - fin de traitement de la dalle
+    - pb dans un cas particulier illustré par la commune 40323
   9/5/2020:
     - exécution lancée sur tte la France dans la nuit du 8 au 9/5
       - @08:41: 12280 / 35100 traités dans buildAllBlades en 454.1 min.
@@ -48,9 +64,6 @@ use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
 
 $geojfilePath = __DIR__.'/../data/aegeofla/AE2020COG/FRA/COMMUNE_CARTO.geojson';
-$depts = ['02','60'];
-//$depts = ['97'];
-//$depts = [];
 
 // Permet d'identifier les intervalles de positions non couverts
 class Intervals {
@@ -60,9 +73,10 @@ class Intervals {
   
   function __construct(int $min=null, int $max=null) { $this->min = $min; $this->max = $max; }
   
-  function add(int $min, int $max) {
+  function add(string $id, int $min, int $max) {
+    //echo "add($min, $max) sur $id\n";
     if (isset($this->subs[$min]))
-      throw new Exception("Erreur sur [$min .. $max [ ");
+      echo "Erreur dans Intervals:add(id=$id, min=$min, max=$max)\n";
     $this->subs[$min] = $max;
   }
   
@@ -110,9 +124,92 @@ if (0) { // test de la classe Intervals
   die();
 }
 
+class Tile extends gegeom\GBox { // Définition des tuiles utilisée ensuite pour balayer les communes
+  const DLON = 1;
+  const DLAT = 1; // 0.5;
+  static $all = []; // liste des tuiles nécessaires pour couvrir l'espace ciblé
+  
+  // ajout d'un ensemble de tuiles par définition d'un espace géographique [lonmin, latmin, lonmax, latmax]
+  static function add(array $elt, float $dlon=self::DLON, float $dlat=self::DLAT): void {
+    for($lon = $elt[0]; $lon < $elt[2]; $lon += $dlon) {
+      for($lat = $elt[1]; $lat < $elt[3]; $lat += $dlat) {
+        $tile = new self([$lon, $lat, $lon + $dlon, $lat + $dlat]);
+        if (!in_array($tile, self::$all))
+          self::$all[] = $tile;
+      }
+    }
+  }
+  
+  static function all() { return self::$all; }
+  
+  static function geojson() { // dessin des tuiles
+    $grille = new GeoJFileW(__DIR__."/tiles.geojson");
+    foreach (self::$all as $tile) {
+      //echo "lon=$lon, lat=$lat\n";
+      $geojson = [
+        'type'=> 'Feature',
+        'properties'=> [
+          'swLatLon'=> $tile->min[1].' X '.$tile->min[0],
+        ],
+        'geometry'=> [
+          'type'=> 'Polygon',
+          'coordinates'=> $tile->polygon(),
+        ],
+      ];
+      $grille->write($geojson);
+    }
+    $grille->close();
+  }
+
+  function edges() { // les 4 bords de la tuile
+    return [
+      'W'=> new gegeom\Segment($this->southWest(), $this->northWest()),
+      'N'=> new gegeom\Segment($this->northWest(), $this->northEast()),
+      'E'=> new gegeom\Segment($this->northEast(), $this->southEast()),
+      'S'=> new gegeom\Segment($this->southEast(), $this->southWest()),
+    ];
+  }
+
+  // teste l'intersection de la tuile avec ligne brisée
+  function intersectsListOfPos(array $coords): bool {
+    $precpos = null;
+    foreach ($coords as $pos) {
+      if ($this->posInBBox($pos))
+        return true;
+      if ($precpos) {
+        $seg = new gegeom\Segment($precpos, $pos);
+        foreach ($this->edges() as $edge)
+          if ($seg->intersects($edge))
+            return true;
+      }
+      $precpos = $pos;
+    }
+    return false;
+  }
+
+  // teste l'intersection d'ue ligne brisée avec le bord Nord ou Est du rectangle
+  function northOrEstEdgeIntersectsListOfPos(array $coords): bool {
+    $precpos = null;
+    foreach ($coords as $pos) {
+      if ($precpos) {
+        $seg = new gegeom\Segment($precpos, $pos);
+        foreach ($this->edges() as $c => $edge)
+          if (in_array($c,['N','E']) && $seg->intersects($edge))
+            return true;
+      }
+      $precpos = $pos;
+    }
+    return false;
+  }
+};
+
 // écrit une limite dans le fichier GeoJSON
-function writeLimit(Face $rightFace, ?Face $leftFace, GeoJFileW $limGeoJFile, array $coords): void {
-   $geojson = [
+// si la limite n'intersecte pas la fenêtre alors je ne la conserve pas
+// si la limite intersecte le bord N ou E alors je ne la conserve pas
+function writeLimit(Face $rightFace, ?Face $leftFace, GeoJFileW $limGeoJFile, array $coords, gegeom\GBox $tile): void {
+  if (!$tile->intersectsListOfPos($coords)) return;
+  if ($tile->northOrEstEdgeIntersectsListOfPos($coords)) return;
+  $geojson = [
     'type'=> 'Feature',
     'properties'=> [
       'right'=> $rightFace->id(),
@@ -127,64 +224,57 @@ function writeLimit(Face $rightFace, ?Face $leftFace, GeoJFileW $limGeoJFile, ar
 }
 
 class Face {
-  static $geojfilePath; // chemin du fichier geojson des objets
-  static $geojfile = null; // descripteur du fichier geojson des objets
-  static protected $all=[]; // [dept => ['bbox'=> bbox, 'faces'=> [id => Face]]]
+  //static $geojfilePath; // chemin du fichier geojson des objets
+  //static $geojfile = null; // descripteur du fichier geojson des objets
+  static protected $all=[]; // [id => Face]
   protected $id;
   protected $bbox = null;
-  protected $ftell;
+  //protected $ftell;
+  protected $coords;
   protected $intervals = []; // liste d'objets Intervals, 1 par ring, pour enregistrer les intervalles de positions convertis en brins
   
-  static function allFaces(): array { // retourne ttes les faces
-    $all = [];
-    foreach (self::$all as $dept => $facesOfDept) {
-      $all = array_merge($all, $facesOfDept['faces']);
-    }
-    return $all;
+  // réinitialise les propriétés de classe
+  static function init(string $geojfilePath): void {
+    //self::$geojfilePath = $geojfilePath;
+    self::$all = [];
   }
   
-  static function select(gegeom\GBox $box): array { // retourne les faces intersectant la box
-    $select = [];
-    foreach (self::$all as $dept => $facesOfDept) {
-      if (!isset($facesOfDept['bbox'])) continue;
-      if ($box->intersects($facesOfDept['bbox'])) {
-        foreach ($facesOfDept['faces'] as $face) {
-          if ($box->intersects($face->bbox))
-            $select[] = $face;
-        }
+  // Filtre les polygones intersectant la fenêtre et les enregistre dans self::$all
+  static function create(array $feature, gegeom\GBox $tile) {
+    $id = $feature['properties']['INSEE_COM'];
+    $geom = $feature['geometry'];
+    if ($geom['type'] == 'Polygon') {
+      $polygon = gegeom\Geometry::fromGeoJSON($geom);
+      $bbox = $polygon->bbox();
+      if ($bbox->intersects($tile))
+        new Face("$id/u", $bbox, $geom['coordinates'], $feature['ftell']);
+    }
+    else {
+      foreach ($geom['coordinates'] as $no => $polygonCoords) {
+        $polygon = gegeom\Geometry::fromGeoJSON(['type'=>'Polygon', 'coordinates'=> $polygonCoords]);
+        $bbox = $polygon->bbox();
+        if ($bbox->intersects($tile))
+          new Face("$id/$no", $bbox, $polygonCoords, $feature['ftell']);
       }
     }
-    return $select;
-  }
-
-  static function serialize(): string {
-    return serialize([self::$geojfilePath, self::$all]);
   }
   
-  static function unserialize(string $ser): void {
-    list(self::$geojfilePath, self::$all) = unserialize($ser);
-  }
-  
-  function __construct(string $id, array $coords=[], int $ftell=-1) {
-    //echo "__construct($id, coords, $ftell)\n";
+  function __construct(string $id, gegeom\GBox $bbox, array $coords, int $ftell) {
+    //echo "__construct($id, bbox, $ftell)\n";
     $this->id = $id;
-    //$this->coords = $coords;
-    $this->ftell = $ftell;
-    $polygon = gegeom\Geometry::fromGeoJSON(['type'=>'Polygon', 'coordinates'=> $coords]);
-    $this->bbox = $polygon->bbox();
-    //print_r($this->bbox);
+    //$this->ftell = $ftell;
+    $this->coords = $coords;
+    $this->bbox = $bbox;
     foreach ($coords as $ringno => $listOfPos)
       $this->intervals[$ringno] = new Intervals(0, count($listOfPos));
-    
-    $dept = substr($this->id, 0, 2);
-    self::$all[$dept]['faces'][$this->id] = $this;
-    if ($this->bbox)
-      self::$all[$dept]['bbox'] = !isset(self::$all[$dept]['bbox']) ? $this->bbox : $this->bbox->union(self::$all[$dept]['bbox']);
+    self::$all[$this->id] = $this;
   }
+  
+  function __toString(): string { return "Face $this->id"; }
   
   function id() { return $this->id; }
   
-  function coords(): array { // retourne les coordonnées du polygone associée à la face
+  function coordsParLecturDansFichier(): array { // retourne les coordonnées du polygone associée à la face
     if (!self::$geojfile)
       self::$geojfile = new GeoJFile(self::$geojfilePath);
     $feature = self::$geojfile->quickReadOneFeature($this->ftell);
@@ -197,39 +287,47 @@ class Face {
       return $feature['geometry']['coordinates'][$nopol]; // cas MultiPolygone
   }
   
-  static function buildAllLimits(GeoJFileW $limGeoJFile, float $debut): void { // Fabrique les brins de chaque face
+  function coords(): array { // retourne les coordonnées du polygone associée à la face
+    return $this->coords;
+  }
+  
+  static function buildAllLimits(gegeom\GBox $tile, GeoJFileW $limGeoJFile, float $debut): void { // Fabrique les lims de chaque face
     $counter = 0;
-    $all = self::allFaces();
-    $totalNbre = count($all);
-    foreach ($all as $id => $face) {
-      $face->buildLimits($limGeoJFile);
+    $totalNbre = count(self::$all);
+    foreach (self::$all as $id => $face) {
+      $face->buildLimits($tile, $limGeoJFile);
       if (++$counter % 25 == 0) {
-        printf("$counter / $totalNbre traités dans buildAllLimits en %.1f min., ", (time()-$debut)/60);
-        printf("fin estimée à %s\n", date('H:i', $debut + ((time()-$debut) / $counter * $totalNbre)));
+        printf("$counter / $totalNbre traités dans buildAllLimits en %.1f min.\n", (time()-$debut)/60);
       }
       //if ($counter > 20) break;
     }
     echo "Fin de buildAllLimits\n";
   }
 
-  function buildLimits(GeoJFileW $limGeoJFile): void { // fabrique les brins de la face
+  function buildLimits(Tile $tile, GeoJFileW $limGeoJFile): void { // fabrique les brins de la face
     //echo "buildBlades@$this->id\n";
     $thisPolCoords = $this->coords();
-    foreach (self::select($this->bbox) as $id => $face) {
-      if ($face->id >= $this->id) continue;
+    foreach (self::$all as $id => $face) {
+      if (($face->id >= $this->id) || !$this->bbox->intersects($face->bbox)) continue;
       //echo "$this->id touches? $face->id\n";
       foreach ($thisPolCoords as $thisRingno => $thisRingCoords) {
         foreach ($face->coords() as $faceRingno => $faceRingCoords) {
           if ($listOfTouches = $this->touches($thisRingCoords, $faceRingCoords)) {
-            foreach ($listOfTouches as $touches) {
-              if ($touches[0] == $touches[1]) continue;
-              $limCoords = array_slice($thisRingCoords, $touches[0], $touches[1]-$touches[0]+1);
-              writeLimit($this, $face, $limGeoJFile, $limCoords);
-              $this->intervals[$thisRingno]->add($touches[0], $touches[1]);
+            try {
+              foreach ($listOfTouches as $touches) {
+                if ($touches[0] == $touches[1]) continue;
+                $limCoords = array_slice($thisRingCoords, $touches[0], $touches[1]-$touches[0]+1);
+                writeLimit($this, $face, $limGeoJFile, $limCoords, $tile);
+                $this->intervals[$thisRingno]->add("$this->id/$thisRingno X $face->id/$faceRingno", $touches[0], $touches[1]);
+              }
+              foreach ($this->touches($faceRingCoords, $thisRingCoords) as $touches) {
+                if ($touches[0] == $touches[1]) continue;
+                $face->intervals[$faceRingno]->add("$face->id/$faceRingno X $this->id/$thisRingno", $touches[0], $touches[1]);
+              }
             }
-            foreach ($this->touches($faceRingCoords, $thisRingCoords) as $touches) {
-              if ($touches[0] == $touches[1]) continue;
-              $face->intervals[$faceRingno]->add($touches[0], $touches[1]);
+            catch(Exception $e) {
+              echo "Exception ",$e->getMessage()," sur $this ->buildLimits()\n";
+              throw new Exception($e->getMessage());
             }
           }
         }
@@ -264,18 +362,18 @@ class Face {
   }
 
   // fabrique une pseudo-face exterior qui rassemble tous les blades extérieurs, cad ceux dont seul un côté est sinon défini
-  static function buildAllExterior(GeoJFileW $limGeoJFile): void {
-    foreach (self::allFaces() as $id => $face)
-      $face->buildExterior($limGeoJFile);
+  static function buildAllExterior(Tile $tile, GeoJFileW $limGeoJFile): void {
+    foreach (self::$all as $id => $face)
+      $face->buildExterior($tile, $limGeoJFile);
   }
   
-  function buildExterior(GeoJFileW $limGeoJFile): void {
+  function buildExterior(Tile $tile, GeoJFileW $limGeoJFile): void {
     foreach ($this->coords() as $ringno => $thisCoords) {
       foreach ($this->intervals[$ringno]->remaining() as $min => $max) {
         if ($max <> $min + 1) {
           //echo "exterior $this->id $min $max\n";
           $limCoords = array_slice($thisCoords, $min, $max-$min+1);
-          writeLimit($this, null, $limGeoJFile, $limCoords);
+          writeLimit($this, null, $limGeoJFile, $limCoords, $tile);
         }
       }
     }
@@ -292,7 +390,9 @@ if (0) { // Test in_array()
   die("Fin ligne ".__LINE__);
 }
 
-if (0) { // fabrication du fichier de positions
+if (0) { // fabrication du fichier de positions des départements $depts
+  $depts = ['40'];
+  
   function writePosOfPolygon(GeoJFileW $posfile, string $id, array $coords) {
     foreach ($coords as $nring => $ring) {
       foreach ($ring as $npos => $pos) {
@@ -311,63 +411,103 @@ if (0) { // fabrication du fichier de positions
   }
   
   $geojfile = new GeoJFile($geojfilePath);
-  $posfile = new GeoJFileW(__DIR__."/pos$dept.geojson");
   
-  foreach ($geojfile->quickReadFeatures() as $feature) {
-    //print_r($feature);
-    $id = $feature['properties']['INSEE_COM'];
-    if (substr($id, 0, 2) <> $dept) continue;
-    $geom = $feature['geometry'];
-    if ($geom['type'] == 'Polygon') {
-      writePosOfPolygon($posfile, $id, $geom['coordinates']);
-    }
-    else {
-      foreach ($geom['coordinates'] as $no => $polygonCoords) {
-        writePosOfPolygon($posfile, "$id/$no", $geom['coordinates']);
+  foreach ($depts as $dept) {
+    $posfile = new GeoJFileW(__DIR__."/pos$dept.geojson");
+  
+    foreach ($geojfile->quickReadFeatures() as $feature) {
+      //print_r($feature);
+      $id = $feature['properties']['INSEE_COM'];
+      if (substr($id, 0, 2) <> $dept) continue;
+      if ($geom['type'] == 'Polygon') {
+        writePosOfPolygon($posfile, "$id/u", $feature['geometry']['coordinates']);
+      }
+      else {
+        foreach ($feature['geometry']['coordinates'] as $no => $polygonCoords) {
+          writePosOfPolygon($posfile, "$id/$no", $polygonCoords);
+        }
       }
     }
+    $posfile->close();
+    echo "pos$dept.geojson écrit\n";
   }
-  $posfile->close();
-  die("pos$dept.geojson écrit\n");
+  die("Fin pos.geojson\n");
+}
+
+if (0) { // dessin grille
+  $d = 1; // taille
+  $grille = new GeoJFileW(__DIR__."/grille$d.geojson");
+  for($lon = -180; $lon < 180; $lon += $d) {
+    for($lat = -70; $lat < 70; $lat += $d) {
+      //echo "lon=$lon, lat=$lat\n";
+      $geojson = [
+        'type'=> 'Feature',
+        'properties'=> [
+          'lon'=> $lon.' '.($lon+$d),
+          'lat'=> $lat.' '.($lat+$d),
+        ],
+        'geometry'=> [
+          'type'=> 'Polygon',
+          'coordinates'=> [[
+            [$lon, $lat],
+            [$lon, $lat+$d],
+            [$lon+$d, $lat+$d],
+            [$lon+$d, $lat],
+            [$lon, $lat],
+          ]],
+        ],
+      ];
+      $grille->write($geojson);
+    }
+  }
+  $grille->close();
+  die("Fin grille ligne ".__LINE__);
 }
 
 $debut = time();
 
-$psername = __DIR__."/topomap".implode('-',$depts).".pser";
-if (is_file($psername)) {
-  Face::unserialize(file_get_contents($psername));
+Tile::add([-6, 47.6, -5, 48.6]); // Ile d'Ouessant
+Tile::add([-5, 46.6, -2, 49.1]); // Bretagne + Noirmoutier
+Tile::add([ 8, 48.1,  9, 49.1]); // Strasbourg
+Tile::add([-2, 42.1,  8, 51.1]); // Reste de FXX hors Corse
+// { name: FXX hors Corse, westlimit: -5.16, southlimit: 42.32, eastlimit: 8.24, northlimit: 51.09 }
+Tile::add([ 8, 41.1, 10, 43.1]); // { name: Corse, westlimit: 8.53, southlimit: 41.33, eastlimit: 9.57, northlimit: 43.03 }
+Tile::add([-61.9, 15.7, -60.9, 16.7]); // { name: GLP, westlimit: -61.81, southlimit: 15.83, eastlimit: -61.00, northlimit: 16.52 }
+Tile::add([-61.5, 14.0, -60.5, 15.0]); // { name: MTQ, westlimit: -61.24, southlimit: 14.38, eastlimit: -60.80, northlimit: 14.89 }
+Tile::add([-54.615, 2.0, -51.615, 6.0]); // { name: GUF, westlimit: -54.61, southlimit: 2.11, eastlimit: -51.63, northlimit: 5.75 }
+Tile::add([55, -21.5, 56, -20.5]); // { name: REU, westlimit: 55.21, southlimit: -21.40, eastlimit: 55.84, northlimit: -20.87 }
+Tile::add([44.5, -13.2, 45.5, -12.2]); // { name: MYT, westlimit: 44.95, southlimit: -13.08, eastlimit: 45.31, northlimit: -12.58 }
+
+//Tile::add([-1,43.1,0,44.1]);
+//Tile::add([-0.8,44.0,-0.4,44.2], 0.4, 0.2); // debug 40323
+
+if (0) { // fabrication du fichier geojson des fenêtres pour contrôler la couverture
+  Tile::geojson();
+  die("Fin grille ligne ".__LINE__."\n");
 }
-else {
-  Face::$geojfilePath = $geojfilePath;
-  $geojfile = new GeoJFile($geojfilePath);
+
+$geojfile = new GeoJFile($geojfilePath);
+$limGeoJFile = new GeoJFileW(__DIR__.'/lim.geojson');
+
+$nbTiles = count(Tile::$all);
+foreach (Tile::$all as $notile => $tile) {
+  echo "Traitement de la fenêtre $notile / $nbTiles : $tile\n";
+
+  Face::init($geojfilePath);
   $counter=0;
   foreach ($geojfile->quickReadFeatures() as $feature) {
     //print_r($feature);
-    $id = $feature['properties']['INSEE_COM'];
-    if ($depts && !in_array(substr($id, 0, 2), $depts)) continue;
-    //if (substr($id, 0, 3) <> '974') continue;
-    $geom = $feature['geometry'];
-    if ($geom['type'] == 'Polygon')
-      new Face("$id/u", $geom['coordinates'], $feature['ftell']);
-    else {
-      foreach ($geom['coordinates'] as $no => $polygonCoords) {
-        new Face("$id/$no", $polygonCoords, $feature['ftell']);
-      }
-    }
+    Face::create($feature, $tile);
     $counter++;
-    if ($counter % 1000 == 0) echo "counter=$counter\n";
+    if ($counter % 10000 == 0) echo "counter=$counter\n";
     //if (++$counter >= 100) break;
   }
-  file_put_contents($psername, Face::serialize());
+  echo "Fin de la lecture de $geojfilePath\n";
+
+  Face::buildAllLimits($tile, $limGeoJFile, $debut);
+
+  Face::buildAllExterior($tile, $limGeoJFile);
 }
 
-$limGeoJFile = new GeoJFileW(__DIR__.'/lim'.implode('-',$depts).'.geojson');
-
-Face::buildAllLimits($limGeoJFile, $debut);
-
-Face::buildAllExterior($limGeoJFile);
-
 $limGeoJFile->close();
-
-echo Yaml::dump(['cacheStats'=> Face::$geojfile->cacheStats()]);
 printf("Fin mklim en %.1f min.\n", (time()-$debut)/60);
