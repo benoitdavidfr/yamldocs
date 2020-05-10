@@ -252,7 +252,6 @@ class Face {
   // décompose les MultiPolygon en une face par polygone
   static function create(array $feature, Tile $tile) {
     $id = $feature['properties']['INSEE_COM'];
-    $geom = ;
     if ($feature['geometry']['type'] == 'Polygon') {
       $polygon = gegeom\Geometry::fromGeoJSON($feature['geometry']);
       $bbox = $polygon->bbox();
