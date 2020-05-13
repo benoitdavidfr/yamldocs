@@ -2,8 +2,6 @@ title: cas particuliers
 contents:
   - title: Vauciennes (60658) a 2 parties includes dans Coyolles (02232)
   - title: Coyolles (02232) a 3 trous, tous les 3 dans un autre département
-  - title: 40323 a un petit polygone dont une des limites n'a que 2 points et est confondue avec une autre
-    erreurs:
-      - Erreur dans Intervals:add(id=82033/0/0 X 82031/2/0, min=0, max=1)
-      - Erreur dans Intervals:add(id=82031/2/0 X 82033/0/0, min=0, max=1)
-      
+  - title: 40323 a un petit polygone dont une des limites n'a que 2 points et est confondue avec une autre -> gestion par segment
+  - title: la limite commune entre 34054, 11200, 81278 et 81121 correspond à un segment de qqs mètres qui génère une erreur de topologie en cas d'arrondi à 10 mètres (4 décimales)
+

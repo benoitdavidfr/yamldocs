@@ -6,16 +6,15 @@ class GeoJFileW {
   protected $first;
   
   // création
-  function __construct(string $filename) {
+  function __construct(string $filename, string $fcName, array $metadata) {
     $this->file = fopen($filename, 'w');
-    $start = <<<'EOT'
-{
-"type": "FeatureCollection",
-"name": "Rpicom",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-EOT;
-    fwrite($this->file, "$start\n");
+    fwrite($this->file, "{\n");
+    fwrite($this->file, '"type": "FeatureCollection",'."\n");
+    fwrite($this->file, "\"name\": \"$fcName\",\n");
+    //fwrite($this->file, '"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },'."\n");
+    foreach ($metadata as $key => $value)
+      fwrite($this->file, "\"$key\": \"$value\",\n");
+    fwrite($this->file, '"features": ['."\n");
     $this->first = true;
   }
   

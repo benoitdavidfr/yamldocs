@@ -194,20 +194,19 @@ class GeoJFile {
 
   /*PhpDoc: methods
   name:  quickReadFeatures
-  title: "function quickReadFeatures(): \\Generator - Lecture dans le cas de sortie de ogr2ogr où chaque Feature est enregistré sur une ligne du fichier"
+  title: "function quickReadFeatures(): \\Generator - Lecture dans le cas de sortie de ogr2ogr où chaque Feature est enregistré sur une ligne du fichier (format GeoJSONSeq)"
   doc: |
-    Renvoit en outre la position du feature dans le fichier permettant ainsi d'y accéder par quickReadFeatures
+    Renvoit en outre la position du feature dans le fichier permettant ainsi d'y accéder par quickReadOneFeature
+    Autorise une modification de l'en-tête
+    La règle est que l'en-tête se termine par la ligne '"features": ['
   */
   function quickReadFeatures(): \Generator {
     $file = fopen($this->path, 'r');
-    $buff = fgets($file); // {
-    $buff = fgets($file); // "type": "FeatureCollection",
-    $buff = fgets($file); // "name": "COMMUNE_CARTO",
-    $buff = fgets($file); // "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-    $buff = fgets($file); // "features": [
+    while ($buff = rtrim(fgets($file))) {
+      if ($buff == '"features": [') break; // lit l'en-tête du fichier
+    }
     $ftell = ftell($file);
-    while ($buff = fgets($file)) {
-      $buff = rtrim($buff);
+    while ($buff = rtrim(fgets($file))) {
       if ($buff == ']')
         return;
       if (substr($buff, -1) == ',')
