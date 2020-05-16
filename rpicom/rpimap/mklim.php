@@ -4,7 +4,7 @@ name: mklim.php
 title: création du fichier des limites entre communes à partir de Ae2020Cog/COMMUNE_CARTO par test d'adjacence entre communes
 doc: |
   Algo:
-    - le traitement est effectué par dalle (tile) de 2° X 2°, il y en a 29
+    - le traitement est effectué par dalle (tile), il y en a 29
       - cela permet de ne pas être en n2 du nbre de faces
     - pour chaque dalle
       - lecture de fichier des communes, sélection de celles intersectant la dalle et transf. en polygones (appelés Face)
