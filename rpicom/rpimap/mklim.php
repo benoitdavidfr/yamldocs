@@ -25,6 +25,8 @@ doc: |
     - exécution complète le 13/5 20:46 en 44'
     - le traitement par dalle évite un algo en n2 sur 35100 faces
 journal: |
+  16/5/2020:
+    - inversion de la géométrie pour remettre en sortie droite et gauche correctement
   13/5/2020:
     - transformation en cours en lien avec simplif
     - fabrication en sortie de segments et non de lignes pour éviter les lignes fantomes
@@ -309,7 +311,10 @@ class Tile extends gegeom\GBox { // Définition des dalles utilisées pour balay
   
   // écrit une sous-limite dans le fichier GeoJSON
   function writeSubLimit(array $feature, array $lseg, GeoJFileW $limGeoJFile): void {
-    $feature['geometry']['coordinates'] = self::lseg2lpos($lseg);
+    $lpos = array_reverse(self::lseg2lpos($lseg)); // right et left sont à l'envers, je les retourne
+    //$feature['properties']['start'] = $lpos[0];
+    //$feature['properties']['end'] = $lpos[count($lpos)-1];
+    $feature['geometry']['coordinates'] = $lpos;
     $limGeoJFile->write($feature);
   }
   
@@ -668,6 +673,7 @@ foreach (Tile::$all as $notile => $tile) {
   $counter=0;
   foreach ($geojfile->quickReadFeatures() as $feature) {
     //if (!in_array($feature['id'], ['34337','34333','34108'])) continue;
+    //if (substr($feature['id'], 0, 3) <> '976') continue;
     //print_r($feature);
     Face::create($feature, $tile);
     $counter++;
