@@ -311,6 +311,8 @@ class Tile extends gegeom\GBox { // Définition des dalles utilisées pour balay
   
   // écrit une sous-limite dans le fichier GeoJSON
   function writeSubLimit(array $feature, array $lseg, GeoJFileW $limGeoJFile): void {
+    static $num = 1;
+    $feature['properties']['num'] = $num++;
     $lpos = array_reverse(self::lseg2lpos($lseg)); // right et left sont à l'envers, je les retourne
     //$feature['properties']['start'] = $lpos[0];
     //$feature['properties']['end'] = $lpos[count($lpos)-1];
@@ -334,6 +336,7 @@ class Tile extends gegeom\GBox { // Définition des dalles utilisées pour balay
     $feature = [
       'type'=> 'Feature',
       'properties'=> [
+        'num'=> 0,
         'right'=> $rightFace->id(),
         'left'=> $leftFace ? $leftFace->id() : '',
         'statut'=> $statut,

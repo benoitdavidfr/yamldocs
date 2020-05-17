@@ -3,8 +3,14 @@
 name: simplif.php
 title: simplification en arrondissant les coord. à 3 décimales, soit 100m
 doc: |
-  On commence par construire une carte topologique à partir des segments produits par mklim.php
-  Puis on supprime les petits polygones dans le cas de communes en possédant plusieurs
+  On commence par construire une carte topologique à partir des limites produites par mklim.php
+  Puis:
+    - on concatene les limites séparées par un noeud connectant exactement ces 2 limites
+    - on supprime les petits polygones dans le cas de communes en possédant plusieurs
+journal: |
+  17/5/2020:
+    - mise au point de l'algo de concaténation de limites
+
 */
 require_once __DIR__.'/../geojfile.inc.php';
 require_once __DIR__.'/../geojfilew.inc.php';
@@ -93,11 +99,7 @@ class Ring {
     throw new Exception("Nbre d'itérations max atteint pour bladeNum = $this->bladeNum");
   }
   
-  function asArray(): array {
-    foreach($this->bladeNums() as $num)
-      $blades[$num] = Blade::get($num)->asArray();
-    return $blades;
-  }
+  function asArray(): array { return $this->bladeNums(); }
 
   function coords(): array { // LPos
     $coords = [];
@@ -107,6 +109,11 @@ class Ring {
       $coords = array_merge($coords, Blade::get($num)->coords());
     }
     return $coords;
+  }
+  
+  function replaceBladeNum(int $old, int $new): void { // remplace un no de brin par un autre 
+    if ($this->bladeNum == $old)
+      $this->bladeNum = $new;
   }
   
   // calcul de surface en coord. géo. avec résultat en ha
@@ -263,6 +270,11 @@ class Face {
       echo "Erreur de création de l'extérieur\n";
   }
   
+  function replaceBladeNum(int $old, int $new): void { // remplace un no de brin par un autre 
+    foreach ($this->rings as $ring)
+      $ring->replaceBladeNum($old, $new);
+  }
+    
   function areaHa(): float { // calcule la surface de la face comme somme des surfaces de ses anneaux
     $area = 0;
     foreach ($this->rings as $ring)
@@ -326,14 +338,44 @@ abstract class Blade {
   abstract function setStart(array $pos): void;
   abstract function end(): array;
   abstract function setEnd(array $pos): void;
-  abstract function fiNum(): int; // renvoie le numéro du brin
-  function fi(): ?Blade { return $this->fiNum() ? Blade::get($this->fiNum()) : null; } // renvoie le brin ou null
+  abstract function fiNum(): int; // renvoie le numéro du brin suivant dans la définition des faces
+  function fi(): ?Blade { return $this->fiNum() ? Blade::get($this->fiNum()) : null; } // renvoie le brin suivant ou null
   abstract function setFiNum(int $num): void;
+  
+  /*static function fiInvNum(int $bnum0): int { // calcul de fi-1 sur les numéros de brins
+    $bnum = $bnum0;
+    $counter = 0;
+    while (Blade::get($bnum)->fiNum() <> $bnum0) {
+      $bnum = Blade::get($bnum)->fiNum();
+      if (++$counter > 100)
+        throw new Exception("Boucle détectée dans Blade::fiInvNum()");
+    }
+    echo "fiInvNum($bnum0) = $bnum\n";
+    return $bnum;
+  }*/
+  
+  // sigma = alpha o fi - les cycles de sigma sont les brins qui arrivent au même noeud
+  function sigmaNum(): int { return - $this->fiNum(); }
+  function setSigmaNum(int $num) { $this->setFiNum(-$num); }
+    
+  static function sigmaInvNum(int $bnum0): int { // calcul de sigma-1 sur les numéros de brins
+    $bnum = $bnum0;
+    $counter = 0;
+    while (Blade::get($bnum)->sigmaNum() <> $bnum0) {
+      $bnum = Blade::get($bnum)->sigmaNum();
+      if (++$counter > 100)
+        throw new Exception("Boucle détectée dans Blade::sigmaInvNum()");
+    }
+    //echo "sigmaInvNum($bnum0) = $bnum\n";
+    return $bnum;
+  }
   
   function asArray(): array {
     return [
       'right'=> $this->right() ? $this->right()->id() : '',
       'left'=> $this->left() ? $this->left()->id() : '',
+      'fiNum'=> $this->fiNum(),
+      'fiOfInv'=> $this->fiOfInv(),
       'start'=> $this->start(),
       'end'=> $this->end(),
     ];
@@ -349,15 +391,40 @@ abstract class Blade {
     }
     return $lSegs;
   }
+  
+  // concatene 2 brins distincts séparés par un noeud qui ne connecte qu'eux
+  // $bnum0 est le numéro du brin courant conservé, $next est le brin en séquence à supprimer
+  static function concat(int $bnum0, int $next): void {
+    //echo "Concaténation des brins $bnum0 et $next\n";
+    //echo Yaml::dump([$bnum0=> Blade::get($bnum0)->asArray(), $next=> Blade::get($next)->asArray()]);
+    $sigmaInvNum = Blade::sigmaInvNum($next); // le no du brin qui pointe par sigma vers next
+    //echo "sigmaInvNum = $sigmaInvNum\n";
+    Blade::get($sigmaInvNum)->setSigmaNum($bnum0); // modif. du sigma pour enlever next
+    //echo "$sigmaInvNum ->setSigmaNum($bnum0)\n";
+    Blade::get($bnum0)->setFiNum(Blade::get($next)->fiNum()); // reprise du fi de $next
+    //echo "$bnum0 ->setFiNum(",Blade::get($next)->fiNum(),")\n";
+    $nextCoords = Blade::get($next)->coords();
+    array_shift($nextCoords);
+    Blade::get($bnum0)->setCoords(array_merge(Blade::get($bnum0)->coords(), $nextCoords));
+    Blade::get($next)->right = null;
+    Blade::get($next)->left = null;
+    Blade::get($next)->fiNum = 0;
+    Blade::get($next)->fiOfInv = 0;
+    Blade::get($next)->setCoords([]);
+    unset(Lim::$all[abs($next)]);
+    // Si le brin supprimé est utilisé dans un anneau alors il doit être remplacé
+    Blade::get($bnum0)->right()->replaceBladeNum($next, $bnum0);
+    Blade::get($bnum0)->left()->replaceBladeNum(-$next, -$bnum0);
+  }
 };
 
 // Une limite entre faces
 class Lim extends Blade {
   static $all=[]; // [ num => Lim ], stockage des limites, num à partir de 1
   protected $right; // Face - face à droite
-  protected $left; // Face | null - face à gauche ou null si c'est l'extérieur
+  protected $left; // Face | null - face à gauche, si c'est l'extérieur soit null soit la Face spéciale exterior
   protected $fiNum; // Int - le brin suivant du brin dans l'anneau défini par son numéro
-  protected $fiInv; // Int - le brin suivant du brin inverse dans l'anneau défini par son numéro
+  protected $fiOfInv; // Int - le brin suivant du brin inverse dans l'anneau, défini par son numéro
   protected $coords; // LPos
   
   // méthode utilisée pour construire initialement la carte à partir des limites lues dans le fichier GeoJSON
@@ -400,7 +467,7 @@ class Lim extends Blade {
     $this->left = $left;
     $this->coords = $coords;
     $this->fiNum = 0;
-    $this->fiInv = 0;
+    $this->fiOfInv = 0;
   }
   
   function right(): Face { return $this->right; }
@@ -408,6 +475,7 @@ class Lim extends Blade {
   function left(): ?Face { return $this->left; }
   function setLeft(?Face $face): void { $this->left = $face; }
   function coords(): array { return $this->coords; }
+  function setCoords(array $coords): void { $this->coords = $coords; }
   function start(): array { return $this->coords[0]; }
   function setStart(array $pos): void { $this->coords[0] = $pos; }
   function end(): array { return $this->coords[count($this->coords)-1]; }
@@ -415,8 +483,8 @@ class Lim extends Blade {
   function inv(): Inv { return new Inv($this); }
   function fiNum(): int { return $this->fiNum; }
   function setFiNum(int $num): void { $this->fiNum = $num; }
-  function fiInv(): int { return $this->fiInv; }
-  function setFiInv(int $num): void { $this->fiInv = $num; }
+  function fiOfInv(): int { return $this->fiOfInv; }
+  function setFiOfInv(int $num): void { $this->fiOfInv = $num; }
   
   static function segLengthKm($pos0, $pos1): float { // longueur d'un segment en km
     $dlon = ($pos1[0] - $pos0[0]) * 40000/360 * cos($pos0[1]/180*pi());
@@ -478,13 +546,14 @@ class Inv extends Blade {
   function left(): ?Face { return $this->inv->right(); }
   function setLeft(?Face $left): void { $this->inv->setRight($left); }
   function coords(): array { return array_reverse($this->inv->coords()); }
+  function setCoords(array $coords): void { $this->inv->setCoords(array_reverse($coords)); }
   function start(): array { return $this->inv->end(); }
   function setStart(array $pos): void { $this->inv->setEnd($pos); }
   function end(): array { return $this->inv->start(); }
   function setEnd(array $pos): void { $this->inv->setStart($pos); }
   function inv(): Blade { return $this->inv; }
-  function fiNum(): int { return $this->inv->fiInv(); }
-  function setFiNum(int $num): void { $this->inv->setFiInv($num); }
+  function fiNum(): int { return $this->inv->fiOfInv(); }
+  function setFiNum(int $num): void { $this->inv->setFiOfInv($num); }
 };
 
 if (php_sapi_name()<>'cli') echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>simplif</title></head><body><pre>\n";
@@ -502,8 +571,19 @@ if (0) { // Test
   die("Fin test\n");
 }
 
+if (0) { // Test
+  $array = ['a','b','c','d','e'];
+  foreach ($array as $no => $elt) {
+    if ($no == 1)
+      unset($array[3]);
+    echo $elt;
+  }
+  die("\n");
+}
+
 // construction de la carte
 $geojfilePath = __DIR__.'/limcomfr.geojson';
+//$geojfilePath = __DIR__.'/limtest.geojson';
 $geojfile = new GeoJFile($geojfilePath);
 foreach ($geojfile->quickReadFeatures() as $feature) {
   Lim::add($feature);
@@ -518,78 +598,93 @@ foreach (Face::$all as $faceId => $face) {
 if ($errors) {
   echo count($errors)," erreurs de création d'anneaux sur :\n";
   foreach ($errors as $faceId) {
-    Face::$all[$faceId]->dump();
+    echo Yaml::dump([$faceId=> Face::$all[$faceId]->asArray()]);
   }
   die();
 }
 
-// complète les fi() pour les extérieurs
-Face::createExterior();
+Face::createExterior(); // crée une Face exterior sans extérieur mais avec comme trou tous les brins bordant l'extérieur
 //echo Yaml::dump(['exterior'=> Face::$exterior->asArray()], 4, 2); die();
-
 //echo Yaml::dump(['17485/u'=> Face::get('17485/u')->areaHa()]);
-echo Yaml::dump(['exterior'=> Face::get('exterior')->areaHa()]);
+//echo Yaml::dump(['exterior'=> Face::get('exterior')->areaHa()]);
 
-if ($argc == 3) {
-  if ($argv[1] == 'face') {
+if ($argc >= 2) {
+  if ($argv[1] == 'faces') { // affichage des faces 
+    foreach (Face::$all as $id => $face)
+      $faces[$id] = $face->asArray();
+    ksort($faces);
+    echo Yaml::dump(['Faces'=> $faces], 4, 2);
+    die();
+  }
+  elseif ($argv[1] == 'face') { // affichage d'une face
     //print_r(Face::$all[$argv[2]]);
     echo Yaml::dump(['Faces'=> [$argv[2] => Face::$all[$argv[2]]->asArray()]], 4, 2);
+    die();
   }
   elseif ($argv[1]= 'lim') {
     echo Yaml::dump(['Lims'=> [$argv[2] => Lim::$all[$argv[2]]->geojson()]], 4, 2);
-  }
-  die();
-}
-
-if (0) { // affichage des faces 
-  foreach (Face::$all as $id => $face)
-    $faces[$id] = $face->asArray();
-  ksort($faces);
-  echo Yaml::dump(['Faces'=> $faces], 4, 2);
-}
-
-if (0) {
-  foreach (Lim::$all as $num => $lim) {
-    if ($lim->fiNum() == 0)
-      echo "Erreur fiNum($num) == 0\n";
-    if ($lim->fiInv() == 0)
-      echo "Erreur fiInv($num) == 0\n";
+    die();
   }
 }
 
-// Première étape - concaténer les limites séparées par un noeud ne connectant que de brins sauf pour les iles
-if (0) {
+// Première étape - concaténer les brins distincts séparés par un noeud connectant exactement ces 2 brins
+if (1) {
   foreach (Lim::$all as $num => $lim) {
-    if ($lim->fi() === $lim) {
-      echo "La limite $num est une boucle\n";
+    if (!$lim->coords()) {
+      //echo "La limite $num a déjà été détruite\n";
       continue;
     }
-      
+    if ($lim->fi() === $lim) {
+      //echo "La limite $num est une boucle\n";
+      continue;
+    }
     echo "appel sur la limite $num\n";
-    echo '$lim='; print_r($lim);
-    echo '$lim->fi()='; print_r($lim->fi());
-    echo '$lim->fi()->inv()='; print_r($lim->fi()->inv());
-    if ($lim->fi()->inv()->fi()->inv() === $lim) {
-      echo "  Concaténation de $lim et ",$lim->fiNum(),"\n";
+    //echo '$lim='; print_r($lim);
+    //echo '$lim->fi()='; print_r($lim->fi());
+    //echo '$lim->fi()->inv()='; print_r($lim->fi()->inv());
+    if ($lim->fi()->inv()->fi()->inv() == $lim) {
+      echo "  Concaténation des brins $num et ",$lim->fiNum()," dans $num\n";
+      Lim::concat($num, $lim->fiNum());
+    }
+  }
+  foreach (Lim::$all as $num => $lim) {
+    if (!$lim->coords()) continue; // limite déjà détruite
+    if ($lim->fi() === $lim) continue; // boucle
+    // cas où c'est le brin inverse
+    $inv = $lim->inv();
+    if ($inv->fi()->inv()->fi()->inv() == $inv) {
+      echo "  Concaténation des brins -$num et ",$inv->fiNum()," dans -$num\n";
+      Inv::concat(-$num, $inv->fiNum());
     }
   }
 }
 
+//echo 'Faces='; print_r(Face::$all);
+//echo 'Lims='; print_r(Lim::$all);
+
+foreach (Face::$all as $faceId => $face)
+  echo Yaml::dump([$faceId => $face->asArray()]);
+foreach (Lim::$all as $num => $lim)
+  echo Yaml::dump([$num => $lim->asArray()]);
+
+die();
+
 /*
-Première étape - Supprimer les petits polygones dans le cas de commune MultiPolygon
+Deuxième étape - Supprimer les petits polygones dans le cas de commune MultiPolygon
 Le plus petit 17306/0 fait environ 0.053 ha !
 La spec fixe un seuil de 0,8 km2 soit 80 ha
-Je supprime les polygones de moins de 80 ha en gardant toute fois au moins un polygone par commune
+Je supprime les polygones de moins de 80 ha en gardant toutefois au moins un polygone par commune
 */
-/*if (1) {
+if (1) {
   $coms = []; // [codeInsee => [id => 1]]
   foreach (Face::$all as $id => $face) {
     $cinsee = substr($id, 0, 5);
     $coms[$cinsee][$id] = 1;
+    echo "calcul de la surface de $id\n";
     $areas[$id] = $face->areaHa();
   }
   asort($areas);
-  //echo Yaml::dump($areas);
+  echo Yaml::dump($areas); die();
 
   foreach ($areas as $id => $areaHa) {
     if ($areaHa >= 80) break; // on s'arrête à 80 ha
@@ -607,7 +702,7 @@ Je supprime les polygones de moins de 80 ha en gardant toute fois au moins un po
     }
   }
 }
-*/
+
 /*
 Deuxième étape - Suppression des petites limites de moins de 200 m de long
 */
