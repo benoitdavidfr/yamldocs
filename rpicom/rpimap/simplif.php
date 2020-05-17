@@ -7,17 +7,36 @@ doc: |
   Puis:
     - on concatene les limites séparées par un noeud connectant exactement ces 2 limites
     - on supprime si possible les petits polygones de moins de 80 ha des communes en possédant plusieurs
-      - attention, qqs petites communes, notamment 33103/u de 3 ha
-    - on supprime les petites limites de moins de 200 m
+      - attention, aux petites communes, notamment 33103/u de 3 ha
+    - on supprime les petites limites de moins de 210 m
     - on enregistre les limites
-      - après une simplification par Douglas&Peucker avec un seuil de 0.002
+      - après une simplification par Douglas&Peucker avec un seuil de 0.005 °
       - et un arrondi des coords à 3 décimales soit une résolution entre 111 m et 68 m (à 52° N)
     - correction à la main pour évietr la dégénération en un segment de 33103/u
+  stats en entrée:
+    106 675 limites
+    3 798 590 positions
+    35 112 faces
+    35 144 anneaux hors extérieur
+  stats en sortie:
+    102 540 limites
+    278 341 positions
+    35 085 faces
+    35 097 anneaux hors extérieur
+
+  Le fichier des communes passe de 148 Mo à 8 Mo.
+
 journal: |
   17/5/2020:
     - mise au point de l'algo de concaténation de limites
     - sortie intéressante
-      - erreur sur 33103/u de 3 ha réduit à un segment corrigée à la main
+      - erreur sur 33103/u de 3 ha réduit à un segment corrigée de manière spécifique dans deleteSmallLim()
+      - pbs sur
+        - 29232
+        - 29058
+        - 29290
+        - 29279
+    
 */
 require_once __DIR__.'/../geojfile.inc.php';
 require_once __DIR__.'/../geojfilew.inc.php';
@@ -191,10 +210,11 @@ class Face {
   
   function __construct(string $id) { $this->id = $id; $this->bladeNums = []; }
   
-  function id() { return $this->id; }
-  function bladeNums() { return $this->bladeNums; }
+  function id(): string { return $this->id; }
+  function bladeNums(): array { return $this->bladeNums; }
+  function nbRings(): int { return count($this->rings); }
   
-  function asArray() {
+  function asArray(): array {
     if ($this->bladeNums) {
       foreach($this->bladeNums as $num)
         $blades[$num] = Blade::get($num)->asArray();
@@ -288,6 +308,27 @@ class Face {
       }
     }
     throw new Exception("Face::deleteHoleDefinedByOneBlade() non effectué");
+  }
+
+  function coords(): array { // coordonnées du Polygon - LLPos
+    if (count($this->rings) == 1) {
+      return [ $this->rings[0]->coords() ];
+    }
+    else {
+      $llpos = [];
+      foreach ($this->rings as $ring) {
+        if ($ring->areaHa() > 0) {
+          $llpos = [ $ring->coords() ];
+          $exterior = $ring;
+          break;
+        }
+      }
+      foreach ($this->rings as $ring) {
+        if ($ring <> $exterior)
+          $llpos[] = $ring->coords();
+      }
+      return $llpos;
+    }
   }
 };
 
@@ -451,6 +492,7 @@ abstract class Blade {
 // Une limite entre faces
 class Lim extends Blade {
   static $all=[]; // [ num => Lim ], stockage des limites, num à partir de 1
+  protected $statut; // string - statut de la limite
   protected $right; // Face - face à droite
   protected $left; // Face | null - face à gauche, si c'est l'extérieur soit null soit la Face spéciale exterior
   protected $fiNum; // Int - le brin suivant du brin dans l'anneau défini par son numéro
@@ -465,7 +507,7 @@ class Lim extends Blade {
       $left = Face::getAndAddBlade($feature['properties']['left'], -$noLim);
     else
       $left = null;
-    self::$all[$noLim] = new Lim($right, $left, $feature['geometry']['coordinates']);
+    self::$all[$noLim] = new Lim($feature['properties']['statut'], $right, $left, $feature['geometry']['coordinates']);
   }
   
   // convertit les références aux faces en identifiant pour préparer la serialization
@@ -492,7 +534,8 @@ class Lim extends Blade {
     }
   }*/
   
-  function __construct(Face $right, ?Face $left, array $coords) {
+  function __construct(string $statut, Face $right, ?Face $left, array $coords) {
+    $this->statut = $statut;
     $this->right = $right;
     $this->left = $left;
     $this->coords = $coords;
@@ -515,6 +558,21 @@ class Lim extends Blade {
   function setFiNum(int $num): void { $this->fiNum = $num; }
   function fiOfInv(): int { return $this->fiOfInv; }
   function setFiOfInv(int $num): void { $this->fiOfInv = $num; }
+  
+  static function stats() {
+    echo count(self::$all)," limites\n";
+    $nbpos = 0;
+    foreach (self::$all as $lim) {
+      $nbpos += count($lim->coords);
+    }
+    echo "$nbpos positions\n";
+    echo count(Face::$all)," faces\n";
+    $nbRings = 0;
+    foreach (Face::$all as $id => $face)
+      if ($id <> 'exterior')
+        $nbRings += $face->nbRings();
+    echo "$nbRings anneaux hors extérieur\n";
+  }
   
   static function segLengthKm($pos0, $pos1): float { // longueur d'un segment en km
     $dlon = ($pos1[0] - $pos0[0]) * 40000/360 * cos($pos0[1]/180*pi());
@@ -554,16 +612,25 @@ class Lim extends Blade {
     
     if ($this->right === $this->left) {
       //throw new Exception("Cas particulier d'isthme non traité dans Lim::deleteSmallLim($numLim)");
-      echo ("Cas particulier d'isthme non traité dans Lim::deleteSmallLim($numLim)");
+      echo ("Cas particulier d'isthme non traité dans Lim::deleteSmallLim($numLim)\n");
       return false;
     }
     
     if ($startNode->nbLims($endNode) > 1) {
       //throw new Exception("Cas particulier de petit polygone non traité dans Lim::deleteSmallLim($numLim)");
-      echo ("Cas particulier de petit polygone non traité dans Lim::deleteSmallLim($numLim)");
+      echo ("Cas particulier de petit polygone non traité dans Lim::deleteSmallLim($numLim)\n");
       return false;
     }
     
+    if (($this->right->id() == '33103/u') || ($this->left->id() == '33103/u')) {
+      echo "Cas particulier de conservation de la petite commune 33103\n";
+      return false;
+    }
+    
+    // si l'un des 2 num. de brins est utilisé comme repr. du cycle, utiliser le suivant
+    $this->right->replaceBladeNum($numLim, Blade::get($numLim)->fiNum());
+    $this->left->replaceBladeNum(-$numLim, Blade::get(-$numLim)->fiNum());
+      
     $startPos = $this->start();
     $endPos = $this->end();
     $middle = [($startPos[0]+$endPos[0])/2, ($startPos[1]+$endPos[1])/2];
@@ -577,7 +644,7 @@ class Lim extends Blade {
     $sigmaInvNum = Blade::sigmaInvNum(-$numLim);
     Blade::get($sigmaInvNum)->setSigmaNum(Blade::get($numLim)->sigmaNum());
     echo "  sigmaNum($sigmaInvNum) <- ",Blade::get($numLim)->sigmaNum(),"\n";
-    
+      
     // effacement de l'objet pour faciliter la détection d'erreurs ainsi que la récupération de mémoire
     $this->right = null;
     $this->left = null;
@@ -592,60 +659,43 @@ class Lim extends Blade {
     return true;
   }
 
-  static function corrections(array $feature=[]): array { // effectue des corrections sur 33103/u réduit sinon à un segment
-    if (!$feature) // génère un nouvelle limite
-      return [
-        'type'=> 'Feature',
-        'properties'=> [
-          'right'=> '33353/u',
-          'left'=> '33103/u',
-        ],
-        'geometry'=> [
-          'type'=> 'LineString',
-          'coordinates'=> [[-0.011, 44.679], [-0.010, 44.680]],
-        ],
-      ];
-    $prop = $feature['properties'];
-    $lpos = $feature['geometry']['coordinates'];
-    if (($prop['right'] == '33353/u') && ($prop['left'] == '33112/u')) {
-      echo Yaml::dump(["33353/u-33112/u" => $lpos], 0),"\n";
-      // 33353/u-33112/u: [[-0.011, 44.679], [0, 44.689], [0.011, 44.693]]
-      $feature['geometry']['coordinates'][0] = [-0.010, 44.680];
+  // simplifie les limites et arroundit les coordonnées
+  static function simplify(): void {
+    foreach (self::$all as $num => $lim) {
+      $lpos = [];
+      $precPos = null;
+      foreach (gegeom\LPos::simplify($lim->coords, 0.005) as $pos) {
+        $pos = [round($pos[0], 3), round($pos[1], 3)];
+        if ($pos <> $precPos)
+          $lpos[] = $pos;
+        $precPos = $pos;
+      }
+      if (count($lpos) == 1) {
+        printf("Erreur dans simplify(), la limite {right: %s, left: %s, length: %.3f km} ne conserve qu'un seul point\n",
+          $lim->right()->id(), $lim->left() ? $lim->left()->id() : "''", $lim->lengthKm());
+        echo '  ',Yaml::dump(['coords' => $lim->coords], 0),"\n";
+        echo '  ',Yaml::dump(['simplify' => gegeom\LPos::simplify($lim->coords, 0.002)], 0),"\n";
+        echo '  ',Yaml::dump(['simpl+round' => $lpos], 0),"\n";
+      }
+      $lim->coords = $lpos;
     }
-    if (($prop['right'] == '33446/u') && ($prop['left'] == '33103/u')) {
-      echo Yaml::dump(["33446/u-33103/u" => $lpos], 0),"\n";
-      // 33446/u-33103/u: [[-0.012, 44.681], [-0.011, 44.679]]
-    }
-    if (($prop['right'] == '33112/u') && ($prop['left'] == '33103/u')) {
-      echo Yaml::dump(["33112/u-33103/u" => $lpos], 0),"\n";
-      //{ 33112/u-33103/u: [[-0.011, 44.679], [-0.012, 44.681]] }
-      $feature['geometry']['coordinates'][0] = [-0.010, 44.680];
-    }
-    return $feature;
   }
   
   function geojson(): array {
-    $lpos = [];
-    foreach (gegeom\LPos::simplify($this->coords, 0.002) as $pos) {
-      $pos = [round($pos[0], 3), round($pos[1], 3)];
-      if (!isset($precPos) || ($pos <> $precPos))
-        $lpos[] = $pos;
-      $precPos = $pos;
-    }
-    if (count($lpos)==1)
-      throw new Exception("Erreur dans Lim::geojson()");
-    
-    return self::corrections([
+    if (count($this->coords) == 1)
+      throw new Exception("Erreur dans Lim::geojson(), la limite ne comporte qu'un seul point");
+    return [
       'type'=> 'Feature',
       'properties'=> [
+        'statut'=> $this->statut,
         'right'=> $this->right ? $this->right->id() : '',
         'left'=> $this->left ? $this->left->id() : '',
       ],
       'geometry'=> [
         'type'=> 'LineString',
-        'coordinates'=> $lpos,
+        'coordinates'=> $this->coords,
       ],
-    ]);
+    ];
   }
 };
 
@@ -692,7 +742,8 @@ if (0) { // Test
   die("\n");
 }
 
-// construction de la carte
+// Première étape - construction de la carte
+// Lecture du fichier des limites
 $geojfilePath = __DIR__.'/limcomfr.geojson';
 //$geojfilePath = __DIR__.'/limtest3.geojson';
 $geojfile = new GeoJFile($geojfilePath);
@@ -732,13 +783,17 @@ if ($argc >= 2) {
     echo Yaml::dump(['Faces'=> [$argv[2] => Face::$all[$argv[2]]->asArray()]], 4, 2);
     die();
   }
-  elseif ($argv[1]= 'lim') {
+  elseif ($argv[1] == 'lim') {
     echo Yaml::dump(['Lims'=> [$argv[2] => Lim::$all[$argv[2]]->geojson()]], 4, 2);
+    die();
+  }
+  elseif ($argv[1] == 'stats') {
+    Lim::stats();
     die();
   }
 }
 
-// Première étape - concaténer les brins distincts séparés par un noeud connectant exactement ces 2 brins
+// Deuxième étape - concaténer les brins distincts séparés par un noeud connectant exactement ces 2 brins
 if (1) {
   foreach (Lim::$all as $num => $lim) {
     if (!$lim->coords()) {
@@ -781,7 +836,7 @@ if (0) { // Affichage de la carte
 }
 
 /*
-Deuxième étape - Supprimer les petits polygones dans le cas de commune MultiPolygon
+Troisième étape - Supprimer les petits polygones dans le cas de commune MultiPolygon
 Le plus petit 17306/0 fait environ 0.053 ha !
 La spec fixe un seuil de 0,8 km2 soit 80 ha
 Je supprime les polygones de moins de 80 ha en gardant toutefois au moins un polygone par commune
@@ -816,7 +871,7 @@ if (1) {
 }
 //die();
 
-// Troisième étape - Suppression des petites limites de moins de 200 m de long
+// 4ème étape - Suppression des petites limites de moins de 210 m de long
 if (1) {
   $lengths = [];
   foreach (Lim::$all as $num => $lim) {
@@ -824,7 +879,7 @@ if (1) {
   }
   asort($lengths);
   foreach ($lengths as $num => $lengthKm) {
-    if ($lengthKm >= 0.2) break; // On s'arrête à 200 m
+    if ($lengthKm >= 0.21) break; // On s'arrête à 210 m
     $lim = Lim::$all[$num];
     printf("$num: {right: %s, left: %s, length: %.3f km}\n", $lim->right()->id(), $lim->left() ? $lim->left()->id() : "''", $lengthKm);
     if ($lim->deleteSmallLim($num))
@@ -842,8 +897,11 @@ if (0) { // Affichage de la carte
   //die();
 }
 
-if (1) { // enregistrement des limites simplifiées
-  $limGeoJFile = new GeoJFileW(__DIR__.'/limcomgen3.geojson', 'limcomgen', [
+// 5ème étape - Simplification des limites
+Lim::simplify();
+
+if (0) { // 6ème étape - enregistrement des limites simplifiées
+  $limGeoJFile = new GeoJFileW(__DIR__.'/limcomgen3.geojson', 'limcomgen3', [
     'modified' => date(DATE_ATOM),
     'source' => $geojfilePath,
     'description' => "Simplification topologique des limites à partir du fichier $geojfilePath",
@@ -853,12 +911,61 @@ if (1) { // enregistrement des limites simplifiées
       $limGeoJFile->write($lim->geojson());
     }
     catch (Exception $e) {
-      printf("Erreur sur {right: %s, left: %s, length: %.3f km}\n",
-        $lim->right()->id(), $lim->left() ? $lim->left()->id() : "''", $lengths[$num]);
+      printf("%s sur {right: %s, left: %s, length: %.3f km}\n",
+        $e->getMessage(), $lim->right()->id(), $lim->left() ? $lim->left()->id() : "''", $lengths[$num]);
     }
   }
-  $limGeoJFile->write(Lim::corrections());
   $limGeoJFile->close();
   echo "Fichier limcomgen3.geojson enregistré\n";
 }
+elseif (1) { // 6ème étape bis - enregistrement des communes simplifiées
+  $coms = []; // [codeInsee => [id => 1]] - pour compter le nbre de Faces par commune
+  foreach (Face::$all as $id => $face) {
+    if ($id == 'exterior') continue;
+    $cinsee = substr($id, 0, 5);
+    $coms[$cinsee][$id] = 1;
+  }
+  $comGeoJFile = new GeoJFileW(__DIR__.'/comgen3.geojson', 'comgen3', [
+    'modified' => date(DATE_ATOM),
+    'source' => $geojfilePath,
+    'description' => "Simplification topologique des communes à partir du fichier $geojfilePath",
+  ]);
+  foreach ($coms as $cinsee => $faces) {
+    try {
+      //echo "commune $cinsee\n";
+      if (count($faces) == 1) {
+        $id = array_keys($faces)[0];
+        $feature = [
+          'type'=> 'Feature',
+          'id'=> $cinsee,
+          'geometry'=> [
+            'type'=> 'Polygon',
+            'coordinates' => Face::get($id)->coords(),
+          ],
+        ];
+      }
+      else {
+        $feature = [
+          'type'=> 'Feature',
+          'id'=> $cinsee,
+          'geometry'=> [
+            'type'=> 'MultiPolygon',
+            'coordinates' => [],
+          ],
+        ];
+        foreach (array_keys($faces) as $id) {
+          $feature['geometry']['coordinates'][] = Face::get($id)->coords();
+        }
+      }
+      //echo Yaml::dump([$cinsee => $feature]);
+      $comGeoJFile->write($feature);
+    }
+    catch(Exception $e) {
+      echo "Erreur ",$e->getMessage(),"\n";
+    }
+  }
+  $comGeoJFile->close();
+  echo "Fichier comgen3.geojson enregistré\n";
+}
+Lim::stats();
 die("Fin\n");
