@@ -4,4 +4,6 @@ contents:
   - title: Coyolles (02232) a 3 trous, tous les 3 dans un autre département
   - title: 40323 a un petit polygone dont une des limites n'a que 2 points et est confondue avec une autre -> gestion par segment
   - title: la limite commune entre 34054, 11200, 81278 et 81121 correspond à un segment de qqs mètres qui génère une erreur de topologie en cas d'arrondi à 10 mètres (4 décimales)
-
+  - title: 33103/u de 3 ha
+  - title: erreur dans simplif.php
+    sur: {right: 47169/u, left: 47158/u, length: 0.207 km}

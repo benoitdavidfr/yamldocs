@@ -1,21 +1,29 @@
 <?php
 /*PhpDoc:
 name: simplif.php
-title: simplification en arrondissant les coord. à 3 décimales, soit 100m
+title: simplification en arrondissant les coord. à 3 décimales, soit une résolution entre 111 m et 68 m
 doc: |
   On commence par construire une carte topologique à partir des limites produites par mklim.php
   Puis:
     - on concatene les limites séparées par un noeud connectant exactement ces 2 limites
-    - on supprime les petits polygones dans le cas de communes en possédant plusieurs
+    - on supprime si possible les petits polygones de moins de 80 ha des communes en possédant plusieurs
+      - attention, qqs petites communes, notamment 33103/u de 3 ha
+    - on supprime les petites limites de moins de 200 m
+    - on enregistre les limites
+      - après une simplification par Douglas&Peucker avec un seuil de 0.002
+      - et un arrondi des coords à 3 décimales soit une résolution entre 111 m et 68 m (à 52° N)
+    - correction à la main pour évietr la dégénération en un segment de 33103/u
 journal: |
   17/5/2020:
     - mise au point de l'algo de concaténation de limites
-
+    - sortie intéressante
+      - erreur sur 33103/u de 3 ha réduit à un segment corrigée à la main
 */
 require_once __DIR__.'/../geojfile.inc.php';
 require_once __DIR__.'/../geojfilew.inc.php';
 require_once __DIR__.'/../../../../geovect/gegeom/gegeom.inc.php';
-require_once __DIR__.'/../../../../geovect/geom2d/geom2d.inc.php';
+//require_once __DIR__.'/../../../../geovect/geom2d/geom2d.inc.php';
+//require_once __DIR__.'/../../../../geovect/geometry/geometry.inc.php';
 require_once __DIR__.'/../../../vendor/autoload.php';
 
 use Symfony\Component\Yaml\Yaml;
@@ -70,7 +78,7 @@ if (0) { // ident. de la plus petite commune
 }
 
 class Ring {
-  protected $bladeNum; // int - le num. d'un brin du cycle, les autres sont déduits par Blade::fi()
+  protected $bladeNum; // int - le num. d'un brin représentant le cycle, les autres nuM; sont déduits par Blade::fi()
   
   function __construct(array $bladeNums) {
     $this->bladeNum = $bladeNums[0];
@@ -117,7 +125,8 @@ class Ring {
   }
   
   // calcul de surface en coord. géo. avec résultat en ha
-  function areaHa(): float {
+  // Utilise les classes Point et LineString du projet /geovect/geom2d/geom2d.inc.php
+  /*function areaHa(): float {
     // 1° carré = (40 000 km/360°) carré x cos(fi)
     $lPoints = []; // liste d'objets Point
     foreach ($this->coords() as $pos)
@@ -126,18 +135,30 @@ class Ring {
     return - $lineString->area() // en degrés carrés
       * (40000 * 40000 / 360 / 360) * cos($pos[1]/180*pi()) // en km carrés
       * 100; // en ha
+  }*/
+  
+  // calcul de surface en coord. géo. avec résultat en ha
+  // utilise gegeom\Geometry
+  function areaHa(): float {
+    $lpos = $this->coords();
+    $lineString = gegeom\Geometry::fromGeoJson(['type'=> 'Polygon', 'coordinates'=> [$lpos]]);
+    return $lineString->area() // en degrés carrés
+      * (40000 * 40000 / 360 / 360) * cos($lpos[0][1]/180*pi()) // en km carrés
+      * 100; // en ha
   }
 
   // traitement des cas simples
-  /*function delete(): bool {
-    if (count($this->bladeNums) == 1) { // cas simple d'une ile en mer ou dans une autre commune
-      $num = $this->bladeNums[0];
+  function delete(): bool {
+    $bladeNums = $this->bladeNums();
+    if (count($bladeNums) == 1) { // cas simple d'une ile en mer ou dans une autre commune
+      $num = $this->bladeNum;
       if (Blade::get($num)->left())
         Blade::get($num)->left()->deleteHoleDefinedByOneBlade(-$num);
-      Blade::removeFromAll($num);
+      Blade::removeBladeFromAll($num);
       return true;
     }
-    if (count($this->bladeNums) == 2) { // cas d'une langue entre 2 communes
+    return false;
+    /*if (count($this->bladeNums) == 2) { // cas d'une langue entre 2 communes
       $num1 = $this->bladeNums[0]; // celui que je vais supprimer
       $num2 = $this->bladeNums[1]; // celui qui va rester
       if (Blade::get($num1)->left() == null) {
@@ -147,42 +168,8 @@ class Ring {
       Blade::removeFromAll($num1);
       return true;
     }
-    return false;
+    return false;*/
   }
-  
-  function posOfBladeNumInList(int $bladeNum): int {
-    foreach ($this->bladeNums as $i => $num)
-      if ($num == $bladeNum)
-        return $i;
-    throw new Exception("Erreur dans Ring::posOfBladeNumInList()");
-  }
-  
-  function precAndNextBladeNumInList(int $bladeNum): array {
-    $ipos = $this->posOfBladeNumInList($bladeNum);
-    if ($ipos == 0)
-      return [$this->bladeNums[count($this->bladeNums)-1], $this->bladeNums[1]];
-    elseif ($ipos == (count($this->bladeNums)-1))
-      return [$this->bladeNums[$ipos-1], $this->bladeNums[0]];
-    else
-      return [$this->bladeNums[$ipos-1], $this->bladeNums[$ipos+1]];
-  }
-  
-  // si $bladeNum appartient au cycle alors le retire et si $pos alors modifie les positions des brins avant et après
-  function deleteLim(int $bladeNum, array $pos=[]): bool {
-    if ((count($this->bladeNums)==1) && ($this->bladeNums[0] == $bladeNum))
-      throw new Exception("Erreur dans Ring::deleteLim()");
-    if (!in_array($bladeNum, $this->bladeNums))
-      return false;
-    if ($pos) {
-      list($precBNum, $nextBNum) = $this->precAndNextBladeNumInList($bladeNum);
-      Blade::get($precBNum)->setEnd($pos);
-      Blade::get($nextBNum)->setStart($pos);
-    }
-    $ipos = $this->posOfBladeNumInList($bladeNum);
-    unset($this->bladeNums[$ipos]);
-    $this->bladeNums = array_values($this->bladeNums);
-    return true;
-  }*/
 };
 
 // Polygone défini par des rings, 1 pour l'extérieur, les autres sont les trous
@@ -282,7 +269,7 @@ class Face {
     return $area;
   }
   
-  /*function delete(): bool { // supprime la face, renvoie false si pas possible, cad non implémenté
+  function delete(): bool { // supprime la face, renvoie false si pas possible, cad non implémenté
     if (count($this->rings) == 1) {
       if ($this->rings[0]->delete()) {
         unset(Face::$all[$this->id]);
@@ -296,19 +283,62 @@ class Face {
     foreach ($this->rings as $numRing => $ring) {
       if ($ring->bladeNums() == [$bladeNum]) {
         unset($this->rings[$numRing]);
+        $this->rings = array_values($this->rings);
         return;
       }
     }
     throw new Exception("Face::deleteHoleDefinedByOneBlade() non effectué");
   }
+};
+
+class Node { // Méthode sur les noeuds définis comme cycle de sigma
+  protected $bladeNum; // int - le num. d'un brin représentant le cycle, les autres num sont déduits par Blade::sigma()
   
-  function deleteLim(int $bladeNum, array $pos) {
-    foreach ($this->rings as $ring) {
-      if ($ring->deleteLim($bladeNum, $pos))
+  static function check(int $bnum0): void { // S'assure de la validité du noeud après modifications
+    $bnum = $bnum0;
+    $pos = Blade::get($bnum0)->end();
+    for ($counter=0; $counter < 1000; $counter++) {
+      $bnum = Blade::get($bnum)->sigmaNum();
+      if ($bnum == $bnum0)
         return;
+      //echo "  sigma: $bnum\n";
+      if (Blade::get($bnum0)->end() <> $pos)
+        throw new Exception("Erreur de position sur le noeud défini par $bnum0 sur le brin $bnum");
     }
-    throw new Exception("Erreur dans Face::deleteLim()");
-  }*/
+    throw new Exception("Erreur de boucle illimitée dans Node::checkNode($bnum0)");
+  } 
+  
+  function __construct(int $bladeNum) { $this->bladeNum = $bladeNum; }
+  
+  function bladeNums(): array {
+    $bnum = $this->bladeNum;
+    $bladeNums = [$bnum];
+    for ($counter=0; $counter < 1000; $counter++) {
+      $bnum = Blade::get($bnum)->sigmaNum();
+      if ($bnum == $this->bladeNum)
+        return $bladeNums;
+      $bladeNums[] = $bnum;
+    }
+    throw new Exception("Erreur de boucle illimitée dans Node::checkNode($bnum0)");
+  }
+  
+  function asArray(): array {
+    return [
+      'bladeNums'=> $this->bladeNums(),
+      'pos'=> Blade::get($this->bladeNum)->end(),
+    ];
+  }
+  
+  function __toString(): string { return json_encode($this->asArray()); }
+  
+  function nbLims(Node $node): int { // nbre de limites connectant 2 noeuds
+    $nbLims = 0;
+    $nodeBladeNums = $node->bladeNums();
+    foreach ($this->bladeNums() as $bnum)
+      if (in_array(-$bnum, $nodeBladeNums))
+        $nbLims++;
+    return $nbLims;
+  }
 };
 
 // Une limite ou son inverse
@@ -342,7 +372,7 @@ abstract class Blade {
   function fi(): ?Blade { return $this->fiNum() ? Blade::get($this->fiNum()) : null; } // renvoie le brin suivant ou null
   abstract function setFiNum(int $num): void;
   
-  /*static function fiInvNum(int $bnum0): int { // calcul de fi-1 sur les numéros de brins
+  static function fiInvNum(int $bnum0): int { // calcul de fi-1 sur les numéros de brins
     $bnum = $bnum0;
     $counter = 0;
     while (Blade::get($bnum)->fiNum() <> $bnum0) {
@@ -352,7 +382,7 @@ abstract class Blade {
     }
     echo "fiInvNum($bnum0) = $bnum\n";
     return $bnum;
-  }*/
+  }
   
   // sigma = alpha o fi - les cycles de sigma sont les brins qui arrivent au même noeud
   function sigmaNum(): int { return - $this->fiNum(); }
@@ -497,26 +527,106 @@ class Lim extends Blade {
     $length = 0;
     foreach ($this->coords as $pos) {
       if (isset($precpos))
-        $length += self::segLength($precpos, $pos);
+        $length += self::segLengthKm($precpos, $pos);
       $precpos = $pos;
     }
     return $length;
   }
   
-  /*function delete(int $numLim): bool { // supression de la limite
-    $start = $this->start();
-    $end = $this->end();
-    $newPos = [($start[0]+$end[0])/2, ($start[1]+$end[1])/2];
-    $this->right->deleteLim($numLim, $newPos);
-    if ($this->left)
-      $this->left->deleteLim(-$numLim, $newPos);
+  // parcourt les brins du noeud et modifie leur position finale
+  function modifiePositionFinaleDesBrinsDuNoeud(int $bnum0, array $pos): void {
+    $bnum = $bnum0;
+    for($counter=0; $counter < 1000; $counter++) {
+      $bnum = Blade::get($bnum)->sigmaNum();
+      if ($bnum == $bnum0)
+        return;
+      //echo "  sigma: $bnum\n";
+      Blade::get($bnum)->setEnd($pos);
+    }
+    throw new Exception("Erreur de boucle illimitée dans Lim::parcoursNoeud($bnum0)");
+  }
+  
+  function deleteSmallLim(int $numLim): bool { // supprime une petite limite entre 2 noeuds distincts en fusionnant ces 2 noeuds
+    echo "Lim->deleteSmallLim($numLim)\n";
+    $endNode = new Node($numLim);
+    $startNode = new Node(-$numLim);
+    echo "Fusion des noeuds $endNode et $startNode\n";
+    
+    if ($this->right === $this->left) {
+      //throw new Exception("Cas particulier d'isthme non traité dans Lim::deleteSmallLim($numLim)");
+      echo ("Cas particulier d'isthme non traité dans Lim::deleteSmallLim($numLim)");
+      return false;
+    }
+    
+    if ($startNode->nbLims($endNode) > 1) {
+      //throw new Exception("Cas particulier de petit polygone non traité dans Lim::deleteSmallLim($numLim)");
+      echo ("Cas particulier de petit polygone non traité dans Lim::deleteSmallLim($numLim)");
+      return false;
+    }
+    
+    $startPos = $this->start();
+    $endPos = $this->end();
+    $middle = [($startPos[0]+$endPos[0])/2, ($startPos[1]+$endPos[1])/2];
+    // change la géométrie des brins se terminant sur le noeud initial ou le noeud final de la limite détruite
+    $this->modifiePositionFinaleDesBrinsDuNoeud($numLim, $middle);
+    $this->modifiePositionFinaleDesBrinsDuNoeud(-$numLim, $middle);
+    // Je retire le 2 brins correspondant à la limite de leur cycle de sigma et fusionne ces 2 cycles
+    $sigmaInvNum = Blade::sigmaInvNum($numLim);
+    Blade::get($sigmaInvNum)->setSigmaNum(Blade::get(-$numLim)->sigmaNum());
+    echo "  sigmaNum($sigmaInvNum) <- ",Blade::get(-$numLim)->sigmaNum(),"\n";
+    $sigmaInvNum = Blade::sigmaInvNum(-$numLim);
+    Blade::get($sigmaInvNum)->setSigmaNum(Blade::get($numLim)->sigmaNum());
+    echo "  sigmaNum($sigmaInvNum) <- ",Blade::get($numLim)->sigmaNum(),"\n";
+    
+    // effacement de l'objet pour faciliter la détection d'erreurs ainsi que la récupération de mémoire
+    $this->right = null;
+    $this->left = null;
+    $this->fiNum = 0;
+    $this->fiOfInv = 0;
+    $this->coords = [];
     unset(self::$all[$numLim]);
+    
+    Node::check($sigmaInvNum);
+    $newNode = new Node($sigmaInvNum);
+    echo " -> donne le noeud $newNode\n";
     return true;
-  }*/
+  }
+
+  static function corrections(array $feature=[]): array { // effectue des corrections sur 33103/u réduit sinon à un segment
+    if (!$feature) // génère un nouvelle limite
+      return [
+        'type'=> 'Feature',
+        'properties'=> [
+          'right'=> '33353/u',
+          'left'=> '33103/u',
+        ],
+        'geometry'=> [
+          'type'=> 'LineString',
+          'coordinates'=> [[-0.011, 44.679], [-0.010, 44.680]],
+        ],
+      ];
+    $prop = $feature['properties'];
+    $lpos = $feature['geometry']['coordinates'];
+    if (($prop['right'] == '33353/u') && ($prop['left'] == '33112/u')) {
+      echo Yaml::dump(["33353/u-33112/u" => $lpos], 0),"\n";
+      // 33353/u-33112/u: [[-0.011, 44.679], [0, 44.689], [0.011, 44.693]]
+      $feature['geometry']['coordinates'][0] = [-0.010, 44.680];
+    }
+    if (($prop['right'] == '33446/u') && ($prop['left'] == '33103/u')) {
+      echo Yaml::dump(["33446/u-33103/u" => $lpos], 0),"\n";
+      // 33446/u-33103/u: [[-0.012, 44.681], [-0.011, 44.679]]
+    }
+    if (($prop['right'] == '33112/u') && ($prop['left'] == '33103/u')) {
+      echo Yaml::dump(["33112/u-33103/u" => $lpos], 0),"\n";
+      //{ 33112/u-33103/u: [[-0.011, 44.679], [-0.012, 44.681]] }
+      $feature['geometry']['coordinates'][0] = [-0.010, 44.680];
+    }
+    return $feature;
+  }
   
   function geojson(): array {
     $lpos = [];
-    foreach ($this->coords as $pos) {
+    foreach (gegeom\LPos::simplify($this->coords, 0.002) as $pos) {
       $pos = [round($pos[0], 3), round($pos[1], 3)];
       if (!isset($precPos) || ($pos <> $precPos))
         $lpos[] = $pos;
@@ -524,7 +634,8 @@ class Lim extends Blade {
     }
     if (count($lpos)==1)
       throw new Exception("Erreur dans Lim::geojson()");
-    return [
+    
+    return self::corrections([
       'type'=> 'Feature',
       'properties'=> [
         'right'=> $this->right ? $this->right->id() : '',
@@ -534,7 +645,7 @@ class Lim extends Blade {
         'type'=> 'LineString',
         'coordinates'=> $lpos,
       ],
-    ];
+    ]);
   }
 };
 
@@ -583,7 +694,7 @@ if (0) { // Test
 
 // construction de la carte
 $geojfilePath = __DIR__.'/limcomfr.geojson';
-//$geojfilePath = __DIR__.'/limtest.geojson';
+//$geojfilePath = __DIR__.'/limtest3.geojson';
 $geojfile = new GeoJFile($geojfilePath);
 foreach ($geojfile->quickReadFeatures() as $feature) {
   Lim::add($feature);
@@ -638,12 +749,12 @@ if (1) {
       //echo "La limite $num est une boucle\n";
       continue;
     }
-    echo "appel sur la limite $num\n";
+    //echo "appel sur la limite $num\n";
     //echo '$lim='; print_r($lim);
     //echo '$lim->fi()='; print_r($lim->fi());
     //echo '$lim->fi()->inv()='; print_r($lim->fi()->inv());
     if ($lim->fi()->inv()->fi()->inv() == $lim) {
-      echo "  Concaténation des brins $num et ",$lim->fiNum()," dans $num\n";
+      //echo "  Concaténation des brins $num et ",$lim->fiNum()," dans $num\n";
       Lim::concat($num, $lim->fiNum());
     }
   }
@@ -653,7 +764,7 @@ if (1) {
     // cas où c'est le brin inverse
     $inv = $lim->inv();
     if ($inv->fi()->inv()->fi()->inv() == $inv) {
-      echo "  Concaténation des brins -$num et ",$inv->fiNum()," dans -$num\n";
+      //echo "  Concaténation des brins -$num et ",$inv->fiNum()," dans -$num\n";
       Inv::concat(-$num, $inv->fiNum());
     }
   }
@@ -661,13 +772,13 @@ if (1) {
 
 //echo 'Faces='; print_r(Face::$all);
 //echo 'Lims='; print_r(Lim::$all);
-
-foreach (Face::$all as $faceId => $face)
-  echo Yaml::dump([$faceId => $face->asArray()]);
-foreach (Lim::$all as $num => $lim)
-  echo Yaml::dump([$num => $lim->asArray()]);
-
-die();
+if (0) { // Affichage de la carte 
+  foreach (Face::$all as $faceId => $face)
+    echo Yaml::dump([$faceId => $face->asArray()]);
+  foreach (Lim::$all as $num => $lim)
+    echo Yaml::dump([$num => $lim->asArray()]);
+  //die();
+}
 
 /*
 Deuxième étape - Supprimer les petits polygones dans le cas de commune MultiPolygon
@@ -676,15 +787,16 @@ La spec fixe un seuil de 0,8 km2 soit 80 ha
 Je supprime les polygones de moins de 80 ha en gardant toutefois au moins un polygone par commune
 */
 if (1) {
-  $coms = []; // [codeInsee => [id => 1]]
+  $coms = []; // [codeInsee => [id => 1]] - pour compter le nbre de Faces par commune
   foreach (Face::$all as $id => $face) {
+    if ($id == 'exterior') continue;
     $cinsee = substr($id, 0, 5);
     $coms[$cinsee][$id] = 1;
-    echo "calcul de la surface de $id\n";
+    //echo "calcul de la surface de $id\n";
     $areas[$id] = $face->areaHa();
   }
   asort($areas);
-  echo Yaml::dump($areas); die();
+  //echo Yaml::dump($areas); die();
 
   foreach ($areas as $id => $areaHa) {
     if ($areaHa >= 80) break; // on s'arrête à 80 ha
@@ -702,30 +814,36 @@ if (1) {
     }
   }
 }
+//die();
 
-/*
-Deuxième étape - Suppression des petites limites de moins de 200 m de long
-*/
-/*if (1) {
+// Troisième étape - Suppression des petites limites de moins de 200 m de long
+if (1) {
   $lengths = [];
   foreach (Lim::$all as $num => $lim) {
-    $lengths[$num] = $lim->length();
+    $lengths[$num] = $lim->lengthKm();
   }
   asort($lengths);
-  foreach ($lengths as $num => $length) {
-    if ($length >= 0.2) break; // On s'arrête à 200 m
+  foreach ($lengths as $num => $lengthKm) {
+    if ($lengthKm >= 0.2) break; // On s'arrête à 200 m
     $lim = Lim::$all[$num];
-    printf("$num: {right: %s, left: %s, length: %.3f km}\n", $lim->right()->id(), $lim->left() ? $lim->left()->id() : "''", $length);
-    if ($lim->delete($num))
-      echo "  supprimée\n";
+    printf("$num: {right: %s, left: %s, length: %.3f km}\n", $lim->right()->id(), $lim->left() ? $lim->left()->id() : "''", $lengthKm);
+    if ($lim->deleteSmallLim($num))
+      echo "  limite supprimée\n";
     else
-      echo "  NON supprimée\n";
+      echo "  limite NON supprimée\n";
   }
-}*/
+}
 
-// enregistrement des limites simplifiées
-/*if (1) {
-  $limGeoJFile = new GeoJFileW(__DIR__.'/limcomgen.geojson', 'limcomgen', [
+if (0) { // Affichage de la carte
+  foreach (Face::$all as $faceId => $face)
+    echo Yaml::dump([$faceId => $face->asArray()]);
+  foreach (Lim::$all as $num => $lim)
+    echo Yaml::dump([$num => $lim->asArray()]);
+  //die();
+}
+
+if (1) { // enregistrement des limites simplifiées
+  $limGeoJFile = new GeoJFileW(__DIR__.'/limcomgen3.geojson', 'limcomgen', [
     'modified' => date(DATE_ATOM),
     'source' => $geojfilePath,
     'description' => "Simplification topologique des limites à partir du fichier $geojfilePath",
@@ -739,7 +857,8 @@ Deuxième étape - Suppression des petites limites de moins de 200 m de long
         $lim->right()->id(), $lim->left() ? $lim->left()->id() : "''", $lengths[$num]);
     }
   }
+  $limGeoJFile->write(Lim::corrections());
   $limGeoJFile->close();
-  echo "Fichier limcomgen.geojson écrit\n";
-}*/
+  echo "Fichier limcomgen3.geojson enregistré\n";
+}
 die("Fin\n");
