@@ -1,7 +1,7 @@
 <?php
 /*PhpDoc:
 name: mklim.php
-title: création du fichier des limites entre communes à partir de Ae2020Cog/COMMUNE_CARTO par test d'adjacence entre communes
+title: mklim.php - création du fichier des limites entre communes par test d'adjacence entre communes
 doc: |
   Algo:
     - le traitement est effectué par dalle (tile), il y en a 29
@@ -25,6 +25,8 @@ doc: |
     - exécution complète le 13/5 20:46 en 44'
     - le traitement par dalle évite un algo en n2 sur 35100 faces
 journal: |
+  20/5/2020:
+    - ajout de champs parent droite et parent gauche dans le cas de traitement des entitées rattachées
   16/5/2020:
     - inversion de la géométrie pour remettre en sortie droite et gauche correctement
   13/5/2020:
@@ -99,7 +101,8 @@ use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
 
 //$geojfilePath = __DIR__.'/../data/aegeofla/AE2020COG/FRA/COMMUNE_CARTO.geojson';
-$geojfilePath = __DIR__.'/../data/aegeofla/AE2020COG/FRA/COMMUNE_CARTO_cor1.geojson';
+//$geojfilePath = __DIR__.'/../data/aegeofla/AE2020COG/FRA/COMMUNE_CARTO_cor1.geojson';
+$geojfilePath = __DIR__.'/../data/aegeofla/AE2020COG/FRA/ENTITE_RATTACHEE_CARTO_cor1.geojson';
 
 // Permet d'identifier les intervalles de positions non couverts
 // Il pourrait être plus simple de gérer des intervalles de segments
@@ -338,7 +341,9 @@ class Tile extends gegeom\GBox { // Définition des dalles utilisées pour balay
       'properties'=> [
         'num'=> 0,
         'right'=> $rightFace->id(),
+        'rightParent'=> $rightFace->parent(),
         'left'=> $leftFace ? $leftFace->id() : '',
+        'leftParent'=> $leftFace ? $leftFace->parent() : '',
         'statut'=> $statut,
       ],
       'geometry'=> [
@@ -346,6 +351,10 @@ class Tile extends gegeom\GBox { // Définition des dalles utilisées pour balay
         'coordinates'=> [],
       ]
     ];
+    if (!$feature['properties']['rightParent'])
+      unset($feature['properties']['rightParent']);
+    if (!$feature['properties']['leftParent'])
+      unset($feature['properties']['leftParent']);
     $lseg0 = self::lpos2lseg($lpos); // liste d'origine des segments
     $lsegcourante = []; // liste courante de segments
     foreach ($lseg0 as $noseg => $seg) {
@@ -369,6 +378,7 @@ class Tile extends gegeom\GBox { // Définition des dalles utilisées pour balay
 class Face {
   static protected $all=[]; // [id => Face] - stockage des faces créées
   protected $id; // l'id de la face sous la forme {codeInsee}/{nopol|u}
+  protected $parent; // code INSEE de la commune de rattachement pour une entitée rattachée
   protected $reg; // code région
   protected $bbox; // bbox de la face
   protected $coords; // coordonnées GeoJSON du polygone
@@ -385,22 +395,23 @@ class Face {
       $polygon = gegeom\Geometry::fromGeoJSON($feature['geometry']);
       $bbox = $polygon->bbox();
       if ($bbox->intersects($tile))
-        new Face("$id/u", $feature['properties']['INSEE_REG'], $bbox, $feature['geometry']['coordinates']);
+        new Face("$id/u", $feature['properties'], $bbox, $feature['geometry']['coordinates']);
     }
     else {
       foreach ($feature['geometry']['coordinates'] as $no => $polygonCoords) {
         $polygon = gegeom\Geometry::fromGeoJSON(['type'=>'Polygon', 'coordinates'=> $polygonCoords]);
         $bbox = $polygon->bbox();
         if ($bbox->intersects($tile))
-          new Face("$id/$no", $feature['properties']['INSEE_REG'], $bbox, $polygonCoords);
+          new Face("$id/$no", $feature['properties'], $bbox, $polygonCoords);
       }
     }
   }
   
-  function __construct(string $id, string $reg, gegeom\GBox $bbox, array $coords) {
+  function __construct(string $id, array $prop, gegeom\GBox $bbox, array $coords) {
     //echo "__construct($id, bbox, $ftell)\n";
     $this->id = $id;
-    $this->reg = $reg;
+    $this->parent = $prop['INSEE_RATT'] ?? '';
+    $this->reg = $prop['INSEE_REG'] ?? '';
     $this->coords = $coords;
     $this->bbox = $bbox;
     foreach ($coords as $ringno => $listOfPos)
@@ -412,6 +423,7 @@ class Face {
   
   function id() { return $this->id; }
   function dept() { return substr($this->id, 0, 2); }
+  function parent() { return $this->parent; }
   function reg() { return $this->reg; }
   function coords(): array { return $this->coords; } // retourne les coordonnées du polygone associée à la face
   
@@ -631,21 +643,19 @@ if (0) { // dessin grille
 
 $debut = time();
 
-Tile::add([-6, 46.1, -2, 48.6], 4, 4); // Bretagne
-Tile::add([ 8, 48.1,  9, 49.1]); // Strasbourg
-Tile::add([ 0, 50.1,  6, 52.1], 6, 2); // Nord
-Tile::add([-2, 42.1,  8, 50.1], 2, 2); // Reste de FXX hors Corse
-// { name: FXX hors Corse, westlimit: -5.16, southlimit: 42.32, eastlimit: 8.24, northlimit: 51.09 }
-Tile::add([ 8, 41.1, 10, 43.1], 2, 2); // { name: Corse, westlimit: 8.53, southlimit: 41.33, eastlimit: 9.57, northlimit: 43.03 }
+if (0) {
+  Tile::add([-6, 46.1, -2, 48.6], 4, 4); // Bretagne
+  Tile::add([ 8, 48.1,  9, 49.1]); // Strasbourg
+  Tile::add([ 0, 50.1,  6, 52.1], 6, 2); // Nord
+  Tile::add([-2, 42.1,  8, 50.1], 2, 2); // Reste de FXX hors Corse
+  // { name: FXX hors Corse, westlimit: -5.16, southlimit: 42.32, eastlimit: 8.24, northlimit: 51.09 }
+  Tile::add([ 8, 41.1, 10, 43.1], 2, 2); // { name: Corse, westlimit: 8.53, southlimit: 41.33, eastlimit: 9.57, northlimit: 43.03 }
 
-/*Tile::add([-61.9, 15.7, -60.9, 16.7]); // { name: GLP, westlimit: -61.81, southlimit: 15.83, eastlimit: -61.00, northlimit: 16.52 }
-Tile::add([-61.5, 14.0, -60.5, 15.0]); // { name: MTQ, westlimit: -61.24, southlimit: 14.38, eastlimit: -60.80, northlimit: 14.89 }
-Tile::add([-55, 2, -51, 6], 4, 4); // { name: GUF, westlimit: -54.61, southlimit: 2.11, eastlimit: -51.63, northlimit: 5.75 }
-Tile::add([55, -21.5, 56, -20.5]); // { name: REU, westlimit: 55.21, southlimit: -21.40, eastlimit: 55.84, northlimit: -20.87 }
-Tile::add([44.5, -13.2, 45.5, -12.2]); // { name: MYT, westlimit: 44.95, southlimit: -13.08, eastlimit: 45.31, northlimit: -12.58 }
-*/
-Tile::add([-70, -30, 70, 30], 150, 70); // regroupement des 5 DOM
-
+  Tile::add([-70, -30, 70, 30], 150, 70); // regroupement des 5 DOM
+}
+elseif (1) {
+  Tile::add([-180, -90, 170, 80], 360, 180); // une seule tuile
+}
 //Tile::add([-0.8,44.0,-0.4,44.2], 0.4, 0.2); // debug 40323
 
 //Tile::add([2, 43.1, 3, 44.1]); // erreur de topologie  à la limite de 34054, 11200, 81278 et 81121 lors d'un arrondi à 4 chiffres
@@ -662,12 +672,17 @@ if (0) { // fabrication du fichier geojson des dalles pour contrôler la couvert
 }
 
 $geojfile = new GeoJFile($geojfilePath);
-$limGeoJFile = new GeoJFileW(__DIR__.'/limcom.geojson', 'limcom', [
+/*$limGeoJFile = new GeoJFileW(__DIR__.'/limcom.geojson', 'limcom', [
   'modified' => date(DATE_ATOM),
   'source' => $geojfilePath,
   'description' => "Limites des communes découpées en dalles générées par mklim.php à partir du fichier $geojfilePath",
+]);*/
+$limGeoJFile = new GeoJFileW(__DIR__.'/limerat.geojson', 'limerat', [
+  'modified' => date(DATE_ATOM),
+  'source' => $geojfilePath,
+  'description' => "Limites des entités rattachées générées par mklim.php à partir du fichier $geojfilePath",
 ]);
-  
+
 $nbTiles = count(Tile::$all);
 foreach (Tile::$all as $notile => $tile) {
   echo "Traitement de la dalle $notile / $nbTiles : $tile\n";

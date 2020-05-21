@@ -13,7 +13,7 @@ class GeoJFileW {
     fwrite($this->file, "\"name\": \"$fcName\",\n");
     //fwrite($this->file, '"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },'."\n");
     foreach ($metadata as $key => $value)
-      fwrite($this->file, "\"$key\": \"$value\",\n");
+      fwrite($this->file, "\"$key\": ".json_encode($value, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT).",\n");
     fwrite($this->file, '"features": ['."\n");
     $this->first = true;
   }

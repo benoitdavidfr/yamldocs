@@ -8,7 +8,10 @@ submodules:
 phpScripts:
   - /yamldoc/pub/rpicom/rpimap/index.php
   - /yamldoc/pub/rpicom/rpimap/tunion.php
-  - /yamldoc/pub/rpicom/rpimap/topomap.php
+  - /yamldoc/pub/rpicom/rpimap/mklim.php
+  - /yamldoc/pub/rpicom/rpimap/simplif.php
+  - /yamldoc/pub/rpicom/rpimap/fuslim.php
 phpIncludes:
   - /yamldoc/pub/rpicom/rpimap/igeojfile.inc.php
+  - /yamldoc/pub/rpicom/rpimap/topomap.inc.php
 htmlFiles:

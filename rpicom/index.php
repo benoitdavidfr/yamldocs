@@ -2291,4 +2291,16 @@ if ($_GET['action'] == 'geoloc') { // génération d'un fichier géolocalisé de
   die("Fin geoloc2, $nbs[records] objets traités dont $nbs[erreurs] erreurs et $nbs[aVoirs] à voir\n");
 }
 
+if ($_GET['action'] == 'commeDéléguéeNow') { // version now des communes simples ayant une commune déléguée propre
+  if (php_sapi_name() <> 'cli')
+    echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>commeDéléguéeNow</title></head><body><pre>\n";
+  $rpicomBase = new Base(__DIR__.'/rpicom', new Criteria(['not']));
+  foreach ($rpicomBase->contents() as $id => $rpicom) {
+    if (isset($rpicom['now']) && isset($rpicom['now']['commeDéléguée'])) {
+      echo Yaml::dump([$id => $rpicom['now']]);
+    }
+  }
+  die();
+}
+
 die("Aucune commande $_GET[action]\n");
