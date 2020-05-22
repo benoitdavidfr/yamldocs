@@ -52,6 +52,9 @@ doc: |
     - sigma définit des cycles correspondant aux noeuds.
 classes:
 */
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Exception\ParseException;
+
 /*PhpDoc: classes
 name: class Ring
 title:  class Ring - Anneau d'une face défini par un cycle de brins pour fi()
@@ -478,6 +481,10 @@ class Lim extends Blade {
   
   // méthode utilisée pour construire initialement la carte à partir des limites lues dans le fichier GeoJSON
   static function add(array $feature) {
+    if (count($feature['geometry']['coordinates']) < 2) {
+      echo Yaml::dump(['$feature'=> $feature]);
+      throw new Exception("Erreur d'ajout d'une limite ayant moins de 2 points");
+    }
     $noLim = count(self::$all) + 1;
     $right = Face::getAndAddBlade($feature['properties']['right'], $noLim);
     if ($feature['properties']['left'])

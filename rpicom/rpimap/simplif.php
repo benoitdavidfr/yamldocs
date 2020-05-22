@@ -127,8 +127,10 @@ if (0) { // Test
 
 // Première étape - construction de la carte
 // Lecture du fichier des limites
-$geojfilePath = __DIR__.'/limcomfr.geojson';
+//$geojfilePath = __DIR__.'/limcomfr.geojson';
 //$geojfilePath = __DIR__.'/limtest3.geojson';
+$geojfilePath = __DIR__.'/limfus.geojson'; // fusion des limites des communes simples et des entités rattachées
+echo "Utilisation en entrée du fichier $geojfilePath\n";
 $geojfile = new GeoJFile($geojfilePath);
 foreach ($geojfile->quickReadFeatures() as $feature) {
   Lim::add($feature);
@@ -193,6 +195,7 @@ if (1) {
     //echo '$lim->fi()->inv()='; print_r($lim->fi()->inv());
     if ($lim->fi()->inv()->fi()->inv() == $lim) {
       //echo "  Concaténation des brins $num et ",$lim->fiNum()," dans $num\n";
+      //echo "  $num: {droite: ",$lim->right()->id(),", left: ",$lim->left()->id(),"}\n";
       Lim::concat($num, $lim->fiNum());
     }
   }
@@ -301,7 +304,7 @@ if (1) { // 6ème étape - enregistrement des limites simplifiées
   $limGeoJFile->close();
   echo "Fichier limcomgen3.geojson enregistré\n";
 }
-elseif (1) { // 6ème étape bis - enregistrement des communes simplifiées
+if (1) { // 6ème étape bis - enregistrement des communes simplifiées
   $coms = []; // [codeInsee => [id => 1]] - pour compter le nbre de Faces par commune
   foreach (Face::$all as $id => $face) {
     if ($id == 'exterior') continue;

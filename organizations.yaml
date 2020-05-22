@@ -615,6 +615,8 @@ contents:
               SAS:
                 name: Service achat soutien
                 subOrganization:
+                  MAGIE:
+                    name: Mission des archives et de la gestion de l'information électronique
                   SAD:
                     name: sous-direction des achats durables
                     subOrganization:

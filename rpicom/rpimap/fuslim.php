@@ -1,12 +1,12 @@
 <?php
 /*PhpDoc:
 name: fuslim.php
-title: fusion des limites des communes simples avec celles des entités rattachées
+title: fuslim.php - fusion des limites des communes simples avec celles des entités rattachées
 doc: |
   L'objectif est de construire une couche d'objets polygones ou multi-polygones correspondant
     - 1) aux communes simples n'ayant pas d'entité rattachée
-    - 2) aux entités rattachées consttuant à un pavage de communes simples
-    - 3) dans le cas où les entités rattachées à une commune simple n'en constituent pas un pavage
+    - 2) aux entités rattachées constituant à un pavage de communes simples
+    - 3) dans le cas où les entités rattachées d'une commune simple n'en constituent pas un pavage
       - aux entités rattachées est ajoutée une pseudo-entité rattachée qui correspond à l'espace restant
   L'exemple typique est celui des communes associées où l'union des c. associées à une c. simple ne couvre pas à la totalité
   du territoire de la comune simple et où il est pertinent de définir un territoire complémentaire
@@ -15,12 +15,26 @@ journal: |
     - 18 erreurs détectées d'impossibilité de déterminer le polygone pertinent
       - pour 48105 dont les polygones de COMS et d'ER ne correspondent pas, intégration dans le code d'une correction de l'erreur
       - pour les autres une 2nde phase est mise en oeuvre pour effectuer les corrections
-        - avec qqes cas de corrections automatiques
+        - avec qqs cas de corrections automatiques
         - et qqs cas de corrections manuelles
+    - bug corrigé dans lPosIntersects()
+    - erreur détectée dans simplif.php
+      - limite entre 27467 et 27385 incohérentes entre COMS et ER
+        - suppression manuelle de la limite erronée {right: 27467/u, left: 27467/u}
+      - Erreur sur la limite {right:33055/u, left:33055/u}
+        - commune nouvelle dont les déléguées ne couvrent pas le territoire et ayant une déléguée propre
+        - suppression manuelle de la limite erronée {right: 33055/u, left: 33055/u}
+      - Erreur sur la limite {right:72137/u, left:72137/u}
+        - erreur topologique entre les ER 72137 et 72069
+        - suppression manuelle de la limite erronée {right: 72137/u, left: 72137/u}
+      - Erreur sur la limite {right:52064/u, left:52064/u}
+        - incohérence topologique des limites de 52064 entre CS et ER
+        - suppression manuelle de la limite erronée {right: 52064/u, left: 52064/u}
+functions:
+classes:
 */
 require_once __DIR__.'/../geojfile.inc.php';
 require_once __DIR__.'/../geojfilew.inc.php';
-require_once __DIR__.'/../../../../geovect/gegeom/gegeom.inc.php';
 require_once __DIR__.'/../../../vendor/autoload.php';
 
 use Symfony\Component\Yaml\Yaml;
@@ -28,53 +42,82 @@ use Symfony\Component\Yaml\Exception\ParseException;
 
 ini_set('memory_limit', '4G');
 
-function lpos2lseg(array $lpos): array { // transforme une LPos en liste de segments
+/*PhpDoc: functions
+name: lpos2lseg
+title: "function lpos2lseg(array $lpos): array - transforme une LPos en liste de segments définis comme bi-points"
+*/
+function lpos2lseg(array $lpos): array {
   $lseg = [];
   foreach ($lpos as $pos) {
     if (isset($posprec))
-      $lseg[] = new gegeom\Segment($posprec, $pos);
+      $lseg[] = [$posprec, $pos];
     $posprec = $pos;
   }
   return $lseg;
 }
 
-// teste la superposition partielle ou totale entre 2 lignes brisées issues d'un même graphe topologique
-// renvoie l'intervalle des no de segments de la première ligne qui correspondent à des segments de la seconde
-// sous la forme d'un array de 2 valeurs ou [] si aucun segment en commun
+/*PhpDoc: functions
+name: lPosIntersects
+title: "function lPosIntersects(array $lpos1, array $lpos2): array - superposition partielle ou totale entre 2 lignes brisées"
+doc: |
+  teste la superposition partielle ou totale entre 2 lignes brisées issues d'un même graphe topologique
+  renvoie les intervalles des no de segments de la première ligne qui correspondent à des segments de la seconde
+  sous la forme d'un array [min => max] ou [] si aucun segment en commun
+*/
 function lPosIntersects(array $lpos1, array $lpos2): array {
   $lseg1 = lpos2lseg($lpos1);
   $lseg2 = lpos2lseg($lpos2);
   $min = -1;
-  $max = -1;
+  $ints = []; // [min => max] - intervalles
   foreach ($lseg1 as $no => $seg) {
     if (in_array($seg, $lseg2)) {
+      //echo "$no dedans\n";
       if ($min == -1)
         $min = $no;
       $max = $no;
     }
+    else {
+      //echo "$no dehors\n";
+      if ($min <> -1) {
+        $ints[$min] = $max;
+        $min = -1;
+      }
+    }
   }
-  if ($min == -1)
-    return [];
-  else
-    return [$min, $max];
+  if ($min <> -1)
+    $ints[$min] = $max;
+  return $ints;
 }
 
 if (0) { // Test unitaire de la fonction lPosIntersects() 
-  $lpos1 = [[0,0],[0,1],[0,2],[0,3],[0,4]];
-  foreach ([
-    [[-1,0],[0,0]],
-    [[-1,0],[0,0],[0,1]],
-    [[-1,0],[0,0],[0,1],[0,2]],
-    [[0,2],[0,3]],
-    [[0,2],[0,3],[0,4]],
-    [[0,2],[0,3],[0,4],[0,5]],
-  ] as $lpos2) {
+  if (0) { // cas théorique
+    $lpos1 = [[0,0],[0,1],[0,2],[0,3],[0,4]];
+    foreach ([
+      [[-1,0],[0,0]],
+      [[-1,0],[0,0],[0,1]],
+      [[-1,0],[0,0],[0,1],[0,2]],
+      [[0,2],[0,3]],
+      [[0,2],[0,3],[0,4]],
+      [[0,2],[0,3],[0,4],[0,5]],
+    ] as $lpos2) {
+      echo Yaml::dump([['$lpos1'=>$lpos1, '$lpos2'=>$lpos2, 'lPosIntersects'=> lPosIntersects($lpos1, $lpos2)]], 2);
+    }
+  }
+  else { // cas pratique dble intersection
+    $lpos1 = [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0]];
+    $lpos2 = [[1,1],[1,0],[2,0],[2,1],[3,1],[3,0],[4,0],[4,1]];
     echo Yaml::dump([['$lpos1'=>$lpos1, '$lpos2'=>$lpos2, 'lPosIntersects'=> lPosIntersects($lpos1, $lpos2)]], 2);
+    echo Yaml::dump([['$lpos1'=>$lpos2, '$lpos2'=>$lpos1, 'lPosIntersects'=> lPosIntersects($lpos2, $lpos1)]], 2);
   }
   die("Fin tests ligne ".__LINE__."\n");
 }
 
-// ens. d'intervalles de segments, permet de détecter les intervalles de num. de segments non couverts par une limite
+/*PhpDoc: classes
+name: class Intervals
+title: class Intervals - ens. d'intervalles de segments, permet de détecter les intervalles de num. de segments non couverts par une limite
+doc: |
+  Si un nouvel interval intersecte un des précédents alors lève un exception.
+*/
 class Intervals {
   protected $nbsegs; // nbre global de segments
   protected $subs = []; // [min => max] - liste des intervalles couverts
@@ -82,8 +125,10 @@ class Intervals {
   function __construct(int $nbsegs) { $this->nbsegs = $nbsegs; }
   
   function add(int $min, int $max) { // ajout d'un intervalle de segments
-    if (isset($this->subs[$min]))
-      die("Ecrasement pour $min");
+    foreach ($this->subs as $smin => $smax) {
+      if ((($smin <= $min) && ($min <= $smax)) || (($smin <= $max) && ($max <= $smax)))
+        throw new Exception("Erreur dans Intervals::add($min, $max) avec [$smin, $smax] pour nbsegs=$this->nbsegs");
+    }
     $this->subs[$min] = $max;
   }
   
@@ -114,24 +159,46 @@ class Intervals {
   }
 
   static function test(): void {
-    $ints = new Intervals(100);
-    $ints->add(1, 9);
-    $ints->add(10, 19);
-    //$ints->add(20, 29);
-    //$ints->add(30, 99);
-    echo Yaml::dump(['$ints'=> $ints->asArray()]);
-    echo Yaml::dump(['remaining'=> $ints->remaining()]);
+    if (0) {
+      $ints = new Intervals(100);
+      $ints->add(1, 9);
+      $ints->add(10, 19);
+      //$ints->add(20, 29);
+      //$ints->add(30, 99);
+      echo Yaml::dump(['$ints'=> $ints->asArray()]);
+      echo Yaml::dump(['remaining'=> $ints->remaining()]);
+    }
+    else { // Test cas effectivement rencontré
+      /*
+        segints:
+            nbsegs: 296
+            subs: ['0 - 295', '7 - 83', '84 - 112', '113 - 194', '195 - 235', '236 - 249', '250 - 267', '268 - 293']
+        remains-segints:
+            296: 6
+            294: 295
+      */
+      $ints = new Intervals(296);
+      $ints->add(0, 295);
+      $ints->add(7, 83);
+      $ints->add(84, 112);
+      $ints->add(113, 293);
+      echo Yaml::dump(['$ints'=> $ints->asArray()]);
+      echo Yaml::dump(['remaining'=> $ints->remaining()]);
+    }
     die("Fin tests ligne ".__LINE__."\n");
   }
 };
 
 if (0) Intervals::test(); // Test unitaire de la classe Intervals
 
-// construction des faces pour retouver plus facilement leurs brins
+/*PhpDoc: classes
+name: class Face
+title: class Face - construction des faces pour retouver plus facilement leurs brins
+*/
 class Face {
   static $all=[]; // [ id => Face ]
   protected $id;
-  protected $bladeNums=[]; // [ bnum ] - liste des brins limitant la face
+  protected $bladeNums=[]; // [ bnum ] - liste des brins délimitant la face
   
   static function getOrCreate(string $id): Face { return Face::$all[$id] ?? Face::$all[$id] = new Face($id); }
   
@@ -156,10 +223,18 @@ class Face {
   }
 };
 
+/*PhpDoc: classes
+name: class Blade
+title: abstract class Blade
+*/
 abstract class Blade {
   static function get(int $bnum) { return ($bnum > 0) ? Lim::$all[$bnum] : Lim::$all[-$bnum]->inv(); }
 };
 
+/*PhpDoc: classes
+name: class Lim
+title: class Lim extends Blade
+*/
 class Lim extends Blade {
   static $all=[]; // [num => Lim] - les limites de la carte des c. simples
   static $new=[]; // [num => Feature] - les nlles limites des entités rattachées
@@ -169,19 +244,7 @@ class Lim extends Blade {
   protected $coords; // LPos
   protected $newCodes=[]; // [min => [max => ['right'=> right, 'left'=> left]]] - nvx codes provenant des limites ajoutées
   
-  static function select(array $feature): bool {
-    //$depts = ['14','50'];
-    //$depts = ['48'];
-    //$depts = ['28'];
-    $depts = [];
-    if (!$depts)
-      return true;
-    return (in_array(substr($feature['properties']['right'], 0, 2), $depts)
-      || in_array(substr($feature['properties']['left'], 0, 2), $depts));
-  }
-  
   static function add(array $feature): void { // ajout des limites de licomfr
-    if (!self::select($feature)) return;
     //echo Yaml::dump(['add'=> $feature]);
     $numlim = count(self::$all) + 1;
     $right = Face::getOrCreate($feature['properties']['right']);
@@ -218,7 +281,6 @@ class Lim extends Blade {
   // Cette carte est modifiée de la manière suivante:
   //  - je stocke sur chaque limite les nvx codes à droite et à gauche
   static function fusion(array $feature): void {
-    if (!self::select($feature)) return;
     if ($feature['properties']['right'] == '48105/0') { // Correction du polygone 48105/0 des entités rattachées
       echo "Correction du polygone 48105/0 des entités rattachées\n";
       $feature['geometry']['coordinates'] = Blade::get(Face::$all['48105/0']->bladeNums()[0])->coords();
@@ -246,9 +308,11 @@ class Lim extends Blade {
       //echo Yaml::dump(['$bnums' => $bnums]);
       foreach ($bnums as $bnum) {
         if ($intersects = lPosIntersects($feature['geometry']['coordinates'], Blade::get($bnum)->coords())) {
-          $segints->add($intersects[0], $intersects[1]);
-          //echo Yaml::dump(['segints'=> $segints->asArray()]);
-          Blade::get($bnum)->intersects($feature);
+          foreach ($intersects as $min => $max) {
+            $segints->add($min, $max);
+            //echo Yaml::dump(['segints'=> $segints->asArray()]);
+            Blade::get($bnum)->intersects($feature);
+          }
         }
       }
       if ($segints->remaining()) {
@@ -300,9 +364,11 @@ class Lim extends Blade {
       //echo Yaml::dump(['$bnums' => $bnums]);
       foreach ($bnums as $bnum) {
         if ($intersects = lPosIntersects($feature['geometry']['coordinates'], Blade::get($bnum)->coords())) {
-          $segints->add($intersects[0], $intersects[1]);
-          //echo Yaml::dump(['segints'=> $segints->asArray()]);
-          Blade::get($bnum)->intersects($feature);
+          foreach($intersects as $min => $max) {
+            $segints->add($min, $max);
+            //echo Yaml::dump(['segints'=> $segints->asArray()]);
+            Blade::get($bnum)->intersects($feature);
+          }
         }
       }
       if ($ints = $segints->remaining()) {
@@ -320,11 +386,12 @@ class Lim extends Blade {
   }
   
   function intersects(array $feature): void { // enregistre les nouvelles valeurs à droite et à gauche
-    $intesects = lPosIntersects($this->coords(), $feature['geometry']['coordinates']);
-    $this->newCodes[$intesects[0]][$intesects[1]] = [
-      'right'=> self::combineFaceId($this->right->id(), $feature['properties']['right']),
-      'left' => self::combineFaceId($this->left->id(),  $feature['properties']['left']),
-    ];
+    foreach(lPosIntersects($this->coords(), $feature['geometry']['coordinates']) as $min => $max) {
+      $this->newCodes[$min][$max] = [
+        'right'=> self::combineFaceId($this->right->id(), $feature['properties']['right']),
+        'left' => self::combineFaceId($this->left->id(),  $feature['properties']['left']),
+      ];
+    }
   }
   
   function writeLim(GeoJFileW $newlimGeoJFile): void { // enregistre les anciennes limites
@@ -383,15 +450,12 @@ class Lim extends Blade {
       ]);
     }
   }
-  
-  static function writeNewLim(GeoJFileW $newlimGeoJFile): void { // écrit les nouvelles limites
-    foreach (self::$new as $num => $feature) {
-      //echo Yaml::dump([$num => $lim]);
-      $newlimGeoJFile->write($feature);
-    }
-  }
 };
 
+/*PhpDoc: classes
+name: class Inv
+title: class Inv extends Blade
+*/
 class Inv extends Blade {
   protected $inv; // Lim
   
@@ -415,20 +479,39 @@ class Inv extends Blade {
 
 if (php_sapi_name()<>'cli') echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>fuslim</title></head><body><pre>\n";
 
+// Restriction éventuelle du traitement à un ou plusieurs départements (2 1ers car. du code Insee)
+function select(array $feature): bool {
+  static $echo = true; // A la première utilisation affiche l'éventuelle restriction
+  //$depts = ['14','50'];
+  //$depts = ['48'];
+  //$depts = ['28'];
+  //$depts = ['24'];
+  $depts = []; // pas de restriction
+  
+  if ($depts && $echo) echo "Restriction du traitement aux départements ",implode(', ', $depts),"\n";
+  $echo = false; // après la première fois on supprime l'affichage
+  
+  return !$depts
+       || in_array(substr($feature['properties']['right'], 0, 2), $depts)
+       || in_array(substr($feature['properties']['left'], 0, 2), $depts);
+}
+
 $limcomPath = __DIR__.'/limcomfr.geojson';
 $limeratPath = __DIR__.'/limerat.geojson';
 $geojfile = new GeoJFile($limcomPath);
 foreach ($geojfile->quickReadFeatures() as $feature) {
-  Lim::add($feature);
+  if (select($feature))
+    Lim::add($feature);
 }
 //print_r(Face::$all);
 $geojfile = new GeoJFile($limeratPath);
 //if (0)
 foreach ($geojfile->quickReadFeatures() as $feature) {
-  Lim::fusion($feature);
+  if (select($feature))
+    Lim::fusion($feature);
 }
 
-if (0) {
+if (0) { // affichage 
   foreach (Lim::$all as $num => $lim) {
     if ($lim->newCodes())
       echo Yaml::dump([$num => $lim->asArray()]);
@@ -436,14 +519,18 @@ if (0) {
 }
 
 $newlimGeoJFile = new GeoJFileW(__DIR__.'/tmp.geojson', 'limfus', []);
-foreach (Lim::$all as $num => $lim) {
+foreach (Lim::$all as $num => $lim) { // écriture des anciennes limites restructurées
   $lim->writeLim($newlimGeoJFile);
 }
-Lim::writeNewLim($newlimGeoJFile);
+foreach (Lim::$new as $num => $feature) { // écriture des nlles limtes
+  $newlimGeoJFile->write($feature);
+}
 $newlimGeoJFile->close();
+
 
 /* Le traitement précédent génère une erreur sur certaines limites pour lesquelles il n'est pas possible de déterminer le polygone
 ** Une deuxième phase de traitement est donc réalisée pour effectuer cette détermination.
+** D'autres vérifications et corrections sont aussi effectuées par la même occasion.
 */
 
 $limPath = __DIR__.'/tmp.geojson';
@@ -457,6 +544,19 @@ $newlimGeoJFile = new GeoJFileW(__DIR__.'/limfus.geojson', 'limfus', [
 $featuresInError = [];
 $faceIds = []; // [ c. Insee => [faceId => 1]];
 foreach ($geojfile->quickReadFeatures() as $feature) {
+  if (count($feature['geometry']['coordinates']) < 2) { // Vérification de la conformité des coordonnées
+    echo Yaml::dump(['$feature'=> $feature]);
+    throw new Exception("Erreur: limite ayant moins de 2 points");
+  }
+  if ($feature['properties']['right'] == $feature['properties']['left']) { // Traitement d'anomalies
+    if (in_array($feature['properties']['right'], ['27467/u','33055/u','52064/u','72137/u'])) { // suppression limite erronée
+      echo "Suppression de la limite erronée {right:",$feature['properties']['right'],", left:",$feature['properties']['left'],"}\n";
+      continue;
+    }
+    else { // cas d'une commune nouvelle ss c. déléguée
+      echo "Erreur sur la limite {right:",$feature['properties']['right'],", left:",$feature['properties']['left'],"}\n";
+    }
+  }
   if (strlen($feature['properties']['left']) == 5) {
     $featuresInError[] = $feature;
   }
@@ -468,7 +568,7 @@ foreach ($geojfile->quickReadFeatures() as $feature) {
   $faceIds[substr($feature['properties']['right'], 0, 5)][$feature['properties']['right']] = 1;
 }
 //echo '$featuresInError='; print_r($featuresInError);
-$corrections = [ // corrections "manuelles"
+$correctionsManuelles = [ // corrections "manuelles" pour définir le polygone
   '08362' => '08362/1',
   '42218' => '42218/0',
   '70447' => '70447/1',
@@ -480,8 +580,8 @@ foreach ($featuresInError as $feature) {
     echo "Correction de $leftId par $leftId2\n";
     $feature['properties']['left'] = $leftId2;
   }
-  elseif (isset($corrections[$leftId])) { // sinon corrections "manuelles"
-    $leftId2 = $corrections[$leftId];
+  elseif (isset($correctionsManuelles[$leftId])) { // sinon corrections "manuelles"
+    $leftId2 = $correctionsManuelles[$leftId];
     echo "Correction de $leftId en $leftId2 effectuée\n";
     $feature['properties']['left'] = $leftId2;
   }
@@ -492,3 +592,4 @@ foreach ($featuresInError as $feature) {
   $newlimGeoJFile->write($feature);
 }
 $newlimGeoJFile->close();
+unlink(__DIR__.'/tmp.geojson');
