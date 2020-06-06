@@ -62,6 +62,7 @@ journal: |
     - téléchargement de communes2020 et de mvtcommune2020
 submodules:
   - /yamldoc/pub/rpicom/rpimap
+  - /yamldoc/pub/rpicom/rpigeo
 phpScripts:
   - /yamldoc/pub/rpicom/index.php
   - /yamldoc/pub/rpicom/api.php

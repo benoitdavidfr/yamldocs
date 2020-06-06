@@ -1,0 +1,119 @@
+title: rpigeo - rpigeo
+name: rpigeo.yaml
+idées: |
+  Gérer les versions d'entités administratives dans une base PostGis en gérant une topologie partagée.
+  Une entité administrative est :
+    - une commune simple ou
+    - une entité rattachée cad
+      - une commune associée ou
+      - une commune déléguée ou
+      - un arrondissement municipal
+  Une version d'entité correspond à une géométrie/topologie constante, un code INSEE, + statut ????
+  elle est définie par sa date de début qui est la date de l'évènement de création ou par défaut 1/1/1943.
+  Les noms des entités sont gérés à part afin de ne pas dupliquer les versions d'entités.
+  
+  La création topologique dans PostGis est sensible à la qualité des données en entrée.
+  En tronquant les coordonnées à 10-5 (1 m), cela génère des erreurs topologiques qui plantent la construction topologique.
+  Par ailleurs, en définissant un tolerance à 0.0001 (10 m) cela génère aussi une erreur.
+  Une tolérance à 0.00001 (1 m) est ok.
+  
+schémaDeDonnées: |
+  -- aegeofla_topo contient le graphe topologique
+  -- génère une erreur avec 0.0001 (10 m), pas avec 0.000001 (10 cm), ni avec 0.00001 (1 m).
+  SELECT topology.CreateTopology('aegeofla_topo', 4326, 0.00001);
+
+  create type admin_statut AS ENUM ('cSimple', 'cDéléguée', 'cAssociée', 'ardtMun');
+  -- table des entités admin. (communes ou entités rattachées) versionnées définies par leur code INSEE, date de début et topologie
+  drop table public.eadminv cascade;
+  create table public.eadminv(
+    gid serial,
+    cinsee char(5) not null,
+    statut admin_statut not null,
+    crat char(5), -- pour une entité rattachée code INSEE de la c. de rattachement, null sinon
+    debut date not null, -- premier jour, 1/1/1943 par défaut
+    fin date, -- lendemain du dernier jour, null si encore valide 
+    -- bbox box2d, -- le rectangle englobant
+    geom geometry(MULTIPOLYGON), -- la géométrie
+    primary key (cinsee, debut)
+  );
+  select topology.AddTopoGeometryColumn('aegeofla_topo', 'public', 'eadminv', 'topo', 'MULTIPOLYGON');
+  -> 1
+  
+  CREATE INDEX eadminbbox ON public.eadminv USING GIST (geom); 
+  
+  -- table historique des noms, une version d'eadmin. correspond à un ou plusieurs eadminv_name
+  drop table public.eadminv_name;
+  create table public.eadminv_name(
+    cinsee char(5) not null, -- c. Insee de l'eadmin
+    debutEadmin date not null, -- premier jour de l'eadmin
+    debut date not null, -- premier jour
+    fin date, -- lendemain du dernier jour, null si toujours valide 
+    nom varchar(256),
+    FOREIGN KEY (cinsee, debutEadmin) REFERENCES eadminv (cinsee, debut)
+  );
+  
+  ST_SimplifyPreserveTopology(geometry geomA, float tolerance);
+  
+  -- inadapté - ST_SimplifyPreserveTopology() doit travailler sur la totalité de la géométrie et pas objet par objet
+  drop table public.seadminv;
+  create table public.seadminv as
+  select ST_SimplifyPreserveTopology(geom, 0.01) geom from public.eadminv;
+  CREATE INDEX seadminind ON public.seadminv USING GIST (geom); 
+  
+chargement: |
+  L'idée est de créer les objets eadminv eadminv_name à partir des données INSEE
+
+ST_SimplifyPreserveTopology:
+  Permet de simplifier des géométries en conservant la topologie.
+  N'utilise pas le module de topologie de PostGis
+  Ne peut pas être utilisée sur les communes car génère une géométrie trop volumineuse.
+  
+territoire: |
+  Autre schéma possible
+  Définir un objet par territoire correspondant à un espace géographique donné.
+  Un territoire peut être partagé par différents eadminv.
+  Par exemple, un changement de nom d'un eadminv ne change pas son territoire,
+  de même le passage comme délégué ou associé ne change pas le territoire.
+  Le changement de code pour cause de changement de département ne change pas non plus de territoire.
+  
+  create table territoire(
+    gid serial primary key,
+    geom geometry(MULTIPOLYGON, 4326) -- la géométrie
+  );
+  
+  create table eadminv(
+    gid serial,
+    cinsee char(5) not null, -- code INSEE
+    debut date not null, -- premier jour, 1/1/1943 par défaut
+    fin date, -- lendemain du dernier jour, null ssi encore valide
+    statut admin_statut not null,
+    crat char(5), -- pour une entité rattachée code INSEE de la c. de rattachement, null ssi cSimple
+    nom varchar(256), -- nom en minuscules
+    terrid integer REFERENCES territoire (gid), -- id du territoire, null ssi territoire non défini
+    primary key (cinsee, debut)
+  );
+
+alternatives: |
+  Il y a plusieurs choix à faire pour le schéma.
+    1) découpage entre eadminv, nom, territoire, unité admin.
+    2) comment calculer les unités admin., puis-je laisser PostGis les déterminer par le calcul de la topologie ?
+    3) pour déterminer les unités admin., contrainte sur la topologie, notamment de tolérance ?
+    4) en fonction de la tolérance, nécessité de simplifier la géométrie avant ?
+    
+  Comment gérer les données ?
+    1) PostGis ou Shp/GeoJSON ?
+      PostGis a le net avantage de proposer des index spatiaux, ce que je n'ai pas implémenté en Php
+    2) si PostGis, topology ou non ?
+      topology est complexe et génère plus de problèmes qu'il n'en résoud
+    3) structure de polygones ou de graphe topologique ?
+      la structure topologique est indispensable pour effectuer des simplifications géométriques et topologiques
+    -> redévelopper une structure topologique dans PostGis ?
+
+pbs:
+  - le problème principal est de construire une topologie partagée entre les différentes versions de AE et GéoFLA.
+  - en pratique je n'ai pas besoin de beaucoup de géométries provennant d'autres JD que AE2020COG.
+  - La solution pourrait être de gérer manuellement ces ajouts.
+  - le module topologie pose plus de problèmes qu'il n'en résoud
+    - notamment la tolérance doit être assez homogène entre les couches à intégrer
+    
+eof:

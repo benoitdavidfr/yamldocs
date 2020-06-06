@@ -1,0 +1,222 @@
+title: cas particuliers à surveiller
+eadminv:
+  '08377':
+    title: disparition temporaire avant réapparition
+    sql: |
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('08377', '1986-01-01', null, 'cSimple', null, 'Saint-Aignan', null);
+      insert into evtCreation(cinsee, dcreation, evt) values('08377', '1986-01-01', '{"rétablieCommeSimpleDe":"08119"}');
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('08377', '1943-01-01', '1964-10-01', 'cSimple', null, 'Saint-Aignan', '{"fusionneDans":"08119"}');
+    rpicom:
+      '08377':
+        now:
+          name: Saint-Aignan
+        '1986-01-01':
+          évènement:
+            rétablieCommeSimpleDe: '08119'
+        '1964-10-01':
+          évènement:
+            fusionneDans: '08119'
+          name: Saint-Aignan
+  50649/14513:
+    title: double double evts
+    rpicom:
+      14513:
+        '2018-01-01':
+          évènement:
+            quitteLeDépartementEtPrendLeCode: 50649
+          name: Pont-Farcy
+        2018-01-01-bis:
+          après:
+            name: Pont-Farcy
+          évènement: 'Absorbe certaines de ses c. rattachées ou certaines de ses c. associées deviennent déléguées'
+          name: Pont-Farcy
+          évènementDétaillé:
+            absorbe: [14507]
+        '1973-05-01':
+          évènement: 'Prend des c. associées et/ou absorbe des c. fusionnées'
+          name: Pont-Farcy
+          évènementDétaillé:
+            prendPourAssociées: [14507]
+      50649:
+        now:
+          name: Pont-Farcy
+          estDéléguéeDe: 50592
+        '2018-01-01':
+          après:
+            name: Pont-Farcy
+            estDéléguéeDe: 50592
+          évènement:
+            devientDéléguéeDe: 50592
+          name: Pont-Farcy
+        2018-01-01-bis:
+          évènement:
+            arriveDansLeDépartementAvecLeCode: 14513
+    sql: |
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('14513', '1943-01-01', '1973-05-01', 'cSimple', null, 'Pont-Farcy', '{"prendPourAssociées":[14507]}')
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('14513', '1973-05-01', '2018-01-01', 'cSimple', null, 'Pont-Farcy',
+          '[{"absorbe":[14507]},{"quitteLeDépartementEtPrendLeCode":50649}]')
+      insert into evtCreation(cinsee, dcreation, evt)
+        values('50649', '2018-01-01', '[{"arriveDansLeDépartementAvecLeCode":14513},{"devientDéléguéeDe":50592}]')
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('50649', '2018-01-01', null, 'cDéléguée', '50592', 'Pont-Farcy', null)
+  49144/44225:
+    title: bis avec chgt de dépt
+    rpicom:
+      44225:
+        now:
+          name: Freigné
+          estDéléguéeDe: 44180
+        '2018-01-01':
+          après:
+            name: Freigné
+            estDéléguéeDe: 44180
+          évènement:
+            devientDéléguéeDe: 44180
+          name: Freigné
+        2018-01-01-bis:
+          évènement:
+            arriveDansLeDépartementAvecLeCode: 49144
+      49144:
+        '2018-01-01':
+          évènement:
+            quitteLeDépartementEtPrendLeCode: 44225
+          name: Freigné
+    sql: |
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('49144', '1943-01-01', '2018-01-01', 'cSimple', null, 'Freigné', '{"quitteLeDépartementEtPrendLeCode":44225}')
+      insert into evtCreation(cinsee, dcreation, evt)
+        values('44225', '2018-01-01', '[{"arriveDansLeDépartementAvecLeCode":49144},{"devientDéléguéeDe":44180}]')
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('44225', '2018-01-01', null, 'cDéléguée', '44180', 'Freigné', null)
+  44060/49382:
+    title: bis
+    rpicom:
+      49382:
+        now:
+          name: 'Le Fresne-sur-Loire'
+          estDéléguéeDe: 49160
+        '2016-01-01':
+          après:
+            name: 'Le Fresne-sur-Loire'
+            estDéléguéeDe: 49160
+          évènement:
+            devientDéléguéeDe: 49160
+          name: 'Le Fresne-sur-Loire'
+        2016-01-01-bis:
+          évènement:
+            arriveDansLeDépartementAvecLeCode: 44060
+      44060:
+        '2016-01-01':
+          évènement:
+            quitteLeDépartementEtPrendLeCode: 49382
+          name: 'Le Fresne-sur-Loire'
+      
+    sql: |
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+       values('44060', '1943-01-01', '2016-01-01', 'cSimple', null, 'Le Fresne-sur-Loire', '{"quitteLeDépartementEtPrendLeCode":49382}')
+      insert into evtCreation(cinsee, dcreation, evt)
+        values('49382', '2016-01-01', '[{"arriveDansLeDépartementAvecLeCode":44060},{"devientDéléguéeDe":49160}]')
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('49382', '2016-01-01', null, 'cDéléguée', '49160', 'Le Fresne-sur-Loire', null)
+  51369:
+    title: bis
+    rpicom:
+      51369:
+        now:
+          name: Mœurs-Verdey
+        '1966-12-12':
+          évènement:
+            reçoitUnePartieDe: 51606
+          name: Mœurs-Verdey
+        1966-12-12-bis:
+          évènement:
+            changeDeNomPour: Mœurs-Verdey
+          name: Mœurs
+    sql: |
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('51369', '1943-01-01', '1966-12-12', 'cSimple', null, 'Mœurs',
+          '[{"changeDeNomPour":"Mœurs-Verdey"},{"reçoitUnePartieDe":51606}]')
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('51369', '1966-12-12', null, 'cSimple', null, 'Mœurs-Verdey', null)
+  51440:
+    title: bis
+    rpicom:
+      51440:
+        now:
+          name: Pontfaverger-Moronvilliers
+        '1950-06-17':
+          évènement:
+            reçoitUnePartieDe: 51385
+          name: Pontfaverger-Moronvilliers
+        1950-06-17-bis:
+          évènement:
+            changeDeNomPour: Pontfaverger-Moronvilliers
+          name: Pontfaverger
+    sql: |
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('51440', '1943-01-01', '1950-06-17', 'cSimple', null, 'Pontfaverger',
+          '[{"changeDeNomPour":"Pontfaverger-Moronvilliers"},{"reçoitUnePartieDe":51385}]')
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('51440', '1950-06-17', null, 'cSimple', null, 'Pontfaverger-Moronvilliers', null)
+  55273:
+    title: commune changeant d'association
+    rpicom:
+      55273:
+        now:
+          name: Lamarche-en-Woëvre
+          estAssociéeA: 55386
+        '1983-01-01':
+          évènement:
+            sAssocieA: 55386
+          name: Lamarche-en-Woëvre
+        1983-01-01-bis:
+          évènement: 'Commune associée rétablie comme commune simple'
+          name: Lamarche-en-Woëvre
+          estAssociéeA: 55245
+        '1973-01-01':
+          évènement:
+            sAssocieA: 55245
+          name: Lamarche-en-Woëvre
+    sql: |
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('55273', '1943-01-01', '1973-01-01', 'cSimple', null, 'Lamarche-en-Woëvre', '{"sAssocieA":55245}')
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('55273', '1973-01-01', '1983-01-01', 'cAssociée', '55245', 'Lamarche-en-Woëvre',
+          '["Commune associée rétablie comme commune simple",{"sAssocieA":55386}]')
+      insert into eadminv
+        values('55273', '1983-01-01', null, 'cAssociée', '55386', 'Lamarche-en-Woëvre', null)
+  55386:
+    title: commune rétablie et prend pour associée
+    rpicom:
+      55386:
+        now:
+          name: Nonsard-Lamarche
+        '1983-01-01':
+          évènement: 'Prend des c. associées et/ou absorbe des c. fusionnées'
+          name: Nonsard
+          évènementDétaillé:
+            prendPourAssociées:
+              - 55273
+        1983-01-01-bis:
+          évènement: 'Commune associée rétablie comme commune simple'
+          name: Nonsard
+          estAssociéeA: 55245
+        '1973-01-01':
+          évènement:
+            sAssocieA: 55245
+          name: Nonsard
+    sql: |
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('55386', '1943-01-01', '1973-01-01', 'cSimple', null, 'Nonsard', '{"sAssocieA":55245}')
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('55386', '1973-01-01', '1983-01-01', 'cAssociée', '55245', 'Nonsard',
+          '["Commune associée rétablie comme commune simple",{"prendPourAssociées":[55273]}]')
+      insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
+        values('55386', '1983-01-01', null, 'cSimple', null, 'Nonsard-Lamarche', null)
+      
+    
+eof:

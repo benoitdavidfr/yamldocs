@@ -26,6 +26,7 @@ doc: |
     35 097 anneaux hors extérieur
 
   Le fichier des communes en GeoJSON passe de 148 Mo à 8 Mo.
+  Certains polygone sont invalides.
 
 journal: |
   19/5/2020:

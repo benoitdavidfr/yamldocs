@@ -2303,4 +2303,180 @@ if ($_GET['action'] == 'commeDéléguéeNow') { // version now des communes simp
   die();
 }
 
+if ($_GET['action'] == 'rpicom') { // affiche rpicom
+  if (php_sapi_name() <> 'cli')
+    echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>rpicom</title></head><body><pre>\n";
+  $rpicomBase = new Base(__DIR__.'/rpicom', new Criteria(['not']));
+  echo Yaml::dump($rpicomBase->contents(), 4, 2);
+  die("Fin rpicom\n");
+}
+
+if ($_GET['action'] == 'unit') { // réfexion pour la création d'unités
+  class Evt {
+    protected $evt; // l'évt., peut être null, string ou array
+    
+    function __construct($evt) { $this->evt = $evt; }
+    
+    function __toString(): string {
+      if (is_null($this->evt))
+        return '';
+      elseif (is_string($this->evt))
+        return $this->evt;
+      else
+        return json_encode($this->evt);
+    }
+    
+    function label(): string {
+      if (is_null($this->evt))
+        return '';
+      elseif (is_string($this->evt))
+        return $this->evt;
+      else
+        return implode(',', array_keys($this->evt));
+    }
+    
+    function params(): array {
+      if (is_null($this->evt))
+        return [];
+      elseif (is_string($this->evt))
+        return [];
+      elseif (count(array_keys($this->evt)) == 1)
+        return $this->evt[array_keys($this->evt)[0]];
+      else
+        return $this->evt;
+    }
+  };
+  
+  $defs = []; // [id => [ 'op'=> op, 'params'=> [id] ]]
+
+  if (php_sapi_name() <> 'cli')
+    echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>unit</title></head><body><pre>\n";
+  $rpicomBase = new Base(__DIR__.'/rpicom', new Criteria(['not']));
+  $rpicoms = $rpicomBase->contents();
+  unset($rpicomBase);
+  foreach ($rpicoms as $id => $rpicom) {
+    //echo Yaml::dump([$id => $rpicom], 4, 2);
+    
+    foreach ($rpicom as $dv => $version) {
+      if (strcmp($dv, '2003-01-01') <= 0)
+        continue;
+      $evtD = new Evt($version['évènementDétaillé'] ?? null);
+      switch($evtD->label()) {
+        case '': break;
+
+        case 'absorbe':
+        case 'prendPourAssociées': {
+          $def = ['op'=> '+', 'params'=> ["$id@$dv"]];
+          foreach ($evtD->params() as $er)
+            $def['params'][] = "$er@$dv";
+          $defs["$id@$prevDv"] = $def;
+          break;
+        }
+
+        case 'délègueA': {
+          $def = ['op'=> '+', 'params'=> ["$id@$dv"]];
+          foreach ($evtD->params() as $er)
+            if ($er <> $id)
+              $def['params'][] = "$er@$dv";
+          $defs["$id@$prevDv"] = $def;
+          break;
+        }
+        
+        case 'délègueA,absorbe': {
+          $def = ['op'=> '+', 'params'=> ["$id@$dv"]];
+          foreach ($version['évènementDétaillé']['délègueA'] as $er)
+            if ($er <> $id)
+              $def['params'][] = "$er@$dv";
+          foreach ($version['évènementDétaillé']['absorbe'] as $er)
+            $def['params'][] = "$er@$dv";
+          $defs["$id@$prevDv"] = $def;
+          break;
+        }
+
+        case 'rétablitCommeSimple': {
+          $def = ['op'=> '-', 'params'=> ["$id@$dv"]];
+          foreach ($evtD->params() as $er)
+            $def['params'][] = "$er@$dv";
+          $defs["$id@$prevDv"] = $def;
+          break;
+        }
+        default: {
+          throw new Exception("évènement ".$evtD->label()." non traité ligne ".__LINE__);
+        }
+      }
+      $evt = new Evt($version['évènement'] ?? null);
+      if ($evt->label() == 'quitteLeDépartementEtPrendLeCode') {
+        
+      }
+      
+      if ($evt->label() <> 'changeDeNomPour')
+        $prevDv = $dv;
+    }
+    //echo Yaml::dump(['$defs'=> $defs]);
+  }
+  echo Yaml::dump(['$defs'=> $defs]);
+  die("Fin unit\n");
+}
+
+function addUniqueToArray(string $val, &$array) {
+  if (!isset($array))
+    $array = [ $val ];
+  elseif (!in_array($val, $array))
+    $array[] = $val;
+}
+
+if ($_GET['action'] == 'reciproque') { // réciproque
+  if (php_sapi_name() <> 'cli')
+    echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>reciproque</title></head><body><pre>\n";
+  $reciproques = [];
+  $rpicomBase = new Base(__DIR__.'/rpicom', new Criteria(['not']));
+  $rpicoms = $rpicomBase->contents();
+  unset($rpicomBase);
+  foreach ($rpicoms as $id => $rpicom) {
+    //echo Yaml::dump([$id => $rpicom], 4, 2);
+    foreach ($rpicom as $dv => $version) {
+      if (!isset($version['évènement'])) continue;
+      if (is_string($version['évènement'])) continue;
+      $key = array_keys($version['évènement'])[0];
+      $values = $version['évènement'][$key];
+      if (is_array($values)) {
+        //echo Yaml::dump([$id => $rpicom], 4, 2);
+        foreach ($values as $value) {
+          $rec = $rpicoms[$value];
+          $evtRec = $rec[$dv]['évènement'];
+          if (is_string($evtRec))
+            addUniqueToArray($evtRec, $reciproques[$key]);
+          else
+            addUniqueToArray(array_keys($evtRec)[0], $reciproques[$key]);
+        }
+      }
+      elseif (is_numeric($values) || is_string($values)) {
+        if (!isset($rpicoms[$values])) {
+          addUniqueToArray('aucun', $reciproques[$key]);
+        }
+        else {
+          $rec = $rpicoms[$values];
+          if (strlen($dv) > 10) // cas des date-bis
+            $dv = substr($dv, 0, 10);
+          if (!isset($rec[$dv]['évènement'])) {
+            addUniqueToArray('aucun', $reciproques[$key]);
+          }
+          else {
+            $evtRec = $rec[$dv]['évènement'];
+            if (is_string($evtRec))
+              addUniqueToArray($evtRec, $reciproques[$key]);
+            else
+              addUniqueToArray(array_keys($evtRec)[0], $reciproques[$key]);
+          }
+        }
+      }
+      else
+        throw new Exception("A FAIRE");
+    }
+    //echo Yaml::dump(['$reciproques'=> $reciproques], 4, 2);
+  }
+  echo Yaml::dump(['$reciproques'=> $reciproques], 4, 2);
+  die("Fin reciproque\n");
+}
+
 die("Aucune commande $_GET[action]\n");
