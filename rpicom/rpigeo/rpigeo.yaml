@@ -17,48 +17,6 @@ idées: |
   Par ailleurs, en définissant un tolerance à 0.0001 (10 m) cela génère aussi une erreur.
   Une tolérance à 0.00001 (1 m) est ok.
   
-schémaDeDonnées: |
-  -- aegeofla_topo contient le graphe topologique
-  -- génère une erreur avec 0.0001 (10 m), pas avec 0.000001 (10 cm), ni avec 0.00001 (1 m).
-  SELECT topology.CreateTopology('aegeofla_topo', 4326, 0.00001);
-
-  create type admin_statut AS ENUM ('cSimple', 'cDéléguée', 'cAssociée', 'ardtMun');
-  -- table des entités admin. (communes ou entités rattachées) versionnées définies par leur code INSEE, date de début et topologie
-  drop table public.eadminv cascade;
-  create table public.eadminv(
-    gid serial,
-    cinsee char(5) not null,
-    statut admin_statut not null,
-    crat char(5), -- pour une entité rattachée code INSEE de la c. de rattachement, null sinon
-    debut date not null, -- premier jour, 1/1/1943 par défaut
-    fin date, -- lendemain du dernier jour, null si encore valide 
-    -- bbox box2d, -- le rectangle englobant
-    geom geometry(MULTIPOLYGON), -- la géométrie
-    primary key (cinsee, debut)
-  );
-  select topology.AddTopoGeometryColumn('aegeofla_topo', 'public', 'eadminv', 'topo', 'MULTIPOLYGON');
-  -> 1
-  
-  CREATE INDEX eadminbbox ON public.eadminv USING GIST (geom); 
-  
-  -- table historique des noms, une version d'eadmin. correspond à un ou plusieurs eadminv_name
-  drop table public.eadminv_name;
-  create table public.eadminv_name(
-    cinsee char(5) not null, -- c. Insee de l'eadmin
-    debutEadmin date not null, -- premier jour de l'eadmin
-    debut date not null, -- premier jour
-    fin date, -- lendemain du dernier jour, null si toujours valide 
-    nom varchar(256),
-    FOREIGN KEY (cinsee, debutEadmin) REFERENCES eadminv (cinsee, debut)
-  );
-  
-  ST_SimplifyPreserveTopology(geometry geomA, float tolerance);
-  
-  -- inadapté - ST_SimplifyPreserveTopology() doit travailler sur la totalité de la géométrie et pas objet par objet
-  drop table public.seadminv;
-  create table public.seadminv as
-  select ST_SimplifyPreserveTopology(geom, 0.01) geom from public.eadminv;
-  CREATE INDEX seadminind ON public.seadminv USING GIST (geom); 
   
 chargement: |
   L'idée est de créer les objets eadminv eadminv_name à partir des données INSEE

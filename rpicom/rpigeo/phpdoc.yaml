@@ -1,15 +1,26 @@
 title: rpigeo - structuration du rpicom comme base géo
 path: /yamldoc/pub/rpicom/rpigeo
 doc: |
-  Réflexion sur la structuration du rpicom en base PostGIS
-  Lors du chargement des communes dans PostGis, génération d'erreurs de topologie (6 erreurs).
-  Ces erreurs sont dues à la simplification que j'ai effectuée en arrondissant les coord. à 1 mètre.
-  Le jeu initial IGN comporte des détails de l'ordre d'1 mètre qui génèrent ces erreurs topologiques.
-  La solution pourrait être de ne pas effectuer cette simplification avant le chargement dans PostGis.
+  Réflexions sur la structuration du rpicom en base PostGIS
+  
+  Phase1:
+    Test d'un chargement utilisant le module topology de PostGis -> loadtopo.php
+    -> trop complexe
+  Phase2:
+    Test d'un chargement dans PostGis dans une carte topologique sans le module topology
+    -> schema dans rpigeo.sql + chargement dans load.php
 submodules:
+sqlDBs:
+  - name: rpigeo
+    title: base de données Rpigeo
+    doc: |
+      Base associée
+sqlFiles:
+  - /yamldoc/pub/rpicom/rpigeo/simplify.sql
+  - /yamldoc/pub/rpicom/rpigeo/rpigeo.sql
 phpScripts:
-  - /yamldoc/pub/rpicom/rpigeo/index.php
+  - /yamldoc/pub/rpicom/rpigeo/loadtopo.php
+  - /yamldoc/pub/rpicom/rpigeo/load.php
 phpIncludes:
-  - /yamldoc/pub/rpicom/rpigeo/igeojfile.inc.php
 htmlFiles:
   - /yamldoc/pub/rpicom/rpigeo/rpigeo.yaml
