@@ -455,7 +455,7 @@ if ($_GET['action'] == 'test_limae2020cogcom') { // test limae2020cogcom
 
 /*PhpDoc: screens
 name: limae2020cogcom
-title: chargement limae2020cogcom
+title: construction de limae2020cogcom
 */
 if ($_GET['action'] == 'limae2020cogcom') { // construction limae2020cogcom
   $start = time();
@@ -619,7 +619,7 @@ class Ring {
     */
     $bboxWkt = $this->bbox()->asPolygon()->wkt();
     $sql = "insert into Ring(blade, face, bbox) values($this->bladeNum, $faceNum, ST_GeomFromText('$bboxWkt',4326))";
-    echo "$sql\n";
+    //echo "$sql\n";
     try {
       PgSql::query($sql);
     }
@@ -649,7 +649,7 @@ abstract class Blade {
 };
 
 class Lim extends Blade {
-  static $all=[];
+  static $all=[]; // [ int => Lim ], utilise comme num. celui généré dans la table des limites en entrée
   protected $idRight;
   protected $idLeft;
   protected $fiNum; // Int - le brin suivant du brin dans l'anneau défini par son numéro
@@ -697,14 +697,10 @@ class Lim extends Blade {
     $leftFace = Face::$all[$this->idLeft]->num();
     $nextBlade = $this->fiNum;
     $prevBlade = $this->fiOfInv;
-    //$sql = "select num, id1, id2, ST_AsText(lstr) wkt from limae2020cogcom where num=$limNum";
-    //foreach(PgSql::query($sql) as $tuple) { }
-    //$sql = "insert into edge(id, rightFace, leftFace, nextBlade, prevBlade, geom, source) "
-      //."values($limNum, $rightFace, $leftFace, $nextBlade, $prevBlade, ST_GeomFromText('$tuple[wkt]',4326), 'AE2020COG')";
     $sql = "insert into edge(id, rightFace, leftFace, nextBlade, prevBlade, geom, source) "
       ."select $limNum, $rightFace, $leftFace, $nextBlade, $prevBlade, lstr, 'AE2020COG' "
       ."from limae2020cogcom where num=$limNum";
-    echo "$sql\n";
+    //echo "$sql\n";
     PgSql::query($sql);
   }
 };
@@ -766,7 +762,7 @@ if ($_GET['action'] == 'topo') { // chargement de la topologie
   foreach (Face::$all as $face) {
     $faceNum = $face->num();
     $sql = "insert into Face(id) values($faceNum)";
-    echo "$sql\n";
+    //echo "$sql\n";
     try {
       PgSql::query($sql);
     }
@@ -785,6 +781,8 @@ if ($_GET['action'] == 'topo') { // chargement de la topologie
   foreach (Lim::$all as $limNum => $lim) {
     $lim->insertSql($limNum);
   }
+  printf("Fin enregistrement des limites, time=%.1f min., memory_get_usage=%.1f Mo, memory_get_peak_usage()=%.1f Mo\n",
+    (time() - $start)/60, memory_get_usage()/1024/1024, memory_get_peak_usage()/1024/1024);
   
   // Enregistrement de eadminvgeo
   /*create table eadminvgeo(
@@ -799,7 +797,7 @@ if ($_GET['action'] == 'topo') { // chargement de la topologie
     $cinsee = substr($id, 0, 5);
     $sql = "insert into eadminvgeo(cinsee, dcreation, face) "
       ."select cinsee, dcreation, $faceNum from eadminv where cinsee='$cinsee' and fin is null";
-    echo "$sql\n";
+    //echo "$sql\n";
     PgSql::query($sql);
   }
   

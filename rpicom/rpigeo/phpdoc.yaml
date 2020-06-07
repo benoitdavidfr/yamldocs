@@ -9,6 +9,16 @@ doc: |
   Phase2:
     Test d'un chargement dans PostGis dans une carte topologique sans le module topology
     -> schema dans rpigeo.sql + chargement dans load.php
+journal: |
+  6-8/6/2020:
+    - mise au point phase 2
+    - élaboration de la requête pour reconstruire les polygones à partir des limites
+      - tester les communes constituées de plusieurs polygones
+    - reste à voir
+      - comment charger les entités rattachées et les précédentes années
+      - comment gérer les données simplifiées, notamment en cas de simplif. topologique !
+  4/6/2020:
+    - tests phase 1 -> trop complexe, ST_SimplifyPreserveTopology() n'utilise pas la topologie
 submodules:
 sqlDBs:
   - name: rpigeo
