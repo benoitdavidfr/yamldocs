@@ -1,6 +1,6 @@
 /*PhpDoc:
-name: rpigeo.sql
-title: rpigeo.sql - définition du schéma des données de la base Rpigeo
+name: rpigeo1.sql
+title: rpigeo1.sql - définition du schéma des données de la base Rpigeo
 doc: |
   Schéma de stockage des données historiques du rpicom fusionnant données INSEE et IGN et implémentant une topologie
   La topologie est gérée par une carte topologique fusionnant les différentes versions disponibles
@@ -106,12 +106,16 @@ from edge, eadminvgeo
 where face = rightface or face = leftface
 group by cinsee, dcreation;
 
+CREATE INDEX idx_eadminvpol_geom ON eadminvpol USING gist(geom);
+
 
 -- chargement des tables temporaires des communes et des entités rattachées
 ogr2ogr -f PostgreSQL PG:'host=172.17.0.4 port=5432 dbname=gis user=docker password=docker' \
   FRA/COMMUNE_CARTO_cor1.geojson -t_srs EPSG:4326 -nlt MULTIPOLYGON -nln commune_carto -overwrite
 ogr2ogr -f PostgreSQL PG:'host=172.17.0.4 port=5432 dbname=gis user=docker password=docker' \
   FRA/entite_rattachee_carto_cor1.geojson -t_srs EPSG:4326 -nlt MULTIPOLYGON -nln entite_rattachee_carto -overwrite
+ogr2ogr -f PostgreSQL PG:'host=172.17.0.4 port=5432 dbname=gis user=docker password=docker' \
+  FRA/DEPARTEMENT_CARTO.shp -t_srs EPSG:4326 -nlt MULTIPOLYGON -nln departement_carto -overwrite
 
 CREATE UNIQUE INDEX commune_carto_id ON commune_carto(id);
 

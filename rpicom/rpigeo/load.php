@@ -9,6 +9,8 @@ doc: |
   - l'action topo construit à partir de limae2020cogcom les tables edge, face, ring et eadminvgeo
   Le schéma des tables est défini dans rpigeo.sql
 journal:
+  12/6/2020:
+    - ajout du cas des commeDéléguée dans load rpicom
   6-8/6/2020:
     - première version
 */
@@ -182,6 +184,19 @@ if ($_GET['action'] == 'rpicom') { // chargement rpicom
         echo $e->getMessage(),"\n";
         echo "$sql\n";
         die();
+      }
+      if (isset($version['commeDéléguée'])) {
+        $nom = str_replace("'","''", $version['commeDéléguée']['name']);
+        $sql = "insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin) "
+          ."values('$id', '$dcreation', $fin, 'cDéléguée', '$id', '$nom', $evtFin)";
+        try {
+          PgSql::query($sql);
+        }
+        catch(Exception $e) {
+          echo $e->getMessage(),"\n";
+          echo "$sql\n";
+          die();
+        }
       }
     }
   }

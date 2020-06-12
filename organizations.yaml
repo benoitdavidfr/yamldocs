@@ -1538,4 +1538,17 @@ contents:
   com.shippeo:
     name: SHIPPEO
     url: http://www.shippeo.com
+  com.open-groupe:
+    name: groupe Open
+    note: renouvelé par l'UGAP pour accompagner les bénéficiaires de la sphère publique sur leurs projets de transformation numérique en AMOE et Tierce Maintenance Applicative (TMA) pour une nouvelle période de 4 ans (plus de 300 projets menés depuis 3 ans) (mail de <thomas.gouet@open-groupe.com>du 10/6/2020).
+    address:
+      streetAddress: OPEN - Carré Champeret, 28 rue Jacques Ibert
+      postalCode: 92300
+      addressLocality: Levallois-Perret
+    url: www.open-groupe.com
+    contactPoint:
+      - name: Thomas Gouet
+        email: thomas.gouet@open-groupe.com
+        jobTitle: Chargé d'affaires Secteur Public
+        telephone: 06 05 28 09 98
 eof:

@@ -217,6 +217,11 @@ eadminv:
           '["Commune associée rétablie comme commune simple",{"prendPourAssociées":[55273]}]')
       insert into eadminv(cinsee, dcreation, fin, statut, crat, nom, evtFin)
         values('55386', '1983-01-01', null, 'cSimple', null, 'Nonsard-Lamarche', null)
-      
-    
+eadmvlim:
+  title: cas particuliers pour la génération de la structure lim X eadmvlim
+  2B182x2B352:
+    title: limite entre les 2 communes décomposée en 2 LineString
+    sql: select id1, id2 from comcom20 where GeometryType(geom)<>'LINESTRING'
+  2B165x2B049:
+    title: 2B165 est un trou dans 2B049
 eof:

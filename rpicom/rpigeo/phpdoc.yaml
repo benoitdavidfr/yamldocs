@@ -5,11 +5,16 @@ doc: |
   
   Phase1:
     Test d'un chargement utilisant le module topology de PostGis -> loadtopo.php
-    -> trop complexe
+    -> trop complexe, peu pertinent
   Phase2:
     Test d'un chargement dans PostGis dans une carte topologique sans le module topology
-    -> schema dans rpigeo.sql + chargement dans load.php
+    -> schema dans rpigeo1.sql + chargement dans load.php -> possible mais nécessite d'écrire les algo. géom. en Php
+  Phase3:
+    Test d'une génération de la base par des requêtes PostGis
+    -> rpigeo2.sql
 journal: |
+  9-10/6/2020:
+    - démarrage phase 3
   6-8/6/2020:
     - mise au point phase 2
     - élaboration de la requête pour reconstruire les polygones à partir des limites
@@ -27,7 +32,8 @@ sqlDBs:
       Base associée
 sqlFiles:
   - /yamldoc/pub/rpicom/rpigeo/simplify.sql
-  - /yamldoc/pub/rpicom/rpigeo/rpigeo.sql
+  - /yamldoc/pub/rpicom/rpigeo/rpigeo1.sql
+  - /yamldoc/pub/rpicom/rpigeo/rpigeo2.sql
 phpScripts:
   - /yamldoc/pub/rpicom/rpigeo/loadtopo.php
   - /yamldoc/pub/rpicom/rpigeo/load.php
