@@ -10,6 +10,8 @@ doc: |
     3) définir comme vue matérialisée les communes à partir de ces limites
     4) définir une géométrie simplifiée des limites et des communes
 journal: |
+  13/6/2020 1:00
+    - code ok pour le D17
   12/6/2020:
     - modif du schema pour permettre un même code INSEE de correspondre à la fois à une commune simple et à une commune déléguée
   11/6/2020:
@@ -313,4 +315,14 @@ select * from eadminv where cinsee='17219'
 select cinsee, dcreation, ST_AsText(geom)
 from eadmvpol
 where cinsee='17306';
+
+-- création de la géométrie généralisée
+update lim set simp3=ST_SimplifyPreserveTopology(geom, 0.001);
+-- génération de la table des polygones à partir des limites généralisées
+drop table if exists eadmvpolg3;
+create table eadmvpolg3 as
+select cinsee, dcreation, statut, (ST_Dump(ST_Polygonize(simp3))).geom as geom
+from lim, eadmvlim
+where eadmvlim.limnum=lim.num
+group by cinsee, dcreation, statut;
 
