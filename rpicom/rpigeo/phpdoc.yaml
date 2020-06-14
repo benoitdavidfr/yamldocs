@@ -13,8 +13,8 @@ doc: |
     Test d'une génération de la base par des requêtes PostGis
     -> rpigeo2.sql
 journal: |
-  9-10/6/2020:
-    - démarrage phase 3
+  9-13/6/2020:
+    - phase 3, code ok sur D17 comrenant des e. ratt.
   6-8/6/2020:
     - mise au point phase 2
     - élaboration de la requête pour reconstruire les polygones à partir des limites

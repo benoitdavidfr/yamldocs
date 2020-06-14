@@ -10,10 +10,19 @@ doc: |
     3) définir comme vue matérialisée les communes à partir de ces limites
     4) définir une géométrie simplifiée des limites et des communes
 journal: |
-  13/6/2020 1:00
-    - code ok pour le D17
+  13/6/2020
+    - 1:00 code ok pour le D17
+    - lancement du traitement sur tt FRA
+    - pb de perf sur le calcul -> prend plusieurs heures
+    - test d'optimisation en dallant l'extérieur
+      - -> introduit des bugs du fait que ces dalles ne sont pas dans la même topologie
+    - test d'une autre optimisation
+      - calculer séparément les limites entre communes et celles avec l'extérieur
+      - utiliser le code existant pour les limites entre communes
+    - une dizaine d'erreurs probablement dues aux incohérences des données en entrée
+    - passage à la V3 avec objectif de détecter et traiter les erreurs IGN en entrée
   12/6/2020:
-    - modif du schema pour permettre un même code INSEE de correspondre à la fois à une commune simple et à une commune déléguée
+    - modif du schema pour permettre à un même code INSEE de correspondre à la fois à une commune simple et à une commune déléguée
   11/6/2020:
     - test sur D19
   10/6/2020:
@@ -93,6 +102,7 @@ create table lim(
   simp3 geometry(LINESTRING, 4326)  -- la géométrie simplifiée de la limite avec une résolution de 1e-3 degrés (cad env. 100 m)
 );
 comment on table lim is 'Limite entre communes ou avec l''extérieur';
+create index lim_geom_gist on lim using gist(geom);
 
 /*PhpDoc: tables
 name: eadmvlim
@@ -113,52 +123,11 @@ comment on table eadmvlim is 'Participation d''une limite à la description du c
 --    Traitements de constitution
 -------------------------------------
 
--- fusion des communes par département
-create table comunionpardept as
-select substring(id, 1, 2) as dept, ST_Union(wkb_geometry) as geom
-from commune_carto
-group by substring(id, 1, 2);
-comment on table comunionpardept is 'Union géométrique des communes par département';
+/* stats
+34.968 commune_carto
+ 2.931 entite_rattachee_carto
+*/
 
--- fusion des départements en un tuple pour FXX
-create table comunionfxx as
-select ST_Union(geom) as geom
-from comunionpardept where dept<>'97';
-comment on table comunionfxx is 'Union géométrique des communes de métropole';
-
--- Un rectangle englobant par grande zone géographique
-drop table if exists univers;
-create table univers(
-  num serial,
-  iso3 char(3), -- code ISO 3166-1 alpha 3
-  box geometry(POLYGON, 4326)
-);
-comment on table univers is 'Un rectangle englobant par grande zone géographique';
-insert into univers(iso3, box) values
-('FXX', ST_MakeEnvelope(-6, 41, 10, 52, 4326)),
-('GLP', ST_MakeEnvelope(-62, 15.8, -61, 16.6, 4326)),
-('MTQ', ST_MakeEnvelope(-61.3, 14.3, -60.8, 15, 4326)),
-('GUF', ST_MakeEnvelope(-55, 2, -51, 6, 4326)),
-('REU', ST_MakeEnvelope(55, -22, 56, -20, 4326)),
-('MYT', ST_MakeEnvelope(44, -14, 46, -12, 4326));
-
--- Limite extérieure de chaque gde zone géo., cad la limite du territoire avec la mer ou l''étranger
--- je distingue FXX et DOM pour essayer d'optimiser le traitement
-drop table if exists exterior;
-create table exterior as
-  select num, iso3, ST_Difference(box, geom) as geom
-  from univers, comunionfxx
-  where iso3='FXX'
-union
-  select num, iso3, ST_Difference(box, geom) as geom
-  from univers, comunionpardept
-  where iso3<>'FXX' and dept='97';
-comment on table exterior is 'Limite extérieure de chaque gde zone géo., cad la limite du territoire avec la mer ou l''étranger.';
-
-
--------------------------------------
---         Test sur dept 17
--------------------------------------
 
 /* Algorithme (10/6/2020)
 1) Si une commune est hétérogène avec des entités rattachées et des parties non couvertes,
@@ -171,102 +140,89 @@ comment on table exterior is 'Limite extérieure de chaque gde zone géo., cad l
 5) calculer les limites des c. rattachantes et les ajouter à eadmvlim
 */
 
--- création d'un extérieur spécifique au D17 pour que la génération des limites traite les limites avec d'autres depts
-drop table if exists exterior;
-create table exterior as
-  select num, iso3, ST_Difference(box, geom) as geom
-  from univers, comunionpardept
-  where iso3='FXX' and dept='17';
-
--- communes du 17 (463)
-drop table if exists com17;
-create table com17 as
-select id, wkb_geometry geom
-from commune_carto
-where id like '17%';
-
--- entités rattachées du 17 (16)
-drop table if exists erat17;
-create table erat17 as
-select id, insee_ratt, type, wkb_geometry geom
-from entite_rattachee_carto
-where id like '17%';
-
--- exemples entités rattachées
--- 17240 a 2 COMA + une partie hors COMA
--- 17219 est décomposée en 2 COMD sans partie hors COMD
-
 -- 1) créer les entités complémentaires (ecomp)
 -- somme des entités rattachées groupées par rattachante
 drop table if exists srattache;
 create table srattache as
-  select insee_ratt as cinsee, ST_Union(geom) as geom
-  from erat17
+  select insee_ratt as cinsee, ST_Union(wkb_geometry) as geom
+  from entite_rattachee_carto
   group by insee_ratt;
 
--- calcul des entités complémentaires éventuelles
+-- calcul des entités complémentaires éventuelles (416)
 -- l'id est le code INSEE concaténé avec 'c'
 drop table if exists ecomp;
 create table ecomp as
-  select concat(c.id, 'c') id, c.id insee_ratt, ST_Difference(c.geom, sr.geom) geom
-  from com17 c, srattache sr
-  where c.id=sr.cinsee and ST_Dimension(ST_Difference(c.geom, sr.geom))=2;
+  select concat(c.id, 'c') id, c.id insee_ratt, ST_Difference(c.wkb_geometry, sr.geom) geom
+  from commune_carto c, srattache sr
+  where c.id=sr.cinsee and ST_Dimension(ST_Difference(c.wkb_geometry, sr.geom))=2;
 
 -- affichage
 select id, ST_Dimension(geom), ST_AsText(geom) from ecomp;
 
--- 2) fabrication d'un com17 modifié en substituant aux c. rattachantes leurs entités rattachées + complémentaires.
--- + l'extérieur
-drop table if exists com17m;
-create table com17m as
+-- 2) fabrication d'un com modifié en substituant aux c. rattachantes leurs entités rattachées + complémentaires.
+-- + l'extérieur (37239)
+drop table if exists comm;
+create table comm as
   -- les c. s. non rattachantes
-  select id, 'cSimple' as type, geom
-  from com17
-  where id not in (select insee_ratt from erat17)
+  select id, 'cSimple' as type, wkb_geometry as geom
+  from commune_carto
+  where id not in (select insee_ratt from entite_rattachee_carto)
 union
   -- les e. rattachées / type vaut COMA, COMD ou ARM
-  select id, type, geom from erat17
+  select id, type, wkb_geometry from entite_rattachee_carto
 union
   -- les complémentaires
-  select id, 'ec' as type, geom from ecomp
-union
-  select iso3, 'ext' as type, geom from exterior;
+  select id, 'ec' as type, geom from ecomp;
+--union
+  --select iso3, 'ext' as type, geom from exterior;
+create index comm_geom_gist on comm using gist(geom);
 
 -- 3) tables des limites entre communes + e. ratt. + e. comp. de D17 + extérieur
 -- ST_Dimension()=1 supprime les points et les GeometryCollection vides
 -- ST_Intersection() génère des lignes structurées comme ensemble de segments (MultiLineString)
 -- ST_LineMerge() reconstruit des LineString
-drop table if exists comcom17m;
-create table comcom17m as 
+-- sans l'extérieur, prend 4' sur Mac
+drop table if exists comcomm;
+select 'Début:', now();
+create table comcomm as 
 select c1.id id1, c1.type typ1, c2.id id2, c2.type typ2, ST_LineMerge(ST_Intersection(c1.geom, c2.geom)) geom
-from com17m c1, com17m c2
+from comm c1, comm c2
 where c1.geom && c2.geom and c1.id < c2.id and ST_Dimension(ST_Intersection(c1.geom, c2.geom))=1;
+select 'Fin:', now();
+create index comcomm_geom_gist on comcomm using gist(geom);
 
--- je remplis la table lim à partir de comcom17m en ajoutant un serial et en décomposant les MultiLineString en LineString
+-- ajout des limites exterieures extfxxseginsee, voir exterior.sql / 1407
+insert into comcomm(id1, typ1, id2, typ2, geom)
+  select id, type, iso3, 'ext', geom
+  from commextlim;
+
+-- je remplis la table lim à partir de comcom17m en ajoutant un serial et en décomposant les MultiLineString en LineString / 111130
 truncate table eadmvlim cascade;
 truncate table lim cascade;
 insert into lim(geom, source)
   select geom, 'AE2020COG'
-  from comcom17m
+  from comcomm
   where GeometryType(geom)='LINESTRING'
 union
   select ST_GeometryN(geom, n), 'AE2020COG'
-  from comcom17m, generate_series(1,100) n
+  from comcomm, generate_series(1,100) n
   where GeometryType(geom)<>'LINESTRING'
     and n <= ST_NumGeometries(geom);
 
 -- 4) je remplis la table eadmvlim en cherchant pour chaque code insee le numéro de limite
 -- attention, je perd les limites des complémentaires qui ne sont pas des eadmimv
--- il faut retrouver le bon n-uplet dans eadminv cad en tenant compte du statut
+-- il faut retrouver le bon n-uplet dans eadminv cad en tenant compte du statut / 217544 
+select 'Début:', now();
 insert into eadmvlim(cinsee, dcreation, statut, limnum)
   select cinsee, dcreation, statut, lim.num
-  from eadminv, comcom17m cc, lim
+  from eadminv, comcomm cc, lim
   where (  (id1=cinsee and ((cc.typ1='cSimple' and statut='cSimple') or (cc.typ1<>'cSimple' and statut<>'cSimple')))
         or (id2=cinsee and ((cc.typ2='cSimple' and statut='cSimple') or (cc.typ2<>'cSimple' and statut<>'cSimple'))))
-    and fin is null and ST_Dimension(ST_Intersection(lim.geom, cc.geom))=1;
+    and fin is null and lim.geom && cc.geom and ST_Dimension(ST_Intersection(lim.geom, cc.geom))=1;
+select 'Fin:', now();
 
--- 4bis) vérifier les polygones générés à parir des limites
--- constat que les polygones couvrent l'ens. du département à l'exception des ecomp
+-- 4bis) vérifier les polygones générés à parir des limites / 36965
+-- constater que les polygones couvrent l'ens. du territoire à l'exception des ecomp
 drop table if exists eadmvpol;
 create table eadmvpol as
 select cinsee, dcreation, statut, (ST_Dump(ST_Polygonize(geom))).geom as geom
@@ -274,6 +230,25 @@ from lim, eadmvlim
 where eadmvlim.limnum=lim.num
 group by cinsee, dcreation, statut;
 
+Erreurs:
+  - absence de la limite entre l'er 72318 et la cs 72056'
+    - -> probablement lié au bug IGN d'incohérence topologique limite entre 72069 et 72137'
+ - ecomp 72137 erroné
+ - 72318 c. déléguée de 72137 est absente
+ - 72056 c. simple voisine est aussi absente
+
+ - 27467 et 27385 absentes
+ - lié au bug IGN
+ 
+ - 08079 + 08140 + 08400 absents
+ - polygone ecomp 08173c erroné
+ 
+ - 49221
+
+ - 43245
+ 
+ - 66005
+ 
 -- 5) calculer les limites des c. rattachantes et les ajouter à eadmvlim
 -- construction de la table des erat et comp (19)
 drop table if exists erat17m;
@@ -287,16 +262,19 @@ union
 drop table if exists limrattachante;
 create table limrattachante as
 select insee_ratt, cc.geom
-from comcom17m cc, erat17m er
+from comcomm cc, entite_rattachee_carto er
 where er.id=cc.id1 or er.id=cc.id2
 group by insee_ratt, cc.geom
 having count(*)=1;
+
+-- select id, type, wkb_geometry from entite_rattachee_carto
 
 -- insertion dans la table eadmvlim des limites des c. rattachantes
 insert into eadmvlim(cinsee, dcreation, statut, limnum)
   select cinsee, dcreation, statut, lim.num
   from eadminv, limrattachante lr, lim
-  where cinsee=insee_ratt and fin is null and statut='cSimple' and ST_Dimension(ST_Intersection(lim.geom, lr.geom))=1;
+  where cinsee=insee_ratt and fin is null and statut='cSimple'
+    and lim.geom && lr.geom and ST_Dimension(ST_Intersection(lim.geom, lr.geom))=1;
 
 -- vérifier que l'on sait regénérer les communes à partir (480)
 -- Royan qui correspond à 2 polygones correspond à 2 n-uplets
