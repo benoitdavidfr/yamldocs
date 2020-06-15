@@ -12,7 +12,12 @@ doc: |
   Phase3:
     Test d'une génération de la base par des requêtes PostGis
     -> rpigeo2.sql
+  Phase4:
+    Mise en place de tests de pré-conditions et de corrections d'erreurs avant traitement -> errorcorr.sql
+    -> rpigeo3.sql
 journal: |
+  13-15/6/2020:
+    - généralisation sur FRA phase 4, des erreurs
   9-13/6/2020:
     - phase 3, code ok sur D17 comrenant des e. ratt.
   6-8/6/2020:
