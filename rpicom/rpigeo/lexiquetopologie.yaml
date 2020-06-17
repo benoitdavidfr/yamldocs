@@ -1,0 +1,17 @@
+title: lexique de topologie
+terms:
+  sliver:
+    definition: |
+      petit polygone formé par l'intersection de 2 polygones qui devraient être adjacents et qui ne le sont pas,
+      il appartient à aucun des 2 polygones
+    altLabel:
+      - gap
+    traduction: micro-polygones formant une discontinuité entre 2 polygones / écart
+  overlap:
+    definition: |
+      petit polygone formé par l'intersection de 2 polygones qui devraient être adjacents et qui ne le sont pas,
+      il appartient aux 2 polygones à la fois
+    traduction: superposition
+  snap:
+    définition: déplacement d'un point sur un objet existant
+    traduction: capture du point par l'objet

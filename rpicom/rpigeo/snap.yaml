@@ -1,0 +1,53 @@
+title: conception d'un script Php pour construire une topologie correcte des entités rattachées avec les communes simples
+constat: |
+  Je pars d'un ensemble de communes simples cohérentes topologiquement.
+  Je rajoute de nouveux objets, par exemples les entités rattachées, qui ne sont pas cohérentes topologiquement avec ces communes imples.
+  Comment les mtre en cohérence topologique ?
+
+  J'ai essayé de supprimer géométriquement les slivers et les overlaps.
+  Cela ne marche pas car :
+   1) cela crée des petites erreurs géométriques
+   2) cela crée de nvx points qui font que les nvlles limites ne sont pas cohérentes géométriquement avec les anciennes.
+v2: |
+  Je traite ce sujet c. de rattachement par c. de rattachement (crat).
+  L'objectif est de découper une crat en sous-parties de manière topologiquement cohérente
+  à partir de polygones d'entrée (les erat) dont la géométrie n'est pas topologiquement cohérente avec celle de la crat
+  Je veux obtenir à l'arrivée :
+    - une définition géométrique des erat topologiquement cohérente avec la crat et entre elles
+  ainsi que la liste des points à ajouter dans la crat
+  
+  Si un seg de l'erat est proche de la limite de la crat alors retour [nolim, noseg1, u1, noseg2, u2]
+
+distanceLsSeg:
+  Teste si un segment peut être capturé par une ligne brisée
+  Pour cela retourne le max pour les positions d'un segment de leur distance à une ligne
+  // cad max pos/seg (distance(ls, pos))
+  // cad max pos1/seg (min pos2/ls (dist(pos1, pos2)))
+
+distanceDeHausdorf:
+
+
+v1: |
+  L'idée est, après les traitements géométriques, d'effectuer un snap d'une nvlle limite (cible) sur les anciennes (réf).
+  Ce traitement détecte les segments cibles très proches des segments de réf. et les remplace par des segments de réf.
+
+  Je pars:
+   1) du graphe de référence (ici les communes simples) décomposé en lignes élémentaires par intersection 2 à 2 de ces c. simples
+   2) d'un polygone appelé cible noté polygCible (ici une entité rattachée)
+
+  J'effectue une intersection de polygCible avec sa commune de rattachement.
+
+  Je décompose polygCible en segments
+  si les 2 pts d'un seg sont proches d'une ligne (en dessous d'une tolérance, par ex 1e-5°) alors le segment est capturé par la ligne
+  si des segments consécutifs sont capturés alors c'est la sous-ligne (liste de segments) qui est capturée.
+
+  Si un pt p1 est proche et pas l'autre p2, il faut déterminer le pt d'accrochage
+  S'il existe un point d'une des lignes de référence proche (2 tolérances) du point p1 alors c'est le point d'accrochage
+  sinon un point est ajouté à la ligne de référence et devient le point d'accrochage
+
+  L'algo pourrait être le suivant
+    - calcul en PostGis des limites entre communes simples et avec l'extérieur -> lim(id1, id2, geom)
+    - pour chaque er
+      - j'effectue l'intersection de sa géométrie avec celle de sa c. de ratt. et je la récupère
+      - je récupère les limites de la c. de rattachement
+

@@ -13,9 +13,15 @@ doc: |
     Test d'une génération de la base par des requêtes PostGis
     -> rpigeo2.sql
   Phase4:
-    Mise en place de tests de pré-conditions et de corrections d'erreurs avant traitement -> errorcorr.sql
-    -> rpigeo3.sql
+    Mise en place de tests de pré-conditions et de corrections d'erreurs avant traitement
+    -> rpigeo3.sql + schema.sql + errorcor.sql + errorcorsup.sql + exterior3.sql
+    -> la méthode de correction définie dans errorcor.sql + errorcorsup.sql génère des erreurs et ne permet pas de mettre en cohérence
+      géométrique entite_rattachee_carto avec commune_carto
+  Phase5:
+    -> ajout du process Php snap.php pour mettre les entités rattachées en cohérence topologique avec commune_carto
 journal: |
+  16-18/6/2020:
+    - phase 5, écriture de snap.php
   13-15/6/2020:
     - généralisation sur FRA phase 4, des erreurs
   9-13/6/2020:
@@ -39,9 +45,17 @@ sqlFiles:
   - /yamldoc/pub/rpicom/rpigeo/simplify.sql
   - /yamldoc/pub/rpicom/rpigeo/rpigeo1.sql
   - /yamldoc/pub/rpicom/rpigeo/rpigeo2.sql
+  - /yamldoc/pub/rpicom/rpigeo/rpigeo3.sql
+  - /yamldoc/pub/rpicom/rpigeo/schema.sql
+  - /yamldoc/pub/rpicom/rpigeo/errcor.sql
+  - /yamldoc/pub/rpicom/rpigeo/errcorsup.sql
+  - /yamldoc/pub/rpicom/rpigeo/exterior.sql
 phpScripts:
   - /yamldoc/pub/rpicom/rpigeo/loadtopo.php
   - /yamldoc/pub/rpicom/rpigeo/load.php
+  - /yamldoc/pub/rpicom/rpigeo/snap.php
 phpIncludes:
+  - /yamldoc/pub/rpicom/rpigeo/pgsql.inc.php
 htmlFiles:
   - /yamldoc/pub/rpicom/rpigeo/rpigeo.yaml
+  - /yamldoc/pub/rpicom/rpigeo/snap.yaml

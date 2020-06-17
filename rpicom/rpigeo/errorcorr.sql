@@ -30,9 +30,6 @@ doc: |
     - comint - intersection entre 2 commune_carto
     - erint - intersectio entre 2 entite_rattachee_carto
     - srattache - union géométrique des entités rattachées groupées par rattachante
-  Termes de topologie:
-    - sliver
-    - overlap
 journal: |
   14/6/2020
     - première version
@@ -197,7 +194,7 @@ create table ecomp as
 comment on table ecomp is 'Entités complémentaires, cad complément éventuel des entités rattachées dans leur c. de rattachement';
 drop table srattache;
 
--- décomposition des ecomp MULTIPOLYGON
+-- décomposition des ecomp MULTIPOLYGON (npol > 0)
 insert into ecomp
 select id, crat, npol2, ST_GeometryN(geom, npol2) geom
 from ecomp, generate_series(1,1000) npol2
@@ -240,76 +237,74 @@ x52400c	52400	2 0.160525998209755
 14515c	14515	0 2.24770399475292 ok
 
 -- après analyse visuelle individuelle sous QGis, suppression de 8 ecomp qui sont des slivers et ajout de leur territoire à un erat
--- correction: 52064 = (52064 + 52064c) / 1-5
+-- correction: 52064 = (52064 + 52064c) / 1-5 - auusi dans errorcorsup
 update eratcorrigee
-  set geom=ST_Union((select geom from eratcorrigee where id='52064'), (select ST_Union(geom) from ecomp where id='52064c' group by id))
+  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='52064c' group by id))
   where id='52064';
 delete from ecomp where id='52064c';
 
 -- correction: 27467 = (27467 + 27467c)
 update eratcorrigee
-  set geom=ST_Union((select geom from eratcorrigee where id='27467'), (select ST_Union(geom) from ecomp where id='27467c' group by id))
+  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='27467c' group by id))
   where id='27467';
 delete from ecomp where id='27467c';
 
-  A LANCER
-
--- correction: 08079 = (08079 + 08173c)
+-- correction: 08079 = (08079 + 08173c) - auusi dans errorcorsup
 update eratcorrigee
-  set geom=ST_Union((select geom from eratcorrigee where id='08079'), (select ST_Union(geom) from ecomp where id='08173c' group by id))
+  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='08173c' group by id))
   where id='08079';
 delete from ecomp where id='08173c';
 
 -- correction: 49103 = (49103 + 49228c)
 update eratcorrigee
-  set geom=ST_Union((select geom from eratcorrigee where id='49103'), (select ST_Union(geom) from ecomp where id='49228c' group by id))
+  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='49228c' group by id))
   where id='49103';
 delete from ecomp where id='49228c';
 
 -- correction: 43255 = (43255 + 43090c/2)
 update eratcorrigee
-  set geom=(select ST_Union(r.geom, c.geom) from eratcorrigee r, ecomp c where r.id='43255' and c.id='43090c' and npol=2)
+  set geom=ST_Union(geom, (select geom from ecomp where id='43090c' and npol=2))
   where id='43255';
 delete from ecomp where id='43090c' and npol=2;
 
 -- correction: 28262 = (28262 + 28103c)
 update eratcorrigee
-  set geom=ST_Union((select geom from eratcorrigee where id='28262'), (select ST_Union(geom) from ecomp where id='28103c' group by id))
+  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='28103c' group by id))
   where id='28262';
 delete from ecomp where id='28103c';
 
 -- correction: 14201 = (14201 + 14431c)
 update eratcorrigee
-  set geom=ST_Union((select geom from eratcorrigee where id='14201'), (select ST_Union(geom) from ecomp where id='14431c' group by id))
+  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='14431c' group by id))
   where id='14201';
 delete from ecomp where id='14431c';
 
 -- correction: 52054 = (52054 + 52008c/2)
 update eratcorrigee
-  set geom=(select ST_Union(r.geom, c.geom) from eratcorrigee r, ecomp c where r.id='52054' and c.id='52008c' and npol=2)
+  set geom=ST_Union(geom, (select geom from ecomp where id='52008c' and npol=2)) 
   where id='52054';
 delete from ecomp where id='52008c' and npol=2;
 
 -- correction: 72137 = (72137 + 72137c)
 update eratcorrigee
-  set geom=ST_Union((select geom from eratcorrigee where id='72137'), (select ST_Union(geom) from ecomp where id='72137c' group by id))
+  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='72137c' group by id))
   where id='72137';
 delete from ecomp where id='72137c';
 
 -- correction: 49013 = (49013 + 49228c)
 update eratcorrigee
-  set geom=ST_Union((select geom from eratcorrigee where id='49013'), (select ST_Union(geom) from ecomp where id='49228c' group by id))
+  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='49228c' group by id))
   where id='49013';
 delete from ecomp where id='49228c';
   
 -- correction: 48105 = (48105 + 48105c)
 update eratcorrigee
-  set geom=ST_Union((select geom from eratcorrigee where id='48105'), (select ST_Union(geom) from ecomp where id='48105c' group by id))
+  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='48105c' group by id))
   where id='48105';
 delete from ecomp where id='48105c';
 
 -- correction: 52041 = (52041 + 52400c/2)
 update eratcorrigee
-  set geom=(select ST_Union(r.geom, c.geom) from eratcorrigee r, ecomp c where r.id='52041' and c.id='52400c' and npol=2)
+  set geom=ST_Union(geom, (select geom from ecomp where id='52400c' and npol=2))
   where id='52041';
 delete from ecomp where id='52400c' and npol=2;

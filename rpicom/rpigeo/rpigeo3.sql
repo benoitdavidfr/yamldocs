@@ -94,7 +94,7 @@ create index eltint_geom_gist on eltint using gist(geom);
 -- 2b) liste des intersections non linéaires, fait partie des tests de pré-condition
 select id1, typ1, id2, typ2, ST_Dimension(geom), ST_AsText(geom) from eltint where ST_Dimension(geom)<>1;
 
--- 243
+-- 65
 drop table if exists eltinterror;
 create table eltinterror as
 select id1, typ1, id2, typ2, numgeom, ST_GeometryN(geom, numgeom) geom
@@ -104,8 +104,12 @@ where ST_Dimension(geom)<>1 and numgeom <= ST_NumGeometries(geom);
 select id1, typ1, id2, typ2, numgeom, ST_AsText(geom) from eltinterror where ST_Dimension(geom)=2;
 select id1, typ1, id2, typ2, numgeom, ST_AsGeoJSON(geom) from eltinterror where ST_Dimension(geom)=2;
 
--- vide
+id1	typ1	id2	typ2	numgeom	st_asgeojson
+52054	COMA	52107	cSimple	39 {"type":"Polygon","coordinates":[[[5.2552772,48.2212245],[5.25537918286433,48.2212689998115],[5.25537918286433,48.2212689998115],[5.2553801,48.2212694],[5.2552772,48.2212245]]]}
+49103	COMD	49221	cSimple	7	{"type":"Polygon","coordinates":[[[-0.0045967,47.4762074],[-0.00470985092746,47.4762595641752],[-0.00470985092744,47.4762595641752],[-0.0045967,47.4762074]]]}
+08079	COMD	08400	cSimple	19	{"type":"Polygon","coordinates":[[[4.7814027,49.6812228],[4.78139991945672,49.6812222098949],[4.7804245,49.6810152],[4.7814027,49.6812228]]]}
 
+3 ligne(s)
 ------------------------------------------------------
 -- 3) générer les limites extérieures -> exterior3.sql
 ------------------------------------------------------
@@ -113,8 +117,8 @@ select id1, typ1, id2, typ2, numgeom, ST_AsGeoJSON(geom) from eltinterror where 
 Analyse visuelle pour vérifier que eltint + eltextlim contiennent les limites de commune_carteo et eratcorrigee
 
 Erreurs:
- - 49013 COMD de 49228
- - 52054 COMD de 52008
+ - 49013 COMD de 49228 (eratcorrigée perdue par rapport à entite_rattachée)
+ - 52054 COMD de 52008 (aussi dans eltinterror)
  - 65116 COMS
 
 
