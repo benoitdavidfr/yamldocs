@@ -55,7 +55,6 @@ phpScripts:
   - /yamldoc/pub/rpicom/rpigeo/load.php
   - /yamldoc/pub/rpicom/rpigeo/snap.php
 phpIncludes:
-  - /yamldoc/pub/rpicom/rpigeo/pgsql.inc.php
 htmlFiles:
   - /yamldoc/pub/rpicom/rpigeo/rpigeo.yaml
   - /yamldoc/pub/rpicom/rpigeo/snap.yaml

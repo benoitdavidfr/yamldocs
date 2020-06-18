@@ -7,24 +7,23 @@ doc: |
   La correction de la géométrie par les requêtes PostGis définies dans errorcorr.sql génère de la géomtrie incohérente topologiquement
   L'idée est snapper la géométrie des entités rattachées corrigées sur celle de commune_carto pour mettre les premières en cohérence
   avec les secondes.
+  08173 correspond à 4 communes déléguées dont 08079
 journal:
   18/6/2020:
    - première version
 includes:
   - pgsql.inc.php
 */
-
-// 08173 correspond à 4 communes déléguées dont 08079
-
 ini_set('memory_limit', '2G');
 
 require_once __DIR__.'/../../../vendor/autoload.php';
-require_once __DIR__.'/pgsql.inc.php';
+require_once __DIR__.'/../../../../phplib/pgsql.inc.php';
 
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
 
-if (!isset($_GET['action'])) {
+// En CLI on effectue le snap, en non CLI on peut faire des tests unitaires
+if ((php_sapi_name() <> 'cli') && !isset($_GET['action'])) {
   foreach ([
       'Pos'=> ['projOnSeg','distanceLine'],
       'LineString'=> ['distancePos','distanceSeg'],
@@ -59,8 +58,9 @@ class Geometry {
     $this->coordinates = $geom['coordinates'];
   }
 
+  function type(): string { return $this->type; }
+  function coordinates(): array { return $this->coordinates; }
   function asArray() { return ['type'=> $this->type, 'coordinates'=> $this->coordinates]; }
-  
   function __toString(): string { return json_encode($this->asArray()); }
   
   function ST_HausdorffDistance(Geometry $g2): float {
@@ -86,6 +86,8 @@ class Geometry {
 /*PhpDoc: classes
 name: MultiPolygon
 title: class MultiPolygon extends Geometry 
+doc: |
+  coordinates contient une LLLPos
 methods:
 */
 class MultiPolygon extends Geometry {};
@@ -93,20 +95,27 @@ class MultiPolygon extends Geometry {};
 /*PhpDoc: classes
 name: Polygon
 title: class Polygon extends Geometry
+doc: |
+  coordinates contient une LLPos
 methods:
 */
 class Polygon extends Geometry {
   function rings(): array {
     $array = [];
     foreach ($this->coordinates as $ring)
-    $array[] = new LineString(['type'=>'LineString', 'coordinates'=>$ring]);
+      $array[] = new LineString(['type'=>'LineString', 'coordinates'=>$ring]);
     return $array;
   }
+  
+  // ajoute un LPos comme anneau
+  function addRing(array $ring) { $this->coordinates[] = $ring; }
 };
 
 /*PhpDoc: classes
 name: LineString
 title: class LineString extends Geometry
+doc: |
+  coordinates contient une LPos
 methods:
 */
 class LineString extends Geometry {
@@ -215,6 +224,8 @@ class LineString extends Geometry {
 /*PhpDoc: classes
 name: Point
 title: class Point extends Geometry
+doc: |
+  coordinates contient une Pos
 methods:
 */
 class Point extends Geometry {};
@@ -395,9 +406,8 @@ class Segment {
   }
 };
 
-if ($_GET['action'] == 'test') {
-  if (php_sapi_name() <> 'cli')
-    echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>test $_GET[class]::$_GET[method]</title></head><body><pre>\n";
+if ((php_sapi_name() <> 'cli') && ($_GET['action'] == 'test')) {
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>test $_GET[class]::$_GET[method]</title></head><body><pre>\n";
   $_GET['class']::{'test_'.$_GET['method']}();
   die();
 }
@@ -453,35 +463,13 @@ title: class Lim extends Blade
 methods:
 */
 class Lim extends Blade {
-  protected $right; // Face - face à droite
-  protected $left; // Face
-  protected $fiNum; // Int - le brin suivant du brin dans l'anneau défini par son numéro
-  protected $fiOfInv; // Int - le brin suivant du brin inverse dans l'anneau, défini par son numéro
   protected $geom; // LineString
 
-  function __construct(LineString $geom) {
-    $this->right = null;
-    $this->left = null;
-    $this->fiNum = 0;
-    $this->fiOfInv = 0;
-    $this->geom = $geom;
-  }
+  function __construct(LineString $geom) { $this->geom = $geom; }
   
   function geom(): LineString { return $this->geom; }
-  function setRight(Face $face): void { $this->right = $face; }
-  function setLeft(Face $face): void { $this->left = $face; }
-  function setFiNum(int $num): void { $this->fiNum = $num; }
-  function setFiOfInv(int $num): void { $this->fiOfInv = $num; }
   
-  function asArray(): array {
-    return [
-      'right'=> $this->right ? $this->right->asArray() : null,
-      'left'=> $this->left ? $this->left->asArray() : null,
-      'fiNum'=> $this->fiNum,
-      'fiOfInv'=> $this->fiOfInv,
-      'geom'=> $this->geom->asArray(),
-    ];
-  }
+  function asArray(): array { return ['geom'=> $this->geom->asArray()]; }
 };
 
 /*PhpDoc: classes
@@ -492,61 +480,66 @@ methods:
 class Inv extends Blade {};
 
 /*PhpDoc: classes
-name: TopoMap - carte topologique
-title: class TopoMap
+name: Ref - ens. de limites
+title: class Ref
+doc: |
+  Stocke l'ensemble des limites du référentiel, cad de la commune rattachante
 methods:
 */
-class TopoMap {
+class Ref {
   protected $lims=[]; // tableau des limites indexés à partir de 1
-  protected $faces; // tableau des faces indexées à partir de 0, la face 0 étant la face universelle
   
   // initialisation à partir d'un polygone ou d'un MultiPolygone
   function __construct(array $geom) {
-    $this->faces = [0 => new Face('Univers')]; // La face universelle
     if ($geom['type']=='Polygon') {
-      $this->createFaceFromPolygon("Polygon", $geom['coordinates']);
+      foreach ($geom['coordinates'] as $no => $ringCoords) {
+        $limnum = $this->newLim(new LineString(['type'=> 'LineString', 'coordinates'=> $ringCoords]));
+      }
     }
     elseif ($geom['type']=='MultiPolygon') {
-      foreach($geom['coordinates'] as $nopol => $polCoords)
-        $this->createFaceFromPolygon("Polygon$nopol", $polCoords);
-    }
-  }
-  
-  // création d'une face initiale
-  function createFaceFromPolygon(string $label, array $polCoords) {
-    foreach ($polCoords as $no => $ringCoords) {
-      $limnum = $this->newLim(new LineString(['type'=> 'LineString', 'coordinates'=> $ringCoords]));
-      $this->lims[$limnum]->setFiNum($limnum);
-      $this->lims[$limnum]->setFiOfInv(-$limnum);
-      $face = new Face("$label/Ring$no", $limnum);
-      $this->lims[$limnum]->setRight($face);
-      $this->faces[] = $face;
-      if ($no == 0) {
-        $face0 = $face;
-        $this->faces[0]->addRing(-$limnum);
-        $this->lims[$limnum]->setLeft($this->faces[0]);
-      }
-      else {
-        $face0->addRing(-$limnum);
-        $this->lims[$limnum]->setLeft($face0);
+      foreach($geom['coordinates'] as $nopol => $polCoords) {
+        foreach ($polCoords as $no => $ringCoords) {
+          $limnum = $this->newLim(new LineString(['type'=> 'LineString', 'coordinates'=> $ringCoords]));
+        }
       }
     }
   }
-  
+    
+  // Création d'une limite
   function newLim(LineString $coords): int {
     $limnum = count($this->lims)+1;
     $this->lims[$limnum] = new Lim($coords);
     return $limnum;
   }
   
-  // ajout d'un polygone dans une des faces
-  function insertPolygon(string $label, Polygon $geom) {
-    foreach ($geom->rings() as $nr => $ring)
-      $this->insertRing("$label/ring$nr", $ring);
+  function snapGeometry(string $label, Geometry $geom): Geometry {
+    /*PhpDoc: methods
+    name: snapGeometry
+    title: "function snapGeometry(string $label, Geometry $geom): Geometry - snap l'objet Geometry sur le référentiel"
+    doc: |
+      Retourne une géométrie du même type
+    */
+    if ($geom->type() == 'Polygon') {
+      $snapedGeom = Geometry::create(['type'=> 'Polygon', 'coordinates'=>[]]);
+      foreach ($geom->rings() as $nr => $ring)
+        $snapedGeom->addRing($this->snapLineString("$label/ring$nr", $ring));
+    }
+    else {
+      throw new Exception("TO BE DONE ligne ".__LINE__);
+    }
+    return $snapedGeom;
   }
   
-  xxxxx CA SERT A QUOI !!!!
-  function insertRing(string $label, LineString $ring) {
+  function snapLineString(string $label, LineString $ring): array {
+    /*PhpDoc: methods
+    name: snapLineString
+    title: "function snapLineString(string $label, LineString $ring): array - snap une ligne brisée"
+    doc: |
+      Pour chaque segment effectue un snap sur le référentiel et renvoie une nouvelle géométrie qui contient
+        - si le segment peut être snapé alors la géométrie snappée
+        - sinon la géométrie d'origine et dans ce cas le noveau segment est ajouté au référentiel
+    */
+    EN COURS !!
     $lsegs = $ring->lsegs();
     foreach ($lsegs as $noseg => $seg) {
       $matches[$noseg] = $this->matchSeg($label, $noseg, $seg);
@@ -579,22 +572,19 @@ class TopoMap {
     foreach ($this->lims as $no => $lim) {
       $array['lims'][$no] = $lim->asArray();
     }
-    foreach ($this->faces as $no => $face) {
-      $array['faces'][$no] = $face->asArray();
-    }
     return $array;
   }
 };
 
 
-if ($_GET['action'] == 'snap') {
+if ((php_sapi_name() == 'cli') || ($_GET['action'] == 'snap')) {
   if (php_sapi_name() <> 'cli')
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>snap</title></head><body><pre>\n";
   PgSql::open('host=172.17.0.4 dbname=gis user=docker password=docker');
   $sql = "select ST_AsGeoJSON(wkb_geometry) geom from commune_carto where id='08173'";
   foreach (PgSql::query($sql) as $tuple) {
-    $topoMap = new TopoMap(json_decode($tuple['geom'], true));
-    echo yaml::dump(['TopoMap'=> $topoMap->asArray()], 4);
+    $ref = new Ref(json_decode($tuple['geom'], true));
+    echo yaml::dump(['08173'=> $ref->asArray()], 4);
   }
   $sql = "select e.id, ST_AsGeoJSON(ST_Intersection(e.wkb_geometry, c.wkb_geometry)) geom "
         ."from entite_rattachee_carto e, commune_carto c "
@@ -602,7 +592,8 @@ if ($_GET['action'] == 'snap') {
   foreach (PgSql::query($sql) as $tuple) {
     $geom = Geometry::create(json_decode($tuple['geom'], true));
     echo yaml::dump([$tuple['id'] => $geom->asArray()], 3);
-    $topoMap->insertPolygon($tuple['id'], $geom);
+    $snapedGeom = $ref->snapGeometry($tuple['id'], $geom);
+    echo yaml::dump([$tuple['id'] => $snapedGeom->asArray()], 3);
   }
-  die();
+  die("Fin ok\n");
 }
