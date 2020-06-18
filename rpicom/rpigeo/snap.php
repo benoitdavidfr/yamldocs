@@ -1,4 +1,19 @@
 <?php
+/*PhpDoc:
+name: snap.php
+title: snap.php - redéfinition de la géométrie des entités rattachées  pour la mettre en cohérence topologique avec les communes
+classes:
+doc: |
+  La correction de la géométrie par les requêtes PostGis définies dans errorcorr.sql génère de la géomtrie incohérente topologiquement
+  L'idée est snapper la géométrie des entités rattachées corrigées sur celle de commune_carto pour mettre les premières en cohérence
+  avec les secondes.
+journal:
+  18/6/2020:
+   - première version
+includes:
+  - pgsql.inc.php
+*/
+
 // 08173 correspond à 4 communes déléguées dont 08079
 
 ini_set('memory_limit', '2G');
@@ -23,6 +38,11 @@ if (!isset($_GET['action'])) {
   die();
 }
 
+/*PhpDoc: classes
+name: Geometry
+title: class Geometry
+methods:
+*/
 class Geometry {
   protected $type;
   protected $coordinates; // LPos | LLPos | LLLPos
@@ -63,8 +83,18 @@ class Geometry {
   }
 };
 
+/*PhpDoc: classes
+name: MultiPolygon
+title: class MultiPolygon extends Geometry 
+methods:
+*/
 class MultiPolygon extends Geometry {};
 
+/*PhpDoc: classes
+name: Polygon
+title: class Polygon extends Geometry
+methods:
+*/
 class Polygon extends Geometry {
   function rings(): array {
     $array = [];
@@ -74,6 +104,11 @@ class Polygon extends Geometry {
   }
 };
 
+/*PhpDoc: classes
+name: LineString
+title: class LineString extends Geometry
+methods:
+*/
 class LineString extends Geometry {
   // le paramètre est soit une géométrie, soit une liste de Pos
   function __construct(array $array) {
@@ -177,9 +212,18 @@ class LineString extends Geometry {
   }
 };
 
+/*PhpDoc: classes
+name: Point
+title: class Point extends Geometry
+methods:
+*/
 class Point extends Geometry {};
 
-// porte les méthodes statiques s'appliquant aux Pos
+/*PhpDoc: classes
+name: Geometry
+title: class Pos - porte les méthodes statiques s'appliquant aux Pos
+methods:
+*/
 class Pos {
   // Test si le paramètre est bien une position
   static function is($pos): bool { return is_array($pos) && is_numeric($pos[0]) && is_numeric($pos[1]); }
@@ -259,7 +303,11 @@ class Pos {
 };
 
 
-// porte les méthodes statiques s'appliquant aux Vect, cad Pos-Pos
+/*PhpDoc: classes
+name: Vect
+title: class Vect - porte les méthodes statiques s'appliquant aux Vect, cad Pos-Pos
+methods:
+*/
 class Vect {
   static function length(array $v): float { return sqrt($v[0]*$v[0] + $v[1]*$v[1]); }
   
@@ -297,7 +345,11 @@ class Vect {
 };
 
 
-// porte les méthodes statiques s'appliquant aux Segments définis comme un array de 2 positions
+/*PhpDoc: classes
+name: Segment
+title: class Segment - porte les méthodes statiques s'appliquant aux Segments définis comme un array de 2 positions
+methods:
+*/
 class Segment {
   /*PhpDoc: methods
   name:  inters
@@ -350,6 +402,11 @@ if ($_GET['action'] == 'test') {
   die();
 }
 
+/*PhpDoc: classes
+name: Ring
+title: class Ring
+methods:
+*/
 class Ring {
   protected $bladeNum; // int - le num. d'un brin représentant le cycle, les autres num sont déduits par Blade::fi()
 
@@ -358,6 +415,11 @@ class Ring {
   function asArray(): int { return $this->bladeNum; }
 };
 
+/*PhpDoc: classes
+name: Face
+title: class Face
+methods:
+*/
 class Face {
   protected $label; // string - étiquette
   protected $rings=[]; // [ Ring ] - la face définie comme ensemble d'anneaux
@@ -378,8 +440,18 @@ class Face {
   }
 };
 
+/*PhpDoc: classes
+name: Blade
+title: class Blade
+methods:
+*/
 class Blade {};
 
+/*PhpDoc: classes
+name: Lim
+title: class Lim extends Blade
+methods:
+*/
 class Lim extends Blade {
   protected $right; // Face - face à droite
   protected $left; // Face
@@ -412,9 +484,18 @@ class Lim extends Blade {
   }
 };
 
+/*PhpDoc: classes
+name: Inv
+title: class Inv extends Blade
+methods:
+*/
 class Inv extends Blade {};
 
-// carte topologique
+/*PhpDoc: classes
+name: TopoMap - carte topologique
+title: class TopoMap
+methods:
+*/
 class TopoMap {
   protected $lims=[]; // tableau des limites indexés à partir de 1
   protected $faces; // tableau des faces indexées à partir de 0, la face 0 étant la face universelle

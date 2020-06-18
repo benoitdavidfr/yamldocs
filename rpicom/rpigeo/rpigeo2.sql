@@ -33,6 +33,7 @@ journal: |
       - génération de la version généralisée
   9/6/2020:
     - première version
+tables:
 */
 
 /*PhpDoc: tables

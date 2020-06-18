@@ -5,6 +5,7 @@ doc: |
 journal: |
   13/6/2020
     - création par extraction de rpigeo2.sql
+tables:
 */
 
 /*PhpDoc: tables

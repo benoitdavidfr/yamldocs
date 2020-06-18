@@ -47,8 +47,8 @@ sqlFiles:
   - /yamldoc/pub/rpicom/rpigeo/rpigeo2.sql
   - /yamldoc/pub/rpicom/rpigeo/rpigeo3.sql
   - /yamldoc/pub/rpicom/rpigeo/schema.sql
-  - /yamldoc/pub/rpicom/rpigeo/errcor.sql
-  - /yamldoc/pub/rpicom/rpigeo/errcorsup.sql
+  - /yamldoc/pub/rpicom/rpigeo/errorcorr.sql
+  - /yamldoc/pub/rpicom/rpigeo/errorcorsup.sql
   - /yamldoc/pub/rpicom/rpigeo/exterior.sql
 phpScripts:
   - /yamldoc/pub/rpicom/rpigeo/loadtopo.php

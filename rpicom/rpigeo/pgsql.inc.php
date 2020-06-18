@@ -1,7 +1,23 @@
 <?php
+/*PhpDoc:
+name: pgsql.inc.php
+title: pgsql.inc.php - définition de la classe PgSql facilitant l'utilisation de PostgreSql
+classes:
+doc: |
+journal: |
+*/
 
-// classe implémentant en statique les méthodes de connexion et de requete
-// et générant un objet correspondant à un itérateur permettant d'accéder au résultat
+/*PhpDoc: classes
+name: PgSql
+title: class PgSql implements Iterator - classe facilitant l'utilisation de PostgreSql
+doc: |
+  Classe implémentant en statique les méthodes de connexion et de requete
+  et générant un objet correspondant à un itérateur permettant d'accéder au résultat
+
+  La méthode statique open() ouvre une connexion PgSql
+  La méthode statique query() lance une requête et retourne un objet itérable
+methods:
+*/
 class PgSql implements Iterator {
   static $server; // le nom du serveur
   protected $sql = null; // la requête conservée pour pouvoir faire plusieurs rewind
@@ -11,6 +27,12 @@ class PgSql implements Iterator {
   protected $ctuple = false; // le tuple courant ou false
   
   static function open(string $connection_string) {
+    /*PhpDoc: methods
+    name: open
+    title: static function open(string $connection_string) - ouvre une connexion PgSql
+    doc: |
+      Le pattern du paramètre est !^host=([^ ]+)( port=([^ ]+))? dbname=([^ ]+) user=([^ ]+)( password=([^ ]+))?$!
+    */
     $pattern = '!^host=([^ ]+)( port=([^ ]+))? dbname=([^ ]+) user=([^ ]+)( password=([^ ]+))?$!';
     if (!preg_match($pattern, $connection_string, $matches))
       throw new Exception("Erreur: dans PgSql::open() params \"".$connection_string."\" incorrect");
@@ -44,6 +66,14 @@ class PgSql implements Iterator {
   static function close(): void { pg_close(); }
   
   static function query(string $sql) {
+    /*PhpDoc: methods
+    name: query
+    title: static function query(string $sql) - lance un requête et retourne éventuellement un itérateur
+    doc: |
+      Si la requête renvoit comme résultat un ensemble de n-uplets alors retourne un itérateur donnant accès à chacun d'eux.
+      Sinon renvoit TRUE ssi la requête est Ok
+      Sinon en cas d'erreur PgSql génère une exception
+    */
     if (!($result = @pg_query($sql)))
       throw new Exception('Query failed: '.pg_last_error());
     if ($result === TRUE)
