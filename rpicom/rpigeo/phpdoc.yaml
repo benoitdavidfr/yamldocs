@@ -20,7 +20,12 @@ doc: |
       géométrique entite_rattachee_carto avec commune_carto
   Phase5:
     -> ajout du process Php snap.php pour mettre les entités rattachées en cohérence topologique avec commune_carto
+    abandon car trop complexe
+  Phase6:
+    Amélioration de la phase 4 en mettant au point une correction dans QGis
 journal: |
+  19-20/6/2020:
+    - phase 5, écriture de snap.php
   16-18/6/2020:
     - phase 5, écriture de snap.php
   13-15/6/2020:
