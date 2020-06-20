@@ -12,6 +12,7 @@ doc: |
   Phase3:
     Test d'une génération de la base par des requêtes PostGis
     -> rpigeo2.sql
+    -> Ok sur D19 mais des erreurs difficiles à gérer une fois le chargement effectué
   Phase4:
     Mise en place de tests de pré-conditions et de corrections d'erreurs avant traitement
     -> rpigeo3.sql + schema.sql + errorcor.sql + errorcorsup.sql + exterior3.sql

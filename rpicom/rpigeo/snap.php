@@ -5,12 +5,19 @@ title: snap.php - redéfinition de la géométrie des entités rattachées  pour
 classes:
 doc: |
   La correction de la géométrie par les requêtes PostGis définies dans errorcorr.sql génère de la géomtrie incohérente topologiquement
-  L'idée est snapper la géométrie des entités rattachées corrigées sur celle de commune_carto pour mettre les premières en cohérence
-  avec les secondes.
-  08173 correspond à 4 communes déléguées dont 08079
+  L'idée ici est de snapper la géométrie des entités rattachées corrigées sur celle de commune_carto pour mettre les premières en
+  cohérence avec les secondes.
+  Test sur 08173 qui correspond à 4 communes déléguées dont 08079
 journal:
+  19/6/2020:
+    - il faut
+      1) partir des entités ratt. corrigées et non celles d'origine dans lesquelles les slivers sont trop importantes
+        cad de la table eratcorrigee produite dans errcorr.sql sans appliquer errorcorsup.sql
+      2) utiliser la contrainte de continuité de la géométrie dans la sélection des segments
+      PB:
+        errcorr.sql n'est pas correct ! 
   18/6/2020:
-   - première version
+    - première version en cours
 includes:
   - pgsql.inc.php
 */
@@ -540,6 +547,8 @@ class Ref {
         - sinon la géométrie d'origine et dans ce cas le noveau segment est ajouté au référentiel
     */
     EN COURS !!
+    Je pourrais renforcer les contraintes sur le matchSeg() en imposant que le segment matché prenne la suite géométrique du précédent
+      
     $lsegs = $ring->lsegs();
     foreach ($lsegs as $noseg => $seg) {
       $matches[$noseg] = $this->matchSeg($label, $noseg, $seg);

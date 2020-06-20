@@ -20,17 +20,20 @@ doc: |
     - commune_carto (AE2020COG)
     - entite_rattachee_carto (AE2020COG)
   Tables en sortie:
-    - eratcorrigee - Entités rattachées corrigées
+    - eratcorrb - Entités rattachées corrigées
     - ecomp - Entités complémentaires, cad complément éventuel des entités rattachées dans les c. rattachantes
     - univers - Un rectangle englobant par zone géographique (FXX et chaque DOM)
     - comunionfxxdom - Union géométrique des communes, 1 pour FXX et 1 pour les DOM
     - exterior - Extérieur pour chaque zone géo., cad Polygone/MultiPolygone correspondant à la mer et l'étranger
     - extfxx - Extérieur de FXX décomposé en 2 polygones, 1 pour l'extérieur et l'autre pour l'enclave espagnole de Llivia
   Tables temporaires:
+    - eratcorrigee - Entités rattachées corrigées
     - comint - intersection entre 2 commune_carto
     - erint - intersectio entre 2 entite_rattachee_carto
     - srattache - union géométrique des entités rattachées groupées par rattachante
 journal: |
+  20/6/2020:
+    - génération de eratcorrb pour laquelle il n'y a plus d'ecomp correspondant à des slivers
   14/6/2020
     - première version
 */
@@ -176,6 +179,14 @@ where er.insee_ratt=c.id;
 comment on table eratcorrigee is 'Entités rattachées corrigées';
 create index eratcorrigee_geom_gist on eratcorrigee using gist(geom);
 
+eratcorrigee
+  ogc_fid
+  id - code Insee
+  nom - nom
+  crat - code Insee com de ratt.
+  type - COMD/COMA/ARM
+  geom
+  
 -- 3) je crée les entités complémentaires (ecomp)
 -- 3a) somme des entités rattachées groupées par rattachante
 drop table if exists srattache;
@@ -209,102 +220,62 @@ select id, crat, npol, ST_Area(geom)*40000*40000/360/360 as areaKm2
 from ecomp
 order by ST_Area(geom)*40000*40000/360/360; 
 
-id	crat	npol	areakm2
-x52064c	52064	2 6.33212822347475e-17
-x27467c	27467	2 1.79046817824318e-15
-x08173c	08173	2 7.7013832419803e-15
-x08173c	08173	4 1.94885801546187e-05
-x49228c	49228	1 3.37163552848493e-05
-x43090c	43090	2 5.43464591717906e-05
-x08173c	08173	1 9.11016908560262e-05
-x52064c	52064	1 0.000132289599242727
-x52064c	52064	5 0.000262799429442942
-x52064c	52064	4 0.000272037110280213
-x52064c	52064	3 0.000326436883426846
-x28103c	28103	2 0.000809999814823188
-x08173c	08173	3 0.00125505290728051
-x28103c	28103	3 0.00143883246912925
-x27467c	27467	1 0.0020087713971907
-x28103c	28103	1 0.00219803037034413
-x14431c	14431	0 0.00509415567895506
-x52008c	52008	2 0.00705760477756044
-x72137c	72137	0 0.00810781790124743
-x49228c	49228	2 0.0143040400001143
-x48105c	48105	0 0.115628045061655
-x52400c	52400	2 0.160525998209755
-08362c	08362	1 0.170180754444408 ok
-45253c	45253	2 2.23703171851859 ok
-14515c	14515	0 2.24770399475292 ok
+-- transfert des slivers dans eratcorrigée (22)
+insert into eratcorrigee
+  select 0, id, '', crat, 'ECOMP', geom from ecomp where ST_Area(geom)*40000*40000/360/360 < 0.165;
 
--- après analyse visuelle individuelle sous QGis, suppression de 8 ecomp qui sont des slivers et ajout de leur territoire à un erat
--- correction: 52064 = (52064 + 52064c) / 1-5 - auusi dans errorcorsup
-update eratcorrigee
-  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='52064c' group by id))
-  where id='52064';
-delete from ecomp where id='52064c';
+/* Traitement interactif avec QGis pour supprimer les slivers
+  Les 22 slivers définis ci-dessus sont copiés dans eratcorrigée
+  Ces slivers sont ensuite supprimés avec la commande QGis Vecteur/Outils de géotraitement/Eliminer les polygones sélectionnés
+  Dans certains cas, il est utile de supprimer les noeuds parasites ajoutés par les traitements.
+  La couche est enregistrée en shp puis chargée dans PostGis dans la table eratcorrb
+*/
 
--- correction: 27467 = (27467 + 27467c)
-update eratcorrigee
-  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='27467c' group by id))
-  where id='27467';
-delete from ecomp where id='27467c';
+select id, crat, nom, ST_AsText(geom) from eratcorrigee where id like '%c';
 
--- correction: 08079 = (08079 + 08173c) - auusi dans errorcorsup
-update eratcorrigee
-  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='08173c' group by id))
-  where id='08079';
-delete from ecomp where id='08173c';
+-- petit polygone ne fusionnant pas
+delete from eratcorrb where id='27467c';
+delete from eratcorrb where id='52064c';
+delete from eratcorrb where id='49228c';
 
--- correction: 49103 = (49103 + 49228c)
-update eratcorrigee
-  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='49228c' group by id))
-  where id='49103';
-delete from ecomp where id='49228c';
+--
+-- ITERATION
+-- ITERER JUSQU'A ELIMINATION DES ECOMP plus petit que 0.165
+-- soit en fusionnant les polygones soit en éditant les points
+--
 
--- correction: 43255 = (43255 + 43090c/2)
-update eratcorrigee
-  set geom=ST_Union(geom, (select geom from ecomp where id='43090c' and npol=2))
-  where id='43255';
-delete from ecomp where id='43090c' and npol=2;
+-- je crée les entités complémentaires (ecomp)
+-- somme des entités rattachées groupées par rattachante
+drop table if exists srattache;
+create table srattache as
+  select crat as id, ST_Union(geom) as geom
+  from eratcorrb
+  group by crat;
 
--- correction: 28262 = (28262 + 28103c)
-update eratcorrigee
-  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='28103c' group by id))
-  where id='28262';
-delete from ecomp where id='28103c';
+-- calcul des entités complémentaires éventuelles (416)
+-- l'id est le code INSEE concaténé avec 'c'
+drop table if exists ecomp;
+create table ecomp as
+  select concat(c.id, 'c') id, c.id crat, 0 npol, ST_Difference(c.wkb_geometry, sr.geom) geom
+  from commune_carto c, srattache sr
+  where c.id=sr.id and not ST_IsEmpty(ST_Difference(c.wkb_geometry, sr.geom));
+comment on table ecomp is 'Entités complémentaires, cad complément éventuel des entités rattachées dans leur c. de rattachement';
+drop table srattache;
 
--- correction: 14201 = (14201 + 14431c)
-update eratcorrigee
-  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='14431c' group by id))
-  where id='14201';
-delete from ecomp where id='14431c';
+insert into ecomp
+select id, crat, npol2, ST_GeometryN(geom, npol2) geom
+from ecomp, generate_series(1,1000) npol2
+where GeometryType(geom)='MULTIPOLYGON' and npol2 <= ST_NumGeometries(geom);
 
--- correction: 52054 = (52054 + 52008c/2)
-update eratcorrigee
-  set geom=ST_Union(geom, (select geom from ecomp where id='52008c' and npol=2)) 
-  where id='52054';
-delete from ecomp where id='52008c' and npol=2;
+delete from ecomp where GeometryType(geom)='MULTIPOLYGON' and npol=0;
 
--- correction: 72137 = (72137 + 72137c)
-update eratcorrigee
-  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='72137c' group by id))
-  where id='72137';
-delete from ecomp where id='72137c';
-
--- correction: 49013 = (49013 + 49228c)
-update eratcorrigee
-  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='49228c' group by id))
-  where id='49013';
-delete from ecomp where id='49228c';
-  
--- correction: 48105 = (48105 + 48105c)
-update eratcorrigee
-  set geom=ST_Union(geom, (select ST_Union(geom) from ecomp where id='48105c' group by id))
-  where id='48105';
-delete from ecomp where id='48105c';
-
--- correction: 52041 = (52041 + 52400c/2)
-update eratcorrigee
-  set geom=ST_Union(geom, (select geom from ecomp where id='52400c' and npol=2))
-  where id='52041';
-delete from ecomp where id='52400c' and npol=2;
+-- calcul de leur surface en km2 et affichage des plus petites pour détecter les slivers
+select id, crat, npol, ST_Area(geom)*40000*40000/360/360 as areaKm2
+from ecomp
+order by ST_Area(geom)*40000*40000/360/360; 
+   id   | crat  | npol |       areakm2        
+--------+-------+------+----------------------
+ 08362c | 08362 |    1 |    0.170180754444408
+ ...
+ 
+ 
