@@ -5,7 +5,7 @@ doc: |
   Construit les limites extérieures des éléments définis dans rpigeo3.sql
   Nlle solution après exterior.sql qui génère des erreurs car l'extérieur n'est pas calculé sur les éléments
   Algorithme:
-    1) réutilisation de extfxx produit dans errorcoo.sql
+    1) réutilisation de extfxx produit dans errorcorr.sql
     2) sur FXX qui pose problème, le décomposer en anneaux intérieurs, puis en segments
     3) réaffecter chaque segment à un code insee par croisement géométrique avec elt
     4) restructurer les segments en limites par code INSEE
@@ -13,7 +13,7 @@ doc: |
     6) ajouter l'enclave espagnole de Llivia 
   Tables en entrée:
     - elt produit dans rpigeo3.sql
-    - extfxx produit dans errorcoo.sql
+    - extfxx produit dans errorcorr.sql
   Tables en sortie:
     - eltextlim - limites extérieures des éléments
   Tables temporaires:
@@ -32,12 +32,14 @@ where nr <= ST_NumInteriorRings(geom);
 
 select n, ST_NPoints(geom), ST_AsText(geom) from extfxxring;
 
--- decomposition de chaque anneau en segments, le plus grand compte 152.434 points / 204531
+-- decomposition de chaque anneau intérieur du grand polygone en segments, le plus grand compte 152.434 points / 204531
 drop table if exists extfxxseg;
+select 'Début:', now();
 create table extfxxseg as
 select nr, npt as nseg, ST_MakeLine(ST_PointN(geom, npt),ST_PointN(geom, npt+1)) as geom
 from extfxxring, generate_series(1,160000) npt
 where npt < ST_NumPoints(geom);
+select 'Fin:', now();
 create index extfxxseg_gist on extfxxseg using gist(geom);
 
 select nr, nseg, ST_AsText(geom) from extfxxseg;

@@ -14,8 +14,11 @@ doc: |
       - j'identifie parmi elles celles qui sont des sliver (8) que j'agrège alors avec une entité voisine, pour cela
         - je vérifie individuellement dans QGis les plus petites
   Stratégie:
-    - je pars du principe que les communes simples sont correctes et je fonde donc les calculs sur elles
-    - je corrige les entités rattachées pour les mettre chacune en cohérence topologique avec leur commune de rattachement
+    - je pars du principe que les communes simples sont correctes et je fonde donc sur elles la topologie
+    - je corrige les entités rattachées pour:
+      - les mettre chacune en cohérence topologique avec leur commune de rattachement
+      - les mettre en cohérence entre elles
+      - 
   Tables en entrée:
     - commune_carto (AE2020COG)
     - entite_rattachee_carto (AE2020COG)

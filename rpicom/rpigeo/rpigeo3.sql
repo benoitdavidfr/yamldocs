@@ -5,10 +5,10 @@ doc: |
   Ecriture de requêtes PostGis pour
     1) déduire les limites entre communes des communes fournies en polygone par l'IGN
     2) stocker ces limites en les partageant
-      d'une part entre communes et entités rattachées et
-      d'autre part entre versions successives des communes
+      a) entre communes et entités rattachées et
+      b) entre versions successives des communes
     3) définir comme vue matérialisée les communes à partir de ces limites
-    4) définir une géométrie simplifiée des limites et des communes
+    4) définir une géométrie simplifiée des limites et en conséquence des communes
   Dans cette version je gère les bugs IGN.
   Ce script utilise le schema cible de rpigéo défini dans schema.sql
 
@@ -21,7 +21,7 @@ doc: |
       et dont l'union couvre l'ensemble du territoire, constituée de:
       a) les c. simples non rattachantes
       b) les e. rattachées
-      c) les parties des c. simples non rattachantes non couvertes par des e. rattachées, appelées e. complémentaires
+      c) les parties des c. simples rattachantes non couvertes par des e. rattachées, appelées e. complémentaires
       Les éléments correspondent aux faces du graphe topologique administratif fusionnant les communes simples et les e. rattachées.
     2) générer les limites entre ces éléments en calculant leur intersection 2 à 2
     3) générer les limites extérieures des éléments - voir exterior3.sql
@@ -34,9 +34,11 @@ doc: |
 
   Tables en entrée:
     - commune_carto
-    - eratcorrigee - prduit dans errorcorr.sql
+    - eratcorrigee - produit dans errorcorr.sql
     - ecomp - prduit dans errorcorr.sql
 journal: |
+  20/6/2020:
+    - exploit d'une nlle version de errorcorr.sql
   15/6/2020
     8:50
       - reste au moins 3 erreurs dans la construction des limites des elts
@@ -67,10 +69,10 @@ create table elt as
   -- les c. s. non rattachantes
   select id, 'cSimple' as type, wkb_geometry as geom
   from commune_carto
-  where id not in (select crat from eratcorrigee)
+  where id not in (select crat from eratcorrb)
 union
   -- les e. rattachées / type vaut COMA, COMD ou ARM
-  select id, type, geom from eratcorrigee
+  select id, type, geom from eratcorrb
 union
   -- les complémentaires
   select id, 'ec' as type, geom from ecomp;
@@ -80,12 +82,12 @@ create index elt_geom_gist on elt using gist(geom);
 ----------------------------------------------------------------------------------
 -- 2) générer les limites entre ces éléments en calculant leur intersection 2 à 2
 ----------------------------------------------------------------------------------
--- 2a) calcul des intersections entre éléments en supprimant les intersections vides ou réduites à un point
+-- 2a) calcul des intersections entre éléments en s'assurant que ces limites sont linéaires / 109 135
 -- 109142 - prend 4'10" sur Mac
 drop table if exists eltint;
 select 'Début:', now();
 create table eltint as 
-select e1.id id1, e1.type typ1, e2.id id2, e2.type typ2, ST_Intersection(e1.geom, e2.geom) geom
+select e1.id id1, e1.type typ1, e2.id id2, e2.type typ2, ST_LineMerge(ST_Intersection(e1.geom, e2.geom)) geom
 from elt e1, elt e2
 where e1.geom && e2.geom and e1.id < e2.id and ST_Dimension(ST_Intersection(e1.geom, e2.geom)) > 0;
 select 'Fin:', now();
@@ -93,8 +95,9 @@ create index eltint_geom_gist on eltint using gist(geom);
 
 -- 2b) liste des intersections non linéaires, fait partie des tests de pré-condition
 select id1, typ1, id2, typ2, ST_Dimension(geom), ST_AsText(geom) from eltint where ST_Dimension(geom)<>1;
+-- -> vide
 
--- 65
+-- 0
 drop table if exists eltinterror;
 create table eltinterror as
 select id1, typ1, id2, typ2, numgeom, ST_GeometryN(geom, numgeom) geom
@@ -104,21 +107,66 @@ where ST_Dimension(geom)<>1 and numgeom <= ST_NumGeometries(geom);
 select id1, typ1, id2, typ2, numgeom, ST_AsText(geom) from eltinterror where ST_Dimension(geom)=2;
 select id1, typ1, id2, typ2, numgeom, ST_AsGeoJSON(geom) from eltinterror where ST_Dimension(geom)=2;
 
-id1	typ1	id2	typ2	numgeom	st_asgeojson
-52054	COMA	52107	cSimple	39 {"type":"Polygon","coordinates":[[[5.2552772,48.2212245],[5.25537918286433,48.2212689998115],[5.25537918286433,48.2212689998115],[5.2553801,48.2212694],[5.2552772,48.2212245]]]}
-49103	COMD	49221	cSimple	7	{"type":"Polygon","coordinates":[[[-0.0045967,47.4762074],[-0.00470985092746,47.4762595641752],[-0.00470985092744,47.4762595641752],[-0.0045967,47.4762074]]]}
-08079	COMD	08400	cSimple	19	{"type":"Polygon","coordinates":[[[4.7814027,49.6812228],[4.78139991945672,49.6812222098949],[4.7804245,49.6810152],[4.7814027,49.6812228]]]}
+-- -> 0 rows OK
 
-3 ligne(s)
-------------------------------------------------------
--- 3) générer les limites extérieures -> exterior3.sql
-------------------------------------------------------
+-------------------------------------
+-- 3) Calcul des limites extérieures 
+-------------------------------------
+-- 3a) -> exterior3.sql -> produit la table eltextlim
+-- 3b) Intégration des limites extérieures dans les limites des éléments // 1526
+insert into eltint(id1, typ1, id2, typ2, geom)
+  select id, type, iso3, 'ext', geom
+  from eltextlim;
 
-Analyse visuelle pour vérifier que eltint + eltextlim contiennent les limites de commune_carteo et eratcorrigee
+----------------------------------------------------------------------------------
+-- 4) Peuplement du schéma rpigeo
+----------------------------------------------------------------------------------
+-- 4a) définition du schema -> schema.sql
+-- 4b) chargement du fichier rpicom dans les tables eadminv et evtCreation
 
-Erreurs:
- - 49013 COMD de 49228 (eratcorrigée perdue par rapport à entite_rattachée)
- - 52054 COMD de 52008 (aussi dans eltinterror)
- - 65116 COMS
+-- 4c) je remplis la table lim à partir de eltint en ajoutant un serial et en décomposant les Multi* en LineString / 111 127
+truncate table eadmvlim cascade;
+truncate table lim cascade;
+insert into lim(geom, source)
+  select geom, 'AE2020COG'
+  from eltint
+  where GeometryType(geom)='LINESTRING'
+union
+  select ST_GeometryN(geom, n), 'AE2020COG'
+  from eltint, generate_series(1,100) n
+  where GeometryType(geom)<>'LINESTRING'
+    and n <= ST_NumGeometries(geom)
+    and GeometryType(ST_GeometryN(geom, n))='LINESTRING';
+
+-- 4d) je remplis la table eadmvlim en cherchant pour chaque code insee le numéro de limite
+-- attention, je perd les limites des complémentaires qui ne sont pas des eadmimv
+-- il faut retrouver le bon n-uplet dans eadminv cad en tenant compte du statut / 217 669 / 3'
+select 'Début:', now();
+insert into eadmvlim(cinsee, dcreation, statut, limnum)
+  select cinsee, dcreation, statut, lim.num
+  from eadminv, eltint cc, lim
+  where (  (id1=cinsee and ((cc.typ1='cSimple' and statut='cSimple') or (cc.typ1<>'cSimple' and statut<>'cSimple')))
+        or (id2=cinsee and ((cc.typ2='cSimple' and statut='cSimple') or (cc.typ2<>'cSimple' and statut<>'cSimple'))))
+    and fin is null and lim.geom && cc.geom and ST_Dimension(ST_Intersection(lim.geom, cc.geom))=1;
+select 'Fin:', now();
 
 
+-- 4e) vérifier les polygones générés à partir des limites / 36987
+-- constater que les polygones couvrent l'ens. du territoire à l'exception des ecomp
+drop table if exists eadmvpol;
+create table eadmvpol as
+select cinsee, dcreation, statut, (ST_Dump(ST_Polygonize(geom))).geom as geom
+from lim, eadmvlim
+where eadmvlim.limnum=lim.num
+group by cinsee, dcreation, statut;
+-- -> semble correct
+
+-- 4f) création de la géométrie généralisée
+update lim set simp3=ST_SimplifyPreserveTopology(geom, 0.001);
+-- génération de la table des polygones à partir des limites généralisées - 36934 - manque environ 50 du à généralisation
+drop table if exists eadmvpolg3;
+create table eadmvpolg3 as
+select cinsee, dcreation, statut, (ST_Dump(ST_Polygonize(simp3))).geom as geom
+from lim, eadmvlim
+where eadmvlim.limnum=lim.num
+group by cinsee, dcreation, statut;
