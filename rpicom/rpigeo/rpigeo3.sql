@@ -170,3 +170,67 @@ select cinsee, dcreation, statut, (ST_Dump(ST_Polygonize(simp3))).geom as geom
 from lim, eadmvlim
 where eadmvlim.limnum=lim.num
 group by cinsee, dcreation, statut;
+
+----------------------------------------------------------------------------------
+-- 5) calculer les limites des c. rattachantes et les ajouter à eadmvlim
+----------------------------------------------------------------------------------
+
+elt:
+  id
+  type: cSimple|COMA|COMD|ARM
+  geom
+
+eltint:
+  id1
+  typ1
+  id2
+  typ2
+  geom
+
+eratcorrb
+  ogc_fid
+  id - code Insee
+  nom - nom
+  crat - code Insee com de ratt.
+  type - COMD/COMA/ARM
+  geom
+
+ecomp:
+  id: concat(crat,'c')
+  crat:
+  npol:
+  geom:
+  
+-- 5a) c. rattachantes et leurs éléments
+create table eltdecrattachante as
+  select id, crat from eratcorrb
+  union
+  select id, crat from ecomp;
+  
+-- 5b) construction des limites des c. rattachantes (13619)
+-- la clause having permet de ne prendre que les limites qui apparaissent qu'une seule fois
+drop table if exists limcrattachante;
+create table limcrattachante as
+select crat, geom
+from eltdecrattachante, eltint
+where id=id1 or id=id2
+group by crat, geom
+having count(*)=1;
+
+-- 5c) insertion dans la table eadmvlim des limites des c. rattachantes / 13675
+insert into eadmvlim(cinsee, dcreation, statut, limnum)
+  select cinsee, dcreation, statut, lim.num
+  from eadminv, limcrattachante lr, lim
+  where cinsee=lr.crat and fin is null and statut='cSimple'
+    and lim.geom && lr.geom and ST_Dimension(ST_Intersection(lim.geom, lr.geom))=1;
+
+drop table limcrattachante;
+drop table eltdecrattachante;
+
+-- 5d) vérifier les polygones générés à partir des limites / 38084
+drop table if exists eadmvpol;
+create table eadmvpol as
+select cinsee, dcreation, statut, (ST_Dump(ST_Polygonize(geom))).geom as geom
+from lim, eadmvlim
+where eadmvlim.limnum=lim.num
+group by cinsee, dcreation, statut;

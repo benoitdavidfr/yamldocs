@@ -61,11 +61,11 @@ comment on table evtCreation is 'Evènement de création d''une version d''entit
 
 /*PhpDoc: tables
 name: lim
-title: lim - limite entre communes ou avec l'extérieur
+title: lim - limite entre communes (simples ou rattachées) ou avec l'extérieur
 doc: |
   Chaque commune est décrite par l'ensemble de ses limites défini par eadmvlim
   Une limite commune entre 2 communes existe une seule fois.
-  De même si une limite commune entre des versions différentes ou entre communes et entités rattachées existe une seule fois
+  De même une limite commune entre des versions différentes ou entre communes et entités rattachées existe une seule fois
 database: [ rpigeo ]
 */
 drop table if exists lim cascade;
