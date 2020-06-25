@@ -16,6 +16,7 @@ journal:
       2) utiliser la contrainte de continuité de la géométrie dans la sélection des segments
       PB:
         errcorr.sql n'est pas correct ! 
+    ABANDON
   18/6/2020:
     - première version en cours
 includes:
