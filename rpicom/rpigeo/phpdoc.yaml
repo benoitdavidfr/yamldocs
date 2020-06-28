@@ -64,11 +64,15 @@ sqlFiles:
   - /yamldoc/pub/rpicom/rpigeo/errorcorr.sql
   - /yamldoc/pub/rpicom/rpigeo/errorcorsup.sql
   - /yamldoc/pub/rpicom/rpigeo/exterior.sql
+  - /yamldoc/pub/rpicom/rpigeo/exterior3.sql
 phpScripts:
   - /yamldoc/pub/rpicom/rpigeo/loadtopo.php
   - /yamldoc/pub/rpicom/rpigeo/load.php
   - /yamldoc/pub/rpicom/rpigeo/snap.php
+  - /yamldoc/pub/rpicom/rpigeo/bzone.php
 phpIncludes:
+  - /yamldoc/pub/rpicom/rpigeo/rpicom.inc.php
+  - /yamldoc/pub/rpicom/rpigeo/zone.inc.php
 htmlFiles:
   - /yamldoc/pub/rpicom/rpigeo/rpigeo.yaml
   - /yamldoc/pub/rpicom/rpigeo/snap.yaml

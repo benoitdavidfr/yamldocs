@@ -10,7 +10,7 @@ doc: |
     - includes(a,b) pour inclusion de b dans a
   Ces relations topologiques permettront dans la classe Zone de construire les zones géographiques
   et les relations d'inclusion entre elles.
-journal:
+journal: |
   28/6/2020:
     - améliorations
   25/6/2020:

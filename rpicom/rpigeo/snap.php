@@ -8,7 +8,7 @@ doc: |
   L'idée ici est de snapper la géométrie des entités rattachées corrigées sur celle de commune_carto pour mettre les premières en
   cohérence avec les secondes.
   Test sur 08173 qui correspond à 4 communes déléguées dont 08079
-journal:
+journal: |
   19/6/2020:
     - il faut
       1) partir des entités ratt. corrigées et non celles d'origine dans lesquelles les slivers sont trop importantes
@@ -20,7 +20,7 @@ journal:
   18/6/2020:
     - première version en cours
 includes:
-  - pgsql.inc.php
+  - ../../../phplib/pgsql.inc.php
 */
 ini_set('memory_limit', '2G');
 
