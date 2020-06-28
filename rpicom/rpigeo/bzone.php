@@ -233,9 +233,7 @@ if ($_GET['action']=='compareWithCog') {
     if (Zone::get($vid)->ref() <> 'COG2020')
       echo "$vid est défini dans le COG2020 et pas dans Zone\n";
   }
-  
-  
-  die();
+  die("Fin compareWithCog ok\n");
 }
 
 echo "</pre><h2>Liste des zones</h2><pre>\n";

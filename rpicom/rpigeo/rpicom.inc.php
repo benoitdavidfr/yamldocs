@@ -162,7 +162,7 @@ class Rpicom {
           $dCreation2 = $dCreations[$noVersion+1];
           $version2 = $this->versions[$dCreation2];
           if ($version2->evtFin()->key0() == 'fusionneDans') {
-            echo "Fusion/rétablissement détectée pour ",$version2->id()," et ",$version->id(),"\n";
+            //echo "Fusion/rétablissement détectée pour ",$version2->id()," et ",$version->id(),"\n";
             Zone::sameAs($version2->id(), $version->id());
           }
         }
@@ -300,7 +300,7 @@ class Version {
         }
         
         case 'Commune rattachée devient commune de rattachement': {
-          echo "Cas 'Commune rattachée devient commune de rattachement' sur $this->cinsee à voir ligne ",__LINE__,"\n";
+          //echo "Cas 'Commune rattachée devient commune de rattachement' sur $this->cinsee à voir ligne ",__LINE__,"\n";
           break;
         }
         
@@ -402,7 +402,9 @@ class Version {
         
         case 'quitteLeDépartementEtPrendLeCode': {
           $nvCinsee = $this->evtFin->asArray()[$key0];
-          Zone::sameAs($this->id(), 's'.$nvCinsee.'@'.$this->dFin);
+          //echo "$this->cinsee $key0 -> $nvCinsee\n";
+          Zone::sameAs($this->id(), Rpicom::idByCinseeAndDate($nvCinsee, $this->dFin));
+          //echo "Zone::sameAs(",$this->id(),", ",Rpicom::idByCinseeAndDate($nvCinsee, $this->dFin),");\n";
           break;
         }
         
@@ -443,7 +445,7 @@ class Version {
           $statuts[$absorbee->statut] = 1;
         }
         $nvCinsee = $evtFin[1]['quitteLeDépartementEtPrendLeCode'];
-        $idSuivant = 's'.$nvCinsee.'@'.$this->dFin;
+        $idSuivant = Rpicom::idByCinseeAndDate($nvCinsee, $this->dFin);
         if (isset($statuts['s'])) // si au moins une des absorbée est une c.s. alors l'absorbante grossit
           Zone::includes($idSuivant, $this->id());
         else // sinon l'absorbante est identique avant et après
