@@ -45,6 +45,8 @@ doc: |
 
     Idée: générer un graphe d'inclusion géographique entre versions
 journal:
+  23/6/2020:
+    - abandon, restructuration dans bzone.php
   21/6/2020:
     - première version
 */

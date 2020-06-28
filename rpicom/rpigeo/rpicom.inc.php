@@ -4,13 +4,24 @@ name: rpicom.inc.php
 title: rpicom.inc.php - def. des classes Rpicom, Version et Evt pour gérer le Rpicom
 screens:
 doc: |
-
+  Charge le Rpicom, version Insee, depuis le stockage en PostgreSql
+  Traduit les relations entre versions en relations topologiques entre zones géographiques:
+    - sameAs pour identité des zones géographiques entre 2 versions
+    - includes(a,b) pour inclusion de b dans a
+  Ces relations topologiques permettront dans la classe Zone de construire les zones géographiques
+  et les relations d'inclusion entre elles.
 journal:
+  28/6/2020:
+    - améliorations
   25/6/2020:
     - première version
 */
+
+use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Exception\ParseException;
+
 class Rpicom {
-  static $all=[];
+  static $all=[]; // [cinsee => Rpicom] - tous les Rpicom par code Insee
   protected $cinsee;
   protected $versions=[]; // [ dCreation => Version ]
   
@@ -29,8 +40,10 @@ class Rpicom {
     )*/}
     $sql = "select num, cinsee, dcreation, fin, statut, crat, nom, evtFin from eadminv $where";
     foreach (PgSql::query($sql) as $tuple) {
-      //echo Yaml::dump($tuple);
+      //echo '<pre>',Yaml::dump($tuple),'</pre>';
       Rpicom::add($tuple);
+      if (is_null($tuple['fin']))
+        Stats::incr('eadminv/fin=null');
     }
 
     {/*create table evtCreation(
@@ -44,7 +57,9 @@ class Rpicom {
       //echo Yaml::dump($tuple);
       Rpicom::$all[$tuple['cinsee']]->addEvtCreation($tuple);
     }
-    Rpicom::finalize();
+    ksort(self::$all);
+    foreach (self::$all as $rpicom)
+      krsort($rpicom->versions);
   }
   
   // construit la structure
@@ -68,8 +83,32 @@ class Rpicom {
     $this->addVersion($tuple);
   }
   
-  function version(string $dCreation): Version { return $this->versions[$dCreation]; }
-    
+  // renvoie la version du Rpicom correspondant à une date dé but donnée
+  function version(string $dCreation): Version {
+    if (!isset($this->versions[$dCreation]))
+      throw new Exception("Erreur, la version $dCreation du Rpicom $this->cinsee n'existe pas");
+    return $this->versions[$dCreation];
+  }
+  
+  // renvoie soit le Rpicom soit la version en fonction de son identifiant
+  static function get(string $id) {
+    $cinsee = substr($id, 1, 5);
+    if (!isset(self::$all[$cinsee])) {
+      echo "Rpicom $cinsee n'existe pas";
+      throw new Exception("Rpicom $cinsee n'existe pas");
+    }
+    if (strlen($id) == 6) {
+      return self::$all[$cinsee];
+    }
+    else {
+      $dCreation = substr($id, 7);
+      if (!isset(self::$all[$cinsee]->versions[$dCreation]))
+        throw new Exception("Version $dCreation du Rpicom $cinsee n'existe pas");
+      //echo "get($id)->"; print_r(self::$all[$cinsee]->versions[$dCreation]);
+      return self::$all[$cinsee]->versions[$dCreation];
+    }
+  }
+  
   function addVersion(array $tuple) {
     if (!isset($this->versions[$tuple['dcreation']])) {
       $this->versions[$tuple['dcreation']] = new Version($tuple);
@@ -85,12 +124,6 @@ class Rpicom {
   
   function addEvtCreation(array $tuple) {
     $this->versions[$tuple['dcreation']]->setEvtCreation($tuple['evt']);
-  }
-
-  static function finalize() {
-    ksort(self::$all);
-    foreach (self::$all as $rpicom)
-      krsort($rpicom->versions);
   }
   
   function asArray(): array {
@@ -167,14 +200,14 @@ class Version {
   // recodage des statuts
   static $statuts = [
     'cSimple'=>'s',
-    'cAssociée'=>'a',
-    'cDéléguée'=>'d',
-    'ardtMun'=>'m',
+    'cAssociée'=>'r',
+    'cDéléguée'=>'r',
+    'ardtMun'=>'r',
   ];
   protected $cinsee; // code insee
   protected $dCreation; // date de création
   protected $dFin; // date de fin ssi périmée sinon null
-  protected $statut; // statut simplifié - ['s','a','d','m']
+  protected $statut; // statut simplifié - 's' pour simple, 'r' pour rattachée
   protected $crat; // null ssi s sinon code insee de la commune de rattachement
   protected $nom; // nom
   protected $evtFin; // evt de fin : null si version valide, Evt si version périmée
@@ -223,23 +256,26 @@ class Version {
     return json_encode(array_merge(['cinsee'=> $this->cinsee], $this->asArray()), JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
   }
   
+  function isValid(): bool { return is_null($this->dFin); }
+    
   function next(): ?Version { // version suivante dans le temps
     return Rpicom::$all[$this->cinsee]->version($this->dFin);
   }
   
-  function estSimple(): bool { return ($this->statut == 's'); }
+  //function estSimple(): bool { return ($this->statut == 's'); }
   
   function buildZones(): void { // construit les zones correspondant à une version
     //echo "buildZones() @ $this\n";
     // définition de la relation à la date de création de la version
-    if (($this->statut == 's') && $this->nomCDeleguee) { // cas particulier où la version représente la cs et la cd
-      Zone::includes('s'.$this->cinsee.'@'.$this->dCreation, 'd'.$this->cinsee.'@'.$this->dCreation);
-    }
-    elseif ($this->statut == 's') {
-      Zone::getOrCreate($this->id());
-    }
-    else {
+    if ($this->statut <> 's') { // cas d'une commune rattachée, elle est incluse dans sa rattachante
       Zone::includes(Rpicom::idByCinseeAndDate($this->crat, $this->dCreation), $this->id());
+    }
+    elseif ($this->nomCDeleguee) { // cas particulier où la version représente la cs et la cd
+      // la déléguée propre est incluse dans la simple
+      Zone::includes($this->id(), 'r'.$this->cinsee.'@'.$this->dCreation);
+    }
+    else { // commune standard doit être créée si n'intervient jamasi dans une inclusion ou un sameAs
+      Zone::getOrCreate($this->id());
     }
     
     // définition de la relation entre la version courante et la version qui suit dans le temps
@@ -286,20 +322,32 @@ class Version {
           break;
         }
         
-        case 'fusionneDans': break; // il n'y a plus rien après
-        case 'seFondDans': break; // il n'y a plus rien après
+        case 'seFondDans':
+        case 'fusionneDans': {
+          if ($this->statut == 's') {
+            $crat = $this->evtFin->asArray()[$key0];
+            Zone::includes("s$crat@$this->dFin", $this->id());
+          }
+          break;
+        }
+        
         case 'seDissoutDans': break; // il n'y a plus rien après
         
         case 'absorbe': {
+          //echo Yaml::dump(['this'=> $this->asArray()]);
           $statuts = [];
           foreach ($this->evtFin->asArray()[$key0] as $cinseeAbsorbee) {
             $absorbee = Rpicom::versionParCinseeEtDateDeFin($cinseeAbsorbee, $this->dFin);
             $statuts[$absorbee->statut] = 1;
           }
-          if (isset($statuts['s'])) // si au moins une des absorbée est une c.s. alors l'absorbante grossit
+          if (isset($statuts['s'])) { // si au moins une des absorbée est une c.s. alors l'absorbante grossit
             Zone::includes($this->next()->id(), $this->id());
-          else // sinon l'absorbante est identique avant et après
+            //echo "  Zone::includes(",$this->next()->id(),", ",$this->id(),");\n";
+          }
+          else { // sinon l'absorbante est identique avant et après
             Zone::sameAs($this->next()->id(), $this->id());
+            //echo "  Zone::sameAs(",$this->next()->id(),", ",$this->id(),");\n";
+          }
           break;
         }
         
@@ -310,10 +358,19 @@ class Version {
         
         case 'délègueA': {
           $deleguees = $this->evtFin->asArray()[$key0];
-          if ($deleguees <> [$this->cinsee])
-            Zone::includes($this->next()->id(), $this->id());
-          else
+          
+          if ($deleguees == [$this->cinsee])
+            // cas très particulier où la seule déléguée est elle-même, ce qui ne doit jamais exister
             Zone::sameAs($this->next()->id(), $this->id());
+          else {
+            // la commune rattachante s'agrandit
+            Zone::includes($this->next()->id(), $this->id());
+            if (in_array($this->cinsee, $deleguees)) { // si auto-déléguée
+              // la version actuelle est égale à l'auto-déléguée créée
+              Zone::sameAs($this->id(), 'r'.$this->cinsee.'@'.$this->dFin);
+              //echo "Zone::sameAs(d",$this->cinsee.'@'.$this->dFin,', ', $this->id(),");\n";
+            }
+          }
           break;
         }
         
@@ -334,7 +391,12 @@ class Version {
         }
 
         case 'perdRattachementPour': {
-          echo "Cas $key0 à voir ligne ",__LINE__,"\n";
+          // la zone de la c. actuelle est identique à celle de la future rattachante
+          $nlleRat = $this->evtFin->asArray()[$key0];
+          Zone::sameAs($this->id(), "s$nlleRat@".$this->dFin);
+          // la future zone de la c. actuelle est identique à la zone de la commune au 1/1/1943
+          // Cela permet de donner cette relation avec la version avant associations
+          Zone::sameAs('r'.$this->cinsee.'@'.$this->dFin, 's'.$this->cinsee.'@1943-01-01');
           break;
         }
         
@@ -358,6 +420,9 @@ class Version {
       // "evtFin":{"absorbe":["08068"],"délègueA":["08490","08443","08493"]}
       elseif (array_keys($evtFin) == ['absorbe','délègueA']) {
         Zone::includes($this->next()->id(), $this->id());
+        if (in_array($this->cinsee, $evtFin['délègueA']))
+          // la version initiale est identique à la déléguée suivante
+          Zone::sameAs($this->id(), 'r'.$this->cinsee.'@'.$this->dFin);
       }
       // "evtFin":["Commune associée rétablie comme commune simple",{"prendPourAssociées":[55273]}]
       elseif ((array_keys($evtFin)==[0,1]) && ($evtFin[0]=='Commune associée rétablie comme commune simple')

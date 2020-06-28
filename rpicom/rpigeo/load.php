@@ -9,6 +9,8 @@ doc: |
   - l'action topo construit à partir de limae2020cogcom les tables edge, face, ring et eadminvgeo
   Le schéma des tables est défini dans rpigeo.sql
 journal:
+  28/6/2020:
+    - ajout de corrections manuelles sur le Rpicom
   12/6/2020:
     - ajout du cas des commeDéléguée dans load rpicom
   6-8/6/2020:
@@ -16,6 +18,7 @@ journal:
 */
 ini_set('memory_limit', '2G');
 
+require_once __DIR__.'/../../../../phplib/pgsql.inc.php';
 require_once __DIR__.'/../../../vendor/autoload.php';
 require_once __DIR__.'/../base.inc.php';
 require_once __DIR__.'/../geojfile.inc.php';
@@ -23,79 +26,6 @@ require_once __DIR__.'/../menu.inc.php';
 
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\Yaml\Exception\ParseException;
-
-// classe implémentant en statique les méthodes de connexion et de requete
-// et générant un objet correspondant à un itérateur permettant d'accéder au résultat
-class PgSql implements Iterator {
-  static $server; // le nom du serveur
-  protected $sql = null; // la requête conservée pour pouvoir faire plusieurs rewind
-  protected $result = null; // l'objet retourné par pg_query()
-  protected $first; // indique s'il s'agit du premier rewind
-  protected $id; // un no en séquence à partir de 1
-  protected $ctuple = false; // le tuple courant ou false
-  
-  static function open(string $connection_string) {
-    $pattern = '!^host=([^ ]+)( port=([^ ]+))? dbname=([^ ]+) user=([^ ]+)( password=([^ ]+))?$!';
-    if (!preg_match($pattern, $connection_string, $matches))
-      throw new Exception("Erreur: dans PgSql::open() params \"".$connection_string."\" incorrect");
-    $server = $matches[1];
-    $port = $matches[3];
-    $database = $matches[4];
-    $user = $matches[5];
-    $passwd = $matches[7] ?? null;
-    self::$server = $server;
-    if (!$passwd) {
-      if (!is_file(__DIR__.'/secret.inc.php'))
-        throw new Exception("Erreur: dans PgSql::open($connection_string), fichier secret.inc.php absent");
-      else {
-        $secrets = require(__DIR__.'/secret.inc.php');
-        $passwd = $secrets['sql']["pgsql://$user@$server".($port ? ":$port" : '')."/"] ?? null;
-        if (!$passwd)
-          throw new Exception("Erreur: dans PgSql::open($connection_string), mot de passe absent de secret.inc.php");
-      }
-      $connection_string .= " password=$passwd";
-    }
-    if (!pg_connect($connection_string))
-      throw new Exception('Could not connect: '.pg_last_error());
-  }
-  
-  static function server(): string {
-    if (!self::$server)
-      throw new Exception("Erreur: dans PgSql::server() server non défini");
-    return self::$server;
-  }
-  
-  static function close(): void { pg_close(); }
-  
-  static function query(string $sql) {
-    if (!($result = @pg_query($sql)))
-      throw new Exception('Query failed: '.pg_last_error());
-    if ($result === TRUE)
-      return TRUE;
-    else
-      return new PgSql($sql, $result);
-  }
-
-  function __construct(string $sql, $result) { $this->sql = $sql; $this->result = $result; $this->first = true; }
-  
-  function rewind(): void {
-    if ($this->first) // la première fois ne pas faire de pg_query qui a déjà été fait
-      $this->first = false;
-    elseif (!($this->result = @pg_query($this->sql)))
-      throw new Exception('Query failed: '.pg_last_error());
-    $this->id = 0;
-    $this->next();
-  }
-  
-  function next(): void {
-    $this->ctuple = pg_fetch_array($this->result, null, PGSQL_ASSOC);
-    $this->id++;
-  }
-  
-  function valid(): bool { return $this->ctuple <> false; }
-  function current(): array { return $this->ctuple; }
-  function key(): int { return $this->id; }
-};
 
 $menu = new Menu([
   // [{action} => [ 'argNames' => [{argName}], 'actions'=> [{label}=> [{argValue}]] ]]
@@ -136,6 +66,10 @@ if ($_GET['action'] == 'rpicom') { // chargement rpicom
   PgSql::query("truncate eadminv cascade");
   $rpicomBase = new Base(__DIR__.'/../rpicom', new Criteria(['not']));
   $rpicoms = $rpicomBase->contents();
+  
+  // Corrections manuelles sur le Rpicom
+  $rpicoms['14697']['1990-02-01']['estAssociéeA'] = '14624';
+  
   unset($rpicomBase);
   // Test qqs cas particuliers
   //$rpicoms = ['08377'=> $rpicoms['08377']]; // cas de disparition temporaire avant réapparition

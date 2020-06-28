@@ -4,44 +4,51 @@ doc: |
   Réflexions sur la structuration du rpicom en base PostGIS.
   Plusieurs méthodes testées avant de trouver une dans laquelle les erreurs peuvent être corrigées.
   
-  Phase1:
-    Test d'un chargement utilisant le module topology de PostGis -> loadtopo.php
-    -> trop complexe, peu pertinent
-  Phase2:
-    Test d'un chargement dans PostGis dans une carte topologique sans le module topology
-    -> schema dans rpigeo1.sql + chargement dans load.php -> possible mais nécessite d'écrire les algo. géom. en Php
-  Phase3:
-    Test d'une génération de la base par des requêtes PostGis
-    -> rpigeo2.sql
-    -> Ok sur D19 mais des erreurs difficiles à gérer une fois le chargement effectué
-  Phase4:
-    Mise en place de tests de pré-conditions et de corrections d'erreurs avant traitement
-    -> rpigeo3.sql + schema.sql + errorcor.sql + errorcorsup.sql + exterior3.sql
-    -> la méthode de correction définie dans errorcor.sql + errorcorsup.sql génère des erreurs et ne permet pas de mettre en cohérence
-      géométrique entite_rattachee_carto avec commune_carto
-  Phase5:
-    -> ajout du process Php snap.php pour mettre les entités rattachées en cohérence topologique avec commune_carto
-    abandon car trop complexe
-  Phase6:
-    Amélioration de la phase 4 en mettant au point une correction dans QGis
+  1ère phase:
+    objectif: construire une base topologiquement cohérente les entitésde COG2020
+    v1:
+      Test d'un chargement utilisant le module topology de PostGis -> loadtopo.php
+      -> trop complexe, peu pertinent
+    v2:
+      Test d'un chargement dans PostGis dans une carte topologique sans le module topology
+      -> schema dans rpigeo1.sql + chargement dans load.php -> possible mais nécessite d'écrire les algo. géom. en Php
+    v3:
+      Test d'une génération de la base par des requêtes PostGis
+      -> rpigeo2.sql
+      -> Ok sur D19 mais des erreurs difficiles à gérer une fois le chargement effectué
+    v4:
+      Mise en place de tests de pré-conditions et de corrections d'erreurs avant traitement
+      -> rpigeo3.sql + schema.sql + errorcor.sql + errorcorsup.sql + exterior3.sql
+      -> la méthode de correction définie dans errorcor.sql + errorcorsup.sql génère des erreurs et ne permet pas de mettre en cohérence
+        géométrique entite_rattachee_carto avec commune_carto
+    v5:
+      -> ajout du process Php snap.php pour mettre les entités rattachées en cohérence topologique avec commune_carto
+      abandon car trop complexe
+    v6:
+      Amélioration de la phase 4 en mettant au point une correction dans QGis
+  2ème phase:
+    objectif: restructer l'info insee pour l'apparier avec les fichiers géo
+    scripts bzone.php, rpicom.inc.php, zone.inc.php
 journal: |
+  21-28/6/2020:
+    - 2ème phase
   19-21/6/2020:
-    - phase 5, complétion 21/6 6:40, semble ok
+    - v 6, complétion 21/6 6:40, semble ok
   16-18/6/2020:
-    - phase 5, écriture de snap.php, abandonné
+    - v 5, écriture de snap.php, abandonné
   13-15/6/2020:
-    - généralisation sur FRA phase 4, des erreurs
+    - généralisation sur FRA v 4, des erreurs
   9-13/6/2020:
-    - phase 3, code ok sur D17 comrenant des e. ratt.
+    - v 3, code ok sur D17 comrenant des e. ratt.
   6-8/6/2020:
-    - mise au point phase 2
+    - mise au point v 2
     - élaboration de la requête pour reconstruire les polygones à partir des limites
       - tester les communes constituées de plusieurs polygones
     - reste à voir
       - comment charger les entités rattachées et les précédentes années
       - comment gérer les données simplifiées, notamment en cas de simplif. topologique !
   4/6/2020:
-    - tests phase 1 -> trop complexe, ST_SimplifyPreserveTopology() n'utilise pas la topologie
+    - tests v 1 -> trop complexe, ST_SimplifyPreserveTopology() n'utilise pas la topologie
 submodules:
 sqlDBs:
   - name: rpigeo
