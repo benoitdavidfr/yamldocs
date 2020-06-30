@@ -27,7 +27,7 @@ doc: |
     v6:
       Amélioration de la phase 4 en mettant au point une correction dans QGis
   2ème phase:
-    objectif: restructer l'info insee pour l'apparier avec les fichiers géo
+    objectif: restructer l'info insee pour l'apparier aux fichiers géo IGN
     scripts bzone.php, rpicom.inc.php, zone.inc.php
 journal: |
   21-28/6/2020:

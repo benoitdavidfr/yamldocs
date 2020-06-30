@@ -27,6 +27,8 @@ doc: |
     - puis de construire à partir de ces informations les zones 
 
 journal:
+  28/6/2020:
+    - appariement des zones du COG2020 ok
   25/6/2020:
     - première version
 */
@@ -163,7 +165,7 @@ class Zone {
     //echo Yaml::dump(self::allAsArray()); die();
     
     // standardise les clés de self::$includes
-    if (0)
+    if (1)
     foreach (array_keys(self::$includes) as $small) {
       if ($zSmall = self::get($small)) {
         $stdId = $zSmall->id();
@@ -180,7 +182,7 @@ class Zone {
     }
     
     // standardise les valeurs de self::$includes
-    if (0)
+    if (1)
     foreach (self::$includes as $small => $bigs) {
       $stdbigs = [];
       foreach ($bigs as $big) {
@@ -267,6 +269,32 @@ class Zone {
     }
     
     ksort(self::$all);
+    
+    $nbreSansRef = 0;
+    foreach (Zone::$all as $id => $zone) {
+      if (!$zone->ref) {
+        //echo "$id\n";
+        foreach ([2019, 2018, 2017, 2016, 2015, 2014, 2013, 2003] as $refyear) {
+          foreach ($zone->vids() as $vid) {
+            //echo "  vid=$vid\n";
+            $v = Rpicom::get($vid);
+            //echo $v;
+            if (($v->statut()=='s') && (strcmp($v->dCreation(), "$refyear-01-01") <= 0) && (strcmp($v->dFin(), "$refyear-01-01") > 0)) {
+              //echo "$id -> ref $refyear ok\n";
+              $zone->ref = "COG$refyear";
+              Stats::incr("COG$refyear");
+              break 2;
+            }
+          }
+        }
+        if (!$zone->ref) {
+          //echo "$id -> noref\n";
+          $nbreSansRef++;
+        }
+      }
+    }
+    Stats::set('nbreSansRef', $nbreSansRef);
+    //die("Fin sansref nbreSansRef=$nbreSansRef\n");
   }
     
   function id(): string { return $this->vids[0]; }
@@ -288,8 +316,8 @@ class Zone {
       if ($zone->parents) continue;
       //if (!$zone->children) continue;
       $id = $zone->id();
-      if ($zone->isValid())
-        $id = '<u>'.$id.'</u>';
+      /*if ($zone->isValid())
+        $id = '<u>'.$id.'</u>';*/
       $all[$id] = $zone->asArray();
     }
     if (self::$includes)
@@ -302,6 +330,7 @@ class Zone {
     $this->vids = [ $vid ];
     $this->parents = [];
     $this->children = [];
+    $this->ref = null;
   }
   
   function asArray(): array {
@@ -319,10 +348,10 @@ class Zone {
     }
     foreach ($this->children as $child) {
       $childId = $child->id();
-      if ($child->isValid())
-        $childId = '<u>'.$childId.'</u>';
-      if (count($child->parents) > 1)
-        $childId = '<i>'.$childId.'</i>';
+      /*if ($child->isValid())
+        $childId = '<u>'.$childId.'</u>';*/
+      /*if (count($child->parents) > 1)
+        $childId = '<i>'.$childId.'</i>';*/
       $array['contains'][$childId] = $child->asArray();
     }
     return $array; 

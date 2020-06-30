@@ -11,8 +11,10 @@ doc: |
   Ces relations topologiques permettront dans la classe Zone de construire les zones géographiques
   et les relations d'inclusion entre elles.
 journal: |
+  30/6/2020:
+    - ajout d'une relation déduite
   28/6/2020:
-    - améliorations
+    - appariement des zones du COG2020 ok
   25/6/2020:
     - première version
 */
@@ -226,7 +228,9 @@ class Version {
     $this->nomCDeleguee = null;
   }
   
+  function dCreation(): string { return $this->dCreation; }
   function dFin(): ?string { return $this->dFin; }
+  function statut(): string { return $this->statut; }
   function evtFin(): ?Evt { return $this->evtFin; }
   function evtCreation(): ?Evt { return $this->evtCreation; }
   
@@ -274,7 +278,7 @@ class Version {
       // la déléguée propre est incluse dans la simple
       Zone::includes($this->id(), 'r'.$this->cinsee.'@'.$this->dCreation);
     }
-    else { // commune standard doit être créée si n'intervient jamasi dans une inclusion ou un sameAs
+    else { // commune standard doit être créée si n'intervient jamais dans une inclusion ou un sameAs
       Zone::getOrCreate($this->id());
     }
     
@@ -374,9 +378,15 @@ class Version {
           break;
         }
         
-        case 'contribueA':
+        case 'contribueA': {
+          Zone::includes($this->id(), $this->next()->id()); // la version suivante est incluse dans la version courante
+          break;
+        }
+
         case 'rétablitCommeSimple': {
           Zone::includes($this->id(), $this->next()->id()); // la version suivante est incluse dans la version courante
+          foreach ($this->evtFin->asArray()[$key0] as $nvCinsee)
+            Zone::includes($this->id(), "s$nvCinsee@".$this->dFin); // chaque c. rétablie est incluse dans la version courante
           break;
         }
         

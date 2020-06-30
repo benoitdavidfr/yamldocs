@@ -5,18 +5,50 @@ title: bzone.php - construit une forêt de zones géographiques structurée selo
 screens:
 doc: |
   Les zones sont les classes d'équivalence des entités (cs+er) ayant même zone géographique
-  Elles sont structurées hiérarchiquement avec les zones incluses
+  Elles sont structurées hiérarchiquement par l'inclusion géométrique
 
-  Quelle stratégie de création des zones:
-    - je crée toutes les zones que j'enregistre dans Zone::$all
-    - j'enregistre les relations d'équivalences et d'inclusion en parcourant les entités
-    - je déduis les tops de ces relations
+  L'algorithme pour les créer est la suivante:
+    - traduction des infos Insee sous la forme de relations topologiques entre zones, soit égalité (sameAs) soit inclusion (includes)
+    - construction des zones comme classes d'équivalence des sameAs et structuration avec la relation d'inclusion
+    - j'associe à chacune les réfrentiel dans lequel elle est définie
+    - calcul des stats
 
-  Le test d'égalité doit être beaucoup plus efficace (25/6)
-    tableau associatif sameAs [id => stdId]
+  Sur 40661 zones créées, il en reste environ 2000 définies dans aucun des réf. disponibles
 
+  Questions:
+    - faut-il produire une base sans ces 2000 zones ?
+    - faut-il uniquement leur affecter un majorant ?
+    - faut-il essayer de générer une zone en utilisant le diagramme de Voronoi sur les chefs-lieux ?
 
 journal:
+  28/6/2020:
+    - appariement des zones du COG2020 ok
+    - il reste des erreurs
+    - des écarts restent entre ecomp
+      stats:
+          eadminv/fin=null: 37899
+          COG2020: 37899
+          COG2020ecomp: 615
+          COG2017: 19
+          COG2018: 52
+          COG2003: 36
+          COG2014: 6
+          COG2019: 8
+          COG2015: 41
+          COG2016: 31
+          COG2013: 3
+          nbreSansRef: 1951
+          count(commune): 34968
+          count(erat): 2931
+          count(ecomp): 414
+          count(commune)+count(erat): 37899
+          count(Zones): 40661
+    - 40661 zones créées
+      - 37899 sont des cs ou erat du COG2020
+      - 615 semblent appariables avec des ecomp (à verifier)
+      - 196 semblent appariables avec des entités des COG (2019-2013+2003)
+      - 1951 ne sont définies nulle part
+
   25/6/2020:
     - la structuration des relations d'égalité entre identifiants de versions n'est pas satisfaisante car trop couteuse
   23/6/2020:
@@ -39,7 +71,7 @@ if ((php_sapi_name() <> 'cli') && !isset($_GET['action'])) {
   echo "<a href='?action=showRpicom'>showRpicom</a><br>\n";
   echo "<a href='?action=showMultiinc'>Affiche les multi-inclusions</a><br>\n";
   echo "<a href='?action=showIncludes'>Affiche les inclusions</a><br>\n";
-  echo "<a href='?action=buildAllZones'>Construit les zones</a><br>\n";
+  echo "<a href='?action=bzone'>Construit les zones</a><br>\n";
   echo "<a href='?action=stats'>stats</a><br>\n";
   echo "<a href='?action=compareWithCog'>compareWithCog</a><br>\n";
   echo "<a href='?action=testRattachement'>testRattachement</a><br>\n";
@@ -48,11 +80,11 @@ if ((php_sapi_name() <> 'cli') && !isset($_GET['action'])) {
   die();
 }
 
-if (isset($_GET) && ($_GET['action']=='testSameAs')) {
+if (isset($_GET['action']) && ($_GET['action']=='testSameAs')) {
 
 };
 
-if (isset($_GET) && ($_GET['action']=='testRattachement')) {
+if (isset($_GET['action']) && ($_GET['action']=='testRattachement')) {
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>testRattachement</title></head><body><pre>\n";
   $rpicoms = <<<EOT
 assoc:
@@ -79,7 +111,7 @@ EOT;
   die("Fin testRattachement");
 }
 
-if (isset($_GET) && ($_GET['action']=='testChangeDeRattachementPour')) {
+if (isset($_GET['action']) && ($_GET['action']=='testChangeDeRattachementPour')) {
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>testChangeDeRattachementPour</title></head><body><pre>\n";
   $rpicoms = <<<EOT
 assoc:
@@ -112,7 +144,7 @@ EOT;
   die("Fin testChangeDeRattachementPour");
 }
 
-if (isset($_GET) && ($_GET['action']=='testChangeDeRattachementPourAvecDéléguéePropre')) {
+if (isset($_GET['action']) && ($_GET['action']=='testChangeDeRattachementPourAvecDéléguéePropre')) {
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>testRattachement</title></head><body><pre>\n";
   $rpicoms = <<<EOT
 dlgue:
@@ -150,14 +182,15 @@ $where = '';
 //$where = "where cinsee like '17%'"; echo "where=$where\n";
 Rpicom::loadFromPg($where);
 
-if ((php_sapi_name() <> 'cli') && ($_GET['action']=='showRpicom')) {
+if (isset($_GET['action']) && ($_GET['action']=='showRpicom')) { // affichage Rpicom
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>showRpicom</title></head><body><pre>\n";
   echo Yaml::dump(Rpicom::allAsArray());
-  die();
+  die("Fin showRpicom\n");
 }
 
-if (php_sapi_name() <> 'cli')
+if (isset($_GET['action']) && ($_GET['action']=='bzone')) {
   echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>bzone</title></head><body><pre>\n";
+}
 Rpicom::buildAllZones();
 
 class Stats {
@@ -177,18 +210,8 @@ class Stats {
   static function dump() { return Yaml::dump(['stats'=> self::$stats]); }
 };
 
-if ($_GET['action']=='stats') {
-  /*stats:
-    zones:
-      total: 40868
-      COG2020: 38046
-      COG2020ecomp: 651
-    cog2020:
-      total: 37899
-      communes: 34968
-      entités_rattachées: 2931
-      ecomp: 414
-  */
+if (isset($_GET['action']) && ($_GET['action']=='stats')) {
+  echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>stats</title></head><body><pre>\n";
   $whereStats = str_replace('cinsee','id', $where);
   foreach ([
     'count(commune)'=> "select count(*) nbre from commune_carto $whereStats",
@@ -204,7 +227,7 @@ if ($_GET['action']=='stats') {
   die();
 }
 
-if ($_GET['action']=='compareWithCog') {
+if (isset($_GET['action']) && ($_GET['action']=='compareWithCog')) { // vérifier que les zones identifiées comme non périmées correspondent aux entités IGN-COG
   foreach (PgSql::query("select id from commune_carto") as $tuple) {
     $commune[2020]["s$tuple[id]"] = 1;
   }
@@ -236,5 +259,12 @@ if ($_GET['action']=='compareWithCog') {
   die("Fin compareWithCog ok\n");
 }
 
-echo "</pre><h2>Liste des zones</h2><pre>\n";
-echo Yaml::dump(Zone::allAsArray(), 12, 2);
+if (!isset($_GET['action']) || ($_GET['action']=='bzone')) {
+  echo "title: Liste des zones\n";
+  echo "creator: bzone.php\n";
+  echo "created: ",date(DATE_ATOM),"\n";
+  echo Yaml::dump(Zone::allAsArray(), 12, 2);
+  die("eof:\n");
+}
+
+die("Aucune action détectée\n");
