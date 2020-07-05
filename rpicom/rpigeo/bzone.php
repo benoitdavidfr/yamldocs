@@ -1,26 +1,35 @@
 <?php
 /*PhpDoc:
 name: bzone.php
-title: bzone.php - construit une forêt de zones géographiques structurée selon leur graphe d'inclusions
+title: bzone.php - construit une forêt de zones géographiques structurée selon leur graphe d'inclusions stockée dans zones.yaml
 screens:
 doc: |
   Les zones sont les classes d'équivalence des entités (cs+er) ayant même zone géographique
   Elles sont structurées hiérarchiquement par l'inclusion géométrique
 
-  L'algorithme pour les créer est la suivante:
+  L'algorithme pour les créer est le suivant:
     - traduction des infos Insee sous la forme de relations topologiques entre zones, soit égalité (sameAs) soit inclusion (includes)
     - construction des zones comme classes d'équivalence des sameAs et structuration avec la relation d'inclusion
     - j'associe à chacune les réfrentiel dans lequel elle est définie
     - calcul des stats
 
   Sur 40661 zones créées, il en reste environ 2000 définies dans aucun des réf. disponibles
+  L'idée est de définir ces 2000 zones définies dans aucun des réf. disponibles en utilisant le diagramme de Voronoi
+  sur leur chef-lieu.
 
-  Questions:
-    - faut-il produire une base sans ces 2000 zones ?
-    - faut-il uniquement leur affecter un majorant ?
-    - faut-il essayer de générer une zone en utilisant le diagramme de Voronoi sur les chefs-lieux ?
+  Ce script produit le fichier zones.yaml
 
 journal:
+  4/7/2020:
+    - il faut ajouter les contributions (contribueA / evtCreation/crééeAPartirDe), il y a 6 crééeAPartirDe
+      exemple:
+        s29263@1943-01-01:
+          contains:
+            s29263@1949-08-27:
+              ref: COG2020
+            c29263à29302@1949-08-27:
+      Sinon, les zones qui contribuent peuvent contenir qu'une seule zone !
+
   28/6/2020:
     - appariement des zones du COG2020 ok
     - il reste des erreurs

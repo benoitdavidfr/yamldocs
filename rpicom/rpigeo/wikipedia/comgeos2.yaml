@@ -1,0 +1,122 @@
+title: communes non renseignées dans Wikipédia
+d04:
+  Esclangon: {names: [Esclangon], geo: [6.277313, 44.195813]}
+  Chasteuil: {names: [Chasteuil], geo: [6.422324, 43.836609]}
+  Taloire: {names: [Taloire], geo: [6.447762, 43.820958]}
+d05:
+  Montéglin: {names: [Montéglin], geo: [5.835532, 44.313478]}
+  Barret-le-Haut: {names: [Barret-le-Haut], geo: [5.738597, 44.28042]}
+  Chabottonnes: {names: [Chabottonnes], geo: [6.192319, 44.660686]}
+  Pomet: {names: [Pomet], geo: [5.788164, 44.280735]}
+  Saint-Cyrice: {names: [Saint-Cyrice], geo: [5.655148, 44.326627]}
+d08:
+  Levrezy: { names: [Levrezy, Levrézy], geo: [4.758912, 49.859138] }
+d16:
+  Saint-Christophe-de-Chalais: {names: [Saint-Christophe-de-Chalais], geo: [0.048072, 45.270153]}
+d20:
+  Brustico: { names: [Brustico], geo: [9.36666666667, 42.3658333333] }
+  Cassano_(Haute-Corse): { names: [Cassano], geo: [8.889016, 42.537049] }
+  Lunghignano: { names: [Lunghignano], geo: [8.88638888889, 42.5433333333] }
+  Poggio-di-Tallano: { names: [Poggio-di-Tallano], geo: [9.06472222222, 41.6986111111] }
+  Sant%27Andrea-di-Tallano: { names: ['Sant''Andrea-di-Tallano','Sant''Andréa-di-Tallano'], geo: [9.06472222222, 41.6986111111] }
+  Tivolaggio: { names: [Tivolaggio], geo: [8.905, 41.6761111111] }
+d22:
+  K%C3%A9rity: { names: [Kérity, Kerity], geo: [-3.025961, 48.769371] }
+d25:
+  Champvans-l%C3%A8s-Baume: { names: [Champvans-lès-Baume, Champvans-les-Baume], geo: [6.36083333333, 47.3527777778] }
+d26:
+  '26132': {names: [La Fare], geo: [5.441795, 44.337257]}
+d27:
+  Boissy-sur-Damville: {names: [Boissy-sur-Damville], geo: [1.117271, 48.840577]}
+  Boscherville: {names: [Boscherville], geo: [0.885698, 49.276198]}
+  '27087': {names: [Le Bosc-Morel], geo: [0.556462, 49.009459]}
+  Infreville: {names: [Infreville], geo: [0.872523, 49.310008]}
+d28:
+  '28131': {names: [Dommerville], geo: [1.9911, 48.317744]}
+d29:
+  Logonna-Quimerc%27h: {names: ['Logonna-Quimerc''h', Logonna-Quimerch], geo: [-4.130725, 48.247565] }
+  Quimerc%27h: {names: ['Quimerc''h', Quimerch], geo: [-4.10691, 48.28261] }
+  '29154': {names: [Nizon], geo: [-3.767459, 47.864441]}
+d30:
+  '30078': {names: [Cézas], geo: [3.77817, 43.97746]}
+d33:
+  Lafosse: {names: [Lafosse], geo: [-0.516658, 45.095663]}
+d37:
+  Balesmes: {names: [Balesmes], geo: [0.678395, 46.985471]}
+  Saint-Denis-Hors: { names: [Saint-Denis-Hors], geo: [0.978789, 47.409693]}
+d38:
+  '38096': {names: [Chavagneux-Montbertand, Chavagneux-Montbertrand], geo: [5.145329, 45.727388]}
+d42:
+  Izieux: { names: [Izieux], geo: [4.503328, 45.463379]}
+  Saint-Julien-en-Jarez: {names: [Saint-Julien-en-Jarez], geo: [4.527097, 45.481355]}
+  Saint-Martin-en-Coailleux: {names: [Saint-Martin-en-Coailleux], geo: [45.461602 , 4.521003]}
+d44:
+  '44177': {names: [Sainte-Marie], geo: [47.112785 , -2.131314]}
+d45:
+  Creuzy: { names: [Creuzy, Creusy], geo: [1.874188, 48.050644] }
+d49:
+  Soulanger: {names: [Soulanger], geo: [-0.303193, 47.195764]}
+d51:
+  Chantecoq_(Marne): {names: [Chantecoq], geo: [4.723961, 48.578225]}
+  L%27%C3%89chelle-le-Franc: { names: ['L''Échelle-le-Franc','L''Échelle'], geo: [3.569324, 48.889731] }
+d52:
+  Ho%C3%A9ricourt: { names: [Hoéricourt, Hoëricourt], geo: [4.898884, 48.628093] }
+d59:
+  Audencourt: {names: [Audencourt], geo: [3.439944, 50.118693]}
+  Marchiennes-Campagne: {names: [Marchiennes-Campagne], geo: [3.26472, 50.3825]}
+  Morenchies: {names: [Morenchies], geo: [3.243123, 50.194443]}
+  Villers-Campeau: {names: [Villers-Campeau], geo: [3.266807, 50.361037]}
+  Warneton-Sud: {names: [Warneton-Sud], geo: [2.970815, 50.743916]}
+d62:
+  Westbécourt: {names: [Westbécourt], geo: [2.060183, 50.730826]}
+d66:
+  Riunoguès: {names: [Riunoguès, Riunoguers], geo: [2.819541, 42.46226]}
+d70:
+  '70365': {names: [Mont-le-Frânois], geo: [5.584509, 47.576779]}
+d71:
+  '71560': {names: [Varenne-sur-le-Doubs], geo: [5.177833, 46.922527]}
+d73:
+  '73009': {names: [Albanne], geo: [6.419759, 45.205866]}
+d74:
+  Saint-Nicolas-de-V%C3%A9roce: {names: [Saint-Nicolas-de-Véroce], geo: [6.722785, 45.854989]}
+d76:
+  '76687': {names: [Thiédeville], geo: [0.94859, 49.732697]}
+d77:
+  '77074': {names: [Chalautre-la-Reposte], geo: [3.092104, 48.480652]}
+  '77362': {names: [Pierrelez], geo: [3.38056, 48.735899]}
+d78:
+  '78025': {names: [Arthieul], geo: [1.806146, 49.151559]}
+  '78065': {names: [Blamécourt], geo: [1.802938, 49.160246]}
+  '78187': {names: [Craches], geo: [1.811339, 48.557076]}
+  '78221': {names: [Essonnes], geo: [2.465776, 48.604347]}
+d80:
+  Ainval-Septoutre: {names: [Ainval-Septoutre], geo: [2.438299, 49.697521]}
+  '80072': {names: [Beauvoir-Rivière], geo: [2.177999, 50.214309]}
+  Castel_(Somme): {names: [Castel], geo: [2.454799, 49.791181]}
+  Dreuil-Hamel: {names: [Dreuil-Hamel], geo: [1.924095, 49.968496]}
+  Merville-au-Bois: {names: [Merville-au-Bois], geo: [2.404579, 49.748062]}
+d85:
+  '85032': {names: [Bourg-sous-la-Roche-sur-Yon], geo: [-1.401873, 46.660689]}
+  '85085': {names: [Evrunes], geo: [-0.971829, 47.000129]}
+  '85124': {names: [La Limouzinière], geo: [-1.310999, 46.628656]}
+  '85173': {names: [Petit-Bourg-des-Herbiers], geo: [-0.997121, 46.874152]}
+  '85195': {names: ['Saint-André-d''Ornay'], geo: [-1.457416, 46.667367]}
+  Simon-la-Vineuse: { names: [Simon-la-Vineuse], geo: [-1.085351, 46.562726]}
+d86:
+  Saint-Pierre-les-%C3%89glises: { names: [Saint-Pierre-les-Églises], geo: [0.638728, 46.55479]}
+d87:
+  '87010': {names: [Beaune-les-Mines], geo: [1.301916, 45.912835]}
+  '87102': {names: [Morterolles-sur-Semme], geo: [1.366103, 46.148012]}
+d88:
+  Ban-sur-Meurthe: {names: [Ban-sur-Meurthe], geo: [6.954314, 48.120416]}
+  Saint-Laurent_(Vosges): { names: [Saint-Laurent], geo: [6.44918, 48.145509]}
+d89:
+  '89106': {names: [Chichy], geo: [3.596016, 47.945118]}
+  '89185': {names: [Fyé], geo: [47.826555 , 3.821275]}
+d90:
+  '90040': {names: [Étueffont-Bas], geo: [6.921922, 47.711377]}
+d97:
+  '97351': {names: [Approuague (chef-lieu Régina)], geo: [-52.570551, 3.99395]}
+  '97354': {names: [Samson (chef-lieu Dégrad-Samson)], geo: [-53.466661, 4.033516]}
+  '97355': {names: [Moyenne-Mana (chef-lieu Mana)], geo: [-53.675428, 5.362261]}
+  '97359': {names: [La Comté (chef-lieu Dégrad-Edmond)], geo: [-52.301416, 4.556393]}
