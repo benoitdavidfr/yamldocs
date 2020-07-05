@@ -1,0 +1,17 @@
+title: rpigeo/wikipedia - scrapping de Wikipedia pour y récupérer un point représentant les anciennes communes
+path: /yamldoc/pub/rpicom/rpigeo/wikipedia
+doc: |
+  Le script wikipedia.php scrappe Wikipédia et produit coms.yaml qui contient la liste des communes
+  et comgeos.yaml qui contient un point associé à chaque commune.
+  comgeos2.yaml contient des communes absentes.
+  Ces 2 fichiers sont utilisés par bzonwp.php
+journal: |
+  5/7/2020:
+    - creation
+submodules:
+phpScripts:
+  - /yamldoc/pub/rpicom/rpigeo/wikipedia/wikipedia.php
+phpIncludes:
+htmlFiles:
+  - /yamldoc/pub/rpicom/rpigeo/wikipedia/comgeos.yaml
+  - /yamldoc/pub/rpicom/rpigeo/wikipedia/comgeos2.yaml
