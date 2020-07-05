@@ -30,6 +30,8 @@ doc: |
     objectif: restructer l'info insee pour l'apparier aux fichiers géo IGN
     scripts bzone.php, rpicom.inc.php, zone.inc.php
 journal: |
+  29/6-5/7:
+    - test du scrapping des points dans Wikipédia
   21-28/6/2020:
     - 2ème phase, 28/6 12:55 COG2020 ok
   19-21/6/2020:
@@ -50,6 +52,7 @@ journal: |
   4/6/2020:
     - tests v 1 -> trop complexe, ST_SimplifyPreserveTopology() n'utilise pas la topologie
 submodules:
+  - /yamldoc/pub/rpicom/rpigeo/wikipedia
 sqlDBs:
   - name: rpigeo
     title: base de données Rpigeo
@@ -70,6 +73,7 @@ phpScripts:
   - /yamldoc/pub/rpicom/rpigeo/load.php
   - /yamldoc/pub/rpicom/rpigeo/snap.php
   - /yamldoc/pub/rpicom/rpigeo/bzone.php
+  - /yamldoc/pub/rpicom/rpigeo/bzonwp.php
 phpIncludes:
   - /yamldoc/pub/rpicom/rpigeo/rpicom.inc.php
   - /yamldoc/pub/rpicom/rpigeo/zone.inc.php
