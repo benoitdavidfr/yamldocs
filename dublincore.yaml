@@ -2,7 +2,7 @@ title: éléments de métadonnées du Dublin Core
 abstract: |
   Le **Dublin Core** est un schéma de métadonnées générique permettant de décrire des ressources numériques
   ou physiques et d’établir des relations entre ressources.  
-  Il s'est développé progressivement ;
+  Il a été développé progressivement ;
   il définit d'une part des propriétés, initialement appelés éléments, en anglais **Dublin Core metadata terms**,
   aussi connu sous le nom de **DC Terms**  
   qui se décomposent en :
@@ -26,23 +26,29 @@ abstract: |
     - une [liste de vocabulaires contrôlés recommandés](?ypath=/cvoc/*/_id,name.fr,definition.fr,content,isAvailableAt),
       dont certains sont gérés par le DCMI et d'autres par d'autres organisations ;
     - une [liste de types de données définie ici](?ypath=/datatypes/*) ;
+    - une [liste de classes définie ici
+      en français](?ypath=/classes/*/_id,label.fr,definition.fr,comment.fr,instanceOf,subClassOf) ;
     - des [espaces de noms](?ypath=/nameSpaces/*) utilisés notamment en RDF.
     
   Le présent document est structuré avec les tables suivantes :
     
-    - [une table des termes utilisés au court du temps](?ypath=/terms)
-    - [une table des espaces de noms](?ypath=/nameSpaces),
-    - [une table des 15 éléments de métadonnées d'origine](?ypath=/dcmes) avec leurs éventuels raffinements,
-    - [une table des autres éléments de métadonnées](?ypath=/extension) avec leurs éventuels raffinements,
-    - [une table des vocabulaires contrôlés recommandés](?ypath=/cvoc),
-    - une table par vocabulaire contrôlé dont la taille est limitée référencée dans le n-uplet de la table des vocabulaires.
+    - les [termes utilisés au court du temps](?ypath=/terms/*) ;
+      la terminologie du Dublin Core a en effet évoluée au cours des années pour au final s'aligner sur celles de RDF
+      et de SKOS.  
+      La notion de terme (term en anglais) est la plus générique et se raffine en 4 sous-notions ;
+    - une [table des espaces de noms](?ypath=/nameSpaces) notamment utilisés en RDF ;
+    - une [table des 15 éléments de métadonnées d'origine](?ypath=/dcmes) avec leurs éventuels raffinements ;
+    - une [table des autres éléments de métadonnées](?ypath=/extension) avec leurs éventuels raffinements ;
+    - une [table des vocabulaires contrôlés recommandés](?ypath=/cvoc) ;
+    - une table par vocabulaire contrôlé de taille limitée et référencée dans le n-uplet de la table des vocabulaires.
     
-  Dans la mesure du possible les noms sont données en français et en anglais.
+  Dans la mesure du possible les informations sont fournies en français et en anglais.
 lineage:
   '2021-05-14':
     - Complétion des éléments supplémentaires pour couvrir l'ensemble des éléments du Dublin Core,
     - ajout des vocabulaires contrôlés utilisés pour les collections
     - nettoyage de la terminologie pour se caler sur RDF et SKOS
+    - ajout des espaces de noms et des classes
   '2019-01-05': Définition des schéma JSON de chaque table
 publisher: https://github.com/benoitdavidfr
 created: '2018-06-05'
@@ -124,9 +130,11 @@ tables:
         definition: {fr: correspond à une classe RDF}
       conceptScheme:
         prefLabel: {fr: Schéma de concepts SKOS, en: SKOS Concept Scheme}
-        altLabel: [{fr: Schémas de codage de vocabulaire, en: Vocabulary encoding scheme}]
+        altLabel:
+          - {fr: Schémas de codage de vocabulaire, en: Vocabulary encoding scheme}
+          - {fr: vocabulaire contrôlé, en: controlled vocabulary}
         definition: {fr: correspond à un schéma de concepts SKOS}
-        description: {fr: initialement appelé Schémas de codage de vocabulaire}
+        description: {fr: initialement appelé Schémas de codage de vocabulaire ; souvent appelé vocabulaire contrôlé}
       dataType:
         prefLabel: {fr: type de données, en: data type}
         altLabel: [{fr: Schémas de codage de syntaxe, en: Syntax Encoding Scheme}]
@@ -745,367 +753,6 @@ tables:
           en: >
             Instructional Method typically includes ways of presenting instructional materials or conducting instructional activities, patterns of learner-to-learner and learner-to-instructor interactions, and mechanisms by which group and individual levels of learning are measured. Instructional methods include all aspects of the instruction and learning processes from planning and implementation through evaluation and feedback.
 
-  cvoc:
-    title:
-      fr: Schémas de codage de vocabulaire, c'est à dire vocabulaires contrôlés recommandés
-      en: Vocabulary Encoding Schemes
-    dataSchema:
-      $schema: http://json-schema.org/draft-07/schema#
-      title: Schéma de la description des vocabulaires contrôlés
-      description: Les vocabulaires ont comme clé leur identifiant officiel
-      type: object
-      patternProperties: # la propriété est l'identifiant du vocabulaire
-        '^[a-zA-Z]+$':
-          description: description de chaque vocabulaire contrôlé
-          type: object
-          required: [ name, definition, isAvailableAt ]
-          properties:
-            identifier:
-              description: identifiant du vocabulaire
-              type: string
-            name:
-              description: le nom officiel du vocabulaire dans différentes langues
-              type: object
-              patternProperties:
-                '^..$':
-                  type: string
-                  description: nom officiel dans la langue définie par la propriété correspondant à son code ISO 639-1
-            definition:
-              description: la définition du vocabulaire dans différentes langues
-              type: object
-              patternProperties:
-                '^..$':
-                  type: string
-                  description: définition dans la langue définie par la propriété correspondant à son code ISO 639-1
-            elementNameSpace:
-              description: URI de l'espace de noms des concepts du vocabulaire
-              type: string
-            content:
-              description: texte Markdown avec lien interne détaillant le vocabulaire
-              type: string
-            isAvailableAt:
-              description: URL vers un document définissant le vocabulaire
-              type: string
-    data:
-      DCMIType:
-        identifier: http://dublincore.org/specifications/dublin-core/dcmi-terms/2020-01-20/ 
-        name:
-          fr: Vocabulaire de types DCMI
-          en: DCMI Type Vocabulary
-        definition:
-          fr: L'ensemble des classes spécifiées par le vocabulaire de types DCMI, qui sert à catégoriser la nature ou le type de la ressource.
-        elementNameSpace: http://purl.org/dc/dcmitype/
-        content: |
-          [contenu](?ypath=/DCMIType/*)
-            
-        isAvailableAt: http://dublincore.org/documents/dcmi-type-vocabulary/
-      DDC:
-        name:
-          fr: classification décimale de Dewey
-          en: Dewey Decimal Classification
-        definition:
-          fr: L'ensemble des ressources conceptuelles spécifiées par la classification décimale de Dewey (Dewey Decimal Classification).
-        isAvailableAt: http://www.oclc.org/dewey/
-      IMT:
-        name:
-          fr: types de média spécifiés par l'IANA
-          en: Internet Media Types
-        definition:
-          fr: L'ensemble des types de média spécifiés par l'IANA (Internet Assigned Numbers Authority).
-        content: |
-          [extrait](?ypath=/mediaType/*)
-            
-        isAvailableAt: http://www.iana.org/assignments/media-types/
-      LCC:
-        name:
-          fr: classification de la Bibliothèque du Congrès
-          en: Library of Congress Classification
-        definition:
-          fr: L'ensemble des ressources conceptuelles spécifiées par la classification de la Bibliothèque du Congrès (Library of Congress Classification).
-        isAvailableAt: http://lcweb.loc.gov/catdir/cpso/lcco/lcco.html
-      LCSH:
-        name:
-          fr: vedettes-matière de la bibiothèque du congrès américain
-          en: Library of Congress Subject Headings
-        definition:
-          fr: L'ensemble des concepts étiquetés spécifiés par les rubriques LCSH (Library of Congress Subject Headings).
-        isAvailableAt: http://id.loc.gov/authorities/subjects.html
-      MESH:
-        name:
-          fr: vedettes-matière de la bibiothèque nationale de médecine des Etats-Unis (MeSH)
-          en: Medical Subject Headings
-        definition:
-          fr: L'ensemble des concepts étiquetés spécifiés par les rubriques MeSH (Medical Subject Headings).
-        isAvailableAt: http://www.nlm.nih.gov/mesh/meshhome.html
-      NLM:
-        name:
-          fr: classification de la Bibliothèque nationale de médecine des Etats-Unis (NLM)
-          en: National Library of Medicine Classification (NLM)
-        definition:
-          fr: L'ensemble des ressources conceptuelles spécifiées par la classification de la Bibliothèque nationale de médecine (National Library of Medicine).
-        isAvailableAt: http://wwwcf.nlm.nih.gov/class/
-      TGN:
-        name:
-          fr: thésaurus Getty des noms géographiques (TGN)
-          en: Getty Thesaurus of Geographic Names (TGN)
-        definition:
-          fr: L'ensemble des lieux spécifiés par le thésaurus Getty des noms géographiques (Getty Thesaurus of Geographic Names).
-        isAvailableAt: http://www.getty.edu/research/tools/vocabulary/tgn/index.html
-      UDC:
-        name:
-          fr: classification décimale universelle
-          en: Universal Decimal Classification
-        definition:
-          fr: L'ensemble des ressources conceptuelles spécifiées par la classification décimale universelle (Universal Decimal Classification).
-        isAvailableAt: http://www.udcc.org/index.php/site/page?view=about
-      ACCRUALMETHOD:
-        identifier: http://purl.org/cld/terms/AccrualMethod
-        name:
-          fr: Vocabulaire des méthodes d'accroissement des collections
-          en: Dublin Core™ Collection Description Accrual Method Vocabulary
-        definition:
-          en: This document describes the accrual method vocabulary used by the application profile for collection-level description developed by the Dublin Core Collection Description Task Group.
-        elementNameSpace: http://purl.org/cld/accmeth/
-        content: |
-          [contenu](?ypath=/ACCRUALMETHOD/*)
-          
-        isAvailableAt: https://www.dublincore.org/specifications/dublin-core/collection-description/accrual-method/
-      COLLFREQ:
-        identifier: http://purl.org/cld/terms/Frequency
-        name:
-          fr: Vocabulaire des fréquences d'ajout à une collection
-          en: Dublin Core™ Collection Description Frequency Vocabulary
-        definition:
-          en: This document describes the frequency vocabulary used by the application profile for collection-level description developed by the Dublin Core Collection Description Task Group.
-        elementNameSpace: http://purl.org/cld/freq/
-        content: |
-          [contenu](?ypath=/COLLFREQ/*)
-          
-        isAvailableAt: https://www.dublincore.org/specifications/dublin-core/collection-description/frequency/
-      ACCRUALPOLICY:
-        identifier: http://purl.org/cld/terms/AccrualPolicy
-        name:
-          fr: Vocabulaire des politiques d'accroissement de collection
-          en: Collection Description Accrual Policy Vocabulary
-        definition:
-          en: A set of policies governing the addition of items are added to a collection.
-        elementNameSpace: http://purl.org/cld/accpol/
-        content: |
-          [contenu](?ypath=/ACCRUALPOLICY/*)
-          
-        isAvailableAt: https://www.dublincore.org/specifications/dublin-core/collection-description/accrual-policy/
-  DCMIType:
-    title: DCMI Type Vocabulary
-    language: en
-    date: 2012-06-14
-    publisher: http://purl.org/dc/aboutdcmi#DCMI
-    source: http://purl.org/dc/dcmitype/
-    description: structuration in YData of the source document
-    elementURI: each type is identified by an URI following the following model http://purl.org/dc/dcmitype/{_id}
-    dataSchema:
-      $schema: http://json-schema.org/draft-07/schema#
-      title: Schema of DCMI Types
-      description: The key of each DCMI type is the official identifier
-      type: object
-      patternProperties: # the property is the identifier of the type
-        '^[a-zA-Z]+$':
-          description: description of each type
-          type: object
-          required: [ name, uri, definition ]
-          properties:
-            name:
-              description: the name du type
-              type: string
-            uri:
-              description: the URI of the type
-              type: string
-            definition:
-              description: the definition of the type
-              type: string
-            description:
-              description: a comment on the type
-              type: string
-            examples:
-              description: examples of resources of the type
-              type: string
-    data:
-      Collection:
-        name: Collection
-        uri: http://purl.org/dc/dcmitype/Collection
-        definition: An aggregation of resources.
-        description: A collection is described as a group; its parts may also be separately described.
-      Dataset:
-        name: Dataset
-        uri: http://purl.org/dc/dcmitype/Dataset
-        definition: Data encoded in a defined structure.
-        description: A dataset may be useful for direct machine processing.
-        examples: lists, tables, and databases.
-      Event:
-        name: Event
-        uri: http://purl.org/dc/dcmitype/Event
-        definition: A non-persistent, time-based occurrence.
-        description: >
-          Metadata for an event provides descriptive information that is the basis for discovery of the purpose,
-          location, duration, and responsible agents associated with an event.
-        examples: >
-          an exhibition, webcast, conference, workshop, open day, performance, battle, trial, wedding, tea party,
-          conflagration.
-      Image:
-        name: Image
-        uri: http://purl.org/dc/dcmitype/Image
-        definition: A visual representation other than text.
-        description: Image may include both electronic and physical representations.
-        examples: >
-          images and photographs of physical objects, paintings, prints, drawings, other images and graphics,
-          animations and moving pictures, film, diagrams, maps, musical notation.
-      InteractiveResource:
-        name: Interactive Resource
-        uri: http://purl.org/dc/dcmitype/InteractiveResource
-        definition: A resource requiring interaction from the user to be understood, executed, or experienced.
-        examples: >
-          forms on Web pages, applets, multimedia learning objects, chat services, or virtual reality environments.
-      MovingImage:
-        name: Moving Image
-        uri: http://purl.org/dc/dcmitype/MovingImage
-        definition: A series of visual representations imparting an impression of motion when shown in succession.
-        description: >
-          Instances of the type Moving Image must also be describable as instances of the broader type Image.
-        examples: animations, movies, television programs, videos, zoetropes, or visual output from a simulation.
-      PhysicalObject:
-        name: Physical Object
-        uri: http://purl.org/dc/dcmitype/PhysicalObject
-        definition: An inanimate, three-dimensional object or substance.
-        description: >
-          Note that digital representations of, or surrogates for, these objects should use Image, Text
-          or one of the other types.
-      Service:
-        name: Service
-        uri: http://purl.org/dc/dcmitype/Service
-        definition: A system that provides one or more functions.
-        examples: >
-          a photocopying service, a banking service, an authentication service, interlibrary loans, a Z39.50
-          or Web server.
-      Software:
-        name: Software
-        uri: http://purl.org/dc/dcmitype/Software
-        definition: A computer program in source or compiled form.
-        examples: a C source file, MS-Windows .exe executable, or Perl script.
-      Sound:
-        name: Sound
-        uri: http://purl.org/dc/dcmitype/Sound
-        definition: A resource primarily intended to be heard.
-        examples: a music playback file format, an audio compact disc, and recorded speech or sounds.
-      StillImage:
-        name: Still Image
-        uri: http://purl.org/dc/dcmitype/StillImage
-        definition: A static visual representation.
-        description: Instances of the type Still Image must also be describable as instances of the broader type Image.
-        examples: >
-          paintings, drawings, graphic designs, plans and maps.
-          Recommended best practice is to assign the type Text to images of textual materials.
-      Text:
-        name: Text
-        uri: http://purl.org/dc/dcmitype/Text
-        definition: A resource consisting primarily of words for reading.
-        description: Note that facsimiles or images of texts are still of the genre Text.
-        examples: books, letters, dissertations, poems, newspapers, articles, archives of mailing lists. 
-  
-  mediaType:
-    title: types de média standardisés par l'IANA les plus féquents
-    publisher: https://www.iana.org/
-    source: https://www.iana.org/assignments/media-types/media-types.xhtml
-    dataSchema:
-      $schema: http://json-schema.org/draft-07/schema#
-      type: object
-      patternProperties: # the property is the identifier of the type
-        '^[-a-zA-Z]+$':
-          description: description of each type
-          type: object
-          required: [ type, label ]
-          properties:
-            type:
-              description: the string defining the type
-              type: string
-            label:
-              description: a label defining the type
-              type: string
-            wikipedia:
-              description: URL de l'article Wikipédia
-              type: string
-            definedBy:
-              description: Référence ou liste de référence de(s) document(s) définissant le type
-              oneOf:
-                - type: string
-                - type: array
-                  items:
-                    type: string
-    data:
-      plainText:
-        type: text/plain
-        label: texte brut sans sous-type
-      htmlText:
-        type: text/html
-        label: HTML
-        wikipedia: https://fr.wikipedia.org/wiki/Hypertext_Markup_Language
-      xml:
-        type: text/xml
-        label: XML
-        wikipedia: https://fr.wikipedia.org/wiki/Extensible_Markup_Language
-      yaml:
-        type: application/x-yaml
-        label: YAML
-        definedBy: https://yaml.org/spec/1.2/spec.html
-      rdf:
-        type: application/rdf+xml
-        label: RDF sérialisé en XML
-        definedBy: https://www.w3.org/TR/rdf11-concepts/
-      turtle:
-        type: text/turtle
-        label: Turtle
-        definedBy: https://www.w3.org/TR/turtle/
-      markdown:
-        type: text/markdown
-        label: Markdown
-        wikipedia: https://fr.wikipedia.org/wiki/Markdown
-      csv:
-        type: text/csv
-        label: valeurs séparées par des virgules
-        definedBy:
-          - https://tools.ietf.org/html/rfc4180
-          - https://tools.ietf.org/html/rfc7111
-      tab-separated-values:
-        type: text/tab-separated-values
-        label: valeurs séparées par des tabulations
-        wikipedia: https://fr.wikipedia.org/wiki/Tabulation-separated_values
-      jpeg:
-        type: image/jpeg
-        label: Image JPEG
-        definedBy: Norme ISO/CEI 10918-1 UIT-T Recommendation T.81
-      png:
-        type: image/png
-        label: Image PNG
-        definedBy: Norme ISO/CEI 15948:2004
-      pdf:
-        type: application/pdf
-        label: format PDF
-        wikipedia: https://fr.wikipedia.org/wiki/Portable_Document_Format
-      json:
-        type: application/json
-        label: Format JSON
-        definedBy: https://tools.ietf.org/html/rfc8259
-      json-ld:
-        type: application/ld+json
-        label: Serialisation RDF en JSON
-        definedBy: https://www.w3.org/TR/json-ld11/
-      GeoJSON:
-        type: application/geo+json
-        label: format GeoJSON
-        definedBy: https://tools.ietf.org/html/rfc7946
-      gml:
-        type: application/gml+xml
-        label: langage GML
-        wikipedia: https://fr.wikipedia.org/wiki/Geography_Markup_Language
-    
   datatypes:
     title:
       fr: Types de données, anciennement appelés Schémas de codage de syntaxe
@@ -1328,6 +975,504 @@ tables:
           - urn:oasis:names:specification:docbook:dtd:xml:4.1.2
         isAvailableAt: http://www.ietf.org/rfc/rfc3986.txt
 
+  classes:
+    title:
+      fr: classes définies par le DCMI
+    nameSpaceOfElement: http://purl.org/dc/terms/
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema of the Syntax Encoding Schemes
+      description: The key of each scheme is its official identifier
+      type: object
+      patternProperties: # the property is the identifier of the scheme
+        '^[a-zA-Z][-a-zA-Z0-9]*$':
+          description: description of each scheme
+          type: object
+          required: [ label, definition ]
+          properties:
+            label:
+              description: l'étiquette dans diféfrentes langues
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: official name in the language defined by the property corresponding to ISO 639-1 code
+            definition:
+              description: the definition of the type in different languages
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: official name in the language defined by the property corresponding to ISO 639-1 code
+    data:
+      Agent:
+        label: {fr: Agent, en: Agent}
+        definition: {fr: Une ressource qui agit ou a le pouvoir d'agir., en: A resource that acts or has the power to act.}
+        comment:
+          fr: Comme exemples d'agents, une personne, une organisation et un agent logiciel.
+          en: Examples of Agent include person, organization, and software agent.
+        instanceOf: http://purl.org/dc/terms/AgentClass
+      AgentClass:
+        label: {fr: Classe d'agent}
+        definition: {fr: Un groupe d'agents.}
+        comment:
+          fr: >
+            Comme examples de classes d'agent, les groupes vus comme des classes, tels que les étudiants, les femmes,
+            les œuvres de bienfaisance, les conférenciers.
+        subClassOf: http://www.w3.org/2000/01/rdf-schema#Class
+      BibliographicResource:
+        label: {fr: Ressource bibliographique}
+        definition: {fr: "Un livre, un article ou une autre ressource documentaire."}
+      FileFormat:
+        label: {fr: Format de fichier}
+        definition: {fr: Un format de ressource numérique.}
+        comment: {fr: "Comme exemples, les formats définis par la liste des types de média Internet."}
+        subClassOf: http://purl.org/dc/terms/MediaType
+      Frequency:
+        label: {fr: Fréquence}
+        definition: {fr: Un rythme auquel quelque chose réapparaît.}
+      Jurisdiction:
+        label: {fr: Juridiction}
+        definition: {fr: "L'étendue ou la portée du judiciaire, de l'application de la loi ou d'une autre autorité."}
+        subClassOf: http://purl.org/dc/terms/LocationPeriodOrJurisdiction
+      LicenseDocument:
+        label: {fr: Contrat de licence}
+        definition:
+          fr: Un document légal donnant permission officielle de faire quelque chose avec une ressource.
+        subClassOf: http://purl.org/dc/terms/RightsStatement
+      LinguisticSystem:
+        label: {fr: Système linguistique}
+        comment: {fr: "Comme exemples, les langues écrites, parlées, les langages des signes et informatiques."}
+        definition:
+          fr: Un système de signes, de symboles, de sons, de gestes ou de règles employé pour la communication.
+      Location:
+        label: {fr: Lieu}
+        definition:
+          fr: Une région dans l'espace ou un lieu nommé.
+        subClassOf: http://purl.org/dc/terms/LocationPeriodOrJurisdiction
+      LocationPeriodOrJurisdiction:
+        label: {fr: "Lieu, période ou juridiction"}
+        definition: {fr: "Un lieu, une période dans le temps ou une juridiction."}
+      MediaType:
+        label: {fr: Type de média}
+        definition: {fr: Un format de fichier ou un support physique.}
+        subClassOf: http://purl.org/dc/terms/MediaTypeOrExtent
+      MediaTypeOrExtent:
+        label: {fr: Type ou étendue de média}
+        definition: {fr: Le type ou l'étendue d'un média.}
+      MethodOfAccrual:
+        label: {fr: Méthode d'accroissement}
+        definition: {fr: Une méthode selon laquelle des ressources sont ajoutées à une collection.}
+      MethodOfInstruction:
+        label: {fr: Méthode d'enseignement}
+        definition: {fr: "Un processus utilisé pour engendrer des connaissances, des attitudes et des compétences."}
+      PeriodOfTime:
+        label: {fr: Periode de temps}
+        definition: {fr: Un intervalle de temps nommé ou défini par ses dates de début et de fin.}
+        subClassOf: http://purl.org/dc/terms/LocationPeriodOrJurisdiction
+      PhysicalMedium:
+        label: {fr: Support physique}
+        definition: {fr: Un document ou un support physique.}
+        comment: {fr: "Comme exemples, le papier, un canevas ou un DVD."}
+        subClassOf: http://purl.org/dc/terms/MediaType
+      PhysicalResource:
+        label: {fr: Ressource physique}
+        definition: {fr: Une chose matérielle.}
+      Policy:
+        label: {fr: Politique}
+        definition:
+          fr: >
+            Un plan ou une action suivie par une autorité, destinés à influencer et déterminer des décisions,
+            des actions et d'autres affaires.
+      ProvenanceStatement:
+        label: {fr: Déclaration de provenance}
+        definition:
+          fr: >
+            Une déclaration des changements de propriété et de garde d'une ressource depuis sa création
+            qui sont importants pour son authenticité, son intégrité et son interprétation.
+      RightsStatement:
+        label: {fr: Déclaration des droits}
+        definition:
+          fr: >
+            Une déclaration à propos des droits de propriété intellectuelle détenus dans ou sur une ressource,
+            un document légal donnant permission officielle de faire quelque chose avec une ressource,
+            ou une déclaration à propos des droits d'accès.
+      SizeOrDuration:
+        label: {fr: Dimension ou durée}
+        definition:
+          fr: Une dimension ou étendue, ou le temps pris pour une lecture ou une exécution.
+        comment:
+          fr: >
+            Comme exemples, un nombre de pages, une spécification de hauteur, largeur et profondeur,
+            ou une période en heures, minutes et secondes.
+        subClassOf: http://purl.org/dc/terms/MediaTypeOrExtent
+      Standard:
+        label: {fr: Standard}
+        definition:
+          fr: Une base de comparaison ; un point de référence par rapport auquel évaluer d'autres choses.
+  
+  cvoc:
+    title:
+      fr: Schémas de codage de vocabulaire, c'est à dire vocabulaires contrôlés recommandés
+      en: Vocabulary Encoding Schemes
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schéma de la description des vocabulaires contrôlés
+      description: Les vocabulaires ont comme clé leur identifiant officiel
+      type: object
+      patternProperties: # la propriété est l'identifiant du vocabulaire
+        '^[a-zA-Z]+$':
+          description: description de chaque vocabulaire contrôlé
+          type: object
+          required: [ name, definition, isAvailableAt ]
+          properties:
+            identifier:
+              description: identifiant du vocabulaire
+              type: string
+            name:
+              description: le nom officiel du vocabulaire dans différentes langues
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: nom officiel dans la langue définie par la propriété correspondant à son code ISO 639-1
+            definition:
+              description: la définition du vocabulaire dans différentes langues
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: définition dans la langue définie par la propriété correspondant à son code ISO 639-1
+            elementNameSpace:
+              description: URI de l'espace de noms des concepts du vocabulaire
+              type: string
+            content:
+              description: texte Markdown avec lien interne détaillant le vocabulaire
+              type: string
+            isAvailableAt:
+              description: URL vers un document définissant le vocabulaire
+              type: string
+    data:
+      DCMIType:
+        identifier: http://dublincore.org/specifications/dublin-core/dcmi-terms/2020-01-20/ 
+        name:
+          fr: Vocabulaire de types DCMI
+          en: DCMI Type Vocabulary
+        definition:
+          fr: L'ensemble des classes spécifiées par le vocabulaire de types DCMI, qui sert à catégoriser la nature ou le type de la ressource.
+        elementNameSpace: http://purl.org/dc/dcmitype/
+        content: |
+          [contenu](?ypath=/DCMIType/*)
+            
+        isAvailableAt: http://dublincore.org/documents/dcmi-type-vocabulary/
+      DDC:
+        name:
+          fr: classification décimale de Dewey
+          en: Dewey Decimal Classification
+        definition:
+          fr: L'ensemble des ressources conceptuelles spécifiées par la classification décimale de Dewey (Dewey Decimal Classification).
+        isAvailableAt: http://www.oclc.org/dewey/
+      IMT:
+        name:
+          fr: types de média spécifiés par l'IANA
+          en: Internet Media Types
+        definition:
+          fr: L'ensemble des types de média spécifiés par l'IANA (Internet Assigned Numbers Authority).
+        content: |
+          [extrait](?ypath=/mediaType/*)
+            
+        isAvailableAt: http://www.iana.org/assignments/media-types/
+      LCC:
+        name:
+          fr: classification de la Bibliothèque du Congrès
+          en: Library of Congress Classification
+        definition:
+          fr: L'ensemble des ressources conceptuelles spécifiées par la classification de la Bibliothèque du Congrès (Library of Congress Classification).
+        isAvailableAt: http://lcweb.loc.gov/catdir/cpso/lcco/lcco.html
+      LCSH:
+        name:
+          fr: vedettes-matière de la bibiothèque du congrès américain
+          en: Library of Congress Subject Headings
+        definition:
+          fr: L'ensemble des concepts étiquetés spécifiés par les rubriques LCSH (Library of Congress Subject Headings).
+        isAvailableAt: http://id.loc.gov/authorities/subjects.html
+      MESH:
+        name:
+          fr: vedettes-matière de la bibiothèque nationale de médecine des Etats-Unis (MeSH)
+          en: Medical Subject Headings
+        definition:
+          fr: L'ensemble des concepts étiquetés spécifiés par les rubriques MeSH (Medical Subject Headings).
+        isAvailableAt: http://www.nlm.nih.gov/mesh/meshhome.html
+      NLM:
+        name:
+          fr: classification de la Bibliothèque nationale de médecine des Etats-Unis (NLM)
+          en: National Library of Medicine Classification (NLM)
+        definition:
+          fr: L'ensemble des ressources conceptuelles spécifiées par la classification de la Bibliothèque nationale de médecine (National Library of Medicine).
+        isAvailableAt: http://wwwcf.nlm.nih.gov/class/
+      TGN:
+        name:
+          fr: thésaurus Getty des noms géographiques (TGN)
+          en: Getty Thesaurus of Geographic Names (TGN)
+        definition:
+          fr: L'ensemble des lieux spécifiés par le thésaurus Getty des noms géographiques (Getty Thesaurus of Geographic Names).
+        isAvailableAt: http://www.getty.edu/research/tools/vocabulary/tgn/index.html
+      UDC:
+        name:
+          fr: classification décimale universelle
+          en: Universal Decimal Classification
+        definition:
+          fr: L'ensemble des ressources conceptuelles spécifiées par la classification décimale universelle (Universal Decimal Classification).
+        isAvailableAt: http://www.udcc.org/index.php/site/page?view=about
+      ACCRUALMETHOD:
+        identifier: http://purl.org/cld/terms/AccrualMethod
+        name:
+          fr: Vocabulaire des méthodes d'accroissement des collections
+          en: Dublin Core™ Collection Description Accrual Method Vocabulary
+        definition:
+          en: This document describes the accrual method vocabulary used by the application profile for collection-level description developed by the Dublin Core Collection Description Task Group.
+        elementNameSpace: http://purl.org/cld/accmeth/
+        content: |
+          [contenu](?ypath=/ACCRUALMETHOD/*)
+          
+        isAvailableAt: https://www.dublincore.org/specifications/dublin-core/collection-description/accrual-method/
+      COLLFREQ:
+        identifier: http://purl.org/cld/terms/Frequency
+        name:
+          fr: Vocabulaire des fréquences d'ajout à une collection
+          en: Dublin Core™ Collection Description Frequency Vocabulary
+        definition:
+          en: This document describes the frequency vocabulary used by the application profile for collection-level description developed by the Dublin Core Collection Description Task Group.
+        elementNameSpace: http://purl.org/cld/freq/
+        content: |
+          [contenu](?ypath=/COLLFREQ/*)
+          
+        isAvailableAt: https://www.dublincore.org/specifications/dublin-core/collection-description/frequency/
+      ACCRUALPOLICY:
+        identifier: http://purl.org/cld/terms/AccrualPolicy
+        name:
+          fr: Vocabulaire des politiques d'accroissement de collection
+          en: Collection Description Accrual Policy Vocabulary
+        definition:
+          en: A set of policies governing the addition of items are added to a collection.
+        elementNameSpace: http://purl.org/cld/accpol/
+        content: |
+          [contenu](?ypath=/ACCRUALPOLICY/*)
+          
+        isAvailableAt: https://www.dublincore.org/specifications/dublin-core/collection-description/accrual-policy/
+  
+  DCMIType:
+    title: DCMI Type Vocabulary
+    language: en
+    date: 2012-06-14
+    publisher: http://purl.org/dc/aboutdcmi#DCMI
+    source: http://purl.org/dc/dcmitype/
+    description: structuration in YData of the source document
+    elementURI: each type is identified by an URI following the following model http://purl.org/dc/dcmitype/{_id}
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema of DCMI Types
+      description: The key of each DCMI type is the official identifier
+      type: object
+      patternProperties: # the property is the identifier of the type
+        '^[a-zA-Z]+$':
+          description: description of each type
+          type: object
+          required: [ name, uri, definition ]
+          properties:
+            name:
+              description: the name du type
+              type: string
+            uri:
+              description: the URI of the type
+              type: string
+            definition:
+              description: the definition of the type
+              type: string
+            description:
+              description: a comment on the type
+              type: string
+            examples:
+              description: examples of resources of the type
+              type: string
+    data:
+      Collection:
+        name: Collection
+        uri: http://purl.org/dc/dcmitype/Collection
+        definition: An aggregation of resources.
+        description: A collection is described as a group; its parts may also be separately described.
+      Dataset:
+        name: Dataset
+        uri: http://purl.org/dc/dcmitype/Dataset
+        definition: Data encoded in a defined structure.
+        description: A dataset may be useful for direct machine processing.
+        examples: lists, tables, and databases.
+      Event:
+        name: Event
+        uri: http://purl.org/dc/dcmitype/Event
+        definition: A non-persistent, time-based occurrence.
+        description: >
+          Metadata for an event provides descriptive information that is the basis for discovery of the purpose,
+          location, duration, and responsible agents associated with an event.
+        examples: >
+          an exhibition, webcast, conference, workshop, open day, performance, battle, trial, wedding, tea party,
+          conflagration.
+      Image:
+        name: Image
+        uri: http://purl.org/dc/dcmitype/Image
+        definition: A visual representation other than text.
+        description: Image may include both electronic and physical representations.
+        examples: >
+          images and photographs of physical objects, paintings, prints, drawings, other images and graphics,
+          animations and moving pictures, film, diagrams, maps, musical notation.
+      InteractiveResource:
+        name: Interactive Resource
+        uri: http://purl.org/dc/dcmitype/InteractiveResource
+        definition: A resource requiring interaction from the user to be understood, executed, or experienced.
+        examples: >
+          forms on Web pages, applets, multimedia learning objects, chat services, or virtual reality environments.
+      MovingImage:
+        name: Moving Image
+        uri: http://purl.org/dc/dcmitype/MovingImage
+        definition: A series of visual representations imparting an impression of motion when shown in succession.
+        description: >
+          Instances of the type Moving Image must also be describable as instances of the broader type Image.
+        examples: animations, movies, television programs, videos, zoetropes, or visual output from a simulation.
+      PhysicalObject:
+        name: Physical Object
+        uri: http://purl.org/dc/dcmitype/PhysicalObject
+        definition: An inanimate, three-dimensional object or substance.
+        description: >
+          Note that digital representations of, or surrogates for, these objects should use Image, Text
+          or one of the other types.
+      Service:
+        name: Service
+        uri: http://purl.org/dc/dcmitype/Service
+        definition: A system that provides one or more functions.
+        examples: >
+          a photocopying service, a banking service, an authentication service, interlibrary loans, a Z39.50
+          or Web server.
+      Software:
+        name: Software
+        uri: http://purl.org/dc/dcmitype/Software
+        definition: A computer program in source or compiled form.
+        examples: a C source file, MS-Windows .exe executable, or Perl script.
+      Sound:
+        name: Sound
+        uri: http://purl.org/dc/dcmitype/Sound
+        definition: A resource primarily intended to be heard.
+        examples: a music playback file format, an audio compact disc, and recorded speech or sounds.
+      StillImage:
+        name: Still Image
+        uri: http://purl.org/dc/dcmitype/StillImage
+        definition: A static visual representation.
+        description: Instances of the type Still Image must also be describable as instances of the broader type Image.
+        examples: >
+          paintings, drawings, graphic designs, plans and maps.
+          Recommended best practice is to assign the type Text to images of textual materials.
+      Text:
+        name: Text
+        uri: http://purl.org/dc/dcmitype/Text
+        definition: A resource consisting primarily of words for reading.
+        description: Note that facsimiles or images of texts are still of the genre Text.
+        examples: books, letters, dissertations, poems, newspapers, articles, archives of mailing lists. 
+  
+  mediaType:
+    title: types de média standardisés par l'IANA les plus féquents
+    publisher: https://www.iana.org/
+    source: https://www.iana.org/assignments/media-types/media-types.xhtml
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      type: object
+      patternProperties: # the property is the identifier of the type
+        '^[-a-zA-Z]+$':
+          description: description of each type
+          type: object
+          required: [ type, label ]
+          properties:
+            type:
+              description: the string defining the type
+              type: string
+            label:
+              description: a label defining the type
+              type: string
+            wikipedia:
+              description: URL de l'article Wikipédia
+              type: string
+            definedBy:
+              description: Référence ou liste de référence de(s) document(s) définissant le type
+              oneOf:
+                - type: string
+                - type: array
+                  items:
+                    type: string
+    data:
+      plainText:
+        type: text/plain
+        label: texte brut sans sous-type
+      htmlText:
+        type: text/html
+        label: HTML
+        wikipedia: https://fr.wikipedia.org/wiki/Hypertext_Markup_Language
+      xml:
+        type: text/xml
+        label: XML
+        wikipedia: https://fr.wikipedia.org/wiki/Extensible_Markup_Language
+      yaml:
+        type: application/x-yaml
+        label: YAML
+        definedBy: https://yaml.org/spec/1.2/spec.html
+      rdf:
+        type: application/rdf+xml
+        label: RDF sérialisé en XML
+        definedBy: https://www.w3.org/TR/rdf11-concepts/
+      turtle:
+        type: text/turtle
+        label: Turtle
+        definedBy: https://www.w3.org/TR/turtle/
+      markdown:
+        type: text/markdown
+        label: Markdown
+        wikipedia: https://fr.wikipedia.org/wiki/Markdown
+      csv:
+        type: text/csv
+        label: valeurs séparées par des virgules
+        definedBy:
+          - https://tools.ietf.org/html/rfc4180
+          - https://tools.ietf.org/html/rfc7111
+      tab-separated-values:
+        type: text/tab-separated-values
+        label: valeurs séparées par des tabulations
+        wikipedia: https://fr.wikipedia.org/wiki/Tabulation-separated_values
+      jpeg:
+        type: image/jpeg
+        label: Image JPEG
+        definedBy: Norme ISO/CEI 10918-1 UIT-T Recommendation T.81
+      png:
+        type: image/png
+        label: Image PNG
+        definedBy: Norme ISO/CEI 15948:2004
+      pdf:
+        type: application/pdf
+        label: format PDF
+        wikipedia: https://fr.wikipedia.org/wiki/Portable_Document_Format
+      json:
+        type: application/json
+        label: Format JSON
+        definedBy: https://tools.ietf.org/html/rfc8259
+      json-ld:
+        type: application/ld+json
+        label: Serialisation RDF en JSON
+        definedBy: https://www.w3.org/TR/json-ld11/
+      GeoJSON:
+        type: application/geo+json
+        label: format GeoJSON
+        definedBy: https://tools.ietf.org/html/rfc7946
+      gml:
+        type: application/gml+xml
+        label: langage GML
+        wikipedia: https://fr.wikipedia.org/wiki/Geography_Markup_Language
+    
   ACCRUALMETHOD:
     title: Dublin Core™ Collection Description Accrual Method Vocabulary
     language: en
