@@ -39,7 +39,10 @@ abstract: |
     
   Dans la mesure du possible les noms sont données en français et en anglais.
 lineage:
-  '2021-05-14': Complétion des éléments supplémentaires pour couvrir l'ensemble des éléments du Dublin Core, ajout des vocabulaires contrôlés utilisés pour les collections
+  '2021-05-14':
+    - Complétion des éléments supplémentaires pour couvrir l'ensemble des éléments du Dublin Core,
+    - ajout des vocabulaires contrôlés utilisés pour les collections
+    - nettoyage de la terminologie pour se caler sur RDF et SKOS
   '2019-01-05': Définition des schéma JSON de chaque table
 publisher: https://github.com/benoitdavidfr
 created: '2018-06-05'
