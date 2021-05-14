@@ -80,21 +80,22 @@ doc: |
   L'id de la zone est l'id de l'eadminv la plus ancienne.
 database: [ rpigeo ]
 */
-drop table if exists zone;
+drop table if exists zone cascade;
 create table zone(
   zoneid char(17) not null primary key, -- id de zone sous la forme {type}{cinsee(5)}'@'{dateDebut}
   ref varchar(256), -- référentiel le plus récent dans lequel la zone est géographiquement définie, null si aucun
-  pt jsonb -- coord. GeoJSON du point correspondant au lieu-dit pour les zones non définies dans un réf.
+  geom geometry(MULTIPOLYGON, 4326), -- la géométrie sous la forme d'un MultiPolygon
+  cheflieu geometry(POINT, 4326) -- coordonnées du chef-lieu
 );
 comment on table zone is 'définition des zones';
 
-create type zoneapour AS ENUM ('parent','enfant','synonyme');
+create type zoneapour AS ENUM ('parent','enfant');
 comment on type admin_type is 'type de relation entre 2 zones';
 
 drop table if exists zoneapourzone;
 create table zoneapourzone(
   zone1 char(17) not null references zone(zoneid),
-  apour zoneapour not null, -- parent: z1 a pour parent z2, enfant: z1 a pour enfant z2, synonym: z1 a p. synonyme z2
+  apour zoneapour not null, -- parent: z1 a pour parent z2, enfant: z1 a pour enfant z2
   zone2 char(17) not null references zone(zoneid)
 );
 comment on table zoneapourzone is 'Relations entre zones';

@@ -295,7 +295,7 @@ if (!isset($_GET['action'])) { // Menu
 if ($_GET['action'] == 'rpicom') {
   if (php_sapi_name() <> 'cli')
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>load</title></head><body><pre>\n";
-  PgSql::open('host=172.17.0.4 dbname=gis user=docker password=docker');
+  PgSql::open('host=pgsqlserver dbname=gis user=docker password=docker');
   PgSql::query('truncate public.eadminv cascade');
   $rpicomBase = new Base(__DIR__.'/../rpicom', new Criteria(['not']));
   $rpicoms = $rpicomBase->contents();
@@ -360,7 +360,7 @@ if ($_GET['action'] == 'rpicom') {
 if ($_GET['action'] == 'ae2020topo') { // Il semble qu'il faille créer la topologie avant d'effectuer les insertions pour éviter les erreurs
   if (php_sapi_name() <> 'cli')
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>load ae2020topo</title></head><body><pre>\n";
-  PgSql::open('host=172.17.0.4 dbname=gis user=docker password=docker');
+  PgSql::open('host=pgsqlserver dbname=gis user=docker password=docker');
   foreach ([
     'COMS'=> '/../data/aegeofla/AE2020COG/FRA/COMMUNE_CARTO_cor1.geojson',
     'ER'=> '/../data/aegeofla/AE2020COG/FRA/ENTITE_RATTACHEE_CARTO_cor1.geojson',
@@ -395,7 +395,7 @@ if ($_GET['action'] == 'ae2020') { // insertion des topogeom, ss création de la
   $start = time();
   if (php_sapi_name() <> 'cli')
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>load ae2020</title></head><body><pre>\n";
-  PgSql::open('host=172.17.0.4 dbname=gis user=docker password=docker');
+  PgSql::open('host=pgsqlserver dbname=gis user=docker password=docker');
   foreach ([
     'COMS'=> '/../data/aegeofla/AE2020COG/FRA/COMMUNE_CARTO_cor1.geojson',
     'ER'=> '/../data/aegeofla/AE2020COG/FRA/ENTITE_RATTACHEE_CARTO_cor1.geojson',
@@ -432,7 +432,7 @@ if ($_GET['action'] == 'ae2020') { // insertion des topogeom, ss création de la
 if ($_GET['action'] == 'reste') {
   if (php_sapi_name() <> 'cli')
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>load reste</title></head><body><pre>\n";
-  PgSql::open('host=172.17.0.4 dbname=gis user=docker password=docker');
+  PgSql::open('host=pgsqlserver dbname=gis user=docker password=docker');
   $sql = "select * from public.eadminv where topo is null";
   $nbrecord = 0;
   foreach (PgSql::query($sql) as $record) {

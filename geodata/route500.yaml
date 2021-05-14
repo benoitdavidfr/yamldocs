@@ -35,7 +35,8 @@ doc_url: http://professionels.ign.fr/route500
 metadata: http://professionels.ign.fr/sites/default/files/IGNF_ROUTE500r_2-1.xml
 $schema: http://ydclasses.georef.eu/FeatureDataset/schema
 # chemins d'accès principal pour le chargement à partir du répertoire des données
-dbpath:  route500/ROUTE500_2-1__SHP_LAMB93_FXX_2018-04-09/ROUTE500/1_DONNEES_LIVRAISON_2018-04-00189/R500_2-1_SHP_LAMB93_FXX-ED181
+dbpath:  route500/ROUTE500_3-0__SHP_LAMB93_FXX_2020-08-04/ROUTE500/1_DONNEES_LIVRAISON_2020-08-00223/R500_3-0_SHP_LAMB93_FXX-ED201
+
 # Je considère que la résolution de Route 500 est de 40 m
 # (360° = 40 000 km => 40 m = 360 / 40 000 000 * 40 = 0,00036 °)
 # J'arrondis donc au chargement dans MySQL les coordonnées à 4 décimales
@@ -249,6 +250,6 @@ layers:
     onZoomGeox: [ 0: /geodata/ne_110m/admin_0_boundary_lines_land, 7: nature='Limite côtière', 11: all ]
 
 
-mysql_database: # Nom de la base MySQL en fonction du serveur MySQL
+sql_database: # Nom de la base SQL en fonction du serveur MySQL
   '172.17.0.3': route500 # MySql docker
   mysql-bdavid.alwaysdata.net: bdavid_route500

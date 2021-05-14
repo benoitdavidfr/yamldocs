@@ -61,7 +61,7 @@ title: chargement du fichier Yaml Rpicom dans les tables eadminv et evtCreation
 if ($_GET['action'] == 'rpicom') { // chargement rpicom
   if (php_sapi_name() <> 'cli')
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>load rpicom</title></head><body><pre>\n";
-  PgSql::open('host=172.17.0.4 dbname=gis user=docker password=docker');
+  PgSql::open('host=pgsqlserver dbname=gis user=docker password=docker');
   PgSql::query("truncate evtCreation cascade");
   PgSql::query("truncate eadminv cascade");
   $rpicomBase = new Base(__DIR__.'/../rpicom', new Criteria(['not']));
@@ -410,7 +410,7 @@ if ($_GET['action'] == 'limae2020cogcom') { // construction limae2020cogcom
   $start = time();
   if (php_sapi_name() <> 'cli')
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>load limae2020cogcom</title></head><body><pre>\n";
-  PgSql::open('host=172.17.0.4 dbname=gis user=docker password=docker');
+  PgSql::open('host=pgsqlserver dbname=gis user=docker password=docker');
   PgSql::query("truncate limae2020cogcom");
   //$where = "where id like '2A%' or id like '2B%'"; // restriction
   $where = ''; // restriction
@@ -669,7 +669,7 @@ if ($_GET['action'] == 'topo') { // chargement de la topologie
   $start = time();
   if (php_sapi_name() <> 'cli')
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>load topo</title></head><body><pre>\n";
-  PgSql::open('host=172.17.0.4 dbname=gis user=docker password=docker');
+  PgSql::open('host=pgsqlserver dbname=gis user=docker password=docker');
   PgSql::query("truncate edge cascade");
   PgSql::query("truncate ring cascade");
   PgSql::query("truncate eadminvgeo cascade");

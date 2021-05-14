@@ -97,7 +97,7 @@ contents:
     name: administration de l'Etat
     url: https://www.gouvernement.fr/
     subOrganization:
-      MTES:
+      MTES(périmé):
         name: Ministère de la transition écologique et solidaire
         note: |
           Du point de vue hiérarchie des organisations, seuls les cabinets sont rattachés à cette organisation.
@@ -708,6 +708,10 @@ contents:
                     subOrganization:
                       CSG:
                         name: Groupe socle géomatique
+                      GED:
+                        name: Groupe échanges et dématérialisation
+                      GD3IA:
+                        name: Groupe Décisionnel, Datavisualisation, Datascience et Intelligence Artificielle
       DITP:
         name: Direction interministérielle à la transformation publique
         alternateName: DITP

@@ -36,6 +36,19 @@ doc: |
     - commune_carto
     - eratcorrigee - produit dans errorcorr.sql
     - ecomp - prduit dans errorcorr.sql
+
+  Tables peuplées en sortie:
+    - eadmvlim - participation d'une limite à la description du contour d'une commune
+    - lim - limite entre communes (simples ou rattachées) ou avec l'extérieur
+    - eadmvpol - polygones générés à partir des limites
+
+  Tables temporaires:
+    - elt - substitution aux c. rattachantes leurs entités rattachées + complémentaires.
+    - eltint - intersections entre éléments
+    - eltinterror
+    - eltdecrattachante
+    - limcrattachante
+
 journal: |
   20/6/2020:
     - exploit d'une nlle version de errorcorr.sql

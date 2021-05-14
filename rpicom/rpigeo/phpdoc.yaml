@@ -78,5 +78,5 @@ phpIncludes:
   - /yamldoc/pub/rpicom/rpigeo/rpicom.inc.php
   - /yamldoc/pub/rpicom/rpigeo/zone.inc.php
 htmlFiles:
-  - /yamldoc/pub/rpicom/rpigeo/rpigeo.yaml
   - /yamldoc/pub/rpicom/rpigeo/snap.yaml
+  - /yamldoc/pub/rpicom/rpigeo/voronoi.yaml

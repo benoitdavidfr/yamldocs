@@ -58,6 +58,7 @@ class Zone {
     }
   }
 
+  // génère l'id à partir du statut, du code Insee et de la date de création
   static function id(string $statut, string $cinsee, string $dcreation): string {
     if (!isset(self::$statuts[$statut]))
       throw new Exception("statut $tuple[statut]");
@@ -75,14 +76,16 @@ class Zone {
       return null;
   }
   
+  // retourne ref
   static function getRef(string $id): ?string {
     if (!($zone = self::get($id)))
       throw new Exception("Erreur $id inconnu");
     return $zone->ref;
   }
 
+  // test de getRef
   static function test() {
-    PgSql::open('host=172.17.0.4 dbname=gis user=docker password=docker');
+    PgSql::open('host=pgsqlserver dbname=gis user=docker password=docker');
     $sql = "select cinsee, dcreation, fin, statut, crat, nom, evtFin from eadminv";
     foreach (PgSql::query($sql) as $tuple) {
       $tuple['id'] = self::id($tuple['statut'], $tuple['cinsee'], $tuple['dcreation']);
@@ -133,7 +136,7 @@ Wikipedia::init();
 
 //$rpicoms = [];
 // récupération des communes abrogées
-PgSql::open('host=172.17.0.4 dbname=gis user=docker password=docker');
+PgSql::open('host=pgsqlserver dbname=gis user=docker password=docker');
 $sql = "select cinsee, dcreation, fin, statut, crat, nom, evtFin from eadminv "
   ."where (cinsee,dcreation) in (select cinsee, max(dcreation) from eadminv group by cinsee)"
   ."  and fin is not null";
@@ -164,8 +167,8 @@ foreach (PgSql::query($sql) as $tuple) {
   else
     $rpicoms[$tuple['cinsee']]['cDéléguée']['nom'] = $tuple['nom'];*/
   
-  // ne prend en compte que les zones non définies dans un référentiel
-  if (Zone::getRef(Zone::id($tuple['statut'], $tuple['cinsee'], $tuple['dcreation'])))
+  // ne prend en compte que les zones non définies dans un référentiel <> COG2020r
+  if (($ref = Zone::getRef(Zone::id($tuple['statut'], $tuple['cinsee'], $tuple['dcreation']))) && ($ref <> 'COG2020r'))
     continue;
   //echo Yaml::dump([$tuple['cinsee'] => $tuple]);
 

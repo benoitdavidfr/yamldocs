@@ -1,28 +1,49 @@
-title: éléments de MD du Dublin Core
+title: éléments de métadonnées du Dublin Core
 abstract: |
   Le **Dublin Core** est un schéma de métadonnées générique permettant de décrire des ressources numériques
-  ou physiques et d’établir des relations entre ressources.
-  Il comprend les [15 éléments de métadonnées, appelés "Dublin Core Metadata Element Set (DCMES)",
-  listés ici en français](?ypath=/dcmes/*/_id,name.fr,definition.fr,description.fr),
-  ou [en anglais](?ypath=/dcmes/*/_id,name.en,definition.en,description.en).
-  La signification de certains éléments peut être précisée à l'aide de raffinements
-  qui restreignent la signification d'un élément, mais sans la changer fondamentalement ;
-  [certains raffinements intéressants sont listés ici](?ypath=/dcmes/*/_id,name.fr,refinements).
-  Lorsque ces raffinements sont utilisés, on parle de **Dublin Core qualifié**. 
+  ou physiques et d’établir des relations entre ressources.  
+  Il s'est développé progressivement ;
+  il définit d'une part des propriétés, initialement appelés éléments, en anglais **Dublin Core metadata terms**,
+  aussi connu sous le nom de **DC Terms**  
+  qui se décomposent en :
+    
+    - 15 propriétés de métadonnées d'origine, appelés "Dublin Core Metadata Element Set (DCMES)",
+      [listés ici en français](?ypath=/dcmes/*/_id,name.fr,definition.fr,description.fr),
+      ou [en anglais](?ypath=/dcmes/*/_id,name.en,definition.en,description.en)  
+      dont pour certains la signification peut être précisée
+      à l'aide de [sous-propriétés](?ypath=/dcmes/*/_id,name.fr,refinements)
+      qui restreignent la signification d'un élément, mais sans la changer fondamentalement ;
+    - des propriétés supplémentaires
+      [listés ici en français sans les sous-propriétés](?ypath=/extension/*/_id,name.fr,definition.fr,description.fr),
+      [avec les sous-propriétés](?ypath=/extension/*/_id,name.fr,definition.fr,refinements),
+      [en anglais sans sous-propriétés](?ypath=/extension/*/_id,name.en,definition.en,description.en),
+      [avec les sous-propriétés](?ypath=/extension/*/_id,name.en,definition.en,refinements),
+      [affichage complet](?ypath=/extension/*);
   
   Le DCMI (Dublin Core Metadata Initiative), un forum ouvert pour le développement d'un standard ouvert de métadonnées,
   a poursuivi ces travaux et a notamment défini :
     
-    - des éléments supplémentaires,
-      [sont listés ici ceux mentionnés par la BNF](?ypath=/extension/*) ;
-    - une [liste de vocabulaires contrôlés recommandés](?ypath=/cvoc/*/_id,name.fr,definition.fr,content,isAvailableAt)
-      dont un [vocabulaire de types de ressources](?ypath=/DCMIType/*) ;
-    - une [liste de syntaxes de codage définie ici](?ypath=/encoding/*).
+    - une [liste de vocabulaires contrôlés recommandés](?ypath=/cvoc/*/_id,name.fr,definition.fr,content,isAvailableAt),
+      dont certains sont gérés par le DCMI et d'autres par d'autres organisations ;
+    - une [liste de types de données définie ici](?ypath=/datatypes/*) ;
+    - des [espaces de noms](?ypath=/nameSpaces/*) utilisés notamment en RDF.
+    
+  Le présent document est structuré avec les tables suivantes :
+    
+    - [une table des termes utilisés au court du temps](?ypath=/terms)
+    - [une table des espaces de noms](?ypath=/nameSpaces),
+    - [une table des 15 éléments de métadonnées d'origine](?ypath=/dcmes) avec leurs éventuels raffinements,
+    - [une table des autres éléments de métadonnées](?ypath=/extension) avec leurs éventuels raffinements,
+    - [une table des vocabulaires contrôlés recommandés](?ypath=/cvoc),
+    - une table par vocabulaire contrôlé dont la taille est limitée référencée dans le n-uplet de la table des vocabulaires.
+    
+  Dans la mesure du possible les noms sont données en français et en anglais.
 lineage:
+  '2021-05-14': Complétion des éléments supplémentaires pour couvrir l'ensemble des éléments du Dublin Core, ajout des vocabulaires contrôlés utilisés pour les collections
   '2019-01-05': Définition des schéma JSON de chaque table
 publisher: https://github.com/benoitdavidfr
 created: '2018-06-05'
-modified: '2020-02-19'
+modified: '2021-05-14'
 source:
   - https://fr.wikipedia.org/wiki/Dublin_Core
   - http://www.dublincore.org/documents/dces/
@@ -35,11 +56,135 @@ relation:
 licence: https://www.etalab.gouv.fr/licence-ouverte-open-licence
 $schema: http://ydclasses.georef.eu/YData/schema
 tables:
+  terms:
+    title: Liste des termes définis ou utilisés par le Dublin Core
+    description: |
+      La terminologie du Dublin Core a évoluée au cours des années pour au final utiliser celles de RDF et de SKOS.
+      La notion de terme (term en anglais) est la notion la plus générique qui se raffine en 4 sous-notions.
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      type: object
+      additionalProperties: false
+      patternProperties:
+        '^[-a-zA-Z]+$':
+          description: description de chaque terme
+          type: object
+          required: [prefLabel, definition]
+          properties:
+            prefLabel:
+              description: étiquette préférentielle
+              type: object
+              additionalProperties: false
+              patternProperties:
+                '^(fr|en)$':
+                  description: étiquette préférentielle en français ou en anglais
+                  type: string
+            altLabel:
+              description: étiquettes alternatives
+              type: array
+              element:
+                type: object
+                additionalProperties: false
+                patternProperties:
+                  '^(fr|en)$':
+                    description: étiquette alternative en français ou en anglais
+                    type: string
+            definition:
+              description: définition du concept
+              type: object
+              additionalProperties: false
+              patternProperties:
+                '^(fr|en)$':
+                  description: définition du concept en français ou en anglais
+                  type: string
+            description:
+              description: description du concept
+              type: object
+              additionalProperties: false
+              patternProperties:
+                '^(fr|en)$':
+                  description: description du concept en français ou en anglais
+                  type: string
+    data:
+      property:
+        prefLabel: {fr: propriété, en: property}
+        altLabel: [{fr: élément, en: element}]
+        definition: {fr: correspond à une propriété RDF}
+        description: {fr: la notion RDF de propriété a été initialement appelé élément}
+      sub-property:
+        prefLabel: {fr: sous-propriété, en: sub-property}
+        altLabel: [{fr: raffinement, en: refinement}]
+        definition: {fr: correspond à la relation sous-propriété RDF entre 2 propriétés}
+        description: {fr: la notion RDF de sous-propriété a été initialement appelée raffinement}
+      class:
+        prefLabel: {fr: classe, en: class}
+        definition: {fr: correspond à une classe RDF}
+      conceptScheme:
+        prefLabel: {fr: Schéma de concepts SKOS, en: SKOS Concept Scheme}
+        altLabel: [{fr: Schémas de codage de vocabulaire, en: Vocabulary encoding scheme}]
+        definition: {fr: correspond à un schéma de concepts SKOS}
+        description: {fr: initialement appelé Schémas de codage de vocabulaire}
+      dataType:
+        prefLabel: {fr: type de données, en: data type}
+        altLabel: [{fr: Schémas de codage de syntaxe, en: Syntax Encoding Scheme}]
+        definition: {fr: correspondent à un type de données RDF}
+        description: {fr: initialement appelé 'Schémas de codage de syntaxe'}
+      
+  nameSpaces:
+    title: liste des espaces de noms définis par le DCMI
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      description: description des espaces identifié par le prefix usuel
+      type: object
+      additionalProperties: false
+      patternProperties: # la propriété est l'identifiant de l'espace
+        '^[a-zA-Z]+$':
+          description: description de chaque espace
+          type: object
+          required: [identifier, definition]
+          properties:
+            identifier:
+              description: URI de l'espace
+              type: string
+            definition:
+              description: définition de l'espace
+              type: string
+            description:
+              description: description de l'espace
+    data:
+      dc:
+        identifier: http://purl.org/dc/elements/1.1/
+        definition: espace des 15 éléments d'origine, appelé "Dublin Core Metadata Element Set (DCMES)"
+        description: Espace initial largement utilisé
+      dcterms:
+        identifier: http://purl.org/dc/terms/
+        definition: espace de tous les éléments de métadonnées (Dublin Core metadata terms)
+        description: >
+          Espace recommandé, les éléments y sont formellement définis plus précisément pour une utilisation avec RDF
+      dcmitype:
+        identifier: http://purl.org/dc/dcmitype/
+        definition: espace des types de ressource
+      dcam:
+        identifier: http://purl.org/dc/dcam/
+        definition: espace pour certains termes utilisés
+      cld:
+        identifier: http://purl.org/cld/terms/
+        definition: espace utilisé pour les termes de description des collections
+      accmeth:
+        identifier: http://purl.org/cld/accmeth/
+        definition: espace utilisé pour les méthodes d'accroissement des collections
+      freq:
+        identifier: http://purl.org/cld/freq/
+        definition: espace utilisé pour les fréquences d'ajout à une collection
+      accpol:
+        identifier: http://purl.org/cld/accpol/
+        definition: esapce utilisé pour les politiques d'accroissement de collection
+        
   dcmes:
     title: liste des 15 éléments de métadonnées d'origine, appelé "Dublin Core Metadata Element Set (DCMES)" + raffinements de ces éléments
     elementURI:
-      - chaque élément d'origine est identifié par un URI de la forme http://purl.org/dc/elements/1.1/{_id}
-      - chaque raffinement est identifié par un URI de la forme http://purl.org/dc/terms/{_id}
+      - les éléments d'origine sont identifiés par un URI de la forme http://purl.org/dc/elements/1.1/{_id}
+      - les autres éléments sont identifiés par un URI de la forme http://purl.org/dc/terms/{_id}
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       title: Schema des éléments DCMES
@@ -100,6 +245,16 @@ tables:
                         '^..$':
                           type: string
                           description: définition dans la langue définie par la propriété
+                    description:
+                      description: un commentaire sur l'élément dans différentes langues
+                      anyOf:
+                        - type: 'null'
+                        - type: object
+                          patternProperties:
+                            '^..$':
+                              type: string
+                              description: >
+                                commentaire dans la langue définie par la propriété correspondant à son code ISO 639-1
 
     data:
       title:
@@ -196,6 +351,41 @@ tables:
             name:
               fr: Date de modification
               en: Modified
+          dateAccepted:
+            name:
+              fr: Date d'acceptation
+              en: Date Accepted
+            definition:
+              fr: La date d'acceptation de la ressource.
+              en: Date of acceptance of the resource.
+            description:
+              fr: >
+                Comme exemples de ressources pour lesquelles une date d'acceptation serait pertinente, une thèse (acceptée par un département d'université) ou un article (accepté par un journal).
+              en: >
+                Recommended practice is to describe the date, date/time, or period of time as recommended for the property Date, of which this is a subproperty. Examples of resources to which a date of acceptance may be relevant are a thesis (accepted by a university department) or an article (accepted by a journal).
+          dateCopyrighted:
+            name:
+              fr: Date de dépôt des droits d'auteur
+              en: Date Copyrighted
+            definition:
+              fr: La date de dépôt des droits d'auteur.
+              en: Date of copyright of the resource.
+            description:
+              en: >
+                Typically a year. Recommended practice is to describe the date, date/time, or period of time as recommended for the property Date, of which this is a subproperty.
+          dateSubmitted:
+            name:
+              fr: Date de soumission
+              en: Date Submitted
+            definition:
+              fr: La date de soumission de la ressource.
+              en: Date of submission of the resource.
+            description:
+              fr: >
+                Comme exemples de ressources pour lesquelles une date de soumission serait pertinente, une thèse (soumise à un département d'université) ou un article (soumis à un journal).
+              en: >
+                Recommended practice is to describe the date, date/time, or period of time as recommended for the property Date, of which this is a subproperty. Examples of resources to which a 'Date Submitted' may be relevant include a thesis (submitted to a university department) or an article (submitted to a journal).
+          
       type:
         name:
           fr: Type de ressource
@@ -249,6 +439,14 @@ tables:
           isAvailableAt:
             name:
               en: Is Available At
+          bibliographicCitation:
+            name:
+              en: Bibliographic Citation
+            definition:
+              en: A bibliographic reference for the resource.
+            description:
+              en: >
+                Recommended practice is to include sufficient bibliographic detail to identify the resource as unambiguously as possible.
       source:
         name:
           fr: Source
@@ -393,15 +591,22 @@ tables:
               fr: Droits d'accès
             definition:
               fr: Une information à propos de qui peut accéder à la ressource ou une indication de son état de protection.
-          licence:
+          license:
             name:
               fr: Licence
+              en-GB: Licence
+              en-US: License
             definition:
               fr: Un document légal donnant permission officielle de faire quelque chose avec la ressource.
+            description:
+              fr: >
+                L'identifiant est license mais le terme licence est parfois utilisé par erreur.
+                'License' est la forme américaine ; en anglais britanique c'est 'licence'.
 
   extension:
-    title: éléments supplémentaires mentionnés par la BNF
-    elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{name}
+    title: éléments supplémentaires du DCMI
+    elementNameSpace: http://purl.org/dc/terms/
+    elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{_id}
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       title: Schema des éléments supplémentaires
@@ -447,11 +652,12 @@ tables:
     data:
       audience:
         name:
+          fr: Public
           en: Audience
         definition:
           fr: Une classe d'entité pour laquelle la ressource est prévue ou utile.
           en: A class of entity for whom the resource is intended or useful. A class of entity may be determined by the creator or the publisher or by a third party.
-        guidelinesForContentCreation:
+        description:
           en: >
             Audience terms are best utilized in the context of formal or informal controlled vocabularies. None are presently recommended or registered by DCMI, but several communities of interest are engaged in setting up audience vocabularies. In the absence of recommended controlled vocabularies, implementors are encouraged to develop local lists of values, and to use them consistently.
         examples:
@@ -459,6 +665,21 @@ tables:
             - elementary school students
             - ESL teachers
             - deaf adults
+        refinements:
+          educationLevel:
+            name:
+              fr: Niveau d'éducation du public
+              en: Audience Education Level
+            definition:
+              fr: Une classe d'entité, définie en fonction d'une progression dans un cadre éducatif ou d'apprentissage, à laquelle la ressource est destinée.
+              en: A class of agents, defined in terms of progression through an educational or training context, for which the described resource is intended.
+          mediator:
+            name:
+              en: Mediator
+            definition:
+              en: An entity that mediates access to the resource.
+            description:
+              en: In an educational context, a mediator might be a parent, teacher, teaching assistant, or care-giver.
       provenance:
         name:
           fr: Provenance
@@ -479,12 +700,52 @@ tables:
         definition:
           fr: Une personne ou une organisation possédant ou exploitant les droits sur la ressource.
           en: A person or organization owning or managing rights over the resource.
+      accrualMethod:
+        name:
+          fr: Méthode d'accroissement
+          en: Accrual Method
+        definition:
+          fr: La méthode selon laquelle des éléments sont ajoutés à une collection.
+          en: The method by which items are added to a collection.
+        description:
+          en: >
+            Recommended practice is to use a value from the Collection Description Accrual Method Vocabulary [DCMI-ACCRUALMETHOD](?ypath=/cvoc/ACCRUALMETHOD).
+      accrualPeriodicity:
+        name:
+          fr: Périodicité d'accroissement
+          en: Accrual Periodicity
+        definition:
+          fr: La fréquence avec laquelle des éléments sont ajoutés à une collection.
+          en: The frequency with which items are added to a collection.
+        description:
+          en: Recommended practice is to use a value from the Collection Description Frequency Vocabulary [DCMI-COLLFREQ](?ypath=/cvoc/COLLFREQ).
+      accrualPolicy:
+        name:
+          fr: Politique d'accroissement
+          en: Accrual Policy
+        definition:
+          fr: La politique régissant l'ajout d'éléments à une collection.
+          en: The policy governing the addition of items to a collection.
+        description:
+          en: >
+            Recommended practice is to use a value from the Collection Description Accrual Policy Vocabulary [DCMI-ACCRUALPOLICY](?ypath=/cvoc/ACCRUALPOLICY).
+      instructionalMethod:
+        name:
+          fr: Méthode d'enseignement
+          en: Instructional Method
+        definition:
+          fr: Un processus utilisé pour engendrer des connaissances, des attitudes et des compétences, pour le soutien duquel la ressource décrite est prévue.
+          en: A process, used to engender knowledge, attitudes and skills, that the described resource is designed to support.
+        description:
+          fr: >
+            Une méthode d'enseignement comprendra typiquement des façons de présenter les documents pédagogiques ou de conduire des activités pédagogiques, des modèles d'interactions aprenant-à-aprenant (learner-to-learner) et aprenant-à-éducateur (learner-to-instructor), et des mécanismes d'évaluation des niveaux d'aprentissage en groupe et individuellement. Les méthodes d'enseignement comprennent tous les aspects des processus d'éducation et d'apprentissage, de la planification et la mise en œuvre jusqu'à l'évaluation et l'information en retour.
+          en: >
+            Instructional Method typically includes ways of presenting instructional materials or conducting instructional activities, patterns of learner-to-learner and learner-to-instructor interactions, and mechanisms by which group and individual levels of learning are measured. Instructional methods include all aspects of the instruction and learning processes from planning and implementation through evaluation and feedback.
 
   cvoc:
     title:
       fr: Schémas de codage de vocabulaire, c'est à dire vocabulaires contrôlés recommandés
       en: Vocabulary Encoding Schemes
-    elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{_id}
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       title: Schéma de la description des vocabulaires contrôlés
@@ -496,6 +757,9 @@ tables:
           type: object
           required: [ name, definition, isAvailableAt ]
           properties:
+            identifier:
+              description: identifiant du vocabulaire
+              type: string
             name:
               description: le nom officiel du vocabulaire dans différentes langues
               type: object
@@ -510,6 +774,9 @@ tables:
                 '^..$':
                   type: string
                   description: définition dans la langue définie par la propriété correspondant à son code ISO 639-1
+            elementNameSpace:
+              description: URI de l'espace de noms des concepts du vocabulaire
+              type: string
             content:
               description: texte Markdown avec lien interne détaillant le vocabulaire
               type: string
@@ -518,11 +785,13 @@ tables:
               type: string
     data:
       DCMIType:
+        identifier: http://dublincore.org/specifications/dublin-core/dcmi-terms/2020-01-20/ 
         name:
           fr: Vocabulaire de types DCMI
           en: DCMI Type Vocabulary
         definition:
           fr: L'ensemble des classes spécifiées par le vocabulaire de types DCMI, qui sert à catégoriser la nature ou le type de la ressource.
+        elementNameSpace: http://purl.org/dc/dcmitype/
         content: |
           [contenu](?ypath=/DCMIType/*)
             
@@ -586,10 +855,45 @@ tables:
         definition:
           fr: L'ensemble des ressources conceptuelles spécifiées par la classification décimale universelle (Universal Decimal Classification).
         isAvailableAt: http://www.udcc.org/index.php/site/page?view=about
-    
+      ACCRUALMETHOD:
+        identifier: http://purl.org/cld/terms/AccrualMethod
+        name:
+          fr: Vocabulaire des méthodes d'accroissement des collections
+          en: Dublin Core™ Collection Description Accrual Method Vocabulary
+        definition:
+          en: This document describes the accrual method vocabulary used by the application profile for collection-level description developed by the Dublin Core Collection Description Task Group.
+        elementNameSpace: http://purl.org/cld/accmeth/
+        content: |
+          [contenu](?ypath=/ACCRUALMETHOD/*)
+          
+        isAvailableAt: https://www.dublincore.org/specifications/dublin-core/collection-description/accrual-method/
+      COLLFREQ:
+        identifier: http://purl.org/cld/terms/Frequency
+        name:
+          fr: Vocabulaire des fréquences d'ajout à une collection
+          en: Dublin Core™ Collection Description Frequency Vocabulary
+        definition:
+          en: This document describes the frequency vocabulary used by the application profile for collection-level description developed by the Dublin Core Collection Description Task Group.
+        elementNameSpace: http://purl.org/cld/freq/
+        content: |
+          [contenu](?ypath=/COLLFREQ/*)
+          
+        isAvailableAt: https://www.dublincore.org/specifications/dublin-core/collection-description/frequency/
+      ACCRUALPOLICY:
+        identifier: http://purl.org/cld/terms/AccrualPolicy
+        name:
+          fr: Vocabulaire des politiques d'accroissement de collection
+          en: Collection Description Accrual Policy Vocabulary
+        definition:
+          en: A set of policies governing the addition of items are added to a collection.
+        elementNameSpace: http://purl.org/cld/accpol/
+        content: |
+          [contenu](?ypath=/ACCRUALPOLICY/*)
+          
+        isAvailableAt: https://www.dublincore.org/specifications/dublin-core/collection-description/accrual-policy/
   DCMIType:
     title: DCMI Type Vocabulary
-    lang: en
+    language: en
     date: 2012-06-14
     publisher: http://purl.org/dc/aboutdcmi#DCMI
     source: http://purl.org/dc/dcmitype/
@@ -799,27 +1103,11 @@ tables:
         label: langage GML
         wikipedia: https://fr.wikipedia.org/wiki/Geography_Markup_Language
     
-  encoding:
+  datatypes:
     title:
-      fr: Schémas de codage de syntaxe
-      en: Syntax Encoding Schemes
-    elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{_id}
-    yamlSchema:
-      KEYS:
-        ROOT:
-          data:
-            - name // identifiant de l'élément
-          data/definition:
-            - language // langue de la définition de l'élément
-      ROOT:
-        data:
-          KEY:
-            name: STRING // étiquette
-            definition:
-              KEY: STRING // définition dans la langue définie par la clé
-            see?: STRING // référence vers plus d'informations
-            comment?:
-              KEY: STRING // commentaire dans la langue définie par la clé
+      fr: Types de données, anciennement appelés Schémas de codage de syntaxe
+      en: Data types, préviously called Syntax Encoding Schemes
+    elementURI: chaque type est identifié par un URI de la forme http://purl.org/dc/terms/{_id}
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       title: Schema of the Syntax Encoding Schemes
@@ -1036,3 +1324,155 @@ tables:
           - telnet://192.0.2.16:80/
           - urn:oasis:names:specification:docbook:dtd:xml:4.1.2
         isAvailableAt: http://www.ietf.org/rfc/rfc3986.txt
+
+  ACCRUALMETHOD:
+    title: Dublin Core™ Collection Description Accrual Method Vocabulary
+    language: en
+    elementURI: each method is identified by an URI following the following model http://purl.org/cld/accmeth/{_id}
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema of DCMI Types
+      description: The key of each record is the official identifier
+      type: object
+      patternProperties:
+        '^[a-zA-Z]+$':
+          description: description of each method
+          type: object
+          required: [ label, definition ]
+          properties:
+            label:
+              description: the name of the method
+              type: string
+            definition:
+              description: the definition of the method
+              type: string
+    data:
+      deposit:
+        label: Deposit
+        definition: The permanent addition of items to the collection, where the transfer of ownership is conditional on certain requirements or restrictions, but without financial payment or reciprocal transfer of items.
+      donation:
+        label: Donation
+        definition: The permanent addition of items to the collection through the transfer of ownership, without financial payment.
+      purchase:
+        label: Purchase
+        definition: The permanent addition of items to the collection through the transfer of ownership, accompanied by one or more financial payments.
+      loan:
+        label: Loan
+        definition: The temporary addition of items to the collection with no transfer of ownership, without financial payment.
+      license:
+        label: License
+        definition: The temporary addition of items to the collection with no transfer of ownership, accompanied by one or more financial payments.
+      itemCreation:
+        label: Item Creation
+        definition: The permanent addition of items to the collection as a result of item creation by the owner of the collection.
+  
+  COLLFREQ:
+    title: Dublin Core™ Collection Description Frequency Vocabulary
+    language: en
+    elementURI: each record is identified by an URI following the following model http://purl.org/cld/freq/{_id}
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema of DCMI Types
+      description: The key of each record is the official identifier
+      type: object
+      patternProperties:
+        '^[a-zA-Z]+$':
+          description: description of each frequency
+          type: object
+          required: [ label, definition ]
+          properties:
+            label:
+              description: the name of the frequency
+              type: string
+            definition:
+              description: the definition of the frequency
+              type: string
+    data:
+      triennial:
+        label: Triennial
+        definition: The event occurs every three years.
+      biennial:
+        label: Biennial
+        definition: The event occurs every two years.
+      annual:
+        label: Annual
+        definition: The event occurs once a year.
+      semiannual:
+        label: Semiannual
+        definition: The event occurs twice a year.
+      threeTimesAYear:
+        label: Three times a year
+        definition: The event occurs three times a year.
+      quarterly:
+        label: Quarterly
+        definition: The event occurs every three months.
+      bimonthly:
+        label: Bimonthly
+        definition: The event occurs every two months.
+      monthly:
+        label: Monthly
+        definition: The event occurs once a month.
+      semimonthly:
+        label: Semimonthly
+        definition: The event occurs twice a month.
+      biweekly:
+        label: Biweekly
+        definition: The event occurs every two weeks.
+      threeTimesAMonth:
+        label: Three times a month
+        definition: The event occurs three times a month.
+      weekly:
+        label: Weekly
+        definition: The event occurs once a week.
+      semiweekly:
+        label: Semiweekly
+        definition: The event occurs twice a week.
+      threeTimesAWeek:
+        label: Three times a week
+        definition: The event occurs three times a week.
+      daily:
+        label: Daily
+        definition: The event occurs once a day.
+      continuous:
+        label: Continuous
+        definition: The event repeats without interruption.
+      irregular:
+        label: Irregular
+        definition: The event occurs at uneven intervals.
+
+  ACCRUALPOLICY:
+    title: Collection Description Accrual Policy Vocabulary
+    language: en
+    elementURI: each record is identified by an URI following the following model http://purl.org/cld/accpol/{_id}
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      title: Schema of DCMI Types
+      description: The key of each record is the official identifier
+      type: object
+      patternProperties:
+        '^[a-zA-Z]+$':
+          description: description of each policy
+          type: object
+          required: [ label, definition ]
+          properties:
+            label:
+              description: the name of the policy
+              type: string
+            definition:
+              description: the definition of the policy
+              type: string
+    data:
+      closed:
+        label: Closed
+        definition: A policy that items are no longer added to the collection.
+      passive:
+        label: Passive
+        definition: A policy that items are added to the collection only in response to the initiative of an external agent.
+      active:
+        label: Active
+        definition: A policy that items are actively sought for addition to the collection.
+      partial:
+        label: Partial
+        definition: A policy that items are actively sought for addition to a specific part of the collection.
+
+eof:

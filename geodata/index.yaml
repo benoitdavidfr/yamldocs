@@ -1,5 +1,7 @@
 title: Présentation de l'accès aux données géographiques avec YamlDoc
 journal:
+  '2021-01-28':
+    - remplacement par les OGC API, notamment API Features
   '2018-09-23':
     - renommage VectorDataset en FeatureDataset
   '2018-08-15':
@@ -9,6 +11,10 @@ journal:
   '2018-08-05':
     - première réflexions inspirée de bdv.geoapi.fr avec version minimum de GeoData et Map fonctionne avec Route500
 description: |
+  ## Nouveauté
+  Ce mécanisme d'accès est progressivement par la mise en oeuvre des OGC API,
+  notamment l'API Features qui doit remplacer FeatureDataset.
+
   ## Accès aux données géographiques
   YamlDoc définit des mécanismes d'accès aux données géographiques au travers de types de documents
   correspondant à des séries de données géographiques (SD),

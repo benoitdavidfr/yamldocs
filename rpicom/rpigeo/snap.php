@@ -78,7 +78,7 @@ class Geometry {
     }
   }
   static function test_ST_HausdorffDistance() {
-    PgSql::open('host=172.17.0.4 dbname=gis user=docker password=docker');
+    PgSql::open('host=pgsqlserver dbname=gis user=docker password=docker');
     $ls = new LineString([[0,0],[1,0],[1,2]]);
     foreach ([
       [[0,0],[0,1]],
@@ -590,7 +590,7 @@ class Ref {
 if ((php_sapi_name() == 'cli') || ($_GET['action'] == 'snap')) {
   if (php_sapi_name() <> 'cli')
     echo "<!DOCTYPE HTML><html><head><meta charset='UTF-8'><title>snap</title></head><body><pre>\n";
-  PgSql::open('host=172.17.0.4 dbname=gis user=docker password=docker');
+  PgSql::open('host=pgsqlserver dbname=gis user=docker password=docker');
   $sql = "select ST_AsGeoJSON(wkb_geometry) geom from commune_carto where id='08173'";
   foreach (PgSql::query($sql) as $tuple) {
     $ref = new Ref(json_decode($tuple['geom'], true));

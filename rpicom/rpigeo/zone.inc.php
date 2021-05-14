@@ -165,7 +165,6 @@ class Zone {
     //echo Yaml::dump(self::allAsArray()); die();
     
     // standardise les clés de self::$includes
-    if (1)
     foreach (array_keys(self::$includes) as $small) {
       if ($zSmall = self::get($small)) {
         $stdId = $zSmall->id();
@@ -182,7 +181,6 @@ class Zone {
     }
     
     // standardise les valeurs de self::$includes
-    if (1)
     foreach (self::$includes as $small => $bigs) {
       $stdbigs = [];
       foreach ($bigs as $big) {
@@ -247,9 +245,15 @@ class Zone {
     // recherche du référentiel dans lequel la zone est définie
     // Les zones définies dans COG2020
     foreach (self::$all as $id => $zone) {
-      if ($zone->isValid()) {
-        $zone->ref = 'COG2020';
-        Stats::incr('COG2020');
+      if ($idv = $zone->isValid()) {
+        if (substr($idv, 0, 1)=='s') {
+          $zone->ref = 'COG2020s';
+          Stats::incr('COG2020s');
+        }
+        else {
+          $zone->ref = 'COG2020r';
+          Stats::incr('COG2020r');
+        }
       }
     }
     // Les ecomp définies en creux dans COG2020
@@ -301,12 +305,12 @@ class Zone {
   function vids(): array { return $this->vids; }
   function ref(): ?string { return $this->ref; }
   
-  function isValid(): bool {
+  function isValid(): ?string {
     foreach ($this->vids as $id) {
       if (Rpicom::get($id)->isValid())
-        return true;
+        return $id;
     }
-    return false;
+    return null;
   }
   
   // Retourne ttes les zones structurées hiérarchiquement

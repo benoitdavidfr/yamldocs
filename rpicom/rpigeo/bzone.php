@@ -186,7 +186,7 @@ EOT;
   die("Fin testChangeDeRattachementPourAvecDéléguéePropre");
 }
 
-PgSql::open('host=172.17.0.4 dbname=gis user=docker password=docker');
+PgSql::open('host=pgsqlserver dbname=gis user=docker password=docker');
 $where = '';
 //$where = "where cinsee like '17%'"; echo "where=$where\n";
 Rpicom::loadFromPg($where);

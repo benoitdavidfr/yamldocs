@@ -200,7 +200,8 @@ dataset:
     title: Données du trafic aérien commercial (base TRAFIC)
     language: fr
     description: |
-      Données du trafic aérien commercial (trajet, transporteur, passagers, fret, …) collectées auprès des aéroports français
+      Données du trafic aérien commercial (trajet, transporteur, passagers, fret, …) collectées auprès des aéroports
+      français
     creator: http://id.georef.eu/organization/DGAC
     theme: http://eurovoc.europa.eu/4408 - aviation civile
     spatial: https://www.geonames.org/3017382 - France
@@ -217,8 +218,9 @@ dataset:
     theme: http://eurovoc.europa.eu/4408 - aviation civile
     spatial: https://www.geonames.org/3017382 - France
     description: |
-      Cette base de données sur les prix est construite à partir de relevés tarifaires (tarif pour plus de 300 itinéraires AR
-      au départ de France) automatisés sur le système de réservation Travelport et sur les sites internet des transporteurs.
+      Cette base de données sur les prix est construite à partir de relevés tarifaires (tarif pour plus de 300
+      itinéraires AR au départ de France) automatisés sur le système de réservation Travelport et sur les sites
+      internet des transporteurs.
   TransporteursFRDGAC:
     a: dcat:Dataset
     title: Liste des transporteurs aériens français (avec données sur entreprise) (base Transporteurs FR)

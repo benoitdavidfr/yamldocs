@@ -101,3 +101,18 @@ data:
     cen: aucune
   ISO_19162:2015:
     title: Geographic information – Well-known text representation of coordinate reference systems
+  ISO_19168-1:2020:
+    title: "Geographic information — Geospatial API for features — Part 1: Core."
+    Approved: 9/21/2020
+    web: https://www.iso.org/standard/32586.html
+    abstract: |
+      This document specifies the behaviour of Web APIs that provide access to features in a dataset in a manner independent of the underlying data store. This document defines discovery and query operations.
+
+      Discovery operations enable clients to interrogate the API, including the API definition and metadata about the feature collections provided by the API, to determine the capabilities of the API and retrieve information about available distributions of the dataset.
+
+      Query operations enable clients to retrieve features from the underlying data store based upon simple selection criteria, defined by the client.
+    ogc:
+      title: OGC API Features - Part 1 Core
+      uri: http://docs.opengeospatial.org/is/17-069r3/17-069r3.html
+      
+  

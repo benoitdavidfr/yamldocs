@@ -27,6 +27,12 @@ description: |
   un code bibliographique (ISO 639-2/B) et un code terminologique (ISO 639-2/T).
   Dans ce cas l'indication (ISO 639-2/T) est ajoutée derrière le nom de la langue du code terminologique.  
   Ces thésaurus sont produits à partir du document cité en source.
+  
+  La Library of Congress définit des URI std pour les codes ISO 639-1 et 2
+  Ils sont de la forme, par ex. pour le français:
+    - http://id.loc.gov/vocabulary/iso639-1/fr
+    - http://id.loc.gov/vocabulary/iso639-2/fre
+    - http://id.loc.gov/vocabulary/iso639-2/fra
 source: https://www.loc.gov/standards/iso639-2/php/English_list.php
 $schema: http://ydclasses.georef.eu/YamlSkos
 domainScheme:
