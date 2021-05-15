@@ -1,7 +1,7 @@
 title: schéma JSON pour un document Dublin Core
 $schema: http://json-schema.org/draft-07/schema#
 $id: http://id.georef.eu/dublincore.schema
-modified: 2019-02-13
+modified: 2021-05-15
 description: |
   Ce schéma correspond à une fiche de MD mono-lingue et comporte des annotations pour en dériver
   le schéma d'une fiche multi-lingue qui est très proche.
@@ -296,7 +296,7 @@ properties:
   temporal:
     description: Couverture temporelle
   accessRights: true
-  licence: true
+  license: true
 examples: #MultiLingual monoLingualExamples: # Mono lingual examples
   - title: un exemple simple monolingue
     abstract: résumé

@@ -61,7 +61,7 @@ source:
   - http://www.yoyodesign.org/doc/dcmi/dcmi-terms/
 language: [fr, en]
 relation:
-licence: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+license: https://www.etalab.gouv.fr/licence-ouverte-open-licence
 $schema: http://ydclasses.georef.eu/YData/schema
 tables:
   terms:
@@ -71,6 +71,7 @@ tables:
       La notion de terme (term en anglais) est la notion la plus générique qui se raffine en 4 sous-notions.
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/dublincore/terms
       type: object
       additionalProperties: false
       patternProperties:
@@ -78,6 +79,7 @@ tables:
           description: description de chaque terme
           type: object
           required: [prefLabel, definition]
+          additionalProperties: false
           properties:
             prefLabel:
               description: étiquette préférentielle
@@ -90,7 +92,7 @@ tables:
             altLabel:
               description: étiquettes alternatives
               type: array
-              element:
+              items:
                 type: object
                 additionalProperties: false
                 patternProperties:
@@ -144,14 +146,16 @@ tables:
     title: liste des espaces de noms définis par le DCMI
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/dublincore/nameSpaces
       description: description des espaces identifié par le prefix usuel
       type: object
       additionalProperties: false
-      patternProperties: # la propriété est l'identifiant de l'espace
+      patternProperties: # la clé est le prefix usuel de l'espace
         '^[a-zA-Z]+$':
           description: description de chaque espace
           type: object
           required: [identifier, definition]
+          additionalProperties: false
           properties:
             identifier:
               description: URI de l'espace
@@ -207,6 +211,7 @@ tables:
           description: description de chaque propriété
           type: object
           required: [ label ]
+          additionalProperties: false
           properties:
             label:
               description: l'étiquette officielle de l'élément dans différentes langues
@@ -630,41 +635,43 @@ tables:
                 'License' est la forme américaine ; en anglais britanique c'est 'licence'.
 
   extension:
-    title: éléments supplémentaires du DCMI
+    title: propriétés supplémentaires du DCMI
     elementNameSpace: http://purl.org/dc/terms/
-    elementURI: chaque élément est identifié par un URI de la forme http://purl.org/dc/terms/{_id}
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
-      title: Schema des éléments supplémentaires
-      description: Les éléments supplémentaires ont comme clé leur identifiant officiel
+      $id: http://schema.georef.eu/dublincore/extension
+      title: Schema des propriétés supplémentaires
+      description: Les propriétés supplémentaires ont comme clé leur identifiant officiel
       type: object
-      patternProperties: # la propriété est l'identifiant de l'élément
+      additionalProperties: false
+      patternProperties: # la clé est l'identifiant de la propriété
         '^[a-zA-Z]+$':
-          description: description de chaque élément
+          description: description de chaque propriété
           type: object
-          required: [ name ]
+          required: [ label ]
+          additionalProperties: false
           properties:
-            name:
-              description: le nom officiel de l'élément dans différentes langues
+            label:
+              description: étiquette officielle de la propriété dans différentes langues
               type: object
               patternProperties:
                 '^..$':
                   type: string
-                  description: nom officiel dans la langue définie par la propriété correspondant à son code ISO 639-1
+                  description: étiquette officielle dans la langue définie par son code ISO 639-1 contenu dans la clé
             definition:
-              description: la définition de l'élément dans différentes langues
+              description: la définition de la propriété dans différentes langues
               type: object
               patternProperties:
                 '^..$':
                   type: string
-                  description: définition dans la langue définie par la propriété correspondant à son code ISO 639-1
-            guidelinesForContentCreation:
-              description: instructions pour la création de contenu dans différentes langues
+                  description: définition dans la langue définie par la clé
+            description:
+              description: commentaire sur la propriété dans différentes langues
               type: object
               patternProperties:
                 '^..$':
                   type: string
-                  description: instructions dans la langue définie par la propriété correspondant à son code ISO 639-1
+                  description: commentaire dans la langue définie par la clé
             examples:
               description: exemples dans différentes langues
               type: object
@@ -675,41 +682,72 @@ tables:
                   items:
                     type: string
                     description: chaque exemple
+            subproperties:
+              description: des sous-propriétés éventuelles avec comme clé l'identifiant de la sous-propriété
+              type: object
+              patternProperties: # la clé est l'identifiant de la sous-propriété
+                '^[a-zA-Z]+$':
+                  description: description de chaque sous-propriété
+                  type: object
+                  required: [ label ]
+                  properties:
+                    label:
+                      description: le nom de la sous-propriété dans différentes langues
+                      type: object
+                      patternProperties:
+                        '^..(-.*)?$':
+                          type: string
+                          description: étiquette officielle dans la langue définie par la clé
+                    definition:
+                      description: la définition de la sous-propriété dans différentes langues
+                      type: object
+                      patternProperties:
+                        '^..$':
+                          type: string
+                          description: définition dans la langue définie par la clé
+                    description:
+                      description: un commentaire sur la sous-propriété dans différentes langues
+                      type: object
+                      patternProperties:
+                        '^..$':
+                          type: string
+                          description: commentaire dans la langue définie par la clé
     data:
       audience:
-        name:
-          fr: Public
-          en: Audience
+        label: {fr: Public, en: Audience}
         definition:
           fr: Une classe d'entité pour laquelle la ressource est prévue ou utile.
-          en: A class of entity for whom the resource is intended or useful. A class of entity may be determined by the creator or the publisher or by a third party.
+          en: >
+            A class of entity for whom the resource is intended or useful. A class of entity may be determined by the
+            creator or the publisher or by a third party.
         description:
           en: >
-            Audience terms are best utilized in the context of formal or informal controlled vocabularies. None are presently recommended or registered by DCMI, but several communities of interest are engaged in setting up audience vocabularies. In the absence of recommended controlled vocabularies, implementors are encouraged to develop local lists of values, and to use them consistently.
+            Audience terms are best utilized in the context of formal or informal controlled vocabularies. None are
+            presently recommended or registered by DCMI, but several communities of interest are engaged in setting up
+            audience vocabularies. In the absence of recommended controlled vocabularies, implementors are encouraged to
+            develop local lists of values, and to use them consistently.
         examples:
           en:
             - elementary school students
             - ESL teachers
             - deaf adults
-        refinements:
+        subproperties:
           educationLevel:
-            name:
+            label:
               fr: Niveau d'éducation du public
               en: Audience Education Level
             definition:
               fr: Une classe d'entité, définie en fonction d'une progression dans un cadre éducatif ou d'apprentissage, à laquelle la ressource est destinée.
               en: A class of agents, defined in terms of progression through an educational or training context, for which the described resource is intended.
           mediator:
-            name:
+            label:
               en: Mediator
             definition:
               en: An entity that mediates access to the resource.
             description:
               en: In an educational context, a mediator might be a parent, teacher, teaching assistant, or care-giver.
       provenance:
-        name:
-          fr: Provenance
-          en: Provenance
+        label: {fr: Provenance, en: Provenance}
         definition:
           fr: Une déclaration de tous les changements d'appartenance et de garde de la ressource depuis sa création qui sont importants pour son authenticité, son intégrité et son interprétation.
           en: >
@@ -720,84 +758,91 @@ tables:
             - Estate of Hunter Thompson.
             - Stolen in 1999; recovered by the Museum in 2003.
       rightsHolder:
-        name:
-          fr: Détenteur des droits
-          en: Rights Holder
+        label: {fr: Détenteur des droits, en: Rights Holder}
         definition:
           fr: Une personne ou une organisation possédant ou exploitant les droits sur la ressource.
           en: A person or organization owning or managing rights over the resource.
       accrualMethod:
-        name:
-          fr: Méthode d'accroissement
-          en: Accrual Method
+        label: {fr: Méthode d'accroissement, en: Accrual Method}
         definition:
           fr: La méthode selon laquelle des éléments sont ajoutés à une collection.
           en: The method by which items are added to a collection.
         description:
           en: >
-            Recommended practice is to use a value from the Collection Description Accrual Method Vocabulary [DCMI-ACCRUALMETHOD](?ypath=/cvoc/ACCRUALMETHOD).
+            Recommended practice is to use a value from the Collection Description Accrual Method Vocabulary
+            [DCMI-ACCRUALMETHOD](?ypath=/cvoc/ACCRUALMETHOD).
       accrualPeriodicity:
-        name:
-          fr: Périodicité d'accroissement
-          en: Accrual Periodicity
+        label: {fr: Périodicité d'accroissement, en: Accrual Periodicity}
         definition:
           fr: La fréquence avec laquelle des éléments sont ajoutés à une collection.
           en: The frequency with which items are added to a collection.
         description:
-          en: Recommended practice is to use a value from the Collection Description Frequency Vocabulary [DCMI-COLLFREQ](?ypath=/cvoc/COLLFREQ).
+          en: >
+            Recommended practice is to use a value from the Collection Description Frequency Vocabulary
+            [DCMI-COLLFREQ](?ypath=/cvoc/COLLFREQ).
       accrualPolicy:
-        name:
-          fr: Politique d'accroissement
-          en: Accrual Policy
+        label: {fr: Politique d'accroissement, en: Accrual Policy}
         definition:
           fr: La politique régissant l'ajout d'éléments à une collection.
           en: The policy governing the addition of items to a collection.
         description:
           en: >
-            Recommended practice is to use a value from the Collection Description Accrual Policy Vocabulary [DCMI-ACCRUALPOLICY](?ypath=/cvoc/ACCRUALPOLICY).
+            Recommended practice is to use a value from the Collection Description Accrual Policy Vocabulary
+            [DCMI-ACCRUALPOLICY](?ypath=/cvoc/ACCRUALPOLICY).
       instructionalMethod:
-        name:
-          fr: Méthode d'enseignement
-          en: Instructional Method
+        label: {fr: Méthode d'enseignement, en: Instructional Method}
         definition:
-          fr: Un processus utilisé pour engendrer des connaissances, des attitudes et des compétences, pour le soutien duquel la ressource décrite est prévue.
-          en: A process, used to engender knowledge, attitudes and skills, that the described resource is designed to support.
+          fr: >
+            Un processus utilisé pour engendrer des connaissances, des attitudes et des compétences, pour le soutien duquel
+            la ressource décrite est prévue.
+          en: >
+            A process, used to engender knowledge, attitudes and skills, that the described resource is designed to support.
         description:
           fr: >
-            Une méthode d'enseignement comprendra typiquement des façons de présenter les documents pédagogiques ou de conduire des activités pédagogiques, des modèles d'interactions aprenant-à-aprenant (learner-to-learner) et aprenant-à-éducateur (learner-to-instructor), et des mécanismes d'évaluation des niveaux d'aprentissage en groupe et individuellement. Les méthodes d'enseignement comprennent tous les aspects des processus d'éducation et d'apprentissage, de la planification et la mise en œuvre jusqu'à l'évaluation et l'information en retour.
+            Une méthode d'enseignement comprendra typiquement des façons de présenter les documents pédagogiques ou de
+            conduire des activités pédagogiques, des modèles d'interactions aprenant-à-aprenant (learner-to-learner) et
+            aprenant-à-éducateur (learner-to-instructor), et des mécanismes d'évaluation des niveaux d'aprentissage en
+            groupe et individuellement. Les méthodes d'enseignement comprennent tous les aspects des processus d'éducation
+            et d'apprentissage, de la planification et la mise en œuvre jusqu'à l'évaluation et l'information en retour.
           en: >
-            Instructional Method typically includes ways of presenting instructional materials or conducting instructional activities, patterns of learner-to-learner and learner-to-instructor interactions, and mechanisms by which group and individual levels of learning are measured. Instructional methods include all aspects of the instruction and learning processes from planning and implementation through evaluation and feedback.
+            Instructional Method typically includes ways of presenting instructional materials or conducting instructional
+            activities, patterns of learner-to-learner and learner-to-instructor interactions, and mechanisms by which group
+            and individual levels of learning are measured. Instructional methods include all aspects of the instruction and
+            learning processes from planning and implementation through evaluation and feedback.
 
   datatypes:
     title:
       fr: Types de données, anciennement appelés Schémas de codage de syntaxe
-      en: Data types, préviously called Syntax Encoding Schemes
-    elementURI: chaque type est identifié par un URI de la forme http://purl.org/dc/terms/{_id}
+      en: Data types, previously called Syntax Encoding Schemes
+    elementNameSpace: http://purl.org/dc/terms/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/dublincore/datatypes
       title: Schema of the Syntax Encoding Schemes
       description: The key of each scheme is its official identifier
       type: object
+      additionalProperties: false
       patternProperties: # the property is the identifier of the scheme
         '^[a-zA-Z][-a-zA-Z0-9]*$':
           description: description of each scheme
           type: object
-          required: [ name, isAvailableAt ]
+          required: [ label, isAvailableAt ]
+          additionalProperties: false
           properties:
-            name:
-              description: the official name in different languages
+            label:
+              description: the official label in different languages
               type: object
               patternProperties:
                 '^..$':
                   type: string
-                  description: official name in the language defined by the property corresponding to ISO 639-1 code
+                  description: official label in the language defined by the key
             definition:
               description: the definition of the type in different languages
               type: object
               patternProperties:
                 '^..$':
                   type: string
-                  description: official name in the language defined by the property corresponding to ISO 639-1 code
+                  description: definition of the type in the language defined by the key
             examples:
               description: examples of resources of the type
               type: [array, object]
@@ -819,7 +864,7 @@ tables:
               type: string
     data:
       W3CDTF:
-        name:
+        label:
           fr: spécification des formats de dates et d'heures du W3C
           en: W3C Date and Time Formats Specification
         definition:
@@ -837,7 +882,7 @@ tables:
             example: '1997-07-16T19:20:30.45+01:00'
         isAvailableAt: http://www.w3.org/TR/NOTE-datetime
       Period:
-        name:
+        label:
           fr: schéma de codage DCMI Period
           en: DCMI Period Encoding Scheme
         definition:
@@ -849,7 +894,7 @@ tables:
           - start=1999-09-25T14:20+10:00; end=1999-09-25T16:40+10:00; scheme=W3C-DTF;
         isAvailableAt: http://dublincore.org/documents/dcmi-period/
       Point:
-        name:
+        label:
           fr: schéma de codage DCMI Point
           en: DCMI Point Encoding Scheme
         definition:
@@ -861,7 +906,7 @@ tables:
           - east=148.26218; north=-36.45746; elevation=2228; name=Mt. Kosciusko
         isAvailableAt: http://dublincore.org/documents/dcmi-point/
       Box:
-        name:
+        label:
           en: DCMI Box Encoding Scheme
           fr: schéma de codage DCMI Box
         definition:
@@ -880,7 +925,7 @@ tables:
             code: northlimit=-21.3; southlimit=-21.4; westlimit=139.8; eastlimit=139.9; uplimit=400; downlimit=-100; name=Duchess copper mine
         isAvailableAt: http://dublincore.org/documents/dcmi-box/
       ISO3166:
-        name:
+        label:
           fr: codes listés dans la norme ISO 3166-1 pour la représentation des noms de pays
           en: codes listed in ISO 3166-1 for the representation of names of countries
         examples:
@@ -903,7 +948,7 @@ tables:
           CP: Ile de Clipperton
         isAvailableAt: http://www.iso.org/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html
       ISO639-2:
-        name:
+        label:
           fr: codes alphabétiques de trois lettres listés dans la norme ISO 639-2 pour la représentation des noms des langues
           en: three-letter alphabetic codes listed in ISO639-2 for the representation of names of languages
         examples:
@@ -919,18 +964,21 @@ tables:
             Les 2 codes doivent être considérés comme synonymes.
             (source: https://www.loc.gov/standards/iso639-2/faq.html#3)
       ISO639-3:
-        name:
+        label:
           fr: codes de trois lettres listés dans la norme ISO 639-3 pour la représentation des noms des langues
           en: three-letter alphabetic codes listed in ISO639-3 for the representation of names of languages
         description:
           fr: semble peu utilisé
         isAvailableAt: http://www.sil.org/iso639-3/
       RFC1766:
-        name:
+        label:
           fr: Etiquettes pour l'identification des langues (RFC 1766)
           en: Tags for the Identification of Languages (RFC 1766)
         examples:
+          fr: français
+          fr-GP: français utilisé en Guadeloupe
           en: anglais
+          en-GB: anglais britanique
           en-US: anglais américain
           no-nynorsk: nouveau norvégien
           en-cockney: cockney
@@ -942,7 +990,7 @@ tables:
         isAvailableAt: http://www.ietf.org/rfc/rfc1766.txt
         isReplacedBy: '[RFC3066](?ypath=/encoding/RFC3066)'
       RFC3066:
-        name:
+        label:
           fr: Etiquettes pour l'identification des langues (RFC 3066) (remplacé by RFC 4646)
           en: Tags for the Identification of Languages (RFC 3066) (obsoleted by RFC 4646)
         description:
@@ -951,7 +999,7 @@ tables:
         replaces: '[RFC1766](?ypath=/encoding/RFC1766)'
         isAvailableAt: http://www.ietf.org/rfc/rfc3066.txt
       RFC4646:
-        name:
+        label:
           fr: Etiquettes pour l'identification des langues (RFC 4646) (remplacé by RFC 5646)
           en: Tags for the Identification of Languages (RFC 4646) (obsoleted by RFC 5646)
         description:
@@ -960,7 +1008,7 @@ tables:
         isReplacedBy: '[RFC5646](?ypath=/encoding/RFC5646)'
         isAvailableAt: http://www.ietf.org/rfc/rfc4646.txt
       RFC5646:
-        name:
+        label:
           fr: Etiquettes pour l'identification des langues (RFC 5646)
           en: Tags for the Identification of Languages (RFC 5646)
         examples:
@@ -976,7 +1024,7 @@ tables:
         replaces: '[RFC4646](?ypath=/encoding/RFC4646)'
         isAvailableAt: http://www.ietf.org/rfc/rfc5646.txt
       URI:
-        name:
+        label:
           fr: syntaxe générique des identificateurs de ressource uniformes
           en: generic syntax for Uniform Resource Identifiers
         examples:
@@ -996,14 +1044,17 @@ tables:
     nameSpaceOfElement: http://purl.org/dc/terms/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/dublincore/classes
       title: Schema of the Syntax Encoding Schemes
       description: The key of each scheme is its official identifier
       type: object
+      additionalProperties: false
       patternProperties: # the property is the identifier of the scheme
         '^[a-zA-Z][-a-zA-Z0-9]*$':
           description: description of each scheme
           type: object
           required: [ label, definition ]
+          additionalProperties: false
           properties:
             label:
               description: l'étiquette dans diféfrentes langues
@@ -1011,26 +1062,39 @@ tables:
               patternProperties:
                 '^..$':
                   type: string
-                  description: official name in the language defined by the property corresponding to ISO 639-1 code
+                  description: official name in the language defined by the key
             definition:
               description: the definition of the type in different languages
               type: object
               patternProperties:
                 '^..$':
                   type: string
-                  description: official name in the language defined by the property corresponding to ISO 639-1 code
+                  description: definition in the language defined by the key
+            description:
+              description: comment on the type in different languages
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: comment in the language defined by the key
+            instanceOf:
+              description: URI de la classe dont le type est une instance
+              type: string
+            subClassOf:
+              description: URI de la classe dont le type est une sous-classe
+              type: string
     data:
       Agent:
         label: {fr: Agent, en: Agent}
         definition: {fr: Une ressource qui agit ou a le pouvoir d'agir., en: A resource that acts or has the power to act.}
-        comment:
+        description:
           fr: Comme exemples d'agents, une personne, une organisation et un agent logiciel.
           en: Examples of Agent include person, organization, and software agent.
         instanceOf: http://purl.org/dc/terms/AgentClass
       AgentClass:
         label: {fr: Classe d'agent}
         definition: {fr: Un groupe d'agents.}
-        comment:
+        description:
           fr: >
             Comme examples de classes d'agent, les groupes vus comme des classes, tels que les étudiants, les femmes,
             les œuvres de bienfaisance, les conférenciers.
@@ -1041,7 +1105,7 @@ tables:
       FileFormat:
         label: {fr: Format de fichier}
         definition: {fr: Un format de ressource numérique.}
-        comment: {fr: "Comme exemples, les formats définis par la liste des types de média Internet."}
+        description: {fr: "Comme exemples, les formats définis par la liste des types de média Internet."}
         subClassOf: http://purl.org/dc/terms/MediaType
       Frequency:
         label: {fr: Fréquence}
@@ -1057,7 +1121,7 @@ tables:
         subClassOf: http://purl.org/dc/terms/RightsStatement
       LinguisticSystem:
         label: {fr: Système linguistique}
-        comment: {fr: "Comme exemples, les langues écrites, parlées, les langages des signes et informatiques."}
+        description: {fr: "Comme exemples, les langues écrites, parlées, les langages des signes et informatiques."}
         definition:
           fr: Un système de signes, de symboles, de sons, de gestes ou de règles employé pour la communication.
       Location:
@@ -1088,7 +1152,7 @@ tables:
       PhysicalMedium:
         label: {fr: Support physique}
         definition: {fr: Un document ou un support physique.}
-        comment: {fr: "Comme exemples, le papier, un canevas ou un DVD."}
+        description: {fr: "Comme exemples, le papier, un canevas ou un DVD."}
         subClassOf: http://purl.org/dc/terms/MediaType
       PhysicalResource:
         label: {fr: Ressource physique}
@@ -1116,7 +1180,7 @@ tables:
         label: {fr: Dimension ou durée}
         definition:
           fr: Une dimension ou étendue, ou le temps pris pour une lecture ou une exécution.
-        comment:
+        description:
           fr: >
             Comme exemples, un nombre de pages, une spécification de hauteur, largeur et profondeur,
             ou une période en heures, minutes et secondes.
@@ -1136,11 +1200,13 @@ tables:
       title: Schéma de la description des vocabulaires contrôlés
       description: Les vocabulaires ont comme clé leur identifiant officiel
       type: object
+      additionalProperties: false
       patternProperties: # la propriété est l'identifiant du vocabulaire
         '^[a-zA-Z]+$':
           description: description de chaque vocabulaire contrôlé
           type: object
           required: [ name, definition, isAvailableAt ]
+          additionalProperties: false
           properties:
             identifier:
               description: identifiant du vocabulaire
@@ -1284,17 +1350,20 @@ tables:
     publisher: http://purl.org/dc/aboutdcmi#DCMI
     source: http://purl.org/dc/dcmitype/
     description: structuration in YData of the source document
-    elementURI: each type is identified by an URI following the following model http://purl.org/dc/dcmitype/{_id}
+    elementNameSpace: http://purl.org/dc/dcmitype/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/dublincore/DCMIType
       title: Schema of DCMI Types
       description: The key of each DCMI type is the official identifier
       type: object
+      additionalProperties: false
       patternProperties: # the property is the identifier of the type
         '^[a-zA-Z]+$':
           description: description of each type
           type: object
           required: [ name, uri, definition ]
+          additionalProperties: false
           properties:
             name:
               description: the name du type
@@ -1399,12 +1468,15 @@ tables:
     source: https://www.iana.org/assignments/media-types/media-types.xhtml
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/dublincore/mediaType
       type: object
+      additionalProperties: false
       patternProperties: # the property is the identifier of the type
         '^[-a-zA-Z]+$':
           description: description of each type
           type: object
           required: [ type, label ]
+          additionalProperties: false
           properties:
             type:
               description: the string defining the type
@@ -1492,17 +1564,20 @@ tables:
   ACCRUALMETHOD:
     title: Dublin Core™ Collection Description Accrual Method Vocabulary
     language: en
-    elementURI: each method is identified by an URI following the following model http://purl.org/cld/accmeth/{_id}
+    elementNameSpace: http://purl.org/cld/accmeth/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/dublincore/ACCRUALMETHOD
       title: Schema of DCMI Types
       description: The key of each record is the official identifier
       type: object
+      additionalProperties: false
       patternProperties:
         '^[a-zA-Z]+$':
           description: description of each method
           type: object
           required: [ label, definition ]
+          additionalProperties: false
           properties:
             label:
               description: the name of the method
@@ -1533,17 +1608,20 @@ tables:
   COLLFREQ:
     title: Dublin Core™ Collection Description Frequency Vocabulary
     language: en
-    elementURI: each record is identified by an URI following the following model http://purl.org/cld/freq/{_id}
+    elementNameSpace: http://purl.org/cld/freq/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/dublincore/COLLFREQ
       title: Schema of DCMI Types
       description: The key of each record is the official identifier
       type: object
+      additionalProperties: false
       patternProperties:
         '^[a-zA-Z]+$':
           description: description of each frequency
           type: object
           required: [ label, definition ]
+          additionalProperties: false
           properties:
             label:
               description: the name of the frequency
@@ -1607,17 +1685,20 @@ tables:
   ACCRUALPOLICY:
     title: Collection Description Accrual Policy Vocabulary
     language: en
-    elementURI: each record is identified by an URI following the following model http://purl.org/cld/accpol/{_id}
+    elementNameSpace: http://purl.org/cld/accpol/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/dublincore/ACCRUALPOLICY
       title: Schema of DCMI Types
       description: The key of each record is the official identifier
       type: object
+      additionalProperties: false
       patternProperties:
         '^[a-zA-Z]+$':
           description: description of each policy
           type: object
           required: [ label, definition ]
+          additionalProperties: false
           properties:
             label:
               description: the name of the policy
