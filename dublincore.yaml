@@ -19,12 +19,11 @@ abstract: |
       [avec les sous-propriétés](?ypath=/extension/*/_id,name.en,definition.en,subproperties),
       [affichage complet](?ypath=/extension/*);
   
-  Le DCMI (Dublin Core Metadata Initiative), un forum ouvert pour le développement d'un standard ouvert de métadonnées,
-  a poursuivi ces travaux et a notamment défini :
+  Le Dublin Core a défini d'autre part :
     
     - une [liste de vocabulaires contrôlés recommandés](?ypath=/cvoc/*/_id,name.fr,definition.fr,content,isAvailableAt),
       dont certains sont gérés par le DCMI et d'autres par d'autres organisations ;
-    - une [liste de types de données définie ici](?ypath=/datatypes/*) ;
+    - une [liste de types de données](?ypath=/datatypes/*) ;
     - une [liste de classes définie ici
       en français](?ypath=/classes/*/_id,label.fr,definition.fr,comment.fr,instanceOf,subClassOf) ;
     - des [espaces de noms](?ypath=/nameSpaces/*) utilisés notamment en RDF.
@@ -43,15 +42,16 @@ abstract: |
     
   Dans la mesure du possible les informations sont fournies en français et en anglais.
 lineage:
-  '2021-05-14':
+  '2021-05-15':
     - Complétion des éléments supplémentaires pour couvrir l'ensemble des éléments du Dublin Core,
     - ajout des vocabulaires contrôlés utilisés pour les collections
     - nettoyage de la terminologie pour se caler sur RDF et SKOS
     - ajout des espaces de noms et des classes
+    - ajout du champ elementNameSpace
   '2019-01-05': Définition des schéma JSON de chaque table
 publisher: https://github.com/benoitdavidfr
 created: '2018-06-05'
-modified: '2021-05-14'
+modified: '2021-05-15'
 source:
   - https://fr.wikipedia.org/wiki/Dublin_Core
   - http://www.dublincore.org/documents/dces/
