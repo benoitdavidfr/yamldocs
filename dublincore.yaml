@@ -9,15 +9,14 @@ abstract: |
     
     - 15 propriétés de métadonnées d'origine, appelés "Dublin Core Metadata Element Set (DCMES)",
       [listés ici en français](?ypath=/dcmes/*/_id,name.fr,definition.fr,description.fr),
-      ou [en anglais](?ypath=/dcmes/*/_id,name.en,definition.en,description.en)  
-      dont pour certains la signification peut être précisée
-      à l'aide de [sous-propriétés](?ypath=/dcmes/*/_id,name.fr,refinements)
-      qui restreignent la signification d'un élément, mais sans la changer fondamentalement ;
+      ou [en anglais](?ypath=/dcmes/*/_id,name.en,definition.en,description.en),  
+      dont certains peuvent peuvent être précisés à l'aide de [sous-propriétés](?ypath=/dcmes/*/_id,name.fr,subproperties),
+      qui restreignent la signification d'une propriété, mais sans la changer fondamentalement ;
     - des propriétés supplémentaires
       [listés ici en français sans les sous-propriétés](?ypath=/extension/*/_id,name.fr,definition.fr,description.fr),
-      [avec les sous-propriétés](?ypath=/extension/*/_id,name.fr,definition.fr,refinements),
+      [avec les sous-propriétés](?ypath=/extension/*/_id,name.fr,definition.fr,subproperties),
       [en anglais sans sous-propriétés](?ypath=/extension/*/_id,name.en,definition.en,description.en),
-      [avec les sous-propriétés](?ypath=/extension/*/_id,name.en,definition.en,refinements),
+      [avec les sous-propriétés](?ypath=/extension/*/_id,name.en,definition.en,subproperties),
       [affichage complet](?ypath=/extension/*);
   
   Le DCMI (Dublin Core Metadata Initiative), un forum ouvert pour le développement d'un standard ouvert de métadonnées,
@@ -120,7 +119,7 @@ tables:
         altLabel: [{fr: élément, en: element}]
         definition: {fr: correspond à une propriété RDF}
         description: {fr: la notion RDF de propriété a été initialement appelé élément}
-      sub-property:
+      subproperty:
         prefLabel: {fr: sous-propriété, en: sub-property}
         altLabel: [{fr: raffinement, en: refinement}]
         definition: {fr: correspond à la relation sous-propriété RDF entre 2 propriétés}
@@ -192,38 +191,37 @@ tables:
         definition: esapce utilisé pour les politiques d'accroissement de collection
         
   dcmes:
-    title: liste des 15 éléments de métadonnées d'origine, appelé "Dublin Core Metadata Element Set (DCMES)" + raffinements de ces éléments
+    title: liste des 15 propriétés de métadonnées d'origine, appelé "Dublin Core Metadata Element Set (DCMES)" + sous-propriétés éventuelles
     elementURI:
-      - les éléments d'origine sont identifiés par un URI de la forme http://purl.org/dc/elements/1.1/{_id}
-      - les autres éléments sont identifiés par un URI de la forme http://purl.org/dc/terms/{_id}
+      - les 15 propriétés d'origine sont identifiées par un URI de la forme http://purl.org/dc/elements/1.1/{_id}
+      - les autres propriétés sont identifiées par un URI de la forme http://purl.org/dc/terms/{_id}
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
-      title: Schema des éléments DCMES
-      description: Les éléments DCMES ont comme clé leur identifiant officiel
+      $id: http://schema.georef.eu/dublincore/dcmes
+      title: Schema des propriétés DCMES
+      description: Les propriétés DCMES ont comme clé leur identifiant officiel
       type: object
       additionalProperties: false
-      patternProperties: # la propriété est l'identifiant de l'élément
+      patternProperties: # la clé est l'identifiant de la propriété
         '^[a-zA-Z]+$':
-          description: description de chaque élément
+          description: description de chaque propriété
           type: object
-          required: [ name ]
+          required: [ label ]
           properties:
-            name:
-              description: le nom officiel de l'élément dans différentes langues
+            label:
+              description: l'étiquette officielle de l'élément dans différentes langues
               type: object
               patternProperties:
                 '^..$':
                   type: string
-                  description: nom officiel dans la langue définie par la propriété correspondant à son code ISO 639-1
+                  description: étiquette officielle dans la langue définie par la clé correspondant à son code ISO 639-1
             definition:
               description: la définition de l'élément dans différentes langues
-              anyOf:
-                - type: 'null'
-                - type: object
-                  patternProperties:
-                    '^..$':
-                      type: string
-                      description: définition dans la langue définie par la propriété correspondant à son code ISO 639-1
+              type: object
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: définition dans la langue définie par la propriété correspondant à son code ISO 639-1
             description:
               description: un commentaire sur l'élément dans différentes langues
               anyOf:
@@ -233,61 +231,58 @@ tables:
                     '^..$':
                       type: string
                       description: commentaire dans la langue définie par la propriété correspondant à son code ISO 639-1
-            refinements:
-              description: des raffinements éventuels avec comme clé l'identifiant du raffinement
+            subproperties:
+              description: des sous-propriétés éventuelles avec comme clé l'identifiant de la sous-propriété
               type: object
-              patternProperties: # la propriété est l'identifiant du raffinement
+              patternProperties: # la propriété est l'identifiant de la sous-propriété
                 '^[a-zA-Z]+$':
-                  description: description de chaque raffinement
+                  description: description de chaque sous-propriété
                   type: object
-                  required: [ name ]
+                  required: [ label ]
                   properties:
-                    name:
-                      description: le nom du raffinement dans différentes langues
+                    label:
+                      description: le nom de la sous-propriété dans différentes langues
                       type: object
                       patternProperties:
-                        '^..$':
+                        '^..(-.*)?$':
                           type: string
-                          description: nom officiel dans la langue définie par la propriété
+                          description: nom officiel dans la langue définie par la clé
                     definition:
-                      description: la définition du raffinement dans différentes langues
+                      description: la définition de la sous-propriété dans différentes langues
                       type: object
                       patternProperties:
                         '^..$':
                           type: string
-                          description: définition dans la langue définie par la propriété
+                          description: définition dans la langue définie par la clé
                     description:
-                      description: un commentaire sur l'élément dans différentes langues
-                      anyOf:
-                        - type: 'null'
-                        - type: object
-                          patternProperties:
-                            '^..$':
-                              type: string
-                              description: >
-                                commentaire dans la langue définie par la propriété correspondant à son code ISO 639-1
+                      description: un commentaire sur la sous-propriété dans différentes langues
+                      type: object
+                      patternProperties:
+                        '^..$':
+                          type: string
+                          description: commentaire dans la langue définie par la clé
 
     data:
       title:
-        name:
+        label:
           fr: Titre
           en: Title
         definition:
           fr: Titre principal du document
         description:
-        refinements:
+        subproperties:
           alternative:
-            name:
+            label:
               fr: Titre alternatif
               en: Alternative
       creator:
-        name:
+        label:
           fr: Créateur
           en: Creator
         definition:
           fr: Nom de la personne, de l'organisation ou du service à l'origine de la rédaction du document
       subject:
-        name:
+        label:
           fr: Sujet
           en: Subject
         definition:
@@ -297,32 +292,32 @@ tables:
             La pratique exemplaire recommandée est d'employer un vocabulaire contrôlé.
             Pour décrire la nature spatiale ou temporelle de la ressource, utilisez l'élément coverage.
       description:
-        name:
+        label:
           fr: Description
           en: Description
         definition:
           fr: Une explication de la ressource.
         description:
           fr: Résumé, table des matières, ou texte libre.
-        refinements:
+        subproperties:
           tableOfContents:
-            name:
+            label:
               fr: Table des matières
               en: Table Of Contents
             definition:
               fr: Une liste de sous-unités de la ressource.
           abstract:
-            name:
+            label:
               fr: Résumé
               en: Abstract
       publisher:
-        name:
+        label:
           fr: Éditeur
           en: Publisher
         definition:
           fr: Une entité responsable de la mise à disposition de la ressource.
       contributor:
-        name:
+        label:
           fr: Collaborateur
           en: Contributor
         definition:
@@ -330,40 +325,40 @@ tables:
             Nom d'une personne, d'une organisation ou d'un service qui contribue ou a contribué à l'élaboration du document.  
             Chaque contributeur fait l'objet d'un élément Contributor séparé
       date:
-        name:
+        label:
           fr: Date
           en: Date
         definition:
           fr: Date d'un événement dans le cycle de vie du document
-        refinements:
+        subproperties:
           created:
-            name:
+            label:
               fr: Date de création
               en: Created
           valid:
-            name:
+            label:
               fr: Date de validité
               en: Valid
             definition:
               fr: La date (souvent un intervalle) de validité d'une ressource.
           available:
-            name:
+            label:
               fr: Date de disponibilité
               en: Available
             definition:
               fr: La date (souvent une période) à laquelle la ressource a été disponible ou le deviendra.
           issued:
-            name:
+            label:
               fr: Date de parution
               en: Issued
             definition:
               fr: La date de parution formelle (par exemple, la publication) de la ressource.
           modified:
-            name:
+            label:
               fr: Date de modification
               en: Modified
           dateAccepted:
-            name:
+            label:
               fr: Date d'acceptation
               en: Date Accepted
             definition:
@@ -371,11 +366,14 @@ tables:
               en: Date of acceptance of the resource.
             description:
               fr: >
-                Comme exemples de ressources pour lesquelles une date d'acceptation serait pertinente, une thèse (acceptée par un département d'université) ou un article (accepté par un journal).
+                Comme exemples de ressources pour lesquelles une date d'acceptation serait pertinente, une thèse (acceptée
+                par un département d'université) ou un article (accepté par un journal).
               en: >
-                Recommended practice is to describe the date, date/time, or period of time as recommended for the property Date, of which this is a subproperty. Examples of resources to which a date of acceptance may be relevant are a thesis (accepted by a university department) or an article (accepted by a journal).
+                Recommended practice is to describe the date, date/time, or period of time as recommended for the property
+                Date, of which this is a subproperty. Examples of resources to which a date of acceptance may be relevant
+                are a thesis (accepted by a university department) or an article (accepted by a journal).
           dateCopyrighted:
-            name:
+            label:
               fr: Date de dépôt des droits d'auteur
               en: Date Copyrighted
             definition:
@@ -385,7 +383,7 @@ tables:
               en: >
                 Typically a year. Recommended practice is to describe the date, date/time, or period of time as recommended for the property Date, of which this is a subproperty.
           dateSubmitted:
-            name:
+            label:
               fr: Date de soumission
               en: Date Submitted
             definition:
@@ -398,7 +396,7 @@ tables:
                 Recommended practice is to describe the date, date/time, or period of time as recommended for the property Date, of which this is a subproperty. Examples of resources to which a 'Date Submitted' may be relevant include a thesis (submitted to a university department) or an article (submitted to a journal).
           
       type:
-        name:
+        label:
           fr: Type de ressource
           en: Type
         description:
@@ -412,7 +410,7 @@ tables:
             [DCMI Type Vocabulary](?ypath=/DCMIType/*).  
             To describe the file format, physical medium, or dimensions of the resource, use the Format element.
       format:
-        name:
+        label:
           fr: Format
           en: Format
         definition:
@@ -422,22 +420,22 @@ tables:
             Comme exemples de dimensions, la taille et la durée. La pratique exemplaire recommandée est d'employer un
             vocabulaire contrôlé
             tel que la [liste des types de média Internet](http://www.iana.org/assignments/media-types/).
-        refinements:
+        subproperties:
           extent:
-            name:
+            label:
               fr: Étendue
               en: Extent
             definition:
               fr: La taille ou la durée de la ressource.
               en: The size or duration of the resource.
           medium:
-            name:
+            label:
               fr: Support
               en: Medium
             definition:
               fr: La matière ou le support physique de la ressource.
       identifier:
-        name:
+        label:
           fr: Identifiant de la ressource
           en: Identifier
         definition:
@@ -446,29 +444,32 @@ tables:
           fr: >
             Identificateur non ambigu ; il est recommandé d'utiliser un système de référencement précis,
             afin que l'identifiant soit unique au sein du site, par exemple les URI ou les numéros ISBN.
-        refinements:
+        subproperties:
           isAvailableAt:
-            name:
+            label:
               en: Is Available At
           bibliographicCitation:
-            name:
+            label:
               en: Bibliographic Citation
             definition:
               en: A bibliographic reference for the resource.
             description:
               en: >
-                Recommended practice is to include sufficient bibliographic detail to identify the resource as unambiguously as possible.
+                Recommended practice is to include sufficient bibliographic detail to identify the resource as
+                unambiguously as possible.
       source:
-        name:
+        label:
           fr: Source
           en: Source
         definition:
           fr: Une ressource liée de laquelle dérive la ressource décrite.
         description:
           fr: >
-            La ressource décrite peut dériver de la ressource liée entièrement ou en partie. La pratique exemplaire recommandée est d'identifier la ressource liée au moyen d'une chaîne conforme à un système d'identification formel.
+            La ressource décrite peut dériver de la ressource liée entièrement ou en partie.
+            La pratique exemplaire recommandée est d'identifier la ressource liée au moyen d'une chaîne
+            conforme à un système d'identification formel.
       language:
-        name:
+        label:
           fr: Langue
           en: Language
         definition:
@@ -481,129 +482,143 @@ tables:
             Recommended best practice is to use a controlled vocabulary
             such as [RFC 4646](?ypath=/encoding/RFC4646).
       relation:
-        name:
+        label:
           fr: Relation
           en: Relation
         definition:
           fr: Lien avec d'autres ressources.
         description:
-          fr: De nombreux raffinements permettent d'établir des liens précis, par exemple de version, de chapitres, de standard, etc.
-        refinements:
+          fr: >
+            De nombreuses sous-propriétés permettent d'établir des liens précis, par exemple de version, de chapitres,
+            de standard, etc.
+        subproperties:
           isVersionOf:
-            name:
+            label:
               fr: Est une version de
             definition:
               fr: Une ressource liée dont la ressource décrite est une version, une édition ou une adaptation.
               en: A related resource of which the described resource is a version, edition, or adaptation.
           hasVersion:
-            name:
+            label:
               fr: A pour version
             definition:
               fr: Une ressource liée qui est une version, une édition ou une adaptation de la ressource décrite.
               en: A related resource that is a version, edition, or adaptation of the described resource.
           isReplacedBy:
-            name:
+            label:
               fr: Est remplacé par
             definition:
               fr: Une ressource liée qui supplante, déplace ou remplace la ressource décrite.
               en: A related resource that supplants, displaces, or supersedes the described resource.
           replaces:
-            name:
+            label:
               fr: Remplace
             definition:
               fr: Une ressource liée qui est supplantée, déplacée ou remplacée par la ressource décrite.
               en: A related resource that is supplanted, displaced, or superseded by the described resource.
           isRequiredBy:
-            name:
+            label:
               fr: Est exigé par
             definition:
-              fr: Une ressource liée qui exige de la ressource décrite qu'elle soutienne sa fonction, sa distribution ou sa cohérence.
+              fr: >
+                Une ressource liée qui exige de la ressource décrite qu'elle soutienne sa fonction, sa distribution
+                ou sa cohérence.
               en: A related resource that requires the described resource to support its function, delivery, or coherence.
           requires:
-            name:
+            label:
               fr: Nécessite
             definition:
-              fr: Une ressource liée qui est exigée par la ressource décrite pour soutenir sa fonction, sa distribution ou sa cohérence.
-              en: A related resource that is required by the described resource to support its function, delivery, or coherence.
+              fr: >
+                Une ressource liée qui est exigée par la ressource décrite pour soutenir sa fonction, sa distribution
+                ou sa cohérence.
+              en: >
+                A related resource that is required by the described resource to support its function, delivery,
+                or coherence.
           isPartOf:
-            name:
+            label:
               fr: Est une partie de
             definition:
               fr: Une ressource liée dans laquelle la ressource décrite est physiquement ou logiquement incluse.
               en: A related resource in which the described resource is physically or logically included.
           hasPart:
-            name:
+            label:
               fr: A pour partie
             definition:
               fr: Une ressource liée qui est incluse physiquement ou logiquement dans la ressource décrite.
               en: A related resource that is included either physically or logically in the described resource.
           isReferencedBy:
-            name:
+            label:
               fr: Est référencé par
             definition:
               fr: Une ressource liée qui référence, cite ou encore pointe vers la ressource décrite.
               en: A related resource that references, cites, or otherwise points to the described resource.
           references:
-            name:
+            label:
               fr: Référence
             definition:
               fr: Une ressource liée qui est référencée, citée ou encore vers laquelle pointe la ressource décrite.
               en: A related resource that is referenced, cited, or otherwise pointed to by the described resource.
           isFormatOf:
-            name:
+            label:
               fr: Est un format de
             definition:
               fr: Une ressource liée qui est en substance la même que la ressource décrite mais dans un autre format.
               en: A related resource that is substantially the same as the described resource, but in another format.
           hasFormat:
-            name:
+            label:
               fr: A pour format
             definition:
-              en: A related resource that is substantially the same as the pre-existing described resource, but in another format.
-              fr: Une ressource liée qui est en substance la même que la ressource décrite préexistente mais dans un autre format.
+              en: >
+                A related resource that is substantially the same as the pre-existing described resource,
+                but in another format.
+              fr: >
+                Une ressource liée qui est en substance la même que la ressource décrite préexistente
+                mais dans un autre format.
           conformsTo:
-            name:
+            label:
               fr: Conforme à
             definition:
               en: An established standard to which the described resource conforms.
               fr: Un standard établi auquel la ressource décrite est conforme.
       coverage:
-        name:
+        label:
           fr: Couverture
           en: Coverage
         definition:
           fr: Couverture spatiale (point géographique, pays, régions, noms de lieux) ou temporelle
-        refinements:
+        subproperties:
           spatial:
-            name:
+            label:
               fr: Couverture spatiale
               en: Spatial Coverage
             description:
               fr: Utiliser le [schéma de codage DCMI Box](?ypath=/encoding/Box)
               en: Use [DCMI Box Encoding Scheme](?ypath=/encoding/Box)
           temporal:
-            name:
+            label:
               fr: Couverture temporelle
               en: Temporal Coverage
             description:
               fr: Utiliser le [schéma de codage DCMI Period](?ypath=/encoding/Period)
               en: Use [DCMI Period Encoding Scheme](?ypath=/encoding/Period)
       rights:
-        name:
+        label:
           fr: Droits
           en: Rights
         definition:
           fr: Une information à propos des droits détenus dans et sur la ressource.
         description:
-          fr: Les droits comprennent typiquement une déclaration à propos des divers droits de propriété associés à la ressource, y compris les droits de propriété intellectuelle.
-        refinements:
+          fr: >
+            Les droits comprennent typiquement une déclaration à propos des divers droits de propriété associés
+            à la ressource, y compris les droits de propriété intellectuelle.
+        subproperties:
           accessRights:
-            name:
+            label:
               fr: Droits d'accès
             definition:
               fr: Une information à propos de qui peut accéder à la ressource ou une indication de son état de protection.
           license:
-            name:
+            label:
               fr: Licence
               en-GB: Licence
               en-US: License
@@ -1117,6 +1132,7 @@ tables:
       en: Vocabulary Encoding Schemes
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/dublincore/cvoc
       title: Schéma de la description des vocabulaires contrôlés
       description: Les vocabulaires ont comme clé leur identifiant officiel
       type: object
