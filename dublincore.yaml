@@ -26,7 +26,7 @@ abstract: |
     - une [liste de types de données](?ypath=/datatypes/*) ;
     - une [liste de classes définie ici
       en français](?ypath=/classes/*/_id,label.fr,definition.fr,comment.fr,instanceOf,subClassOf) ;
-    - des [espaces de noms](?ypath=/nameSpaces/*) utilisés notamment en RDF.
+    - des [espaces de noms](?ypath=/namespaces/*) utilisés notamment en RDF.
     
   Le présent document est structuré avec les tables suivantes :
     
@@ -34,7 +34,7 @@ abstract: |
       la terminologie du Dublin Core a en effet évoluée au cours des années pour au final s'aligner sur celles de RDF
       et de SKOS.  
       La notion de terme (term en anglais) est la plus générique et se raffine en 4 sous-notions ;
-    - une [table des espaces de noms](?ypath=/nameSpaces) notamment utilisés en RDF ;
+    - une [table des espaces de noms](?ypath=/namespaces) notamment utilisés en RDF ;
     - une [table des 15 éléments de métadonnées d'origine](?ypath=/dcmes) avec leurs éventuels raffinements ;
     - une [table des autres éléments de métadonnées](?ypath=/extension) avec leurs éventuels raffinements ;
     - une [table des vocabulaires contrôlés recommandés](?ypath=/cvoc) ;
@@ -47,7 +47,7 @@ lineage:
     - ajout des vocabulaires contrôlés utilisés pour les collections
     - nettoyage de la terminologie pour se caler sur RDF et SKOS
     - ajout des espaces de noms et des classes
-    - ajout du champ elementNameSpace
+    - ajout du champ elementNamespace
   '2019-01-05': Définition des schéma JSON de chaque table
 publisher: https://github.com/benoitdavidfr
 created: '2018-06-05'
@@ -142,11 +142,11 @@ tables:
         definition: {fr: correspondent à un type de données RDF}
         description: {fr: initialement appelé 'Schémas de codage de syntaxe'}
       
-  nameSpaces:
+  namespaces:
     title: liste des espaces de noms définis par le DCMI
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
-      $id: http://schema.georef.eu/dublincore/nameSpaces
+      $id: http://schema.georef.eu/dublincore/namespaces
       description: description des espaces identifié par le prefix usuel
       type: object
       additionalProperties: false
@@ -636,7 +636,7 @@ tables:
 
   extension:
     title: propriétés supplémentaires du DCMI
-    elementNameSpace: http://purl.org/dc/terms/
+    elementNamespace:: http://purl.org/dc/terms/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/extension
@@ -814,7 +814,7 @@ tables:
     title:
       fr: Types de données, anciennement appelés Schémas de codage de syntaxe
       en: Data types, previously called Syntax Encoding Schemes
-    elementNameSpace: http://purl.org/dc/terms/
+    elementNamespace:: http://purl.org/dc/terms/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/datatypes
@@ -1041,7 +1041,7 @@ tables:
   classes:
     title:
       fr: classes définies par le DCMI
-    nameSpaceOfElement: http://purl.org/dc/terms/
+    elementNamespace:: http://purl.org/dc/terms/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/classes
@@ -1225,7 +1225,7 @@ tables:
                 '^..$':
                   type: string
                   description: définition dans la langue définie par la propriété correspondant à son code ISO 639-1
-            elementNameSpace:
+            elementNamespace::
               description: URI de l'espace de noms des concepts du vocabulaire
               type: string
             content:
@@ -1242,7 +1242,7 @@ tables:
           en: DCMI Type Vocabulary
         definition:
           fr: L'ensemble des classes spécifiées par le vocabulaire de types DCMI, qui sert à catégoriser la nature ou le type de la ressource.
-        elementNameSpace: http://purl.org/dc/dcmitype/
+        elementNamespace:: http://purl.org/dc/dcmitype/
         content: |
           [contenu](?ypath=/DCMIType/*)
             
@@ -1313,7 +1313,7 @@ tables:
           en: Dublin Core™ Collection Description Accrual Method Vocabulary
         definition:
           en: This document describes the accrual method vocabulary used by the application profile for collection-level description developed by the Dublin Core Collection Description Task Group.
-        elementNameSpace: http://purl.org/cld/accmeth/
+        elementNamespace:: http://purl.org/cld/accmeth/
         content: |
           [contenu](?ypath=/ACCRUALMETHOD/*)
           
@@ -1325,7 +1325,7 @@ tables:
           en: Dublin Core™ Collection Description Frequency Vocabulary
         definition:
           en: This document describes the frequency vocabulary used by the application profile for collection-level description developed by the Dublin Core Collection Description Task Group.
-        elementNameSpace: http://purl.org/cld/freq/
+        elementNamespace:: http://purl.org/cld/freq/
         content: |
           [contenu](?ypath=/COLLFREQ/*)
           
@@ -1337,7 +1337,7 @@ tables:
           en: Collection Description Accrual Policy Vocabulary
         definition:
           en: A set of policies governing the addition of items are added to a collection.
-        elementNameSpace: http://purl.org/cld/accpol/
+        elementNamespace:: http://purl.org/cld/accpol/
         content: |
           [contenu](?ypath=/ACCRUALPOLICY/*)
           
@@ -1350,7 +1350,7 @@ tables:
     publisher: http://purl.org/dc/aboutdcmi#DCMI
     source: http://purl.org/dc/dcmitype/
     description: structuration in YData of the source document
-    elementNameSpace: http://purl.org/dc/dcmitype/
+    elementNamespace:: http://purl.org/dc/dcmitype/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/DCMIType
@@ -1564,7 +1564,7 @@ tables:
   ACCRUALMETHOD:
     title: Dublin Core™ Collection Description Accrual Method Vocabulary
     language: en
-    elementNameSpace: http://purl.org/cld/accmeth/
+    elementNamespace:: http://purl.org/cld/accmeth/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/ACCRUALMETHOD
@@ -1608,7 +1608,7 @@ tables:
   COLLFREQ:
     title: Dublin Core™ Collection Description Frequency Vocabulary
     language: en
-    elementNameSpace: http://purl.org/cld/freq/
+    elementNamespace:: http://purl.org/cld/freq/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/COLLFREQ
@@ -1685,7 +1685,7 @@ tables:
   ACCRUALPOLICY:
     title: Collection Description Accrual Policy Vocabulary
     language: en
-    elementNameSpace: http://purl.org/cld/accpol/
+    elementNamespace:: http://purl.org/cld/accpol/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/ACCRUALPOLICY

@@ -1,0 +1,766 @@
+title: diverses ontologies
+abstract: |
+  Description de diverses ontologies
+tableOfContents: |
+  - [liste des ontologies](?ypath=/ontologies/*)
+  - [liste des espaces de nom](?ypath=/namespaces/*)
+source: https://www.w3.org/TR/2014/REC-vocab-dcat-20140116/
+license: https://www.etalab.gouv.fr/licence-ouverte-open-licence
+$schema: http://ydclasses.georef.eu/YData/schema
+tables:
+  ontologies:
+    title: liste des ontologies
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/ontology/ontologies
+      description: description des ontologies identifiées par un sigle
+      type: object
+      additionalProperties: false
+      patternProperties: # la clé est un sigle usuel
+        '^[a-zA-Z][a-zA-Z0-9]*$':
+          description: description de chaque espace
+          type: object
+          required: [title]
+          additionalProperties: false
+          properties:
+            title:
+              description: titre
+              type: string
+            publisher:
+              type: string
+            homepage:
+              description: page d'accueil
+              type: string
+    data:
+      RDF:
+        title: Resource Description Framework (RDF)
+        publisher: W3C
+        homepage: https://www.w3.org/RDF/
+      RDFS:
+        title: RDF Schema 1.1
+        publisher: W3C
+        homepage: http://www.w3.org/TR/rdf-schema/
+      OWL2:
+        title: OWL 2 Web Ontology Language
+        publisher: W3C
+        homepage: https://www.w3.org/TR/owl2-overview/
+      DCMES:
+        title: Dublin Core Metadata Element Set, Version 1.1 (original 15 elements)
+        publisher: DCMI
+        homepage: https://www.dublincore.org/specifications/dublin-core/dces/
+      DublinCore:
+        title: Dublin Core Ontology
+        publisher: DCMI
+        homepage: https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
+      SKOS:
+        title: SKOS Simple Knowledge Organization System
+        publisher: W3C
+        homepage: https://www.w3.org/2004/02/skos/
+      FOAF:
+        title: "Friend of a Friend (FOAF): an experimental linked information system"
+        publisher:	Dan Brickley, Libby Miller
+        homepage: http://www.foaf-project.org/
+      vCard:
+        title: vCard Ontology - for describing People and Organizations
+        publisher: W3C
+        homepage: https://www.w3.org/TR/vcard-rdf/
+      DCATv1:
+        title: Data Catalog Vocabulary (DCAT)
+        publisher: W3C
+        homepage: https://www.w3.org/TR/vocab-dcat-1/
+        links: |
+          [classes](?ypath=/classes/ontology=DCATv1/*/_id,label.fr,definition.en,subClassOf,properties,note.en)
+      DCATv2:
+        title: Data Catalog Vocabulary (DCAT) - Version 2 - W3C Recommandation
+        publisher: W3C
+        homepage: https://www.w3.org/TR/vocab-dcat-2/
+      PROV-O:
+        title: "PROV-O: The PROV Ontology"
+        publisher: W3C
+        homepage: https://www.w3.org/TR/prov-o/
+      ODRL:
+        title: ODRL Vocabulary & Expression 2.2
+        publisher: W3C
+        homepage: https://www.w3.org/TR/odrl-vocab/
+      CDM:
+        title: Common Data Model
+        publisher: Office des publications de l'UE
+        homepage: https://op.europa.eu/fr/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/cdm
+      ELI:
+        title: European Legislation Identifier (ELI)
+        publisher: Office des publications de l'UE
+        homepage: https://op.europa.eu/fr/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/eli
+      EURIO:
+        title: EUropean Research Information Ontology
+        publisher: Office des publications de l'UE
+        homepage: https://op.europa.eu/fr/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/eurio
+      CPSV:
+        title: Core Public Service Vocabulary
+        publisher: https://joinup.ec.europa.eu/
+        homepage: >
+          https://joinup.ec.europa.eu/collection/semantic-interoperability-community-semic/solution/core-public-service-vocabulary
+
+  namespaces:
+    title: espaces de noms
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/dcat/namespaces
+      description: description des espaces identifié par le prefix usuel
+      type: object
+      additionalProperties: false
+      patternProperties: # la clé est le prefix usuel de l'espace
+        '^[a-zA-Z][-.a-zA-Z0-9]*$':
+          description: description de chaque espace
+          type: object
+          required: [identifier]
+          additionalProperties: false
+          properties:
+            ontology:
+              description: sigle de l'ontologie dans laquelle l'espace est défini, clé dans ontologies
+              type: string
+            identifier:
+              description: URI de l'espace
+              type: string
+            title:
+              type: string
+            definition:
+              description: définition de l'espace
+              type: string
+            description:
+              description: description de l'espace
+            otherPrefixes:
+              description: liste d'autres prefixes
+              type: array
+              items:
+                type: string
+    data:
+      rdf:
+        ontology: RDF
+        identifier: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+        title: The RDF Concepts Vocabulary (RDF)
+      rdfs:
+        ontology: RDFS
+        identifier: http://www.w3.org/2000/01/rdf-schema#
+        title: The RDF Schema vocabulary (RDFS)
+      xsd:
+        identifier: http://www.w3.org/2001/XMLSchema#
+      owl:
+        identifier: http://www.w3.org/2002/07/owl#
+        title: The OWL 2 Schema vocabulary (OWL 2)
+      iso639-1:
+        identifier: http://id.loc.gov/vocabulary/iso639-1/
+        title: "ISO 639-1: Codes for the Representation of Names of Languages - Part 1: Two-letter codes for languages"
+      iso639-2:
+        identifier: http://id.loc.gov/vocabulary/iso639-2
+        title: |
+          ISO 639-2: Codes for the Representation of Names of Languages - Part 2: Alpha-3 Code for the Names of Languages
+      dct:
+        ontology: DublinCore
+        identifier: http://purl.org/dc/terms/
+        title: All DCMI properties, classes and encoding schemes (unless indicated below)
+        otherPrefixes: [dcterms]
+      dctype:
+        ontology: DublinCore
+        identifier: http://purl.org/dc/dcmitype/
+        title: Classes in the DCMI Type Vocabulary
+      dcam:
+        ontology: DublinCore
+        identifier: http://purl.org/dc/dcam/
+        title: Terms used in the DCMI Abstract Model
+      dc:
+        ontology: DCMES
+        identifier: http://purl.org/dc/elements/1.1/
+        title: The Dublin Core™ Metadata Element Set, Version 1.1 (original 15 elements)
+      skos:
+        ontology: SKOS
+        identifier: http://www.w3.org/2004/02/skos/core#
+        title: SKOS Simple Knowledge Organization System
+      foaf:
+        ontology: FOAF
+        identifier: http://xmlns.com/foaf/0.1/
+        title: "Friend of a Friend (FOAF): an experimental linked information system"
+      vcard:
+        ontology: vCard
+        identifier: http://www.w3.org/2006/vcard/ns#
+      dcat:
+        ontology: DCATv1
+        identifier: http://www.w3.org/ns/dcat#
+        title: Data Catalog Vocabulary (DCAT)
+      schema.org:
+        identifier: http://schema.org/
+        title: Schema.org vocabulary
+      prov:
+        identifier: http://www.w3.org/ns/prov#
+        title: "PROV-O: The PROV Ontology"
+      odrl:
+        ontology: ODRL
+        identifier: http://www.w3.org/ns/odrl/2/
+        title: ODRL Information Model 2.2
+      eli:
+        ontology: ELI
+        title: European Legislation Identifier (ELI)
+      cpsv:
+        ontology: CPSV
+        identifier: http://purl.org/vocab/cpsv#
+        title: Core Public Service Vocabulary
+
+  classes:
+    title: classes définies par ontologie
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/dcat/classes
+      description: dictionnaire des classes avec comme clé son nom exprimé avec le prefix de l'espace de nom
+      type: object
+      additionalProperties: false
+      patternProperties:
+        '^[a-zA-Z][-:a-zA-Z0-9]*$':
+          description: description de chaque classe
+          type: object
+          required: [ ontology, label, definition ]
+          additionalProperties: false
+          properties:
+            ontology:
+              description: Ontology dans laquelle la classe est définie, clé dans la table ontologies
+              type: string
+            label:
+              description: l'étiquette dans diféfrentes langues
+              type: object
+              additionalProperties: false
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: official name in the language defined by the key
+            definition:
+              description: the definition of the type in different languages
+              type: object
+              additionalProperties: false
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: definition in the language defined by the key
+            description:
+              description: comment on the type in different languages
+              type: object
+              additionalProperties: false
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: comment in the language defined by the key
+            instanceOf:
+              description: URI de la classe dont le type est une instance
+              type: string
+            subClassOf:
+              description: URI de la classe dont le type est une sous-classe
+              type: string
+            properties:
+              description: lien vers les propriétés
+              type: string
+            note:
+              description: commentaire avec la langue
+              type: object
+              additionalProperties: false
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: commentaire dans la langue définie par la clé
+
+    data:
+      dcat:Catalog:
+        ontology: DCATv1
+        label: {fr: catalogue de données, en: data catalog}
+        definition: {en: A data catalog is a curated collection of metadata about datasets.}
+        properties: |
+          [lien](?ypath=/properties/class=dcat:Catalog/*/property,label.fr,definition.en,range,note.en)
+      dcat:CatalogRecord:
+        ontology: DCATv1
+        label: {fr: enregistrement d'un catalogue, en: Catalog record}
+        definition: {en: "A record in a data catalog, describing a single dataset."}
+        note:
+          en: |
+            This class is optional and not all catalogs will use it. It exists for catalogs where a distinction is made between metadata about a dataset and metadata about the dataset's entry in the catalog. For example, the publication date property of the dataset reflects the date when the information was originally made available by the publishing agency, while the publication date of the catalog record is the date when the dataset was added to the catalog. In cases where both dates differ, or where only the latter is known, the publication date should only be specified for the catalog record. Notice that the W3C PROV Ontology [prov-o] allows describing further provenance information such as the details of the process and the agent involved in a particular change to a dataset. 
+        properties: |
+          [lien](?ypath=/properties/class=dcat:CatalogRecord/*)
+      dcat:Dataset:
+        ontology: DCATv1
+        label: {fr: jeu de données d'un catalogue, en: dataset in a catalog}
+        definition:
+          en: |
+            A collection of data, published or curated by a single agent, and available for access or download
+            in one or more formats.
+        subClassOf: dctype:Dataset
+        note:
+          en: |
+            This class represents the actual dataset as published by the dataset publisher. In cases where a distinction
+            between the actual dataset and its entry in the catalog is necessary (because metadata such as modification
+            date and maintainer might differ), the [catalog record class](?ypath=/class/dcat:CatalogRecord) can be used
+            for the latter.
+        properties: |
+          [lien](?ypath=/properties/class=dcat:Dataset/*/name,label.fr,definition.en,range,note.en)
+      dcat:Distribution:
+        ontology: DCATv1
+        label: {fr: distribution, en: distribution}
+        definition:
+          en: |
+            Represents a specific available form of a dataset. Each dataset might be available in different forms,
+            these forms might represent different formats of the dataset or different endpoints.
+            Examples of distributions include a downloadable CSV file, an API or an RSS feed.
+        note:
+          en: |
+            This represents a general availability of a dataset it implies no information about the actual access method
+            of the data, i.e. whether it is a direct download, API, or some through Web page.
+            The use of dcat:downloadURL property indicates directly downloadable distributions.
+        properties: |
+          [lien](?ypath=/properties/class=dcat:Distribution/*/name,label.fr,definition.en,range,note.en)
+
+  properties:
+    title: propriétés définies par classe
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/dcat/Catalog
+      description: |
+        Liste des propriétés structurée comme dictionnaire avec une clé adhoc facilitant la visualisation
+        et une référence vers la classe portant cette propriété.
+      type: object
+      additionalProperties: false
+      patternProperties:
+        '^[a-zA-Z][->a-zA-Z0-9]*$':
+          description: description d'une propriété
+          type: object
+          required: [ class, name, label, definition ]
+          additionalProperties: false
+          properties:
+            class:
+              description: le nom de la classe correspondant à une clé dans la table classes
+              type: string
+            name:
+              description: le nom de la propriété avec le prefix de l'espace de nom
+              type: string
+            label:
+              description: l'étiquette dans différentes langues
+              type: object
+              additionalProperties: false
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: étiquette dans la langue définie par la clé
+            definition:
+              description: the definition in different languages
+              type: object
+              additionalProperties: false
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: definition in the language defined by the key
+            subPropertyOf:
+              description: proriété dont la propriété courante est sous-propriété
+              type: string
+            domain:
+              description: le domaine de départ de la propriété
+              type: string
+            range:
+              description: le domaine d'arrivée de la propriété
+              type: string
+            note:
+              description: commentaire avec la langue
+              type: object
+              additionalProperties: false
+              patternProperties:
+                '^..$':
+                  type: string
+                  description: commentaire dans la langue définie par la clé
+      
+    data:
+      Catalog>title:
+        class: dcat:Catalog
+        name: dct:title
+        label: {fr: titre, en: title}
+        definition: {en: A name given to the catalog.}
+        subPropertyOf: '' # utilisé pour trier correctement les propriétés à l'affichage
+        domain: ''
+        range: rdfs:Literal
+      Catalog>description:
+        class: dcat:Catalog
+        name: dct:description
+        label: {fr: description, en: description}
+        definition: {en: A free-text account of the catalog.}
+        range: rdfs:Literal
+      Catalog>issued:
+        class: dcat:Catalog
+        name: dct:issued
+        label: {fr: date de publication, en: release date}
+        definition: {en: "Date of formal issuance (e.g., publication) of the catalog."}
+        range: Date and Time
+      Catalog>modified:
+        class: dcat:Catalog
+        name: dct:modified
+        label: {fr: date de dernière modification, en: update/modification date}
+        definition: {en: "Most recent date on which the catalog was changed, updated or modified."}
+        range: Date and Time
+      Catalog>language:
+        class: dcat:Catalog
+        name: dct:language
+        label: {fr: langue, en: language}
+        definition:
+          en: >
+            The language of the catalog. This refers to the language used in the textual metadata describing titles,
+            descriptions, etc. of the datasets in the catalog.
+        range: |
+          dct:LinguisticSystem  
+          Resources defined by the Library of Congress (1, 2) SHOULD be used.
+          If a ISO 639-1 (two-letter) code is defined for language, then its corresponding IRI SHOULD be used;
+          if no ISO 639-1 code is defined, then IRI corresponding to the ISO 639-2 (three-letter) code SHOULD be used.
+        note:
+          en: |
+            Multiple values can be used. The publisher might also choose to describe the language on the dataset level
+            (see dataset language).
+      Catalog>homepage:
+        class: dcat:Catalog
+        name: foaf:homepage
+        label: {fr: page d'accueil, en: homepage}
+        definition: {en: The homepage of the catalog.}
+        range: foaf:Document
+        note:
+          en: |
+            foaf:homepage is an inverse functional property (IFP) which means that it should be unique and precisely
+            identify the catalog. This allows smushing various descriptions of the catalog when different URIs are used.
+      Catalog>publisher:
+        class: dcat:Catalog
+        name: dct:publisher
+        label: {fr: éditeur, en: publisher}
+        definition: {en: The entity responsible for making the catalog online.}
+        note: {en: Resources of type foaf:Agent are recommended as values for this property.}
+      Catalog>spatial:
+        class: dcat:Catalog
+        name: dct:spatial
+        label: {fr: couverture géographique, en: spatial/geographic}
+        definition: {en: The geographical area covered by the catalog.}
+        range: dct:Location
+      Catalog>themeTaxonomy:
+        class: dcat:Catalog
+        name: dcat:themeTaxonomy
+        label: {fr: thèmes, en: themes}
+        definition:
+          fr: Le vocabulaire contrôlé utilisé pour organiser les jeux de données du catalogue.
+          en: The knowledge organization system (KOS) used to classify catalog's datasets.
+        range: rdfs:Literal
+      Catalog>license:
+        class: dcat:Catalog
+        name: dct:license
+        label: {fr: licence, en: license}
+        definition:
+          en: |
+            This links to the license document under which the catalog is made available and not the datasets.
+            Even if the license of the catalog applies to all of its datasets and distributions, it should be replicated
+            on each distribution.
+        range: dct:LicenseDocument
+      Catalog>rights:
+        class: dcat:Catalog
+        name: dct:rights
+        label: {fr: droits, en: rights}
+        definition:
+          en: |
+            This describes the rights under which the catalog can be used/reused and not the datasets.
+            Even if theses rights apply to all the catalog datasets and distributions, it should be replicated
+            on each distribution.
+        range: dct:RightsStatement
+      Catalog>dataset:
+        class: dcat:Catalog
+        name: dcat:dataset
+        label: {fr: jeu de données, en: dataset}
+        definition: {en: A dataset that is part of the catalog.}
+        subPropertyOf: dct:hasPart
+        domain: dcat:Catalog
+        range: dcat:Dataset
+      Catalog>record:
+        class: dcat:Catalog
+        name: dcat:record
+        label: {fr: enregistrement du catalogue, en: catalog record}
+        definition: {en: A catalog record that is part of the catalog.}
+        subPropertyOf: dct:hasPart
+        domain: dcat:Catalog
+        range: dcat:CatalogRecord
+      CatalogRecord>title:
+        class: dcat:CatalogRecord
+        name: dct:title
+        label: {fr: titre, en: title}
+        definition: {en: A name given to the record.}
+        range: rdfs:Literal
+      CatalogRecord>description:
+        class: dcat:CatalogRecord
+        name: dct:description
+        label: {fr: description, en: description}
+        definition: {en: free-text account of the record.}
+        range: rdfs:Literal
+      CatalogRecord>issued:
+        class: dcat:CatalogRecord
+        name: dct:issued
+        label: {fr: date d'enregistrement, en: listing date}
+        definition:
+          fr: La date d'enregistrement du jeu de données correspondant dans le catalogue.
+          en: The date of listing the corresponding dataset in the catalog.
+        range: Date and Time
+        note:
+          en: |
+            This indicates the date of listing the dataset in the catalog and not the publication date of the dataset itself.
+      CatalogRecord>modified:
+        class: dcat:CatalogRecord
+        name: dct:modified
+        label: {fr: date de mise à jour de l'enregistrement dans le catalogue, en: update/modification date}
+        definition:
+          en: Most recent date on which the catalog entry was changed, updated or modified.
+        range: Date and Time
+        note:
+          en: |
+            This indicates the date of last change of a catalog entry, i.e. the catalog metadata description of the dataset,
+            and not the date of the dataset itself.
+      CatalogRecord>primaryTopic:
+        class: dcat:CatalogRecord
+        name: foaf:primaryTopic
+        label: {fr: sujet principal, en: primary topic}
+        definition: {en: Links the catalog record to the dcat:Dataset resource described in the record.}
+        range: dcat:Dataset
+        note:
+          en: |
+            foaf:primaryTopic property is functional: each catalog record can have at most one primary topic i.e. describes
+            one dataset.
+      Dataset>title:
+        class: dcat:Dataset
+        name: dct:title
+        label: {fr: titre, en: title}
+        definition: {en: A name given to the dataset.}
+        range: rdfs:Literal
+      Dataset>description:
+        class: dcat:Dataset
+        name: dct:description
+        label: {fr: description, en: description}
+        definition: {en: free-text account of the dataset.}
+        range: rdfs:Literal
+      Dataset>issued:
+        class: dcat:Dataset
+        name: dct:issued
+        label: {fr: date de publication, en: release date}
+        definition: {en: "Date of formal issuance (e.g., publication) of the dataset."}
+        range: Date and Time
+        note:
+          en: This property should be set using the first known date of issuance.
+      Dataset>modified:
+        class: dcat:Dataset
+        name: dct:modified
+        label: {fr: date de dernière modification, en: update/modification date}
+        definition: {en: "Most recent date on which the dataset was changed, updated or modified."}
+        range: Date and Time
+        note:
+          en: |
+            The value of this property indicates a change to the actual dataset, not a change to the catalog record.
+            An absent value may indicate that the dataset has never changed after its initial publication,
+            or that the date of last modification is not known, or that the dataset is continuously updated.
+      Dataset>language:
+        class: dcat:Dataset
+        name: dct:language
+        label: {fr: langue, en: language}
+        definition:
+          en: The language of the dataset.
+        range: |
+          dct:LinguisticSystem  
+          Resources defined by the Library of Congress (1, 2) SHOULD be used.
+          If a ISO 639-1 (two-letter) code is defined for language, then its corresponding IRI SHOULD be used;
+          if no ISO 639-1 code is defined, then IRI corresponding to the ISO 639-2 (three-letter) code SHOULD be used.
+        note:
+          en: |
+            - This overrides the value of the catalog language in case of conflict.
+            - If the dataset is available in multiple languages, use multiple values for this property. If each language
+              is available separately, define an instance of dcat:Distribution for each language and describe the specific
+              language of each distribution using dct:language (i.e. the dataset will have multiple dct:language values
+              and each distribution will have one of these languages as value of its dct:language property). 
+      Dataset>publisher:
+        class: dcat:Dataset
+        name: dct:publisher
+        label: {fr: éditeur, en: publisher}
+        definition: {en: An entity responsible for making the dataset available.}
+        note: {en: Resources of type foaf:Agent are recommended as values for this property.}
+      Dataset>frequency:
+        class: dcat:Dataset
+        name: dct:frequency
+        label: {fr: fréquence, en: frequency}
+        definition: {en: The frequency at which dataset is published.}
+        range: dct:Frequency (A rate at which something recurs)
+      Dataset>identifier:
+        class: dcat:Dataset
+        name: dct:identifier
+        label: {fr: identifiant, en: identifier}
+        definition: {en: A unique identifier of the dataset.}
+        range: rdfs:Literal
+        note:
+          en: >
+            The identifier might be used as part of the URI of the dataset, but still having it represented explicitly
+            is useful.
+      Dataset>spatial:
+        class: dcat:Dataset
+        name: dct:spatial
+        label: {fr: couverture géographique, en: spatial/geographic}
+        definition: {en: Spatial coverage of the dataset.}
+        range: dct:Location (A spatial region or named place)
+      Dataset>temporal:
+        class: dcat:Dataset
+        name: dct:temporal
+        label: {fr: couverture temporelle, en: temporal coverage}
+        definition: {en: The temporal period that the dataset covers.}
+        range: dct:PeriodOfTime (An interval of time that is named or defined by its start and end dates)
+      Dataset>theme:
+        class: dcat:Dataset
+        name: dcat:theme
+        label: {fr: thème, en: theme/category}
+        definition: {en: The main category of the dataset. A dataset can have multiple themes.}
+        subPropertyOf: dct:subject
+        range: skos:Concept
+        note:
+          en: >
+            The set of skos:Concepts used to categorize the datasets are organized in a skos:ConceptScheme describing
+            all the categories and their relations in the catalog.
+      Dataset>keyword:
+        class: dcat:Dataset
+        name: dcat:keyword
+        label: {fr: mot-clé, en: keyword/tag}
+        definition: {en: A keyword or tag describing the dataset.}
+        range: rdfs:Literal
+      Dataset>contactPoint:
+        class: dcat:Dataset
+        name: dcat:contactPoint
+        label: {fr: point de contact, en: contact point}
+        definition:
+          en: >
+            Link a dataset to relevant contact information which is provided using [VCard](?ypath=/references/vcard-rdf).
+        range: vcard:Kind
+      Dataset>distribution:
+        class: dcat:Dataset
+        name: dcat:distribution
+        label: {fr: distribution du jeu de données, en: dataset distribution}
+        definition:
+          en: >
+            Link a dataset to relevant contact information which is provided using [VCard](?ypath=/references/vcard-rdf).
+        range: dcat:Distribution
+      Dataset>landingPage:
+        class: dcat:Dataset
+        name: dcat:landingPage
+        label: {fr: page d'atterrissage, en: landing page}
+        definition:
+          en: >
+            A Web page that can be navigated to in a Web browser to gain access to the dataset, its distributions
+            and/or additional information.
+        range: foaf:Document
+        note:
+          en: |
+            If the distribution(s) are accessible only through a landing page (i.e. direct download URLs are not known),
+            then the landing page link SHOULD be duplicated as accessURL on a distribution.
+      Distribution>title:
+        class: dcat:Distribution
+        name: dct:title
+        label: {fr: titre, en: title}
+        definition: {en: A name given to the distribution.}
+        range: rdfs:Literal
+      Distribution>description:
+        class: dcat:Distribution
+        name: dct:description
+        label: {fr: description, en: description}
+        definition: {en: free-text account of the distribution.}
+        range: rdfs:Literal
+      Distribution>issued:
+        class: dcat:Distribution
+        name: dct:issued
+        label: {fr: date de publication, en: release date}
+        definition: {en: "Date of formal issuance (e.g., publication) of the distribution."}
+        range: Date and Time
+        note:
+          en: This property should be set using the first known date of issuance.
+      Distribution>modified:
+        class: dcat:Distribution
+        name: dct:modified
+        label: {fr: date de dernière modification, en: update/modification date}
+        definition: {en: "Most recent date on which the distribution was changed, updated or modified."}
+        range: Date and Time
+      Distribution>license:
+        class: dcat:Distribution
+        name: dct:license
+        label: {fr: licence, en: license}
+        definition: {en: This links to the license document under which the distribution is made available.}
+        range: dct:LicenseDocument
+      Distribution>rights:
+        class: dcat:Distribution
+        name: dct:rights
+        label: {fr: droits, en: rights}
+        definition: {en: Information about rights held in and over the distribution.}
+        range: dct:RightsStatement
+        note:
+          en: |
+            dct:license, which is a sub-property of dct:rights, can be used to link a distribution to a license document.
+            However, dct:rights allows linking to a rights statement that can include licensing information as well as
+            other information that supplements the licence such as attribution.
+      Distribution>accessURL:
+        class: dcat:Distribution
+        name: dcat:accessURL
+        label: {fr: URL d'accès, en: access URL}
+        definition:
+          en: >
+            A landing page, feed, SPARQL endpoint or other type of resource that gives access to the distribution
+            of the dataset
+        range: rdfs:Resource
+        note:
+          en: |
+            - Use accessURL, and not downloadURL, when it is definitely not a download or when you are not sure whether it
+              is.
+            - If the distribution(s) are accessible only through a landing page (i.e. direct download URLs are not known),
+              then the landing page link SHOULD be duplicated as accessURL on a distribution.
+      Distribution>downloadURL:
+        class: dcat:Distribution
+        name: dcat:downloadURL
+        label: {fr: URL de téléchargement, en: download URL}
+        definition:
+          en: A file that contains the distribution of the dataset in a given format
+        range: rdfs:Resource
+        note:
+          en: >
+            dcat:downloadURL is a specific form of dcat:accessURL. Nevertheless, DCAT does not define dcat:downloadURL
+            as a subproperty of dcat:accessURL not to enforce this entailment as DCAT profiles may wish to impose
+            a stronger separation where they only use accessURL for non-download locations. 
+      Distribution>byteSize:
+        class: dcat:Distribution
+        name: dcat:byteSize
+        label: {fr: taille en nombre d'octets, en: byteSize}
+        definition:
+          en: The size of a distribution in bytes.
+        range: rdfs:Literal typed as xsd:decimal.
+        note:
+          en: The size in bytes can be approximated when the precise size is not known.
+      Distribution>mediaType:
+        class: dcat:Distribution
+        name: dcat:mediaType
+        label: {fr: type de média, en: media type}
+        definition:
+          en: |
+            The media type of the distribution as defined by [IANA](http://www.iana.org/assignments/media-types/).
+        subPropertyOf: dct:format
+        range: dct:MediaTypeOrExtent
+        note:
+          en: >
+            This property SHOULD be used when the media type of the distribution is defined in IANA, otherwise dct:format
+            MAY be used with different values.
+      Distribution>format:
+        class: dcat:Distribution
+        name: dct:format
+        label: {fr: format, en: format}
+        definition:
+          en: The file format of the distribution.
+        range: dct:MediaTypeOrExtent
+        note:
+          en: dcat:mediaType SHOULD be used if the type of the distribution is defined by IANA.
+
+  references:
+    data:
+      vcard-rdf:
+        creator: [Renato Iannella, James McKinney]
+        title: vCard Ontology, W3C Working Draft
+        issued: 2013-09-24
+        homepage: http://www.w3.org/TR/vcard-rdf/ 
+    
+
+eof:
