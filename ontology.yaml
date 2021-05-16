@@ -1,6 +1,15 @@
-title: diverses ontologies
+title: diverses ontologies, dans un premier temps DCATv1
 abstract: |
-  Description de diverses ontologies
+  Description de diverses ontologies, dans un premier temps DCATv1.  
+  Le document est structuré avec les 5 tables suivantes:
+    
+    - la [liste des ontologies](?ypath=/ontologies/*),
+    - la [liste des espaces de noms](?ypath=/namespaces/*),
+    - la [liste des classes définies par les ontologies](?ypath=/classes/*),  
+      l'accès aux classes d'une ontologie donnée peut être effectuée au travers d'un lien asssocié à l'ontologie,
+    - la [liste des propriétés définies sur chaque classe](?ypath=/properties/*),  
+      l'accès aux propriétés d'une classe donnée peut être effectuée au travers d'un lien associé à la classe,
+    - une [liste de référence bibliographiques](?ypath=/references/*)
 tableOfContents: |
   - [liste des ontologies](?ypath=/ontologies/*)
   - [liste des espaces de nom](?ypath=/namespaces/*)
