@@ -1,19 +1,19 @@
 title: diverses ontologies, dans un premier temps DCATv1
 abstract: |
-  Description de diverses ontologies, dans un premier temps DCATv1.  
+  Description de diverses [ontologies](?ypath=/ontologies/*/_id,title,publisher,homepage,links),
+  dans un premier temps surtout DCATv1.  
+  L'accès au contenu des ontologies peut se faire, en fonction de l'ontologie, soit au travers des classes,
+  soit à la fois au travers des classes et des propriétés.
+tableOfContents: |
   Le document est structuré avec les 5 tables suivantes:
     
-    - la [liste des ontologies](?ypath=/ontologies/*),
+    - la [liste des ontologies](?ypath=/ontologies/*/_id,title,publisher,homepage,links),
     - la [liste des espaces de noms](?ypath=/namespaces/*),
     - la [liste des classes définies par les ontologies](?ypath=/classes/*),  
       l'accès aux classes d'une ontologie donnée peut être effectuée au travers d'un lien asssocié à l'ontologie,
     - la [liste des propriétés définies sur chaque classe](?ypath=/properties/*),  
       l'accès aux propriétés d'une classe donnée peut être effectuée au travers d'un lien associé à la classe,
     - une [liste de référence bibliographiques](?ypath=/references/*)
-tableOfContents: |
-  - [liste des ontologies](?ypath=/ontologies/*)
-  - [liste des espaces de nom](?ypath=/namespaces/*)
-source: https://www.w3.org/TR/2014/REC-vocab-dcat-20140116/
 license: https://www.etalab.gouv.fr/licence-ouverte-open-licence
 $schema: http://ydclasses.georef.eu/YData/schema
 tables:
@@ -26,7 +26,7 @@ tables:
       type: object
       additionalProperties: false
       patternProperties: # la clé est un sigle usuel
-        '^[a-zA-Z][a-zA-Z0-9]*$':
+        '^[a-zA-Z][-a-zA-Z0-9]*$':
           description: description de chaque espace
           type: object
           required: [title]
@@ -39,6 +39,12 @@ tables:
               type: string
             homepage:
               description: page d'accueil
+              type: string
+            links:
+              description: lien Markdown vers le résumé
+              type: string
+            abstract:
+              description: texte Markdown permettant l'accès aux classes et éventuellement aux propriétés
               type: string
     data:
       RDF:
@@ -68,17 +74,48 @@ tables:
       FOAF:
         title: "Friend of a Friend (FOAF): an experimental linked information system"
         publisher:	Dan Brickley, Libby Miller
-        homepage: http://www.foaf-project.org/
+        homepage: http://xmlns.com/foaf/spec/
+        links: |
+          [résumé](?ypath=/ontologies/FOAF/abstract)
+        abstract: |
+          FOAF est un projet dédié à la mise en relation des personnes et des informations via le Web. Que les informations soient dans la tête des gens, dans des documents physiques ou numériques, ou sous la forme de données factuelles, elles peuvent être liées. FOAF intègre trois types de réseaux: les réseaux sociaux de collaboration humaine, d'amitié et d'association; réseaux de représentation qui décrivent une vue simplifiée d'un univers de dessin animé en termes factuels, et réseaux d'informationqui utilisent des liens basés sur le Web pour partager des descriptions publiées indépendamment de ce monde interconnecté. FOAF n'est pas en concurrence avec les sites Web à vocation sociale; il fournit plutôt une approche dans laquelle différents sites peuvent raconter différentes parties de l'histoire plus large, et par laquelle les utilisateurs peuvent conserver un certain contrôle sur leurs informations dans un format non propriétaire.
+        
+          Le langage FOAF définit un dictionnaire
+          de [propriétés](?ypath=/properties/ontology=FOAF/*/name,label.fr,definition.en,domain,range,subPropertyOf,note.en)
+          et de [classes](?ypath=/classes/ontology=FOAF/*/_id,label.fr,definition.en,subClassOf,properties,note.en)
+          nommées utilisant la technologie RDF du W3C.
       vCard:
         title: vCard Ontology - for describing People and Organizations
         publisher: W3C
         homepage: https://www.w3.org/TR/vcard-rdf/
+        links: |
+          [résumé](?ypath=/ontologies/vCard/abstract)
+        abstract: |
+          vCard is a specification developed by the IETF for the description of people and organisations.
+          Recently, vCard has been significantly updated to Version 4 as documented in [RFC6350].
+          This ontology formalyze the IETF specification using RDF/OWL.
+          
+          [propriétés](?ypath=/properties/ontology=vCard/*/name,label.fr,definition.en,domain,range,subPropertyOf,note.en)  
+          [classes](?ypath=/classes/ontology=vCard/*/_id,label.fr,definition.en,subClassOf,properties,note.en)
+      DCAT:
+        title: Data Catalog Vocabulary (DCAT), regroupe v1 et v2
+        publisher: W3C
+        homepage: https://www.w3.org/TR/vocab-dcat/
+        links: |
+          [résumé](?ypath=/ontologies/DCAT/abstract)
+        abstract: |
+          DCAT est un vocabulaire RDF conçu pour faciliter l'interopérabilité entre les catalogues de données publiés
+          sur le Web.  
+          L'ensemble des propriétés définies sont associées à une des
+          [classes définies](?ypath=/classes/ontology=DCAT/*/_id,label.fr,definition.en,subClassOf,properties,note.en).
+          
+          DCAT v2 étend DCAT v1 tout en restant compatible. L'ontologie DCAT regroupe les 2 versions afin de ne pas dupliquer
+          les classes et les propriétés.  
+          Les différences sont indiquées dans les notesVersion.
       DCATv1:
         title: Data Catalog Vocabulary (DCAT)
         publisher: W3C
         homepage: https://www.w3.org/TR/vocab-dcat-1/
-        links: |
-          [classes](?ypath=/classes/ontology=DCATv1/*/_id,label.fr,definition.en,subClassOf,properties,note.en)
       DCATv2:
         title: Data Catalog Vocabulary (DCAT) - Version 2 - W3C Recommandation
         publisher: W3C
@@ -94,20 +131,27 @@ tables:
       CDM:
         title: Common Data Model
         publisher: Office des publications de l'UE
-        homepage: https://op.europa.eu/fr/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/cdm
+        homepage: >
+           https://op.europa.eu/fr/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/cdm
       ELI:
         title: European Legislation Identifier (ELI)
         publisher: Office des publications de l'UE
-        homepage: https://op.europa.eu/fr/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/eli
+        homepage: >
+           https://op.europa.eu/fr/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/eli
       EURIO:
         title: EUropean Research Information Ontology
         publisher: Office des publications de l'UE
-        homepage: https://op.europa.eu/fr/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/eurio
+        homepage: >
+           https://op.europa.eu/fr/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/eurio
       CPSV:
         title: Core Public Service Vocabulary
         publisher: https://joinup.ec.europa.eu/
         homepage: >
           https://joinup.ec.europa.eu/collection/semantic-interoperability-community-semic/solution/core-public-service-vocabulary
+      Wikidata:
+        title: Wikidata
+        publisher: Wikimedia Foundation
+        homepage: https://www.wikidata.org/
 
   namespaces:
     title: espaces de noms
@@ -192,10 +236,10 @@ tables:
         ontology: vCard
         identifier: http://www.w3.org/2006/vcard/ns#
       dcat:
-        ontology: DCATv1
+        ontology: DCAT
         identifier: http://www.w3.org/ns/dcat#
         title: Data Catalog Vocabulary (DCAT)
-      schema.org:
+      schema:
         identifier: http://schema.org/
         title: Schema.org vocabulary
       prov:
@@ -207,11 +251,16 @@ tables:
         title: ODRL Information Model 2.2
       eli:
         ontology: ELI
+        identifier: http://publications.europa.eu/resource/dataset/eli
         title: European Legislation Identifier (ELI)
       cpsv:
         ontology: CPSV
         identifier: http://purl.org/vocab/cpsv#
         title: Core Public Service Vocabulary
+      wd:
+        ontology: Wikidata
+        identifier: http://www.wikidata.org/entity/
+        title: Wikidata
 
   classes:
     title: classes définies par ontologie
@@ -261,6 +310,10 @@ tables:
             subClassOf:
               description: URI de la classe dont le type est une sous-classe
               type: string
+            hasSubClasses:
+              description: liste d'URI de sous-classes
+              type: array
+              items: {type: string}
             properties:
               description: lien vers les propriétés
               type: string
@@ -274,23 +327,133 @@ tables:
                   description: commentaire dans la langue définie par la clé
 
     data:
+      rdfs:Resource: # RDF + RDFS
+        ontology: RDFS
+        label: {fr: ressource, en: resource}
+        definition: { en: "The class resource, everything."}
+      rdfs:Literal:
+        ontology: RDFS
+        label: {fr: littéral, en: literal}
+        definition: {en: "The class of literal values, e.g. textual strings and integers."}
+      rdf:langString:
+        ontology: RDF
+        label: {fr: chaine définissant une langue, en: language-tag}
+        definition: {en: The class of language-tagged string literal values.}
+      rdf:HTML:
+        ontology: RDF
+        label: {fr: littéral HTML, en: HTML literal}
+        definition: {en: The class of HTML literal values.}
+      rdf:XMLLiteral:
+        ontology: RDF
+        label: {fr: littéral XML, en: XML literal}
+        definition: {en: The class of XML literal values.}
+      rdfs:Class:
+        ontology: RDF
+        label: {fr: classe, en: class}
+        definition: {en: The class of classes.}
+      rdf:Property:
+        ontology: RDF
+        label: {fr: propriété, en: propertie}
+        definition: {en: The class of RDF properties.}
+      rdfs:Datatype:
+        ontology: RDFS
+        label: {fr: type de données, en: datatype}
+        definition: {en: The class of RDF datatypes.}
+      rdf:Statement:
+        ontology: RDF
+        label: {fr: déclaration, en: statement}
+        definition: {en: The class of RDF statements.}
+      rdf:Bag:
+        ontology: RDF
+        label: {fr: sac, en: bag}
+        definition: {en: The class of unordered containers.}
+      rdf:Seq:
+        ontology: RDF
+        label: {fr: séquence, en: sequence}
+        definition: {en: The class of ordered containers.}
+      rdf:Alt:
+        ontology: RDF
+        label: {fr: conteneur d'alternatives, en: container of alternatives}
+        definition: {en: The class of containers of alternatives.}
+      rdfs:Container:
+        ontology: RDFS
+        label: {fr: conteneur, en: container}
+        definition: {en: The class of RDF containers.}
+      rdfs:ContainerMembershipProperty:
+        ontology: RDFS
+        label: {fr: propriété d'adhésion de conteneur, en: container membership propertie}
+        definition:
+          en: The class of container membership properties, rdf:_1, rdf:_2, ..., all of which are sub-properties of 'member'.
+      rdf:List:
+        ontology: RDF
+        label: {fr: liste, en: list}
+        definition: {en: The class of RDF Lists.}
+      owl:Thing: # OWL
+        ontology: OWL
+        label: {fr: chose, en: thing}
+        definition: {en: "Any thing; this class is the universal class of all things." }
+      foaf:Agent: # FOAF
+        ontology: FOAF
+        label: {fr: agent, en: agent}
+        definition: {fr: "Un agent (par exemple, une personne, un groupe, un logiciel ou un artefact physique)."}
+        hasSubClasses: [foaf:Group, foaf:Person, foaf:Organization]
+      foaf:Organization:
+        ontology: FOAF
+        label: {fr: organisation, en: organization}
+        definition:
+          en: a kind of Agent corresponding to social instititutions such as companies, societies etc.
+        subClassOf: foaf:Agent
+      foaf:Person:
+        ontology: FOAF
+        label: {en: person, fr: personne}
+        definition:
+          en: |
+            People. Something is a Person if it is a person. We don't nitpic about whether they're alive, dead, real,
+            or imaginary. The Person class is a sub-class of the Agent class, since all people are considered 'agents'
+            in FOAF. 
+        subClassOf: foaf:Agent
+      foaf:Document:
+        ontology: FOAF
+        label: {fr: document, en: document}
+        definition: {en: "those things which are, broadly conceived, 'documents'."}
+    # vCard
+      vcard:Kind:
+        ontology: vCard
+        label: {fr: genre, en: kind}
+        definition: {en: The parent class for all objects.}
+        hasSubClasses: [vcard:Group, vcard:Individual, vcard:Location, vcard:Organization]
+      vcard:Organization:
+        ontology: vCard
+        label: {fr: organisation, en: organization}
+        definition:
+          en: |
+            An object representing an organization. An organization is a single entity, and might represent a business
+            or government, a department or division within a business or government, a club, an association, or the like.
+        subClassOf: vcard:Kind
+      vcard:Individual:
+        ontology: vCard
+        label: {fr: individu, en: individual}
+        definition:
+          en: An object representing a single person or entity
+        subClassOf: vcard:Kind
+    # DCAT
       dcat:Catalog:
-        ontology: DCATv1
+        ontology: DCAT
         label: {fr: catalogue de données, en: data catalog}
         definition: {en: A data catalog is a curated collection of metadata about datasets.}
         properties: |
-          [lien](?ypath=/properties/class=dcat:Catalog/*/property,label.fr,definition.en,range,note.en)
+          [lien](?ypath=/properties/class=dcat:Catalog/*/name,label.fr,definition.en,range,note.en)
       dcat:CatalogRecord:
-        ontology: DCATv1
+        ontology: DCAT
         label: {fr: enregistrement d'un catalogue, en: Catalog record}
         definition: {en: "A record in a data catalog, describing a single dataset."}
         note:
           en: |
             This class is optional and not all catalogs will use it. It exists for catalogs where a distinction is made between metadata about a dataset and metadata about the dataset's entry in the catalog. For example, the publication date property of the dataset reflects the date when the information was originally made available by the publishing agency, while the publication date of the catalog record is the date when the dataset was added to the catalog. In cases where both dates differ, or where only the latter is known, the publication date should only be specified for the catalog record. Notice that the W3C PROV Ontology [prov-o] allows describing further provenance information such as the details of the process and the agent involved in a particular change to a dataset. 
         properties: |
-          [lien](?ypath=/properties/class=dcat:CatalogRecord/*)
+          [lien](?ypath=/properties/class=dcat:CatalogRecord/*/name,label.fr,definition.en,range,note.en)
       dcat:Dataset:
-        ontology: DCATv1
+        ontology: DCAT
         label: {fr: jeu de données d'un catalogue, en: dataset in a catalog}
         definition:
           en: |
@@ -306,7 +469,7 @@ tables:
         properties: |
           [lien](?ypath=/properties/class=dcat:Dataset/*/name,label.fr,definition.en,range,note.en)
       dcat:Distribution:
-        ontology: DCATv1
+        ontology: DCAT
         label: {fr: distribution, en: distribution}
         definition:
           en: |
@@ -322,7 +485,7 @@ tables:
           [lien](?ypath=/properties/class=dcat:Distribution/*/name,label.fr,definition.en,range,note.en)
 
   properties:
-    title: propriétés définies par classe
+    title: propriétés définies par classe ou par ontologie
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dcat/Catalog
@@ -333,11 +496,22 @@ tables:
       additionalProperties: false
       patternProperties:
         '^[a-zA-Z][->a-zA-Z0-9]*$':
-          description: description d'une propriété
+          description: |
+            description d'une propriété ; une propriété est soit rattachée à une ontologie, soit à une classe
+            en fonction de l'ontologie.
+            Par exemple, dans DCAT, toutes les propriétés sont définies sur des classes définies dans l'ontologie
+            et il est pratique de rattacher toutes les propriétés à une classe.
+            A l'inverse, dans FOAF, certaines propriétés ne sont pas rattachées à une classe et il n'est pas possible
+            de les rattacher à une classe de FOAF ; dans ce cas elles sont rattachées à l'ontologie.
           type: object
-          required: [ class, name, label, definition ]
+          required: [ name, label, definition ]
           additionalProperties: false
           properties:
+            ontology:
+              description: >
+                le nom de l'ontologie correspondant à une clé dans la table ontologies ; au moins une des 2 propriétés
+                ontology ou class doit être renseignée.
+              type: string
             class:
               description: le nom de la classe correspondant à une clé dans la table classes
               type: string
@@ -364,11 +538,14 @@ tables:
               description: proriété dont la propriété courante est sous-propriété
               type: string
             domain:
-              description: le domaine de départ de la propriété
+              description: le domaine de départ de la propriété, peut être différent de la propriété class
               type: string
             range:
               description: le domaine d'arrivée de la propriété
               type: string
+            inverseFunctionalProperty:
+              description: indique que l'inverse de la propriété est une fonction
+              type: boolean
             note:
               description: commentaire avec la langue
               type: object
@@ -379,7 +556,187 @@ tables:
                   description: commentaire dans la langue définie par la clé
       
     data:
-      Catalog>title:
+      Resource>type: # RDF + RDFS
+        class: rdfs:Resource
+        name: rdf:type
+        label: {fr: type, en: type}
+        definition: {en: The subject is an instance of a class.}
+        domain: rdfs:Resource
+        range: rdfs:Class
+      Class>type:
+        class: rdfs:Class
+        name: rdfs:subClassOf
+        label: {fr: sous-classe de, en: sub-class of}
+        definition: {en: The subject is a subclass of a class.}
+        domain: rdfs:Class
+        range: rdfs:Class
+      Property>subPropertyOf:
+        class: rdfs:Property
+        name: rdfs:subPropertyOf
+        label: {fr: sous-propriété de, en: sub-property of}
+        definition: {en: The subject is a subproperty of a property.}
+        domain: rdfs:Property
+        range: rdfs:Property
+      Property>domain:
+        class: rdf:Property
+        name: rdfs:domain
+        label: {fr: domaine, en: domain}
+        definition: {en: A domain of the subject property.}
+        domain: rdfs:Property
+        range: rdfs:Class
+      Property>range:
+        class: rdf:Property
+        name: rdfs:range
+        label: {fr: image, en: range}
+        definition: {en: A range of the subject property.}
+        domain: rdfs:Property
+        range: rdfs:Class
+      Resource>label:
+        class: rdfs:Resource 
+        name: rdfs:label
+        label: {fr: étiquette, en: label}
+        definition: {en: A human-readable name for the subject.}
+        domain: rdfs:Resource 
+        range: rdfs:Literal
+      Resource>comment:
+        class: rdfs:Resource 
+        name: rdfs:comment
+        label: {fr: commentaire, en: comment}
+        definition: {en: A description of the subject resource.}
+        domain: rdfs:Resource 
+        range: rdfs:Literal
+      Resource>member:
+        class: rdfs:Resource 
+        name: rdfs:member
+        label: {fr: membre, en: member}
+        definition: {en: A member of the subject resource.}
+        domain: rdfs:Resource 
+        range: rdfs:Resource
+      List>first:
+        class: rdf:List 
+        name: rdf:first
+        label: {fr: premier, en: first}
+        definition: {en: The first item in the subject RDF list.}
+        domain: rdf:List 
+        range: rdfs:Resource
+      List>rest:
+        class: rdf:List 
+        name: rdf:rest
+        label: {fr: reste, en: rest}
+        definition: {en: The first item in the subject RDF list.}
+        domain: rdf:List 
+        range: rdf:List
+      Resource>seeAlso:
+        class: rdfs:Resource
+        name: rdfs:seeAlso
+        label: {fr: voir aussi, en: see also}
+        definition: {en: Further information about the subject resource.}
+        domain: rdfs:Resource
+        range: rdfs:Resource
+      Resource>isDefinedBy:
+        class: rdfs:Resource
+        name: rdfs:isDefinedBy
+        label: {fr: est défini par, en: is defined by}
+        definition: {en: The definition of the subject resource.}
+        domain: rdfs:Resource
+        range: rdfs:Resource
+      Resource>value:
+        class: rdfs:Resource
+        name: rdf:value
+        label: {fr: valeur, en: value}
+        definition: {en: Idiomatic property used for structured values.}
+        domain: rdfs:Resource
+        range: rdfs:Resource
+      Statement>subject:
+        class: rdf:Statement
+        name: rdf:subject
+        label: {fr: sujet, en: subject}
+        definition: {en: The subject of the subject RDF statement.}
+        domain: rdf:Statement
+        range: rdfs:Resource
+      Statement>predicate:
+        class: rdf:Statement
+        name: rdf:predicate
+        label: {fr: predicat, en: predicate}
+        definition: {en: The predicate of the subject RDF statement.}
+        domain: rdf:Statement
+        range: rdfs:Resource
+      Statement>object:
+        class: rdf:Statement
+        name: rdf:object
+        label: {fr: objet, en: object}
+        definition: {en: The object of the subject RDF statement.}
+        domain: rdf:Statement
+        range: rdfs:Resource
+      FOAF>page: # FOAF
+        ontology: FOAF
+        name: foaf:page
+        label: {fr: page, en: page}
+        definition: {en: A page or document about this thing.}
+        domain: owl:Thing
+        range: foaf:Document
+        note:
+          en: |
+            The page property relates a thing to a document about that thing.  
+            As such it is an inverse of the topic property, which relates a document to a thing that the document is about.  
+      FOAF>homepage:
+        ontology: FOAF
+        name: foaf:homepage
+        label: {fr: page d'accueil, en: homepage}
+        definition: {en: A homepage for some thing. }
+        subPropertyOf: foaf:homepage
+        domain: owl:Thing
+        range: foaf:Document
+        note:
+          en: |
+            The homepage property relates something to a homepage about it.  
+            Many kinds of things have homepages. FOAF allows a thing to have multiple homepages, but constrains homepage so that there can be only one thing that has any particular homepage.  
+            A 'homepage' in this sense is a public Web document, typically but not necessarily available in HTML format. The page has as a topic the thing whose homepage it is. The homepage is usually controlled, edited or published by the thing whose homepage it is; as such one might look to a homepage for information on its owner from its owner. This works for people, companies, organisations etc.  
+            The homepage property is a sub-property of the more general page property for relating a thing to a page about that thing. See also topic, the inverse of the page property.
+      FOAF>primaryTopic:
+        ontology: FOAF
+        name: foaf:primaryTopic
+        label: {fr: a pour sujet principal, en: primary topic}
+        definition: {en: The primary topic of some page or document.}
+        domain: owl:Document
+        range: foaf:Thing
+        note:
+          en: |
+            The primaryTopic property relates a document to the main thing that the document is about.
+
+            The primaryTopic property is functional: for any document it applies to, it can have at most one value. This is useful, as it allows for data merging. In many cases it may be difficult for third parties to determine the primary topic of a document, but in a useful number of cases (eg. descriptions of movies, restaurants, politicians, ...) it should be reasonably obvious. Documents are very often the most authoritative source of information about their own primary topics, although this cannot be guaranteed since documents cannot be assumed to be accurate, honest etc.
+
+            It is an inverse of the isPrimaryTopicOf property, which relates a thing to a document primarily about that thing. The choice between these two properties is purely pragmatic. When describing documents, we use primaryTopic former to point to the things they're about. When describing things (people etc.), it is useful to be able to directly cite documents which have those things as their main topic - so we use isPrimaryTopicOf. In this way, Web sites such as Wikipedia or NNDB can provide indirect identification for the things they have descriptions of.
+      FOAF>isPrimaryTopicOf:
+        ontology: FOAF
+        name: foaf:isPrimaryTopicOf
+        label: {fr: est sujet principal de, en: is primary topic of}
+        definition: {en: The primary topic of some page or document.}
+        domain: owl:Thing
+        range: foaf:Document
+        inverseFunctionalProperty: true
+        note:
+          en: |
+            The isPrimaryTopicOf property relates something to a document that is mainly about it.
+
+            The isPrimaryTopicOf property is inverse functional: for any document that is the value of this property, there is at most one thing in the world that is the primary topic of that document. This is useful, as it allows for data merging, as described in the documentation for its inverse, primaryTopic.
+
+            page is a super-property of isPrimaryTopicOf. The change of terminology between the two property names reflects the utility of 'primaryTopic' and its inverse when identifying things. Anything that has an isPrimaryTopicOf relation to some document X, also has a page relationship to it.
+
+            Note that homepage, is a sub-property of both page and isPrimaryTopicOf. The awkwardly named isPrimaryTopicOf is less specific, and can be used with any document that is primarily about the thing of interest (ie. not just on homepages).
+      vCard>fn: # vCard
+        ontology: vCard
+        name: vcard:fn
+        label: {fr: nom formaté, en: formatted name}
+        definition: {en: The formatted text corresponding to the name of the object}
+        range: xsd:string
+      vCard>language:
+        ontology: vCard
+        name: vcard:language
+        label: {fr: langue, en: language}
+        definition:
+          en: To specify the language that may be used for contacting the object. May also be used as a property parameter.
+      Catalog>title: # DCAT
         class: dcat:Catalog
         name: dct:title
         label: {fr: titre, en: title}
@@ -763,7 +1120,52 @@ tables:
         note:
           en: dcat:mediaType SHOULD be used if the type of the distribution is defined by IANA.
 
+  examples:
+    title: exemples
+    dataSchema:
+      $schema: http://json-schema.org/draft-07/schema#
+      $id: http://schema.georef.eu/ontology/examples
+      description: Exemples d'objets structurés dans les différentes ontologies structurés par ontologie.
+      type: object
+      additionalProperties: false
+      patternProperties:
+        '^[a-zA-Z][->a-zA-Z0-9]*$':
+          description: Liste d'exemples d'objets pour cette ontologie.
+          type: array
+          items:
+            type: object
+          
+    data:
+      RDF:
+        - http://example.org/bob#me:
+            rdf:type: foaf:Person
+            foaf:knows: http://example.org/alice#me
+            schema:birthDate: 1990-07-04
+            foaf:topic_interest: wd:Q12418
+        - wd:Q12418:
+            dct:title: Mona Lisa
+            dct:creator: http://dbpedia.org/resource/Leonardo_da_Vinci
+        - http://data.europeana.eu/item/04802/243FA8618938F4117025F17A8B813C5F9AA4D619:
+            dcterms:subject: wd:Q12418 .
+      vCard:
+        - http://example.com/me/corky:
+            rdf:type: vcard:Individual
+            vcard:hasEmail: mailto:corky@example.com
+            vcard:fn: Corky Crystal
+            vcard:nickname: Corks
+            vcard:hasAddress:
+              rdf:type: vcard:Home
+              vcard:country-name: Australia
+              vcard:locality: WonderCity
+              vcard:postal-code: 5555
+              vcard:street-address: 111 Lake Drive
+            vcard:hasTelephone:
+              a: [vcard:Home, vcard:Voice]
+              vcard:hasValue: tel:+61755555555
+        
   references:
+    title: Références biblio
+    dataSchema: true
     data:
       vcard-rdf:
         creator: [Renato Iannella, James McKinney]

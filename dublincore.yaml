@@ -636,7 +636,7 @@ tables:
 
   extension:
     title: propriétés supplémentaires du DCMI
-    elementNamespace:: http://purl.org/dc/terms/
+    elementNamespace: http://purl.org/dc/terms/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/extension
@@ -814,7 +814,7 @@ tables:
     title:
       fr: Types de données, anciennement appelés Schémas de codage de syntaxe
       en: Data types, previously called Syntax Encoding Schemes
-    elementNamespace:: http://purl.org/dc/terms/
+    elementNamespace: http://purl.org/dc/terms/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/datatypes
@@ -1041,7 +1041,7 @@ tables:
   classes:
     title:
       fr: classes définies par le DCMI
-    elementNamespace:: http://purl.org/dc/terms/
+    elementNamespace: http://purl.org/dc/terms/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/classes
@@ -1225,7 +1225,7 @@ tables:
                 '^..$':
                   type: string
                   description: définition dans la langue définie par la propriété correspondant à son code ISO 639-1
-            elementNamespace::
+            elementNamespace:
               description: URI de l'espace de noms des concepts du vocabulaire
               type: string
             content:
@@ -1242,7 +1242,7 @@ tables:
           en: DCMI Type Vocabulary
         definition:
           fr: L'ensemble des classes spécifiées par le vocabulaire de types DCMI, qui sert à catégoriser la nature ou le type de la ressource.
-        elementNamespace:: http://purl.org/dc/dcmitype/
+        elementNamespace: http://purl.org/dc/dcmitype/
         content: |
           [contenu](?ypath=/DCMIType/*)
             
@@ -1313,7 +1313,7 @@ tables:
           en: Dublin Core™ Collection Description Accrual Method Vocabulary
         definition:
           en: This document describes the accrual method vocabulary used by the application profile for collection-level description developed by the Dublin Core Collection Description Task Group.
-        elementNamespace:: http://purl.org/cld/accmeth/
+        elementNamespace: http://purl.org/cld/accmeth/
         content: |
           [contenu](?ypath=/ACCRUALMETHOD/*)
           
@@ -1325,7 +1325,7 @@ tables:
           en: Dublin Core™ Collection Description Frequency Vocabulary
         definition:
           en: This document describes the frequency vocabulary used by the application profile for collection-level description developed by the Dublin Core Collection Description Task Group.
-        elementNamespace:: http://purl.org/cld/freq/
+        elementNamespace: http://purl.org/cld/freq/
         content: |
           [contenu](?ypath=/COLLFREQ/*)
           
@@ -1337,7 +1337,7 @@ tables:
           en: Collection Description Accrual Policy Vocabulary
         definition:
           en: A set of policies governing the addition of items are added to a collection.
-        elementNamespace:: http://purl.org/cld/accpol/
+        elementNamespace: http://purl.org/cld/accpol/
         content: |
           [contenu](?ypath=/ACCRUALPOLICY/*)
           
@@ -1350,7 +1350,7 @@ tables:
     publisher: http://purl.org/dc/aboutdcmi#DCMI
     source: http://purl.org/dc/dcmitype/
     description: structuration in YData of the source document
-    elementNamespace:: http://purl.org/dc/dcmitype/
+    elementNamespace: http://purl.org/dc/dcmitype/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/DCMIType
@@ -1564,7 +1564,7 @@ tables:
   ACCRUALMETHOD:
     title: Dublin Core™ Collection Description Accrual Method Vocabulary
     language: en
-    elementNamespace:: http://purl.org/cld/accmeth/
+    elementNamespace: http://purl.org/cld/accmeth/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/ACCRUALMETHOD
@@ -1608,7 +1608,7 @@ tables:
   COLLFREQ:
     title: Dublin Core™ Collection Description Frequency Vocabulary
     language: en
-    elementNamespace:: http://purl.org/cld/freq/
+    elementNamespace: http://purl.org/cld/freq/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/COLLFREQ
@@ -1685,7 +1685,7 @@ tables:
   ACCRUALPOLICY:
     title: Collection Description Accrual Policy Vocabulary
     language: en
-    elementNamespace:: http://purl.org/cld/accpol/
+    elementNamespace: http://purl.org/cld/accpol/
     dataSchema:
       $schema: http://json-schema.org/draft-07/schema#
       $id: http://schema.georef.eu/dublincore/ACCRUALPOLICY
